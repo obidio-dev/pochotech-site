@@ -16,7 +16,7 @@ const { heading, body, secondaryLabel, secondaryHref } = Astro.props;
     <div class="cta-row">
       <a href={CALENDLY} class="btn btn-primary" rel="noopener">{CTA_PRIMARY}</a>
       {secondaryLabel && secondaryHref && (
-        <a href={secondaryHref} class="btn btn-secondary">{secondaryLabel}</a>
+        <a href={secondaryHref} class="btn btn-secondary" rel="noopener">{secondaryLabel}</a>
       )}
     </div>
   </div>

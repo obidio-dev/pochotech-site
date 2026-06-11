@@ -1,1920 +1,1279 @@
 # pocho.tech — full site content
 
----
-
-URL: https://pocho.tech# pocho.tech — FINAL Homepage Copy (Synthesized: Variant A spine + judge-mandated grafts and fixes)
-
-
-Processing a proposal took an hour and a half to two hours. Now it takes fifteen minutes.
-
-That's the proposal-to-invoice pipeline I run for Dahlia+ Agency — one of twelve automations in production across three client teams. I'm Erick Bonilla — you work directly with the engineer who builds it.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Get the free template → https://checkout.lemonsqueezy.com/buy/1320841
+> pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.
 
 ---
 
+## https://pocho.tech/
 
+# Processing a proposal took an hour and a half to two hours. Now it takes fifteen minutes.
+That’s the proposal-to-invoice pipeline I run for Dahlia+ Agency — one of twelve automations in
+production across three client teams. I’m Erick Bonilla — you work directly with the engineer who builds it.
+Book a discovery call Get the free template
 Three teams. Twelve automations. Real numbers.
-
-**1.5–2 hrs → 15 min**
+1.5–2 hrs → 15 min
 Proposal processing — Dahlia+ Agency
-
-**5 hrs/week → 1.5 hrs**
+5 hrs/week → 1.5 hrs
 Creator tracking — Matador Network
-
-**30 → 70**
+30 → 70
 Creators tracked, same workflow — Matador Network
-
-**400+ articles/day**
+400+ articles/day
 Curated into one newsletter, zero human input — Matador Network
-
----
-
-
-The work, with numbers attached.
-
-### Card 1
-
-**Metric (card headline):**
+## The work, with numbers attached.
 2–4 proposals a day, 15 minutes each.
-
-**Client:** Dahlia+ Agency — event production, team of six to eight.
-
-**Mechanism:**
-An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two 50/50 invoices — untouched. At 2–4 proposals a day, that's 6–8 hours of manual operations gone from every working day.
-
-Read the Dahlia+ case study →
-
-### Card 2
-
-**Metric (card headline):**
+Dahlia+ Agency — event production, team of six to eight.
+An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board,
+and creates the QuickBooks customer with two 50/50 invoices — untouched. At 2–4 proposals a day,
+that’s 6–8 hours of manual operations gone from every working day.
+Read the Dahlia+ case study
 400+ articles a day. Ten make the newsletter.
-
-**Client:** Matador Network — travel media, editorial team of twelve.
-
-**Mechanism:**
-Overnight, an AI reads eleven-plus publications, picks the ten stories that matter, and delivers a finished newsletter every morning. Their creator tracker went from 5 hours a week to 1.5 — covering 70 creators instead of 30.
-
-Read the Matador case study →
-
-### Card 3
-
-**Metric (card headline):**
+Matador Network — travel media, editorial team of twelve.
+Overnight, an AI reads eleven-plus publications, picks the ten stories that matter, and delivers a
+finished newsletter every morning. Their creator tracker went from 5 hours a week to 1.5 — covering
+70 creators instead of 30.
+Read the Matador case study
 From zero operational visibility to automated daily reporting.
-
-**Client:** TPS Workforce Hub — clean-tech workforce training, Boston. 30–40 applicants per cohort.
-
-**Mechanism:**
-Six connected systems run their admissions and operations — AI-scored interviews from Read.ai transcripts, scheduling, stipend-eligibility alerts, and the 5pm report the whole team reads.
-
-> "You have done such a great job that I can't remember how we were working before you."
-> — CEO, TPS Energy
-
-Read the TPS case study →
-
-> "Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."
-> — Tim Wenger, Editorial Team, Matador Network
-
----
-
-
-Who builds this
-
-I'm Erick Bonilla — founder and the only engineer at pocho.tech. Every automation on this page, I scoped and built myself, and most of them I still operate.
-
+TPS Workforce Hub — clean-tech workforce training, Boston. 30–40 applicants per cohort.
+Six connected systems run their admissions and operations — AI-scored interviews from Read.ai
+transcripts, scheduling, stipend-eligibility alerts, and the 5pm report the whole team reads.
+“You have done such a great job that I can’t remember how we were working before you.”
+— CEO, TPS Energy
+Read the TPS case study
+“Erick has helped us build and implement multiple automations for our editorial department, and these
+save us time each week that can be spent producing content rather than sifting through emails and data.”
+— Tim Wenger, Editorial Team, Matador Network
+## Who builds this
+I’m Erick Bonilla — founder and the only engineer at pocho.tech. Every automation on this page, I scoped
+and built myself, and most of them I still operate.
 I work embedded: in your Slack, inside your accounts, as a team member whose job is automation.
-
-I build on n8n and Make.com with the OpenAI and Anthropic APIs, and I speak about this work at industry conferences.
-
+I build on n8n and Make.com with the OpenAI and Anthropic APIs, and I speak about this work at industry
+conferences.
 Matador Network hired me to build after I taught n8n to their AI Advocacy Director.
-
 When something breaks, you message the person who wrote it.
-
----
-
-
-Three ways to start.
-
-### Tier 1 — Automation Audit
-
-**Price:** $500 — credited in full toward a custom build.
-
-A 60-minute review of how your team actually works, then a written report within five business days. You get what to automate first, which tools, estimated time savings, and the build scope for each recommendation.
-
+More about how I work
+## Three ways to start.
+### Automation Audit
+$500 — credited in full toward a custom build
+A 60-minute review of how your team actually works, then a written report within five business days.
+You get what to automate first, which tools, estimated time savings, and the build scope for each
+recommendation.
 Commission a build afterward and the $500 comes off the price.
-
-Book an audit → https://calendly.com/erick-pocho/1hr-session
-
-### Tier 2 — Custom Automation Build
-
-**Price:** From $1,500 — fixed price after a discovery call.
-
-I design the solution, build and test it on your systems, and hand it off with documentation and a walkthrough. Typical timeline is one to four weeks.
-
+Book an audit
+### Custom Automation Build
+From $1,500 — fixed price after a discovery call
+I design the solution, build and test it on your systems, and hand it off with documentation and a
+walkthrough. Typical timeline is one to four weeks.
 This is how every case study on this page started.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-
-### Tier 3 — Done-For-You Setup
-
-**Price:** Template price + $100.
-
-A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you on the call. You keep a recording of the whole session.
-
-Browse templates → /templates
-
-### Retainer line (below the tiers):
-
-Most engagements don't end at handoff. All three client teams on this page continue on embedded retainers — scoped per engagement, on the discovery call.
-
-### Consulting line (small, below):
-
-I also consult on n8n and Make.com — training and architecture review for teams that want to build in-house. n8n & Make.com consulting → /n8n-consulting
-
----
-
-
-How an engagement works
-
-### Step 1 — Discovery call. 60 minutes.
-
+Book a discovery call
+### Done-For-You Setup
+Template price + $100
+A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you
+on the call. You keep a recording of the whole session.
+Browse templates
+Most engagements don’t end at handoff. All three client teams on this page continue on embedded retainers
+— scoped per engagement, on the discovery call.
+I also consult on n8n and Make.com — training and architecture review for teams that want to build
+in-house. n8n & Make.com consulting
+## How an engagement works
+- Discovery call 60 minutes
 You walk me through how the work actually happens, and I look for where the hours go. Book it directly on my calendar.
-
-### Step 2 — Solution design. A few days.
-
-You get a written scope: what I'll build, what it connects to, the fixed price, and the timeline. Nothing starts until you've approved it.
-
-### Step 3 — Build and test. One to four weeks.
-
+- Solution design a few days
+You get a written scope: what I’ll build, what it connects to, the fixed price, and the timeline. Nothing starts until you’ve approved it.
+- Build and test one to four weeks
 I build on your systems and test against your real data, checking in as each piece goes live.
-
-### Step 4 — Handoff. One call.
-
+- Handoff one call
 You get documentation and a recorded walkthrough of everything I built.
-
-### Ownership statement:
-
-You own all of it. The workflows run in your accounts under your credentials — if we ever part ways, everything keeps running.
-
-### What "embedded" means:
-
-Most clients keep me on after handoff, working inside their Slack, their CRM, their boards — a team member who happens to be an automation engineer. That's how one automation at Dahlia+ became four, and one system at TPS Workforce Hub became six.
-
----
-
-
-Where I work
-
-### Card 1 — Media & publishing
-
-Four automations run Matador Network's editorial back office: newsletter curation from 400+ daily articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities.
-
-Media & publishing →
-
-### Card 2 — Agencies
-
-Dahlia+ Agency runs four: web lead routing, AI referral capture, the proposal-to-invoice pipeline, and a business card scanner that lives in Slack.
-
-Agencies →
-
-### Card 3 — Destination marketing organizations
-
-For tourism boards and convention bureaus: partner tracking, AI email agents, content pipelines, and lead qualification. I come from the travel-media side of this industry and speak at its conferences.
-
-Destination marketing →
-
-### Card 4 — Accounting & CPA firms
-
-Bookkeeping and tax workflow automation: QuickBooks Online, TaxDome, and the client communications that surround every deadline.
-
-Accounting & CPA firms →
-
----
-
-
-Seven workflows, extracted from real client systems.
-
-Each one is the n8n workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough video. Add Done-For-You Setup for $100 and I install it with you on a live call.
-
-### Featured 1 — Business Card Scanner — $249
-
-Drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact. Running in production at Dahlia+ Agency.
-
-**Tools:** Slack, OpenAI GPT-4o Vision, HubSpot
-Get the scanner — $249 → https://checkout.lemonsqueezy.com/buy/1320724
-
-### Featured 2 — AI Newsletter Curator — $249
-
-An AI that scrapes your chosen industry sources overnight, picks the most newsworthy stories, writes summaries, and delivers a finished newsletter every morning. The production version at Matador Network processes 400+ articles a day.
-
-**Tools:** Google Sheets, Apify, OpenAI, Gmail
-Get the curator — $249 → https://checkout.lemonsqueezy.com/buy/1320787
-
-### Featured 3 — Jarvis — AI Executive Assistant — $399
-
-An AI assistant living inside Slack that reads your email, manages your calendar, and tracks your tasks on plain-English instructions. The most involved template in the catalog — main workflow, sub-workflow, and system prompt reference included.
-
-**Tools:** Slack, Gmail, Google Calendar, Google Tasks, Google Contacts, Anthropic Claude, PostgreSQL
-Get Jarvis — $399 → https://checkout.lemonsqueezy.com/buy/1320707
-
-### Lead magnet — Sheets ↔ HubSpot Task Manager — Free
-
-A live two-way sync between a Google Sheet and HubSpot tasks — create, update, and complete in either; both stay current. Start here if you want to see how I build before spending anything.
-
-**Tools:** Google Sheets, HubSpot
-Get it free → https://checkout.lemonsqueezy.com/buy/1320841
-
-**Section link:** Browse all seven templates → /templates
-
----
-
-
-> "Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."
->
-> **— Kyrene Kagahastian, Social Media Team, Matador Network**
-
-On the creator tracker — one of four automations running at Matador Network. When it goes down, the team emails within hours asking for it back.
-
----
-
-
-Questions I get on every discovery call
-
-**What a custom build costs**
-Builds start at $1,500, with a fixed price set in writing after the discovery call. If you start with the $500 audit, that full amount is credited toward the build.
-
-**How long a build takes**
-One to four weeks for most projects, depending on how many systems are involved. The timeline is in the scope document before work begins.
-
-**Who does the actual work**
+You own all of it. The workflows run in your accounts under your credentials — if we
+ever part ways, everything keeps running.
+What “embedded” means: most clients keep me on after handoff, working inside their
+Slack, their CRM, their boards — a team member who happens to be an automation engineer. That’s how one
+automation at Dahlia+ became four, and one system at TPS Workforce Hub became six.
+## Where I work
+### Media & publishing
+Four automations run Matador Network’s editorial back office: newsletter curation from 400+ daily
+articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities.
+### Agencies
+Dahlia+ Agency runs four: web lead routing, AI referral capture, the proposal-to-invoice pipeline,
+and a business card scanner that lives in Slack.
+### Destination marketing organizations
+For tourism boards and convention bureaus: partner tracking, AI email agents, content pipelines, and
+lead qualification. I come from the travel-media side of this industry and speak at its conferences.
+### Accounting & CPA firms
+Bookkeeping and tax workflow automation: QuickBooks Online, TaxDome, and the client communications
+that surround every deadline.
+## Seven workflows, extracted from real client systems.
+Each one is the n8n workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough video. Add
+Done-For-You Setup for $100 and I install it with you on a live call.
+### Business Card Scanner
+Drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact.
+Running in production at Dahlia+ Agency.
+Slack · OpenAI GPT-4o Vision · HubSpot
+Get the scanner — $249
+### AI Newsletter Curator
+An AI that scrapes your chosen industry sources overnight, picks the most newsworthy stories, writes
+summaries, and delivers a finished newsletter every morning. The production version at Matador
+Network processes 400+ articles a day.
+Google Sheets · Apify · OpenAI · Gmail
+Get the curator — $249
+### Jarvis — AI Executive Assistant
+An AI assistant living inside Slack that reads your email, manages your calendar, and tracks your
+tasks on plain-English instructions. The most involved template in the catalog — main workflow,
+sub-workflow, and system prompt reference included.
+Slack · Gmail · Google Calendar · Anthropic Claude · PostgreSQL
+Get Jarvis — $399
+### Sheets ↔ HubSpot Task Manager — Free
+A live two-way sync between a Google Sheet and HubSpot tasks — create, update, and complete in
+either; both stay current. Start here if you want to see how I build before spending anything.
+Get it free
+Browse all seven templates
+“Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort.”
+— Kyrene Kagahastian, Social Media Team, Matador Network
+On the creator tracker — one of four automations running at Matador Network. When it goes down, the team
+emails within hours asking for it back.
+## Questions I get on every discovery call
+What a custom automation costs
+Builds start at $1,500, with a fixed price set in writing after the discovery call — what it costs depends on how many systems are involved and how much of the logic needs AI. If you start with the $500 audit, that full amount is credited toward the build.
+How long a build takes
+One to four weeks for most projects, depending on how many systems are involved and how much testing the workflow needs against your real data. The timeline is written into the scope document before any work begins, so you know the delivery date before you commit.
+Who does the actual work
 I do — every workflow, every integration, every fix. pocho.tech is one engineer, and you work with me directly from the first call through handoff.
-
-**Who owns what I build**
-You do. Everything runs in your accounts under your credentials, with documentation and a recorded walkthrough at handoff — it all keeps running with or without me.
-
-**What happens after handoff**
+Who owns the workflows
+You do — everything runs in your accounts under your credentials, on your n8n or Make.com instance, with your API keys. If we ever part ways, every workflow keeps running exactly as it did the day before; nothing I build depends on infrastructure that belongs to me.
+What happens after handoff
 Most clients keep me on. All three teams on this page started with a single build and continue on embedded retainers, scoped per engagement.
-
-**The tools I can connect**
-The twelve automations in production span more than twenty tools — HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, SharePoint, Power Automate, Apify, Google Analytics 4, Gmail, and others. If your tool has an API, it can probably join the list; the discovery call settles it.
-
-**Templates versus custom builds**
-Buy a template when the workflow matches your stack as described — it's the same kind of system, with Done-For-You Setup available for $100. Commission a build when the process is specific to how your team works.
-
-**Where to start**
-If you know what you want built, book the discovery call. If you don't, the $500 audit gives you a written plan within five business days — credited in full if you go ahead.
-
----
-
-
-Tell me where the hours go.
-
-Sixty minutes: you walk me through how your team works, and I tell you what I'd automate first and what it would cost.
-
-If the right answer is a $249 template instead of a custom build, I'll say so. If it's not a fit, you'll hear that on the call.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
+Why n8n and Make.com instead of Zapier
+Zapier is fine for simple triggers, but the systems I build — AI evaluation pipelines, multi-step branching logic, two-way syncs — need real conditionals, sub-workflows, and direct API calls. n8n and Make.com handle that at a fraction of the per-task cost, and n8n can run on your own server.
+What the $500 audit includes
+A 60-minute review of how your team actually works, then a written report within five business days: what to automate first, which tools to use, estimated time savings, and the build scope for each recommendation. Commission a build afterward and the full $500 comes off the price.
+Whether templates require technical skill
+Each template includes the n8n workflow JSON, a step-by-step PDF setup guide, and a walkthrough video — if you can follow instructions and paste API credentials, you can install one. If you would rather not, Done-For-You Setup adds $100 and I configure it with you on a live call.
+## Tell me where the hours go.
+Sixty minutes: you walk me through how your team works, and I tell you what I’d automate first and what
+it would cost.
+If the right answer is a $249 template instead of a custom build, I’ll say so. If it’s not a fit, you’ll
+hear that on the call.
+Book a discovery call
 Or write to me directly: erick.bonilla63@gmail.com
-Or start with the free Sheets ↔ HubSpot sync → https://checkout.lemonsqueezy.com/buy/1320841
+Or start with the free Sheets ↔ HubSpot sync
 
 ---
 
-## Site-wide elements
-
-**Footer tagline:**
-AI automation for small teams, built by the person you talk to.
-
-**Meta title:**
-Custom AI Automation for Small Teams | pocho.tech
-
-**Meta description:**
-Twelve automations in production across three client teams — Dahlia+ Agency, Matador Network, TPS Workforce Hub. Custom builds from $1,500 by Erick Bonilla.
-
-**Canonical entity boilerplate (final, use verbatim everywhere):**
-pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.
-
----
-
-URL: https://pocho.tech/services
+## https://pocho.tech/services
 
 # Start with an audit, a build, or a template. Most clients stay.
-
-Everything I sell is a version of the same thing: a working automation, built by me, running in your accounts. The difference is how much of the work you want me to do and how long you want me around.
-
-Three teams run twelve of my automations in production. Every one of those engagements started on one of the rungs below.
-
-[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)
-
----
-
+Everything I sell is a version of the same thing: a working automation, built by me, running in your
+accounts. The difference is how much of the work you want me to do and how long you want me around.
+Three teams run twelve of my automations in production. Every one of those engagements started on one of
+the rungs below.
+Book a discovery call
 ## The engagement ladder
-
 ### 1. Automation Audit — $500, credited toward a build
-
-**Who it's for:** You know the hours are going somewhere, but you want a plan in writing before spending $1,500 or more.
-
-A 60-minute review of how your team actually works, then a written report within five business days: what to automate first, which tools, estimated time savings, and a build scope for each recommendation. Commission a build afterward and the full $500 comes off the price.
-
-[About the audit](/services/automation-audit) · [Book an audit](https://calendly.com/erick-pocho/1hr-session)
-
+Who it's for: You know the hours are going somewhere, but you want a plan in writing
+before spending $1,500 or more.
+A 60-minute review of how your team actually works, then a written report within five business days:
+what to automate first, which tools, estimated time savings, and a build scope for each recommendation.
+Commission a build afterward and the full $500 comes off the price.
+About the audit ·
+Book an audit
 ### 2. Custom Automation Build — from $1,500
-
-**Who it's for:** You can already name the process that's eating the hours.
-
-I design the solution, build and test it on your systems, and hand it off with documentation and a recorded walkthrough. Fixed price set in writing after a discovery call; typical timeline is one to four weeks.
-
-The proposal-to-invoice pipeline at Dahlia+ Agency is one of these — processing went from 1.5–2 hours per proposal to 15 minutes.
-
-[About custom builds](/services/custom-automation) · [Book a discovery call](https://calendly.com/erick-pocho/1hr-session)
-
+Who it's for: You can already name the process that's eating the hours.
+I design the solution, build and test it on your systems, and hand it off with documentation and a
+recorded walkthrough. Fixed price set in writing after a discovery call; typical timeline is one to
+four weeks.
+The proposal-to-invoice pipeline at Dahlia+ Agency is one of these — processing went from 1.5–2 hours
+per proposal to 15 minutes.
+About custom builds ·
+Book a discovery call
 ### 3. Ongoing embedded work — scoped per engagement
-
-**Who it's for:** Teams that want an automation engineer on the roster without making a hire.
-
-I stay on after handoff — inside your Slack, your CRM, your boards — maintaining what's live and building what's next. This is how most of my work runs: all three client teams on this site continue on retainers.
-
-That's how one automation at Dahlia+ Agency became four, and one system at TPS Workforce Hub became six.
-
-> "You have done such a great job that I can't remember how we were working before you."
-> — CEO, TPS Energy
-
-[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)
-
----
-
+Who it's for: Teams that want an automation engineer on the roster without making a
+hire.
+I stay on after handoff — inside your Slack, your CRM, your boards — maintaining what's live and
+building what's next. This is how most of my work runs: all three client teams on this site continue
+on retainers.
+That's how one automation at Dahlia+ Agency became four, and one system at TPS Workforce Hub became
+six.
+"You have done such a great job that I can't remember how we were working before you."
+— CEO, TPS Energy
+Book a discovery call
 ## The self-serve lane
-
 ### Templates — seven n8n workflows, $249–$399, one free
-
-Workflows extracted from real client systems — the Business Card Scanner runs in production at Dahlia+ Agency. Each one is the workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough video.
-
-[Browse the templates](/templates)
-
+Workflows extracted from real client systems — the Business Card Scanner runs in production at Dahlia+
+Agency. Each one is the workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough
+video.
+Browse the templates
 ### Done-For-You Setup — template price + $100
-
-A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you on the call. You keep a recording of the whole session.
-
-[About Done-For-You Setup](/services/done-for-you-setup)
-
+A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you
+on the call. You keep a recording of the whole session.
+About Done-For-You Setup
 ### n8n & Make.com consulting
-
-For teams that want to build in-house: architecture review, workflow builds, self-hosting guidance, and training. Matador Network hired me to build after I taught n8n to their AI Advocacy Director.
-
-[About n8n & Make.com consulting](/services/n8n-consulting)
-
----
-
+For teams that want to build in-house: architecture review, workflow builds, self-hosting guidance,
+and training. Matador Network hired me to build after I taught n8n to their AI Advocacy Director.
+About n8n & Make.com consulting
 ## How the options compare
-
-| | Working with pocho.tech | Hiring an ops person | Doing it yourself on Zapier |
-|---|---|---|---|
-| **Cost** | From $1,500 per build, fixed in writing; retainers scoped per engagement | A full-time salary, plus recruiting and ramp-up | The subscription, plus your own hours |
-| **Time to a working system** | One to four weeks from approved scope | Months before the first build ships | Fast for a two-step trigger; slow for multi-system pipelines with AI steps |
-| **Who does the work** | One engineer with twelve automations in production | A generalist whose week includes much more than automation | You, between everything else on your plate |
-| **What you keep** | Workflows in your accounts, documented, with a recorded walkthrough | Institutional knowledge that leaves with the employee | Workflows only you understand |
-
+Working with pocho.tech Hiring an ops person Doing it yourself on Zapier
+Cost From $1,500 per build, fixed in writing; retainers scoped per engagement A full-time salary, plus recruiting and ramp-up The subscription, plus your own hours
+Time to a working system One to four weeks from approved scope Months before the first build ships Fast for a two-step trigger; slow for multi-system pipelines with AI steps
+Who does the work One engineer with twelve automations in production A generalist whose week includes much more than automation You, between everything else on your plate
+What you keep Workflows in your accounts, documented, with a recorded walkthrough Institutional knowledge that leaves with the employee Workflows only you understand
 If a simple Zapier trigger genuinely covers your case, you'll hear that on the discovery call.
-
----
-
 ## Where to start
-
-If you can name the broken process, book the discovery call — it's the first step of every build. If you can't, the audit turns sixty minutes into a written plan, credited in full if you go ahead.
-
-If you'd rather see the work before talking to me, the Sheets ↔ HubSpot sync template is free.
-
-**[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)**
-
-[Get the free template](https://checkout.lemonsqueezy.com/buy/1320841) · Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+If you can name the broken process, book the discovery call — it's the first step of every build. If you can't, the audit turns sixty minutes into a written plan, credited in full if you go ahead. If you'd rather see the work before talking to me, the Sheets ↔ HubSpot sync template is free.
+Book a discovery call
+Get the free template · Or write
+to me directly: erick.bonilla63@gmail.com
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/services/automation-audit
+## https://pocho.tech/services/automation-audit
 
 # Automation Audit
-
-The audit is a 60-minute review of how your team actually works, followed by a written report within five business days. It costs $500, credited in full toward a custom build — if you go ahead, the plan cost you nothing.
-
+The audit is a 60-minute review of how your team actually works, followed by a written report within five
+business days. It costs $500, credited in full toward a custom build — if you go ahead, the plan cost you
+nothing.
 You leave with priorities, tools, estimated time savings, and a build scope for every recommendation.
-
-[Book an audit](https://calendly.com/erick-pocho/1hr-session)
-
----
-
+Book an audit
 ## What the report contains
-
 Four things, specific to your team and your tools:
-
-- **What to automate first** — your workflows ranked by hours recovered against effort to build
-- **The tools for each** — which platforms and APIs every recommendation would connect
-- **Estimated time savings** — what each automation should give back, per week
-- **A build scope per recommendation** — what it would cost and roughly how long it would take
-
+- What to automate first — your workflows ranked by hours recovered against effort to
+build
+- The tools for each — which platforms and APIs every recommendation would connect
+- Estimated time savings — what each automation should give back, per week
+- A build scope per recommendation — what it would cost and roughly how long it would
+take
 Whether you build with me, build in-house, or shelve it for a quarter, you have the plan in writing.
-
 ## How it works
-
-**The call — 60 minutes.** You walk me through how the work actually happens, ideally with the person who does it day to day on the call. [Book it directly on my calendar](https://calendly.com/erick-pocho/1hr-session).
-
-**The report — within five business days.** A written document covering the four sections above, specific to your tools and your volume.
-
+The call — 60 minutes. You walk me through how the work actually happens, ideally with
+the person who does it day to day on the call.
+Book it directly on my calendar .
+The report — within five business days. A written document covering the four sections
+above, specific to your tools and your volume.
 ## Why start here
-
-A custom build is $1,500 or more, and the right first automation isn't always obvious from inside the team. The audit answers that in writing before you commit to anything.
-
-If you commission a build afterward, the full $500 comes off the price. If you don't, you keep a plan any competent engineer could execute.
-
-Sometimes the report says a $249 template covers it, or that a workflow isn't worth automating yet. You get that in writing too.
-
----
-
+A custom build is $1,500 or more, and the right first automation isn't always obvious from inside the
+team. The audit answers that in writing before you commit to anything.
+If you commission a build afterward, the full $500 comes off the price. If you don't, you keep a plan any
+competent engineer could execute.
+Sometimes the report says a $249 template covers it, or that a workflow isn't worth automating yet. You
+get that in writing too.
 ## Questions before you book an audit
-
-### How the $500 credit works
-
+How the $500 credit works
 Commission a custom build after the audit and the full $500 comes off that build's price. Builds start at $1,500, so the audit effectively becomes a deposit on the work.
-
-### What I need from you
-
+What I need from you
 Sixty minutes with whoever actually does the work, and honest answers about how it happens today — including the spreadsheet workarounds. The closer I get to the real process, the sharper the report.
-
-### What happens if there's little worth automating
-
+What happens if there's little worth automating
 That goes in the report. If the right answer is a $249 template, a process change, or no automation at all, the report says so.
-
----
-
 ## Sixty minutes, then a plan in writing
-
 Book the call, walk me through the work, and the report is in your inbox within five business days.
-
-**[Book an audit](https://calendly.com/erick-pocho/1hr-session)**
-
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+Book a discovery call
+Or write to me directly: erick.bonilla63@gmail.com
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/services/custom-automation
+## https://pocho.tech/services/custom-automation
 
 # Custom Automation Build
-
-A custom automation build at pocho.tech starts at $1,500, with a fixed price set in writing after a 60-minute discovery call. I design the workflow, build and test it on your systems, and hand it off with documentation and a recorded walkthrough — typically in one to four weeks.
-
+A custom automation build at pocho.tech starts at $1,500, with a fixed price set in writing after a
+60-minute discovery call. I design the workflow, build and test it on your systems, and hand it off with
+documentation and a recorded walkthrough — typically in one to four weeks.
 I'm Erick Bonilla, and I'm the engineer on every build — first call through handoff.
-
-[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)
-
----
-
+Book a discovery call
 ## What a custom build looks like
-
 The clearest example runs at Dahlia+ Agency, an event production company with a team of six to eight.
-
-When a proposal is accepted in Fresh Proposals, the automation updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50 — untouched by anyone. Processing one proposal went from 1.5–2 hours to 15 minutes.
-
+When a proposal is accepted in Fresh Proposals, the automation updates the HubSpot deal stage, builds the
+Monday.com board, and creates the QuickBooks customer with two invoices split 50/50 — untouched by anyone.
+Processing one proposal went from 1.5–2 hours to 15 minutes.
+1.5–2 hrs → 15 min
 At 2–4 proposals a day, that's 6–8 hours of manual operations gone from every working day.
-
 Other builds running in production:
-
-- **AI interview evaluation — TPS Workforce Hub.** Read.ai interview transcripts arrive by webhook; candidates get matched and objectively scored, and human reviewers get a structured brief with direct quotes from the interview.
-- **AI newsletter curator — Matador Network.** Overnight, an AI reads 400+ articles across eleven-plus publications, picks the top ten, and delivers a finished newsletter every morning with zero human input.
-- **Business card scanner — Dahlia+ Agency.** Drop a photo in Slack; GPT-4o Vision reads the card, extracts every field, and creates the HubSpot contact.
-
+- AI interview evaluation — TPS Workforce Hub. Read.ai interview transcripts arrive by
+webhook; candidates get matched and objectively scored, and human reviewers get a structured brief with
+direct quotes from the interview.
+- AI newsletter curator — Matador Network. Overnight, an AI reads 400+ articles across
+eleven-plus publications, picks the top ten, and delivers a finished newsletter every morning with zero
+human input.
+- Business card scanner — Dahlia+ Agency. Drop a photo in Slack; GPT-4o Vision reads the
+card, extracts every field, and creates the HubSpot contact.
 ## What it costs
-
-Builds start at $1,500. The price depends on how many systems the workflow touches, the volume moving through it, and whether AI evaluation or parsing needs design and testing of its own.
-
-You get the fixed number in writing in the scope document, before any work begins. If you started with the [$500 audit](/services/automation-audit), that full amount comes off the price.
-
+Builds start at $1,500. The price depends on how many systems the workflow touches, the volume moving
+through it, and whether AI evaluation or parsing needs design and testing of its own.
+You get the fixed number in writing in the scope document, before any work begins. If you started with the
+$500 audit , that full amount comes off the price.
 ## How the process works
-
-**1. Discovery call — 60 minutes.** You walk me through how the work actually happens, and I look for where the hours go. [Book it directly on my calendar](https://calendly.com/erick-pocho/1hr-session).
-
-**2. Solution design — a few days.** You get a written scope: what I'll build, what it connects to, the fixed price, and the timeline. Nothing starts until you've approved it.
-
-**3. Build and test — one to four weeks.** I build on your systems and test against your real data, checking in as each piece goes live.
-
-**4. Handoff — one call.** You get documentation and a recorded walkthrough of everything I built.
-
+- Discovery call — 60 minutes. You walk me through how the work actually happens, and I
+look for where the hours go. Book it directly on my calendar .
+- Solution design — a few days. You get a written scope: what I'll build, what it
+connects to, the fixed price, and the timeline. Nothing starts until you've approved it.
+- Build and test — one to four weeks. I build on your systems and test against your real
+data, checking in as each piece goes live.
+- Handoff — one call. You get documentation and a recorded walkthrough of everything I
+built.
 ## Who owns what I build
-
-You do. The workflows run in your accounts under your credentials — if we ever part ways, everything keeps running.
-
+You do. The workflows run in your accounts under your credentials — if we ever part ways, everything keeps
+running.
 There is no platform of mine in the middle and no ongoing fee back to me for what you own.
-
 ## What happens after handoff
-
-Most clients keep me on. All three teams on this site started with a single build and continue on embedded retainers, scoped per engagement.
-
-> "Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."
-> — Kyrene Kagahastian, Social Media Team, Matador Network
-
----
-
+Most clients keep me on. All three teams on this site started with a single build and continue on embedded
+retainers, scoped per engagement.
+"Erick was incredibly helpful in setting up the system to automatically track creator content. This
+automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot
+of manual effort."
+— Kyrene Kagahastian, Social Media Team, Matador Network
 ## Questions I get before a build starts
-
-### What determines the price
-
+What determines the price
 The number of systems involved, the volume moving through the workflow, and whether AI steps need their own design and testing. The Dahlia+ pipeline touches four systems; a workflow that touches one costs less to build.
-
-### How long a build takes
-
+How long a build takes
 One to four weeks for most projects, depending on how many systems are involved. The timeline is in the scope document before work begins.
-
-### Who maintains it after handoff
-
+Who maintains it after handoff
 Either your team, using the documentation and recorded walkthrough, or me, on a retainer scoped per engagement. When something breaks, you message the person who wrote it.
-
-### Which tools I can connect
-
+Which tools I can connect
 The twelve automations in production span more than twenty tools — HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, SharePoint, Power Automate, Apify, Google Analytics 4, Gmail, and others. If your tool has an API, it can probably join the list; the discovery call settles it.
-
----
-
 ## Bring me the process that's eating the hours
-
 Sixty minutes: you walk me through how your team works, and I tell you what I'd build first and what it would cost. If the right answer is a $249 template instead of a custom build, I'll say so.
-
-**[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)**
-
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+Book a discovery call
+Or write to me directly: erick.bonilla63@gmail.com
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/services/done-for-you-setup
+## https://pocho.tech/services/done-for-you-setup
 
 # Done-For-You Setup
-
-Done-For-You Setup adds $100 to any template in the catalog. We meet on a live 60–90 minute call: I connect your credentials, configure the workflow for your accounts, and test it with you watching — and you keep a recording of the whole session.
-
+Done-For-You Setup adds $100 to any template in the catalog. We meet on a live 60–90 minute call: I
+connect your credentials, configure the workflow for your accounts, and test it with you watching — and
+you keep a recording of the whole session.
 You buy the workflow; I make sure it's running before we hang up.
-
-[Browse the templates](/templates)
-
----
-
+Browse the templates
 ## How the session works
-
-**Before the call.** You buy the template, add the setup option, and book a time on my calendar. I send a short list of the logins and access the workflow needs, so the session starts at full speed.
-
-**On the call — 60 to 90 minutes.** I connect each credential, configure the workflow for your accounts, and run it live until it behaves on your real data. Then I walk you through how it works and where to adjust it.
-
-**After the call.** The workflow is live in your accounts, and the recording arrives so anyone on your team can replay the entire setup.
-
+Before the call. You buy the template, add the setup option, and book a time on my
+calendar. I send a short list of the logins and access the workflow needs, so the session starts at full
+speed.
+On the call — 60 to 90 minutes. I connect each credential, configure the workflow for
+your accounts, and run it live until it behaves on your real data. Then I walk you through how it works
+and where to adjust it.
+After the call. The workflow is live in your accounts, and the recording arrives so
+anyone on your team can replay the entire setup.
 ## What you walk away with
-
 - The workflow running in your accounts, under your credentials
 - A recording of the full session
 - The template's step-by-step PDF guide and 90-second walkthrough video
 - Working knowledge of where to change it when your process changes
-
 ## Which templates this covers
-
-All seven, including the free Sheets ↔ HubSpot sync. Jarvis — the AI executive assistant — is the most involved template in the catalog, which makes it the one where the setup session earns its $100 most clearly.
-
-[Browse the templates](/templates)
-
----
-
+All seven, including the free Sheets ↔ HubSpot sync. Jarvis — the AI executive assistant — is the most
+involved template in the catalog, which makes it the one where the setup session earns its $100 most
+clearly.
+Browse the templates
 ## Questions before you book a session
-
-### What I need from you before the call
-
+What I need from you before the call
 Admin access to the tools the template connects — for the Business Card Scanner, that's Slack, OpenAI, and HubSpot. The exact list for your template is in its PDF guide, and I send it again when you book.
-
-### Whether you could set it up yourself instead
-
+Whether you could set it up yourself instead
 Yes — every template ships with the workflow JSON, a step-by-step PDF, and a walkthrough video, and most go live in under an hour on your own. The session is for teams that want it running today, verified live on their data, with a recording to keep.
-
-### What happens if the template doesn't match your stack
-
-Each template works as described with the tools listed on its page. If your stack is different — another CRM, extra steps in the process — that's a [custom build](/services/custom-automation) conversation, and you can write to me first at [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com) to check before buying.
-
----
-
+What happens if the template doesn't match your stack
+Each template works as described with the tools listed on its page. If your stack is different — another CRM, extra steps in the process — that's a custom build conversation, and you can write to me first at erick.bonilla63@gmail.com to check before buying.
 ## Pick the workflow, and I'll handle the wiring
-
 Every template page has the Done-For-You option at checkout. If you're not sure which one fits your team, sixty minutes on a call settles it.
-
-**[Browse the templates](/templates)**
-
-[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)
+Book a discovery call Browse the templates
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/services/n8n-consulting
+## https://pocho.tech/services/n8n-consulting
 
 # n8n & Make.com Consulting
-
-I consult on n8n and Make.com: architecture review, workflow builds, self-hosting guidance, and team training. I'm Erick Bonilla — the twelve automations I run in production for Dahlia+ Agency, Matador Network, and TPS Workforce Hub are built on these platforms with the OpenAI and Anthropic APIs.
-
+I consult on n8n and Make.com: architecture review, workflow builds, self-hosting guidance, and team
+training. I'm Erick Bonilla — the twelve automations I run in production for Dahlia+ Agency, Matador
+Network, and TPS Workforce Hub are built on these platforms with the OpenAI and Anthropic APIs.
 Engagements are scoped on a discovery call.
-
-[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)
-
----
-
+Book a discovery call
 ## The shortest version of my credentials
-
-Matador Network brought me in to teach n8n to their AI Advocacy Director. The training led to a hire: their editorial team now runs four of my automations, including a newsletter curator that processes 400+ articles a day.
-
-> "Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."
-> — Tim Wenger, Editorial Team, Matador Network
-
+Matador Network brought me in to teach n8n to their AI Advocacy Director. The training led to a hire:
+their editorial team now runs four of my automations, including a newsletter curator that processes 400+
+articles a day.
+"Erick has helped us build and implement multiple automations for our editorial department, and these
+save us time each week that can be spent producing content rather than sifting through emails and data."
+— Tim Wenger, Editorial Team, Matador Network
 ## What consulting covers
-
 ### Architecture review
-
-I read your existing workflows and tell you what will break first — error handling, credential management, rate limits, and the nodes doing too much work. You get specific fixes, in writing.
-
+I read your existing workflows and tell you what will break first — error handling, credential
+management, rate limits, and the nodes doing too much work. You get specific fixes, in writing.
 ### Workflow builds
-
-Some teams bring a half-built workflow; some bring a blank canvas. Either way I build on your instance, alongside your team, so the knowledge stays when the engagement ends.
-
+Some teams bring a half-built workflow; some bring a blank canvas. Either way I build on your
+instance, alongside your team, so the knowledge stays when the engagement ends.
 ### Self-hosting guidance
-
-Whether to self-host n8n or stay on cloud, and how to run it if you do: environments, credentials, backups, and upgrades. The goal is an instance your team can operate without me.
-
+Whether to self-host n8n or stay on cloud, and how to run it if you do: environments, credentials,
+backups, and upgrades. The goal is an instance your team can operate without me.
 ### Team training
-
-The same thing Matador Network hired me for first: teaching your team to build and maintain workflows in-house. Sessions are scoped to your stack and the workflows you actually need.
-
+The same thing Matador Network hired me for first: teaching your team to build and maintain workflows
+in-house. Sessions are scoped to your stack and the workflows you actually need.
 ## How engagements are scoped
-
-On a discovery call. Some engagements are a single architecture-review session; some become standing arrangements, scoped per engagement like all my retainer work.
-
-If what you actually need is a finished system rather than guidance, that's a [custom build](/services/custom-automation) — from $1,500.
-
----
-
+On a discovery call. Some engagements are a single architecture-review session; some become standing
+arrangements, scoped per engagement like all my retainer work.
+If what you actually need is a finished system rather than guidance, that's a
+custom build — from $1,500.
 ## Questions teams ask before a consulting engagement
-
-### n8n vs Zapier vs Make — which to use
-
-Zapier is the fastest start for simple triggers; Make.com handles longer visual scenarios at moderate cost; n8n gives the most control — self-hostable, with code where you need it, and well suited to AI-heavy workflows. I build client systems on both n8n and Make.com, so the recommendation isn't a pitch for either platform.
-
-The honest answer depends on your volume, your data constraints, and who maintains it after I leave. It's the first ten minutes of the call.
-
-### Whether I review existing workflows or only build new ones
-
+n8n vs Zapier vs Make — which to use
+Zapier is the fastest start for simple triggers; Make.com handles longer visual scenarios at moderate cost; n8n gives the most control — self-hostable, with code where you need it, and well suited to AI-heavy workflows. I build client systems on both n8n and Make.com, so the recommendation isn't a pitch for either platform. The honest answer depends on your volume, your data constraints, and who maintains it after I leave. It's the first ten minutes of the call.
+Whether I review existing workflows or only build new ones
 Both. Architecture review of what you already have is a common starting point — most teams arrive with something half-working rather than a blank slate.
-
-### Self-hosted n8n versus n8n cloud
-
+Self-hosted n8n versus n8n cloud
 Cloud is the right default while you're proving that workflows matter to the business. Self-hosting earns its overhead when volume, cost, or data control demand it — and if you go that way, the setup is part of what I cover.
-
-### What consulting costs
-
-Scoped per engagement on the discovery call — a single review session is priced differently than ongoing training. If the engagement turns into me building the system, [builds start at $1,500](/services/custom-automation).
-
----
-
+What consulting costs
+Scoped per engagement on the discovery call — a single review session is priced differently than ongoing training. If the engagement turns into me building the system, builds start at $1,500.
 ## See the work before you book
-
-Seven of my n8n workflows are sold as [templates](/templates) — each one is the workflow JSON, a step-by-step PDF guide, and a 90-second walkthrough video. If you want to see how I structure a workflow first, the [Sheets ↔ HubSpot sync is free](https://checkout.lemonsqueezy.com/buy/1320841).
-
+Seven of my n8n workflows are sold as templates — each one is the workflow JSON,
+a step-by-step PDF guide, and a 90-second walkthrough video. If you want to see how I structure a workflow
+first, the
+Sheets ↔ HubSpot sync is free .
 ## Bring the workflow that's fighting you
-
 Sixty minutes on a call: you show me the instance, and I tell you what I'd fix, what I'd build, and what your team should own. If a session isn't the right spend, you'll hear that on the call.
-
-**[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)**
-
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+Book a discovery call
+Or write to me directly: erick.bonilla63@gmail.com
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/templates
+## https://pocho.tech/templates
 
 # Seven workflows, extracted from real client systems.
-
-These are n8n workflow templates pulled from the automations I build and run for clients. Each one is the complete workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough video.
-
-Import one into your own n8n instance — cloud or self-hosted — and it runs on your credentials, in your accounts. If you'd rather not set it up yourself, I'll do it with you: Done-For-You Setup adds $100 to any template.
-
----
-
+These are n8n workflow templates pulled from the automations I build and run for clients. Each one is the
+complete workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough video.
+Import one into your own n8n instance — cloud or self-hosted — and it runs on your credentials, in your
+accounts. If you'd rather not set it up yourself, I'll do it with you: Done-For-You Setup adds $100 to any
+template.
 ## The catalog
-
-### Business Card Scanner — $249
-
-Drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact. Running in production at Dahlia+ Agency.
-
-**Tools:** Slack, OpenAI GPT-4o Vision, HubSpot
-
-[Full breakdown →](/templates/business-card-scanner) · [Get the scanner — $249 →](https://checkout.lemonsqueezy.com/buy/1320724)
-
-### AI Newsletter Curator — $249
-
-An AI that scrapes your chosen industry sources overnight, picks the most newsworthy stories, writes summaries, and delivers a finished newsletter every morning. The production version at Matador Network processes 400+ articles a day.
-
-**Tools:** Google Sheets, Apify, OpenAI, Gmail
-
-[Full breakdown →](/templates/ai-newsletter-curator) · [Get the curator — $249 →](https://checkout.lemonsqueezy.com/buy/1320787)
-
-### Jarvis — AI Executive Assistant — $399
-
-An AI assistant living inside Slack that reads your email, manages your calendar, and tracks your tasks on plain-English instructions. The most involved template in the catalog — main workflow, sub-workflow, and system prompt reference included.
-
-**Tools:** Slack, Gmail, Google Calendar, Google Tasks, Google Contacts, Anthropic Claude, PostgreSQL
-
-[Full breakdown →](/templates/jarvis-ai-executive-assistant) · [Get Jarvis — $399 →](https://checkout.lemonsqueezy.com/buy/1320707)
-
-### Meeting Prep Agent — $249
-
-An AI that reads your email history with every meeting attendee and sends you a structured briefing one hour before the call — what you discussed, what's still pending, and how the relationship feels.
-
-**Tools:** Google Calendar, Gmail, OpenAI
-
-[Full breakdown →](/templates/meeting-prep-agent) · [Get the agent — $249 →](https://checkout.lemonsqueezy.com/buy/1320537)
-
-### AI Relationship Nurturing Engine — $299
-
-An AI that watches your CRM for relationships going quiet, reads your notes and past conversations, and writes personal check-in emails in your voice — sent automatically.
-
-**Tools:** HubSpot (or any CRM), OpenAI, Gmail
-
-[Full breakdown →](/templates/ai-relationship-nurturing-engine) · [Get the engine — $299 →](https://checkout.lemonsqueezy.com/buy/1320599)
-
-### Sales Contact Scraper — $299
-
-An automation that scans your Gmail history, extracts every person you've emailed, enriches them with company info from their websites, and delivers an organized contact list.
-
-**Tools:** Gmail, Apify, Google Sheets
-
-[Full breakdown →](/templates/sales-contact-scraper) · [Get the scraper — $299 →](https://checkout.lemonsqueezy.com/buy/1320732)
-
-### Sheets ↔ HubSpot Task Manager — Free
-
-A live two-way sync between a Google Sheet and HubSpot tasks — create, update, and complete in either; both stay current. This is the no-cost place to start: see how I build before spending anything.
-
-**Tools:** Google Sheets, HubSpot
-
-[Full breakdown →](/templates/sheets-hubspot-task-manager) · [Get it free →](https://checkout.lemonsqueezy.com/buy/1320841)
-
----
-
+### Business Card Scanner
+Drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact.
+Running in production at Dahlia+ Agency.
+- Slack
+- OpenAI GPT-4o Vision
+- HubSpot
+$249 View template
+### AI Newsletter Curator
+An AI that scrapes your chosen industry sources overnight, picks the most newsworthy stories, writes summaries, and delivers a finished newsletter every morning.
+The production version at Matador Network processes 400+ articles a day.
+- Google Sheets
+- Apify
+- OpenAI
+- Gmail
+$249 View template
+### Jarvis — AI Executive Assistant
+An AI assistant living inside Slack that reads your email, manages your calendar, and tracks your tasks on plain-English instructions.
+- Slack
+- Gmail
+- Google Calendar
+- Google Tasks
+- Google Contacts
+- Anthropic Claude
+- PostgreSQL
+$399 View template
+### Meeting Prep Agent
+An AI that reads your email history with every meeting attendee and sends you a structured briefing one hour before the call.
+- Google Calendar
+- Gmail
+- OpenAI
+$249 View template
+### AI Relationship Nurturing Engine
+An AI that watches your CRM for relationships going quiet and writes personal check-in emails in your voice, sent automatically.
+- HubSpot
+- OpenAI
+- Gmail
+$299 View template
+### Sales Contact Scraper
+An automation that scans your Gmail history, extracts every person you have emailed, enriches them with company info, and delivers an organized contact list.
+- Gmail
+- Apify
+- Google Sheets
+$299 View template
+### Sheets ↔ HubSpot Task Manager
+A live two-way sync between a Google Sheet and HubSpot tasks — create, update, and complete in either; both stay current.
+- Google Sheets
+- HubSpot
+Free Get it free
 ## Done-For-You Setup — template price + $100
-
-A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you on the call. You keep a recording of the whole session.
-
+A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you on
+the call. You keep a recording of the whole session.
 Available with every template in the catalog, including the free one.
-
----
-
 ## If the workflow you need isn't here
-
 That's usually a custom build — scoped on a discovery call, fixed price from $1,500.
-
-[Book a discovery call →](https://calendly.com/erick-pocho/1hr-session)
+Book a discovery call
 
 ---
 
-URL: https://pocho.tech/templates/meeting-prep-agent
+## https://pocho.tech/templates/meeting-prep-agent
 
 # Meeting Prep Agent
-
-The Meeting Prep Agent is an n8n workflow with an AI that reads your email history with every meeting attendee and sends you a structured briefing one hour before the call — what you discussed, what's still pending, and how the relationship feels.
-
-It runs in your own n8n instance, on your own credentials, like the systems I build for clients. $249, one-time.
-
+Workflow built in n8n
+The Meeting Prep Agent is an n8n workflow with an AI that reads your email history with every meeting
+attendee and sends you a structured briefing one hour before the call — what you discussed, what's
+still pending, and how the relationship feels.
+It runs in your own n8n instance, on your own credentials, like the systems I build for clients. $249,
+one-time.
 ## What it does
-
 - Watches your Google Calendar and triggers one hour before each meeting
 - Pulls your Gmail history with every attendee on the invite
 - An AI reads those threads and extracts what you discussed, what's still open, and the tone of the relationship
 - Delivers a structured briefing to your inbox before you join the call
-
 ## What's included
-
 - The complete n8n workflow JSON, ready to import
 - A step-by-step PDF setup guide
 - A 90-second walkthrough video of the working system
-
 ## Integrations
-
 Google Calendar, Gmail, OpenAI.
-
 ## Price
-
-**$249** — one-time purchase.
-
-[Get the Meeting Prep Agent — $249 →](https://checkout.lemonsqueezy.com/buy/1320537)
-
-Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials connected, workflow configured, tested live, recording included.
-
+$249 — one-time purchase.
+Get the Meeting Prep Agent — $249
+Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+connected, workflow configured, tested live, recording included.
 ## Questions before you buy
-
-**Setup time**
+Setup time
 Plan for about 30 minutes: import the JSON, connect Google Calendar, Gmail, and OpenAI, then run the test steps in the PDF guide. The walkthrough video shows the finished workflow end to end.
-
-**What you need**
+What you need
 A running n8n instance — n8n Cloud or self-hosted both work — plus a Google account and an OpenAI API key.
-
-**Customization**
+Customization
 It's a standard n8n workflow, so every node is open and editable — change the briefing timing, the format, or the model. If you want it adapted beyond that, Done-For-You Setup covers configuration and a custom build covers the rest.
-
-[Back to all templates →](/templates)
+Back to all templates →
 
 ---
 
-URL: https://pocho.tech/templates/ai-relationship-nurturing-engine
+## https://pocho.tech/templates/ai-relationship-nurturing-engine
 
 # AI Relationship Nurturing Engine
-
-The AI Relationship Nurturing Engine is an n8n workflow with an AI that watches your CRM for relationships going quiet, reads your notes and past conversations, and writes personal check-in emails in your voice — sent automatically.
-
-It's built for HubSpot out of the box, and the CRM nodes swap for any CRM n8n connects to. $299, one-time, extracted from real client systems.
-
+Workflow built in n8n
+The AI Relationship Nurturing Engine is an n8n workflow with an AI that watches your CRM for
+relationships going quiet, reads your notes and past conversations, and writes personal check-in emails
+in your voice — sent automatically.
+It's built for HubSpot out of the box, and the CRM nodes swap for any CRM n8n connects to. $299,
+one-time, extracted from real client systems.
 ## What it does
-
 - Watches your CRM for contacts whose last touchpoint has gone quiet
 - Pulls your notes and conversation history for each one
 - An AI writes a personal check-in email in your voice, grounded in that history
 - Sends it automatically through Gmail
-
 ## What's included
-
 - The complete n8n workflow JSON, ready to import
 - A step-by-step PDF setup guide
 - A 90-second walkthrough video of the working system
-
 ## Integrations
-
 HubSpot (or any CRM), OpenAI, Gmail.
-
 ## Price
-
-**$299** — one-time purchase.
-
-[Get the Nurturing Engine — $299 →](https://checkout.lemonsqueezy.com/buy/1320599)
-
-Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials connected, workflow configured, tested live, recording included.
-
+$299 — one-time purchase.
+Get the Nurturing Engine — $299
+Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+connected, workflow configured, tested live, recording included.
 ## Questions before you buy
-
-**Setup time**
+Setup time
 Plan for about 30 minutes: import the JSON, connect your CRM, OpenAI, and Gmail, then run the test steps in the PDF guide. The walkthrough video shows the finished workflow end to end.
-
-**What you need**
+What you need
 A running n8n instance — n8n Cloud or self-hosted both work — plus a HubSpot account (or another CRM with an n8n integration), an OpenAI API key, and Gmail.
-
-**Customization**
+Customization
 The email-writing prompt is where the voice lives — edit it with a few of your own emails as reference and the drafts read like you wrote them. The quiet-period threshold and send behavior are ordinary node settings, open to change.
-
-[Back to all templates →](/templates)
+Back to all templates →
 
 ---
 
-URL: https://pocho.tech/templates/jarvis-ai-executive-assistant
+## https://pocho.tech/templates/jarvis-ai-executive-assistant
 
 # Jarvis — AI Executive Assistant
-
-Jarvis is an n8n workflow that puts an AI assistant inside Slack: it reads your email, manages your calendar, and tracks your tasks on plain-English instructions.
-
-It's the most involved template in the catalog — a main workflow, a sub-workflow, and a system prompt reference, running on Anthropic Claude with PostgreSQL for memory. $399, one-time.
-
+Workflow built in n8n
+Jarvis is an n8n workflow that puts an AI assistant inside Slack: it reads your email, manages your
+calendar, and tracks your tasks on plain-English instructions.
+It's the most involved template in the catalog — a main workflow, a sub-workflow, and a system prompt
+reference, running on Anthropic Claude with PostgreSQL for memory. $399, one-time.
 ## What it does
-
 - Takes plain-English instructions in Slack — your inbox, your day, your open tasks
 - Reads and searches your Gmail and reports back in the conversation
 - Creates and updates events in Google Calendar, and looks people up in Google Contacts
 - Adds, updates, and completes items in Google Tasks
 - Anthropic Claude does the reasoning; PostgreSQL stores conversation history so context carries over
-
 ## What's included
-
 - The main workflow JSON and the sub-workflow JSON, ready to import
 - The system prompt reference document
 - A step-by-step PDF setup guide
 - A 90-second walkthrough video of the working system
-
 ## Integrations
-
 Slack, Gmail, Google Calendar, Google Tasks, Google Contacts, Anthropic Claude, PostgreSQL.
-
 ## Price
-
-**$399** — one-time purchase.
-
-[Get Jarvis — $399 →](https://checkout.lemonsqueezy.com/buy/1320707)
-
-If you'd rather not wire seven integrations yourself, add Done-For-You Setup for $100 — a live 60–90 minute call where I connect, configure, and test it with you, recording included.
-
+$399 — one-time purchase.
+Get Jarvis — $399
+If you'd rather not wire seven integrations yourself, add Done-For-You Setup for $100 — a live 60–90
+minute call where I connect, configure, and test it with you, recording included.
 ## Questions before you buy
-
-**Setup time**
+Setup time
 30–45 minutes — this is the most involved setup in the catalog, with seven integrations to connect. The PDF guide goes node by node, and Done-For-You Setup exists for exactly this template.
-
-**What you need**
+What you need
 A running n8n instance — n8n Cloud or self-hosted both work — plus a Slack workspace, a Google account, an Anthropic API key, and a PostgreSQL database.
-
-**Customization**
+Customization
 The system prompt reference is the control surface: edit it to change what Jarvis handles, how it writes, and where it stops. Every tool it touches is a standard n8n node you can swap or extend.
-
-[Back to all templates →](/templates)
+Back to all templates →
 
 ---
 
-URL: https://pocho.tech/templates/business-card-scanner
+## https://pocho.tech/templates/business-card-scanner
 
 # Business Card Scanner
-
-The Business Card Scanner is an n8n workflow: drop a photo in Slack, an AI reads the card, extracts every field, and creates the CRM contact.
-
-This exact workflow runs in production at Dahlia+ Agency, an event production team of six to eight. $249, one-time.
-
+Workflow built in n8n
+The Business Card Scanner is an n8n workflow: drop a photo in Slack, an AI reads the card, extracts
+every field, and creates the CRM contact.
+This exact workflow runs in production at Dahlia+ Agency, an event production team of six to eight.
+$249, one-time.
 ## What it does
-
 - Watches a Slack channel for photos of business cards
 - OpenAI GPT-4o Vision reads each image and extracts every field — name, title, company, email, phone
 - Creates the contact in HubSpot with those fields filled in
-
 ## What's included
-
 - The complete n8n workflow JSON, ready to import
 - A step-by-step PDF setup guide
 - A 90-second walkthrough video of the working system
-
 ## Integrations
-
 Slack, OpenAI GPT-4o Vision, HubSpot.
-
 ## Price
-
-**$249** — one-time purchase.
-
-[Get the Business Card Scanner — $249 →](https://checkout.lemonsqueezy.com/buy/1320724)
-
-Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials connected, workflow configured, tested live, recording included.
-
+$249 — one-time purchase.
+Get the Business Card Scanner — $249
+Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+connected, workflow configured, tested live, recording included.
 ## Questions before you buy
-
-**Setup time**
+Setup time
 Plan for about 30 minutes: import the JSON, connect Slack, OpenAI, and HubSpot, then test with a card photo of your own. The walkthrough video shows the finished workflow end to end.
-
-**What you need**
+What you need
 A running n8n instance — n8n Cloud or self-hosted both work — plus a Slack workspace, an OpenAI API key with GPT-4o access, and a HubSpot account.
-
-**Customization**
+Customization
 Every node is open and editable: change which channel it watches, add fields to the extraction, or swap the HubSpot node for another CRM n8n connects to. If you want it adapted beyond that, Done-For-You Setup covers configuration and a custom build covers the rest.
-
-[Back to all templates →](/templates)
+Back to all templates →
 
 ---
 
-URL: https://pocho.tech/templates/sales-contact-scraper
+## https://pocho.tech/templates/sales-contact-scraper
 
 # Sales Contact Scraper
-
-The Sales Contact Scraper is an n8n automation that scans your Gmail history, extracts every person you've emailed, enriches them with company information from their websites, and delivers an organized contact list.
-
-Years of correspondence become a working list in a Google Sheet. $299, one-time, extracted from real client systems.
-
+Workflow built in n8n
+The Sales Contact Scraper is an n8n automation that scans your Gmail history, extracts every person
+you've emailed, enriches them with company information from their websites, and delivers an organized
+contact list.
+Years of correspondence become a working list in a Google Sheet. $299, one-time, extracted from real
+client systems.
 ## What it does
-
 - Scans your Gmail history and extracts every person you've corresponded with
 - Filters and organizes them into a single structured list
 - Apify visits each contact's company website and pulls company information
 - Delivers the enriched list to a Google Sheet
-
 ## What's included
-
 - The complete n8n workflow JSON, ready to import
 - A step-by-step PDF setup guide
 - A 90-second walkthrough video of the working system
-
 ## Integrations
-
 Gmail, Apify, Google Sheets.
-
 ## Price
-
-**$299** — one-time purchase.
-
-[Get the Sales Contact Scraper — $299 →](https://checkout.lemonsqueezy.com/buy/1320732)
-
-Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials connected, workflow configured, tested live, recording included.
-
+$299 — one-time purchase.
+Get the Sales Contact Scraper — $299
+Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+connected, workflow configured, tested live, recording included.
 ## Questions before you buy
-
-**Setup time**
+Setup time
 Plan for about 30 minutes: import the JSON, connect Gmail, Apify, and Google Sheets, then run the test steps in the PDF guide. The first full scan runs on its own once it's live.
-
-**What you need**
+What you need
 A running n8n instance — n8n Cloud or self-hosted both work — plus Gmail, an Apify account, and Google Sheets.
-
-**Customization**
+Customization
 Every node is open and editable: narrow the mailbox scope, add enrichment fields, or point the output at a different destination. If you want it adapted beyond that, Done-For-You Setup covers configuration and a custom build covers the rest.
-
-[Back to all templates →](/templates)
+Back to all templates →
 
 ---
 
-URL: https://pocho.tech/templates/ai-newsletter-curator
+## https://pocho.tech/templates/ai-newsletter-curator
 
 # AI Newsletter Curator
-
-The AI Newsletter Curator is an n8n workflow with an AI that scrapes your chosen industry sources overnight, picks the most newsworthy stories, writes summaries, and delivers a finished newsletter every morning.
-
-The production version runs at Matador Network, where it processes 400+ articles a day from eleven-plus publications with zero human input. $249, one-time.
-
+Workflow built in n8n
+The AI Newsletter Curator is an n8n workflow with an AI that scrapes your chosen industry sources
+overnight, picks the most newsworthy stories, writes summaries, and delivers a finished newsletter
+every morning.
+The production version runs at Matador Network, where it processes 400+ articles a day from eleven-plus
+publications with zero human input. $249, one-time.
 ## What it does
-
 - You list your sources in a Google Sheet — publications, blogs, anything Apify can scrape
 - Apify collects every new article overnight
 - An AI reads the full set, picks the most newsworthy stories, and writes a summary of each
 - A finished newsletter arrives in your inbox every morning, ready to send or publish
-
 ## What's included
-
 - The complete n8n workflow JSON, ready to import
 - A step-by-step PDF setup guide
 - A 90-second walkthrough video of the working system
-
 ## Integrations
-
 Google Sheets, Apify, OpenAI, Gmail.
-
 ## Price
-
-**$249** — one-time purchase.
-
-[Get the AI Newsletter Curator — $249 →](https://checkout.lemonsqueezy.com/buy/1320787)
-
-Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials connected, workflow configured, tested live, recording included.
-
+$249 — one-time purchase.
+Get the AI Newsletter Curator — $249
+Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+connected, workflow configured, tested live, recording included.
 ## Questions before you buy
-
-**Setup time**
+Setup time
 Plan for about 30 minutes: import the JSON, connect Google Sheets, Apify, OpenAI, and Gmail, then add your first sources to the Sheet. The first newsletter arrives the next morning.
-
-**What you need**
+What you need
 A running n8n instance — n8n Cloud or self-hosted both work — plus a Google account, an Apify account, and an OpenAI API key.
-
-**Customization**
+Customization
 Your sources live in the Google Sheet, so changing coverage is editing a row. The selection criteria, story count, and tone are all in the prompt, open to edit.
-
-[Back to all templates →](/templates)
+Back to all templates →
 
 ---
 
-URL: https://pocho.tech/templates/sheets-hubspot-task-manager
+## https://pocho.tech/templates/sheets-hubspot-task-manager
 
 # Sheets ↔ HubSpot Task Manager
-
-The Sheets ↔ HubSpot Task Manager is a free n8n workflow: a live two-way sync between a Google Sheet and HubSpot tasks — create, update, and complete in either, and both stay current.
-
-It's the no-cost way to see how I build before spending anything. Checkout asks for your email, and the files arrive there.
-
+Workflow built in n8n
+The Sheets ↔ HubSpot Task Manager is a free n8n workflow: a live two-way sync between a Google Sheet
+and HubSpot tasks — create, update, and complete in either, and both stay current.
+It's the no-cost way to see how I build before spending anything. Checkout asks for your email, and the
+files arrive there.
 ## What it does
-
 - Add a task row in the Google Sheet and the task appears in HubSpot
 - Create or change a task in HubSpot and the Sheet updates to match
 - Complete a task on either side and both reflect it
 - The sync runs continuously in your own n8n instance
-
 ## What's included
-
 - The complete n8n workflow JSON, ready to import
 - A step-by-step PDF setup guide
 - A 90-second walkthrough video of the working system
-
 ## Integrations
-
 Google Sheets, HubSpot.
-
 ## Price
-
-**Free.**
-
-[Get it free →](https://checkout.lemonsqueezy.com/buy/1320841)
-
-Done-For-You Setup is available here too: $100 for a live 60–90 minute call where I connect, configure, and test it with you, recording included.
-
+Free.
+Get it free
+Done-For-You Setup is available here too: $100 for a live 60–90 minute call where I connect, configure,
+and test it with you, recording included.
 ## Questions before you buy
-
-**Setup time**
+Setup time
 This is the shortest setup in the catalog — two credentials and one sheet. Plan for 15 minutes with the PDF guide open.
-
-**What you need**
+What you need
 A running n8n instance — n8n Cloud or self-hosted both work — plus a Google account and a HubSpot account.
-
-**Customization**
+Customization
 Every node is open and editable: map extra columns, rename fields, or change the sync interval. If this sync is useful, the paid templates and custom builds are the same kind of work at larger scale.
-
-[Back to all templates →](/templates)
+Back to all templates →
 
 ---
 
-URL: https://pocho.tech/case-studies
+## https://pocho.tech/case-studies
 
 # Three teams. Twelve automations. Real numbers.
-
 Every engagement on this page started as a single build and continues today on an embedded retainer. I built each system myself, and I still operate most of them.
-
----
-
 ## The numbers across all three
-
-- **3** named clients
-- **12+** automations in production
-- **20+** tools integrated
-- **400+** articles processed every day
-- **6–8 hrs/day** of manual operations eliminated for one 6-person team
-
----
-
+3 named clients
+12+ automations in production
+20+ tools integrated
+400+ articles processed every day
+6–8 hrs/day of manual operations eliminated for one 6-person team
 ## The case studies
-
 ### 2–4 proposals a day, 15 minutes each.
-
-**Dahlia+ Agency** — event production and consulting, team of six to eight.
-
+Dahlia+ Agency — event production and consulting, team of six to eight.
 An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50 — untouched. Four automations run their back office; this pipeline alone removes 6–8 hours of manual operations from every working day.
-
 No testimonial on file. Dahlia+ refers new business instead.
-
-[Read the Dahlia+ case study →](/case-studies/dahlia-plus-agency)
-
----
-
+Read the Dahlia+ case study →
 ### From zero operational visibility to automated daily reporting.
-
-**TPS Workforce Hub** — clean-tech workforce training, Boston. 30–40 applicants per cohort, 12–16 accepted.
-
+TPS Workforce Hub — clean-tech workforce training, Boston. 30–40 applicants per cohort, 12–16 accepted.
 Six connected systems run admissions and operations: AI-scored interviews from Read.ai transcripts, automated scheduling, stipend-eligibility alerts, real-time dashboards, and the 5pm report the whole team reads.
-
-> "You have done such a great job that I can't remember how we were working before you."
-> — CEO, TPS Energy
-
-[Read the TPS case study →](/case-studies/tps-workforce-hub)
-
----
-
+"You have done such a great job that I can't remember how we were working before you."
+— CEO, TPS Energy
+Read the TPS case study →
 ### 400+ articles a day. Ten make the newsletter.
-
-**Matador Network** — travel media, editorial team of twelve.
-
+Matador Network — travel media, editorial team of twelve.
 Overnight, an AI reads eleven-plus publications, picks the ten stories that matter, and delivers a finished newsletter every morning. The creator tracker went from 5 hours a week to 1.5 — covering 70 creators instead of 30.
-
-> "Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."
-> — Tim Wenger, Editorial Team, Matador Network
-
-[Read the Matador case study →](/case-studies/matador-network)
-
----
-
+"Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."
+— Tim Wenger, Editorial Team, Matador Network
+Read the Matador case study →
 ## Tell me where the hours go.
-
 Sixty minutes: you walk me through how your team works, and I tell you what I'd automate first and what it would cost.
-
-**[Book a discovery call →](https://calendly.com/erick-pocho/1hr-session)**
-
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+Book a discovery call erick.bonilla63@gmail.com
+pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client’s tools and team.
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/case-studies/dahlia-plus-agency
+## https://pocho.tech/case-studies/dahlia-plus-agency
 
 # Dahlia+ Agency
-
-**Event production and consulting — [dahliaplus.com](https://dahliaplus.com).** Team of six to eight, led by Dahlia El Gazzar. Four automations in production, on an embedded retainer.
-
----
-
+Event production and consulting — dahliaplus.com . Team of six to eight, led by Dahlia El Gazzar. Four automations in production, on an embedded retainer.
 ## The before
-
 An accepted proposal set off the same manual relay every time: update the deal in HubSpot, build the project board in Monday.com, create the customer in QuickBooks, draft two invoices, split 50/50. Done by hand, it took an hour and a half to two hours.
-
 At two to four proposals a day, that relay was most of someone's day. Six to eight hours of manual operations, every working day, inside a team of six to eight people.
-
 Leads had the same shape at smaller scale. Web form submissions, referrals arriving by email, business cards collected at events — each one re-typed into HubSpot, or lost on the way there.
-
----
-
 ## What I built
-
 Four automations run the Dahlia+ back office.
-
-1. **Proposal-to-invoice pipeline** — An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50.
-2. **Web form lead routing** — Every form submission creates the HubSpot contact, adds the subscriber in Beehiiv, and posts to Slack so the team sees the lead the moment it arrives.
-3. **AI referral capture** — An AI parses referral emails as they land and creates the contact in HubSpot, so an introduction doesn't depend on someone remembering to copy it over.
-4. **Business card scanner** — Drop a photo in Slack; GPT-4o Vision reads the card, extracts every field, and creates the HubSpot contact.
-
----
-
+- Proposal-to-invoice pipeline — An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50.
+- Web form lead routing — Every form submission creates the HubSpot contact, adds the subscriber in Beehiiv, and posts to Slack so the team sees the lead the moment it arrives.
+- AI referral capture — An AI parses referral emails as they land and creates the contact in HubSpot, so an introduction doesn't depend on someone remembering to copy it over.
+- Business card scanner — Drop a photo in Slack; GPT-4o Vision reads the card, extracts every field, and creates the HubSpot contact.
 ## The numbers
-
-**1.5–2 hours → 15 minutes**
-Processing one proposal, accepted to invoiced.
-
-**2–4 a day**
-Proposals through the pipeline.
-
-**6–8 hours**
-Manual operations eliminated from every working day.
-
----
-
+1.5–2 hours → 15 minutes Processing one proposal, accepted to invoiced.
+2–4 a day Proposals through the pipeline.
+6–8 hours Manual operations eliminated from every working day.
 ## The stack
-
-HubSpot, Monday.com, QuickBooks, Slack, Gmail, Beehiiv, Fresh Proposals, OpenAI GPT-4o Vision.
-
----
-
+- HubSpot
+- Monday.com
+- QuickBooks
+- Slack
+- Gmail
+- Beehiiv
+- Fresh Proposals
+- OpenAI GPT-4o Vision
 ## On testimonials
-
 No testimonial exists for this engagement, so none appears here. What does exist: Dahlia+ now refers new business.
-
----
-
 ## How it started
-
 One automation, scoped on a discovery call. Working embedded, one became four — and the retainer is still running.
-
----
-
 ## Also available as a template
-
 The business card scanner on this page is packaged as a template — the same workflow, with a step-by-step PDF setup guide and a walkthrough video.
-
-**[Get the scanner — $249 →](https://checkout.lemonsqueezy.com/buy/1320724)**
-
----
-
+Get the scanner — $249 →
 ## If your back office looks like this
-
 Sixty minutes: you walk me through how proposals, leads, and invoices move through your team, and I tell you what I'd automate first and what it would cost.
-
-**[Book a discovery call →](https://calendly.com/erick-pocho/1hr-session)**
-
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+Book a discovery call erick.bonilla63@gmail.com
+pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client’s tools and team.
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/case-studies/tps-workforce-hub
+## https://pocho.tech/case-studies/tps-workforce-hub
 
 # TPS Workforce Hub
-
-**Clean-tech workforce training — Boston.** The EdTech division of TPS Energy runs an 8-week, stipend-based training program for immigrants and minorities. 30–40 applicants per cohort; 12–16 accepted. Six systems in production, built as an embedded team member.
-
----
-
+Clean-tech workforce training — Boston. The EdTech division of TPS Energy runs an 8-week, stipend-based training program for immigrants and minorities. 30–40 applicants per cohort; 12–16 accepted. Six systems in production, built as an embedded team member.
 ## The before
-
 Every cohort starts with 30 to 40 applications and ends with 12 to 16 seats. Between those two numbers: intake forms, interviews, scoring, scheduling emails, stipend rules, and a team holding it together by hand.
-
 There was no operational visibility. Nobody could see, in one place, where a candidate stood, which interviews had been evaluated, or who was at risk of losing stipend eligibility.
-
 The stipend part carried the most weight. Eligibility data sat in SharePoint, invisible to the participant and coach who needed the warning.
-
----
-
 ## What I built
-
 Six connected systems, running as one operation.
-
-1. **Airtable ATS** — Intake forms feed one applicant pipeline, so every candidate has a single record and a visible stage from application to acceptance.
-2. **AI interview evaluation** — A Read.ai transcript webhook matches the candidate, applies objective scoring, runs an AI qualitative evaluation with direct quotes from the interview, and delivers a structured brief to the human reviewers.
-3. **Interview scheduling** — Scheduling emails go out automatically as candidates advance through the pipeline.
-4. **Daily and executive reporting** — A 5pm report to the team every day, and a Monday executive summary for the CEO: week-over-week movement, demographics, bottleneck alerts.
-5. **Stipend eligibility notifications** — SharePoint data flows through Power Automate into Supabase; every Sunday, at-risk participants and their coach get an alert.
-6. **Real-time dashboards** — Live views of the pipeline and program operations.
-
+- Airtable ATS — Intake forms feed one applicant pipeline, so every candidate has a single record and a visible stage from application to acceptance.
+- AI interview evaluation — A Read.ai transcript webhook matches the candidate, applies objective scoring, runs an AI qualitative evaluation with direct quotes from the interview, and delivers a structured brief to the human reviewers.
+- Interview scheduling — Scheduling emails go out automatically as candidates advance through the pipeline.
+- Daily and executive reporting — A 5pm report to the team every day, and a Monday executive summary for the CEO: week-over-week movement, demographics, bottleneck alerts.
+- Stipend eligibility notifications — SharePoint data flows through Power Automate into Supabase; every Sunday, at-risk participants and their coach get an alert.
+- Real-time dashboards — Live views of the pipeline and program operations.
 The AI doesn't decide who gets in. It reads, scores, and prepares the brief — the human reviewers make the call.
-
----
-
 ## The numbers
-
-**Zero → daily**
-From zero operational visibility to fully automated daily reporting.
-
-**30–40 → 12–16**
-Applicants to accepted, every stage tracked.
-
-**Sunday, every week**
-At-risk stipend alerts to participant and coach, before the problem lands.
-
----
-
+Zero → daily From zero operational visibility to fully automated daily reporting.
+30–40 → 12–16 Applicants to accepted, every stage tracked.
+Sunday, every week At-risk stipend alerts to participant and coach, before the problem lands.
 ## What the CEO says
-
-> "You have done such a great job that I can't remember how we were working before you."
-> — CEO, TPS Energy
-
----
-
+"You have done such a great job that I can't remember how we were working before you."
+— CEO, TPS Energy
 ## The stack
-
-Airtable, OpenAI, Read.ai, Supabase, SendGrid, Microsoft Power Automate, SharePoint, Gmail.
-
----
-
+- Airtable
+- OpenAI
+- Read.ai
+- Supabase
+- SendGrid
+- Microsoft Power Automate
+- SharePoint
+- Gmail
 ## How it started
-
 A single build, then embedded work inside the team — one system became six as each bottleneck surfaced.
-
----
-
 ## If your program runs on forms, interviews, and deadlines
-
 Sixty minutes: you walk me through how applicants or clients move through your operation, and I tell you what I'd automate first and what it would cost.
-
-**[Book a discovery call →](https://calendly.com/erick-pocho/1hr-session)**
-
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+Book a discovery call erick.bonilla63@gmail.com
+pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client’s tools and team.
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
-
----
-
-URL: https://pocho.tech/case-studies/matador-network
+## https://pocho.tech/case-studies/matador-network
 
 # Matador Network
-
-**Travel media — [matadornetwork.com](https://matadornetwork.com).** Around 50 people, with an editorial team of twelve. Matador also operates GuideGeek, an AI travel product for destination marketing organizations. Four automations in production.
-
----
-
+Travel media — matadornetwork.com . Around 50 people, with an editorial team of twelve. Matador also operates GuideGeek, an AI travel product for destination marketing organizations. Four automations in production.
 ## The before
-
 Creator tracking meant opening TikTok and Instagram, finding every post, and copying URLs, views, and likes into a sheet by hand. Five hours a week covered 30 creators, and the program needed to be larger.
-
 The morning news sweep had the same shape. Eleven-plus industry publications produce roughly 400 articles a day; an editorial team of twelve needed the ten worth reading.
-
 Affiliate reporting and event research rounded it out — more data someone had to go collect before the editorial work could start.
-
----
-
 ## What I built
-
 Four automations run the editorial back office.
-
-1. **Creator tracker** — Scrapes TikTok and Instagram for every tracked creator and delivers a Monday digest of post URLs, views, and likes.
-2. **AI newsletter curator** — Apify collects roughly 400 articles a day from eleven-plus publications overnight; GPT-4o picks the top ten, writes the summaries, and a polished HTML newsletter arrives every morning.
-3. **Affiliate link performance report** — Every Monday, GA4 data becomes a report ranking the top 20 affiliate links, with AI insights.
-4. **Event search** — A monthly sweep of Eventbrite, Meetup, and Luma across 15 US cities.
-
----
-
+- Creator tracker — Scrapes TikTok and Instagram for every tracked creator and delivers a Monday digest of post URLs, views, and likes.
+- AI newsletter curator — Apify collects roughly 400 articles a day from eleven-plus publications overnight; GPT-4o picks the top ten, writes the summaries, and a polished HTML newsletter arrives every morning.
+- Affiliate link performance report — Every Monday, GA4 data becomes a report ranking the top 20 affiliate links, with AI insights.
+- Event search — A monthly sweep of Eventbrite, Meetup, and Luma across 15 US cities.
 ## The numbers
-
-**5 hrs/week → 1.5 hrs**
-Creator tracking, by hand versus automated.
-
-**30 → 70**
-Creators tracked, same workflow.
-
-**400+ a day**
-Articles processed into one newsletter, zero human input.
-
+5 hrs/week → 1.5 hrs Creator tracking, by hand versus automated.
+30 → 70 Creators tracked, same workflow.
+400+ a day Articles processed into one newsletter, zero human input.
 One more metric that doesn't fit in a stat block: when the tracker goes down, the team emails within hours asking for it back.
-
----
-
 ## What the team says
-
-> "Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."
-> — Tim Wenger, Editorial Team, Matador Network
-
-> "Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."
-> — Kyrene Kagahastian, Social Media Team, Matador Network
-
----
-
+"Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."
+— Tim Wenger, Editorial Team, Matador Network
+"Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."
+— Kyrene Kagahastian, Social Media Team, Matador Network
 ## The stack
-
-Apify, OpenAI, Google Analytics 4, Google Sheets, Gmail.
-
----
-
+- Apify
+- OpenAI
+- Google Analytics 4
+- Google Sheets
+- Gmail
 ## How it started
-
 I taught n8n to Matador's AI Advocacy Director; then they hired me to build.
-
----
-
 ## Also available as a template
-
 The newsletter curator on this page is packaged as a template — workflow JSON, step-by-step PDF setup guide, walkthrough video. The production version at Matador processes 400+ articles a day.
-
-**[Get the curator — $249 →](https://checkout.lemonsqueezy.com/buy/1320787)**
-
----
-
+Get the curator — $249 →
 ## If your team spends mornings collecting data
-
 Sixty minutes: you walk me through where the manual collection happens, and I tell you what I'd automate first and what it would cost.
-
-**[Book a discovery call →](https://calendly.com/erick-pocho/1hr-session)**
-
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
+Book a discovery call erick.bonilla63@gmail.com
+pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client’s tools and team.
 
 ---
 
-*pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.*
+## https://pocho.tech/industries
 
----
-
-URL: https://pocho.tech/industries
-
-# Industries — pocho.tech
-
----
-
-
-I go deep in a few industries instead of listing forty.
-
-Two of them come with full case studies and real numbers — media and agencies. The other two — destination marketing and accounting — are pages about capability, and they say so plainly.
-
----
-
-
+# I go deep in a few industries instead of listing forty.
+Two of them come with full case studies and real numbers — media and agencies. The other two —
+destination marketing and accounting — are pages about capability, and they say so plainly.
+## The four
 ### Media & publishing
-
-Four automations run Matador Network's editorial back office — newsletter curation from 400+ daily articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities. Full case study, two testimonials, real numbers.
-
-Media & publishing → /industries/media-publishing
-
+Four automations run Matador Network's editorial back office — newsletter curation from 400+ daily
+articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities. Full case
+study, two testimonials, real numbers.
+Media & publishing →
 ### Marketing & event agencies
-
-Dahlia+ Agency runs four: web lead routing, AI referral capture, a proposal-to-invoice pipeline that cut processing from 1.5–2 hours to 15 minutes, and a business card scanner that lives in Slack. Full case study.
-
-Marketing & event agencies → /industries/marketing-agencies
-
+Dahlia+ Agency runs four: web lead routing, AI referral capture, a proposal-to-invoice pipeline that
+cut processing from 1.5–2 hours to 15 minutes, and a business card scanner that lives in Slack. Full
+case study.
+Marketing & event agencies →
 ### Destination marketing organizations
-
-For tourism boards and convention bureaus: partner tracking, AI email agents, content pipelines, and lead qualification. I come from the travel-media side of this industry and speak at its conferences — no DMO client is named on that page, and it says so.
-
-Destination marketing → /industries/destination-marketing
-
+For tourism boards and convention bureaus: partner tracking, AI email agents, content pipelines, and
+lead qualification. I come from the travel-media side of this industry and speak at its conferences —
+no DMO client is named on that page, and it says so.
+Destination marketing →
 ### Accounting & CPA firms
-
-Bookkeeping and tax workflow automation: QuickBooks Online, TaxDome, quarterly tax letters, and the client communications around every deadline. A capability page — what I build for firms, with the proof drawn from systems already in production elsewhere.
-
-Accounting & CPA firms → /industries/accounting-firms
-
----
-
-
-The deepest engagement on this site fits none of these categories — TPS Workforce Hub, a clean-tech workforce training program in Boston, runs six of my systems. If your industry isn't listed here, the discovery call works the same way.
-
-> "You have done such a great job that I can't remember how we were working before you."
-> — CEO, TPS Energy
-
----
-
-
-Tell me where the hours go.
-
+Bookkeeping and tax workflow automation: QuickBooks Online, TaxDome, quarterly tax letters, and the
+client communications around every deadline. A capability page — what I build for firms, with the
+proof drawn from systems already in production elsewhere.
+Accounting & CPA firms →
+## Outside the four
+The deepest engagement on this site fits none of these categories — TPS Workforce Hub, a clean-tech
+workforce training program in Boston, runs six of my systems. If your industry isn't listed here, the
+discovery call works the same way.
+"You have done such a great job that I can't remember how we were working before you."
+— CEO, TPS Energy
+## Tell me where the hours go.
 Sixty minutes: you walk me through how your team works, and I tell you what I'd automate first and what it would cost. If it's not a fit, you'll hear that on the call.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Or write to me directly: erick.bonilla63@gmail.com
+Book a discovery call Or write to me directly: erick.bonilla63@gmail.com
 
 ---
 
-URL: https://pocho.tech/industries/media-publishing
+## https://pocho.tech/industries/media-publishing
 
-# AI Automation for Media & Publishing — pocho.tech
-
----
-
-
-400+ articles a day go in. A finished newsletter comes out every morning.
-
-I build AI automations for editorial back offices — newsletter curation, creator tracking, affiliate reporting, and event research. Four of them run in production at Matador Network, a travel media network of about fifty people with an editorial team of twelve.
-
+# 400+ articles a day go in. A finished newsletter comes out every morning.
+I build AI automations for editorial back offices — newsletter curation, creator tracking, affiliate
+reporting, and event research. Four of them run in production at Matador Network, a travel media network
+of about fifty people with an editorial team of twelve.
 Every number on this page is theirs.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Get the AI Newsletter Curator — $249 → https://checkout.lemonsqueezy.com/buy/1320787
-
----
-
-
-An editorial team's week disappears into work that produces no content. Someone reads eleven publications' worth of daily output to find the ten stories worth covering.
-
-Someone scrolls TikTok and Instagram logging creator posts into a spreadsheet — URL, views, likes, one row at a time. At Matador Network that took five hours a week and covered only thirty creators.
-
-Someone pulls affiliate numbers out of GA4 and reformats them for the Monday meeting. Someone searches Eventbrite, Meetup, and Luma city by city for events worth attending.
-
----
-
-
+Book a discovery call Get the AI Newsletter Curator — $249
+## Where the hours go
+An editorial team's week disappears into work that produces no content. Someone reads eleven
+publications' worth of daily output to find the ten stories worth covering.
+Someone scrolls TikTok and Instagram logging creator posts into a spreadsheet — URL, views, likes, one
+row at a time. At Matador Network that took five hours a week and covered only thirty creators.
+Someone pulls affiliate numbers out of GA4 and reformats them for the Monday meeting. Someone searches
+Eventbrite, Meetup, and Luma city by city for events worth attending.
+## What I build — the four systems at Matador Network
 ### AI newsletter curator
-
-Overnight, the system pulls roughly 400 articles a day from eleven-plus publications through Apify, and GPT-4o scores them and picks the top ten. A polished HTML newsletter is in the team's inbox every morning — zero human input along the way.
-
-**Tools:** Apify, OpenAI, Gmail
-
-A generalized version is in the template catalog: AI Newsletter Curator, $249 → https://checkout.lemonsqueezy.com/buy/1320787
-
+Overnight, the system pulls roughly 400 articles a day from eleven-plus publications through Apify,
+and GPT-4o scores them and picks the top ten. A polished HTML newsletter is in the team's inbox every
+morning — zero human input along the way.
+- Apify
+- OpenAI
+- Gmail
+A generalized version is in the template catalog:
+AI Newsletter Curator, $249
 ### Social media creator tracker
-
-The tracker scrapes TikTok and Instagram for each creator's posts and delivers a Monday digest — every URL with views and likes attached. Tracking went from 5 hours a week to 1.5, while coverage grew from 30 creators to 70.
-
-**Tools:** Apify, Google Sheets, Gmail
-
+The tracker scrapes TikTok and Instagram for each creator's posts and delivers a Monday digest —
+every URL with views and likes attached. Tracking went from 5 hours a week to 1.5, while coverage
+grew from 30 creators to 70.
+- Apify
+- Google Sheets
+- Gmail
 ### Affiliate link performance report
-
-Every Monday, the report ranks the top twenty affiliate links from GA4 and adds AI commentary on what moved. The numbers arrive formatted for the meeting instead of waiting to be pulled.
-
-**Tools:** Google Analytics 4, Google Sheets, OpenAI
-
+Every Monday, the report ranks the top twenty affiliate links from GA4 and adds AI commentary on what
+moved. The numbers arrive formatted for the meeting instead of waiting to be pulled.
+- Google Analytics 4
+- Google Sheets
+- OpenAI
 ### Event search automation
-
-Once a month, the system searches Eventbrite, Meetup, and Luma across fifteen US cities and delivers the results to the team. Nobody opens fifteen browser tabs.
-
-**Tools:** Apify, Google Sheets, Gmail
-
----
-
-
-**400+ articles/day**
+Once a month, the system searches Eventbrite, Meetup, and Luma across fifteen US cities and delivers
+the results to the team. Nobody opens fifteen browser tabs.
+- Apify
+- Google Sheets
+- Gmail
+## The numbers
+400+ articles/day
 Curated into one newsletter, zero human input
-
-**5 hrs/week → 1.5 hrs**
+5 hrs/week → 1.5 hrs
 Creator tracking
-
-**30 → 70**
+30 → 70
 Creators tracked, same workflow
-
-> "Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."
-> — Tim Wenger, Editorial Team, Matador Network
-
-> "Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."
-> — Kyrene Kagahastian, Social Media Team, Matador Network
-
+"Erick has helped us build and implement multiple automations for our editorial department, and these
+save us time each week that can be spent producing content rather than sifting through emails and
+data."
+— Tim Wenger, Editorial Team, Matador Network
+"Erick was incredibly helpful in setting up the system to automatically track creator content. This
+automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a
+lot of manual effort."
+— Kyrene Kagahastian, Social Media Team, Matador Network
 When the tracker goes down, the team emails within hours asking for it back.
-
----
-
-
-**Whether this works outside travel media**
+## Questions media teams ask
+Whether this works outside travel media
 The mechanisms are source-agnostic — the curator reads whatever publications you give it, and the tracker follows whatever accounts you list. The travel is in the inputs; the system doesn't care what industry the sources cover.
-
-**How the AI decides what's newsworthy**
+How the AI decides what's newsworthy
 GPT-4o scores each article against selection criteria set with your editors, and the prompt is yours to read and adjust. The newsletter is finished when it arrives, and your team can still pull a story before send if they want a check in the loop.
-
-**What a build like this costs**
+What a build like this costs
 Custom builds start at $1,500, fixed in writing after a discovery call. If the newsletter curator as described matches your need, the template is $249, with Done-For-You Setup for $100 more.
-
-**Who maintains it after handoff**
+Who maintains it after handoff
 You own everything — the workflows run in your accounts under your credentials. Matador's four automations are a continuing embedded engagement, which is how most clients run it.
-
----
-
-
-Tell me where your editorial hours go.
-
+## Tell me where your editorial hours go.
 Sixty minutes: you walk me through the team's week, and I tell you what I'd automate first and what it would cost. If a $249 template covers it, I'll say so on the call.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Get the AI Newsletter Curator — $249 → https://checkout.lemonsqueezy.com/buy/1320787
+Book a discovery call Get the AI Newsletter Curator — $249
 
 ---
 
-URL: https://pocho.tech/industries/marketing-agencies
+## https://pocho.tech/industries/marketing-agencies
 
-# AI Automation for Marketing & Event Agencies — pocho.tech
-
----
-
-
-Dahlia+ Agency gets back six to eight hours of operations a day. Four automations do it.
-
-I build automations for agency operations — lead routing, referral capture, proposal-to-invoice pipelines, and reporting. Four of them run in production at Dahlia+ Agency, an event production and consulting firm of six to eight people.
-
+# Dahlia+ Agency gets back six to eight hours of operations a day. Four automations do it.
+I build automations for agency operations — lead routing, referral capture, proposal-to-invoice
+pipelines, and reporting. Four of them run in production at Dahlia+ Agency, an event production and
+consulting firm of six to eight people.
 Their proposal processing went from 1.5–2 hours to fifteen minutes.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Get the Business Card Scanner — $249 → https://checkout.lemonsqueezy.com/buy/1320724
-
----
-
-
-At a small agency, new business arrives from everywhere — web forms, referral emails, business cards collected at events — and someone retypes each one into the CRM. The ones that don't get retyped don't get followed up.
-
-An accepted proposal kicks off an hour and a half of administration: update the deal stage, build the project board, create the customer in QuickBooks, draft the invoices. At Dahlia+ Agency's pace of two to four proposals a day, that was six to eight hours of manual operations every working day.
-
----
-
-
+Book a discovery call Get the Business Card Scanner — $249
+## Where the hours go
+At a small agency, new business arrives from everywhere — web forms, referral emails, business cards
+collected at events — and someone retypes each one into the CRM. The ones that don't get retyped don't
+get followed up.
+An accepted proposal kicks off an hour and a half of administration: update the deal stage, build the
+project board, create the customer in QuickBooks, draft the invoices. At Dahlia+ Agency's pace of two to
+four proposals a day, that was six to eight hours of manual operations every working day.
+## What I build — the four automations at Dahlia+ Agency
 ### Proposal-to-invoice pipeline
-
-When a proposal is accepted in Fresh Proposals, the automation updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices on a 50/50 split — untouched. Processing went from 1.5–2 hours per proposal to fifteen minutes.
-
-**Tools:** Fresh Proposals, HubSpot, Monday.com, QuickBooks
-
+When a proposal is accepted in Fresh Proposals, the automation updates the HubSpot deal stage, builds
+the Monday.com board, and creates the QuickBooks customer with two invoices on a 50/50 split —
+untouched. Processing went from 1.5–2 hours per proposal to fifteen minutes.
+- Fresh Proposals
+- HubSpot
+- Monday.com
+- QuickBooks
 ### Web form lead routing
-
-A form submission becomes a HubSpot contact, joins the Beehiiv list, and posts an alert in Slack. Every lead lands in the same place, logged the moment it arrives.
-
-**Tools:** HubSpot, Beehiiv, Slack
-
+A form submission becomes a HubSpot contact, joins the Beehiiv list, and posts an alert in Slack.
+Every lead lands in the same place, logged the moment it arrives.
+- HubSpot
+- Beehiiv
+- Slack
 ### AI referral capture
-
-An AI parses referral emails as they arrive and creates the HubSpot record — introductions get logged the day they happen. The follow-up starts from the CRM instead of from memory.
-
-**Tools:** Gmail, OpenAI, HubSpot
-
+An AI parses referral emails as they arrive and creates the HubSpot record — introductions get logged
+the day they happen. The follow-up starts from the CRM instead of from memory.
+- Gmail
+- OpenAI
+- HubSpot
 ### Business card scanner
-
-Drop a photo in Slack; an AI reads the card, extracts every field, and creates the HubSpot contact. The same workflow running at Dahlia+ is in the template catalog for $249.
-
-**Tools:** Slack, OpenAI GPT-4o Vision, HubSpot
-
-### Reporting (capability line, below the four)
-
-Client and performance reporting is the same kind of build. At Matador Network, a Monday report ranks the top twenty affiliate links from GA4 with AI commentary — the agency version reports on your clients' numbers instead of your own.
-
----
-
-
-**1.5–2 hrs → 15 min**
+Drop a photo in Slack; an AI reads the card, extracts every field, and creates the HubSpot contact.
+The same workflow running at Dahlia+ is in the template catalog for $249.
+- Slack
+- OpenAI GPT-4o Vision
+- HubSpot
+### Reporting
+Client and performance reporting is the same kind of build. At Matador Network, a Monday report ranks
+the top twenty affiliate links from GA4 with AI commentary — the agency version reports on your
+clients' numbers instead of your own.
+## The numbers
+1.5–2 hrs → 15 min
 Proposal processing
-
-**2–4 per day**
+2–4 per day
 Proposals at that pace
-
-**6–8 hrs/day**
+6–8 hrs/day
 Manual operations gone from every working day
-
-There is no written testimonial from Dahlia+ on this page, because they haven't given one. What they do instead is refer new business.
-
----
-
-
-**Whether this fits marketing and PR agencies or only event production**
+There is no written testimonial from Dahlia+ on this page, because they haven't given one. What they do
+instead is refer new business.
+## Questions agencies ask
+Whether this fits marketing and PR agencies or only event production
 The mechanics are the same: leads arrive, proposals get accepted, invoices get created. Dahlia+ is event production; the tools and deal stages change per agency, and the discovery call settles them.
-
-**What the proposal-to-invoice pipeline needs to run**
+What the proposal-to-invoice pipeline needs to run
 At Dahlia+ it connects Fresh Proposals, HubSpot, Monday.com, and QuickBooks. If your stack differs, the pipeline gets rebuilt on your tools — what matters is that each system has a workable API.
-
-**What it costs**
+What it costs
 Custom builds start at $1,500, fixed in writing after a discovery call. The business card scanner is $249 as a template, with Done-For-You Setup for $100 more.
-
-**What happens after handoff**
+What happens after handoff
 Most clients keep me on. Dahlia+ started with one automation and now runs four, on a continuing embedded engagement scoped per engagement.
-
----
-
-
-Tell me where your operations hours go.
-
+## Tell me where your operations hours go.
 Sixty minutes: walk me through what happens between a signed proposal and a sent invoice, and I tell you what I'd automate first and what it would cost.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Get the Business Card Scanner — $249 → https://checkout.lemonsqueezy.com/buy/1320724
+Book a discovery call Get the Business Card Scanner — $249
 
 ---
 
-URL: https://pocho.tech/industries/destination-marketing
+## https://pocho.tech/industries/destination-marketing
 
-# AI Automation for Destination Marketing Organizations — pocho.tech
-
----
-
-
-What I build for tourism boards, and where the proof comes from.
-
-I build AI automations for DMOs — partner tracking, AI email agents, content pipelines, and lead qualification. I come to this work from the travel-media side: four of my automations run the editorial back office at Matador Network, which operates GuideGeek, an AI travel product for destination marketing organizations.
-
+# What I build for tourism boards, and where the proof comes from.
+I build AI automations for DMOs — partner tracking, AI email agents, content pipelines, and lead
+qualification. I come to this work from the travel-media side: four of my automations run the editorial
+back office at Matador Network, which operates GuideGeek, an AI travel product for destination marketing
+organizations.
 I also speak at this industry's conferences.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-
----
-
-
-A DMO's week is full of work that scales with partner count: tracking what member businesses are posting, opening, and hosting. Most of it lives in spreadsheets that are current only on the day someone updates them.
-
-Planner inquiries and visitor leads arrive by form and email, and qualifying them means reading each one. Partner outreach is the same email written over and over, personalized by hand when there's time.
-
----
-
-
+Book a discovery call
+## Where the hours go
+A DMO's week is full of work that scales with partner count: tracking what member businesses are posting,
+opening, and hosting. Most of it lives in spreadsheets that are current only on the day someone updates
+them.
+Planner inquiries and visitor leads arrive by form and email, and qualifying them means reading each one.
+Partner outreach is the same email written over and over, personalized by hand when there's time.
+## What I build for DMOs
 ### Partner tracking
-
-An automation that watches your partners' channels — social posts, event listings, announcements — and delivers a digest with every URL and its numbers attached. The same mechanism runs in production at Matador Network, where it tracks 70 creators across TikTok and Instagram in 1.5 hours of staff time a week.
-
-**Tools:** Apify, OpenAI, Google Sheets or your CRM
-
+An automation that watches your partners' channels — social posts, event listings, announcements —
+and delivers a digest with every URL and its numbers attached. The same mechanism runs in production
+at Matador Network, where it tracks 70 creators across TikTok and Instagram in 1.5 hours of staff
+time a week.
+- Apify
+- OpenAI
+- Google Sheets or your CRM
 ### AI email agents
-
-An AI that drafts partner and planner emails from your CRM history — it reads each relationship's past correspondence and writes the check-in or follow-up in your voice, with a review step if you want one. A generalized version is in the template catalog: AI Relationship Nurturing Engine, $299 → https://checkout.lemonsqueezy.com/buy/1320599
-
-**Tools:** HubSpot or any CRM, OpenAI, Gmail
-
+An AI that drafts partner and planner emails from your CRM history — it reads each relationship's
+past correspondence and writes the check-in or follow-up in your voice, with a review step if you
+want one.
+A generalized version is in the template catalog:
+AI Relationship Nurturing Engine, $299
+- HubSpot or any CRM
+- OpenAI
+- Gmail
 ### Content pipelines
-
-An AI that reads your region's sources overnight — local news, partner feeds, event calendars — and delivers a curated newsletter every morning. The production version of this system processes 400+ articles a day at Matador Network.
-
-**Tools:** Apify, OpenAI, Gmail
-
+An AI that reads your region's sources overnight — local news, partner feeds, event calendars — and
+delivers a curated newsletter every morning. The production version of this system processes 400+
+articles a day at Matador Network.
+- Apify
+- OpenAI
+- Gmail
 ### Lead qualification
-
-An automation that takes each inbound lead — planner RFPs, group inquiries, web forms — scores it against your criteria, and creates the CRM record with the score and reasoning attached. I run AI scoring of this kind in production at TPS Workforce Hub, where it turns interview transcripts into structured briefs for human reviewers.
-
-**Tools:** your CRM, OpenAI
-
----
-
-
-No tourism board is named on this page, because I haven't published a DMO case study yet. The proof is adjacent, and it's real.
-
-- Matador Network — travel media, operator of GuideGeek for DMOs — runs four of my automations; the numbers are on the media page.
-- Each mechanism above — social tracking, AI curation, AI scoring — is in production for a named client today.
+An automation that takes each inbound lead — planner RFPs, group inquiries, web forms — scores it
+against your criteria, and creates the CRM record with the score and reasoning attached. I run AI
+scoring of this kind in production at TPS Workforce Hub, where it turns interview transcripts into
+structured briefs for human reviewers.
+- your CRM
+- OpenAI
+## Where the proof comes from
+No tourism board is named on this page, because I haven't published a DMO case study yet. The proof is
+adjacent, and it's real.
+- Matador Network — travel media, operator of GuideGeek for DMOs — runs four of my automations; the
+numbers are on the media page.
+- Each mechanism above — social tracking, AI curation, AI scoring — is in production for a named client
+today.
 - I speak about this work at the industry's conferences.
-
-Read the Matador Network numbers → /industries/media-publishing
-
----
-
-
-**Whether I've worked with a DMO directly**
+Read the Matador Network numbers →
+## Questions DMOs ask
+Whether I've worked with a DMO directly
 My production case studies are in travel media and adjacent operations, and this page says so plainly. A first DMO engagement works like any other: discovery call, written scope, fixed price.
-
-**What partner tracking covers**
+What partner tracking covers
 Whatever channels your partners publish on — the tracker is configured per source, and the digest format is set with your team. At Matador the sources are TikTok and Instagram; for a DMO the list is usually wider.
-
-**How AI-drafted emails stay in your voice**
+How AI-drafted emails stay in your voice
 The model is given your past correspondence and notes for each relationship, and it drafts from those. Everything queues for review until you decide it doesn't need to.
-
-**Where to start**
+Where to start
 The $500 audit: a 60-minute review of how your team works, then a written report within five business days — what to automate first, which tools, estimated time savings, and build scope per recommendation. Credited in full toward a build.
-
----
-
-
-Tell me where your team's hours go.
-
+## Tell me where your team's hours go.
 Sixty minutes: you walk me through partner tracking, the inbox, and the content calendar, and I tell you what I'd automate first and what it would cost.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Or write to me directly: erick.bonilla63@gmail.com
+Book a discovery call Or write to me directly: erick.bonilla63@gmail.com
 
 ---
 
-URL: https://pocho.tech/industries/accounting-firms
+## https://pocho.tech/industries/accounting-firms
 
-# AI Automation for Accounting & CPA Firms — pocho.tech
-
----
-
-
-Quarterly tax letters, assembled by automation, reviewed by your firm.
-
-I build automations for accounting and CPA firms — bookkeeping workflows in QuickBooks Online, practice workflows in TaxDome, quarterly tax letters, and the client communications around every deadline. This page describes what I build for firms; the production numbers elsewhere on this site come from the three named clients I've already automated.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-
----
-
-
-Every quarter, someone assembles tax letters client by client — pulling the numbers, fitting them into the firm's format, checking names against the file. The work is identical across clients, and it still gets done one at a time.
-
-Before every deadline, someone chases documents: the same reminder, personalized by hand, sent to each client who hasn't uploaded. Status questions arrive all week, and each one means opening TaxDome to look.
-
----
-
-
+# Quarterly tax letters, assembled by automation, reviewed by your firm.
+I build automations for accounting and CPA firms — bookkeeping workflows in QuickBooks Online, practice
+workflows in TaxDome, quarterly tax letters, and the client communications around every deadline. This
+page describes what I build for firms; the production numbers elsewhere on this site come from the three
+named clients I've already automated.
+Book a discovery call
+## Where the hours go
+Every quarter, someone assembles tax letters client by client — pulling the numbers, fitting them into
+the firm's format, checking names against the file. The work is identical across clients, and it still
+gets done one at a time.
+Before every deadline, someone chases documents: the same reminder, personalized by hand, sent to each
+client who hasn't uploaded. Status questions arrive all week, and each one means opening TaxDome to look.
+## What I build for accounting firms
 ### Quarterly tax-letter workflow
-
-An automation that assembles each client's quarterly letter — data pulled from your books, the letter drafted by AI in your format, queued for a reviewer before anything goes out. The reviewer approves or edits; the system sends and logs.
-
-**Tools:** QuickBooks Online, TaxDome, OpenAI or Anthropic, Gmail
-
+An automation that assembles each client's quarterly letter — data pulled from your books, the letter
+drafted by AI in your format, queued for a reviewer before anything goes out. The reviewer approves
+or edits; the system sends and logs.
+- QuickBooks Online
+- TaxDome
+- OpenAI or Anthropic
+- Gmail
 ### Document chasing and deadline communications
-
-An automation that watches which clients haven't submitted, drafts each reminder from that client's actual status, and escalates as the deadline approaches. Nothing sends without the review step your firm sets.
-
-**Tools:** TaxDome, Gmail, OpenAI
-
+An automation that watches which clients haven't submitted, drafts each reminder from that client's
+actual status, and escalates as the deadline approaches. Nothing sends without the review step your
+firm sets.
+- TaxDome
+- Gmail
+- OpenAI
 ### Bookkeeping workflows in QuickBooks Online
-
-Automations that create customers and invoices, move data between systems, and keep the books in sync with the tools around them. QuickBooks invoice creation already runs in my production work — the Dahlia+ Agency pipeline creates the customer and two invoices the moment a proposal is accepted.
-
-**Tools:** QuickBooks Online, plus whatever feeds it
-
+Automations that create customers and invoices, move data between systems, and keep the books in sync
+with the tools around them. QuickBooks invoice creation already runs in my production work — the
+Dahlia+ Agency pipeline creates the customer and two invoices the moment a proposal is accepted.
+- QuickBooks Online
+- plus whatever feeds it
 ### Client intake and status
-
-Intake that creates the client record everywhere it needs to exist, and status updates drafted automatically when work moves stages. The inbox stops being the status system.
-
-**Tools:** TaxDome, Gmail, your CRM
-
----
-
-
-No accounting firm is named on this page yet — when one is, the numbers will be here. The component systems are in production elsewhere.
-
-- QuickBooks automation runs daily at Dahlia+ Agency: proposal acceptance to customer plus two invoices, untouched.
-- AI drafting with human review runs at TPS Workforce Hub: structured AI evaluations delivered to human reviewers, plus automated daily reporting.
+Intake that creates the client record everywhere it needs to exist, and status updates drafted
+automatically when work moves stages. The inbox stops being the status system.
+- TaxDome
+- Gmail
+- your CRM
+## Where the proof comes from
+No accounting firm is named on this page yet — when one is, the numbers will be here. The component
+systems are in production elsewhere.
+- QuickBooks automation runs daily at Dahlia+ Agency: proposal acceptance to customer plus two invoices,
+untouched.
+- AI drafting with human review runs at TPS Workforce Hub: structured AI evaluations delivered to human
+reviewers, plus automated daily reporting.
 - Twelve automations in production across three teams, spanning more than twenty tools.
-
----
-
-
-**Whether I've automated a CPA firm before**
+## Questions firms ask
+Whether I've automated a CPA firm before
 Not one I can name on this page yet, and the page doesn't pretend otherwise. The component systems — QuickBooks automation, AI drafting with review steps, deadline-driven communications — each run in production for the named clients on this site.
-
-**How client financial data is handled**
+How client financial data is handled
 Everything runs in your accounts under your credentials, and the data stays in your systems. I work under whatever access you grant, and you can revoke it at any time.
-
-**Whether AI sends anything to clients unreviewed**
+Whether AI sends anything to clients unreviewed
 Only if you decide it should. Default builds queue every AI-drafted letter and email for a reviewer — automation removes the assembly work, and the review step stays.
-
-**Where to start**
+Where to start
 The $500 audit fits firms well: a 60-minute review of one workflow — quarterly letters are a common pick — then a written report within five business days. Credited in full toward a build.
-
----
-
-
-Tell me where the quarter's hours go.
-
+## Tell me where the quarter's hours go.
 Sixty minutes: you walk me through one deadline cycle, and I tell you what I'd automate first and what it would cost.
-
-Book a discovery call → https://calendly.com/erick-pocho/1hr-session
-Or write to me directly: erick.bonilla63@gmail.com
+Book a discovery call Or write to me directly: erick.bonilla63@gmail.com
 
 ---
 
-URL: https://pocho.tech/about
+## https://pocho.tech/about
 
 # Who I am and how I work
-
-I'm Erick Bonilla — founder and the only engineer at pocho.tech. Every workflow on this site I scoped and built myself, and most of them I still operate.
-
-pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.
-
-That's the formal version. The practical version: you tell me where your team's hours go, and I build the system that gets them back.
-
+I'm Erick Bonilla — founder and the only engineer at pocho.tech. Every workflow on this site I scoped and
+built myself, and most of them I still operate.
+pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client’s tools and team.
+That's the formal version. The practical version: you tell me where your team's hours go, and I build the
+system that gets them back.
 ## What embedded looks like, week to week
-
-Most engagements don't end at handoff — the three client teams on this site all kept me on after the first build. Here is what an ordinary week looks like.
-
-**I'm in your Slack.** Requests, fixes, and ideas happen in the channels where your team already works.
-
-**I work inside your accounts.** Workflows run on your systems under your credentials; when I build or fix something, it happens where you can see it.
-
-**We have a standing touchpoint.** A weekly check-in covers what shipped, what broke, and what's worth building next.
-
+Most engagements don't end at handoff — the three client teams on this site all kept me on after the
+first build. Here is what an ordinary week looks like.
+I'm in your Slack. Requests, fixes, and ideas happen in the channels where your team
+already works.
+I work inside your accounts. Workflows run on your systems under your credentials; when
+I build or fix something, it happens where you can see it.
+We have a standing touchpoint. A weekly check-in covers what shipped, what broke, and
+what's worth building next.
 That rhythm is how one automation at Dahlia+ became four, and one system at TPS Workforce Hub became six.
-
 ## The three teams
-
-- **Dahlia+ Agency** (event production, team of six to eight) — four automations, including the proposal-to-invoice pipeline that cut processing from 1.5–2 hours to 15 minutes.
-- **Matador Network** (travel media, editorial team of twelve) — four automations, including a newsletter curator that reads 400+ articles a day and a creator tracker covering 70 creators.
-- **TPS Workforce Hub** (clean-tech workforce training, Boston) — six connected systems running admissions and operations, from AI-scored interviews to the 5pm report the whole team reads.
-
+- Dahlia+ Agency (event production, team of six to eight) — four automations, including
+the proposal-to-invoice pipeline that cut processing from 1.5–2 hours to 15 minutes.
+- Matador Network (travel media, editorial team of twelve) — four automations, including
+a newsletter curator that reads 400+ articles a day and a creator tracker covering 70 creators.
+- TPS Workforce Hub (clean-tech workforce training, Boston) — six connected systems
+running admissions and operations, from AI-scored interviews to the 5pm report the whole team reads.
 ## What I build with
-
-I build on n8n and Make.com, with the OpenAI and Anthropic APIs handling the reasoning. Across twelve automations in production, that stack connects more than twenty tools — HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, Apify, Google Analytics 4, and others.
-
-I also speak about this work at industry conferences. Matador Network hired me to build after I taught n8n to their AI Advocacy Director — teaching the tools and building with them are the same job to me.
-
+I build on n8n and Make.com, with the OpenAI and Anthropic APIs handling the reasoning. Across twelve
+automations in production, that stack connects more than twenty tools — HubSpot, Airtable, Monday.com,
+QuickBooks, Slack, Supabase, Apify, Google Analytics 4, and others.
+I also speak about this work at industry conferences. Matador Network hired me to build after I taught
+n8n to their AI Advocacy Director — teaching the tools and building with them are the same job to me.
 ## The name
-
-Pocho is what my family has always called me.
-
+Pocho is what people call me.
 ## Start with sixty minutes
+You walk me through how your team works, and I tell you what I'd automate first and what it would cost.
+If the right answer is a $249 template instead of a custom build, I'll say so.
+Book a discovery call
+Or write to me directly: erick.bonilla63@gmail.com
 
-You walk me through how your team works, and I tell you what I'd automate first and what it would cost. If the right answer is a $249 template instead of a custom build, I'll say so.
+---
 
-[Book a discovery call](https://calendly.com/erick-pocho/1hr-session)
+## https://pocho.tech/contact
 
-Or write to me directly: [erick.bonilla63@gmail.com](mailto:erick.bonilla63@gmail.com)
-
+# Start with a call
+Sixty minutes, booked directly on my calendar. You walk me through how your team works, and I look for
+where the hours go.
+Book a discovery call
+## What happens on the call
+Usually within the first fifteen to thirty minutes, we've identified at least one workflow worth
+automating — and I'll tell you whether it needs a custom build or a $249 template. No deck and no pitch;
+if it's not a fit, you'll hear that on the call.
+## Prefer email
+Write to me directly: erick.bonilla63@gmail.com . I read and answer everything myself —
+there's no one else here.

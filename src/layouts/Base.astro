@@ -11,9 +11,10 @@ export interface Props {
   ogImage?: string;
   ogType?: string;
   jsonLd?: object[];
+  noindex?: boolean;
 }
 
-const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [] } = Astro.props;
+const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [], noindex = false } = Astro.props;
 const canonical = new URL(path === '/' ? '/' : path, Astro.site).href;
 const ogImageAbs = new URL(ogImage, Astro.site).href;
 ---
@@ -24,7 +25,7 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
