@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import TemplateCard from '../../components/TemplateCard.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { templates } from '../../data/templates';
+import { SITE_URL } from '../../data/site';
+import { graph, breadcrumbs } from '../../lib/schema';
+
+const order = [
+  'business-card-scanner',
+  'ai-newsletter-curator',
+  'jarvis-ai-executive-assistant',
+  'meeting-prep-agent',
+  'ai-relationship-nurturing-engine',
+  'sales-contact-scraper',
+  'sheets-hubspot-task-manager',
+];
+const ordered = order.map((slug) => templates.find((t) => t.slug === slug)!);
+
+const itemList = {
+  '@type': 'ItemList',
+  itemListElement: ordered.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${SITE_URL}/templates/${t.slug}`,
+  })),
+};
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Templates', path: '/templates' },
+  ]),
+  itemList
+);
+---
+<Base
+  title="n8n Workflow Templates from Production Systems | pocho.tech"
+  description="Seven n8n workflow templates extracted from production client systems. Each includes the workflow JSON, a PDF setup guide, and a walkthrough video."
+  path="/templates"
+  jsonLd={jsonLd}
+>
+  <!-- Opening -->
+  <section class="tpl-hero">
+    <div class="wrap">
+      <h1>Seven workflows, extracted from real client systems.</h1>
+      <p class="lead">
+        These are n8n workflow templates pulled from the automations I build and run for clients. Each one is the
+        complete workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough video.
+      </p>
+      <p class="lead">
+        Import one into your own n8n instance — cloud or self-hosted — and it runs on your credentials, in your
+        accounts. If you'd rather not set it up yourself, I'll do it with you: Done-For-You Setup adds $100 to any
+        template.
+      </p>
+    </div>
+  </section>
+
+  <!-- Catalog -->
+  <section class="section" aria-labelledby="catalog-h">
+    <div class="wrap">
+      <h2 id="catalog-h">The catalog</h2>
+      <div class="grid-3 catalog-grid">
+        {ordered.map((t, i) => <TemplateCard template={t} eager={i < 3} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Done-For-You Setup -->
+  <section class="section section-alt" aria-labelledby="dfy-h">
+    <div class="wrap">
+      <h2 id="dfy-h">Done-For-You Setup — template price + $100</h2>
+      <p>
+        A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you on
+        the call. You keep a recording of the whole session.
+      </p>
+      <p>Available with every template in the catalog, including the free one.</p>
+    </div>
+  </section>
+
+  <!-- Custom-build CTA -->
+  <CtaSection
+    heading="If the workflow you need isn't here"
+    body="That's usually a custom build — scoped on a discovery call, fixed price from $1,500."
+  />
+</Base>
+
+<style>
+  .tpl-hero { padding: clamp(72px, 12vw, 130px) 0 0; }
+  .tpl-hero h1 { max-width: 24ch; }
+  .lead { font-size: 1.08rem; max-width: 62ch; }
+  .catalog-grid { margin-top: 36px; }
+</style>

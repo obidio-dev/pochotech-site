@@ -1,0 +1,260 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs, reviewSchema } from '../../lib/schema';
+import { EMAIL, BOILERPLATE } from '../../data/site';
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies' },
+    { name: 'TPS Workforce Hub', path: '/case-studies/tps-workforce-hub' },
+  ]),
+  reviewSchema({
+    body: "You have done such a great job that I can't remember how we were working before you.",
+    authorName: 'CEO',
+    authorTitle: 'TPS Energy',
+  })
+);
+
+const metrics = [
+  { value: 'Zero → daily', label: 'From zero operational visibility to fully automated daily reporting.' },
+  { value: '30–40 → 12–16', label: 'Applicants to accepted, every stage tracked.' },
+  { value: 'Sunday, every week', label: 'At-risk stipend alerts to participant and coach, before the problem lands.' },
+];
+
+const stack = [
+  'Airtable',
+  'OpenAI',
+  'Read.ai',
+  'Supabase',
+  'SendGrid',
+  'Microsoft Power Automate',
+  'SharePoint',
+  'Gmail',
+];
+---
+<Base
+  title="TPS Workforce Hub: Six Connected Systems | pocho.tech"
+  description="Six connected systems run admissions and operations at TPS Workforce Hub — AI-scored interviews, stipend alerts, daily reports. Built by Erick Bonilla."
+  path="/case-studies/tps-workforce-hub"
+  jsonLd={jsonLd}
+>
+  <section class="cs-header">
+    <div class="wrap">
+      <h1>TPS Workforce Hub</h1>
+      <p class="client-line"><strong>Clean-tech workforce training — Boston.</strong> The EdTech division of TPS Energy runs an 8-week, stipend-based training program for immigrants and minorities. 30–40 applicants per cohort; 12–16 accepted. Six systems in production, built as an embedded team member.</p>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The before</h2>
+      <div class="before-block">
+        <p>Every cohort starts with 30 to 40 applications and ends with 12 to 16 seats. Between those two numbers: intake forms, interviews, scoring, scheduling emails, stipend rules, and a team holding it together by hand.</p>
+        <p>There was no operational visibility. Nobody could see, in one place, where a candidate stood, which interviews had been evaluated, or who was at risk of losing stipend eligibility.</p>
+        <p>The stipend part carried the most weight. Eligibility data sat in SharePoint, invisible to the participant and coach who needed the warning.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>What I built</h2>
+      <p>Six connected systems, running as one operation.</p>
+      <ol class="systems">
+        <li><strong>Airtable ATS</strong> — Intake forms feed one applicant pipeline, so every candidate has a single record and a visible stage from application to acceptance.</li>
+        <li><strong>AI interview evaluation</strong> — A Read.ai transcript webhook matches the candidate, applies objective scoring, runs an AI qualitative evaluation with direct quotes from the interview, and delivers a structured brief to the human reviewers.</li>
+        <li><strong>Interview scheduling</strong> — Scheduling emails go out automatically as candidates advance through the pipeline.</li>
+        <li><strong>Daily and executive reporting</strong> — A 5pm report to the team every day, and a Monday executive summary for the CEO: week-over-week movement, demographics, bottleneck alerts.</li>
+        <li><strong>Stipend eligibility notifications</strong> — SharePoint data flows through Power Automate into Supabase; every Sunday, at-risk participants and their coach get an alert.</li>
+        <li><strong>Real-time dashboards</strong> — Live views of the pipeline and program operations.</li>
+      </ol>
+      <p class="systems-note">The AI doesn't decide who gets in. It reads, scores, and prepares the brief — the human reviewers make the call.</p>
+    </div>
+  </section>
+
+  <section class="section-alt numbers">
+    <div class="wrap">
+      <h2>The numbers</h2>
+      <div class="metric-grid">
+        {metrics.map((m) => (
+          <div class="metric-item">
+            <span class="metric">{m.value}</span>
+            <span class="metric-label">{m.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>What the CEO says</h2>
+      <blockquote>
+        <p>"You have done such a great job that I can't remember how we were working before you."</p>
+        <cite>— CEO, TPS Energy</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The stack</h2>
+      <ul class="stack-row">
+        {stack.map((tool) => <li class="pill">{tool}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <aside class="how-started">
+        <h2>How it started</h2>
+        <p>A single build, then embedded work inside the team — one system became six as each bottleneck surfaced.</p>
+      </aside>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="If your program runs on forms, interviews, and deadlines"
+    body="Sixty minutes: you walk me through how applicants or clients move through your operation, and I tell you what I'd automate first and what it would cost."
+    secondaryLabel={EMAIL}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+
+  <div class="wrap">
+    <p class="boilerplate">{BOILERPLATE}</p>
+  </div>
+</Base>
+
+<style>
+  .cs-header { padding-block: var(--space-section) clamp(36px, 5vw, 56px); }
+  .client-line { color: var(--c-text-mute); max-width: 70ch; margin-top: 16px; }
+  .client-line strong { color: var(--c-text); }
+
+  .cs-block { padding-block: clamp(40px, 6vw, 64px); }
+
+  .before-block {
+    border-left: 2px solid var(--c-border);
+    padding-left: clamp(20px, 3vw, 32px);
+    margin-left: 8px;
+    max-width: 70ch;
+  }
+  .before-block p:last-child { margin-bottom: 0; }
+
+  .systems {
+    list-style: none;
+    counter-reset: sys;
+    margin: 28px 0 0;
+    padding: 0;
+    max-width: 72ch;
+  }
+  .systems li {
+    counter-increment: sys;
+    position: relative;
+    padding-left: 56px;
+    margin-bottom: 24px;
+  }
+  .systems li:last-child { margin-bottom: 0; }
+  .systems li::before {
+    content: counter(sys, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--c-text-dim);
+  }
+  .systems strong { color: var(--c-text); }
+  .systems-note {
+    margin-top: 28px;
+    color: var(--c-text-mute);
+    max-width: 70ch;
+  }
+
+  .numbers { padding-block: var(--space-section); }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px 36px;
+    margin-top: 40px;
+  }
+  .metric {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .metric-label {
+    display: block;
+    margin-top: 12px;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    max-width: 36ch;
+  }
+
+  blockquote {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 24px 0 0;
+    max-width: 70ch;
+  }
+  blockquote p {
+    font-size: 1.15rem;
+    color: var(--c-text);
+    margin: 0 0 14px;
+  }
+  blockquote cite {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-text-mute);
+  }
+
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+  .pill {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-text-mute);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    padding: 7px 16px;
+  }
+
+  .how-started h2 {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-text-dim);
+    margin-bottom: 12px;
+  }
+  .how-started p {
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .boilerplate {
+    color: var(--c-text-dim);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin: 40px 0 0;
+    max-width: 75ch;
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import { CALENDLY, EMAIL, BOILERPLATE } from '../data/site';
+import { graph, breadcrumbs } from '../lib/schema';
+
+const jsonLd = graph(
+  breadcrumbs([{ name: 'About', path: '/about' }])
+);
+---
+<Base
+  title="About Erick Bonilla — AI Automation Studio | pocho.tech"
+  description="Who Erick Bonilla is, how embedded engagements work, and the three client teams behind twelve automations in production. One engineer, direct access."
+  path="/about"
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>Who I am and how I work</h1>
+      <p class="hero-sub">
+        I'm Erick Bonilla — founder and the only engineer at pocho.tech. Every workflow on this site I scoped and
+        built myself, and most of them I still operate.
+      </p>
+      <p>{BOILERPLATE}</p>
+      <p>
+        That's the formal version. The practical version: you tell me where your team's hours go, and I build the
+        system that gets them back.
+      </p>
+    </div>
+  </section>
+
+  <!-- What embedded looks like -->
+  <section class="section section-alt" aria-labelledby="embedded-h">
+    <div class="wrap">
+      <h2 id="embedded-h">What embedded looks like, week to week</h2>
+      <p>
+        Most engagements don't end at handoff — the three client teams on this site all kept me on after the
+        first build. Here is what an ordinary week looks like.
+      </p>
+      <p>
+        <strong>I'm in your Slack.</strong> Requests, fixes, and ideas happen in the channels where your team
+        already works.
+      </p>
+      <p>
+        <strong>I work inside your accounts.</strong> Workflows run on your systems under your credentials; when
+        I build or fix something, it happens where you can see it.
+      </p>
+      <p>
+        <strong>We have a standing touchpoint.</strong> A weekly check-in covers what shipped, what broke, and
+        what's worth building next.
+      </p>
+      <p>
+        That rhythm is how one automation at Dahlia+ became four, and one system at TPS Workforce Hub became six.
+      </p>
+    </div>
+  </section>
+
+  <!-- The three teams -->
+  <section class="section" aria-labelledby="teams-h">
+    <div class="wrap">
+      <h2 id="teams-h">The three teams</h2>
+      <ul class="teams-list">
+        <li>
+          <strong>Dahlia+ Agency</strong> (event production, team of six to eight) — four automations, including
+          the proposal-to-invoice pipeline that cut processing from 1.5–2 hours to 15 minutes.
+        </li>
+        <li>
+          <strong>Matador Network</strong> (travel media, editorial team of twelve) — four automations, including
+          a newsletter curator that reads 400+ articles a day and a creator tracker covering 70 creators.
+        </li>
+        <li>
+          <strong>TPS Workforce Hub</strong> (clean-tech workforce training, Boston) — six connected systems
+          running admissions and operations, from AI-scored interviews to the 5pm report the whole team reads.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- What I build with -->
+  <section class="section section-alt" aria-labelledby="stack-h">
+    <div class="wrap">
+      <h2 id="stack-h">What I build with</h2>
+      <p>
+        I build on n8n and Make.com, with the OpenAI and Anthropic APIs handling the reasoning. Across twelve
+        automations in production, that stack connects more than twenty tools — HubSpot, Airtable, Monday.com,
+        QuickBooks, Slack, Supabase, Apify, Google Analytics 4, and others.
+      </p>
+      <p>
+        I also speak about this work at industry conferences. Matador Network hired me to build after I taught
+        n8n to their AI Advocacy Director — teaching the tools and building with them are the same job to me.
+      </p>
+    </div>
+  </section>
+
+  <!-- The name -->
+  <section class="section" aria-labelledby="name-h">
+    <div class="wrap">
+      <h2 id="name-h">The name</h2>
+      <p class="name-line">Pocho is what people call me.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-alt" aria-labelledby="start-h">
+    <div class="wrap">
+      <h2 id="start-h">Start with sixty minutes</h2>
+      <p>
+        You walk me through how your team works, and I tell you what I'd automate first and what it would cost.
+        If the right answer is a $249 template instead of a custom build, I'll say so.
+      </p>
+      <div class="cta-row">
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+      </div>
+      <p class="cta-alt">Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: clamp(72px, 12vw, 130px) 0 56px; }
+  .hero h1 { max-width: 22ch; }
+  .hero-sub { font-size: 1.12rem; color: var(--c-text-body); max-width: 58ch; margin-top: 20px; }
+  .hero p { max-width: 62ch; }
+
+  .section p { max-width: 62ch; }
+
+  .teams-list { margin: 28px 0 0; padding-left: 20px; max-width: 72ch; }
+  .teams-list li { margin-bottom: 14px; color: var(--c-text-body); }
+  .teams-list strong { color: var(--c-text); }
+
+  .name-line { font-size: 1.12rem; color: var(--c-text-body); margin: 0; }
+
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+  .cta-alt { margin-top: 22px; color: var(--c-text-dim); font-size: 0.92rem; }
+</style>

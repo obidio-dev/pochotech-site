@@ -1,0 +1,253 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { CALENDLY } from '../../data/site';
+import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
+
+const CURATOR_CHECKOUT = 'https://checkout.lemonsqueezy.com/buy/1320787';
+
+const DESCRIPTION =
+  "Four AI automations run Matador Network's editorial back office — 400+ articles a day curated into one newsletter, creator tracking down from 5 hrs to 1.5";
+
+const metrics = [
+  { value: '400+ articles/day', label: 'Curated into one newsletter, zero human input' },
+  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking' },
+  { value: '30 → 70', label: 'Creators tracked, same workflow' },
+];
+
+const faqs = [
+  {
+    q: 'Whether this works outside travel media',
+    a: "The mechanisms are source-agnostic — the curator reads whatever publications you give it, and the tracker follows whatever accounts you list. The travel is in the inputs; the system doesn't care what industry the sources cover.",
+  },
+  {
+    q: "How the AI decides what's newsworthy",
+    a: 'GPT-4o scores each article against selection criteria set with your editors, and the prompt is yours to read and adjust. The newsletter is finished when it arrives, and your team can still pull a story before send if they want a check in the loop.',
+  },
+  {
+    q: 'What a build like this costs',
+    a: 'Custom builds start at $1,500, fixed in writing after a discovery call. If the newsletter curator as described matches your need, the template is $249, with Done-For-You Setup for $100 more.',
+  },
+  {
+    q: 'Who maintains it after handoff',
+    a: "You own everything — the workflows run in your accounts under your credentials. Matador's four automations are a continuing embedded engagement, which is how most clients run it.",
+  },
+];
+
+const jsonLd = graph(
+  serviceSchema({
+    name: 'AI Automation for Media & Publishing',
+    description: DESCRIPTION,
+    path: '/industries/media-publishing',
+  }),
+  breadcrumbs([
+    { name: 'Industries', path: '/industries' },
+    { name: 'Media & publishing', path: '/industries/media-publishing' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base
+  title="AI Automation for Media & Publishing | pocho.tech"
+  description={DESCRIPTION}
+  path="/industries/media-publishing"
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>400+ articles a day go in. A finished newsletter comes out every morning.</h1>
+      <p class="hero-sub">
+        I build AI automations for editorial back offices — newsletter curation, creator tracking, affiliate
+        reporting, and event research. Four of them run in production at Matador Network, a travel media network
+        of about fifty people with an editorial team of twelve.
+      </p>
+      <p class="hero-sub hero-note">Every number on this page is theirs.</p>
+      <div class="hero-ctas">
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        <a href={CURATOR_CHECKOUT} class="btn btn-secondary" rel="noopener">Get the AI Newsletter Curator — $249</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where the hours go -->
+  <section class="section section-alt hours" aria-labelledby="hours-h">
+    <div class="wrap">
+      <h2 id="hours-h">Where the hours go</h2>
+      <p>
+        An editorial team's week disappears into work that produces no content. Someone reads eleven
+        publications' worth of daily output to find the ten stories worth covering.
+      </p>
+      <p>
+        Someone scrolls TikTok and Instagram logging creator posts into a spreadsheet — URL, views, likes, one
+        row at a time. At Matador Network that took five hours a week and covered only thirty creators.
+      </p>
+      <p>
+        Someone pulls affiliate numbers out of GA4 and reformats them for the Monday meeting. Someone searches
+        Eventbrite, Meetup, and Luma city by city for events worth attending.
+      </p>
+    </div>
+  </section>
+
+  <!-- What I build -->
+  <section class="section" aria-labelledby="build-h">
+    <div class="wrap">
+      <h2 id="build-h">What I build — the four systems at Matador Network</h2>
+      <div class="grid-2 systems-grid">
+        <article class="card system-card">
+          <h3>AI newsletter curator</h3>
+          <p>
+            Overnight, the system pulls roughly 400 articles a day from eleven-plus publications through Apify,
+            and GPT-4o scores them and picks the top ten. A polished HTML newsletter is in the team's inbox every
+            morning — zero human input along the way.
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>Apify</li>
+            <li>OpenAI</li>
+            <li>Gmail</li>
+          </ul>
+          <p class="template-note">
+            A generalized version is in the template catalog:
+            <a href={CURATOR_CHECKOUT} rel="noopener">AI Newsletter Curator, $249</a>
+          </p>
+        </article>
+        <article class="card system-card">
+          <h3>Social media creator tracker</h3>
+          <p>
+            The tracker scrapes TikTok and Instagram for each creator's posts and delivers a Monday digest —
+            every URL with views and likes attached. Tracking went from 5 hours a week to 1.5, while coverage
+            grew from 30 creators to 70.
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>Apify</li>
+            <li>Google Sheets</li>
+            <li>Gmail</li>
+          </ul>
+        </article>
+        <article class="card system-card">
+          <h3>Affiliate link performance report</h3>
+          <p>
+            Every Monday, the report ranks the top twenty affiliate links from GA4 and adds AI commentary on what
+            moved. The numbers arrive formatted for the meeting instead of waiting to be pulled.
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>Google Analytics 4</li>
+            <li>Google Sheets</li>
+            <li>OpenAI</li>
+          </ul>
+        </article>
+        <article class="card system-card">
+          <h3>Event search automation</h3>
+          <p>
+            Once a month, the system searches Eventbrite, Meetup, and Luma across fifteen US cities and delivers
+            the results to the team. Nobody opens fifteen browser tabs.
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>Apify</li>
+            <li>Google Sheets</li>
+            <li>Gmail</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- The numbers -->
+  <section class="section section-alt" aria-labelledby="numbers-h">
+    <div class="wrap">
+      <h2 id="numbers-h">The numbers</h2>
+      <dl class="metrics">
+        {metrics.map((m) => (
+          <div class="metric-item">
+            <dt class="metric">{m.value}</dt>
+            <dd>{m.label}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="quotes">
+        <blockquote>
+          <p>
+            "Erick has helped us build and implement multiple automations for our editorial department, and these
+            save us time each week that can be spent producing content rather than sifting through emails and
+            data."
+          </p>
+          <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
+        </blockquote>
+        <blockquote>
+          <p>
+            "Erick was incredibly helpful in setting up the system to automatically track creator content. This
+            automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a
+            lot of manual effort."
+          </p>
+          <cite>— Kyrene Kagahastian, Social Media Team, Matador Network</cite>
+        </blockquote>
+      </div>
+      <p class="context-line">When the tracker goes down, the team emails within hours asking for it back.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <Faq faqs={faqs} heading="Questions media teams ask" />
+
+  <!-- CTA -->
+  <CtaSection
+    heading="Tell me where your editorial hours go."
+    body="Sixty minutes: you walk me through the team's week, and I tell you what I'd automate first and what it would cost. If a $249 template covers it, I'll say so on the call."
+    secondaryLabel="Get the AI Newsletter Curator — $249"
+    secondaryHref={CURATOR_CHECKOUT}
+  />
+</Base>
+
+<style>
+  .hero { padding: clamp(72px, 12vw, 130px) 0 56px; }
+  .hero h1 { max-width: 24ch; }
+  .hero-sub { font-size: 1.12rem; color: var(--c-text-body); max-width: 58ch; margin-top: 20px; }
+  .hero-note { color: var(--c-text); font-weight: 600; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+
+  .hours p { max-width: 62ch; }
+
+  .systems-grid { margin-top: 36px; }
+  .system-card { display: flex; flex-direction: column; gap: 12px; }
+  .system-card h3 { margin: 0; font-size: 1.15rem; }
+  .system-card p { margin: 0; font-size: 0.95rem; }
+  .tools { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; padding: 0; }
+  .tools li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--c-text-mute);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    padding: 4px 11px;
+    background: var(--c-bg);
+  }
+  .template-note { font-size: 0.88rem; color: var(--c-text-dim); }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin: 36px 0 0;
+  }
+  .metric {
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0;
+  }
+  .metric-item dd { margin: 10px 0 0; color: var(--c-text-mute); font-size: 0.92rem; }
+
+  .quotes { margin-top: 56px; display: grid; gap: 32px; max-width: 760px; }
+  .quotes blockquote { margin: 0; border-left: 2px solid var(--c-border); padding-left: 20px; }
+  .quotes blockquote p { font-style: italic; color: var(--c-text-body); margin: 0; max-width: none; }
+  .quotes cite { display: block; margin-top: 10px; color: var(--c-text-dim); font-style: normal; font-size: 0.85rem; }
+
+  .context-line { margin: 32px 0 0; color: var(--c-text-dim); font-size: 0.9rem; }
+
+  @media (max-width: 900px) {
+    .metrics { grid-template-columns: 1fr; }
+  }
+</style>

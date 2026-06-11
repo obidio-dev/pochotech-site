@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Page Not Found | pocho.tech"
+  description="This page doesn't exist. The homepage, the templates, and the case studies do."
+  path="/404"
+>
+  <section class="nf">
+    <div class="wrap nf-wrap">
+      <h1>Page not found</h1>
+      <p>This page doesn't exist. These do.</p>
+      <ul class="nf-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/templates">Templates</a></li>
+        <li><a href="/case-studies">Case studies</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding: clamp(100px, 18vw, 200px) 0; }
+  .nf-wrap { text-align: center; }
+  .nf-wrap p { margin: 0 auto; color: var(--c-text-mute); }
+  .nf-links {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .nf-links a { font-size: 1.02rem; }
+</style>

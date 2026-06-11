@@ -1,0 +1,218 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { CALENDLY, EMAIL } from '../../data/site';
+import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
+
+const NURTURING_CHECKOUT = 'https://checkout.lemonsqueezy.com/buy/1320599';
+
+const DESCRIPTION =
+  "Partner tracking, AI email agents, content pipelines, and lead qualification for DMOs — built by the engineer behind Matador Network's automations.";
+
+const faqs = [
+  {
+    q: "Whether I've worked with a DMO directly",
+    a: 'My production case studies are in travel media and adjacent operations, and this page says so plainly. A first DMO engagement works like any other: discovery call, written scope, fixed price.',
+  },
+  {
+    q: 'What partner tracking covers',
+    a: 'Whatever channels your partners publish on — the tracker is configured per source, and the digest format is set with your team. At Matador the sources are TikTok and Instagram; for a DMO the list is usually wider.',
+  },
+  {
+    q: 'How AI-drafted emails stay in your voice',
+    a: "The model is given your past correspondence and notes for each relationship, and it drafts from those. Everything queues for review until you decide it doesn't need to.",
+  },
+  {
+    q: 'Where to start',
+    a: 'The $500 audit: a 60-minute review of how your team works, then a written report within five business days — what to automate first, which tools, estimated time savings, and build scope per recommendation. Credited in full toward a build.',
+  },
+];
+
+const jsonLd = graph(
+  serviceSchema({
+    name: 'AI Automation for Destination Marketing Organizations',
+    description: DESCRIPTION,
+    path: '/industries/destination-marketing',
+  }),
+  breadcrumbs([
+    { name: 'Industries', path: '/industries' },
+    { name: 'Destination marketing organizations', path: '/industries/destination-marketing' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base
+  title="AI for Destination Marketing & Tourism Boards | pocho.tech"
+  description={DESCRIPTION}
+  path="/industries/destination-marketing"
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>What I build for tourism boards, and where the proof comes from.</h1>
+      <p class="hero-sub">
+        I build AI automations for DMOs — partner tracking, AI email agents, content pipelines, and lead
+        qualification. I come to this work from the travel-media side: four of my automations run the editorial
+        back office at Matador Network, which operates GuideGeek, an AI travel product for destination marketing
+        organizations.
+      </p>
+      <p class="hero-sub hero-note">I also speak at this industry's conferences.</p>
+      <div class="hero-ctas">
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where the hours go -->
+  <section class="section section-alt hours" aria-labelledby="hours-h">
+    <div class="wrap">
+      <h2 id="hours-h">Where the hours go</h2>
+      <p>
+        A DMO's week is full of work that scales with partner count: tracking what member businesses are posting,
+        opening, and hosting. Most of it lives in spreadsheets that are current only on the day someone updates
+        them.
+      </p>
+      <p>
+        Planner inquiries and visitor leads arrive by form and email, and qualifying them means reading each one.
+        Partner outreach is the same email written over and over, personalized by hand when there's time.
+      </p>
+    </div>
+  </section>
+
+  <!-- What I build -->
+  <section class="section" aria-labelledby="build-h">
+    <div class="wrap">
+      <h2 id="build-h">What I build for DMOs</h2>
+      <div class="grid-2 systems-grid">
+        <article class="card system-card">
+          <h3>Partner tracking</h3>
+          <p>
+            An automation that watches your partners' channels — social posts, event listings, announcements —
+            and delivers a digest with every URL and its numbers attached. The same mechanism runs in production
+            at Matador Network, where it tracks 70 creators across TikTok and Instagram in 1.5 hours of staff
+            time a week.
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>Apify</li>
+            <li>OpenAI</li>
+            <li>Google Sheets or your CRM</li>
+          </ul>
+        </article>
+        <article class="card system-card">
+          <h3>AI email agents</h3>
+          <p>
+            An AI that drafts partner and planner emails from your CRM history — it reads each relationship's
+            past correspondence and writes the check-in or follow-up in your voice, with a review step if you
+            want one.
+          </p>
+          <p class="template-note">
+            A generalized version is in the template catalog:
+            <a href={NURTURING_CHECKOUT} rel="noopener">AI Relationship Nurturing Engine, $299</a>
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>HubSpot or any CRM</li>
+            <li>OpenAI</li>
+            <li>Gmail</li>
+          </ul>
+        </article>
+        <article class="card system-card">
+          <h3>Content pipelines</h3>
+          <p>
+            An AI that reads your region's sources overnight — local news, partner feeds, event calendars — and
+            delivers a curated newsletter every morning. The production version of this system processes 400+
+            articles a day at Matador Network.
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>Apify</li>
+            <li>OpenAI</li>
+            <li>Gmail</li>
+          </ul>
+        </article>
+        <article class="card system-card">
+          <h3>Lead qualification</h3>
+          <p>
+            An automation that takes each inbound lead — planner RFPs, group inquiries, web forms — scores it
+            against your criteria, and creates the CRM record with the score and reasoning attached. I run AI
+            scoring of this kind in production at TPS Workforce Hub, where it turns interview transcripts into
+            structured briefs for human reviewers.
+          </p>
+          <ul class="tools" aria-label="Tools">
+            <li>your CRM</li>
+            <li>OpenAI</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where the proof comes from -->
+  <section class="section section-alt proof" aria-labelledby="proof-h">
+    <div class="wrap">
+      <h2 id="proof-h">Where the proof comes from</h2>
+      <p>
+        No tourism board is named on this page, because I haven't published a DMO case study yet. The proof is
+        adjacent, and it's real.
+      </p>
+      <ul class="proof-list">
+        <li>
+          Matador Network — travel media, operator of GuideGeek for DMOs — runs four of my automations; the
+          numbers are on the media page.
+        </li>
+        <li>
+          Each mechanism above — social tracking, AI curation, AI scoring — is in production for a named client
+          today.
+        </li>
+        <li>I speak about this work at the industry's conferences.</li>
+      </ul>
+      <p class="proof-link">
+        <a href="/industries/media-publishing">Read the Matador Network numbers <span aria-hidden="true">&rarr;</span></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <Faq faqs={faqs} heading="Questions DMOs ask" />
+
+  <!-- CTA -->
+  <CtaSection
+    heading="Tell me where your team's hours go."
+    body="Sixty minutes: you walk me through partner tracking, the inbox, and the content calendar, and I tell you what I'd automate first and what it would cost."
+    secondaryLabel={`Or write to me directly: ${EMAIL}`}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+</Base>
+
+<style>
+  .hero { padding: clamp(72px, 12vw, 130px) 0 56px; }
+  .hero h1 { max-width: 24ch; }
+  .hero-sub { font-size: 1.12rem; color: var(--c-text-body); max-width: 58ch; margin-top: 20px; }
+  .hero-note { color: var(--c-text); font-weight: 600; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+
+  .hours p { max-width: 62ch; }
+
+  .systems-grid { margin-top: 36px; }
+  .system-card { display: flex; flex-direction: column; gap: 12px; }
+  .system-card h3 { margin: 0; font-size: 1.15rem; }
+  .system-card p { margin: 0; font-size: 0.95rem; }
+  .tools { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: auto 0 0; padding: 0; }
+  .tools li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--c-text-mute);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    padding: 4px 11px;
+    background: var(--c-bg);
+  }
+  .template-note { font-size: 0.88rem; color: var(--c-text-dim); }
+
+  .proof p { max-width: 62ch; }
+  .proof-list { margin: 24px 0 0; padding-left: 20px; max-width: 70ch; }
+  .proof-list li { margin-bottom: 12px; color: var(--c-text-body); }
+  .proof-link { margin-top: 28px; }
+  .proof-link a { color: var(--c-text); font-size: 0.95rem; }
+  .proof-link span { color: var(--c-red); }
+</style>

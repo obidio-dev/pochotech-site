@@ -1,0 +1,233 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs } from '../../lib/schema';
+import { EMAIL, BOILERPLATE } from '../../data/site';
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies' },
+    { name: 'Dahlia+ Agency', path: '/case-studies/dahlia-plus-agency' },
+  ])
+);
+
+const metrics = [
+  { value: '1.5–2 hours → 15 minutes', label: 'Processing one proposal, accepted to invoiced.' },
+  { value: '2–4 a day', label: 'Proposals through the pipeline.' },
+  { value: '6–8 hours', label: 'Manual operations eliminated from every working day.' },
+];
+
+const stack = [
+  'HubSpot',
+  'Monday.com',
+  'QuickBooks',
+  'Slack',
+  'Gmail',
+  'Beehiiv',
+  'Fresh Proposals',
+  'OpenAI GPT-4o Vision',
+];
+---
+<Base
+  title="Dahlia+ Agency: 1.5 Hours to 15 Minutes | pocho.tech"
+  description="How four automations cut proposal processing at Dahlia+ Agency from two hours to 15 minutes — 6–8 hours of manual operations gone every day. Case study."
+  path="/case-studies/dahlia-plus-agency"
+  jsonLd={jsonLd}
+>
+  <section class="cs-header">
+    <div class="wrap">
+      <h1>Dahlia+ Agency</h1>
+      <p class="client-line"><strong>Event production and consulting — <a href="https://dahliaplus.com" rel="noopener">dahliaplus.com</a>.</strong> Team of six to eight, led by Dahlia El Gazzar. Four automations in production, on an embedded retainer.</p>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The before</h2>
+      <div class="before-block">
+        <p>An accepted proposal set off the same manual relay every time: update the deal in HubSpot, build the project board in Monday.com, create the customer in QuickBooks, draft two invoices, split 50/50. Done by hand, it took an hour and a half to two hours.</p>
+        <p>At two to four proposals a day, that relay was most of someone's day. Six to eight hours of manual operations, every working day, inside a team of six to eight people.</p>
+        <p>Leads had the same shape at smaller scale. Web form submissions, referrals arriving by email, business cards collected at events — each one re-typed into HubSpot, or lost on the way there.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>What I built</h2>
+      <p>Four automations run the Dahlia+ back office.</p>
+      <ol class="systems">
+        <li><strong>Proposal-to-invoice pipeline</strong> — An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50.</li>
+        <li><strong>Web form lead routing</strong> — Every form submission creates the HubSpot contact, adds the subscriber in Beehiiv, and posts to Slack so the team sees the lead the moment it arrives.</li>
+        <li><strong>AI referral capture</strong> — An AI parses referral emails as they land and creates the contact in HubSpot, so an introduction doesn't depend on someone remembering to copy it over.</li>
+        <li><strong>Business card scanner</strong> — Drop a photo in Slack; GPT-4o Vision reads the card, extracts every field, and creates the HubSpot contact.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-alt numbers">
+    <div class="wrap">
+      <h2>The numbers</h2>
+      <div class="metric-grid">
+        {metrics.map((m) => (
+          <div class="metric-item">
+            <span class="metric">{m.value}</span>
+            <span class="metric-label">{m.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The stack</h2>
+      <ul class="stack-row">
+        {stack.map((tool) => <li class="pill">{tool}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>On testimonials</h2>
+      <p>No testimonial exists for this engagement, so none appears here. What does exist: Dahlia+ now refers new business.</p>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <aside class="how-started">
+        <h2>How it started</h2>
+        <p>One automation, scoped on a discovery call. Working embedded, one became four — and the retainer is still running.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>Also available as a template</h2>
+      <p>The business card scanner on this page is packaged as a template — the same workflow, with a step-by-step PDF setup guide and a walkthrough video.</p>
+      <a class="btn btn-primary template-btn" href="https://checkout.lemonsqueezy.com/buy/1320724" rel="noopener">Get the scanner — $249 →</a>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="If your back office looks like this"
+    body="Sixty minutes: you walk me through how proposals, leads, and invoices move through your team, and I tell you what I'd automate first and what it would cost."
+    secondaryLabel={EMAIL}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+
+  <div class="wrap">
+    <p class="boilerplate">{BOILERPLATE}</p>
+  </div>
+</Base>
+
+<style>
+  .cs-header { padding-block: var(--space-section) clamp(36px, 5vw, 56px); }
+  .client-line { color: var(--c-text-mute); max-width: 70ch; margin-top: 16px; }
+  .client-line strong { color: var(--c-text); }
+
+  .cs-block { padding-block: clamp(40px, 6vw, 64px); }
+
+  .before-block {
+    border-left: 2px solid var(--c-border);
+    padding-left: clamp(20px, 3vw, 32px);
+    margin-left: 8px;
+    max-width: 70ch;
+  }
+  .before-block p:last-child { margin-bottom: 0; }
+
+  .systems {
+    list-style: none;
+    counter-reset: sys;
+    margin: 28px 0 0;
+    padding: 0;
+    max-width: 72ch;
+  }
+  .systems li {
+    counter-increment: sys;
+    position: relative;
+    padding-left: 56px;
+    margin-bottom: 24px;
+  }
+  .systems li:last-child { margin-bottom: 0; }
+  .systems li::before {
+    content: counter(sys, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--c-text-dim);
+  }
+  .systems strong { color: var(--c-text); }
+
+  .numbers { padding-block: var(--space-section); }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px 36px;
+    margin-top: 40px;
+  }
+  .metric {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .metric-label {
+    display: block;
+    margin-top: 12px;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    max-width: 36ch;
+  }
+
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+  .pill {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-text-mute);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    padding: 7px 16px;
+  }
+
+  .how-started h2 {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-text-dim);
+    margin-bottom: 12px;
+  }
+  .how-started p {
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .template-btn { margin-top: 12px; }
+
+  .boilerplate {
+    color: var(--c-text-dim);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin: 40px 0 0;
+    max-width: 75ch;
+  }
+</style>

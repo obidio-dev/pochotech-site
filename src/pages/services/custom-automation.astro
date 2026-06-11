@@ -1,0 +1,235 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
+import { CALENDLY, EMAIL } from '../../data/site';
+
+const title = 'Custom Automation Build — From $1,500 | pocho.tech';
+const description =
+  'Custom AI automation from $1,500 — fixed price after a discovery call, built and tested on your systems, handed off in one to four weeks. You own it all.';
+
+const faqs = [
+  {
+    q: 'What determines the price',
+    a: 'The number of systems involved, the volume moving through the workflow, and whether AI steps need their own design and testing. The Dahlia+ pipeline touches four systems; a workflow that touches one costs less to build.',
+  },
+  {
+    q: 'How long a build takes',
+    a: 'One to four weeks for most projects, depending on how many systems are involved. The timeline is in the scope document before work begins.',
+  },
+  {
+    q: 'Who maintains it after handoff',
+    a: 'Either your team, using the documentation and recorded walkthrough, or me, on a retainer scoped per engagement. When something breaks, you message the person who wrote it.',
+  },
+  {
+    q: 'Which tools I can connect',
+    a: 'The twelve automations in production span more than twenty tools — HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, SharePoint, Power Automate, Apify, Google Analytics 4, Gmail, and others. If your tool has an API, it can probably join the list; the discovery call settles it.',
+  },
+];
+
+const jsonLd = graph(
+  serviceSchema({
+    name: 'Custom Automation Build',
+    description,
+    path: '/services/custom-automation',
+    price: '1500',
+  }),
+  breadcrumbs([
+    { name: 'Services', path: '/services' },
+    { name: 'Custom Automation Build', path: '/services/custom-automation' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base title={title} description={description} path="/services/custom-automation" jsonLd={jsonLd}>
+  <section class="section hero">
+    <div class="wrap">
+      <h1>Custom Automation Build</h1>
+      <p>
+        A custom automation build at pocho.tech starts at $1,500, with a fixed price set in writing after a
+        60-minute discovery call. I design the workflow, build and test it on your systems, and hand it off with
+        documentation and a recorded walkthrough — typically in one to four weeks.
+      </p>
+      <p>I'm Erick Bonilla, and I'm the engineer on every build — first call through handoff.</p>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="example-h">
+    <div class="wrap">
+      <h2 id="example-h">What a custom build looks like</h2>
+      <p>The clearest example runs at Dahlia+ Agency, an event production company with a team of six to eight.</p>
+      <p>
+        When a proposal is accepted in Fresh Proposals, the automation updates the HubSpot deal stage, builds the
+        Monday.com board, and creates the QuickBooks customer with two invoices split 50/50 — untouched by anyone.
+        Processing one proposal went from 1.5–2 hours to 15 minutes.
+      </p>
+      <p class="metric">1.5–2 hrs → 15 min</p>
+      <p>At 2–4 proposals a day, that's 6–8 hours of manual operations gone from every working day.</p>
+      <p>Other builds running in production:</p>
+      <ul class="build-list">
+        <li>
+          <strong>AI interview evaluation — TPS Workforce Hub.</strong> Read.ai interview transcripts arrive by
+          webhook; candidates get matched and objectively scored, and human reviewers get a structured brief with
+          direct quotes from the interview.
+        </li>
+        <li>
+          <strong>AI newsletter curator — Matador Network.</strong> Overnight, an AI reads 400+ articles across
+          eleven-plus publications, picks the top ten, and delivers a finished newsletter every morning with zero
+          human input.
+        </li>
+        <li>
+          <strong>Business card scanner — Dahlia+ Agency.</strong> Drop a photo in Slack; GPT-4o Vision reads the
+          card, extracts every field, and creates the HubSpot contact.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="cost-h">
+    <div class="wrap">
+      <h2 id="cost-h">What it costs</h2>
+      <p>
+        Builds start at $1,500. The price depends on how many systems the workflow touches, the volume moving
+        through it, and whether AI evaluation or parsing needs design and testing of its own.
+      </p>
+      <p>
+        You get the fixed number in writing in the scope document, before any work begins. If you started with the
+        <a href="/services/automation-audit">$500 audit</a>, that full amount comes off the price.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="process-h">
+    <div class="wrap">
+      <h2 id="process-h">How the process works</h2>
+      <ol class="process">
+        <li>
+          <strong>Discovery call — 60 minutes.</strong> You walk me through how the work actually happens, and I
+          look for where the hours go. <a href={CALENDLY} rel="noopener">Book it directly on my calendar</a>.
+        </li>
+        <li>
+          <strong>Solution design — a few days.</strong> You get a written scope: what I'll build, what it
+          connects to, the fixed price, and the timeline. Nothing starts until you've approved it.
+        </li>
+        <li>
+          <strong>Build and test — one to four weeks.</strong> I build on your systems and test against your real
+          data, checking in as each piece goes live.
+        </li>
+        <li>
+          <strong>Handoff — one call.</strong> You get documentation and a recorded walkthrough of everything I
+          built.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ownership-h">
+    <div class="wrap">
+      <h2 id="ownership-h">Who owns what I build</h2>
+      <p>
+        You do. The workflows run in your accounts under your credentials — if we ever part ways, everything keeps
+        running.
+      </p>
+      <p>There is no platform of mine in the middle and no ongoing fee back to me for what you own.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="after-h">
+    <div class="wrap">
+      <h2 id="after-h">What happens after handoff</h2>
+      <p>
+        Most clients keep me on. All three teams on this site started with a single build and continue on embedded
+        retainers, scoped per engagement.
+      </p>
+      <blockquote>
+        <p>
+          "Erick was incredibly helpful in setting up the system to automatically track creator content. This
+          automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot
+          of manual effort."
+        </p>
+        <cite>— Kyrene Kagahastian, Social Media Team, Matador Network</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Questions I get before a build starts" />
+
+  <CtaSection
+    heading="Bring me the process that's eating the hours"
+    body="Sixty minutes: you walk me through how your team works, and I tell you what I'd build first and what it would cost. If the right answer is a $249 template instead of a custom build, I'll say so."
+  />
+  <div class="cta-postscript">
+    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+  </div>
+</Base>
+
+<style>
+  .hero h1 { max-width: 22ch; }
+  .hero p { max-width: 62ch; }
+  .hero .btn { margin-top: 18px; }
+
+  .metric {
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    margin: 22px 0;
+    max-width: none;
+  }
+
+  .build-list {
+    margin: 16px 0 0;
+    padding-left: 20px;
+    display: grid;
+    gap: 14px;
+    max-width: 70ch;
+  }
+  .build-list strong { color: var(--c-text); }
+
+  .process {
+    margin: 28px 0 0;
+    padding-left: 24px;
+    display: grid;
+    gap: 18px;
+    max-width: 70ch;
+  }
+  .process li::marker {
+    font-family: var(--font-mono);
+    color: var(--c-text-dim);
+  }
+  .process strong { color: var(--c-text); }
+
+  blockquote {
+    margin: 26px 0 0;
+    padding-left: 18px;
+    border-left: 2px solid var(--c-border);
+    max-width: 70ch;
+  }
+  blockquote p {
+    color: var(--c-text);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  cite {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--c-text-dim);
+  }
+
+  .cta-postscript {
+    background: var(--c-surface-alt);
+    text-align: center;
+    margin-top: calc(-1 * var(--space-section) + 32px);
+    padding-bottom: calc(var(--space-section) - 32px);
+  }
+  .cta-postscript p {
+    margin: 0 auto;
+    max-width: none;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    padding: 0 24px;
+  }
+</style>

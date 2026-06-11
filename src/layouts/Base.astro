@@ -1,0 +1,231 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Path beginning with /, used for canonical URL */
+  path: string;
+  ogImage?: string;
+  ogType?: string;
+  jsonLd?: object[];
+}
+
+const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [] } = Astro.props;
+const canonical = new URL(path === '/' ? '/' : path, Astro.site).href;
+const ogImageAbs = new URL(ogImage, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:site_name" content="pocho.tech" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    {jsonLd.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="/" class="logo" aria-label="pocho.tech home">pocho.<span class="logo-tech">tech</span></a>
+        <nav aria-label="Main">
+          <ul class="nav-list" id="nav-list">
+            <li><a href="/services">Services</a></li>
+            <li><a href="/industries">Industries</a></li>
+            <li><a href="/templates">Templates</a></li>
+            <li><a href="/case-studies">Case Studies</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </nav>
+        <a href="/contact" class="btn btn-primary btn-nav">Book a call</a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Menu">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <span class="logo logo-footer">pocho.<span class="logo-tech">tech</span></span>
+            <p class="footer-tag">AI Automation Studio. Custom automations and ready-to-deploy templates for small teams.</p>
+          </div>
+          <nav aria-label="Services">
+            <h2 class="footer-h">Services</h2>
+            <ul>
+              <li><a href="/services/custom-automation">Custom Automation Build</a></li>
+              <li><a href="/services/done-for-you-setup">Done-For-You Setup</a></li>
+              <li><a href="/services/automation-audit">Automation Audit</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Templates">
+            <h2 class="footer-h">Templates</h2>
+            <ul>
+              <li><a href="/templates">All templates</a></li>
+              <li><a href="/templates/jarvis-ai-executive-assistant">Jarvis — AI Executive Assistant</a></li>
+              <li><a href="/templates/meeting-prep-agent">Meeting Prep Agent</a></li>
+              <li><a href="/templates/sheets-hubspot-task-manager">Sheets ↔ HubSpot (Free)</a></li>
+            </ul>
+          </nav>
+          <nav aria-label="Company">
+            <h2 class="footer-h">Company</h2>
+            <ul>
+              <li><a href="/case-studies">Case Studies</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+        <p class="footer-legal">© 2026 pocho.tech</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 64px;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--c-text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .logo-tech { color: var(--c-red); }
+  .nav-list {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-list a {
+    color: var(--c-text-mute);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .nav-list a:hover { color: var(--c-text); }
+  nav[aria-label="Main"] { margin-left: auto; }
+  .btn-nav { padding: 8px 18px; font-size: 0.9rem; }
+
+  .site-footer {
+    border-top: 1px solid var(--c-border);
+    padding: 64px 0 40px;
+    margin-top: var(--space-section);
+    background: var(--c-bg-deep);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  .footer-tag { color: var(--c-text-dim); font-size: 0.92rem; margin-top: 10px; }
+  .footer-h {
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--c-text-dim);
+    margin-bottom: 14px;
+  }
+  .site-footer ul { list-style: none; margin: 0; padding: 0; }
+  .site-footer li { margin-bottom: 9px; }
+  .site-footer li a {
+    color: var(--c-text-mute);
+    text-decoration: none;
+    font-size: 0.92rem;
+  }
+  .site-footer li a:hover { color: var(--c-text); }
+  .footer-legal {
+    margin-top: 48px;
+    color: var(--c-text-dim);
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+  }
+  .nav-toggle { display: none; }
+
+  @media (max-width: 900px) {
+    .nav-list {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--c-bg);
+      border-bottom: 1px solid var(--c-border);
+      padding: 8px 24px 16px;
+    }
+    .nav-list.open { display: flex; }
+    .nav-list li { padding: 10px 0; }
+    .nav-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 10px 6px;
+      cursor: pointer;
+      order: 3;
+    }
+    .nav-toggle-bar {
+      width: 20px;
+      height: 2px;
+      background: var(--c-text);
+      display: block;
+    }
+    nav[aria-label="Main"] { margin-left: 0; position: static; }
+    .header-inner { justify-content: space-between; position: relative; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const list = document.getElementById('nav-list');
+  toggle?.addEventListener('click', () => {
+    const open = list?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(!!open));
+  });
+</script>

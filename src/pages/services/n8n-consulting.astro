@@ -1,0 +1,188 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
+import { CALENDLY, EMAIL } from '../../data/site';
+
+const title = 'n8n & Make.com Consultant — Erick Bonilla | pocho.tech';
+const description =
+  'n8n and Make.com consulting: architecture review, workflow builds, self-hosting guidance, and team training from the engineer behind 12 production systems.';
+
+const faqs = [
+  {
+    q: 'n8n vs Zapier vs Make — which to use',
+    a: "Zapier is the fastest start for simple triggers; Make.com handles longer visual scenarios at moderate cost; n8n gives the most control — self-hostable, with code where you need it, and well suited to AI-heavy workflows. I build client systems on both n8n and Make.com, so the recommendation isn't a pitch for either platform. The honest answer depends on your volume, your data constraints, and who maintains it after I leave. It's the first ten minutes of the call.",
+  },
+  {
+    q: 'Whether I review existing workflows or only build new ones',
+    a: 'Both. Architecture review of what you already have is a common starting point — most teams arrive with something half-working rather than a blank slate.',
+  },
+  {
+    q: 'Self-hosted n8n versus n8n cloud',
+    a: "Cloud is the right default while you're proving that workflows matter to the business. Self-hosting earns its overhead when volume, cost, or data control demand it — and if you go that way, the setup is part of what I cover.",
+  },
+  {
+    q: 'What consulting costs',
+    a: 'Scoped per engagement on the discovery call — a single review session is priced differently than ongoing training. If the engagement turns into me building the system, builds start at $1,500.',
+  },
+];
+
+const jsonLd = graph(
+  serviceSchema({
+    name: 'n8n & Make.com Consulting',
+    description,
+    path: '/services/n8n-consulting',
+  }),
+  breadcrumbs([
+    { name: 'Services', path: '/services' },
+    { name: 'n8n & Make.com Consulting', path: '/services/n8n-consulting' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base title={title} description={description} path="/services/n8n-consulting" jsonLd={jsonLd}>
+  <section class="section hero">
+    <div class="wrap">
+      <h1>n8n &amp; Make.com Consulting</h1>
+      <p>
+        I consult on n8n and Make.com: architecture review, workflow builds, self-hosting guidance, and team
+        training. I'm Erick Bonilla — the twelve automations I run in production for Dahlia+ Agency, Matador
+        Network, and TPS Workforce Hub are built on these platforms with the OpenAI and Anthropic APIs.
+      </p>
+      <p>Engagements are scoped on a discovery call.</p>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="credentials-h">
+    <div class="wrap">
+      <h2 id="credentials-h">The shortest version of my credentials</h2>
+      <p>
+        Matador Network brought me in to teach n8n to their AI Advocacy Director. The training led to a hire:
+        their editorial team now runs four of my automations, including a newsletter curator that processes 400+
+        articles a day.
+      </p>
+      <blockquote>
+        <p>
+          "Erick has helped us build and implement multiple automations for our editorial department, and these
+          save us time each week that can be spent producing content rather than sifting through emails and data."
+        </p>
+        <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="covers-h">
+    <div class="wrap">
+      <h2 id="covers-h">What consulting covers</h2>
+      <div class="grid-2 covers-grid">
+        <article class="card">
+          <h3>Architecture review</h3>
+          <p>
+            I read your existing workflows and tell you what will break first — error handling, credential
+            management, rate limits, and the nodes doing too much work. You get specific fixes, in writing.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Workflow builds</h3>
+          <p>
+            Some teams bring a half-built workflow; some bring a blank canvas. Either way I build on your
+            instance, alongside your team, so the knowledge stays when the engagement ends.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Self-hosting guidance</h3>
+          <p>
+            Whether to self-host n8n or stay on cloud, and how to run it if you do: environments, credentials,
+            backups, and upgrades. The goal is an instance your team can operate without me.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Team training</h3>
+          <p>
+            The same thing Matador Network hired me for first: teaching your team to build and maintain workflows
+            in-house. Sessions are scoped to your stack and the workflows you actually need.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="scoping-h">
+    <div class="wrap">
+      <h2 id="scoping-h">How engagements are scoped</h2>
+      <p>
+        On a discovery call. Some engagements are a single architecture-review session; some become standing
+        arrangements, scoped per engagement like all my retainer work.
+      </p>
+      <p>
+        If what you actually need is a finished system rather than guidance, that's a
+        <a href="/services/custom-automation">custom build</a> — from $1,500.
+      </p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Questions teams ask before a consulting engagement" />
+
+  <section class="section section-alt" aria-labelledby="see-work-h">
+    <div class="wrap">
+      <h2 id="see-work-h">See the work before you book</h2>
+      <p>
+        Seven of my n8n workflows are sold as <a href="/templates">templates</a> — each one is the workflow JSON,
+        a step-by-step PDF guide, and a 90-second walkthrough video. If you want to see how I structure a workflow
+        first, the
+        <a href="https://checkout.lemonsqueezy.com/buy/1320841" rel="noopener">Sheets ↔ HubSpot sync is free</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Bring the workflow that's fighting you"
+    body="Sixty minutes on a call: you show me the instance, and I tell you what I'd fix, what I'd build, and what your team should own. If a session isn't the right spend, you'll hear that on the call."
+  />
+  <div class="cta-postscript">
+    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+  </div>
+</Base>
+
+<style>
+  .hero h1 { max-width: 22ch; }
+  .hero p { max-width: 62ch; }
+  .hero .btn { margin-top: 18px; }
+
+  blockquote {
+    margin: 26px 0 0;
+    padding-left: 18px;
+    border-left: 2px solid var(--c-border);
+    max-width: 70ch;
+  }
+  blockquote p {
+    color: var(--c-text);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  cite {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--c-text-dim);
+  }
+
+  .covers-grid { margin-top: 32px; }
+  .covers-grid .card p { margin-bottom: 0; }
+
+  .cta-postscript {
+    background: var(--c-surface-alt);
+    text-align: center;
+    margin-top: calc(-1 * var(--space-section) + 32px);
+    padding-bottom: calc(var(--space-section) - 32px);
+  }
+  .cta-postscript p {
+    margin: 0 auto;
+    max-width: none;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    padding: 0 24px;
+  }
+</style>

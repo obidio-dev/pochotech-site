@@ -1,0 +1,139 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import { Image } from 'astro:assets';
+import shot from '../../assets/workflows/MeetingPrepAgent.PNG';
+import { templates } from '../../data/templates';
+import { graph, productSchema, breadcrumbs, faqSchema } from '../../lib/schema';
+
+const t = templates.find((x) => x.slug === 'meeting-prep-agent')!;
+
+const faqs = [
+  {
+    q: 'Setup time',
+    a: 'Plan for about 30 minutes: import the JSON, connect Google Calendar, Gmail, and OpenAI, then run the test steps in the PDF guide. The walkthrough video shows the finished workflow end to end.',
+  },
+  {
+    q: 'What you need',
+    a: 'A running n8n instance — n8n Cloud or self-hosted both work — plus a Google account and an OpenAI API key.',
+  },
+  {
+    q: 'Customization',
+    a: "It's a standard n8n workflow, so every node is open and editable — change the briefing timing, the format, or the model. If you want it adapted beyond that, Done-For-You Setup covers configuration and a custom build covers the rest.",
+  },
+];
+
+const jsonLd = graph(
+  productSchema({
+    name: 'Meeting Prep Agent',
+    description:
+      "The Meeting Prep Agent is an n8n workflow with an AI that reads your email history with every meeting attendee and sends you a structured briefing one hour before the call — what you discussed, what's still pending, and how the relationship feels.",
+    path: '/templates/meeting-prep-agent',
+    price: t.price,
+  }),
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Templates', path: '/templates' },
+    { name: 'Meeting Prep Agent', path: '/templates/meeting-prep-agent' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base
+  title="Meeting Prep Agent — n8n Template | pocho.tech"
+  description="An AI that reads your email history with every meeting attendee and sends a structured briefing one hour before the call. n8n template, $249."
+  path="/templates/meeting-prep-agent"
+  jsonLd={jsonLd}
+>
+  <article>
+    <header class="tpl-top">
+      <div class="wrap tpl-wrap">
+        <h1>Meeting Prep Agent</h1>
+        <figure class="workflow-shot">
+          <Image src={shot} alt={t.imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 860px) 100vw, 800px" loading="eager" />
+          <figcaption>Workflow built in n8n</figcaption>
+        </figure>
+        <p class="opener">
+          The Meeting Prep Agent is an n8n workflow with an AI that reads your email history with every meeting
+          attendee and sends you a structured briefing one hour before the call — what you discussed, what's
+          still pending, and how the relationship feels.
+        </p>
+        <p class="opener">
+          It runs in your own n8n instance, on your own credentials, like the systems I build for clients. $249,
+          one-time.
+        </p>
+      </div>
+    </header>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="does-h">
+      <h2 id="does-h">What it does</h2>
+      <ul>
+        <li>Watches your Google Calendar and triggers one hour before each meeting</li>
+        <li>Pulls your Gmail history with every attendee on the invite</li>
+        <li>An AI reads those threads and extracts what you discussed, what's still open, and the tone of the relationship</li>
+        <li>Delivers a structured briefing to your inbox before you join the call</li>
+      </ul>
+    </section>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="incl-h">
+      <h2 id="incl-h">What's included</h2>
+      <ul>
+        <li>The complete n8n workflow JSON, ready to import</li>
+        <li>A step-by-step PDF setup guide</li>
+        <li>A 90-second walkthrough video of the working system</li>
+      </ul>
+    </section>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="integ-h">
+      <h2 id="integ-h">Integrations</h2>
+      <p class="integrations-line">Google Calendar, Gmail, OpenAI.</p>
+    </section>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="price-h">
+      <h2 id="price-h">Price</h2>
+      <p class="price-line"><span class="price-big">$249</span> — one-time purchase.</p>
+      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the Meeting Prep Agent — $249</a>
+      <p class="upsell">
+        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+        connected, workflow configured, tested live, recording included.
+      </p>
+    </section>
+
+    <Faq faqs={faqs} heading="Questions before you buy" />
+
+    <div class="wrap tpl-wrap">
+      <a href="/templates">Back to all templates →</a>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .tpl-top { padding: clamp(64px, 10vw, 110px) 0 0; }
+  .tpl-wrap { max-width: 800px; }
+  .workflow-shot { margin: 36px 0 40px; }
+  .workflow-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+  }
+  .workflow-shot figcaption {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--c-text-mute);
+  }
+  .opener { font-size: 1.08rem; max-width: 62ch; }
+  .tpl-section { margin-top: clamp(48px, 7vw, 72px); }
+  .tpl-section ul { margin: 18px 0 0; padding-left: 22px; display: grid; gap: 10px; max-width: 65ch; }
+  .integrations-line { font-family: var(--font-mono); font-size: 0.92rem; color: var(--c-text-mute); }
+  .price-line { margin: 10px 0 26px; }
+  .price-big {
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    font-weight: 700;
+  }
+  .upsell { margin-top: 24px; color: var(--c-text-mute); font-size: 0.95rem; }
+</style>

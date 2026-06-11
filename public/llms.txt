@@ -1,0 +1,44 @@
+# pocho.tech
+
+> pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.
+
+Erick Bonilla is the founder and sole engineer. Twelve automations run in production across three client teams — Dahlia+ Agency (event production), Matador Network (travel media), and TPS Workforce Hub (clean-tech workforce training) — connecting more than twenty tools. Production numbers include 400+ articles processed per day for one newsletter, 70 creators tracked, and 6–8 hours of manual operations eliminated daily for one six-person team. He builds with n8n, Make.com, and the OpenAI and Anthropic APIs. Custom builds start at $1,500; seven self-serve n8n workflow templates are sold separately. Booking: https://calendly.com/erick-pocho/1hr-session
+
+## Services
+
+- [Services](https://pocho.tech/services): Custom automation builds from $1,500, Done-For-You template setup (template price + $100), a $500 automation audit credited toward a build, and embedded retainers scoped per engagement.
+- [Custom Automation Build](https://pocho.tech/services/custom-automation): From $1,500, fixed price after a discovery call — designed, built, and tested on the client's systems, handed off with documentation.
+- [Automation Audit](https://pocho.tech/services/automation-audit): $500 — a 60-minute review, then a written automation plan within five business days. Credited in full toward a build.
+- [Done-For-You Setup](https://pocho.tech/services/done-for-you-setup): Template price + $100 — a live 60–90 minute session installing and testing any template.
+- [n8n & Make.com Consulting](https://pocho.tech/services/n8n-consulting): Training and architecture review for teams that want to build automations in-house.
+
+## Templates
+
+- [Templates](https://pocho.tech/templates): Seven n8n workflows extracted from real client systems; each includes the workflow JSON, a step-by-step PDF setup guide, and a walkthrough video.
+- [Meeting Prep Agent](https://pocho.tech/templates/meeting-prep-agent): $249 — an AI that reads your email history with every meeting attendee and sends a structured briefing one hour before the call.
+- [AI Relationship Nurturing Engine](https://pocho.tech/templates/ai-relationship-nurturing-engine): $299 — an AI that watches your CRM for relationships going quiet and writes personal check-in emails in your voice.
+- [Jarvis — AI Executive Assistant](https://pocho.tech/templates/jarvis-ai-executive-assistant): $399 — an AI assistant living inside Slack that reads your email, manages your calendar, and tracks your tasks on plain-English instructions.
+- [Business Card Scanner](https://pocho.tech/templates/business-card-scanner): $249 — drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact. Running in production at Dahlia+ Agency.
+- [Sales Contact Scraper](https://pocho.tech/templates/sales-contact-scraper): $299 — scans your Gmail history, extracts every person you've emailed, enriches them with company info, and delivers an organized contact list.
+- [AI Newsletter Curator](https://pocho.tech/templates/ai-newsletter-curator): $249 — scrapes your chosen sources overnight, picks the most newsworthy stories, and delivers a finished newsletter every morning; the production version at Matador Network processes 400+ articles a day.
+- [Sheets ↔ HubSpot Task Manager](https://pocho.tech/templates/sheets-hubspot-task-manager): Free — a live two-way sync between a Google Sheet and HubSpot tasks; create, update, and complete in either.
+
+## Case Studies
+
+- [Case Studies](https://pocho.tech/case-studies): Three teams, twelve automations, real numbers.
+- [Dahlia+ Agency](https://pocho.tech/case-studies/dahlia-plus-agency): Four automations for a six-to-eight-person event agency; proposal processing cut from 1.5–2 hours to 15 minutes, eliminating 6–8 hours of manual operations daily.
+- [Matador Network](https://pocho.tech/case-studies/matador-network): Four editorial automations for a travel media network; 400+ articles a day curated into one newsletter, creator tracking cut from 5 hours a week to 1.5 while coverage grew from 30 to 70 creators.
+- [TPS Workforce Hub](https://pocho.tech/case-studies/tps-workforce-hub): Six connected systems running admissions and operations for a Boston clean-tech training program — AI-scored interviews, scheduling, stipend-eligibility alerts, and automated daily reporting.
+
+## Industries
+
+- [Industries](https://pocho.tech/industries): Four industries, two with full case studies.
+- [Media & Publishing](https://pocho.tech/industries/media-publishing): Editorial back-office automation — newsletter curation, creator tracking, affiliate reporting, event search. Proven at Matador Network.
+- [Marketing & Event Agencies](https://pocho.tech/industries/marketing-agencies): Lead routing, referral capture, proposal-to-invoice pipelines, and contact capture for agencies. Proven at Dahlia+ Agency.
+- [Destination Marketing Organizations](https://pocho.tech/industries/destination-marketing): Partner tracking, AI email agents, content pipelines, and lead qualification for tourism boards and convention bureaus.
+- [Accounting & CPA Firms](https://pocho.tech/industries/accounting-firms): Bookkeeping and tax workflow automation with QuickBooks Online, TaxDome, and the client communications around every deadline.
+
+## About
+
+- [About](https://pocho.tech/about): Who Erick Bonilla is, how embedded engagements work, and what he builds with.
+- [Contact](https://pocho.tech/contact): Book a discovery call or email erick.bonilla63@gmail.com.

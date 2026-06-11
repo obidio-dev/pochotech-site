@@ -1,0 +1,137 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import { Image } from 'astro:assets';
+import shot from '../../assets/workflows/BusinessCardScanner.PNG';
+import { templates } from '../../data/templates';
+import { graph, productSchema, breadcrumbs, faqSchema } from '../../lib/schema';
+
+const t = templates.find((x) => x.slug === 'business-card-scanner')!;
+
+const faqs = [
+  {
+    q: 'Setup time',
+    a: 'Plan for about 30 minutes: import the JSON, connect Slack, OpenAI, and HubSpot, then test with a card photo of your own. The walkthrough video shows the finished workflow end to end.',
+  },
+  {
+    q: 'What you need',
+    a: 'A running n8n instance — n8n Cloud or self-hosted both work — plus a Slack workspace, an OpenAI API key with GPT-4o access, and a HubSpot account.',
+  },
+  {
+    q: 'Customization',
+    a: 'Every node is open and editable: change which channel it watches, add fields to the extraction, or swap the HubSpot node for another CRM n8n connects to. If you want it adapted beyond that, Done-For-You Setup covers configuration and a custom build covers the rest.',
+  },
+];
+
+const jsonLd = graph(
+  productSchema({
+    name: 'Business Card Scanner',
+    description:
+      'The Business Card Scanner is an n8n workflow: drop a photo in Slack, an AI reads the card, extracts every field, and creates the CRM contact.',
+    path: '/templates/business-card-scanner',
+    price: t.price,
+  }),
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Templates', path: '/templates' },
+    { name: 'Business Card Scanner', path: '/templates/business-card-scanner' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base
+  title="Business Card Scanner — n8n Template | pocho.tech"
+  description="Drop a card photo in Slack; GPT-4o Vision extracts every field and creates the HubSpot contact. In production at Dahlia+ Agency. n8n template, $249."
+  path="/templates/business-card-scanner"
+  jsonLd={jsonLd}
+>
+  <article>
+    <header class="tpl-top">
+      <div class="wrap tpl-wrap">
+        <h1>Business Card Scanner</h1>
+        <figure class="workflow-shot">
+          <Image src={shot} alt={t.imageAlt} widths={[480, 800, 1200]} sizes="(max-width: 860px) 100vw, 800px" loading="eager" />
+          <figcaption>Workflow built in n8n</figcaption>
+        </figure>
+        <p class="opener">
+          The Business Card Scanner is an n8n workflow: drop a photo in Slack, an AI reads the card, extracts
+          every field, and creates the CRM contact.
+        </p>
+        <p class="opener">
+          This exact workflow runs in production at Dahlia+ Agency, an event production team of six to eight.
+          $249, one-time.
+        </p>
+      </div>
+    </header>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="does-h">
+      <h2 id="does-h">What it does</h2>
+      <ul>
+        <li>Watches a Slack channel for photos of business cards</li>
+        <li>OpenAI GPT-4o Vision reads each image and extracts every field — name, title, company, email, phone</li>
+        <li>Creates the contact in HubSpot with those fields filled in</li>
+      </ul>
+    </section>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="incl-h">
+      <h2 id="incl-h">What's included</h2>
+      <ul>
+        <li>The complete n8n workflow JSON, ready to import</li>
+        <li>A step-by-step PDF setup guide</li>
+        <li>A 90-second walkthrough video of the working system</li>
+      </ul>
+    </section>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="integ-h">
+      <h2 id="integ-h">Integrations</h2>
+      <p class="integrations-line">Slack, OpenAI GPT-4o Vision, HubSpot.</p>
+    </section>
+
+    <section class="wrap tpl-wrap tpl-section" aria-labelledby="price-h">
+      <h2 id="price-h">Price</h2>
+      <p class="price-line"><span class="price-big">$249</span> — one-time purchase.</p>
+      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the Business Card Scanner — $249</a>
+      <p class="upsell">
+        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+        connected, workflow configured, tested live, recording included.
+      </p>
+    </section>
+
+    <Faq faqs={faqs} heading="Questions before you buy" />
+
+    <div class="wrap tpl-wrap">
+      <a href="/templates">Back to all templates →</a>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .tpl-top { padding: clamp(64px, 10vw, 110px) 0 0; }
+  .tpl-wrap { max-width: 800px; }
+  .workflow-shot { margin: 36px 0 40px; }
+  .workflow-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+  }
+  .workflow-shot figcaption {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--c-text-mute);
+  }
+  .opener { font-size: 1.08rem; max-width: 62ch; }
+  .tpl-section { margin-top: clamp(48px, 7vw, 72px); }
+  .tpl-section ul { margin: 18px 0 0; padding-left: 22px; display: grid; gap: 10px; max-width: 65ch; }
+  .integrations-line { font-family: var(--font-mono); font-size: 0.92rem; color: var(--c-text-mute); }
+  .price-line { margin: 10px 0 26px; }
+  .price-big {
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    font-weight: 700;
+  }
+  .upsell { margin-top: 24px; color: var(--c-text-mute); font-size: 0.95rem; }
+</style>

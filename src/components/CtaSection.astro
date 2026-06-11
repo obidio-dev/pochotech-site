@@ -1,0 +1,39 @@
+---
+import { CALENDLY, CTA_PRIMARY } from '../data/site';
+
+interface Props {
+  heading: string;
+  body?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+const { heading, body, secondaryLabel, secondaryHref } = Astro.props;
+---
+<section class="section cta-section">
+  <div class="wrap">
+    <h2>{heading}</h2>
+    {body && <p class="cta-body">{body}</p>}
+    <div class="cta-row">
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">{CTA_PRIMARY}</a>
+      {secondaryLabel && secondaryHref && (
+        <a href={secondaryHref} class="btn btn-secondary">{secondaryLabel}</a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    background: var(--c-surface-alt);
+    border-top: 1px solid var(--c-border);
+    text-align: center;
+  }
+  .cta-body { margin: 0 auto 8px; color: var(--c-text-body); }
+  .cta-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+</style>

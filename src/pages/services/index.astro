@@ -1,0 +1,282 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs } from '../../lib/schema';
+import { CALENDLY, EMAIL } from '../../data/site';
+
+const title = 'AI Automation Services & Pricing | pocho.tech';
+const description =
+  'Automation audit ($500), custom builds from $1,500, done-for-you template setup, and embedded retainers. One engineer, Erick Bonilla, on every project.';
+
+const jsonLd = graph(breadcrumbs([{ name: 'Services', path: '/services' }]));
+---
+<Base title={title} description={description} path="/services" jsonLd={jsonLd}>
+  <section class="section hero">
+    <div class="wrap">
+      <h1>Start with an audit, a build, or a template. Most clients stay.</h1>
+      <p>
+        Everything I sell is a version of the same thing: a working automation, built by me, running in your
+        accounts. The difference is how much of the work you want me to do and how long you want me around.
+      </p>
+      <p>
+        Three teams run twelve of my automations in production. Every one of those engagements started on one of
+        the rungs below.
+      </p>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="ladder-h">
+    <div class="wrap">
+      <h2 id="ladder-h">The engagement ladder</h2>
+      <div class="ladder">
+        <article class="card">
+          <h3>1. Automation Audit — $500, credited toward a build</h3>
+          <p>
+            <strong>Who it's for:</strong> You know the hours are going somewhere, but you want a plan in writing
+            before spending $1,500 or more.
+          </p>
+          <p>
+            A 60-minute review of how your team actually works, then a written report within five business days:
+            what to automate first, which tools, estimated time savings, and a build scope for each recommendation.
+            Commission a build afterward and the full $500 comes off the price.
+          </p>
+          <p class="card-links">
+            <a href="/services/automation-audit">About the audit</a> ·
+            <a href={CALENDLY} rel="noopener">Book an audit</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>2. Custom Automation Build — from $1,500</h3>
+          <p><strong>Who it's for:</strong> You can already name the process that's eating the hours.</p>
+          <p>
+            I design the solution, build and test it on your systems, and hand it off with documentation and a
+            recorded walkthrough. Fixed price set in writing after a discovery call; typical timeline is one to
+            four weeks.
+          </p>
+          <p>
+            The proposal-to-invoice pipeline at Dahlia+ Agency is one of these — processing went from 1.5–2 hours
+            per proposal to 15 minutes.
+          </p>
+          <p class="card-links">
+            <a href="/services/custom-automation">About custom builds</a> ·
+            <a href={CALENDLY} rel="noopener">Book a discovery call</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>3. Ongoing embedded work — scoped per engagement</h3>
+          <p>
+            <strong>Who it's for:</strong> Teams that want an automation engineer on the roster without making a
+            hire.
+          </p>
+          <p>
+            I stay on after handoff — inside your Slack, your CRM, your boards — maintaining what's live and
+            building what's next. This is how most of my work runs: all three client teams on this site continue
+            on retainers.
+          </p>
+          <p>
+            That's how one automation at Dahlia+ Agency became four, and one system at TPS Workforce Hub became
+            six.
+          </p>
+          <blockquote>
+            <p>"You have done such a great job that I can't remember how we were working before you."</p>
+            <cite>— CEO, TPS Energy</cite>
+          </blockquote>
+          <p class="card-links">
+            <a href={CALENDLY} rel="noopener">Book a discovery call</a>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="selfserve-h">
+    <div class="wrap">
+      <h2 id="selfserve-h">The self-serve lane</h2>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Templates — seven n8n workflows, $249–$399, one free</h3>
+          <p>
+            Workflows extracted from real client systems — the Business Card Scanner runs in production at Dahlia+
+            Agency. Each one is the workflow JSON, a step-by-step PDF setup guide, and a 90-second walkthrough
+            video.
+          </p>
+          <p class="card-links"><a href="/templates">Browse the templates</a></p>
+        </article>
+
+        <article class="card">
+          <h3>Done-For-You Setup — template price + $100</h3>
+          <p>
+            A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you
+            on the call. You keep a recording of the whole session.
+          </p>
+          <p class="card-links"><a href="/services/done-for-you-setup">About Done-For-You Setup</a></p>
+        </article>
+
+        <article class="card">
+          <h3>n8n &amp; Make.com consulting</h3>
+          <p>
+            For teams that want to build in-house: architecture review, workflow builds, self-hosting guidance,
+            and training. Matador Network hired me to build after I taught n8n to their AI Advocacy Director.
+          </p>
+          <p class="card-links"><a href="/services/n8n-consulting">About n8n &amp; Make.com consulting</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="compare-h">
+    <div class="wrap">
+      <h2 id="compare-h">How the options compare</h2>
+      <div class="table-scroll">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <td></td>
+              <th scope="col">Working with pocho.tech</th>
+              <th scope="col">Hiring an ops person</th>
+              <th scope="col">Doing it yourself on Zapier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Cost</th>
+              <td>From $1,500 per build, fixed in writing; retainers scoped per engagement</td>
+              <td>A full-time salary, plus recruiting and ramp-up</td>
+              <td>The subscription, plus your own hours</td>
+            </tr>
+            <tr>
+              <th scope="row">Time to a working system</th>
+              <td>One to four weeks from approved scope</td>
+              <td>Months before the first build ships</td>
+              <td>Fast for a two-step trigger; slow for multi-system pipelines with AI steps</td>
+            </tr>
+            <tr>
+              <th scope="row">Who does the work</th>
+              <td>One engineer with twelve automations in production</td>
+              <td>A generalist whose week includes much more than automation</td>
+              <td>You, between everything else on your plate</td>
+            </tr>
+            <tr>
+              <th scope="row">What you keep</th>
+              <td>Workflows in your accounts, documented, with a recorded walkthrough</td>
+              <td>Institutional knowledge that leaves with the employee</td>
+              <td>Workflows only you understand</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="compare-note">
+        If a simple Zapier trigger genuinely covers your case, you'll hear that on the discovery call.
+      </p>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Where to start"
+    body="If you can name the broken process, book the discovery call — it's the first step of every build. If you can't, the audit turns sixty minutes into a written plan, credited in full if you go ahead. If you'd rather see the work before talking to me, the Sheets ↔ HubSpot sync template is free."
+  />
+  <div class="cta-postscript">
+    <p>
+      <a href="https://checkout.lemonsqueezy.com/buy/1320841" rel="noopener">Get the free template</a> · Or write
+      to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .hero h1 { max-width: 22ch; }
+  .hero p { max-width: 62ch; }
+  .hero .btn { margin-top: 18px; }
+
+  .ladder {
+    display: grid;
+    gap: 22px;
+    margin-top: 32px;
+  }
+  .ladder .card h3 { margin-bottom: 14px; }
+  .grid-3 { margin-top: 32px; }
+  .card-links {
+    margin-bottom: 0;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+  }
+  .card-links a { color: var(--c-text-mute); }
+  .card-links a:hover { color: var(--c-text); }
+
+  blockquote {
+    margin: 20px 0;
+    padding-left: 18px;
+    border-left: 2px solid var(--c-border);
+  }
+  blockquote p {
+    color: var(--c-text);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  cite {
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--c-text-dim);
+  }
+
+  .table-scroll {
+    margin-top: 32px;
+    overflow-x: auto;
+  }
+  .compare-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    font-size: 0.94rem;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid var(--c-border);
+    padding: 16px 18px;
+    text-align: left;
+    vertical-align: top;
+    color: var(--c-text-body);
+  }
+  .compare-table thead th {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--c-text);
+    background: var(--c-bg-deep);
+  }
+  .compare-table thead td { background: var(--c-bg-deep); }
+  .compare-table tbody th[scope='row'] {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-text);
+    white-space: nowrap;
+  }
+  .compare-note {
+    margin-top: 24px;
+    color: var(--c-text-mute);
+  }
+
+  .cta-postscript {
+    background: var(--c-surface-alt);
+    text-align: center;
+    margin-top: calc(-1 * var(--space-section) + 32px);
+    padding-bottom: calc(var(--space-section) - 32px);
+  }
+  .cta-postscript p {
+    margin: 0 auto;
+    max-width: none;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    padding: 0 24px;
+  }
+</style>

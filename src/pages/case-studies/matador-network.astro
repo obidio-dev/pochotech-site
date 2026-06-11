@@ -1,0 +1,263 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs, reviewSchema } from '../../lib/schema';
+import { EMAIL, BOILERPLATE } from '../../data/site';
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies' },
+    { name: 'Matador Network', path: '/case-studies/matador-network' },
+  ]),
+  reviewSchema({
+    body: 'Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data.',
+    authorName: 'Tim Wenger',
+    authorTitle: 'Editorial Team, Matador Network',
+  })
+);
+
+const metrics = [
+  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking, by hand versus automated.' },
+  { value: '30 → 70', label: 'Creators tracked, same workflow.' },
+  { value: '400+ a day', label: 'Articles processed into one newsletter, zero human input.' },
+];
+
+const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'];
+---
+<Base
+  title="Matador Network: 400+ Articles a Day, Curated | pocho.tech"
+  description="Four automations run Matador Network's editorial back office: a daily AI newsletter from 400+ articles and a creator tracker cut from 5 hours to 1.5."
+  path="/case-studies/matador-network"
+  jsonLd={jsonLd}
+>
+  <section class="cs-header">
+    <div class="wrap">
+      <h1>Matador Network</h1>
+      <p class="client-line"><strong>Travel media — <a href="https://matadornetwork.com" rel="noopener">matadornetwork.com</a>.</strong> Around 50 people, with an editorial team of twelve. Matador also operates GuideGeek, an AI travel product for destination marketing organizations. Four automations in production.</p>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The before</h2>
+      <div class="before-block">
+        <p>Creator tracking meant opening TikTok and Instagram, finding every post, and copying URLs, views, and likes into a sheet by hand. Five hours a week covered 30 creators, and the program needed to be larger.</p>
+        <p>The morning news sweep had the same shape. Eleven-plus industry publications produce roughly 400 articles a day; an editorial team of twelve needed the ten worth reading.</p>
+        <p>Affiliate reporting and event research rounded it out — more data someone had to go collect before the editorial work could start.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>What I built</h2>
+      <p>Four automations run the editorial back office.</p>
+      <ol class="systems">
+        <li><strong>Creator tracker</strong> — Scrapes TikTok and Instagram for every tracked creator and delivers a Monday digest of post URLs, views, and likes.</li>
+        <li><strong>AI newsletter curator</strong> — Apify collects roughly 400 articles a day from eleven-plus publications overnight; GPT-4o picks the top ten, writes the summaries, and a polished HTML newsletter arrives every morning.</li>
+        <li><strong>Affiliate link performance report</strong> — Every Monday, GA4 data becomes a report ranking the top 20 affiliate links, with AI insights.</li>
+        <li><strong>Event search</strong> — A monthly sweep of Eventbrite, Meetup, and Luma across 15 US cities.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-alt numbers">
+    <div class="wrap">
+      <h2>The numbers</h2>
+      <div class="metric-grid">
+        {metrics.map((m) => (
+          <div class="metric-item">
+            <span class="metric">{m.value}</span>
+            <span class="metric-label">{m.label}</span>
+          </div>
+        ))}
+      </div>
+      <p class="numbers-note">One more metric that doesn't fit in a stat block: when the tracker goes down, the team emails within hours asking for it back.</p>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>What the team says</h2>
+      <blockquote>
+        <p>"Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."</p>
+        <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
+      </blockquote>
+      <blockquote>
+        <p>"Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."</p>
+        <cite>— Kyrene Kagahastian, Social Media Team, Matador Network</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The stack</h2>
+      <ul class="stack-row">
+        {stack.map((tool) => <li class="pill">{tool}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <aside class="how-started">
+        <h2>How it started</h2>
+        <p>I taught n8n to Matador's AI Advocacy Director; then they hired me to build.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>Also available as a template</h2>
+      <p>The newsletter curator on this page is packaged as a template — workflow JSON, step-by-step PDF setup guide, walkthrough video. The production version at Matador processes 400+ articles a day.</p>
+      <a class="btn btn-primary template-btn" href="https://checkout.lemonsqueezy.com/buy/1320787" rel="noopener">Get the curator — $249 →</a>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="If your team spends mornings collecting data"
+    body="Sixty minutes: you walk me through where the manual collection happens, and I tell you what I'd automate first and what it would cost."
+    secondaryLabel={EMAIL}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+
+  <div class="wrap">
+    <p class="boilerplate">{BOILERPLATE}</p>
+  </div>
+</Base>
+
+<style>
+  .cs-header { padding-block: var(--space-section) clamp(36px, 5vw, 56px); }
+  .client-line { color: var(--c-text-mute); max-width: 70ch; margin-top: 16px; }
+  .client-line strong { color: var(--c-text); }
+
+  .cs-block { padding-block: clamp(40px, 6vw, 64px); }
+
+  .before-block {
+    border-left: 2px solid var(--c-border);
+    padding-left: clamp(20px, 3vw, 32px);
+    margin-left: 8px;
+    max-width: 70ch;
+  }
+  .before-block p:last-child { margin-bottom: 0; }
+
+  .systems {
+    list-style: none;
+    counter-reset: sys;
+    margin: 28px 0 0;
+    padding: 0;
+    max-width: 72ch;
+  }
+  .systems li {
+    counter-increment: sys;
+    position: relative;
+    padding-left: 56px;
+    margin-bottom: 24px;
+  }
+  .systems li:last-child { margin-bottom: 0; }
+  .systems li::before {
+    content: counter(sys, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--c-text-dim);
+  }
+  .systems strong { color: var(--c-text); }
+
+  .numbers { padding-block: var(--space-section); }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px 36px;
+    margin-top: 40px;
+  }
+  .metric {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .metric-label {
+    display: block;
+    margin-top: 12px;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    max-width: 36ch;
+  }
+  .numbers-note {
+    margin: 44px 0 0;
+    color: var(--c-text-mute);
+    max-width: 70ch;
+  }
+
+  blockquote {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 24px 0 0;
+    max-width: 70ch;
+  }
+  blockquote p {
+    font-size: 1.15rem;
+    color: var(--c-text);
+    margin: 0 0 14px;
+  }
+  blockquote cite {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-text-mute);
+  }
+
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+  .pill {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-text-mute);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    padding: 7px 16px;
+  }
+
+  .how-started h2 {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-text-dim);
+    margin-bottom: 12px;
+  }
+  .how-started p {
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .template-btn { margin-top: 12px; }
+
+  .boilerplate {
+    color: var(--c-text-dim);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin: 40px 0 0;
+    max-width: 75ch;
+  }
+</style>

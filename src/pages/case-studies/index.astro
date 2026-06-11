@@ -1,0 +1,177 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs } from '../../lib/schema';
+import { EMAIL, BOILERPLATE } from '../../data/site';
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies' },
+  ])
+);
+
+const stats = [
+  { value: '3', label: 'named clients' },
+  { value: '12+', label: 'automations in production' },
+  { value: '20+', label: 'tools integrated' },
+  { value: '400+', label: 'articles processed every day' },
+  { value: '6–8 hrs/day', label: 'of manual operations eliminated for one 6-person team' },
+];
+---
+<Base
+  title="Case Studies — Three Teams, Twelve Automations | pocho.tech"
+  description="Case studies with real numbers: twelve automations in production across Dahlia+ Agency, Matador Network, and TPS Workforce Hub. Built by Erick Bonilla."
+  path="/case-studies"
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Three teams. Twelve automations. Real numbers.</h1>
+      <p class="lead">Every engagement on this page started as a single build and continues today on an embedded retainer. I built each system myself, and I still operate most of them.</p>
+    </div>
+  </section>
+
+  <section class="section-alt stats-section">
+    <div class="wrap">
+      <h2>The numbers across all three</h2>
+      <div class="stat-strip">
+        {stats.map((s) => (
+          <div class="stat">
+            <span class="stat-value">{s.value}</span>
+            <span class="stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="studies">
+    <div class="wrap">
+      <h2>The case studies</h2>
+
+      <article class="study">
+        <h3>2–4 proposals a day, 15 minutes each.</h3>
+        <p class="client-line"><strong>Dahlia+ Agency</strong> — event production and consulting, team of six to eight.</p>
+        <p>An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50 — untouched. Four automations run their back office; this pipeline alone removes 6–8 hours of manual operations from every working day.</p>
+        <p class="no-testimonial">No testimonial on file. Dahlia+ refers new business instead.</p>
+        <a class="study-link" href="/case-studies/dahlia-plus-agency">Read the Dahlia+ case study →</a>
+      </article>
+
+      <article class="study">
+        <h3>From zero operational visibility to automated daily reporting.</h3>
+        <p class="client-line"><strong>TPS Workforce Hub</strong> — clean-tech workforce training, Boston. 30–40 applicants per cohort, 12–16 accepted.</p>
+        <p>Six connected systems run admissions and operations: AI-scored interviews from Read.ai transcripts, automated scheduling, stipend-eligibility alerts, real-time dashboards, and the 5pm report the whole team reads.</p>
+        <blockquote>
+          <p>"You have done such a great job that I can't remember how we were working before you."</p>
+          <cite>— CEO, TPS Energy</cite>
+        </blockquote>
+        <a class="study-link" href="/case-studies/tps-workforce-hub">Read the TPS case study →</a>
+      </article>
+
+      <article class="study">
+        <h3>400+ articles a day. Ten make the newsletter.</h3>
+        <p class="client-line"><strong>Matador Network</strong> — travel media, editorial team of twelve.</p>
+        <p>Overnight, an AI reads eleven-plus publications, picks the ten stories that matter, and delivers a finished newsletter every morning. The creator tracker went from 5 hours a week to 1.5 — covering 70 creators instead of 30.</p>
+        <blockquote>
+          <p>"Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."</p>
+          <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
+        </blockquote>
+        <a class="study-link" href="/case-studies/matador-network">Read the Matador case study →</a>
+      </article>
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Tell me where the hours go."
+    body="Sixty minutes: you walk me through how your team works, and I tell you what I'd automate first and what it would cost."
+    secondaryLabel={EMAIL}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+
+  <div class="wrap">
+    <p class="boilerplate">{BOILERPLATE}</p>
+  </div>
+</Base>
+
+<style>
+  .hero { padding-block: var(--space-section) clamp(48px, 7vw, 80px); }
+  .lead {
+    font-size: 1.15rem;
+    color: var(--c-text-mute);
+    max-width: 62ch;
+    margin-top: 18px;
+  }
+
+  .stats-section { padding-block: clamp(56px, 8vw, 96px); }
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 36px 32px;
+    margin-top: 40px;
+  }
+  .stat-value {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--c-text-mute);
+    max-width: 26ch;
+  }
+
+  .studies { padding-block: clamp(56px, 8vw, 96px) 0; }
+  .study {
+    border-top: 1px solid var(--c-border);
+    padding-block: clamp(44px, 6vw, 72px);
+  }
+  .study:first-of-type { margin-top: clamp(28px, 4vw, 48px); }
+  .study h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .client-line { color: var(--c-text-mute); }
+  .client-line strong { color: var(--c-text); }
+  .no-testimonial { color: var(--c-text-dim); font-size: 0.95rem; }
+
+  blockquote {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 26px 30px;
+    margin: 24px 0;
+    max-width: 70ch;
+  }
+  blockquote p {
+    font-size: 1.1rem;
+    color: var(--c-text);
+    margin: 0 0 12px;
+  }
+  blockquote cite {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-text-mute);
+  }
+
+  .study-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  .boilerplate {
+    color: var(--c-text-dim);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin: 40px 0 0;
+    max-width: 75ch;
+  }
+</style>

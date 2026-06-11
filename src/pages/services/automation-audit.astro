@@ -1,0 +1,161 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
+import { CALENDLY, EMAIL } from '../../data/site';
+
+const title = 'Automation Audit — $500, Credited to a Build | pocho.tech';
+const description =
+  'A 60-minute review of how your team works, then a written automation plan within five business days. $500, credited in full toward a custom build.';
+
+const faqs = [
+  {
+    q: 'How the $500 credit works',
+    a: "Commission a custom build after the audit and the full $500 comes off that build's price. Builds start at $1,500, so the audit effectively becomes a deposit on the work.",
+  },
+  {
+    q: 'What I need from you',
+    a: 'Sixty minutes with whoever actually does the work, and honest answers about how it happens today — including the spreadsheet workarounds. The closer I get to the real process, the sharper the report.',
+  },
+  {
+    q: "What happens if there's little worth automating",
+    a: 'That goes in the report. If the right answer is a $249 template, a process change, or no automation at all, the report says so.',
+  },
+];
+
+const jsonLd = graph(
+  serviceSchema({
+    name: 'Automation Audit',
+    description,
+    path: '/services/automation-audit',
+    price: '500',
+  }),
+  breadcrumbs([
+    { name: 'Services', path: '/services' },
+    { name: 'Automation Audit', path: '/services/automation-audit' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base title={title} description={description} path="/services/automation-audit" jsonLd={jsonLd}>
+  <section class="section hero">
+    <div class="wrap">
+      <h1>Automation Audit</h1>
+      <p>
+        The audit is a 60-minute review of how your team actually works, followed by a written report within five
+        business days. It costs $500, credited in full toward a custom build — if you go ahead, the plan cost you
+        nothing.
+      </p>
+      <p>You leave with priorities, tools, estimated time savings, and a build scope for every recommendation.</p>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book an audit</a>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="report-h">
+    <div class="wrap">
+      <h2 id="report-h">What the report contains</h2>
+      <p>Four things, specific to your team and your tools:</p>
+      <ul class="report-list">
+        <li>
+          <strong>What to automate first</strong> — your workflows ranked by hours recovered against effort to
+          build
+        </li>
+        <li>
+          <strong>The tools for each</strong> — which platforms and APIs every recommendation would connect
+        </li>
+        <li>
+          <strong>Estimated time savings</strong> — what each automation should give back, per week
+        </li>
+        <li>
+          <strong>A build scope per recommendation</strong> — what it would cost and roughly how long it would
+          take
+        </li>
+      </ul>
+      <p>Whether you build with me, build in-house, or shelve it for a quarter, you have the plan in writing.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how-h">
+    <div class="wrap">
+      <h2 id="how-h">How it works</h2>
+      <div class="stages">
+        <p>
+          <strong>The call — 60 minutes.</strong> You walk me through how the work actually happens, ideally with
+          the person who does it day to day on the call.
+          <a href={CALENDLY} rel="noopener">Book it directly on my calendar</a>.
+        </p>
+        <p>
+          <strong>The report — within five business days.</strong> A written document covering the four sections
+          above, specific to your tools and your volume.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="why-h">
+    <div class="wrap">
+      <h2 id="why-h">Why start here</h2>
+      <p>
+        A custom build is $1,500 or more, and the right first automation isn't always obvious from inside the
+        team. The audit answers that in writing before you commit to anything.
+      </p>
+      <p>
+        If you commission a build afterward, the full $500 comes off the price. If you don't, you keep a plan any
+        competent engineer could execute.
+      </p>
+      <p>
+        Sometimes the report says a $249 template covers it, or that a workflow isn't worth automating yet. You
+        get that in writing too.
+      </p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Questions before you book an audit" />
+
+  <CtaSection
+    heading="Sixty minutes, then a plan in writing"
+    body="Book the call, walk me through the work, and the report is in your inbox within five business days."
+  />
+  <div class="cta-postscript">
+    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+  </div>
+</Base>
+
+<style>
+  .hero h1 { max-width: 22ch; }
+  .hero p { max-width: 62ch; }
+  .hero .btn { margin-top: 18px; }
+
+  .report-list {
+    margin: 20px 0 24px;
+    padding-left: 20px;
+    display: grid;
+    gap: 12px;
+    max-width: 70ch;
+  }
+  .report-list strong { color: var(--c-text); }
+
+  .stages {
+    margin-top: 28px;
+    display: grid;
+    gap: 18px;
+    max-width: 70ch;
+  }
+  .stages p { margin: 0; }
+  .stages strong { color: var(--c-text); }
+
+  .cta-postscript {
+    background: var(--c-surface-alt);
+    text-align: center;
+    margin-top: calc(-1 * var(--space-section) + 32px);
+    padding-bottom: calc(var(--space-section) - 32px);
+  }
+  .cta-postscript p {
+    margin: 0 auto;
+    max-width: none;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    padding: 0 24px;
+  }
+</style>
