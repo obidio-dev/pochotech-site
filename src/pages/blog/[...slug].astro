@@ -1,0 +1,154 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs } from '../../lib/schema';
+import { SITE_URL, EMAIL, BOILERPLATE } from '../../data/site';
+
+export async function getStaticPaths() {
+  const now = new Date();
+  const preview = !!import.meta.env.BLOG_PREVIEW || !!process.env.BLOG_PREVIEW;
+  const posts = await getCollection('blog', ({ data }) => preview || data.date <= now);
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const path = `/blog/${post.data.slug}`;
+const dateIso = post.data.date.toISOString().slice(0, 10);
+const dateHuman = post.data.date.toLocaleDateString(post.data.lang === 'es' ? 'es-NI' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+const jsonLd = graph(
+  {
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: dateIso,
+    inLanguage: post.data.lang,
+    author: { '@id': `${SITE_URL}/#erick-bonilla` },
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    mainEntityOfPage: `${SITE_URL}${path}`,
+  },
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: post.data.title, path },
+  ])
+);
+---
+<Base
+  title={`${post.data.title} | pocho.tech`}
+  description={post.data.description}
+  path={path}
+  ogType="article"
+  lang={post.data.lang}
+  jsonLd={jsonLd}
+>
+  <article class="article">
+    <div class="wrap">
+      <header class="article-header">
+        <p class="article-meta">
+          <a href="/blog">Blog</a>
+          <span aria-hidden="true">/</span>
+          <time datetime={dateIso}>{dateHuman}</time>
+        </p>
+        <h1>{post.data.title}</h1>
+        <p class="article-lead">{post.data.description}</p>
+      </header>
+      <div class="article-body">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <CtaSection
+    heading="Tell me where the hours go."
+    body="Sixty minutes: you walk me through how your team works, and I tell you what I'd automate first and what it would cost."
+    secondaryLabel={EMAIL}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+
+  <div class="wrap">
+    <p class="boilerplate">{BOILERPLATE}</p>
+  </div>
+</Base>
+
+<style>
+  .article { padding-block: var(--space-section) clamp(48px, 7vw, 80px); }
+  .article .wrap { max-width: 780px; }
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-text-dim);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .article-meta a { color: var(--c-text-mute); text-decoration: none; }
+  .article-meta a:hover { color: var(--c-text); }
+  .article-header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .article-lead {
+    color: var(--c-text-mute);
+    font-size: 1.1rem;
+    margin-top: 16px;
+    max-width: 65ch;
+  }
+  .article-body { margin-top: clamp(32px, 5vw, 48px); }
+
+  .article-body :global(h2) {
+    font-size: clamp(1.3rem, 2.6vw, 1.65rem);
+    margin: clamp(36px, 5vw, 52px) 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .article-body :global(h3) {
+    font-size: 1.08rem;
+    margin: 28px 0 8px;
+  }
+  .article-body :global(p) {
+    color: var(--c-text-mute);
+    line-height: 1.75;
+    margin: 0 0 18px;
+  }
+  .article-body :global(li) {
+    color: var(--c-text-mute);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .article-body :global(ul),
+  .article-body :global(ol) { padding-left: 22px; margin: 0 0 18px; }
+  .article-body :global(strong) { color: var(--c-text); }
+  .article-body :global(a) { color: var(--c-red); }
+  .article-body :global(blockquote) {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 20px 26px;
+    margin: 24px 0;
+  }
+  .article-body :global(blockquote p) { margin: 0; color: var(--c-text); }
+  .article-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  .boilerplate {
+    color: var(--c-text-dim);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin: 40px 0 0;
+    max-width: 75ch;
+  }
+</style>

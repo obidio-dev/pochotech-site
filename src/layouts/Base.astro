@@ -12,14 +12,16 @@ export interface Props {
   ogType?: string;
   jsonLd?: object[];
   noindex?: boolean;
+  /** Content language for the html lang attribute (default en) */
+  lang?: string;
 }
 
-const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [], noindex = false } = Astro.props;
+const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [], noindex = false, lang = 'en' } = Astro.props;
 const canonical = new URL(path === '/' ? '/' : path, Astro.site).href;
 const ogImageAbs = new URL(ogImage, Astro.site).href;
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -55,6 +57,7 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
             <li><a href="/industries">Industries</a></li>
             <li><a href="/templates">Templates</a></li>
             <li><a href="/case-studies">Case Studies</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/about">About</a></li>
           </ul>
         </nav>
@@ -98,6 +101,7 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
             <h2 class="footer-h">Company</h2>
             <ul>
               <li><a href="/case-studies">Case Studies</a></li>
+              <li><a href="/blog">Blog</a></li>
               <li><a href="/about">About</a></li>
               <li><a href="/contact">Contact</a></li>
             </ul>
