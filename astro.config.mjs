@@ -8,6 +8,8 @@ export default defineConfig({
     '/case-studies/dahlia-plus-agency': '/case-studies/event-production-agency',
     '/case-studies/matador-network': '/case-studies/travel-media-company',
     '/case-studies/tps-workforce-hub': '/case-studies/edtech-workforce-training',
+    '/templates': '/services',
+    '/services/done-for-you-setup': '/services',
   },
   integrations: [
     sitemap({

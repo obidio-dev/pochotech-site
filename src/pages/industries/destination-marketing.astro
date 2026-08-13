@@ -5,8 +5,6 @@ import CtaSection from '../../components/CtaSection.astro';
 import { CALENDLY, EMAIL } from '../../data/site';
 import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
 
-const NURTURING_CHECKOUT = 'https://checkout.lemonsqueezy.com/buy/1320599';
-
 const DESCRIPTION =
   "Partner tracking, AI email agents, content pipelines, and lead qualification for DMOs: built by the engineer behind a travel media company's automations.";
 
@@ -107,10 +105,6 @@ const jsonLd = graph(
             past correspondence and writes the check-in or follow-up in your voice, with a review step if you
             want one.
           </p>
-          <p class="template-note">
-            A generalized version is in the template catalog:
-            <a href={NURTURING_CHECKOUT} rel="noopener">AI Relationship Nurturing Engine, $299</a>
-          </p>
           <ul class="tools" aria-label="Tools">
             <li>HubSpot or any CRM</li>
             <li>OpenAI</li>
@@ -207,8 +201,6 @@ const jsonLd = graph(
     padding: 4px 11px;
     background: var(--c-bg);
   }
-  .template-note { font-size: 0.88rem; color: var(--c-text-dim); }
-
   .proof p { max-width: 62ch; }
   .proof-list { margin: 24px 0 0; padding-left: 20px; max-width: 70ch; }
   .proof-list li { margin-bottom: 12px; color: var(--c-text-body); }

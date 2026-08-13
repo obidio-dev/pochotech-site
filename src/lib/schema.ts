@@ -33,7 +33,7 @@ export const organizationSchema = {
   founder: { '@id': PERSON_ID },
   email: `mailto:${EMAIL}`,
   areaServed: 'US',
-  priceRange: '$249 - $1,500+',
+  priceRange: '$500 - $1,500+',
   knowsAbout: [
     'AI workflow automation',
     'n8n consulting',

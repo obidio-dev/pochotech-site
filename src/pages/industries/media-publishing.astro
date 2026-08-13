@@ -2,10 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
-import { CALENDLY } from '../../data/site';
+import { CALENDLY, EMAIL } from '../../data/site';
 import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
-
-const CURATOR_CHECKOUT = 'https://checkout.lemonsqueezy.com/buy/1320787';
 
 const DESCRIPTION =
   "Four AI automations run a travel media company's editorial back office: 400+ articles a day curated into one newsletter, creator tracking down from 5 hrs to 1.5";
@@ -27,7 +25,7 @@ const faqs = [
   },
   {
     q: 'What a build like this costs',
-    a: 'Custom builds start at $1,500, fixed in writing after a discovery call. If the newsletter curator as described matches your need, the template is $249, with Done-For-You Setup for $100 more.',
+    a: 'Custom builds start at $1,500, fixed in writing after a discovery call. If you want a written scope first, the $500 Automation Audit is credited in full toward a build.',
   },
   {
     q: 'Who maintains it after handoff',
@@ -66,7 +64,6 @@ const jsonLd = graph(
       <p class="hero-sub hero-note">Every number on this page is theirs.</p>
       <div class="hero-ctas">
         <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
-        <a href={CURATOR_CHECKOUT} class="btn btn-secondary" rel="noopener">Get the AI Newsletter Curator: $249</a>
       </div>
     </div>
   </section>
@@ -107,10 +104,6 @@ const jsonLd = graph(
             <li>OpenAI</li>
             <li>Gmail</li>
           </ul>
-          <p class="template-note">
-            A generalized version is in the template catalog:
-            <a href={CURATOR_CHECKOUT} rel="noopener">AI Newsletter Curator, $249</a>
-          </p>
         </article>
         <article class="card system-card">
           <h3>Social media creator tracker</h3>
@@ -193,9 +186,9 @@ const jsonLd = graph(
   <!-- CTA -->
   <CtaSection
     heading="Tell me where your editorial hours go."
-    body="Sixty minutes: you walk me through the team's week, and I tell you what I'd automate first and what it would cost. If a $249 template covers it, I'll say so on the call."
-    secondaryLabel="Get the AI Newsletter Curator: $249"
-    secondaryHref={CURATOR_CHECKOUT}
+    body="Sixty minutes: you walk me through the team's week, and I tell you what I'd automate first and what it would cost."
+    secondaryLabel={`Or write to me directly: ${EMAIL}`}
+    secondaryHref={`mailto:${EMAIL}`}
   />
 </Base>
 
@@ -222,8 +215,6 @@ const jsonLd = graph(
     padding: 4px 11px;
     background: var(--c-bg);
   }
-  .template-note { font-size: 0.88rem; color: var(--c-text-dim); }
-
   .metrics {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

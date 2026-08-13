@@ -2,10 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import Faq from '../../components/Faq.astro';
 import CtaSection from '../../components/CtaSection.astro';
-import { CALENDLY } from '../../data/site';
+import { CALENDLY, EMAIL } from '../../data/site';
 import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
-
-const SCANNER_CHECKOUT = 'https://checkout.lemonsqueezy.com/buy/1320724';
 
 const DESCRIPTION =
   'Proposal processing at an event production agency went from 1.5–2 hours to 15 minutes. Lead routing, referral capture, and proposal-to-invoice pipelines for agencies.';
@@ -27,7 +25,7 @@ const faqs = [
   },
   {
     q: 'What it costs',
-    a: 'Custom builds start at $1,500, fixed in writing after a discovery call. The business card scanner is $249 as a template, with Done-For-You Setup for $100 more.',
+    a: 'Custom builds start at $1,500, fixed in writing after a discovery call. If you want a written scope first, the $500 Automation Audit is credited in full toward a build.',
   },
   {
     q: 'What happens after handoff',
@@ -66,7 +64,6 @@ const jsonLd = graph(
       <p class="hero-sub hero-note">Their proposal processing went from 1.5–2 hours to fifteen minutes.</p>
       <div class="hero-ctas">
         <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
-        <a href={SCANNER_CHECKOUT} class="btn btn-secondary" rel="noopener">Get the Business Card Scanner: $249</a>
       </div>
     </div>
   </section>
@@ -135,7 +132,7 @@ const jsonLd = graph(
           <h3>Business card scanner</h3>
           <p>
             Drop a photo in Slack; an AI reads the card, extracts every field, and creates the HubSpot contact.
-            The same workflow running at the events agency is in the template catalog for $249.
+            The same workflow runs today at the events agency, one photo at a time.
           </p>
           <ul class="tools" aria-label="Tools">
             <li>Slack</li>
@@ -181,8 +178,8 @@ const jsonLd = graph(
   <CtaSection
     heading="Tell me where your operations hours go."
     body="Sixty minutes: walk me through what happens between a signed proposal and a sent invoice, and I tell you what I'd automate first and what it would cost."
-    secondaryLabel="Get the Business Card Scanner: $249"
-    secondaryHref={SCANNER_CHECKOUT}
+    secondaryLabel={`Or write to me directly: ${EMAIL}`}
+    secondaryHref={`mailto:${EMAIL}`}
   />
 </Base>
 

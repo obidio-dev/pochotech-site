@@ -53,7 +53,6 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
           <ul class="nav-list" id="nav-list">
             <li><a href="/services">Services</a></li>
             <li><a href="/industries">Industries</a></li>
-            <li><a href="/templates">Templates</a></li>
             <li><a href="/case-studies">Case Studies</a></li>
             <li><a href="/about">About</a></li>
           </ul>
@@ -75,23 +74,14 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
         <div class="footer-grid">
           <div>
             <span class="logo logo-footer">pocho.<span class="logo-tech">tech</span></span>
-            <p class="footer-tag">AI Automation Studio. Custom automations and ready-to-deploy templates for small teams.</p>
+            <p class="footer-tag">AI Automation Studio. Custom automations for small teams.</p>
           </div>
           <nav aria-label="Services">
             <h2 class="footer-h">Services</h2>
             <ul>
               <li><a href="/services/custom-automation">Custom Automation Build</a></li>
-              <li><a href="/services/done-for-you-setup">Done-For-You Setup</a></li>
               <li><a href="/services/automation-audit">Automation Audit</a></li>
-            </ul>
-          </nav>
-          <nav aria-label="Templates">
-            <h2 class="footer-h">Templates</h2>
-            <ul>
-              <li><a href="/templates">All templates</a></li>
-              <li><a href="/templates/jarvis-ai-executive-assistant">Jarvis: AI Executive Assistant</a></li>
-              <li><a href="/templates/meeting-prep-agent">Meeting Prep Agent</a></li>
-              <li><a href="/templates/sheets-hubspot-task-manager">Sheets ↔ HubSpot (Free)</a></li>
+              <li><a href="/services/n8n-consulting">n8n &amp; Make.com Consulting</a></li>
             </ul>
           </nav>
           <nav aria-label="Company">
@@ -156,7 +146,7 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 32px;
   }
   .footer-tag { color: var(--c-text-dim); font-size: 0.92rem; margin-top: 10px; }

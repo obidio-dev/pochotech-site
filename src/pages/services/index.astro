@@ -6,14 +6,14 @@ import { CALENDLY, EMAIL } from '../../data/site';
 
 const title = 'AI Automation Services & Pricing | pocho.tech';
 const description =
-  'Automation audit ($500), custom builds from $1,500, done-for-you template setup, and embedded retainers. One engineer, Erick Bonilla, on every project.';
+  'Automation audit ($500), custom builds from $1,500, and embedded retainers. One engineer, Erick Bonilla, on every project.';
 
 const jsonLd = graph(breadcrumbs([{ name: 'Services', path: '/services' }]));
 ---
 <Base title={title} description={description} path="/services" jsonLd={jsonLd}>
   <section class="section hero">
     <div class="wrap">
-      <h1>Start with an audit, a build, or a template. Most clients stay.</h1>
+      <h1>Start with an audit or a build. Most clients stay.</h1>
       <p>
         Everything I sell is a version of the same thing: a working automation, built by me, running in your
         accounts. The difference is how much of the work you want me to do and how long you want me around.
@@ -92,39 +92,15 @@ const jsonLd = graph(breadcrumbs([{ name: 'Services', path: '/services' }]));
     </div>
   </section>
 
-  <section class="section" aria-labelledby="selfserve-h">
+  <section class="section" aria-labelledby="consulting-h">
     <div class="wrap">
-      <h2 id="selfserve-h">The self-serve lane</h2>
-      <div class="grid-3">
-        <article class="card">
-          <h3>Templates: seven n8n workflows, $249–$399, one free</h3>
-          <p>
-            Workflows extracted from real client systems. The Business Card Scanner runs in production at the
-            events agency. Each one is the workflow JSON, a step-by-step PDF setup guide, and a 90-second
-            walkthrough video.
-          </p>
-          <p class="card-links"><a href="/templates">Browse the templates</a></p>
-        </article>
-
-        <article class="card">
-          <h3>Done-For-You Setup: template price + $100</h3>
-          <p>
-            A live 60–90 minute session: I connect your credentials, configure the workflow, and test it with you
-            on the call. You keep a recording of the whole session.
-          </p>
-          <p class="card-links"><a href="/services/done-for-you-setup">About Done-For-You Setup</a></p>
-        </article>
-
-        <article class="card">
-          <h3>n8n &amp; Make.com consulting</h3>
-          <p>
-            For teams that want to build in-house: architecture review, workflow builds, self-hosting guidance,
-            and training. A travel media company hired me to build after I taught n8n to their AI Advocacy
-            Director.
-          </p>
-          <p class="card-links"><a href="/services/n8n-consulting">About n8n &amp; Make.com consulting</a></p>
-        </article>
-      </div>
+      <h2 id="consulting-h">Prefer to build in-house?</h2>
+      <p>
+        For teams that want to build in-house: architecture review, workflow builds, self-hosting guidance,
+        and training. A travel media company hired me to build after I taught n8n to their AI Advocacy
+        Director.
+      </p>
+      <p class="card-links"><a href="/services/n8n-consulting">About n8n &amp; Make.com consulting</a></p>
     </div>
   </section>
 
@@ -177,13 +153,10 @@ const jsonLd = graph(breadcrumbs([{ name: 'Services', path: '/services' }]));
 
   <CtaSection
     heading="Where to start"
-    body="If you can name the broken process, book the discovery call. It's the first step of every build. If you can't, the audit turns sixty minutes into a written plan, credited in full if you go ahead. If you'd rather see the work before talking to me, the Sheets ↔ HubSpot sync template is free."
+    body="If you can name the broken process, book the discovery call. It's the first step of every build. If you can't, the audit turns sixty minutes into a written plan, credited in full if you go ahead. If you'd rather see the work before talking to me, the case studies show it running."
   />
   <div class="cta-postscript">
-    <p>
-      <a href="https://checkout.lemonsqueezy.com/buy/1320841" rel="noopener">Get the free template</a> · Or write
-      to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-    </p>
+    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
   </div>
 </Base>
 
@@ -198,7 +171,6 @@ const jsonLd = graph(breadcrumbs([{ name: 'Services', path: '/services' }]));
     margin-top: 32px;
   }
   .ladder .card h3 { margin-bottom: 14px; }
-  .grid-3 { margin-top: 32px; }
   .card-links {
     margin-bottom: 0;
     font-family: var(--font-mono);

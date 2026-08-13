@@ -1,4 +1,9 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/templates", "destination": "/services", "permanent": true },
+    { "source": "/templates/:slug", "destination": "/services", "permanent": true },
+    { "source": "/services/done-for-you-setup", "destination": "/services", "permanent": true }
+  ]
 }
