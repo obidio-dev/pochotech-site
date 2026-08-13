@@ -1,0 +1,265 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs, faqSchema } from '../../lib/schema';
+import { EMAIL, BOILERPLATE } from '../../data/site';
+
+const faqs = [
+  {
+    q: 'Can a custom system load my real data from day one?',
+    a: "Yes. Before this system went live, I migrated the shop's actual operation into it: 67 active production orders and 364 pieces, using the real order numbers already in use on the floor. It launched on the real backlog, not on empty tables waiting to be filled.",
+  },
+  {
+    q: 'What happens if my process changes while the system is being built?',
+    a: 'It gets absorbed, not fought. One round of feedback here brought 13 change requests, including a dispatch module and a recycle bin that reuses order numbers, and none of it required restarting what was already built. The system is built in stages against the real business, so it can flex.',
+  },
+  {
+    q: 'How long does a build like this take?',
+    a: "The first month ships the 20% of the system that solves 80% of the pain, tested against real data instead of a mockup. Everything else, dispatch, the recycle bin, categories, builds on top of that foundation in the stages that follow.",
+  },
+  {
+    q: 'Does this replace my production manager?',
+    a: "No. It replaces the notebooks, the one spreadsheet only one person understood, and the WhatsApp messages carrying an order's real status. The decisions, like which order gets prioritized this week, still belong to the person running the floor. The system just puts what's actually happening in front of them, on one screen.",
+  },
+  {
+    q: 'Will the system use the order numbers we already use in the shop?',
+    a: "Yes. The migration kept the shop's real order numbers, and the recycle bin reuses them instead of skipping ahead to new ones when an order is cancelled or restored. The numbering people already know on the floor doesn't change.",
+  },
+];
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Case Studies', path: '/case-studies' },
+    { name: 'Furniture factory', path: '/case-studies/furniture-factory' },
+  ]),
+  faqSchema(faqs)
+);
+
+const metrics = [
+  { value: '67 orders, 364 pieces', label: "The shop's real backlog, loaded before day one. Not test data." },
+  { value: '11 of 67', label: 'Orders already late, invisible until the system put them on one screen.' },
+  { value: '13 changes, one round', label: 'Change requests absorbed without restarting what was already built.' },
+];
+---
+<Base
+  title="Furniture factory: 67 Real Orders, 11 Already Late | pocho.tech"
+  description="How a custom production system loaded 67 real work orders on day one, surfaced 11 that were already late, and absorbed 13 change requests in one round without a rebuild. Case study."
+  path="/case-studies/furniture-factory"
+  jsonLd={jsonLd}
+>
+  <section class="cs-header">
+    <div class="wrap">
+      <h1>Furniture factory: 67 real orders loaded on day one. 11 were already late.</h1>
+      <p class="client-line"><strong>Furniture factory, sixty workers.</strong> Made-to-order production, bedrooms and dining rooms, built one order at a time.</p>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The before</h2>
+      <div class="before-block">
+        <p>Production ran on notebooks, a spreadsheet only one person in the shop really understood, and WhatsApp messages carrying the actual status of an order. If that one person was out, the spreadsheet went quiet with them.</p>
+        <p>Sixty workers were cutting, assembling, and finishing bedroom and dining room furniture to order, and no single screen showed where any order actually stood.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>What I built</h2>
+      <p>A production management system, built to run on the real orders moving through the floor.</p>
+      <ol class="systems">
+        <li><strong>Work orders and pieces</strong>: every work order breaks into its individual pieces, each one tracked on its own instead of buried inside one line on a spreadsheet.</li>
+        <li><strong>Status and priority</strong>: every piece carries a status and a priority, visible on one screen instead of scattered across notebooks and memory.</li>
+        <li><strong>Dispatch</strong>: a dedicated flow for getting finished pieces out the door.</li>
+        <li><strong>Recycle bin</strong>: deleted or cancelled orders can be recovered, and the system reuses their original order number instead of retiring it.</li>
+      </ol>
+    </div>
+  </section>
+
+  <figure style="margin: 36px 0 8px; overflow-x: auto;">
+        <svg viewBox="0 0 940 170" role="img" aria-label="Flow: from notebooks and spreadsheets, through a migration of 67 real orders, into the production system, to the owner seeing 11 late orders on day one" style="min-width: 760px; width: 100%; height: auto; display: block;">
+          <defs>
+            <marker id="arr-f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6a6a6a" />
+            </marker>
+          </defs>
+          <rect x="8" y="30" width="205" height="110" rx="10" fill="#f6f6f4" stroke="#e6e6e2" />
+          <text x="28" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#6a6a6a">BEFORE</text>
+          <text x="28" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">Notebooks, Excel,</text>
+          <text x="28" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">WhatsApp threads</text>
+          <line x1="215" y1="85" x2="243" y2="85" stroke="#6a6a6a" stroke-width="1.5" marker-end="url(#arr-f)" />
+          <rect x="248" y="30" width="205" height="110" rx="10" fill="#ffffff" stroke="#e6e6e2" />
+          <text x="268" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#6a6a6a">MIGRATION</text>
+          <text x="268" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">67 real orders,</text>
+          <text x="268" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">364 pieces, real numbers</text>
+          <line x1="455" y1="85" x2="483" y2="85" stroke="#6a6a6a" stroke-width="1.5" marker-end="url(#arr-f)" />
+          <rect x="488" y="30" width="205" height="110" rx="10" fill="#ffffff" stroke="#e6e6e2" />
+          <text x="508" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#6a6a6a">THE SYSTEM</text>
+          <text x="508" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">Orders, pieces, status,</text>
+          <text x="508" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">priorities, dispatch</text>
+          <line x1="695" y1="85" x2="723" y2="85" stroke="#6a6a6a" stroke-width="1.5" marker-end="url(#arr-f)" />
+          <rect x="728" y="30" width="205" height="110" rx="10" fill="#ffffff" stroke="#e03a24" stroke-width="1.5" />
+          <text x="748" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#e03a24">DAY ONE</text>
+          <text x="748" y="86" font-family="ui-monospace, monospace" font-size="15" font-weight="700" fill="#e03a24">11 late orders</text>
+          <text x="748" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">visible on one screen</text>
+        </svg>
+        <figcaption style="font-size: 0.85rem; color: #6a6a6a; margin-top: 10px;">The system did not create the delay. It made it visible.</figcaption>
+      </figure>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>Day one</h2>
+      <div class="day-one">
+        <p>Before the system went live, I migrated the shop's real operation into it: 67 active production orders, 364 individual pieces, carrying the same order numbers already in use on the floor. Not sample data. Not a demo. The actual backlog.</p>
+        <p>The first morning with the system live, 11 of those 67 orders showed up as late.</p>
+        <p>That lateness wasn't new. It had been there all along, split between loose Excel sheets and whatever the person closest to an order happened to remember. The system didn't create it. It put it on one screen for the first time.</p>
+        <p>With that screen in front of him, the owner reprioritized the week around what was actually late, not around whoever had complained the loudest that morning.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt numbers">
+    <div class="wrap">
+      <h2>The numbers</h2>
+      <div class="metric-grid">
+        {metrics.map((m) => (
+          <div class="metric-item">
+            <span class="metric">{m.value}</span>
+            <span class="metric-label">{m.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <h2>The round of 13 changes</h2>
+      <p>One round of client feedback brought 13 change requests. Among them: adding a piece to an order already in production, a recycle bin that reused order numbers instead of retiring them, a dispatch module, and new order categories.</p>
+      <p>None of it forced a restart. The system absorbed all 13 changes, because it was built in stages against the real business, not against a spec frozen on day one.</p>
+    </div>
+  </section>
+
+  <section class="cs-block">
+    <div class="wrap">
+      <aside class="how-started">
+        <h2>How it was built</h2>
+        <p>The first month shipped the 20% of the system that solved 80% of the shop's pain, built and tested against the real backlog of orders, not a mockup. Everything after that built on top of that foundation instead of replacing it.</p>
+        <p>Documentation came at the end, so the system doesn't depend on any one person to keep running, on the floor or in the office.</p>
+      </aside>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Questions I get before a build like this starts" />
+
+  <CtaSection
+    heading="If your shop runs on notebooks and one spreadsheet"
+    body="Sixty minutes: you walk me through how orders move through your floor, and I tell you what I'd build first and what it would cost."
+    secondaryLabel={EMAIL}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+
+  <div class="wrap">
+    <p class="boilerplate">{BOILERPLATE}</p>
+  </div>
+</Base>
+
+<style>
+  .cs-header { padding-block: var(--space-section) clamp(36px, 5vw, 56px); }
+  .client-line { color: var(--c-text-mute); max-width: 70ch; margin-top: 16px; }
+  .client-line strong { color: var(--c-text); }
+
+  .cs-block { padding-block: clamp(40px, 6vw, 64px); }
+
+  .before-block {
+    border-left: 2px solid var(--c-border);
+    padding-left: clamp(20px, 3vw, 32px);
+    margin-left: 8px;
+    max-width: 70ch;
+  }
+  .before-block p:last-child { margin-bottom: 0; }
+
+  .day-one {
+    border-left: 2px solid var(--c-red);
+    padding-left: clamp(20px, 3vw, 32px);
+    margin-left: 8px;
+    max-width: 70ch;
+  }
+  .day-one p:last-child { margin-bottom: 0; }
+
+  .systems {
+    list-style: none;
+    counter-reset: sys;
+    margin: 28px 0 0;
+    padding: 0;
+    max-width: 72ch;
+  }
+  .systems li {
+    counter-increment: sys;
+    position: relative;
+    padding-left: 56px;
+    margin-bottom: 24px;
+  }
+  .systems li:last-child { margin-bottom: 0; }
+  .systems li::before {
+    content: counter(sys, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--c-text-dim);
+  }
+  .systems strong { color: var(--c-text); }
+
+  .numbers { padding-block: var(--space-section); }
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px 36px;
+    margin-top: 40px;
+  }
+  .metric {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--c-red);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .metric-label {
+    display: block;
+    margin-top: 12px;
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    max-width: 36ch;
+  }
+
+  .how-started h2 {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-text-dim);
+    margin-bottom: 12px;
+  }
+  .how-started p {
+    color: var(--c-text-mute);
+    font-size: 0.95rem;
+    margin: 0 0 12px;
+    max-width: 65ch;
+  }
+  .how-started p:last-child { margin-bottom: 0; }
+
+  .boilerplate {
+    color: var(--c-text-dim);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin: 40px 0 0;
+    max-width: 75ch;
+  }
+</style>

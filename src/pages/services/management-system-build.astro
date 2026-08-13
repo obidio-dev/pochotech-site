@@ -1,0 +1,178 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
+import { CALENDLY, EMAIL } from '../../data/site';
+
+const RESERVE_LINK = 'https://paypal.me/pochotech/100USD';
+
+const faqs = [
+  {
+    q: 'Can a custom system really start with my real data?',
+    a: 'Yes, and it should. For a furniture factory we loaded 67 active orders with 364 pieces, using their own order numbers, before switch-on. A system running on sample data looks nice and tells the owner nothing; a system running on your real operation tells the truth from day one.',
+  },
+  {
+    q: 'What if my process changes while the system is being built?',
+    a: 'It will, and the build is structured for it. One client round brought 13 change requests in a single pass; the system absorbed them without restarting, because we build in stages against the real business instead of locking a twelve-month spec upfront.',
+  },
+  {
+    q: 'How fast can the first version be running?',
+    a: 'The first month delivers the piece that removes most of the pain, live on your data. A brand-new lube center opened its doors with the full system already in production; established businesses typically see their core process on screen within the first month.',
+  },
+  {
+    q: 'Do my people need to be technical?',
+    a: 'No. The systems run in the browser, on the counter phone and the office computer alike, and the handoff includes documentation and a walkthrough. If your team can use WhatsApp, they can use this.',
+  },
+  {
+    q: 'What does the $100 reservation actually do?',
+    a: 'We take a limited number of new builds each month to protect delivery quality. The deposit holds your slot and is credited in full toward the project. If the build does not start within 30 days for reasons on our side, it is refunded.',
+  },
+];
+
+const jsonLd = graph(
+  serviceSchema({
+    name: 'Custom Management System Build',
+    description:
+      'A custom management system for operations that run on notebooks, spreadsheets, and WhatsApp: orders, inventory, production, and invoicing, live on real data in the first month.',
+    path: '/services/management-system-build',
+  }),
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'Management System Build', path: '/services/management-system-build' },
+  ]),
+  faqSchema(faqs)
+);
+---
+<Base
+  title="Management System Build for Businesses Running on Paper | pocho.tech"
+  description="A custom management system for operations still on notebooks, Excel, and WhatsApp: orders, inventory, production. Live on your real data in the first month."
+  path="/services/management-system-build"
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Management System Build</p>
+      <h1>A system built on how your business actually works.</h1>
+      <p class="hero-sub">
+        For established operations, and for businesses about to open, that would otherwise run on notebooks, a
+        spreadsheet one person understands, and a WhatsApp thread where the whole operation lives.
+      </p>
+      <div class="hero-ctas">
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        <a href={RESERVE_LINK} class="btn btn-secondary" rel="noopener">Reserve a build slot: $100</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="for-h">
+    <div class="wrap">
+      <h2 id="for-h">Who this is for</h2>
+      <p>
+        A factory that tracks production in a notebook. A distributor whose inventory lives in a spreadsheet
+        only one person can update. A workshop where the schedule is in somebody's head, and the business slows
+        down the week that person is away. Teams from ten people to a hundred; the size matters less than the
+        symptom.
+      </p>
+      <p>
+        The diagnostic question we ask about every process is the same: is it documented, or is it in someone's
+        head? If the honest answer is the second one, that is the risk the system removes first.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="get-h">
+    <div class="wrap">
+      <h2 id="get-h">What you get, month by month</h2>
+      <ol class="process">
+        <li>
+          <h3>Month one <span class="step-time">the core, live</span></h3>
+          <p>The twenty percent of the system that removes eighty percent of the pain, running on your real data. Not a demo, not sample records: your actual orders, your actual inventory.</p>
+        </li>
+        <li>
+          <h3>Month two <span class="step-time">the processes around it</span></h3>
+          <p>The workflows that depend on the core: dispatch, invoicing, checklists, whatever your operation needs next.</p>
+        </li>
+        <li>
+          <h3>Month three <span class="step-time">polish and handoff</span></h3>
+          <p>Refinement based on real daily use, plus documentation, so the system never becomes the new version of knowledge that lives in one head.</p>
+        </li>
+      </ol>
+      <div class="process-notes">
+        <p><strong>You own everything.</strong> The system, the code, and the data are yours. Nothing we build depends on infrastructure that belongs to us.</p>
+        <p><strong>Real data from day one.</strong> That is how a furniture factory saw 11 late orders on its first morning: the truth was finally on one screen.</p>
+      </div>
+      <p class="proof-links">
+        See it in production: <a href="/case-studies/furniture-factory">the furniture factory</a> and
+        <a href="/case-studies/lube-center">the lube center that opened with its system running</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="price-h">
+    <div class="wrap">
+      <h2 id="price-h">Pricing, the honest way</h2>
+      <p>
+        We never quote on the spot, because pricing a system before understanding your operation is guessing
+        with your money. After a discovery call you get a written proposal: what is honestly deliverable, by
+        when, and at what cost. Fixed, in writing, before any work starts.
+      </p>
+      <p>
+        We take a limited number of new builds each month to protect delivery quality. If you want to hold your
+        place while we schedule the discovery call, the reservation is $100, credited in full toward the
+        project, and refunded if the build does not start within 30 days for reasons on our side.
+      </p>
+      <div class="hero-ctas">
+        <a href={RESERVE_LINK} class="btn btn-primary" rel="noopener">Reserve a build slot: $100</a>
+        <a href={CALENDLY} class="btn btn-secondary" rel="noopener">Book the discovery call first</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq-h">
+    <div class="wrap">
+      <h2 id="faq-h">Questions owners ask us</h2>
+      {faqs.map((f) => (
+        <details class="faq-item">
+          <summary><h3>{f.q}</h3></summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <CtaSection
+    heading="Tell us how your operation runs today."
+    body="Sixty minutes: you walk us through how the work actually happens, and you get a written proposal of what we would build first, by when, and at what cost."
+    secondaryLabel={EMAIL}
+    secondaryHref={`mailto:${EMAIL}`}
+  />
+</Base>
+
+<style>
+  .hero { padding: clamp(72px, 12vw, 130px) 0 56px; }
+  .hero h1 { max-width: 24ch; }
+  .hero-sub { font-size: 1.12rem; color: var(--c-text-body); max-width: 60ch; margin-top: 20px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+
+  .section p { max-width: 66ch; }
+
+  .process { list-style: none; counter-reset: step; margin: 36px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .process li { counter-increment: step; }
+  .process h3 { font-size: 1.02rem; display: flex; flex-direction: column; gap: 2px; }
+  .process h3::before { content: counter(step, decimal-leading-zero); font-family: var(--font-mono); color: var(--c-red); font-size: 0.85rem; }
+  .step-time { font-family: var(--font-mono); color: var(--c-text-dim); font-size: 0.75rem; font-weight: 400; }
+  .process p { font-size: 0.92rem; color: var(--c-text-mute); }
+  .process-notes { margin-top: 40px; display: grid; gap: 14px; max-width: 76ch; }
+  .process-notes strong { color: var(--c-text); }
+  .proof-links { margin-top: 28px; color: var(--c-text-mute); }
+
+  .faq-item { border-top: 1px solid var(--c-border); padding: 18px 0; max-width: 76ch; }
+  .faq-item summary { cursor: pointer; list-style: none; }
+  .faq-item summary h3 { display: inline; font-size: 1.05rem; }
+  .faq-item p { margin-top: 12px; color: var(--c-text-mute); }
+
+  @media (max-width: 900px) {
+    .process { grid-template-columns: 1fr; }
+  }
+</style>

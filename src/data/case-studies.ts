@@ -12,6 +12,30 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: 'furniture-factory',
+    client: 'Furniture factory',
+    industry: 'Made-to-Order Manufacturing',
+    industrySlug: 'marketing-agencies',
+    metric: '67 real orders on day one',
+    metricContext: '364 pieces, their own order numbers; 11 late orders visible the first morning',
+    oneLiner:
+      'A custom production management system: work orders, pieces, statuses, priorities, and dispatch, loaded with the factory’s real operation before switch-on.',
+    stack: ['Custom web app', 'PostgreSQL'],
+    quote: null,
+  },
+  {
+    slug: 'lube-center',
+    client: 'Lube center',
+    industry: 'Automotive Services',
+    industrySlug: 'marketing-agencies',
+    metric: 'Born digital: zero paper, ever',
+    metricContext: 'system in production before the first customer walked in; opened on a Monday',
+    oneLiner:
+      'Service orders, multi-service checklists, scheduling, and invoicing as a PWA that runs on the counter phone and the office computer alike.',
+    stack: ['Custom web app (PWA)', 'PostgreSQL'],
+    quote: null,
+  },
+  {
     slug: 'event-production-agency',
     client: 'Event production agency',
     industry: 'Event Production & Consulting',

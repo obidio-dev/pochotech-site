@@ -7,9 +7,9 @@ import { CALENDLY, EMAIL } from '../data/site';
 import { graph, faqSchema, reviewSchema } from '../lib/schema';
 
 const metrics = [
-  { value: '1,600+ hrs/yr', label: 'Manual work removed, counting only two of the twelve automations' },
+  { value: '1,600+ hrs/yr', label: 'Manual work removed, counting only two of the automations' },
+  { value: '67 orders, day one', label: 'Real production orders loaded into a furniture factory’s new system; 11 were already late' },
   { value: '1.5–2 hrs → 15 min', label: 'Proposal processing, event production agency' },
-  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking, travel media company' },
   { value: '400+ articles/day', label: 'Curated into one newsletter with zero human input' },
 ];
 
@@ -65,10 +65,10 @@ const jsonLd = graph(
   <!-- 1. Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>We give small teams their hours back.</h1>
+      <h1>We build the systems your business runs on.</h1>
       <p class="hero-sub">
-        Custom AI automation for proposals, reporting, client updates, and operations. The systems we run for
-        three client teams remove 1,600+ hours of manual work every year.
+        From a six-person agency to a sixty-worker furniture factory: AI automations and custom management
+        systems that remove 1,600+ hours of manual work a year and put the whole operation on one screen.
       </p>
       <div class="hero-ctas">
         <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
@@ -80,7 +80,7 @@ const jsonLd = graph(
   <!-- 2. Proof strip -->
   <section class="proof" aria-label="Production metrics">
     <div class="wrap">
-      <p class="eyebrow">Three teams. Twelve automations. Real numbers.</p>
+      <p class="eyebrow">Six businesses. Automations and full systems. Real numbers.</p>
       <dl class="proof-grid">
         {metrics.map((m) => (
           <div class="proof-item">
@@ -96,6 +96,42 @@ const jsonLd = graph(
   <section class="section" aria-labelledby="work-h">
     <div class="wrap">
       <h2 id="work-h">The work, with numbers attached.</h2>
+
+      <p class="eyebrow work-kicker">Management systems, for operations that ran on paper</p>
+      <div class="grid-3 case-grid">
+        <article class="card case-card">
+          <p class="metric metric-card">67 real orders on day one. 11 were already late.</p>
+          <p class="case-client">Furniture factory, sixty workers, made-to-order production.</p>
+          <p>
+            We built their production management system and loaded their real operation before switch-on: 67
+            active orders, 364 pieces, their own order numbers. The first morning, the owner saw the backlog on
+            one screen for the first time. The system didn’t create the delay; it made it visible.
+          </p>
+          <a href="/case-studies/furniture-factory" class="case-link">Read the case study</a>
+        </article>
+        <article class="card case-card">
+          <p class="metric metric-card">Open on a Monday. Running on its system since Friday.</p>
+          <p class="case-client">Lube center, a brand-new business that never touched paper.</p>
+          <p>
+            Service orders, multi-service checklists, scheduling, and invoicing, live before the first customer
+            walked in. It runs on the counter phone and the office computer alike, and the team took their first
+            order digitally. No double-entry period, ever.
+          </p>
+          <a href="/case-studies/lube-center" class="case-link">Read the case study</a>
+        </article>
+        <article class="card case-card">
+          <p class="metric metric-card">Inventory, sales, and orders in one system.</p>
+          <p class="case-client">Brake-parts distributor, in daily use.</p>
+          <p>
+            A custom system replaced the spreadsheet only one person understood: stock, sales, and customer
+            orders in one place, reachable from the counter. The same owners later opened the lube center above,
+            and started it on a system from day zero.
+          </p>
+          <p class="case-note">We grew up in this world: our founder’s family has run a machine workshop for over forty years.</p>
+        </article>
+      </div>
+
+      <p class="eyebrow work-kicker">AI automations, for teams drowning in repetitive work</p>
       <div class="grid-3 case-grid">
         <article class="card case-card">
           <p class="metric metric-card">2–4 proposals a day, 15 minutes each.</p>
@@ -172,8 +208,8 @@ const jsonLd = graph(
   <!-- 5. Services -->
   <section class="section" aria-labelledby="services-h">
     <div class="wrap">
-      <h2 id="services-h">Two ways to start.</h2>
-      <div class="grid-2 services-grid">
+      <h2 id="services-h">Three ways to start.</h2>
+      <div class="grid-3 services-grid">
         <article class="card service-card">
           <h3>Automation Audit</h3>
           <p class="price">$500, credited in full toward a custom build</p>
@@ -192,8 +228,18 @@ const jsonLd = graph(
             I design the solution, build and test it on your systems, and hand it off with documentation and a
             walkthrough. Typical timeline is one to four weeks.
           </p>
-          <p>This is how every case study on this page started.</p>
+          <p>This is how the automation case studies on this page started.</p>
           <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        </article>
+        <article class="card service-card">
+          <h3>Management System Build</h3>
+          <p class="price">Fixed quote after discovery. Reserve a slot: $100</p>
+          <p>
+            For operations that still run on notebooks, spreadsheets, and WhatsApp: a custom system for orders,
+            inventory, and production, live on your real data in the first month.
+          </p>
+          <p>We take a limited number of new builds per month. The deposit is credited in full.</p>
+          <a href="/services/management-system-build" class="btn btn-secondary">How it works</a>
         </article>
       </div>
       <p class="service-note">
@@ -330,7 +376,9 @@ const jsonLd = graph(
   .proof-item dd { margin: 6px 0 0; color: var(--c-text-dim); font-size: 0.85rem; }
   .metric { font-family: var(--font-mono); color: var(--c-red); font-weight: 700; font-size: clamp(1.15rem, 2.2vw, 1.5rem); margin: 0; }
 
-  .case-grid { margin-top: 36px; }
+  .case-grid { margin-top: 20px; }
+  .work-kicker { margin-top: 40px; }
+  .case-note { color: var(--c-text-dim); font-size: 0.88rem !important; font-style: italic; }
   .case-card { display: flex; flex-direction: column; gap: 12px; }
   .case-card p { margin: 0; font-size: 0.95rem; }
   .metric-card { font-size: 1.25rem; line-height: 1.3; }

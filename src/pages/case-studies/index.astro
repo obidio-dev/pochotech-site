@@ -12,29 +12,29 @@ const jsonLd = graph(
 );
 
 const stats = [
-  { value: '3', label: 'client teams' },
+  { value: '6', label: 'businesses running on our systems' },
   { value: '12+', label: 'automations in production' },
-  { value: '20+', label: 'tools integrated' },
+  { value: '67', label: 'real production orders loaded on one system’s day one' },
   { value: '400+', label: 'articles processed every day' },
   { value: '6–8 hrs/day', label: 'of manual operations eliminated for one 6-person team' },
 ];
 ---
 <Base
-  title="Case Studies: Three Teams, Twelve Automations | pocho.tech"
-  description="Case studies with real numbers: twelve automations in production across an event production agency, a travel media company, and an EdTech workforce-training company. Built by Erick Bonilla."
+  title="Case Studies: Systems and Automations in Production | pocho.tech"
+  description="Case studies with real numbers: management systems for a furniture factory, a lube center, and a distributor, plus twelve automations across three teams."
   path="/case-studies"
   jsonLd={jsonLd}
 >
   <section class="hero">
     <div class="wrap">
-      <h1>Three teams. Twelve automations. Real numbers.</h1>
-      <p class="lead">Every engagement on this page started as a single build and continues today on an embedded retainer. I built each system myself, and I still operate most of them.</p>
+      <h1>Six businesses. Real numbers.</h1>
+      <p class="lead">Management systems for operations that ran on paper, and AI automations for teams drowning in repetitive work. Every engagement started as a single build; most continue on an embedded retainer.</p>
     </div>
   </section>
 
   <section class="section-alt stats-section">
     <div class="wrap">
-      <h2>The numbers across all three</h2>
+      <h2>The numbers across all of them</h2>
       <div class="stat-strip">
         {stats.map((s) => (
           <div class="stat">
@@ -49,6 +49,20 @@ const stats = [
   <section class="studies">
     <div class="wrap">
       <h2>The case studies</h2>
+
+      <article class="study">
+        <h3>67 real orders loaded on day one. 11 were already late.</h3>
+        <p class="client-line"><strong>Furniture factory</strong>, sixty workers, made-to-order production.</p>
+        <p>We built their production management system and migrated the real operation before switch-on: 67 active orders, 364 pieces, their own order numbers. The first morning, the owner saw the whole backlog on one screen for the first time, and reprioritized the week with data instead of with whoever complained loudest. One feedback round brought 13 change requests; the staged build absorbed them without starting over.</p>
+        <a class="study-link" href="/case-studies/furniture-factory">Read the furniture factory case study →</a>
+      </article>
+
+      <article class="study">
+        <h3>Open on a Monday. Running on its system since the Friday before.</h3>
+        <p class="client-line"><strong>Lube center</strong>, a brand-new business opened by the owners of a distributor we work with.</p>
+        <p>Instead of opening on paper and migrating later, the business was born digital: service orders, multi-service checklists, scheduling, and invoicing, live before the first customer walked in. It runs on the counter phone and the office computer alike. There was never a double-entry period.</p>
+        <a class="study-link" href="/case-studies/lube-center">Read the lube center case study →</a>
+      </article>
 
       <article class="study">
         <h3>2–4 proposals a day, 15 minutes each.</h3>
