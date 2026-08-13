@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import erickPhoto from '../assets/erick-bonilla.jpg';
 import { CALENDLY, EMAIL, BOILERPLATE } from '../data/site';
 import { graph, breadcrumbs } from '../lib/schema';
 
@@ -15,19 +17,41 @@ const jsonLd = graph(
 >
   <!-- Hero -->
   <section class="hero">
-    <div class="wrap">
-      <h1>Who I am and how I work</h1>
-      <p class="hero-sub">
-        I'm Erick Bonilla, founder and the only engineer at pocho.tech. Every workflow on this site I scoped and
-        built myself, and most of them I still operate.
-      </p>
-      <p>{BOILERPLATE}</p>
-      <p>
-        That's the formal version. The practical version: you tell me where your team's hours go, and I build the
-        system that gets them back.
-      </p>
+    <div class="wrap about-hero-grid">
+      <div>
+        <h1>Who I am and how I work</h1>
+        <p class="hero-sub">
+          I'm Erick Bonilla, founder and the only engineer at pocho.tech. Every workflow on this site I scoped and
+          built myself, and most of them I still operate.
+        </p>
+        <p>{BOILERPLATE}</p>
+        <p>
+          That's the formal version. The practical version: you tell me where your team's hours go, and I build the
+          system that gets them back.
+        </p>
+      </div>
+      <Image
+        src={erickPhoto}
+        alt="Erick Bonilla, founder and engineer at pocho.tech"
+        class="about-photo"
+        widths={[400, 720]}
+        sizes="(max-width: 900px) 88vw, 340px"
+      />
     </div>
   </section>
+  <style>
+    .about-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr minmax(260px, 340px);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: center;
+    }
+    .about-photo { width: 100%; height: auto; border-radius: var(--radius); }
+    @media (max-width: 900px) {
+      .about-hero-grid { grid-template-columns: 1fr; }
+      .about-photo { max-width: 400px; }
+    }
+  </style>
 
   <!-- What embedded looks like -->
   <section class="section section-alt" aria-labelledby="embedded-h">

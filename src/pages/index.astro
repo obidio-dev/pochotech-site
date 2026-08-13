@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
+import { Image } from 'astro:assets';
+import erickPhoto from '../assets/erick-bonilla.jpg';
 import { CALENDLY, EMAIL } from '../data/site';
 import { graph, faqSchema, reviewSchema } from '../lib/schema';
 
@@ -148,20 +150,29 @@ const jsonLd = graph(
 
   <!-- 4. Founder -->
   <section class="section section-alt" aria-labelledby="founder-h">
-    <div class="wrap founder">
-      <h2 id="founder-h">Who builds this</h2>
-      <p>
-        I’m Erick Bonilla, founder and the only engineer at pocho.tech. Every automation on this page, I scoped
-        and built myself, and most of them I still operate.
-      </p>
-      <p>I work embedded: in your Slack, inside your accounts, as a team member whose job is automation.</p>
-      <p>
-        I build on n8n and Make.com with the OpenAI and Anthropic APIs, and I speak about this work at industry
-        conferences.
-      </p>
-      <p>The travel media company on this page hired me to build after I taught n8n to their AI lead.</p>
-      <p class="founder-close">When something breaks, you message the person who wrote it.</p>
-      <a href="/about" class="case-link">More about how I work</a>
+    <div class="wrap founder founder-grid">
+      <div>
+        <h2 id="founder-h">Who builds this</h2>
+        <p>
+          I’m Erick Bonilla, founder and the only engineer at pocho.tech. Every automation on this page, I scoped
+          and built myself, and most of them I still operate.
+        </p>
+        <p>I work embedded: in your Slack, inside your accounts, as a team member whose job is automation.</p>
+        <p>
+          I build on n8n and Make.com with the OpenAI and Anthropic APIs, and I speak about this work at industry
+          conferences.
+        </p>
+        <p>The travel media company on this page hired me to build after I taught n8n to their AI lead.</p>
+        <p class="founder-close">When something breaks, you message the person who wrote it.</p>
+        <a href="/about" class="case-link">More about how I work</a>
+      </div>
+      <Image
+        src={erickPhoto}
+        alt="Erick Bonilla, founder and engineer at pocho.tech"
+        class="founder-photo"
+        widths={[400, 640]}
+        sizes="(max-width: 900px) 76vw, 300px"
+      />
     </div>
   </section>
 
@@ -403,6 +414,17 @@ const jsonLd = graph(
 
   .founder p { max-width: 62ch; }
   .founder-close { color: var(--c-text); font-weight: 600; }
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(240px, 300px);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  .founder-photo { width: 100%; height: auto; border-radius: var(--radius); }
+  @media (max-width: 900px) {
+    .founder-grid { grid-template-columns: 1fr; }
+    .founder-photo { max-width: 360px; }
+  }
 
   .service-card { display: flex; flex-direction: column; gap: 12px; }
   .service-card p { margin: 0; font-size: 0.95rem; }
