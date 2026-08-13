@@ -7,9 +7,9 @@ import { CALENDLY, EMAIL } from '../data/site';
 import { graph, faqSchema, reviewSchema } from '../lib/schema';
 
 const metrics = [
+  { value: '1,600+ hrs/yr', label: 'Manual work removed, counting only two of the twelve automations' },
   { value: '1.5–2 hrs → 15 min', label: 'Proposal processing, event production agency' },
   { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking, travel media company' },
-  { value: '30 → 70', label: 'Creators tracked, same workflow, same team' },
   { value: '400+ articles/day', label: 'Curated into one newsletter with zero human input' },
 ];
 
@@ -58,18 +58,17 @@ const jsonLd = graph(
 ---
 <Base
   title="Custom AI Automation for Small Teams | pocho.tech"
-  description="I help small teams create proposals, reports, and client updates in minutes instead of hours. Twelve automations in production. Builds from $1,500."
+  description="We build custom AI automations that give small teams their hours back: 1,600+ hours of manual work removed every year across three client teams."
   path="/"
   jsonLd={jsonLd}
 >
   <!-- 1. Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>I help small teams create proposals in fifteen minutes instead of two hours.</h1>
+      <h1>We give small teams their hours back.</h1>
       <p class="hero-sub">
-        That is a real number: the proposal-to-invoice pipeline I run for an event production agency, one of
-        twelve automations in production across three client teams. I’m Erick Bonilla, and you work directly
-        with the engineer who builds it.
+        Custom AI automation for proposals, reporting, client updates, and operations. The systems we run for
+        three client teams remove 1,600+ hours of manual work every year.
       </p>
       <div class="hero-ctas">
         <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
@@ -247,7 +246,7 @@ const jsonLd = graph(
   <!-- 7. Industries -->
   <section class="section" aria-labelledby="industries-h">
     <div class="wrap">
-      <h2 id="industries-h">Where I work</h2>
+      <h2 id="industries-h">Where we work</h2>
       <div class="grid-2 industry-grid">
         <a class="card industry-card" href="/industries/media-publishing">
           <h3>Media &amp; publishing</h3>
