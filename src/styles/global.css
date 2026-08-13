@@ -1,16 +1,17 @@
-/* pocho.tech design tokens — derived from brand guidelines */
+/* pocho.tech design tokens, light minimal theme (Aug 2026 redesign; print assets stay dark) */
 :root {
-  --c-bg: #0a0a0a;
-  --c-bg-deep: #000000;
-  --c-surface: #1a1a1a;
-  --c-surface-alt: #111111;
-  --c-border: #2a2a2a;
-  --c-text: #ffffff;
-  --c-text-body: #e5e5e5;
-  --c-text-mute: #9a9a9a;
-  --c-text-dim: #8a8a8a; /* AA-compliant on #0a0a0a (≈5.6:1) */
-  --c-red: #ef3f28;
-  --c-red-hover: #ff4f36;
+  --c-bg: #ffffff;
+  --c-bg-deep: #f6f6f4;
+  --c-surface: #ffffff;
+  --c-surface-alt: #f6f6f4;
+  --c-border: #e6e6e2;
+  --c-border-strong: #c9c9c4;
+  --c-text: #141414;
+  --c-text-body: #2e2e2e;
+  --c-text-mute: #555555;
+  --c-text-dim: #6a6a6a; /* AA-compliant on #ffffff (≈5.2:1) */
+  --c-red: #e03a24;
+  --c-red-hover: #c33018;
 
   --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
@@ -25,7 +26,7 @@
 html {
   scroll-behavior: smooth;
   background: var(--c-bg);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -71,10 +72,10 @@ code, .mono { font-family: var(--font-mono); }
 .section-alt { background: var(--c-surface-alt); }
 
 .eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: var(--c-text-dim);
   display: block;
   margin-bottom: 14px;
@@ -105,7 +106,7 @@ code, .mono { font-family: var(--font-mono); }
 .btn-primary:hover { background: var(--c-red-hover); }
 .btn-secondary {
   background: transparent;
-  border-color: #555;
+  border-color: var(--c-border-strong);
   color: var(--c-text);
 }
 .btn-secondary:hover { border-color: var(--c-text); }
@@ -116,6 +117,7 @@ code, .mono { font-family: var(--font-mono); }
   border: 1px solid var(--c-border);
   border-radius: var(--radius);
   padding: 28px;
+  box-shadow: 0 1px 3px rgba(20, 20, 20, 0.05);
 }
 
 .grid-3 {

@@ -3,3 +3,7 @@ dist/
 .astro/
 .DS_Store
 source-assets/
+.vercel
+
+.vercel
+.env*

@@ -8,7 +8,7 @@ import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
 const CURATOR_CHECKOUT = 'https://checkout.lemonsqueezy.com/buy/1320787';
 
 const DESCRIPTION =
-  "Four AI automations run Matador Network's editorial back office — 400+ articles a day curated into one newsletter, creator tracking down from 5 hrs to 1.5";
+  "Four AI automations run a travel media company's editorial back office: 400+ articles a day curated into one newsletter, creator tracking down from 5 hrs to 1.5";
 
 const metrics = [
   { value: '400+ articles/day', label: 'Curated into one newsletter, zero human input' },
@@ -19,7 +19,7 @@ const metrics = [
 const faqs = [
   {
     q: 'Whether this works outside travel media',
-    a: "The mechanisms are source-agnostic — the curator reads whatever publications you give it, and the tracker follows whatever accounts you list. The travel is in the inputs; the system doesn't care what industry the sources cover.",
+    a: "The mechanisms are source-agnostic: the curator reads whatever publications you give it, and the tracker follows whatever accounts you list. The travel is in the inputs; the system doesn't care what industry the sources cover.",
   },
   {
     q: "How the AI decides what's newsworthy",
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     q: 'Who maintains it after handoff',
-    a: "You own everything — the workflows run in your accounts under your credentials. Matador's four automations are a continuing embedded engagement, which is how most clients run it.",
+    a: "You own everything: the workflows run in your accounts under your credentials. The media company's four automations are a continuing embedded engagement, which is how most clients run it.",
   },
 ];
 
@@ -59,14 +59,14 @@ const jsonLd = graph(
     <div class="wrap">
       <h1>400+ articles a day go in. A finished newsletter comes out every morning.</h1>
       <p class="hero-sub">
-        I build AI automations for editorial back offices — newsletter curation, creator tracking, affiliate
-        reporting, and event research. Four of them run in production at Matador Network, a travel media network
-        of about fifty people with an editorial team of twelve.
+        I build AI automations for editorial back offices: newsletter curation, creator tracking, affiliate
+        reporting, and event research. Four of them run in production at a travel media company of about fifty
+        people, with an editorial team of twelve.
       </p>
       <p class="hero-sub hero-note">Every number on this page is theirs.</p>
       <div class="hero-ctas">
         <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
-        <a href={CURATOR_CHECKOUT} class="btn btn-secondary" rel="noopener">Get the AI Newsletter Curator — $249</a>
+        <a href={CURATOR_CHECKOUT} class="btn btn-secondary" rel="noopener">Get the AI Newsletter Curator: $249</a>
       </div>
     </div>
   </section>
@@ -80,8 +80,8 @@ const jsonLd = graph(
         publications' worth of daily output to find the ten stories worth covering.
       </p>
       <p>
-        Someone scrolls TikTok and Instagram logging creator posts into a spreadsheet — URL, views, likes, one
-        row at a time. At Matador Network that took five hours a week and covered only thirty creators.
+        Someone scrolls TikTok and Instagram logging creator posts into a spreadsheet: URL, views, likes, one
+        row at a time. At the media company that took five hours a week and covered only thirty creators.
       </p>
       <p>
         Someone pulls affiliate numbers out of GA4 and reformats them for the Monday meeting. Someone searches
@@ -93,14 +93,14 @@ const jsonLd = graph(
   <!-- What I build -->
   <section class="section" aria-labelledby="build-h">
     <div class="wrap">
-      <h2 id="build-h">What I build — the four systems at Matador Network</h2>
+      <h2 id="build-h">What I build: the four systems at the media company</h2>
       <div class="grid-2 systems-grid">
         <article class="card system-card">
           <h3>AI newsletter curator</h3>
           <p>
             Overnight, the system pulls roughly 400 articles a day from eleven-plus publications through Apify,
             and GPT-4o scores them and picks the top ten. A polished HTML newsletter is in the team's inbox every
-            morning — zero human input along the way.
+            morning, zero human input along the way.
           </p>
           <ul class="tools" aria-label="Tools">
             <li>Apify</li>
@@ -115,7 +115,7 @@ const jsonLd = graph(
         <article class="card system-card">
           <h3>Social media creator tracker</h3>
           <p>
-            The tracker scrapes TikTok and Instagram for each creator's posts and delivers a Monday digest —
+            The tracker scrapes TikTok and Instagram for each creator's posts and delivers a Monday digest:
             every URL with views and likes attached. Tracking went from 5 hours a week to 1.5, while coverage
             grew from 30 creators to 70.
           </p>
@@ -172,7 +172,7 @@ const jsonLd = graph(
             save us time each week that can be spent producing content rather than sifting through emails and
             data."
           </p>
-          <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
+          <cite>Editorial team, travel media company</cite>
         </blockquote>
         <blockquote>
           <p>
@@ -180,7 +180,7 @@ const jsonLd = graph(
             automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a
             lot of manual effort."
           </p>
-          <cite>— Kyrene Kagahastian, Social Media Team, Matador Network</cite>
+          <cite>Social media team, travel media company</cite>
         </blockquote>
       </div>
       <p class="context-line">When the tracker goes down, the team emails within hours asking for it back.</p>
@@ -194,7 +194,7 @@ const jsonLd = graph(
   <CtaSection
     heading="Tell me where your editorial hours go."
     body="Sixty minutes: you walk me through the team's week, and I tell you what I'd automate first and what it would cost. If a $249 template covers it, I'll say so on the call."
-    secondaryLabel="Get the AI Newsletter Curator — $249"
+    secondaryLabel="Get the AI Newsletter Curator: $249"
     secondaryHref={CURATOR_CHECKOUT}
   />
 </Base>

@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: 'What you need',
-    a: 'A running n8n instance — n8n Cloud or self-hosted both work — plus a Google account, an Apify account, and an OpenAI API key.',
+    a: 'A running n8n instance, n8n Cloud or self-hosted both work, plus a Google account, an Apify account, and an OpenAI API key.',
   },
   {
     q: 'Customization',
@@ -40,8 +40,8 @@ const jsonLd = graph(
 );
 ---
 <Base
-  title="AI Newsletter Curator — n8n Template | pocho.tech"
-  description="An AI that scrapes your sources overnight, picks the top stories, and delivers a finished newsletter each morning. 400+ articles/day at Matador Network."
+  title="AI Newsletter Curator: n8n Template | pocho.tech"
+  description="An AI that scrapes your sources overnight, picks the top stories, and delivers a finished newsletter each morning. 400+ articles/day at a travel media company."
   path="/templates/ai-newsletter-curator"
   jsonLd={jsonLd}
 >
@@ -59,8 +59,8 @@ const jsonLd = graph(
           every morning.
         </p>
         <p class="opener">
-          The production version runs at Matador Network, where it processes 400+ articles a day from eleven-plus
-          publications with zero human input. $249, one-time.
+          The production version runs at the media company, where it processes 400+ articles a day from
+          eleven-plus publications with zero human input. $249, one-time.
         </p>
       </div>
     </header>
@@ -68,7 +68,7 @@ const jsonLd = graph(
     <section class="wrap tpl-wrap tpl-section" aria-labelledby="does-h">
       <h2 id="does-h">What it does</h2>
       <ul>
-        <li>You list your sources in a Google Sheet — publications, blogs, anything Apify can scrape</li>
+        <li>You list your sources in a Google Sheet: publications, blogs, anything Apify can scrape</li>
         <li>Apify collects every new article overnight</li>
         <li>An AI reads the full set, picks the most newsworthy stories, and writes a summary of each</li>
         <li>A finished newsletter arrives in your inbox every morning, ready to send or publish</li>
@@ -91,10 +91,10 @@ const jsonLd = graph(
 
     <section class="wrap tpl-wrap tpl-section" aria-labelledby="price-h">
       <h2 id="price-h">Price</h2>
-      <p class="price-line"><span class="price-big">$249</span> — one-time purchase.</p>
-      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the AI Newsletter Curator — $249</a>
+      <p class="price-line"><span class="price-big">$249</span>, one-time purchase.</p>
+      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the AI Newsletter Curator: $249</a>
       <p class="upsell">
-        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call: credentials
         connected, workflow configured, tested live, recording included.
       </p>
     </section>

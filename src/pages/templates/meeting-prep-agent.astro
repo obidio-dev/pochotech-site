@@ -15,11 +15,11 @@ const faqs = [
   },
   {
     q: 'What you need',
-    a: 'A running n8n instance — n8n Cloud or self-hosted both work — plus a Google account and an OpenAI API key.',
+    a: 'A running n8n instance, n8n Cloud or self-hosted both work, plus a Google account and an OpenAI API key.',
   },
   {
     q: 'Customization',
-    a: "It's a standard n8n workflow, so every node is open and editable — change the briefing timing, the format, or the model. If you want it adapted beyond that, Done-For-You Setup covers configuration and a custom build covers the rest.",
+    a: "It's a standard n8n workflow, so every node is open and editable: change the briefing timing, the format, or the model. If you want it adapted beyond that, Done-For-You Setup covers configuration and a custom build covers the rest.",
   },
 ];
 
@@ -27,7 +27,7 @@ const jsonLd = graph(
   productSchema({
     name: 'Meeting Prep Agent',
     description:
-      "The Meeting Prep Agent is an n8n workflow with an AI that reads your email history with every meeting attendee and sends you a structured briefing one hour before the call — what you discussed, what's still pending, and how the relationship feels.",
+      "The Meeting Prep Agent is an n8n workflow with an AI that reads your email history with every meeting attendee and sends you a structured briefing one hour before the call: what you discussed, what's still pending, and how the relationship feels.",
     path: '/templates/meeting-prep-agent',
     price: t.price,
   }),
@@ -40,7 +40,7 @@ const jsonLd = graph(
 );
 ---
 <Base
-  title="Meeting Prep Agent — n8n Template | pocho.tech"
+  title="Meeting Prep Agent: n8n Template | pocho.tech"
   description="An AI that reads your email history with every meeting attendee and sends a structured briefing one hour before the call. n8n template, $249."
   path="/templates/meeting-prep-agent"
   jsonLd={jsonLd}
@@ -55,7 +55,7 @@ const jsonLd = graph(
         </figure>
         <p class="opener">
           The Meeting Prep Agent is an n8n workflow with an AI that reads your email history with every meeting
-          attendee and sends you a structured briefing one hour before the call — what you discussed, what's
+          attendee and sends you a structured briefing one hour before the call: what you discussed, what's
           still pending, and how the relationship feels.
         </p>
         <p class="opener">
@@ -91,10 +91,10 @@ const jsonLd = graph(
 
     <section class="wrap tpl-wrap tpl-section" aria-labelledby="price-h">
       <h2 id="price-h">Price</h2>
-      <p class="price-line"><span class="price-big">$249</span> — one-time purchase.</p>
-      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the Meeting Prep Agent — $249</a>
+      <p class="price-line"><span class="price-big">$249</span>, one-time purchase.</p>
+      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the Meeting Prep Agent: $249</a>
       <p class="upsell">
-        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call: credentials
         connected, workflow configured, tested live, recording included.
       </p>
     </section>

@@ -7,16 +7,16 @@ import { graph, faqSchema, reviewSchema } from '../lib/schema';
 const FREE_TEMPLATE = 'https://checkout.lemonsqueezy.com/buy/1320841';
 
 const metrics = [
-  { value: '1.5–2 hrs → 15 min', label: 'Proposal processing — Dahlia+ Agency' },
-  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking — Matador Network' },
-  { value: '30 → 70', label: 'Creators tracked, same workflow — Matador Network' },
-  { value: '400+ articles/day', label: 'Curated into one newsletter, zero human input — Matador Network' },
+  { value: '1.5–2 hrs → 15 min', label: 'Proposal processing, event production agency' },
+  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking, travel media company' },
+  { value: '30 → 70', label: 'Creators tracked, same workflow, same team' },
+  { value: '400+ articles/day', label: 'Curated into one newsletter with zero human input' },
 ];
 
 const faqs = [
   {
     q: 'What a custom automation costs',
-    a: 'Builds start at $1,500, with a fixed price set in writing after the discovery call — what it costs depends on how many systems are involved and how much of the logic needs AI. If you start with the $500 audit, that full amount is credited toward the build.',
+    a: 'Builds start at $1,500, with a fixed price set in writing after the discovery call. What it costs depends on how many systems are involved and how much of the logic needs AI. If you start with the $500 audit, that full amount is credited toward the build.',
   },
   {
     q: 'How long a build takes',
@@ -24,11 +24,11 @@ const faqs = [
   },
   {
     q: 'Who does the actual work',
-    a: 'I do — every workflow, every integration, every fix. pocho.tech is one engineer, and you work with me directly from the first call through handoff.',
+    a: 'I do: every workflow, every integration, every fix. pocho.tech is one engineer, and you work with me directly from the first call through handoff.',
   },
   {
     q: 'Who owns the workflows',
-    a: 'You do — everything runs in your accounts under your credentials, on your n8n or Make.com instance, with your API keys. If we ever part ways, every workflow keeps running exactly as it did the day before; nothing I build depends on infrastructure that belongs to me.',
+    a: 'You do. Everything runs in your accounts under your credentials, on your n8n or Make.com instance, with your API keys. If we ever part ways, every workflow keeps running exactly as it did the day before; nothing I build depends on infrastructure that belongs to me.',
   },
   {
     q: 'What happens after handoff',
@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: 'Why n8n and Make.com instead of Zapier',
-    a: 'Zapier is fine for simple triggers, but the systems I build — AI evaluation pipelines, multi-step branching logic, two-way syncs — need real conditionals, sub-workflows, and direct API calls. n8n and Make.com handle that at a fraction of the per-task cost, and n8n can run on your own server.',
+    a: 'Zapier is fine for simple triggers, but the systems I build (AI evaluation pipelines, multi-step branching logic, two-way syncs) need real conditionals, sub-workflows, and direct API calls. n8n and Make.com handle that at a fraction of the per-task cost, and n8n can run on your own server.',
   },
   {
     q: 'What the $500 audit includes',
@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: 'Whether templates require technical skill',
-    a: 'Each template includes the n8n workflow JSON, a step-by-step PDF setup guide, and a walkthrough video — if you can follow instructions and paste API credentials, you can install one. If you would rather not, Done-For-You Setup adds $100 and I configure it with you on a live call.',
+    a: 'Each template includes the n8n workflow JSON, a step-by-step PDF setup guide, and a walkthrough video. If you can follow instructions and paste API credentials, you can install one. If you would rather not, Done-For-You Setup adds $100 and I configure it with you on a live call.',
   },
 ];
 
@@ -55,24 +55,25 @@ const jsonLd = graph(
   faqSchema(faqs),
   reviewSchema({
     body: kyreneQuote,
-    authorName: 'Kyrene Kagahastian',
-    authorTitle: 'Social Media Team, Matador Network',
+    authorName: 'Social media team member',
+    authorTitle: 'Travel media company',
   })
 );
 ---
 <Base
   title="Custom AI Automation for Small Teams | pocho.tech"
-  description="Twelve automations in production across three client teams — Dahlia+ Agency, Matador Network, TPS Workforce Hub. Custom builds from $1,500 by Erick Bonilla."
+  description="I help small teams create proposals, reports, and client updates in minutes instead of hours. Twelve automations in production. Builds from $1,500."
   path="/"
   jsonLd={jsonLd}
 >
   <!-- 1. Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>Processing a proposal took an hour and a half to two hours. Now it takes fifteen minutes.</h1>
+      <h1>I help small teams create proposals in fifteen minutes instead of two hours.</h1>
       <p class="hero-sub">
-        That’s the proposal-to-invoice pipeline I run for Dahlia+ Agency — one of twelve automations in
-        production across three client teams. I’m Erick Bonilla — you work directly with the engineer who builds it.
+        That is a real number: the proposal-to-invoice pipeline I run for an event production agency, one of
+        twelve automations in production across three client teams. I’m Erick Bonilla, and you work directly
+        with the engineer who builds it.
       </p>
       <div class="hero-ctas">
         <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
@@ -103,36 +104,36 @@ const jsonLd = graph(
       <div class="grid-3 case-grid">
         <article class="card case-card">
           <p class="metric metric-card">2–4 proposals a day, 15 minutes each.</p>
-          <p class="case-client">Dahlia+ Agency — event production, team of six to eight.</p>
+          <p class="case-client">Event production agency, team of six to eight.</p>
           <p>
             An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board,
-            and creates the QuickBooks customer with two 50/50 invoices — untouched. At 2–4 proposals a day,
+            and creates the QuickBooks customer with two 50/50 invoices, untouched. At 2–4 proposals a day,
             that’s 6–8 hours of manual operations gone from every working day.
           </p>
-          <a href="/case-studies/dahlia-plus-agency" class="case-link">Read the Dahlia+ case study</a>
+          <a href="/case-studies/event-production-agency" class="case-link">Read the case study</a>
         </article>
         <article class="card case-card">
           <p class="metric metric-card">400+ articles a day. Ten make the newsletter.</p>
-          <p class="case-client">Matador Network — travel media, editorial team of twelve.</p>
+          <p class="case-client">Travel media company, editorial team of twelve.</p>
           <p>
             Overnight, an AI reads eleven-plus publications, picks the ten stories that matter, and delivers a
-            finished newsletter every morning. Their creator tracker went from 5 hours a week to 1.5 — covering
+            finished newsletter every morning. Their creator tracker went from 5 hours a week to 1.5, covering
             70 creators instead of 30.
           </p>
-          <a href="/case-studies/matador-network" class="case-link">Read the Matador case study</a>
+          <a href="/case-studies/travel-media-company" class="case-link">Read the case study</a>
         </article>
         <article class="card case-card">
           <p class="metric metric-card">From zero operational visibility to automated daily reporting.</p>
-          <p class="case-client">TPS Workforce Hub — clean-tech workforce training, Boston. 30–40 applicants per cohort.</p>
+          <p class="case-client">EdTech workforce training, Boston. 30–40 applicants per cohort.</p>
           <p>
-            Six connected systems run their admissions and operations — AI-scored interviews from Read.ai
+            Six connected systems run their admissions and operations: AI-scored interviews from Read.ai
             transcripts, scheduling, stipend-eligibility alerts, and the 5pm report the whole team reads.
           </p>
           <blockquote class="card-quote">
             <p>“You have done such a great job that I can’t remember how we were working before you.”</p>
-            <cite>— CEO, TPS Energy</cite>
+            <cite>CEO, EdTech workforce-training company</cite>
           </blockquote>
-          <a href="/case-studies/tps-workforce-hub" class="case-link">Read the TPS case study</a>
+          <a href="/case-studies/edtech-workforce-training" class="case-link">Read the case study</a>
         </article>
       </div>
       <blockquote class="support-quote">
@@ -140,7 +141,7 @@ const jsonLd = graph(
           “Erick has helped us build and implement multiple automations for our editorial department, and these
           save us time each week that can be spent producing content rather than sifting through emails and data.”
         </p>
-        <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
+        <cite>Editorial team, travel media company</cite>
       </blockquote>
     </div>
   </section>
@@ -150,7 +151,7 @@ const jsonLd = graph(
     <div class="wrap founder">
       <h2 id="founder-h">Who builds this</h2>
       <p>
-        I’m Erick Bonilla — founder and the only engineer at pocho.tech. Every automation on this page, I scoped
+        I’m Erick Bonilla, founder and the only engineer at pocho.tech. Every automation on this page, I scoped
         and built myself, and most of them I still operate.
       </p>
       <p>I work embedded: in your Slack, inside your accounts, as a team member whose job is automation.</p>
@@ -158,7 +159,7 @@ const jsonLd = graph(
         I build on n8n and Make.com with the OpenAI and Anthropic APIs, and I speak about this work at industry
         conferences.
       </p>
-      <p>Matador Network hired me to build after I taught n8n to their AI Advocacy Director.</p>
+      <p>The travel media company on this page hired me to build after I taught n8n to their AI lead.</p>
       <p class="founder-close">When something breaks, you message the person who wrote it.</p>
       <a href="/about" class="case-link">More about how I work</a>
     </div>
@@ -171,7 +172,7 @@ const jsonLd = graph(
       <div class="grid-3">
         <article class="card service-card">
           <h3>Automation Audit</h3>
-          <p class="price">$500 — credited in full toward a custom build</p>
+          <p class="price">$500, credited in full toward a custom build</p>
           <p>
             A 60-minute review of how your team actually works, then a written report within five business days.
             You get what to automate first, which tools, estimated time savings, and the build scope for each
@@ -182,7 +183,7 @@ const jsonLd = graph(
         </article>
         <article class="card service-card service-flagship">
           <h3>Custom Automation Build</h3>
-          <p class="price">From $1,500 — fixed price after a discovery call</p>
+          <p class="price">From $1,500, fixed price after a discovery call</p>
           <p>
             I design the solution, build and test it on your systems, and hand it off with documentation and a
             walkthrough. Typical timeline is one to four weeks.
@@ -201,11 +202,11 @@ const jsonLd = graph(
         </article>
       </div>
       <p class="service-note">
-        Most engagements don’t end at handoff. All three client teams on this page continue on embedded retainers
-        — scoped per engagement, on the discovery call.
+        Most engagements don’t end at handoff. All three client teams on this page continue on embedded
+        retainers, scoped per engagement on the discovery call.
       </p>
       <p class="service-note service-note-small">
-        I also consult on n8n and Make.com — training and architecture review for teams that want to build
+        I also consult on n8n and Make.com: training and architecture review for teams that want to build
         in-house. <a href="/services/n8n-consulting">n8n &amp; Make.com consulting</a>
       </p>
     </div>
@@ -222,7 +223,7 @@ const jsonLd = graph(
         </li>
         <li>
           <h3>Solution design <span class="step-time">a few days</span></h3>
-          <p>You get a written scope: what I’ll build, what it connects to, the fixed price, and the timeline. Nothing starts until you’ve approved it.</p>
+          <p>You get a written scope: what I’ll build, what it connects to, the fixed price, and the timeline. Nothing starts until you approve it.</p>
         </li>
         <li>
           <h3>Build and test <span class="step-time">one to four weeks</span></h3>
@@ -235,13 +236,13 @@ const jsonLd = graph(
       </ol>
       <div class="process-notes">
         <p>
-          <strong>You own all of it.</strong> The workflows run in your accounts under your credentials — if we
+          <strong>You own all of it.</strong> The workflows run in your accounts under your credentials. If we
           ever part ways, everything keeps running.
         </p>
         <p>
           <strong>What “embedded” means:</strong> most clients keep me on after handoff, working inside their
-          Slack, their CRM, their boards — a team member who happens to be an automation engineer. That’s how one
-          automation at Dahlia+ became four, and one system at TPS Workforce Hub became six.
+          Slack, their CRM, their boards, as a team member who happens to be an automation engineer. That’s how
+          one automation at the events agency became four, and one system at the EdTech company became six.
         </p>
       </div>
     </div>
@@ -255,15 +256,15 @@ const jsonLd = graph(
         <a class="card industry-card" href="/industries/media-publishing">
           <h3>Media &amp; publishing</h3>
           <p>
-            Four automations run Matador Network’s editorial back office: newsletter curation from 400+ daily
-            articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities.
+            Four automations run a travel media company’s editorial back office: newsletter curation from 400+
+            daily articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities.
           </p>
         </a>
         <a class="card industry-card" href="/industries/marketing-agencies">
           <h3>Agencies</h3>
           <p>
-            Dahlia+ Agency runs four: web lead routing, AI referral capture, the proposal-to-invoice pipeline,
-            and a business card scanner that lives in Slack.
+            An event production agency runs four: web lead routing, AI referral capture, the proposal-to-invoice
+            pipeline, and a business card scanner that lives in Slack.
           </p>
         </a>
         <a class="card industry-card" href="/industries/destination-marketing">
@@ -297,37 +298,37 @@ const jsonLd = graph(
           <h3><a href="/templates/business-card-scanner">Business Card Scanner</a></h3>
           <p>
             Drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact.
-            Running in production at Dahlia+ Agency.
+            Running in production at an event production agency.
           </p>
           <p class="teaser-tools">Slack · OpenAI GPT-4o Vision · HubSpot</p>
-          <a href="https://checkout.lemonsqueezy.com/buy/1320724" class="btn btn-secondary" rel="noopener">Get the scanner — $249</a>
+          <a href="https://checkout.lemonsqueezy.com/buy/1320724" class="btn btn-secondary" rel="noopener">Get the scanner: $249</a>
         </article>
         <article class="card teaser-card">
           <h3><a href="/templates/ai-newsletter-curator">AI Newsletter Curator</a></h3>
           <p>
             An AI that scrapes your chosen industry sources overnight, picks the most newsworthy stories, writes
-            summaries, and delivers a finished newsletter every morning. The production version at Matador
-            Network processes 400+ articles a day.
+            summaries, and delivers a finished newsletter every morning. The production version at a travel
+            media company processes 400+ articles a day.
           </p>
           <p class="teaser-tools">Google Sheets · Apify · OpenAI · Gmail</p>
-          <a href="https://checkout.lemonsqueezy.com/buy/1320787" class="btn btn-secondary" rel="noopener">Get the curator — $249</a>
+          <a href="https://checkout.lemonsqueezy.com/buy/1320787" class="btn btn-secondary" rel="noopener">Get the curator: $249</a>
         </article>
         <article class="card teaser-card">
-          <h3><a href="/templates/jarvis-ai-executive-assistant">Jarvis — AI Executive Assistant</a></h3>
+          <h3><a href="/templates/jarvis-ai-executive-assistant">Jarvis: AI Executive Assistant</a></h3>
           <p>
             An AI assistant living inside Slack that reads your email, manages your calendar, and tracks your
-            tasks on plain-English instructions. The most involved template in the catalog — main workflow,
+            tasks on plain-English instructions. The most involved template in the catalog: main workflow,
             sub-workflow, and system prompt reference included.
           </p>
           <p class="teaser-tools">Slack · Gmail · Google Calendar · Anthropic Claude · PostgreSQL</p>
-          <a href="https://checkout.lemonsqueezy.com/buy/1320707" class="btn btn-secondary" rel="noopener">Get Jarvis — $399</a>
+          <a href="https://checkout.lemonsqueezy.com/buy/1320707" class="btn btn-secondary" rel="noopener">Get Jarvis: $399</a>
         </article>
       </div>
       <div class="lead-magnet">
         <div>
-          <h3>Sheets ↔ HubSpot Task Manager — <span class="free">Free</span></h3>
+          <h3>Sheets ↔ HubSpot Task Manager: <span class="free">Free</span></h3>
           <p>
-            A live two-way sync between a Google Sheet and HubSpot tasks — create, update, and complete in
+            A live two-way sync between a Google Sheet and HubSpot tasks: create, update, and complete in
             either; both stay current. Start here if you want to see how I build before spending anything.
           </p>
         </div>
@@ -342,10 +343,10 @@ const jsonLd = graph(
     <div class="wrap">
       <blockquote class="big-quote">
         <p>“{kyreneQuote}”</p>
-        <cite>— Kyrene Kagahastian, Social Media Team, Matador Network</cite>
+        <cite>Social media team, travel media company</cite>
       </blockquote>
       <p class="quote-context">
-        On the creator tracker — one of four automations running at Matador Network. When it goes down, the team
+        On the creator tracker, one of four automations running at the travel media company. When it goes down, the team
         emails within hours asking for it back.
       </p>
     </div>
@@ -422,7 +423,7 @@ const jsonLd = graph(
 
   .industry-grid { margin-top: 36px; }
   .industry-card { text-decoration: none; transition: border-color 0.18s ease; }
-  .industry-card:hover { border-color: #555; }
+  .industry-card:hover { border-color: var(--c-border-strong); }
   .industry-card h3 { font-size: 1.1rem; }
   .industry-card p { color: var(--c-text-mute); font-size: 0.93rem; margin: 0; }
 

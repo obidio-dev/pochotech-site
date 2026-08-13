@@ -5,14 +5,14 @@ import CtaSection from '../../components/CtaSection.astro';
 import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
 import { CALENDLY, EMAIL } from '../../data/site';
 
-const title = 'Custom Automation Build — From $1,500 | pocho.tech';
+const title = 'Custom Automation Build: From $1,500 | pocho.tech';
 const description =
-  'Custom AI automation from $1,500 — fixed price after a discovery call, built and tested on your systems, handed off in one to four weeks. You own it all.';
+  'Custom AI automation from $1,500, fixed price after a discovery call, built and tested on your systems, handed off in one to four weeks. You own it all.';
 
 const faqs = [
   {
     q: 'What determines the price',
-    a: 'The number of systems involved, the volume moving through the workflow, and whether AI steps need their own design and testing. The Dahlia+ pipeline touches four systems; a workflow that touches one costs less to build.',
+    a: 'The number of systems involved, the volume moving through the workflow, and whether AI steps need their own design and testing. The pipeline at the events agency touches four systems; a workflow that touches one costs less to build.',
   },
   {
     q: 'How long a build takes',
@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: 'Which tools I can connect',
-    a: 'The twelve automations in production span more than twenty tools — HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, SharePoint, Power Automate, Apify, Google Analytics 4, Gmail, and others. If your tool has an API, it can probably join the list; the discovery call settles it.',
+    a: 'The twelve automations in production span more than twenty tools: HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, SharePoint, Power Automate, Apify, Google Analytics 4, Gmail, and others. If your tool has an API, it can probably join the list; the discovery call settles it.',
   },
 ];
 
@@ -49,9 +49,9 @@ const jsonLd = graph(
       <p>
         A custom automation build at pocho.tech starts at $1,500, with a fixed price set in writing after a
         60-minute discovery call. I design the workflow, build and test it on your systems, and hand it off with
-        documentation and a recorded walkthrough — typically in one to four weeks.
+        documentation and a recorded walkthrough, typically in one to four weeks.
       </p>
-      <p>I'm Erick Bonilla, and I'm the engineer on every build — first call through handoff.</p>
+      <p>I'm Erick Bonilla, and I'm the engineer on every build, first call through handoff.</p>
       <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
     </div>
   </section>
@@ -59,10 +59,10 @@ const jsonLd = graph(
   <section class="section section-alt" aria-labelledby="example-h">
     <div class="wrap">
       <h2 id="example-h">What a custom build looks like</h2>
-      <p>The clearest example runs at Dahlia+ Agency, an event production company with a team of six to eight.</p>
+      <p>The clearest example runs at an event production agency, with a team of six to eight.</p>
       <p>
         When a proposal is accepted in Fresh Proposals, the automation updates the HubSpot deal stage, builds the
-        Monday.com board, and creates the QuickBooks customer with two invoices split 50/50 — untouched by anyone.
+        Monday.com board, and creates the QuickBooks customer with two invoices split 50/50, untouched by anyone.
         Processing one proposal went from 1.5–2 hours to 15 minutes.
       </p>
       <p class="metric">1.5–2 hrs → 15 min</p>
@@ -70,18 +70,18 @@ const jsonLd = graph(
       <p>Other builds running in production:</p>
       <ul class="build-list">
         <li>
-          <strong>AI interview evaluation — TPS Workforce Hub.</strong> Read.ai interview transcripts arrive by
-          webhook; candidates get matched and objectively scored, and human reviewers get a structured brief with
-          direct quotes from the interview.
+          <strong>AI interview evaluation: EdTech workforce training.</strong> Read.ai interview transcripts arrive
+          by webhook; candidates get matched and objectively scored, and human reviewers get a structured brief
+          with direct quotes from the interview.
         </li>
         <li>
-          <strong>AI newsletter curator — Matador Network.</strong> Overnight, an AI reads 400+ articles across
+          <strong>AI newsletter curator: Travel media company.</strong> Overnight, an AI reads 400+ articles across
           eleven-plus publications, picks the top ten, and delivers a finished newsletter every morning with zero
           human input.
         </li>
         <li>
-          <strong>Business card scanner — Dahlia+ Agency.</strong> Drop a photo in Slack; GPT-4o Vision reads the
-          card, extracts every field, and creates the HubSpot contact.
+          <strong>Business card scanner: Event production agency.</strong> Drop a photo in Slack; GPT-4o Vision
+          reads the card, extracts every field, and creates the HubSpot contact.
         </li>
       </ul>
     </div>
@@ -106,19 +106,19 @@ const jsonLd = graph(
       <h2 id="process-h">How the process works</h2>
       <ol class="process">
         <li>
-          <strong>Discovery call — 60 minutes.</strong> You walk me through how the work actually happens, and I
+          <strong>Discovery call: 60 minutes.</strong> You walk me through how the work actually happens, and I
           look for where the hours go. <a href={CALENDLY} rel="noopener">Book it directly on my calendar</a>.
         </li>
         <li>
-          <strong>Solution design — a few days.</strong> You get a written scope: what I'll build, what it
+          <strong>Solution design: a few days.</strong> You get a written scope: what I'll build, what it
           connects to, the fixed price, and the timeline. Nothing starts until you've approved it.
         </li>
         <li>
-          <strong>Build and test — one to four weeks.</strong> I build on your systems and test against your real
+          <strong>Build and test: one to four weeks.</strong> I build on your systems and test against your real
           data, checking in as each piece goes live.
         </li>
         <li>
-          <strong>Handoff — one call.</strong> You get documentation and a recorded walkthrough of everything I
+          <strong>Handoff: one call.</strong> You get documentation and a recorded walkthrough of everything I
           built.
         </li>
       </ol>
@@ -129,7 +129,7 @@ const jsonLd = graph(
     <div class="wrap">
       <h2 id="ownership-h">Who owns what I build</h2>
       <p>
-        You do. The workflows run in your accounts under your credentials — if we ever part ways, everything keeps
+        You do. The workflows run in your accounts under your credentials. If we ever part ways, everything keeps
         running.
       </p>
       <p>There is no platform of mine in the middle and no ongoing fee back to me for what you own.</p>
@@ -149,7 +149,7 @@ const jsonLd = graph(
           automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot
           of manual effort."
         </p>
-        <cite>— Kyrene Kagahastian, Social Media Team, Matador Network</cite>
+        <cite>Social media team, travel media company</cite>
       </blockquote>
     </div>
   </section>

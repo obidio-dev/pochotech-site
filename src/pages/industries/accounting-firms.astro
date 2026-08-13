@@ -6,12 +6,12 @@ import { CALENDLY, EMAIL } from '../../data/site';
 import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
 
 const DESCRIPTION =
-  'Bookkeeping and tax workflow automation for CPA firms — QuickBooks Online, TaxDome, quarterly tax letters, and the client communications around deadlines.';
+  'Bookkeeping and tax workflow automation for CPA firms: QuickBooks Online, TaxDome, quarterly tax letters, and the client communications around deadlines.';
 
 const faqs = [
   {
     q: "Whether I've automated a CPA firm before",
-    a: "Not one I can name on this page yet, and the page doesn't pretend otherwise. The component systems — QuickBooks automation, AI drafting with review steps, deadline-driven communications — each run in production for the named clients on this site.",
+    a: "Not one I can name on this page yet, and the page doesn't pretend otherwise. The component systems each run in production for the named clients on this site: QuickBooks automation, AI drafting with review steps, deadline-driven communications.",
   },
   {
     q: 'How client financial data is handled',
@@ -19,11 +19,11 @@ const faqs = [
   },
   {
     q: 'Whether AI sends anything to clients unreviewed',
-    a: 'Only if you decide it should. Default builds queue every AI-drafted letter and email for a reviewer — automation removes the assembly work, and the review step stays.',
+    a: 'Only if you decide it should. Default builds queue every AI-drafted letter and email for a reviewer. Automation removes the assembly work, and the review step stays.',
   },
   {
     q: 'Where to start',
-    a: 'The $500 audit fits firms well: a 60-minute review of one workflow — quarterly letters are a common pick — then a written report within five business days. Credited in full toward a build.',
+    a: 'The $500 audit fits firms well: a 60-minute review of one workflow, quarterly letters are a common pick, then a written report within five business days. Credited in full toward a build.',
   },
 ];
 
@@ -51,7 +51,7 @@ const jsonLd = graph(
     <div class="wrap">
       <h1>Quarterly tax letters, assembled by automation, reviewed by your firm.</h1>
       <p class="hero-sub">
-        I build automations for accounting and CPA firms — bookkeeping workflows in QuickBooks Online, practice
+        I build automations for accounting and CPA firms: bookkeeping workflows in QuickBooks Online, practice
         workflows in TaxDome, quarterly tax letters, and the client communications around every deadline. This
         page describes what I build for firms; the production numbers elsewhere on this site come from the three
         named clients I've already automated.
@@ -67,7 +67,7 @@ const jsonLd = graph(
     <div class="wrap">
       <h2 id="hours-h">Where the hours go</h2>
       <p>
-        Every quarter, someone assembles tax letters client by client — pulling the numbers, fitting them into
+        Every quarter, someone assembles tax letters client by client: pulling the numbers, fitting them into
         the firm's format, checking names against the file. The work is identical across clients, and it still
         gets done one at a time.
       </p>
@@ -86,7 +86,7 @@ const jsonLd = graph(
         <article class="card system-card">
           <h3>Quarterly tax-letter workflow</h3>
           <p>
-            An automation that assembles each client's quarterly letter — data pulled from your books, the letter
+            An automation that assembles each client's quarterly letter: data pulled from your books, the letter
             drafted by AI in your format, queued for a reviewer before anything goes out. The reviewer approves
             or edits; the system sends and logs.
           </p>
@@ -114,8 +114,8 @@ const jsonLd = graph(
           <h3>Bookkeeping workflows in QuickBooks Online</h3>
           <p>
             Automations that create customers and invoices, move data between systems, and keep the books in sync
-            with the tools around them. QuickBooks invoice creation already runs in my production work — the
-            Dahlia+ Agency pipeline creates the customer and two invoices the moment a proposal is accepted.
+            with the tools around them. QuickBooks invoice creation already runs in my production work: an
+            event production agency's pipeline creates the customer and two invoices the moment a proposal is accepted.
           </p>
           <ul class="tools" aria-label="Tools">
             <li>QuickBooks Online</li>
@@ -143,16 +143,16 @@ const jsonLd = graph(
     <div class="wrap">
       <h2 id="proof-h">Where the proof comes from</h2>
       <p>
-        No accounting firm is named on this page yet — when one is, the numbers will be here. The component
+        No accounting firm is named on this page yet. When one is, the numbers will be here. The component
         systems are in production elsewhere.
       </p>
       <ul class="proof-list">
         <li>
-          QuickBooks automation runs daily at Dahlia+ Agency: proposal acceptance to customer plus two invoices,
+          QuickBooks automation runs daily at the events agency: proposal acceptance to customer plus two invoices,
           untouched.
         </li>
         <li>
-          AI drafting with human review runs at TPS Workforce Hub: structured AI evaluations delivered to human
+          AI drafting with human review runs at an EdTech workforce-training company: structured AI evaluations delivered to human
           reviewers, plus automated daily reporting.
         </li>
         <li>Twelve automations in production across three teams, spanning more than twenty tools.</li>

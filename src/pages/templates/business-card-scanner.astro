@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: 'What you need',
-    a: 'A running n8n instance — n8n Cloud or self-hosted both work — plus a Slack workspace, an OpenAI API key with GPT-4o access, and a HubSpot account.',
+    a: 'A running n8n instance, n8n Cloud or self-hosted both work, plus a Slack workspace, an OpenAI API key with GPT-4o access, and a HubSpot account.',
   },
   {
     q: 'Customization',
@@ -40,8 +40,8 @@ const jsonLd = graph(
 );
 ---
 <Base
-  title="Business Card Scanner — n8n Template | pocho.tech"
-  description="Drop a card photo in Slack; GPT-4o Vision extracts every field and creates the HubSpot contact. In production at Dahlia+ Agency. n8n template, $249."
+  title="Business Card Scanner: n8n Template | pocho.tech"
+  description="Drop a card photo in Slack; GPT-4o Vision extracts every field and creates the HubSpot contact. In production at an event production agency. n8n template, $249."
   path="/templates/business-card-scanner"
   jsonLd={jsonLd}
 >
@@ -58,7 +58,7 @@ const jsonLd = graph(
           every field, and creates the CRM contact.
         </p>
         <p class="opener">
-          This exact workflow runs in production at Dahlia+ Agency, an event production team of six to eight.
+          This exact workflow runs in production at the events agency, a team of six to eight.
           $249, one-time.
         </p>
       </div>
@@ -68,7 +68,7 @@ const jsonLd = graph(
       <h2 id="does-h">What it does</h2>
       <ul>
         <li>Watches a Slack channel for photos of business cards</li>
-        <li>OpenAI GPT-4o Vision reads each image and extracts every field — name, title, company, email, phone</li>
+        <li>OpenAI GPT-4o Vision reads each image and extracts every field: name, title, company, email, phone</li>
         <li>Creates the contact in HubSpot with those fields filled in</li>
       </ul>
     </section>
@@ -89,10 +89,10 @@ const jsonLd = graph(
 
     <section class="wrap tpl-wrap tpl-section" aria-labelledby="price-h">
       <h2 id="price-h">Price</h2>
-      <p class="price-line"><span class="price-big">$249</span> — one-time purchase.</p>
-      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the Business Card Scanner — $249</a>
+      <p class="price-line"><span class="price-big">$249</span>, one-time purchase.</p>
+      <a href={t.checkout} class="btn btn-primary" rel="noopener">Get the Business Card Scanner: $249</a>
       <p class="upsell">
-        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call — credentials
+        Add Done-For-You Setup for $100 and I install it with you on a live 60–90 minute call: credentials
         connected, workflow configured, tested live, recording included.
       </p>
     </section>

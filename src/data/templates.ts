@@ -10,7 +10,7 @@ export interface Template {
   imageAlt: string;
   /** Mechanism-first one-liner (final copy may refine on the page) */
   mechanism: string;
-  /** Verified client provenance — only where true */
+  /** Verified client provenance, only where true */
   provenance: string | null;
   featured: boolean;
 }
@@ -44,7 +44,7 @@ export const templates: Template[] = [
   },
   {
     slug: 'jarvis-ai-executive-assistant',
-    name: 'Jarvis — AI Executive Assistant',
+    name: 'Jarvis: AI Executive Assistant',
     price: 399,
     checkout: 'https://checkout.lemonsqueezy.com/buy/1320707',
     integrations: ['Slack', 'Gmail', 'Google Calendar', 'Google Tasks', 'Google Contacts', 'Anthropic Claude', 'PostgreSQL'],
@@ -65,7 +65,7 @@ export const templates: Template[] = [
     imageAlt: 'n8n workflow diagram for the Business Card Scanner automation',
     mechanism:
       'Drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact.',
-    provenance: 'Running in production at Dahlia+ Agency.',
+    provenance: 'Running in production at an event production agency.',
     featured: true,
   },
   {
@@ -91,7 +91,7 @@ export const templates: Template[] = [
     imageAlt: 'n8n workflow diagram for the AI Newsletter Curator automation',
     mechanism:
       'An AI that scrapes your chosen industry sources overnight, picks the most newsworthy stories, writes summaries, and delivers a finished newsletter every morning.',
-    provenance: 'The production version at Matador Network processes 400+ articles a day.',
+    provenance: 'The production version at a travel media company processes 400+ articles a day.',
     featured: true,
   },
   {
@@ -103,7 +103,7 @@ export const templates: Template[] = [
     image: 'Sheets_Hubspot_Task_Manager.PNG',
     imageAlt: 'n8n workflow diagram for the Sheets to HubSpot task sync',
     mechanism:
-      'A live two-way sync between a Google Sheet and HubSpot tasks — create, update, and complete in either; both stay current.',
+      'A live two-way sync between a Google Sheet and HubSpot tasks: create, update, and complete in either; both stay current.',
     provenance: null,
     featured: false,
   },

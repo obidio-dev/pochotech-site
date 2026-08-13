@@ -5,26 +5,26 @@ import CtaSection from '../../components/CtaSection.astro';
 import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
 import { CALENDLY, EMAIL } from '../../data/site';
 
-const title = 'n8n & Make.com Consultant — Erick Bonilla | pocho.tech';
+const title = 'n8n & Make.com Consultant: Erick Bonilla | pocho.tech';
 const description =
   'n8n and Make.com consulting: architecture review, workflow builds, self-hosting guidance, and team training from the engineer behind 12 production systems.';
 
 const faqs = [
   {
-    q: 'n8n vs Zapier vs Make — which to use',
-    a: "Zapier is the fastest start for simple triggers; Make.com handles longer visual scenarios at moderate cost; n8n gives the most control — self-hostable, with code where you need it, and well suited to AI-heavy workflows. I build client systems on both n8n and Make.com, so the recommendation isn't a pitch for either platform. The honest answer depends on your volume, your data constraints, and who maintains it after I leave. It's the first ten minutes of the call.",
+    q: 'n8n vs Zapier vs Make: which to use',
+    a: "Zapier is the fastest start for simple triggers; Make.com handles longer visual scenarios at moderate cost; n8n gives the most control: self-hostable, with code where you need it, and well suited to AI-heavy workflows. I build client systems on both n8n and Make.com, so the recommendation isn't a pitch for either platform. The honest answer depends on your volume, your data constraints, and who maintains it after I leave. It's the first ten minutes of the call.",
   },
   {
     q: 'Whether I review existing workflows or only build new ones',
-    a: 'Both. Architecture review of what you already have is a common starting point — most teams arrive with something half-working rather than a blank slate.',
+    a: 'Both. Architecture review of what you already have is a common starting point. Most teams arrive with something half-working rather than a blank slate.',
   },
   {
     q: 'Self-hosted n8n versus n8n cloud',
-    a: "Cloud is the right default while you're proving that workflows matter to the business. Self-hosting earns its overhead when volume, cost, or data control demand it — and if you go that way, the setup is part of what I cover.",
+    a: "Cloud is the right default while you're proving that workflows matter to the business. Self-hosting earns its overhead when volume, cost, or data control demand it, and if you go that way, the setup is part of what I cover.",
   },
   {
     q: 'What consulting costs',
-    a: 'Scoped per engagement on the discovery call — a single review session is priced differently than ongoing training. If the engagement turns into me building the system, builds start at $1,500.',
+    a: 'Scoped per engagement on the discovery call. A single review session is priced differently than ongoing training. If the engagement turns into me building the system, builds start at $1,500.',
   },
 ];
 
@@ -47,8 +47,9 @@ const jsonLd = graph(
       <h1>n8n &amp; Make.com Consulting</h1>
       <p>
         I consult on n8n and Make.com: architecture review, workflow builds, self-hosting guidance, and team
-        training. I'm Erick Bonilla — the twelve automations I run in production for Dahlia+ Agency, Matador
-        Network, and TPS Workforce Hub are built on these platforms with the OpenAI and Anthropic APIs.
+        training. I'm Erick Bonilla. The twelve automations I run in production for an event production agency, a
+        travel media company, and an EdTech workforce-training company are built on these platforms with the
+        OpenAI and Anthropic APIs.
       </p>
       <p>Engagements are scoped on a discovery call.</p>
       <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
@@ -59,7 +60,7 @@ const jsonLd = graph(
     <div class="wrap">
       <h2 id="credentials-h">The shortest version of my credentials</h2>
       <p>
-        Matador Network brought me in to teach n8n to their AI Advocacy Director. The training led to a hire:
+        The media company brought me in to teach n8n to their AI Advocacy Director. The training led to a hire:
         their editorial team now runs four of my automations, including a newsletter curator that processes 400+
         articles a day.
       </p>
@@ -68,7 +69,7 @@ const jsonLd = graph(
           "Erick has helped us build and implement multiple automations for our editorial department, and these
           save us time each week that can be spent producing content rather than sifting through emails and data."
         </p>
-        <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
+        <cite>Editorial team, travel media company</cite>
       </blockquote>
     </div>
   </section>
@@ -80,7 +81,7 @@ const jsonLd = graph(
         <article class="card">
           <h3>Architecture review</h3>
           <p>
-            I read your existing workflows and tell you what will break first — error handling, credential
+            I read your existing workflows and tell you what will break first: error handling, credential
             management, rate limits, and the nodes doing too much work. You get specific fixes, in writing.
           </p>
         </article>
@@ -101,8 +102,8 @@ const jsonLd = graph(
         <article class="card">
           <h3>Team training</h3>
           <p>
-            The same thing Matador Network hired me for first: teaching your team to build and maintain workflows
-            in-house. Sessions are scoped to your stack and the workflows you actually need.
+            The same thing the media company hired me for first: teaching your team to build and maintain
+            workflows in-house. Sessions are scoped to your stack and the workflows you actually need.
           </p>
         </article>
       </div>
@@ -118,7 +119,7 @@ const jsonLd = graph(
       </p>
       <p>
         If what you actually need is a finished system rather than guidance, that's a
-        <a href="/services/custom-automation">custom build</a> — from $1,500.
+        <a href="/services/custom-automation">custom build</a>: from $1,500.
       </p>
     </div>
   </section>
@@ -129,7 +130,7 @@ const jsonLd = graph(
     <div class="wrap">
       <h2 id="see-work-h">See the work before you book</h2>
       <p>
-        Seven of my n8n workflows are sold as <a href="/templates">templates</a> — each one is the workflow JSON,
+        Seven of my n8n workflows are sold as <a href="/templates">templates</a>: each one is the workflow JSON,
         a step-by-step PDF guide, and a 90-second walkthrough video. If you want to see how I structure a workflow
         first, the
         <a href="https://checkout.lemonsqueezy.com/buy/1320841" rel="noopener">Sheets ↔ HubSpot sync is free</a>.

@@ -5,7 +5,7 @@ import CtaSection from '../../components/CtaSection.astro';
 import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
 import { CALENDLY, EMAIL } from '../../data/site';
 
-const title = 'Automation Audit — $500, Credited to a Build | pocho.tech';
+const title = 'Automation Audit: $500, Credited to a Build | pocho.tech';
 const description =
   'A 60-minute review of how your team works, then a written automation plan within five business days. $500, credited in full toward a custom build.';
 
@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: 'What I need from you',
-    a: 'Sixty minutes with whoever actually does the work, and honest answers about how it happens today — including the spreadsheet workarounds. The closer I get to the real process, the sharper the report.',
+    a: 'Sixty minutes with whoever actually does the work, and honest answers about how it happens today, including the spreadsheet workarounds. The closer I get to the real process, the sharper the report.',
   },
   {
     q: "What happens if there's little worth automating",
@@ -44,7 +44,7 @@ const jsonLd = graph(
       <h1>Automation Audit</h1>
       <p>
         The audit is a 60-minute review of how your team actually works, followed by a written report within five
-        business days. It costs $500, credited in full toward a custom build — if you go ahead, the plan cost you
+        business days. It costs $500, credited in full toward a custom build. If you go ahead, the plan cost you
         nothing.
       </p>
       <p>You leave with priorities, tools, estimated time savings, and a build scope for every recommendation.</p>
@@ -58,17 +58,17 @@ const jsonLd = graph(
       <p>Four things, specific to your team and your tools:</p>
       <ul class="report-list">
         <li>
-          <strong>What to automate first</strong> — your workflows ranked by hours recovered against effort to
+          <strong>What to automate first:</strong> your workflows ranked by hours recovered against effort to
           build
         </li>
         <li>
-          <strong>The tools for each</strong> — which platforms and APIs every recommendation would connect
+          <strong>The tools for each:</strong> which platforms and APIs every recommendation would connect
         </li>
         <li>
-          <strong>Estimated time savings</strong> — what each automation should give back, per week
+          <strong>Estimated time savings:</strong> what each automation should give back, per week
         </li>
         <li>
-          <strong>A build scope per recommendation</strong> — what it would cost and roughly how long it would
+          <strong>A build scope per recommendation:</strong> what it would cost and roughly how long it would
           take
         </li>
       </ul>
@@ -81,12 +81,12 @@ const jsonLd = graph(
       <h2 id="how-h">How it works</h2>
       <div class="stages">
         <p>
-          <strong>The call — 60 minutes.</strong> You walk me through how the work actually happens, ideally with
+          <strong>The call: 60 minutes.</strong> You walk me through how the work actually happens, ideally with
           the person who does it day to day on the call.
           <a href={CALENDLY} rel="noopener">Book it directly on my calendar</a>.
         </p>
         <p>
-          <strong>The report — within five business days.</strong> A written document covering the four sections
+          <strong>The report: within five business days.</strong> A written document covering the four sections
           above, specific to your tools and your volume.
         </p>
       </div>

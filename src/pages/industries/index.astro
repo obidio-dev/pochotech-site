@@ -10,7 +10,7 @@ const jsonLd = graph(
 ---
 <Base
   title="AI Automation by Industry | pocho.tech"
-  description="I go deep in four industries instead of listing forty — media, agencies, destination marketing, and accounting. Twelve automations in production."
+  description="I go deep in four industries instead of listing forty: media, agencies, destination marketing, and accounting. Twelve automations in production."
   path="/industries"
   jsonLd={jsonLd}
 >
@@ -19,8 +19,8 @@ const jsonLd = graph(
     <div class="wrap">
       <h1>I go deep in a few industries instead of listing forty.</h1>
       <p class="hero-sub">
-        Two of them come with full case studies and real numbers — media and agencies. The other two —
-        destination marketing and accounting — are pages about capability, and they say so plainly.
+        Two of them come with full case studies and real numbers: media and agencies. The other two,
+        destination marketing and accounting, are pages about capability, and they say so plainly.
       </p>
     </div>
   </section>
@@ -33,7 +33,7 @@ const jsonLd = graph(
         <article class="card industry-card">
           <h3>Media &amp; publishing</h3>
           <p>
-            Four automations run Matador Network's editorial back office — newsletter curation from 400+ daily
+            Four automations run a travel media company's editorial back office: newsletter curation from 400+ daily
             articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities. Full case
             study, two testimonials, real numbers.
           </p>
@@ -42,7 +42,7 @@ const jsonLd = graph(
         <article class="card industry-card">
           <h3>Marketing &amp; event agencies</h3>
           <p>
-            Dahlia+ Agency runs four: web lead routing, AI referral capture, a proposal-to-invoice pipeline that
+            An event production agency runs four: web lead routing, AI referral capture, a proposal-to-invoice pipeline that
             cut processing from 1.5–2 hours to 15 minutes, and a business card scanner that lives in Slack. Full
             case study.
           </p>
@@ -52,8 +52,8 @@ const jsonLd = graph(
           <h3>Destination marketing organizations</h3>
           <p>
             For tourism boards and convention bureaus: partner tracking, AI email agents, content pipelines, and
-            lead qualification. I come from the travel-media side of this industry and speak at its conferences —
-            no DMO client is named on that page, and it says so.
+            lead qualification. I come from the travel-media side of this industry and speak at its conferences.
+            No DMO client is named on that page, and it says so.
           </p>
           <a href="/industries/destination-marketing" class="card-link">Destination marketing <span aria-hidden="true">&rarr;</span></a>
         </article>
@@ -61,7 +61,7 @@ const jsonLd = graph(
           <h3>Accounting &amp; CPA firms</h3>
           <p>
             Bookkeeping and tax workflow automation: QuickBooks Online, TaxDome, quarterly tax letters, and the
-            client communications around every deadline. A capability page — what I build for firms, with the
+            client communications around every deadline. A capability page: what I build for firms, with the
             proof drawn from systems already in production elsewhere.
           </p>
           <a href="/industries/accounting-firms" class="card-link">Accounting &amp; CPA firms <span aria-hidden="true">&rarr;</span></a>
@@ -75,13 +75,13 @@ const jsonLd = graph(
     <div class="wrap">
       <h2 id="outside-h">Outside the four</h2>
       <p class="outside-body">
-        The deepest engagement on this site fits none of these categories — TPS Workforce Hub, a clean-tech
-        workforce training program in Boston, runs six of my systems. If your industry isn't listed here, the
-        discovery call works the same way.
+        The deepest engagement on this site fits none of these categories. An EdTech workforce-training company
+        in Boston runs six of my systems. If your industry isn't listed here, the discovery call works the same
+        way.
       </p>
       <blockquote class="quote">
         <p>"You have done such a great job that I can't remember how we were working before you."</p>
-        <cite>— CEO, TPS Energy</cite>
+        <cite>CEO, EdTech workforce-training company</cite>
       </blockquote>
     </div>
   </section>
@@ -108,7 +108,7 @@ const jsonLd = graph(
     position: relative;
     transition: border-color 0.18s ease;
   }
-  .industry-card:hover { border-color: #555; }
+  .industry-card:hover { border-color: var(--c-border-strong); }
   .industry-card h3 { margin: 0; font-size: 1.15rem; }
   .industry-card p { margin: 0; color: var(--c-text-mute); font-size: 0.95rem; }
   .card-link {
@@ -118,7 +118,7 @@ const jsonLd = graph(
     text-decoration: none;
   }
   .card-link span { color: var(--c-red); }
-  /* Stretched link — the whole card is clickable */
+  /* Stretched link: the whole card is clickable */
   .card-link::after { content: ''; position: absolute; inset: 0; }
 
   .outside-body { max-width: 62ch; }

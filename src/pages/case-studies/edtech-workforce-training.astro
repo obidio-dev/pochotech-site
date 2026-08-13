@@ -8,33 +8,42 @@ const jsonLd = graph(
   breadcrumbs([
     { name: 'Home', path: '/' },
     { name: 'Case Studies', path: '/case-studies' },
-    { name: 'Matador Network', path: '/case-studies/matador-network' },
+    { name: 'EdTech workforce training', path: '/case-studies/edtech-workforce-training' },
   ]),
   reviewSchema({
-    body: 'Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data.',
-    authorName: 'Tim Wenger',
-    authorTitle: 'Editorial Team, Matador Network',
+    body: "You have done such a great job that I can't remember how we were working before you.",
+    authorName: 'CEO',
+    authorTitle: 'EdTech workforce-training company',
   })
 );
 
 const metrics = [
-  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking, by hand versus automated.' },
-  { value: '30 → 70', label: 'Creators tracked, same workflow.' },
-  { value: '400+ a day', label: 'Articles processed into one newsletter, zero human input.' },
+  { value: 'Zero → daily', label: 'From zero operational visibility to fully automated daily reporting.' },
+  { value: '30–40 → 12–16', label: 'Applicants to accepted, every stage tracked.' },
+  { value: 'Sunday, every week', label: 'At-risk stipend alerts to participant and coach, before the problem lands.' },
 ];
 
-const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'];
+const stack = [
+  'Airtable',
+  'OpenAI',
+  'Read.ai',
+  'Supabase',
+  'SendGrid',
+  'Microsoft Power Automate',
+  'SharePoint',
+  'Gmail',
+];
 ---
 <Base
-  title="Matador Network: 400+ Articles a Day, Curated | pocho.tech"
-  description="Four automations run Matador Network's editorial back office: a daily AI newsletter from 400+ articles and a creator tracker cut from 5 hours to 1.5."
-  path="/case-studies/matador-network"
+  title="EdTech workforce training: Six Connected Systems | pocho.tech"
+  description="Six connected systems run admissions and operations at an EdTech workforce-training company: AI-scored interviews, stipend alerts, daily reports. Built by Erick Bonilla."
+  path="/case-studies/edtech-workforce-training"
   jsonLd={jsonLd}
 >
   <section class="cs-header">
     <div class="wrap">
-      <h1>Matador Network</h1>
-      <p class="client-line"><strong>Travel media — <a href="https://matadornetwork.com" rel="noopener">matadornetwork.com</a>.</strong> Around 50 people, with an editorial team of twelve. Matador also operates GuideGeek, an AI travel product for destination marketing organizations. Four automations in production.</p>
+      <h1>EdTech workforce training</h1>
+      <p class="client-line"><strong>Clean-tech workforce training, Boston.</strong> Runs an 8-week, stipend-based training program for immigrants and minorities. 30–40 applicants per cohort; 12–16 accepted. Six systems in production, built as an embedded team member.</p>
     </div>
   </section>
 
@@ -42,9 +51,9 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
     <div class="wrap">
       <h2>The before</h2>
       <div class="before-block">
-        <p>Creator tracking meant opening TikTok and Instagram, finding every post, and copying URLs, views, and likes into a sheet by hand. Five hours a week covered 30 creators, and the program needed to be larger.</p>
-        <p>The morning news sweep had the same shape. Eleven-plus industry publications produce roughly 400 articles a day; an editorial team of twelve needed the ten worth reading.</p>
-        <p>Affiliate reporting and event research rounded it out — more data someone had to go collect before the editorial work could start.</p>
+        <p>Every cohort starts with 30 to 40 applications and ends with 12 to 16 seats. Between those two numbers: intake forms, interviews, scoring, scheduling emails, stipend rules, and a team holding it together by hand.</p>
+        <p>There was no operational visibility. Nobody could see, in one place, where a candidate stood, which interviews had been evaluated, or who was at risk of losing stipend eligibility.</p>
+        <p>The stipend part carried the most weight. Eligibility data sat in SharePoint, invisible to the participant and coach who needed the warning.</p>
       </div>
     </div>
   </section>
@@ -52,13 +61,16 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
   <section class="cs-block">
     <div class="wrap">
       <h2>What I built</h2>
-      <p>Four automations run the editorial back office.</p>
+      <p>Six connected systems, running as one operation.</p>
       <ol class="systems">
-        <li><strong>Creator tracker</strong> — Scrapes TikTok and Instagram for every tracked creator and delivers a Monday digest of post URLs, views, and likes.</li>
-        <li><strong>AI newsletter curator</strong> — Apify collects roughly 400 articles a day from eleven-plus publications overnight; GPT-4o picks the top ten, writes the summaries, and a polished HTML newsletter arrives every morning.</li>
-        <li><strong>Affiliate link performance report</strong> — Every Monday, GA4 data becomes a report ranking the top 20 affiliate links, with AI insights.</li>
-        <li><strong>Event search</strong> — A monthly sweep of Eventbrite, Meetup, and Luma across 15 US cities.</li>
+        <li><strong>Airtable ATS</strong>: Intake forms feed one applicant pipeline, so every candidate has a single record and a visible stage from application to acceptance.</li>
+        <li><strong>AI interview evaluation</strong>: A Read.ai transcript webhook matches the candidate, applies objective scoring, runs an AI qualitative evaluation with direct quotes from the interview, and delivers a structured brief to the human reviewers.</li>
+        <li><strong>Interview scheduling</strong>: Scheduling emails go out automatically as candidates advance through the pipeline.</li>
+        <li><strong>Daily and executive reporting</strong>: A 5pm report to the team every day, and a Monday executive summary for the CEO: week-over-week movement, demographics, bottleneck alerts.</li>
+        <li><strong>Stipend eligibility notifications</strong>: SharePoint data flows through Power Automate into Supabase; every Sunday, at-risk participants and their coach get an alert.</li>
+        <li><strong>Real-time dashboards</strong>: Live views of the pipeline and program operations.</li>
       </ol>
+      <p class="systems-note">The AI doesn't decide who gets in. It reads, scores, and prepares the brief. The human reviewers make the call.</p>
     </div>
   </section>
 
@@ -73,20 +85,15 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
           </div>
         ))}
       </div>
-      <p class="numbers-note">One more metric that doesn't fit in a stat block: when the tracker goes down, the team emails within hours asking for it back.</p>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>What the team says</h2>
+      <h2>What the CEO says</h2>
       <blockquote>
-        <p>"Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."</p>
-        <cite>— Tim Wenger, Editorial Team, Matador Network</cite>
-      </blockquote>
-      <blockquote>
-        <p>"Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."</p>
-        <cite>— Kyrene Kagahastian, Social Media Team, Matador Network</cite>
+        <p>"You have done such a great job that I can't remember how we were working before you."</p>
+        <cite>CEO, EdTech workforce-training company</cite>
       </blockquote>
     </div>
   </section>
@@ -104,22 +111,14 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
     <div class="wrap">
       <aside class="how-started">
         <h2>How it started</h2>
-        <p>I taught n8n to Matador's AI Advocacy Director; then they hired me to build.</p>
+        <p>A single build, then embedded work inside the team. One system became six as each bottleneck surfaced.</p>
       </aside>
     </div>
   </section>
 
-  <section class="cs-block">
-    <div class="wrap">
-      <h2>Also available as a template</h2>
-      <p>The newsletter curator on this page is packaged as a template — workflow JSON, step-by-step PDF setup guide, walkthrough video. The production version at Matador processes 400+ articles a day.</p>
-      <a class="btn btn-primary template-btn" href="https://checkout.lemonsqueezy.com/buy/1320787" rel="noopener">Get the curator — $249 →</a>
-    </div>
-  </section>
-
   <CtaSection
-    heading="If your team spends mornings collecting data"
-    body="Sixty minutes: you walk me through where the manual collection happens, and I tell you what I'd automate first and what it would cost."
+    heading="If your program runs on forms, interviews, and deadlines"
+    body="Sixty minutes: you walk me through how applicants or clients move through your operation, and I tell you what I'd automate first and what it would cost."
     secondaryLabel={EMAIL}
     secondaryHref={`mailto:${EMAIL}`}
   />
@@ -168,6 +167,11 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
     color: var(--c-text-dim);
   }
   .systems strong { color: var(--c-text); }
+  .systems-note {
+    margin-top: 28px;
+    color: var(--c-text-mute);
+    max-width: 70ch;
+  }
 
   .numbers { padding-block: var(--space-section); }
   .metric-grid {
@@ -191,11 +195,6 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
     color: var(--c-text-mute);
     font-size: 0.95rem;
     max-width: 36ch;
-  }
-  .numbers-note {
-    margin: 44px 0 0;
-    color: var(--c-text-mute);
-    max-width: 70ch;
   }
 
   blockquote {
@@ -250,8 +249,6 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
     margin: 0;
     max-width: 60ch;
   }
-
-  .template-btn { margin-top: 12px; }
 
   .boilerplate {
     color: var(--c-text-dim);
