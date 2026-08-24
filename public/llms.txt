@@ -1,44 +1,41 @@
 # pocho.tech
 
-> pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams — event agencies, media companies, tourism organizations, and accounting firms — working embedded inside each client's tools and team.
+> pocho.tech es el estudio de automatización con IA de Erick Bonilla. Diseña y construye sistemas de gestión propios y automatizaciones a la medida para equipos chicos (fábricas, distribuidoras, talleres, agencias de eventos, medios y firmas contables), trabajando metido adentro de las herramientas y el equipo de cada cliente.
 
-Erick Bonilla is the founder and sole engineer. Twelve automations run in production across three client teams — Dahlia+ Agency (event production), Matador Network (travel media), and TPS Workforce Hub (clean-tech workforce training) — connecting more than twenty tools. Production numbers include 400+ articles processed per day for one newsletter, 70 creators tracked, and 6–8 hours of manual operations eliminated daily for one six-person team. He builds with n8n, Make.com, and the OpenAI and Anthropic APIs. Custom builds start at $1,500; seven self-serve n8n workflow templates are sold separately. Booking: https://calendly.com/erick-pocho/1hr-session
+Erick Bonilla es el fundador y el único ingeniero. Seis negocios corren hoy sobre sus sistemas y automatizaciones: doce automatizaciones en producción entre tres equipos, conectando más de veinte herramientas, más tres sistemas de gestión propios en una fábrica de muebles, un lubricentro y una distribuidora de repuestos. Números de producción: más de 400 artículos procesados por día para un newsletter, 70 creadores seguidos, de 6 a 8 horas de operación manual eliminadas cada día en un equipo de seis personas, y 67 órdenes de producción reales cargadas el día uno del sistema de una fábrica, de las cuales 11 ya venían atrasadas. Construye con n8n, Make.com y las APIs de OpenAI y Anthropic. Los desarrollos a la medida arrancan en US$1,500. Agenda: https://calendly.com/erick-pocho/1hr-session
 
-## Services
+El sitio está en español. Los precios están en dólares estadounidenses.
 
-- [Services](https://pocho.tech/services): Custom automation builds from $1,500, Done-For-You template setup (template price + $100), a $500 automation audit credited toward a build, and embedded retainers scoped per engagement.
-- [Custom Automation Build](https://pocho.tech/services/custom-automation): From $1,500, fixed price after a discovery call — designed, built, and tested on the client's systems, handed off with documentation.
-- [Automation Audit](https://pocho.tech/services/automation-audit): $500 — a 60-minute review, then a written automation plan within five business days. Credited in full toward a build.
-- [Done-For-You Setup](https://pocho.tech/services/done-for-you-setup): Template price + $100 — a live 60–90 minute session installing and testing any template.
-- [n8n & Make.com Consulting](https://pocho.tech/services/n8n-consulting): Training and architecture review for teams that want to build automations in-house.
+## Servicios
 
-## Templates
+- [Servicios](https://pocho.tech/services): la escalera completa, del diagnóstico de $500 al acompañamiento continuo, con una tabla que compara trabajar con pocho.tech contra contratar a alguien de operaciones o hacerlo uno mismo en Zapier.
+- [Diagnóstico de automatización](https://pocho.tech/services/automation-audit): US$500. Una revisión de 60 minutos de cómo trabaja el equipo, y después un informe escrito dentro de cinco días hábiles: qué automatizar primero, con qué herramientas, ahorro estimado y alcance por recomendación. Se acredita completo a un desarrollo.
+- [Automatización a la medida](https://pocho.tech/services/custom-automation): desde US$1,500, precio fijo por escrito después de la llamada de diagnóstico. Diseñada, construida y probada sobre los sistemas del cliente, entregada con documentación y recorrido grabado. Plazo típico de una a cuatro semanas.
+- [Sistema de gestión propio](https://pocho.tech/services/management-system-build): cotización fija después del diagnóstico, para operaciones que corren en cuadernos, hojas de cálculo y WhatsApp. Órdenes, inventario, producción y facturación, en vivo sobre datos reales en el primer mes. Cupo reservable con un depósito de US$100 acreditable.
+- [Consultoría n8n y Make.com](https://pocho.tech/services/n8n-consulting): revisión de arquitectura, armado de flujos, guía para alojarlo en servidor propio y capacitación, para equipos que quieren construir en casa.
 
-- [Templates](https://pocho.tech/templates): Seven n8n workflows extracted from real client systems; each includes the workflow JSON, a step-by-step PDF setup guide, and a walkthrough video.
-- [Meeting Prep Agent](https://pocho.tech/templates/meeting-prep-agent): $249 — an AI that reads your email history with every meeting attendee and sends a structured briefing one hour before the call.
-- [AI Relationship Nurturing Engine](https://pocho.tech/templates/ai-relationship-nurturing-engine): $299 — an AI that watches your CRM for relationships going quiet and writes personal check-in emails in your voice.
-- [Jarvis — AI Executive Assistant](https://pocho.tech/templates/jarvis-ai-executive-assistant): $399 — an AI assistant living inside Slack that reads your email, manages your calendar, and tracks your tasks on plain-English instructions.
-- [Business Card Scanner](https://pocho.tech/templates/business-card-scanner): $249 — drop a photo in Slack; an AI reads the card, extracts every field, and creates the CRM contact. Running in production at Dahlia+ Agency.
-- [Sales Contact Scraper](https://pocho.tech/templates/sales-contact-scraper): $299 — scans your Gmail history, extracts every person you've emailed, enriches them with company info, and delivers an organized contact list.
-- [AI Newsletter Curator](https://pocho.tech/templates/ai-newsletter-curator): $249 — scrapes your chosen sources overnight, picks the most newsworthy stories, and delivers a finished newsletter every morning; the production version at Matador Network processes 400+ articles a day.
-- [Sheets ↔ HubSpot Task Manager](https://pocho.tech/templates/sheets-hubspot-task-manager): Free — a live two-way sync between a Google Sheet and HubSpot tasks; create, update, and complete in either.
+## Demos
 
-## Case Studies
+- [Demos](https://pocho.tech/demos): veintisiete prototipos funcionales de sistemas de gestión, agrupados en seis categorías (alimentos, catering y eventos, piedra y countertops, imprenta y rotulación, limpieza y facility, manufactura y suministro). Se abren en el navegador y se recorren completos, sin registro. Las empresas y los datos son ficticios: los prototipos están construidos sobre operaciones reales, pero ninguna marca nombrada ahí existe ni es cliente.
 
-- [Case Studies](https://pocho.tech/case-studies): Three teams, twelve automations, real numbers.
-- [Dahlia+ Agency](https://pocho.tech/case-studies/dahlia-plus-agency): Four automations for a six-to-eight-person event agency; proposal processing cut from 1.5–2 hours to 15 minutes, eliminating 6–8 hours of manual operations daily.
-- [Matador Network](https://pocho.tech/case-studies/matador-network): Four editorial automations for a travel media network; 400+ articles a day curated into one newsletter, creator tracking cut from 5 hours a week to 1.5 while coverage grew from 30 to 70 creators.
-- [TPS Workforce Hub](https://pocho.tech/case-studies/tps-workforce-hub): Six connected systems running admissions and operations for a Boston clean-tech training program — AI-scored interviews, scheduling, stipend-eligibility alerts, and automated daily reporting.
+## Casos
 
-## Industries
+- [Casos](https://pocho.tech/case-studies): seis negocios, con los números agregados de todos.
+- [Fábrica de muebles](https://pocho.tech/case-studies/furniture-factory): sesenta trabajadores, producción contra pedido. Se migraron 67 órdenes activas y 364 piezas con los números de orden reales antes de encender; la primera mañana quedaron a la vista 11 órdenes ya atrasadas. Una ronda de comentarios trajo 13 pedidos de cambio que el sistema absorbió sin rehacerse.
+- [Lubricentro](https://pocho.tech/case-studies/lube-center): un negocio nuevo que abrió con el sistema ya en producción dos semanas antes. Órdenes de servicio, catálogo, checklist multiservicio, facturación y agenda en una aplicación web progresiva. Nunca hubo etapa de papel ni de doble captura.
+- [Agencia de producción de eventos](https://pocho.tech/case-studies/event-production-agency): equipo de seis a ocho, cuatro automatizaciones. El circuito de propuesta a factura bajó el procesamiento de 1.5 o 2 horas a 15 minutos; a dos o cuatro propuestas por día, son de 6 a 8 horas de operación manual menos por jornada.
+- [Formación laboral EdTech](https://pocho.tech/case-studies/edtech-workforce-training): Boston, seis sistemas conectados corriendo admisiones y operación, con entrevistas calificadas por IA a partir de transcripciones de Read.ai y alertas semanales de elegibilidad de estipendio.
+- [Empresa de medios de viajes](https://pocho.tech/case-studies/travel-media-company): redacción de doce personas, cuatro automatizaciones. Un curador con IA procesa más de 400 artículos por día en un newsletter terminado; el seguimiento de creadores pasó de 5 horas por semana a 1.5 cubriendo 70 creadores en vez de 30.
 
-- [Industries](https://pocho.tech/industries): Four industries, two with full case studies.
-- [Media & Publishing](https://pocho.tech/industries/media-publishing): Editorial back-office automation — newsletter curation, creator tracking, affiliate reporting, event search. Proven at Matador Network.
-- [Marketing & Event Agencies](https://pocho.tech/industries/marketing-agencies): Lead routing, referral capture, proposal-to-invoice pipelines, and contact capture for agencies. Proven at Dahlia+ Agency.
-- [Destination Marketing Organizations](https://pocho.tech/industries/destination-marketing): Partner tracking, AI email agents, content pipelines, and lead qualification for tourism boards and convention bureaus.
-- [Accounting & CPA Firms](https://pocho.tech/industries/accounting-firms): Bookkeeping and tax workflow automation with QuickBooks Online, TaxDome, and the client communications around every deadline.
+## Industrias
 
-## About
+- [Industrias](https://pocho.tech/industries): cuatro industrias trabajadas a fondo, dos con casos publicados y dos como páginas de capacidad.
+- [Medios y editoriales](https://pocho.tech/industries/media-publishing): curaduría de newsletter, seguimiento de creadores, reportes de afiliados y búsqueda de eventos.
+- [Agencias de marketing y eventos](https://pocho.tech/industries/marketing-agencies): enrutamiento de prospectos, captura de referidos con IA, circuito de propuesta a factura y escáner de tarjetas de presentación.
+- [Organizaciones de promoción turística](https://pocho.tech/industries/destination-marketing): seguimiento de socios, agentes de correo con IA, circuitos de contenido y calificación de prospectos. Sin cliente del rubro publicado todavía, y la página lo dice.
+- [Firmas contables](https://pocho.tech/industries/accounting-firms): cartas trimestrales de impuestos, persecución de documentos, flujos en QuickBooks Online y TaxDome. Página de capacidad, con la prueba tomada de sistemas en producción en otros rubros.
 
-- [About](https://pocho.tech/about): Who Erick Bonilla is, how embedded engagements work, and what he builds with.
-- [Contact](https://pocho.tech/contact): Book a discovery call or email erick.bonilla63@gmail.com.
+## Sobre Pocho.tech
+
+- [Quién soy](https://pocho.tech/about): quién es Erick Bonilla, cómo funciona trabajar metido adentro del equipo, los tres equipos con automatizaciones en producción, y con qué construye.
+- [Contacto](https://pocho.tech/contact): llamada de 60 minutos agendada directo en el calendario, o correo directo.

@@ -6,35 +6,35 @@ import { EMAIL, BOILERPLATE } from '../../data/site';
 
 const jsonLd = graph(
   breadcrumbs([
-    { name: 'Home', path: '/' },
-    { name: 'Case Studies', path: '/case-studies' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Casos', path: '/case-studies' },
   ])
 );
 
 const stats = [
-  { value: '6', label: 'businesses running on our systems' },
-  { value: '12+', label: 'automations in production' },
-  { value: '67', label: 'real production orders loaded on one system’s day one' },
-  { value: '400+', label: 'articles processed every day' },
-  { value: '6–8 hrs/day', label: 'of manual operations eliminated for one 6-person team' },
+  { value: '6', label: 'negocios corriendo sobre nuestros sistemas' },
+  { value: '12+', label: 'automatizaciones en producción' },
+  { value: '67', label: 'órdenes de producción reales cargadas el día uno de un sistema' },
+  { value: '400+', label: 'artículos procesados todos los días' },
+  { value: '6–8 hrs/día', label: 'de operación manual eliminada para un equipo de seis personas' },
 ];
 ---
 <Base
-  title="Case Studies: Systems and Automations in Production | pocho.tech"
-  description="Case studies with real numbers: management systems for a furniture factory, a lube center, and a distributor, plus twelve automations across three teams."
+  title="Casos: sistemas y automatizaciones en producción | pocho.tech"
+  description="Casos con números reales: sistemas de gestión para una fábrica de muebles, un lubricentro y una distribuidora, más doce automatizaciones en tres equipos."
   path="/case-studies"
   jsonLd={jsonLd}
 >
   <section class="hero">
     <div class="wrap">
-      <h1>Six businesses. Real numbers.</h1>
-      <p class="lead">Management systems for operations that ran on paper, and AI automations for teams drowning in repetitive work. Every engagement started as a single build; most continue on an embedded retainer.</p>
+      <h1>Seis negocios. Números reales.</h1>
+      <p class="lead">Sistemas de gestión para operaciones que corrían en papel, y automatizaciones con IA para equipos ahogados en trabajo repetitivo. Cada trabajo empezó como un solo desarrollo; la mayoría sigue con acompañamiento continuo.</p>
     </div>
   </section>
 
   <section class="section-alt stats-section">
     <div class="wrap">
-      <h2>The numbers across all of them</h2>
+      <h2>Los números, sumados</h2>
       <div class="stat-strip">
         {stats.map((s) => (
           <div class="stat">
@@ -48,63 +48,64 @@ const stats = [
 
   <section class="studies">
     <div class="wrap">
-      <h2>The case studies</h2>
+      <h2>Los casos</h2>
 
       <article class="study">
-        <h3>67 real orders loaded on day one. 11 were already late.</h3>
-        <p class="client-line"><strong>Furniture factory</strong>, sixty workers, made-to-order production.</p>
-        <p>We built their production management system and migrated the real operation before switch-on: 67 active orders, 364 pieces, their own order numbers. The first morning, the owner saw the whole backlog on one screen for the first time, and reprioritized the week with data instead of with whoever complained loudest. One feedback round brought 13 change requests; the staged build absorbed them without starting over.</p>
-        <a class="study-link" href="/case-studies/furniture-factory">Read the furniture factory case study →</a>
+        <h3>67 órdenes reales cargadas el día uno. 11 ya venían atrasadas.</h3>
+        <p class="client-line"><strong>Fábrica de muebles</strong>, sesenta trabajadores, producción contra pedido.</p>
+        <p>Construimos su sistema de gestión de producción y migramos la operación real antes de encender: 67 órdenes activas, 364 piezas, sus propios números de orden. La primera mañana, el dueño vio todo el atraso en una sola pantalla por primera vez, y repriorizó la semana con datos en vez de con quien reclamaba más fuerte. Una ronda de comentarios trajo 13 pedidos de cambio; el desarrollo por etapas los absorbió sin empezar de nuevo.</p>
+        <a class="study-link" href="/case-studies/furniture-factory">Leer el caso de la fábrica de muebles &rarr;</a>
       </article>
 
       <article class="study">
-        <h3>Open on a Monday. Running on its system since the Friday before.</h3>
-        <p class="client-line"><strong>Lube center</strong>, a brand-new business opened by the owners of a distributor we work with.</p>
-        <p>Instead of opening on paper and migrating later, the business was born digital: service orders, multi-service checklists, scheduling, and invoicing, live before the first customer walked in. It runs on the counter phone and the office computer alike. There was never a double-entry period.</p>
-        <a class="study-link" href="/case-studies/lube-center">Read the lube center case study →</a>
+        <h3>Abrió un lunes. Corriendo en su sistema desde el viernes anterior.</h3>
+        <p class="client-line"><strong>Lubricentro</strong>, un negocio nuevo abierto por los dueños de una distribuidora con la que ya trabajábamos.</p>
+        <p>En vez de abrir en papel y migrar después, el negocio nació digital: órdenes de servicio, checklists multiservicio, agenda y facturación, en vivo antes de que entrara el primer cliente. Corre igual en el celular del mostrador que en la computadora de la oficina. Nunca hubo período de doble captura.</p>
+        <a class="study-link" href="/case-studies/lube-center">Leer el caso del lubricentro &rarr;</a>
       </article>
 
       <article class="study">
-        <h3>2–4 proposals a day, 15 minutes each.</h3>
-        <p class="client-line"><strong>Event production agency</strong>, team of six to eight.</p>
-        <p>An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50, untouched. Four automations run their back office; this pipeline alone removes 6–8 hours of manual operations from every working day.</p>
-        <p class="no-testimonial">No testimonial on file. The events agency refers new business instead.</p>
-        <a class="study-link" href="/case-studies/event-production-agency">Read the event production agency case study →</a>
+        <h3>2 a 4 propuestas por día, 15 minutos cada una.</h3>
+        <p class="client-line"><strong>Agencia de producción de eventos</strong>, equipo de seis a ocho.</p>
+        <p>Una propuesta aceptada en Fresh Proposals actualiza la etapa del negocio en HubSpot, arma el tablero de Monday.com y crea el cliente en QuickBooks con dos facturas al 50 por ciento, sin que nadie toque nada. Cuatro automatizaciones corren su back office; solo este circuito quita de 6 a 8 horas de operación manual de cada jornada.</p>
+        <p class="no-testimonial">No hay testimonio escrito. La agencia de eventos recomienda negocio nuevo en su lugar.</p>
+        <a class="study-link" href="/case-studies/event-production-agency">Leer el caso de la agencia de eventos &rarr;</a>
       </article>
 
       <article class="study">
-        <h3>From zero operational visibility to automated daily reporting.</h3>
-        <p class="client-line"><strong>EdTech workforce training</strong>, Boston. 30–40 applicants per cohort, 12–16 accepted.</p>
-        <p>Six connected systems run admissions and operations: AI-scored interviews from Read.ai transcripts, automated scheduling, stipend-eligibility alerts, real-time dashboards, and the 5pm report the whole team reads.</p>
+        <h3>De cero visibilidad operativa a reportes diarios automáticos.</h3>
+        <p class="client-line"><strong>Formación laboral EdTech</strong>, Boston. De 30 a 40 postulantes por cohorte, de 12 a 16 aceptados.</p>
+        <p>Seis sistemas conectados corren las admisiones y la operación: entrevistas calificadas por IA a partir de transcripciones de Read.ai, agenda automática, alertas de elegibilidad de estipendio, tableros en tiempo real, y el reporte de las 5 de la tarde que lee todo el equipo.</p>
         <blockquote>
-          <p>"You have done such a great job that I can't remember how we were working before you."</p>
-          <cite>CEO, EdTech workforce-training company</cite>
+          <p>"Han hecho un trabajo tan bueno que ya no me acuerdo de cómo trabajábamos antes de ustedes."</p>
+          <cite>CEO, empresa de formación laboral EdTech</cite>
         </blockquote>
-        <a class="study-link" href="/case-studies/edtech-workforce-training">Read the EdTech workforce training case study →</a>
+        <a class="study-link" href="/case-studies/edtech-workforce-training">Leer el caso de formación laboral EdTech &rarr;</a>
       </article>
 
       <article class="study">
-        <h3>400+ articles a day. Ten make the newsletter.</h3>
-        <p class="client-line"><strong>Travel media company</strong>, editorial team of twelve.</p>
-        <p>Overnight, an AI reads eleven-plus publications, picks the ten stories that matter, and delivers a finished newsletter every morning. The creator tracker went from 5 hours a week to 1.5, covering 70 creators instead of 30.</p>
+        <h3>400+ artículos por día. Diez llegan al newsletter.</h3>
+        <p class="client-line"><strong>Empresa de medios de viajes</strong>, redacción de doce personas.</p>
+        <p>De noche, una IA lee más de once publicaciones, elige las diez notas que importan y entrega un newsletter terminado cada mañana. El rastreador de creadores pasó de 5 horas por semana a 1.5, cubriendo 70 creadores en vez de 30.</p>
         <blockquote>
-          <p>"Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."</p>
-          <cite>Editorial team, travel media company</cite>
+          <p>"Erick nos ayudó a construir e implementar varias automatizaciones para nuestro departamento editorial, y nos ahorran tiempo cada semana que podemos dedicar a producir contenido en vez de a revolver correos y datos."</p>
+          <cite>Equipo editorial, empresa de medios de viajes</cite>
         </blockquote>
-        <a class="study-link" href="/case-studies/travel-media-company">Read the travel media company case study →</a>
+        <a class="study-link" href="/case-studies/travel-media-company">Leer el caso de la empresa de medios &rarr;</a>
       </article>
     </div>
   </section>
 
   <CtaSection
-    heading="Tell me where the hours go."
-    body="Sixty minutes: you walk me through how your team works, and I tell you what I'd automate first and what it would cost."
-    secondaryLabel={EMAIL}
-    secondaryHref={`mailto:${EMAIL}`}
+    heading="Cuénteme dónde se van las horas."
+    body="Sesenta minutos: usted me explica cómo trabaja su equipo, y yo le digo qué automatizaría primero y cuánto costaría."
+    secondaryLabel="Ver las demos"
+    secondaryHref="/demos"
   />
 
   <div class="wrap">
     <p class="boilerplate">{BOILERPLATE}</p>
+    <p class="boilerplate">O escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
   </div>
 </Base>
 

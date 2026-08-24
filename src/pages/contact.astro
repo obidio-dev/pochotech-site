@@ -4,25 +4,25 @@ import { CALENDLY, EMAIL } from '../data/site';
 import { graph, breadcrumbs } from '../lib/schema';
 
 const jsonLd = graph(
-  breadcrumbs([{ name: 'Contact', path: '/contact' }])
+  breadcrumbs([{ name: 'Contacto', path: '/contact' }])
 );
 ---
 <Base
-  title="Contact: Book a Discovery Call | pocho.tech"
-  description="Book a 60-minute discovery call with Erick Bonilla, or email directly. Most calls identify the first workflow worth automating within thirty minutes."
+  title="Contacto: agende una llamada | pocho.tech"
+  description="Agende una llamada de 60 minutos con Erick Bonilla, o escriba directo. En la mayoría de las llamadas sale el primer proceso que vale la pena automatizar dentro de la primera media hora."
   path="/contact"
   jsonLd={jsonLd}
 >
   <!-- Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>Start with a call</h1>
+      <h1>Empecemos con una llamada</h1>
       <p class="hero-sub">
-        Sixty minutes, booked directly on my calendar. You walk me through how your team works, and I look for
-        where the hours go.
+        Sesenta minutos, agendados directo en mi calendario. Usted me explica cómo trabaja su equipo, y yo busco
+        dónde se van las horas.
       </p>
       <div class="hero-ctas">
-        <a href={CALENDLY} class="btn btn-primary btn-lg" rel="noopener">Book a discovery call</a>
+        <a href={CALENDLY} class="btn btn-primary btn-lg" rel="noopener">Agendar una llamada</a>
       </div>
     </div>
   </section>
@@ -30,11 +30,11 @@ const jsonLd = graph(
   <!-- What happens on the call -->
   <section class="section section-alt" aria-labelledby="call-h">
     <div class="wrap">
-      <h2 id="call-h">What happens on the call</h2>
+      <h2 id="call-h">Qué pasa en la llamada</h2>
       <p>
-        Usually within the first fifteen to thirty minutes, we've identified at least one workflow worth
-        automating, and I'll tell you whether it needs a custom build or the $500 audit first. No deck and no
-        pitch; if it's not a fit, you'll hear that on the call.
+        Normalmente, dentro de los primeros quince a treinta minutos ya identificamos al menos un proceso que
+        vale la pena automatizar, y le digo si necesita un desarrollo a la medida o el diagnóstico de $500
+        primero. Sin presentación y sin venta: si no calza, lo escucha en la llamada.
       </p>
     </div>
   </section>
@@ -42,10 +42,9 @@ const jsonLd = graph(
   <!-- Prefer email -->
   <section class="section" aria-labelledby="email-h">
     <div class="wrap">
-      <h2 id="email-h">Prefer email</h2>
+      <h2 id="email-h">Si prefiere el correo</h2>
       <p>
-        Write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. I read and answer everything myself.
-        There's no one else here.
+        Escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. Yo leo y contesto todo. Acá no hay nadie más.
       </p>
     </div>
   </section>

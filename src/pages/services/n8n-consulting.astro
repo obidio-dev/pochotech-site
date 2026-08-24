@@ -5,38 +5,38 @@ import CtaSection from '../../components/CtaSection.astro';
 import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
 import { CALENDLY, EMAIL } from '../../data/site';
 
-const title = 'n8n & Make.com Consultant: Erick Bonilla | pocho.tech';
+const title = 'Consultor de n8n y Make.com: Erick Bonilla | pocho.tech';
 const description =
-  'n8n and Make.com consulting: architecture review, workflow builds, self-hosting guidance, and team training from the engineer behind 12 production systems.';
+  'Consultoría de n8n y Make.com: revisión de arquitectura, armado de flujos, guía para alojarlo en su propio servidor y capacitación del equipo, del ingeniero detrás de 12 sistemas en producción.';
 
 const faqs = [
   {
-    q: 'n8n vs Zapier vs Make: which to use',
-    a: "Zapier is the fastest start for simple triggers; Make.com handles longer visual scenarios at moderate cost; n8n gives the most control: self-hostable, with code where you need it, and well suited to AI-heavy workflows. I build client systems on both n8n and Make.com, so the recommendation isn't a pitch for either platform. The honest answer depends on your volume, your data constraints, and who maintains it after I leave. It's the first ten minutes of the call.",
+    q: 'n8n, Zapier o Make: cuál usar',
+    a: 'Zapier es el arranque más rápido para disparadores simples; Make.com maneja escenarios visuales más largos a costo moderado; n8n da el mayor control: se puede alojar en su propio servidor, permite meter código donde haga falta y calza bien con flujos cargados de IA. Construyo sistemas de clientes tanto en n8n como en Make.com, así que la recomendación no es una venta de ninguna plataforma. La respuesta honesta depende de su volumen, de sus restricciones de datos y de quién lo va a mantener cuando yo me vaya. Son los primeros diez minutos de la llamada.',
   },
   {
-    q: 'Whether I review existing workflows or only build new ones',
-    a: 'Both. Architecture review of what you already have is a common starting point. Most teams arrive with something half-working rather than a blank slate.',
+    q: 'Si reviso flujos existentes o solo construyo nuevos',
+    a: 'Las dos cosas. Revisar la arquitectura de lo que ya tiene es un punto de partida común. La mayoría de los equipos llega con algo a medio funcionar, no con una hoja en blanco.',
   },
   {
-    q: 'Self-hosted n8n versus n8n cloud',
-    a: "Cloud is the right default while you're proving that workflows matter to the business. Self-hosting earns its overhead when volume, cost, or data control demand it, and if you go that way, the setup is part of what I cover.",
+    q: 'n8n en servidor propio o n8n en la nube',
+    a: 'La nube es el default correcto mientras está probando que los flujos le importan al negocio. Alojarlo usted mismo se gana su costo cuando el volumen, el gasto o el control de los datos lo exigen, y si va por ahí, la configuración es parte de lo que cubro.',
   },
   {
-    q: 'What consulting costs',
-    a: 'Scoped per engagement on the discovery call. A single review session is priced differently than ongoing training. If the engagement turns into me building the system, builds start at $1,500.',
+    q: 'Cuánto cuesta la consultoría',
+    a: 'Se dimensiona caso por caso en la llamada de diagnóstico. Una sola sesión de revisión no cuesta lo mismo que una capacitación continua. Si el trabajo termina siendo que yo construya el sistema, los desarrollos arrancan en $1,500.',
   },
 ];
 
 const jsonLd = graph(
   serviceSchema({
-    name: 'n8n & Make.com Consulting',
+    name: 'Consultoría n8n y Make.com',
     description,
     path: '/services/n8n-consulting',
   }),
   breadcrumbs([
-    { name: 'Services', path: '/services' },
-    { name: 'n8n & Make.com Consulting', path: '/services/n8n-consulting' },
+    { name: 'Servicios', path: '/services' },
+    { name: 'Consultoría n8n y Make.com', path: '/services/n8n-consulting' },
   ]),
   faqSchema(faqs)
 );
@@ -44,66 +44,71 @@ const jsonLd = graph(
 <Base title={title} description={description} path="/services/n8n-consulting" jsonLd={jsonLd}>
   <section class="section hero">
     <div class="wrap">
-      <h1>n8n &amp; Make.com Consulting</h1>
+      <h1>Consultoría n8n y Make.com</h1>
       <p>
-        I consult on n8n and Make.com: architecture review, workflow builds, self-hosting guidance, and team
-        training. I'm Erick Bonilla. The twelve automations I run in production for an event production agency, a
-        travel media company, and an EdTech workforce-training company are built on these platforms with the
-        OpenAI and Anthropic APIs.
+        Hago consultoría de n8n y Make.com: revisión de arquitectura, armado de flujos, guía para alojarlo en su
+        propio servidor y capacitación del equipo. Soy Erick Bonilla. Las doce automatizaciones que opero en
+        producción para una agencia de producción de eventos, una empresa de medios de viajes y una empresa de
+        formación laboral EdTech están construidas sobre estas plataformas con las APIs de OpenAI y Anthropic.
       </p>
-      <p>Engagements are scoped on a discovery call.</p>
-      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+      <p>Los trabajos se dimensionan en una llamada de diagnóstico.</p>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="credentials-h">
     <div class="wrap">
-      <h2 id="credentials-h">The shortest version of my credentials</h2>
+      <h2 id="credentials-h">La versión más corta de mis credenciales</h2>
       <p>
-        The media company brought me in to teach n8n to their AI Advocacy Director. The training led to a hire:
-        their editorial team now runs four of my automations, including a newsletter curator that processes 400+
-        articles a day.
+        La empresa de medios me llamó para enseñarle n8n a su directora de promoción de IA. La capacitación
+        terminó en contratación: su equipo editorial hoy corre cuatro de mis automatizaciones, entre ellas un
+        curador de newsletter que procesa más de 400 artículos por día.
       </p>
       <blockquote>
         <p>
-          "Erick has helped us build and implement multiple automations for our editorial department, and these
-          save us time each week that can be spent producing content rather than sifting through emails and data."
+          "Erick nos ayudó a construir e implementar varias automatizaciones para nuestro departamento
+          editorial, y nos ahorran tiempo cada semana que podemos dedicar a producir contenido en vez de a
+          revolver correos y datos."
         </p>
-        <cite>Editorial team, travel media company</cite>
+        <cite>Equipo editorial, empresa de medios de viajes</cite>
       </blockquote>
     </div>
   </section>
 
   <section class="section" aria-labelledby="covers-h">
     <div class="wrap">
-      <h2 id="covers-h">What consulting covers</h2>
+      <h2 id="covers-h">Qué cubre la consultoría</h2>
       <div class="grid-2 covers-grid">
         <article class="card">
-          <h3>Architecture review</h3>
+          <h3>Revisión de arquitectura</h3>
           <p>
-            I read your existing workflows and tell you what will break first: error handling, credential
-            management, rate limits, and the nodes doing too much work. You get specific fixes, in writing.
+            Leo sus flujos actuales y le digo qué se va a romper primero: manejo de errores, administración de
+            credenciales, límites de tasa, y los nodos que están haciendo demasiado. Recibe correcciones
+            concretas, por escrito.
           </p>
         </article>
         <article class="card">
-          <h3>Workflow builds</h3>
+          <h3>Armado de flujos</h3>
           <p>
-            Some teams bring a half-built workflow; some bring a blank canvas. Either way I build on your
-            instance, alongside your team, so the knowledge stays when the engagement ends.
+            Algunos equipos llegan con un flujo a medio hacer; otros con el lienzo en blanco. En cualquier caso
+            construyo sobre su instancia, junto a su equipo, para que el conocimiento se quede cuando el trabajo
+            termine.
           </p>
         </article>
         <article class="card">
-          <h3>Self-hosting guidance</h3>
+          <h3>Alojarlo en su propio servidor</h3>
           <p>
-            Whether to self-host n8n or stay on cloud, and how to run it if you do: environments, credentials,
-            backups, and upgrades. The goal is an instance your team can operate without me.
+            Si conviene alojar n8n usted mismo o quedarse en la nube, y cómo operarlo si lo hace: ambientes,
+            credenciales, respaldos y actualizaciones. La meta es una instancia que su equipo pueda operar sin
+            mí.
           </p>
         </article>
         <article class="card">
-          <h3>Team training</h3>
+          <h3>Capacitación del equipo</h3>
           <p>
-            The same thing the media company hired me for first: teaching your team to build and maintain
-            workflows in-house. Sessions are scoped to your stack and the workflows you actually need.
+            Lo mismo para lo que me contrató primero la empresa de medios: enseñarle a su equipo a construir y
+            mantener flujos en casa. Las sesiones se arman según sus herramientas y los flujos que de verdad
+            necesita.
           </p>
         </article>
       </div>
@@ -112,26 +117,26 @@ const jsonLd = graph(
 
   <section class="section section-alt" aria-labelledby="scoping-h">
     <div class="wrap">
-      <h2 id="scoping-h">How engagements are scoped</h2>
+      <h2 id="scoping-h">Cómo se dimensionan los trabajos</h2>
       <p>
-        On a discovery call. Some engagements are a single architecture-review session; some become standing
-        arrangements, scoped per engagement like all my retainer work.
+        En una llamada de diagnóstico. Algunos trabajos son una sola sesión de revisión de arquitectura; otros
+        se vuelven acuerdos permanentes, dimensionados caso por caso como todo mi trabajo de acompañamiento.
       </p>
       <p>
-        If what you actually need is a finished system rather than guidance, that's a
-        <a href="/services/custom-automation">custom build</a>: from $1,500.
+        Si lo que necesita en realidad es un sistema terminado y no una guía, eso es un
+        <a href="/services/custom-automation">desarrollo a la medida</a>: desde $1,500.
       </p>
     </div>
   </section>
 
-  <Faq faqs={faqs} heading="Questions teams ask before a consulting engagement" />
+  <Faq faqs={faqs} heading="Preguntas que hacen los equipos antes de una consultoría" />
 
   <CtaSection
-    heading="Bring the workflow that's fighting you"
-    body="Sixty minutes on a call: you show me the instance, and I tell you what I'd fix, what I'd build, and what your team should own. If a session isn't the right spend, you'll hear that on the call."
+    heading="Traiga el flujo que lo tiene peleando"
+    body="Sesenta minutos en una llamada: usted me muestra la instancia, y yo le digo qué arreglaría, qué construiría y qué debería quedar en manos de su equipo. Si una sesión no es el gasto correcto, lo escucha en la llamada."
   />
   <div class="cta-postscript">
-    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    <p>O escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
   </div>
 </Base>
 

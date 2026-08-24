@@ -4,111 +4,112 @@ import CtaSection from '../../components/CtaSection.astro';
 import { graph, breadcrumbs } from '../../lib/schema';
 import { CALENDLY, EMAIL } from '../../data/site';
 
-const title = 'AI Automation Services & Pricing | pocho.tech';
+const title = 'Servicios y precios de automatización con IA | pocho.tech';
 const description =
-  'Automation audit ($500), custom builds from $1,500, and embedded retainers. One engineer, Erick Bonilla, on every project.';
+  'Diagnóstico de automatización ($500), desarrollos a la medida desde $1,500 y acompañamiento mensual. Un solo ingeniero, Erick Bonilla, en cada proyecto.';
 
-const jsonLd = graph(breadcrumbs([{ name: 'Services', path: '/services' }]));
+const jsonLd = graph(breadcrumbs([{ name: 'Servicios', path: '/services' }]));
 ---
 <Base title={title} description={description} path="/services" jsonLd={jsonLd}>
   <section class="section hero">
     <div class="wrap">
-      <h1>Start with an audit or a build. Most clients stay.</h1>
+      <h1>Empiece con un diagnóstico o un desarrollo. La mayoría se queda.</h1>
       <p>
-        Everything we sell is a version of the same thing: a working system, built for how your business
-        actually operates, running in your accounts. The difference is how much of the work you want us to do
-        and how long you want us around.
+        Todo lo que vendemos es una versión de lo mismo: un sistema que funciona, hecho para cómo opera su
+        negocio de verdad, corriendo en sus cuentas. La diferencia es cuánto del trabajo quiere que hagamos
+        nosotros y cuánto tiempo nos quiere cerca.
       </p>
       <p>
-        Six businesses run on our systems and automations today. Every one of those engagements started on one
-        of the rungs below.
+        Hoy hay seis negocios corriendo sobre nuestros sistemas y automatizaciones. Todos empezaron en uno de
+        los escalones de abajo.
       </p>
-      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="ladder-h">
     <div class="wrap">
-      <h2 id="ladder-h">The engagement ladder</h2>
+      <h2 id="ladder-h">La escalera</h2>
       <div class="ladder">
         <article class="card">
-          <h3>1. Automation Audit: $500, credited toward a build</h3>
+          <h3>1. Diagnóstico de automatización: $500, acreditados a un desarrollo</h3>
           <p>
-            <strong>Who it's for:</strong> You know the hours are going somewhere, but you want a plan in writing
-            before spending $1,500 or more.
+            <strong>Para quién es:</strong> usted sabe que las horas se están yendo a algún lado, pero quiere un
+            plan por escrito antes de gastar $1,500 o más.
           </p>
           <p>
-            A 60-minute review of how your team actually works, then a written report within five business days:
-            what to automate first, which tools, estimated time savings, and a build scope for each recommendation.
-            Commission a build afterward and the full $500 comes off the price.
+            Una revisión de 60 minutos de cómo trabaja su equipo de verdad, y después un informe escrito dentro
+            de cinco días hábiles: qué automatizar primero, con qué herramientas, cuánto tiempo se estima
+            ahorrar, y el alcance de cada recomendación. Si después encarga un desarrollo, los $500 completos se
+            descuentan del precio.
           </p>
           <p class="card-links">
-            <a href="/services/automation-audit">About the audit</a> ·
-            <a href={CALENDLY} rel="noopener">Book an audit</a>
+            <a href="/services/automation-audit">Sobre el diagnóstico</a> ·
+            <a href={CALENDLY} rel="noopener">Agendar un diagnóstico</a>
           </p>
         </article>
 
         <article class="card">
-          <h3>2. Custom Automation Build: from $1,500</h3>
-          <p><strong>Who it's for:</strong> You can already name the process that's eating the hours.</p>
+          <h3>2. Automatización a la medida: desde $1,500</h3>
+          <p><strong>Para quién es:</strong> usted ya puede nombrar el proceso que se está comiendo las horas.</p>
           <p>
-            I design the solution, build and test it on your systems, and hand it off with documentation and a
-            recorded walkthrough. Fixed price set in writing after a discovery call; typical timeline is one to
-            four weeks.
+            Diseño la solución, la construyo y la pruebo sobre sus sistemas, y la entrego con documentación y un
+            recorrido grabado. Precio fijo por escrito después de la llamada de diagnóstico; el plazo típico es
+            de una a cuatro semanas.
           </p>
           <p>
-            The proposal-to-invoice pipeline at an event production agency is one of these: processing went from
-            1.5–2 hours per proposal to 15 minutes.
+            El circuito de propuesta a factura de una agencia de producción de eventos es uno de estos: el
+            procesamiento pasó de 1.5 o 2 horas por propuesta a 15 minutos.
           </p>
           <p class="card-links">
-            <a href="/services/custom-automation">About custom builds</a> ·
-            <a href={CALENDLY} rel="noopener">Book a discovery call</a>
+            <a href="/services/custom-automation">Sobre los desarrollos a la medida</a> ·
+            <a href={CALENDLY} rel="noopener">Agendar una llamada</a>
           </p>
         </article>
 
         <article class="card">
-          <h3>3. Management System Build: fixed quote after discovery</h3>
+          <h3>3. Sistema de gestión propio: cotización fija tras el diagnóstico</h3>
           <p>
-            <strong>Who it's for:</strong> Operations that still run on notebooks, a spreadsheet one person
-            understands, and WhatsApp: factories, distributors, workshops, service businesses. From ten people
-            to a hundred.
+            <strong>Para quién es:</strong> operaciones que todavía corren en cuadernos, en una hoja de cálculo
+            que entiende una sola persona, y en WhatsApp: fábricas, distribuidoras, talleres, negocios de
+            servicio. De diez personas a cien.
           </p>
           <p>
-            A custom system for orders, inventory, production, and invoicing, live on your real data in the
-            first month. A sixty-worker furniture factory saw its 11 late orders on one screen the first
-            morning; a lube center opened its doors with the system already running.
+            Un sistema propio para órdenes, inventario, producción y facturación, en vivo sobre sus datos reales
+            en el primer mes. Una fábrica de muebles de sesenta trabajadores vio sus 11 órdenes atrasadas en una
+            sola pantalla la primera mañana; un lubricentro abrió sus puertas con el sistema ya corriendo.
           </p>
           <p>
-            We take a limited number of new builds per month. Reserve a slot with a $100 deposit, credited in
-            full toward the project.
+            Tomamos una cantidad limitada de desarrollos nuevos por mes. Reserve su cupo con un depósito de
+            $100, acreditado completo al proyecto.
           </p>
           <p class="card-links">
-            <a href="/services/management-system-build">About system builds</a> ·
-            <a href="https://paypal.me/pochotech/100USD" rel="noopener">Reserve a slot: $100</a>
+            <a href="/services/management-system-build">Sobre los sistemas propios</a> ·
+            <a href="https://paypal.me/pochotech/100USD" rel="noopener">Reservar cupo: $100</a>
           </p>
         </article>
 
         <article class="card">
-          <h3>4. Ongoing embedded work: scoped per engagement</h3>
+          <h3>4. Acompañamiento continuo: dimensionado caso por caso</h3>
           <p>
-            <strong>Who it's for:</strong> Teams that want an automation engineer on the roster without making a
-            hire.
+            <strong>Para quién es:</strong> equipos que quieren un ingeniero de automatización en la nómina sin
+            tener que contratarlo.
           </p>
           <p>
-            I stay on after handoff, inside your Slack, your CRM, your boards, maintaining what's live and
-            building what's next. This is how most of my work runs: all three client teams on this site continue
-            on retainers.
+            Me quedo después de la entrega, dentro de su Slack, su CRM y sus tableros, manteniendo lo que está
+            en vivo y construyendo lo que sigue. Así corre la mayor parte de mi trabajo: los tres equipos de
+            clientes de este sitio siguen con acompañamiento mensual.
           </p>
           <p>
-            That's how one automation at the events agency became four, and one system at an EdTech
-            workforce-training company became six.
+            Así fue como una automatización en la agencia de eventos se volvió cuatro, y un sistema en una
+            empresa de formación laboral EdTech se volvió seis.
           </p>
           <blockquote>
-            <p>"You have done such a great job that I can't remember how we were working before you."</p>
-            <cite>CEO, EdTech workforce-training company</cite>
+            <p>"Han hecho un trabajo tan bueno que ya no me acuerdo de cómo trabajábamos antes de ustedes."</p>
+            <cite>CEO, empresa de formación laboral EdTech</cite>
           </blockquote>
           <p class="card-links">
-            <a href={CALENDLY} rel="noopener">Book a discovery call</a>
+            <a href={CALENDLY} rel="noopener">Agendar una llamada</a>
           </p>
         </article>
       </div>
@@ -117,69 +118,71 @@ const jsonLd = graph(breadcrumbs([{ name: 'Services', path: '/services' }]));
 
   <section class="section" aria-labelledby="consulting-h">
     <div class="wrap">
-      <h2 id="consulting-h">Prefer to build in-house?</h2>
+      <h2 id="consulting-h">¿Prefiere construir en casa?</h2>
       <p>
-        For teams that want to build in-house: architecture review, workflow builds, self-hosting guidance,
-        and training. A travel media company hired me to build after I taught n8n to their AI Advocacy
-        Director.
+        Para equipos que quieren construir internamente: revisión de arquitectura, armado de flujos, guía para
+        alojarlo en su propio servidor, y capacitación. Una empresa de medios de viajes me contrató para
+        construir después de que le enseñé n8n a su directora de promoción de IA.
       </p>
-      <p class="card-links"><a href="/services/n8n-consulting">About n8n &amp; Make.com consulting</a></p>
+      <p class="card-links"><a href="/services/n8n-consulting">Sobre la consultoría n8n y Make.com</a></p>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="compare-h">
     <div class="wrap">
-      <h2 id="compare-h">How the options compare</h2>
+      <h2 id="compare-h">Cómo se comparan las opciones</h2>
       <div class="table-scroll">
         <table class="compare-table">
           <thead>
             <tr>
               <td></td>
-              <th scope="col">Working with pocho.tech</th>
-              <th scope="col">Hiring an ops person</th>
-              <th scope="col">Doing it yourself on Zapier</th>
+              <th scope="col">Trabajar con pocho.tech</th>
+              <th scope="col">Contratar a alguien de operaciones</th>
+              <th scope="col">Hacerlo usted en Zapier</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Cost</th>
-              <td>From $1,500 per build, fixed in writing; retainers scoped per engagement</td>
-              <td>A full-time salary, plus recruiting and ramp-up</td>
-              <td>The subscription, plus your own hours</td>
+              <th scope="row">Costo</th>
+              <td>Desde $1,500 por desarrollo, fijo por escrito; el acompañamiento se dimensiona caso por caso</td>
+              <td>Un salario de tiempo completo, más la búsqueda y la puesta en marcha</td>
+              <td>La suscripción, más sus propias horas</td>
             </tr>
             <tr>
-              <th scope="row">Time to a working system</th>
-              <td>One to four weeks from approved scope</td>
-              <td>Months before the first build ships</td>
-              <td>Fast for a two-step trigger; slow for multi-system pipelines with AI steps</td>
+              <th scope="row">Tiempo hasta tener algo funcionando</th>
+              <td>De una a cuatro semanas desde el alcance aprobado</td>
+              <td>Meses antes de que salga el primer desarrollo</td>
+              <td>Rápido para un disparador de dos pasos; lento para circuitos de varios sistemas con pasos de IA</td>
             </tr>
             <tr>
-              <th scope="row">Who does the work</th>
-              <td>One engineer with twelve automations in production</td>
-              <td>A generalist whose week includes much more than automation</td>
-              <td>You, between everything else on your plate</td>
+              <th scope="row">Quién hace el trabajo</th>
+              <td>Un ingeniero con doce automatizaciones en producción</td>
+              <td>Un generalista cuya semana incluye mucho más que automatizar</td>
+              <td>Usted, entre todo lo demás que tiene encima</td>
             </tr>
             <tr>
-              <th scope="row">What you keep</th>
-              <td>Workflows in your accounts, documented, with a recorded walkthrough</td>
-              <td>Institutional knowledge that leaves with the employee</td>
-              <td>Workflows only you understand</td>
+              <th scope="row">Con qué se queda</th>
+              <td>Flujos en sus cuentas, documentados, con un recorrido grabado</td>
+              <td>Conocimiento que se va con el empleado</td>
+              <td>Flujos que entiende solo usted</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p class="compare-note">
-        If a simple Zapier trigger genuinely covers your case, you'll hear that on the discovery call.
+        Si un disparador simple de Zapier de verdad cubre su caso, lo escucha en la llamada de diagnóstico.
       </p>
     </div>
   </section>
 
   <CtaSection
-    heading="Where to start"
-    body="If you can name the broken process, book the discovery call. It's the first step of every build. If you can't, the audit turns sixty minutes into a written plan, credited in full if you go ahead. If you'd rather see the work before talking to me, the case studies show it running."
+    heading="Por dónde empezar"
+    body="Si puede nombrar el proceso que está roto, agende la llamada: es el primer paso de todo desarrollo. Si no puede, el diagnóstico convierte sesenta minutos en un plan escrito, acreditado completo si sigue adelante. Y si prefiere ver el trabajo antes de hablar conmigo, las demos y los casos lo muestran funcionando."
+    secondaryLabel="Ver las demos"
+    secondaryHref="/demos"
   />
   <div class="cta-postscript">
-    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    <p>O escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
   </div>
 </Base>
 

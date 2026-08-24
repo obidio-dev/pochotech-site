@@ -6,6 +6,6 @@ export const FOUNDER = 'Erick Bonilla';
 
 /** Canonical entity boilerplate, used verbatim in meta, schema, llms.txt, about. */
 export const BOILERPLATE =
-  'pocho.tech is the AI automation studio of Erick Bonilla. He designs and builds custom AI-powered automations for small teams (event agencies, media companies, tourism organizations, and accounting firms), working embedded inside each client’s tools and team.';
+  'pocho.tech es el estudio de automatización con IA de Erick Bonilla. Diseña y construye sistemas de gestión propios y automatizaciones a la medida para equipos chicos (fábricas, distribuidoras, talleres, agencias de eventos, medios y firmas contables), trabajando metido adentro de las herramientas y el equipo de cada cliente.';
 
-export const CTA_PRIMARY = 'Book a discovery call';
+export const CTA_PRIMARY = 'Agendar una llamada';

@@ -6,12 +6,12 @@ import { CALENDLY, EMAIL, BOILERPLATE } from '../data/site';
 import { graph, breadcrumbs } from '../lib/schema';
 
 const jsonLd = graph(
-  breadcrumbs([{ name: 'About', path: '/about' }])
+  breadcrumbs([{ name: 'Quién soy', path: '/about' }])
 );
 ---
 <Base
-  title="About Erick Bonilla: AI Automation Studio | pocho.tech"
-  description="Who Erick Bonilla is, how embedded engagements work, and the three client teams behind twelve automations in production. One engineer, direct access."
+  title="Quién es Erick Bonilla: estudio de automatización con IA | pocho.tech"
+  description="Quién es Erick Bonilla, cómo funciona trabajar metido adentro del equipo, y los tres equipos detrás de doce automatizaciones en producción. Un solo ingeniero, acceso directo."
   path="/about"
   jsonLd={jsonLd}
 >
@@ -19,20 +19,20 @@ const jsonLd = graph(
   <section class="hero">
     <div class="wrap about-hero-grid">
       <div>
-        <h1>Who I am and how I work</h1>
+        <h1>Quién soy y cómo trabajo</h1>
         <p class="hero-sub">
-          I'm Erick Bonilla, founder and the only engineer at pocho.tech. Every workflow on this site I scoped and
-          built myself, and most of them I still operate.
+          Soy Erick Bonilla, fundador y el único ingeniero de Pocho.tech. Cada flujo de este sitio lo dimensioné
+          y lo construí yo, y la mayoría todavía los opero.
         </p>
         <p>{BOILERPLATE}</p>
         <p>
-          That's the formal version. The practical version: you tell me where your team's hours go, and I build the
-          system that gets them back.
+          Esa es la versión formal. La versión práctica: usted me cuenta dónde se van las horas de su equipo, y
+          yo construyo el sistema que se las devuelve.
         </p>
       </div>
       <Image
         src={erickPhoto}
-        alt="Erick Bonilla, founder and engineer at pocho.tech"
+        alt="Erick Bonilla, fundador e ingeniero de pocho.tech"
         class="about-photo"
         widths={[400, 720]}
         sizes="(max-width: 900px) 88vw, 340px"
@@ -56,26 +56,26 @@ const jsonLd = graph(
   <!-- What embedded looks like -->
   <section class="section section-alt" aria-labelledby="embedded-h">
     <div class="wrap">
-      <h2 id="embedded-h">What embedded looks like, week to week</h2>
+      <h2 id="embedded-h">Cómo se ve estar metido adentro, semana a semana</h2>
       <p>
-        Most engagements don't end at handoff. The three client teams on this site all kept me on after the
-        first build. Here is what an ordinary week looks like.
+        La mayoría de los trabajos no termina en la entrega. Los tres equipos de clientes de este sitio me
+        dejaron adentro después del primer desarrollo. Así se ve una semana común.
       </p>
       <p>
-        <strong>I'm in your Slack.</strong> Requests, fixes, and ideas happen in the channels where your team
-        already works.
+        <strong>Estoy en su Slack.</strong> Los pedidos, las correcciones y las ideas pasan en los canales donde
+        su equipo ya trabaja.
       </p>
       <p>
-        <strong>I work inside your accounts.</strong> Workflows run on your systems under your credentials; when
-        I build or fix something, it happens where you can see it.
+        <strong>Trabajo dentro de sus cuentas.</strong> Los flujos corren en sus sistemas con sus credenciales;
+        cuando construyo o arreglo algo, pasa donde usted lo puede ver.
       </p>
       <p>
-        <strong>We have a standing touchpoint.</strong> A weekly check-in covers what shipped, what broke, and
-        what's worth building next.
+        <strong>Tenemos un punto de contacto fijo.</strong> Una reunión semanal cubre qué salió, qué se rompió y
+        qué vale la pena construir después.
       </p>
       <p>
-        That rhythm is how one automation at an event production agency became four, and one system at an
-        EdTech workforce-training company became six.
+        Ese ritmo es el que hizo que una automatización en una agencia de producción de eventos se volviera
+        cuatro, y que un sistema en una empresa de formación laboral EdTech se volviera seis.
       </p>
     </div>
   </section>
@@ -83,19 +83,21 @@ const jsonLd = graph(
   <!-- The three teams -->
   <section class="section" aria-labelledby="teams-h">
     <div class="wrap">
-      <h2 id="teams-h">The three teams</h2>
+      <h2 id="teams-h">Los tres equipos</h2>
       <ul class="teams-list">
         <li>
-          <strong>Event production agency</strong>, team of six to eight: four automations, including
-          the proposal-to-invoice pipeline that cut processing from 1.5–2 hours to 15 minutes.
+          <strong>Agencia de producción de eventos</strong>, equipo de seis a ocho: cuatro automatizaciones,
+          entre ellas el circuito de propuesta a factura que bajó el procesamiento de 1.5 a 2 horas a 15 minutos.
         </li>
         <li>
-          <strong>Travel media company</strong>, editorial team of twelve: four automations, including
-          a newsletter curator that reads 400+ articles a day and a creator tracker covering 70 creators.
+          <strong>Empresa de medios de viajes</strong>, redacción de doce personas: cuatro automatizaciones,
+          entre ellas un curador de newsletter que lee más de 400 artículos por día y un rastreador que cubre 70
+          creadores.
         </li>
         <li>
-          <strong>EdTech workforce training</strong>, Boston: six connected systems
-          running admissions and operations, from AI-scored interviews to the 5pm report the whole team reads.
+          <strong>Formación laboral EdTech</strong>, Boston: seis sistemas conectados que corren admisiones y
+          operación, desde entrevistas calificadas por IA hasta el reporte de las 5 de la tarde que lee todo el
+          equipo.
         </li>
       </ul>
     </div>
@@ -104,15 +106,16 @@ const jsonLd = graph(
   <!-- What I build with -->
   <section class="section section-alt" aria-labelledby="stack-h">
     <div class="wrap">
-      <h2 id="stack-h">What I build with</h2>
+      <h2 id="stack-h">Con qué construyo</h2>
       <p>
-        I build on n8n and Make.com, with the OpenAI and Anthropic APIs handling the reasoning. Across twelve
-        automations in production, that stack connects more than twenty tools: HubSpot, Airtable, Monday.com,
-        QuickBooks, Slack, Supabase, Apify, Google Analytics 4, and others.
+        Construyo sobre n8n y Make.com, con las APIs de OpenAI y Anthropic encargándose del razonamiento. A lo
+        largo de doce automatizaciones en producción, ese conjunto conecta más de veinte herramientas: HubSpot,
+        Airtable, Monday.com, QuickBooks, Slack, Supabase, Apify, Google Analytics 4 y otras.
       </p>
       <p>
-        I also speak about this work at industry conferences. A travel media company hired me to build after I
-        taught n8n to their AI Advocacy Director. Teaching the tools and building with them are the same job to me.
+        También hablo de este trabajo en conferencias de la industria. Una empresa de medios de viajes me
+        contrató para construir después de que le enseñé n8n a su directora de promoción de IA. Enseñar las
+        herramientas y construir con ellas son el mismo trabajo para mí.
       </p>
     </div>
   </section>
@@ -120,23 +123,23 @@ const jsonLd = graph(
   <!-- The name -->
   <section class="section" aria-labelledby="name-h">
     <div class="wrap">
-      <h2 id="name-h">The name</h2>
-      <p class="name-line">Pocho is what people call me.</p>
+      <h2 id="name-h">El nombre</h2>
+      <p class="name-line">Pocho es como me dice la gente.</p>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="section section-alt" aria-labelledby="start-h">
     <div class="wrap">
-      <h2 id="start-h">Start with sixty minutes</h2>
+      <h2 id="start-h">Empecemos con sesenta minutos</h2>
       <p>
-        You walk me through how your team works, and I tell you what I'd automate first and what it would cost.
-        If the right answer is the $500 audit instead of a custom build, I'll say so.
+        Usted me explica cómo trabaja su equipo, y yo le digo qué automatizaría primero y cuánto costaría. Si la
+        respuesta correcta es el diagnóstico de $500 en vez de un desarrollo a la medida, se lo digo.
       </p>
       <div class="cta-row">
-        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
       </div>
-      <p class="cta-alt">Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+      <p class="cta-alt">O escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
     </div>
   </section>
 </Base>

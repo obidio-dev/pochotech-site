@@ -6,48 +6,48 @@ import { CALENDLY, EMAIL } from '../../data/site';
 import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
 
 const DESCRIPTION =
-  "Four AI automations run a travel media company's editorial back office: 400+ articles a day curated into one newsletter, creator tracking down from 5 hrs to 1.5";
+  'Cuatro automatizaciones con IA corren el back office editorial de una empresa de medios de viajes: más de 400 artículos por día curados en un newsletter, y el seguimiento de creadores bajó de 5 horas a 1.5.';
 
 const metrics = [
-  { value: '400+ articles/day', label: 'Curated into one newsletter, zero human input' },
-  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking' },
-  { value: '30 → 70', label: 'Creators tracked, same workflow' },
+  { value: '400+ artículos/día', label: 'Curados en un newsletter, sin intervención humana' },
+  { value: '5 hrs/semana → 1.5 hrs', label: 'Seguimiento de creadores' },
+  { value: '30 → 70', label: 'Creadores seguidos, con el mismo flujo' },
 ];
 
 const faqs = [
   {
-    q: 'Whether this works outside travel media',
-    a: "The mechanisms are source-agnostic: the curator reads whatever publications you give it, and the tracker follows whatever accounts you list. The travel is in the inputs; the system doesn't care what industry the sources cover.",
+    q: 'Si esto funciona fuera de los medios de viajes',
+    a: 'Los mecanismos no dependen de la fuente: el curador lee las publicaciones que usted le dé, y el rastreador sigue las cuentas que usted liste. El viaje está en las entradas; al sistema no le importa qué industria cubren las fuentes.',
   },
   {
-    q: "How the AI decides what's newsworthy",
-    a: 'GPT-4o scores each article against selection criteria set with your editors, and the prompt is yours to read and adjust. The newsletter is finished when it arrives, and your team can still pull a story before send if they want a check in the loop.',
+    q: 'Cómo decide la IA qué es noticia',
+    a: 'GPT-4o califica cada artículo contra criterios de selección definidos con sus editores, y el prompt es suyo para leerlo y ajustarlo. El newsletter llega terminado, y su equipo todavía puede sacar una nota antes de enviarlo si quiere un control en el medio.',
   },
   {
-    q: 'What a build like this costs',
-    a: 'Custom builds start at $1,500, fixed in writing after a discovery call. If you want a written scope first, the $500 Automation Audit is credited in full toward a build.',
+    q: 'Cuánto cuesta un desarrollo así',
+    a: 'Los desarrollos a la medida arrancan en $1,500, fijos por escrito después de una llamada de diagnóstico. Si primero quiere un alcance escrito, el diagnóstico de $500 se acredita completo a un desarrollo.',
   },
   {
-    q: 'Who maintains it after handoff',
-    a: "You own everything: the workflows run in your accounts under your credentials. The media company's four automations are a continuing embedded engagement, which is how most clients run it.",
+    q: 'Quién lo mantiene después de la entrega',
+    a: 'Todo es suyo: los flujos corren en sus cuentas con sus credenciales. Las cuatro automatizaciones de la empresa de medios son un acompañamiento continuo, que es como lo lleva la mayoría de los clientes.',
   },
 ];
 
 const jsonLd = graph(
   serviceSchema({
-    name: 'AI Automation for Media & Publishing',
+    name: 'Automatización con IA para medios y editoriales',
     description: DESCRIPTION,
     path: '/industries/media-publishing',
   }),
   breadcrumbs([
-    { name: 'Industries', path: '/industries' },
-    { name: 'Media & publishing', path: '/industries/media-publishing' },
+    { name: 'Industrias', path: '/industries' },
+    { name: 'Medios y editoriales', path: '/industries/media-publishing' },
   ]),
   faqSchema(faqs)
 );
 ---
 <Base
-  title="AI Automation for Media & Publishing | pocho.tech"
+  title="Automatización con IA para medios y editoriales | pocho.tech"
   description={DESCRIPTION}
   path="/industries/media-publishing"
   jsonLd={jsonLd}
@@ -55,15 +55,15 @@ const jsonLd = graph(
   <!-- Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>400+ articles a day go in. A finished newsletter comes out every morning.</h1>
+      <h1>Entran más de 400 artículos por día. Sale un newsletter terminado cada mañana.</h1>
       <p class="hero-sub">
-        I build AI automations for editorial back offices: newsletter curation, creator tracking, affiliate
-        reporting, and event research. Four of them run in production at a travel media company of about fifty
-        people, with an editorial team of twelve.
+        Construyo automatizaciones con IA para back offices editoriales: curaduría de newsletter, seguimiento de
+        creadores, reportes de afiliados e investigación de eventos. Cuatro corren en producción en una empresa
+        de medios de viajes de unas cincuenta personas, con una redacción de doce.
       </p>
-      <p class="hero-sub hero-note">Every number on this page is theirs.</p>
+      <p class="hero-sub hero-note">Cada número de esta página es de ellos.</p>
       <div class="hero-ctas">
-        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
       </div>
     </div>
   </section>
@@ -71,18 +71,19 @@ const jsonLd = graph(
   <!-- Where the hours go -->
   <section class="section section-alt hours" aria-labelledby="hours-h">
     <div class="wrap">
-      <h2 id="hours-h">Where the hours go</h2>
+      <h2 id="hours-h">Dónde se van las horas</h2>
       <p>
-        An editorial team's week disappears into work that produces no content. Someone reads eleven
-        publications' worth of daily output to find the ten stories worth covering.
+        La semana de una redacción se disuelve en trabajo que no produce contenido. Alguien lee la producción
+        diaria de once publicaciones para encontrar las diez notas que vale la pena cubrir.
       </p>
       <p>
-        Someone scrolls TikTok and Instagram logging creator posts into a spreadsheet: URL, views, likes, one
-        row at a time. At the media company that took five hours a week and covered only thirty creators.
+        Alguien recorre TikTok e Instagram anotando publicaciones de creadores en una hoja de cálculo: enlace,
+        vistas, me gusta, una fila a la vez. En la empresa de medios eso tomaba cinco horas por semana y cubría
+        apenas treinta creadores.
       </p>
       <p>
-        Someone pulls affiliate numbers out of GA4 and reformats them for the Monday meeting. Someone searches
-        Eventbrite, Meetup, and Luma city by city for events worth attending.
+        Alguien saca los números de afiliados de GA4 y los reformatea para la reunión del lunes. Alguien busca
+        en Eventbrite, Meetup y Luma, ciudad por ciudad, eventos a los que valga la pena ir.
       </p>
     </div>
   </section>
@@ -90,53 +91,54 @@ const jsonLd = graph(
   <!-- What I build -->
   <section class="section" aria-labelledby="build-h">
     <div class="wrap">
-      <h2 id="build-h">What I build: the four systems at the media company</h2>
+      <h2 id="build-h">Qué construyo: los cuatro sistemas de la empresa de medios</h2>
       <div class="grid-2 systems-grid">
         <article class="card system-card">
-          <h3>AI newsletter curator</h3>
+          <h3>Curador de newsletter con IA</h3>
           <p>
-            Overnight, the system pulls roughly 400 articles a day from eleven-plus publications through Apify,
-            and GPT-4o scores them and picks the top ten. A polished HTML newsletter is in the team's inbox every
-            morning, zero human input along the way.
+            De noche, el sistema baja alrededor de 400 artículos por día de once publicaciones o más a través de
+            Apify, y GPT-4o los califica y elige los diez mejores. Un newsletter en HTML terminado está en la
+            bandeja del equipo cada mañana, sin intervención humana en el camino.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>Apify</li>
             <li>OpenAI</li>
             <li>Gmail</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Social media creator tracker</h3>
+          <h3>Rastreador de creadores en redes</h3>
           <p>
-            The tracker scrapes TikTok and Instagram for each creator's posts and delivers a Monday digest:
-            every URL with views and likes attached. Tracking went from 5 hours a week to 1.5, while coverage
-            grew from 30 creators to 70.
+            El rastreador recorre TikTok e Instagram buscando las publicaciones de cada creador y entrega un
+            resumen los lunes: cada enlace con sus vistas y sus me gusta pegados. El seguimiento pasó de 5 horas
+            por semana a 1.5, mientras la cobertura creció de 30 creadores a 70.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>Apify</li>
             <li>Google Sheets</li>
             <li>Gmail</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Affiliate link performance report</h3>
+          <h3>Reporte de desempeño de enlaces de afiliados</h3>
           <p>
-            Every Monday, the report ranks the top twenty affiliate links from GA4 and adds AI commentary on what
-            moved. The numbers arrive formatted for the meeting instead of waiting to be pulled.
+            Cada lunes, el reporte ordena los veinte mejores enlaces de afiliados sacados de GA4 y agrega
+            comentario de IA sobre qué se movió. Los números llegan formateados para la reunión en vez de estar
+            esperando a que alguien los saque.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>Google Analytics 4</li>
             <li>Google Sheets</li>
             <li>OpenAI</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Event search automation</h3>
+          <h3>Automatización de búsqueda de eventos</h3>
           <p>
-            Once a month, the system searches Eventbrite, Meetup, and Luma across fifteen US cities and delivers
-            the results to the team. Nobody opens fifteen browser tabs.
+            Una vez al mes, el sistema busca en Eventbrite, Meetup y Luma en quince ciudades de Estados Unidos y
+            le entrega los resultados al equipo. Nadie abre quince pestañas del navegador.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>Apify</li>
             <li>Google Sheets</li>
             <li>Gmail</li>
@@ -149,7 +151,7 @@ const jsonLd = graph(
   <!-- The numbers -->
   <section class="section section-alt" aria-labelledby="numbers-h">
     <div class="wrap">
-      <h2 id="numbers-h">The numbers</h2>
+      <h2 id="numbers-h">Los números</h2>
       <dl class="metrics">
         {metrics.map((m) => (
           <div class="metric-item">
@@ -161,33 +163,33 @@ const jsonLd = graph(
       <div class="quotes">
         <blockquote>
           <p>
-            "Erick has helped us build and implement multiple automations for our editorial department, and these
-            save us time each week that can be spent producing content rather than sifting through emails and
-            data."
+            "Erick nos ayudó a construir e implementar varias automatizaciones para nuestro departamento
+            editorial, y nos ahorran tiempo cada semana que podemos dedicar a producir contenido en vez de a
+            revolver correos y datos."
           </p>
-          <cite>Editorial team, travel media company</cite>
+          <cite>Equipo editorial, empresa de medios de viajes</cite>
         </blockquote>
         <blockquote>
           <p>
-            "Erick was incredibly helpful in setting up the system to automatically track creator content. This
-            automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a
-            lot of manual effort."
+            "Erick nos ayudó muchísimo a montar el sistema que rastrea el contenido de los creadores. Esa
+            automatización me ahorra alrededor de 3 o 4 horas por semana, hizo mi trabajo mucho más fluido y me
+            quita un montón de esfuerzo manual."
           </p>
-          <cite>Social media team, travel media company</cite>
+          <cite>Equipo de redes sociales, empresa de medios de viajes</cite>
         </blockquote>
       </div>
-      <p class="context-line">When the tracker goes down, the team emails within hours asking for it back.</p>
+      <p class="context-line">Cuando el rastreador se cae, el equipo escribe a las pocas horas pidiendo que vuelva.</p>
     </div>
   </section>
 
   <!-- FAQ -->
-  <Faq faqs={faqs} heading="Questions media teams ask" />
+  <Faq faqs={faqs} heading="Preguntas que hacen los equipos de medios" />
 
   <!-- CTA -->
   <CtaSection
-    heading="Tell me where your editorial hours go."
-    body="Sixty minutes: you walk me through the team's week, and I tell you what I'd automate first and what it would cost."
-    secondaryLabel={`Or write to me directly: ${EMAIL}`}
+    heading="Cuénteme dónde se van sus horas editoriales."
+    body="Sesenta minutos: usted me explica la semana del equipo, y yo le digo qué automatizaría primero y cuánto costaría."
+    secondaryLabel={`O escríbame directo: ${EMAIL}`}
     secondaryHref={`mailto:${EMAIL}`}
   />
 </Base>

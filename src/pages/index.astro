@@ -7,80 +7,81 @@ import { CALENDLY, EMAIL } from '../data/site';
 import { graph, faqSchema, reviewSchema } from '../lib/schema';
 
 const metrics = [
-  { value: '1,600+ hrs/yr', label: 'Manual work removed, counting only two of the automations' },
-  { value: '67 orders, day one', label: 'Real production orders loaded into a furniture factory’s new system; 11 were already late' },
-  { value: '1.5–2 hrs → 15 min', label: 'Proposal processing, event production agency' },
-  { value: '400+ articles/day', label: 'Curated into one newsletter with zero human input' },
+  { value: '1,600+ hrs/año', label: 'Trabajo manual eliminado, contando solo dos de las automatizaciones' },
+  { value: '67 órdenes el día uno', label: 'Órdenes de producción reales cargadas en el sistema nuevo de una fábrica de muebles; 11 ya venían atrasadas' },
+  { value: '1.5–2 hrs → 15 min', label: 'Procesamiento de propuestas, agencia de producción de eventos' },
+  { value: '400+ artículos/día', label: 'Curados en un newsletter sin intervención humana' },
 ];
 
 const faqs = [
   {
-    q: 'What a custom automation costs',
-    a: 'Builds start at $1,500, with a fixed price set in writing after the discovery call. What it costs depends on how many systems are involved and how much of the logic needs AI. If you start with the $500 audit, that full amount is credited toward the build.',
+    q: 'Cuánto cuesta una automatización a la medida',
+    a: 'Los desarrollos arrancan en $1,500, con precio fijo por escrito después de la llamada de diagnóstico. Lo que cuesta depende de cuántos sistemas hay que conectar y de cuánta de la lógica necesita IA. Si empieza por el diagnóstico de $500, ese monto completo se le acredita al desarrollo.',
   },
   {
-    q: 'How long a build takes',
-    a: 'One to four weeks for most projects, depending on how many systems are involved and how much testing the workflow needs against your real data. The timeline is written into the scope document before any work begins, so you know the delivery date before you commit.',
+    q: 'Cuánto tarda un desarrollo',
+    a: 'De una a cuatro semanas en la mayoría de los proyectos, según cuántos sistemas estén involucrados y cuánta prueba necesite el flujo contra sus datos reales. El plazo queda escrito en el documento de alcance antes de que empiece nada, así que usted conoce la fecha de entrega antes de comprometerse.',
   },
   {
-    q: 'Who does the actual work',
-    a: 'I do: every workflow, every integration, every fix. pocho.tech is one engineer, and you work with me directly from the first call through handoff.',
+    q: 'Quién hace el trabajo',
+    a: 'Yo: cada flujo, cada integración, cada corrección. Pocho.tech es un solo ingeniero, y usted trabaja conmigo directamente desde la primera llamada hasta la entrega.',
   },
   {
-    q: 'Who owns the workflows',
-    a: 'You do. Everything runs in your accounts under your credentials, on your n8n or Make.com instance, with your API keys. If we ever part ways, every workflow keeps running exactly as it did the day before; nothing I build depends on infrastructure that belongs to me.',
+    q: 'De quién son los flujos',
+    a: 'Suyos. Todo corre en sus cuentas, con sus credenciales, en su instancia de n8n o Make.com, con sus llaves de API. Si algún día nos separamos, cada flujo sigue funcionando igual que el día anterior: nada de lo que construyo depende de infraestructura mía.',
   },
   {
-    q: 'What happens after handoff',
-    a: 'Most clients keep me on. All three teams on this page started with a single build and continue on embedded retainers, scoped per engagement.',
+    q: 'Qué pasa después de la entrega',
+    a: 'La mayoría de los clientes me deja adentro. Los tres equipos de esta página empezaron con un solo desarrollo y siguen con un acompañamiento mensual, dimensionado caso por caso.',
   },
   {
-    q: 'Why n8n and Make.com instead of Zapier',
-    a: 'Zapier is fine for simple triggers, but the systems I build (AI evaluation pipelines, multi-step branching logic, two-way syncs) need real conditionals, sub-workflows, and direct API calls. n8n and Make.com handle that at a fraction of the per-task cost, and n8n can run on your own server.',
+    q: 'Por qué n8n y Make.com en vez de Zapier',
+    a: 'Zapier está bien para disparadores simples, pero los sistemas que construyo (evaluación con IA, lógica ramificada de varios pasos, sincronías de ida y vuelta) necesitan condicionales de verdad, subflujos y llamadas directas a APIs. n8n y Make.com hacen eso a una fracción del costo por tarea, y n8n puede correr en su propio servidor.',
   },
   {
-    q: 'What the $500 audit includes',
-    a: 'A 60-minute review of how your team actually works, then a written report within five business days: what to automate first, which tools to use, estimated time savings, and the build scope for each recommendation. Commission a build afterward and the full $500 comes off the price.',
+    q: 'Qué incluye el diagnóstico de $500',
+    a: 'Una revisión de 60 minutos de cómo trabaja su equipo de verdad, y después un informe escrito dentro de cinco días hábiles: qué automatizar primero, con qué herramientas, cuánto tiempo se estima ahorrar y el alcance de cada recomendación. Si después encarga un desarrollo, los $500 completos se descuentan del precio.',
   },
 ];
 
 const kyreneQuote =
-  'Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort.';
+  'Erick nos ayudó muchísimo a montar el sistema que rastrea el contenido de los creadores. Esa automatización me ahorra alrededor de 3 o 4 horas por semana, hizo mi trabajo mucho más fluido y me quita un montón de esfuerzo manual.';
 
 const jsonLd = graph(
   faqSchema(faqs),
   reviewSchema({
     body: kyreneQuote,
-    authorName: 'Social media team member',
-    authorTitle: 'Travel media company',
+    authorName: 'Integrante del equipo de redes sociales',
+    authorTitle: 'Empresa de medios de viajes',
   })
 );
 ---
 <Base
-  title="Custom AI Automation for Small Teams | pocho.tech"
-  description="We build custom AI automations that give small teams their hours back: 1,600+ hours of manual work removed every year across three client teams."
+  title="Sistemas y automatización con IA para equipos chicos | pocho.tech"
+  description="Construimos sistemas de gestión propios y automatizaciones con IA que le devuelven las horas a los equipos chicos: más de 1,600 horas de trabajo manual eliminadas cada año."
   path="/"
   jsonLd={jsonLd}
 >
   <!-- 1. Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>We build the systems your business runs on.</h1>
+      <h1>Construimos los sistemas sobre los que corre su negocio.</h1>
       <p class="hero-sub">
-        From a six-person agency to a sixty-worker furniture factory: AI automations and custom management
-        systems that remove 1,600+ hours of manual work a year and put the whole operation on one screen.
+        De una agencia de seis personas a una fábrica de muebles de sesenta trabajadores: automatizaciones con IA
+        y sistemas de gestión propios que quitan más de 1,600 horas de trabajo manual al año y ponen toda la
+        operación en una sola pantalla.
       </p>
       <div class="hero-ctas">
-        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
-        <a href="/case-studies" class="btn btn-secondary">See the case studies</a>
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
+        <a href="/case-studies" class="btn btn-secondary">Ver los casos</a>
       </div>
     </div>
   </section>
 
   <!-- 2. Proof strip -->
-  <section class="proof" aria-label="Production metrics">
+  <section class="proof" aria-label="Métricas de producción">
     <div class="wrap">
-      <p class="eyebrow">Six businesses. Automations and full systems. Real numbers.</p>
+      <p class="eyebrow">Seis negocios. Automatizaciones y sistemas completos. Números reales.</p>
       <dl class="proof-grid">
         {metrics.map((m) => (
           <div class="proof-item">
@@ -95,84 +96,87 @@ const jsonLd = graph(
   <!-- 3. Case-study previews -->
   <section class="section" aria-labelledby="work-h">
     <div class="wrap">
-      <h2 id="work-h">The work, with numbers attached.</h2>
+      <h2 id="work-h">El trabajo, con números pegados.</h2>
 
-      <p class="eyebrow work-kicker">Management systems, for operations that ran on paper</p>
+      <p class="eyebrow work-kicker">Sistemas de gestión, para operaciones que corrían en papel</p>
       <div class="grid-3 case-grid">
         <article class="card case-card">
-          <p class="metric metric-card">67 real orders on day one. 11 were already late.</p>
-          <p class="case-client">Furniture factory, sixty workers, made-to-order production.</p>
+          <p class="metric metric-card">67 órdenes reales el día uno. 11 ya venían atrasadas.</p>
+          <p class="case-client">Fábrica de muebles, sesenta trabajadores, producción contra pedido.</p>
           <p>
-            We built their production management system and loaded their real operation before switch-on: 67
-            active orders, 364 pieces, their own order numbers. The first morning, the owner saw the backlog on
-            one screen for the first time. The system didn’t create the delay; it made it visible.
+            Les construimos el sistema de gestión de producción y cargamos su operación real antes de encender:
+            67 órdenes activas, 364 piezas, sus propios números de orden. La primera mañana el dueño vio el
+            atraso completo en una sola pantalla por primera vez. El sistema no creó la demora; la hizo visible.
           </p>
-          <a href="/case-studies/furniture-factory" class="case-link">Read the case study</a>
+          <a href="/case-studies/furniture-factory" class="case-link">Leer el caso</a>
         </article>
         <article class="card case-card">
-          <p class="metric metric-card">Open on a Monday. Running on its system since Friday.</p>
-          <p class="case-client">Lube center, a brand-new business that never touched paper.</p>
+          <p class="metric metric-card">Abrió un lunes. Corriendo en su sistema desde el viernes.</p>
+          <p class="case-client">Lubricentro, un negocio nuevo que nunca tocó papel.</p>
           <p>
-            Service orders, multi-service checklists, scheduling, and invoicing, live before the first customer
-            walked in. It runs on the counter phone and the office computer alike, and the team took their first
-            order digitally. No double-entry period, ever.
+            Órdenes de servicio, checklists multiservicio, agenda y facturación, en vivo antes de que entrara el
+            primer cliente. Corre igual en el celular del mostrador que en la computadora de la oficina, y el
+            equipo tomó su primera orden en digital. Nunca hubo período de doble captura.
           </p>
-          <a href="/case-studies/lube-center" class="case-link">Read the case study</a>
+          <a href="/case-studies/lube-center" class="case-link">Leer el caso</a>
         </article>
         <article class="card case-card">
-          <p class="metric metric-card">Inventory, sales, and orders in one system.</p>
-          <p class="case-client">Brake-parts distributor, in daily use.</p>
+          <p class="metric metric-card">Inventario, ventas y pedidos en un solo sistema.</p>
+          <p class="case-client">Distribuidora de repuestos de freno, en uso diario.</p>
           <p>
-            A custom system replaced the spreadsheet only one person understood: stock, sales, and customer
-            orders in one place, reachable from the counter. The same owners later opened the lube center above,
-            and started it on a system from day zero.
+            Un sistema propio reemplazó la hoja de cálculo que entendía una sola persona: existencias, ventas y
+            pedidos de clientes en un mismo lugar, alcanzable desde el mostrador. Los mismos dueños abrieron
+            después el lubricentro de arriba, y lo arrancaron con sistema desde el día cero.
           </p>
-          <p class="case-note">We grew up in this world: our founder’s family has run a machine workshop for over forty years.</p>
+          <p class="case-note">Venimos de ese mundo: la familia de nuestro fundador lleva más de cuarenta años con un taller mecánico.</p>
         </article>
       </div>
 
-      <p class="eyebrow work-kicker">AI automations, for teams drowning in repetitive work</p>
+      <p class="eyebrow work-kicker">Automatizaciones con IA, para equipos ahogados en trabajo repetitivo</p>
       <div class="grid-3 case-grid">
         <article class="card case-card">
-          <p class="metric metric-card">2–4 proposals a day, 15 minutes each.</p>
-          <p class="case-client">Event production agency, team of six to eight.</p>
+          <p class="metric metric-card">2 a 4 propuestas por día, 15 minutos cada una.</p>
+          <p class="case-client">Agencia de producción de eventos, equipo de seis a ocho.</p>
           <p>
-            An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board,
-            and creates the QuickBooks customer with two 50/50 invoices, untouched. At 2–4 proposals a day,
-            that’s 6–8 hours of manual operations gone from every working day.
+            Una propuesta aceptada en Fresh Proposals actualiza la etapa del negocio en HubSpot, arma el tablero
+            en Monday.com y crea el cliente en QuickBooks con dos facturas al 50 por ciento, sin que nadie toque
+            nada. A 2 o 4 propuestas por día, son de 6 a 8 horas de operación manual que desaparecen de cada
+            jornada.
           </p>
-          <a href="/case-studies/event-production-agency" class="case-link">Read the case study</a>
+          <a href="/case-studies/event-production-agency" class="case-link">Leer el caso</a>
         </article>
         <article class="card case-card">
-          <p class="metric metric-card">400+ articles a day. Ten make the newsletter.</p>
-          <p class="case-client">Travel media company, editorial team of twelve.</p>
+          <p class="metric metric-card">400+ artículos por día. Diez llegan al newsletter.</p>
+          <p class="case-client">Empresa de medios de viajes, redacción de doce personas.</p>
           <p>
-            Overnight, an AI reads eleven-plus publications, picks the ten stories that matter, and delivers a
-            finished newsletter every morning. Their creator tracker went from 5 hours a week to 1.5, covering
-            70 creators instead of 30.
+            De noche, una IA lee más de once publicaciones, elige las diez notas que importan y entrega el
+            newsletter terminado cada mañana. Su rastreador de creadores pasó de 5 horas por semana a 1.5,
+            cubriendo 70 creadores en vez de 30.
           </p>
-          <a href="/case-studies/travel-media-company" class="case-link">Read the case study</a>
+          <a href="/case-studies/travel-media-company" class="case-link">Leer el caso</a>
         </article>
         <article class="card case-card">
-          <p class="metric metric-card">From zero operational visibility to automated daily reporting.</p>
-          <p class="case-client">EdTech workforce training, Boston. 30–40 applicants per cohort.</p>
+          <p class="metric metric-card">De cero visibilidad operativa a reportes diarios automáticos.</p>
+          <p class="case-client">Formación laboral EdTech, Boston. De 30 a 40 postulantes por cohorte.</p>
           <p>
-            Six connected systems run their admissions and operations: AI-scored interviews from Read.ai
-            transcripts, scheduling, stipend-eligibility alerts, and the 5pm report the whole team reads.
+            Seis sistemas conectados corren sus admisiones y su operación: entrevistas calificadas por IA a
+            partir de transcripciones de Read.ai, agenda, alertas de elegibilidad de estipendio, y el reporte de
+            las 5 de la tarde que lee todo el equipo.
           </p>
           <blockquote class="card-quote">
-            <p>“You have done such a great job that I can’t remember how we were working before you.”</p>
-            <cite>CEO, EdTech workforce-training company</cite>
+            <p>“Han hecho un trabajo tan bueno que ya no me acuerdo de cómo trabajábamos antes de ustedes.”</p>
+            <cite>CEO, empresa de formación laboral EdTech</cite>
           </blockquote>
-          <a href="/case-studies/edtech-workforce-training" class="case-link">Read the case study</a>
+          <a href="/case-studies/edtech-workforce-training" class="case-link">Leer el caso</a>
         </article>
       </div>
       <blockquote class="support-quote">
         <p>
-          “Erick has helped us build and implement multiple automations for our editorial department, and these
-          save us time each week that can be spent producing content rather than sifting through emails and data.”
+          “Erick nos ayudó a construir e implementar varias automatizaciones para nuestro departamento editorial,
+          y nos ahorran tiempo cada semana que podemos dedicar a producir contenido en vez de a revolver correos
+          y datos.”
         </p>
-        <cite>Editorial team, travel media company</cite>
+        <cite>Equipo editorial, empresa de medios de viajes</cite>
       </blockquote>
     </div>
   </section>
@@ -181,23 +185,23 @@ const jsonLd = graph(
   <section class="section section-alt" aria-labelledby="founder-h">
     <div class="wrap founder founder-grid">
       <div>
-        <h2 id="founder-h">Who builds this</h2>
+        <h2 id="founder-h">Quién construye esto</h2>
         <p>
-          I’m Erick Bonilla, founder and the only engineer at pocho.tech. Every automation on this page, I scoped
-          and built myself, and most of them I still operate.
+          Soy Erick Bonilla, fundador y el único ingeniero de Pocho.tech. Cada automatización de esta página la
+          dimensioné y la construí yo, y la mayoría todavía las opero.
         </p>
-        <p>I work embedded: in your Slack, inside your accounts, as a team member whose job is automation.</p>
+        <p>Trabajo metido adentro: en su Slack, dentro de sus cuentas, como un miembro más del equipo cuyo trabajo es automatizar.</p>
         <p>
-          I build on n8n and Make.com with the OpenAI and Anthropic APIs, and I speak about this work at industry
-          conferences.
+          Construyo sobre n8n y Make.com con las APIs de OpenAI y Anthropic, y hablo de este trabajo en
+          conferencias de la industria.
         </p>
-        <p>The travel media company on this page hired me to build after I taught n8n to their AI lead.</p>
-        <p class="founder-close">When something breaks, you message the person who wrote it.</p>
-        <a href="/about" class="case-link">More about how I work</a>
+        <p>La empresa de medios de viajes de esta página me contrató para construir después de que le enseñé n8n a su encargado de IA.</p>
+        <p class="founder-close">Cuando algo se rompe, le escribe a la persona que lo escribió.</p>
+        <a href="/about" class="case-link">Más sobre cómo trabajo</a>
       </div>
       <Image
         src={erickPhoto}
-        alt="Erick Bonilla, founder and engineer at pocho.tech"
+        alt="Erick Bonilla, fundador e ingeniero de pocho.tech"
         class="founder-photo"
         widths={[400, 640]}
         sizes="(max-width: 900px) 76vw, 300px"
@@ -208,47 +212,47 @@ const jsonLd = graph(
   <!-- 5. Services -->
   <section class="section" aria-labelledby="services-h">
     <div class="wrap">
-      <h2 id="services-h">Three ways to start.</h2>
+      <h2 id="services-h">Tres formas de empezar.</h2>
       <div class="grid-3 services-grid">
         <article class="card service-card">
-          <h3>Automation Audit</h3>
-          <p class="price">$500, credited in full toward a custom build</p>
+          <h3>Diagnóstico de automatización</h3>
+          <p class="price">$500, acreditados completos a un desarrollo</p>
           <p>
-            A 60-minute review of how your team actually works, then a written report within five business days.
-            You get what to automate first, which tools, estimated time savings, and the build scope for each
-            recommendation.
+            Una revisión de 60 minutos de cómo trabaja su equipo de verdad, y después un informe escrito dentro
+            de cinco días hábiles. Se lleva qué automatizar primero, con qué herramientas, cuánto tiempo se
+            estima ahorrar y el alcance de cada recomendación.
           </p>
-          <p>Commission a build afterward and the $500 comes off the price.</p>
-          <a href={CALENDLY} class="btn btn-secondary" rel="noopener">Book an audit</a>
+          <p>Si después encarga un desarrollo, los $500 se descuentan del precio.</p>
+          <a href={CALENDLY} class="btn btn-secondary" rel="noopener">Agendar un diagnóstico</a>
         </article>
         <article class="card service-card service-flagship">
-          <h3>Custom Automation Build</h3>
-          <p class="price">From $1,500, fixed price after a discovery call</p>
+          <h3>Automatización a la medida</h3>
+          <p class="price">Desde $1,500, precio fijo después de la llamada</p>
           <p>
-            I design the solution, build and test it on your systems, and hand it off with documentation and a
-            walkthrough. Typical timeline is one to four weeks.
+            Diseño la solución, la construyo y la pruebo sobre sus sistemas, y la entrego con documentación y un
+            recorrido grabado. El plazo típico es de una a cuatro semanas.
           </p>
-          <p>This is how the automation case studies on this page started.</p>
-          <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+          <p>Así empezaron los casos de automatización de esta página.</p>
+          <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
         </article>
         <article class="card service-card">
-          <h3>Management System Build</h3>
-          <p class="price">Fixed quote after discovery. Reserve a slot: $100</p>
+          <h3>Sistema de gestión propio</h3>
+          <p class="price">Cotización fija tras el diagnóstico. Reservar cupo: $100</p>
           <p>
-            For operations that still run on notebooks, spreadsheets, and WhatsApp: a custom system for orders,
-            inventory, and production, live on your real data in the first month.
+            Para operaciones que todavía corren en cuadernos, hojas de cálculo y WhatsApp: un sistema propio para
+            órdenes, inventario y producción, en vivo sobre sus datos reales en el primer mes.
           </p>
-          <p>We take a limited number of new builds per month. The deposit is credited in full.</p>
-          <a href="/services/management-system-build" class="btn btn-secondary">How it works</a>
+          <p>Tomamos una cantidad limitada de desarrollos nuevos por mes. El depósito se acredita completo.</p>
+          <a href="/services/management-system-build" class="btn btn-secondary">Cómo funciona</a>
         </article>
       </div>
       <p class="service-note">
-        Most engagements don’t end at handoff. All three client teams on this page continue on embedded
-        retainers, scoped per engagement on the discovery call.
+        La mayoría de los trabajos no termina en la entrega. Los tres equipos de clientes de esta página siguen
+        con un acompañamiento mensual, dimensionado caso por caso en la llamada de diagnóstico.
       </p>
       <p class="service-note service-note-small">
-        I also consult on n8n and Make.com: training and architecture review for teams that want to build
-        in-house. <a href="/services/n8n-consulting">n8n &amp; Make.com consulting</a>
+        También hago consultoría de n8n y Make.com: capacitación y revisión de arquitectura para equipos que
+        quieren construir en casa. <a href="/services/n8n-consulting">Consultoría n8n y Make.com</a>
       </p>
     </div>
   </section>
@@ -256,34 +260,35 @@ const jsonLd = graph(
   <!-- 6. How an engagement works -->
   <section class="section section-alt" aria-labelledby="process-h">
     <div class="wrap">
-      <h2 id="process-h">How an engagement works</h2>
+      <h2 id="process-h">Cómo funciona un trabajo</h2>
       <ol class="process">
         <li>
-          <h3>Discovery call <span class="step-time">60 minutes</span></h3>
-          <p>You walk me through how the work actually happens, and I look for where the hours go. Book it directly on my calendar.</p>
+          <h3>Llamada de diagnóstico <span class="step-time">60 minutos</span></h3>
+          <p>Usted me cuenta cómo pasa el trabajo de verdad, y yo busco dónde se van las horas. La agenda directo en mi calendario.</p>
         </li>
         <li>
-          <h3>Solution design <span class="step-time">a few days</span></h3>
-          <p>You get a written scope: what I’ll build, what it connects to, the fixed price, and the timeline. Nothing starts until you approve it.</p>
+          <h3>Diseño de la solución <span class="step-time">unos días</span></h3>
+          <p>Recibe un alcance escrito: qué voy a construir, con qué se conecta, el precio fijo y el plazo. Nada arranca hasta que usted lo aprueba.</p>
         </li>
         <li>
-          <h3>Build and test <span class="step-time">one to four weeks</span></h3>
-          <p>I build on your systems and test against your real data, checking in as each piece goes live.</p>
+          <h3>Construcción y prueba <span class="step-time">de una a cuatro semanas</span></h3>
+          <p>Construyo sobre sus sistemas y pruebo contra sus datos reales, avisándole a medida que cada pieza entra en vivo.</p>
         </li>
         <li>
-          <h3>Handoff <span class="step-time">one call</span></h3>
-          <p>You get documentation and a recorded walkthrough of everything I built.</p>
+          <h3>Entrega <span class="step-time">una llamada</span></h3>
+          <p>Recibe la documentación y un recorrido grabado de todo lo construido.</p>
         </li>
       </ol>
       <div class="process-notes">
         <p>
-          <strong>You own all of it.</strong> The workflows run in your accounts under your credentials. If we
-          ever part ways, everything keeps running.
+          <strong>Todo es suyo.</strong> Los flujos corren en sus cuentas con sus credenciales. Si algún día nos
+          separamos, todo sigue funcionando.
         </p>
         <p>
-          <strong>What “embedded” means:</strong> most clients keep me on after handoff, working inside their
-          Slack, their CRM, their boards, as a team member who happens to be an automation engineer. That’s how
-          one automation at the events agency became four, and one system at the EdTech company became six.
+          <strong>Qué significa “metido adentro”:</strong> la mayoría de los clientes me deja después de la
+          entrega, trabajando dentro de su Slack, su CRM y sus tableros, como un miembro del equipo que resulta
+          ser ingeniero de automatización. Así una automatización en la agencia de eventos se volvió cuatro, y un
+          sistema en la empresa de EdTech se volvió seis.
         </p>
       </div>
     </div>
@@ -292,34 +297,37 @@ const jsonLd = graph(
   <!-- 7. Industries -->
   <section class="section" aria-labelledby="industries-h">
     <div class="wrap">
-      <h2 id="industries-h">Where we work</h2>
+      <h2 id="industries-h">Dónde trabajamos</h2>
       <div class="grid-2 industry-grid">
         <a class="card industry-card" href="/industries/media-publishing">
-          <h3>Media &amp; publishing</h3>
+          <h3>Medios y editoriales</h3>
           <p>
-            Four automations run a travel media company’s editorial back office: newsletter curation from 400+
-            daily articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities.
+            Cuatro automatizaciones corren el back office editorial de una empresa de medios de viajes: curaduría
+            del newsletter a partir de más de 400 artículos diarios, un rastreador de 70 creadores, reportes de
+            afiliados y búsqueda de eventos en 15 ciudades.
           </p>
         </a>
         <a class="card industry-card" href="/industries/marketing-agencies">
-          <h3>Agencies</h3>
+          <h3>Agencias</h3>
           <p>
-            An event production agency runs four: web lead routing, AI referral capture, the proposal-to-invoice
-            pipeline, and a business card scanner that lives in Slack.
+            Una agencia de producción de eventos corre cuatro: enrutamiento de prospectos del sitio, captura de
+            referidos con IA, el circuito de propuesta a factura y un escáner de tarjetas de presentación que
+            vive en Slack.
           </p>
         </a>
         <a class="card industry-card" href="/industries/destination-marketing">
-          <h3>Destination marketing organizations</h3>
+          <h3>Organizaciones de promoción turística</h3>
           <p>
-            For tourism boards and convention bureaus: partner tracking, AI email agents, content pipelines, and
-            lead qualification. I come from the travel-media side of this industry and speak at its conferences.
+            Para oficinas de turismo y buróes de convenciones: seguimiento de socios, agentes de correo con IA,
+            circuitos de contenido y calificación de prospectos. Vengo del lado de los medios de viajes de esta
+            industria y hablo en sus conferencias.
           </p>
         </a>
         <a class="card industry-card" href="/industries/accounting-firms">
-          <h3>Accounting &amp; CPA firms</h3>
+          <h3>Firmas contables</h3>
           <p>
-            Bookkeeping and tax workflow automation: QuickBooks Online, TaxDome, and the client communications
-            that surround every deadline.
+            Automatización de contabilidad y flujos fiscales: QuickBooks Online, TaxDome y las comunicaciones con
+            el cliente que rodean cada fecha límite.
           </p>
         </a>
       </div>
@@ -327,39 +335,39 @@ const jsonLd = graph(
   </section>
 
   <!-- 8. Testimonial -->
-  <section class="section" aria-label="Client testimonial">
+  <section class="section" aria-label="Testimonio de cliente">
     <div class="wrap">
       <blockquote class="big-quote">
         <p>“{kyreneQuote}”</p>
-        <cite>Social media team, travel media company</cite>
+        <cite>Equipo de redes sociales, empresa de medios de viajes</cite>
       </blockquote>
       <p class="quote-context">
-        On the creator tracker, one of four automations running at the travel media company. When it goes down, the team
-        emails within hours asking for it back.
+        Sobre el rastreador de creadores, una de las cuatro automatizaciones que corren en la empresa de medios
+        de viajes. Cuando se cae, el equipo escribe a las pocas horas pidiendo que vuelva.
       </p>
     </div>
   </section>
 
   <!-- 10. FAQ -->
-  <Faq faqs={faqs} heading="Questions I get on every discovery call" />
+  <Faq faqs={faqs} heading="Preguntas que me hacen en cada llamada" />
 
   <!-- 11. Final CTA -->
   <section class="section section-alt final-cta">
     <div class="wrap">
-      <h2>Tell me where the hours go.</h2>
+      <h2>Cuénteme dónde se van las horas.</h2>
       <p>
-        Sixty minutes: you walk me through how your team works, and I tell you what I’d automate first and what
-        it would cost.
+        Sesenta minutos: usted me explica cómo trabaja su equipo, y yo le digo qué automatizaría primero y
+        cuánto costaría.
       </p>
       <p>
-        If the right answer is a smaller build than you had in mind, I’ll say so. If it’s not a fit, you’ll
-        hear that on the call.
+        Si la respuesta correcta es un desarrollo más chico del que tenía en mente, se lo digo. Y si no calza,
+        también lo escucha en la llamada.
       </p>
       <div class="hero-ctas">
-        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
       </div>
       <p class="cta-alt">
-        Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        O escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       </p>
     </div>
   </section>

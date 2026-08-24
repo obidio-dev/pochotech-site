@@ -6,42 +6,42 @@ import { CALENDLY, EMAIL } from '../../data/site';
 import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
 
 const DESCRIPTION =
-  'Bookkeeping and tax workflow automation for CPA firms: QuickBooks Online, TaxDome, quarterly tax letters, and the client communications around deadlines.';
+  'Automatización de contabilidad y flujos fiscales para firmas contables: QuickBooks Online, TaxDome, cartas trimestrales de impuestos y las comunicaciones con el cliente alrededor de cada fecha límite.';
 
 const faqs = [
   {
-    q: "Whether I've automated a CPA firm before",
-    a: "Not one I can name on this page yet, and the page doesn't pretend otherwise. The component systems each run in production for the named clients on this site: QuickBooks automation, AI drafting with review steps, deadline-driven communications.",
+    q: 'Si ya automaticé una firma contable antes',
+    a: 'Ninguna que pueda nombrar todavía en esta página, y la página no pretende otra cosa. Las piezas que la componen ya corren en producción para los clientes de este sitio: automatización de QuickBooks, redacción con IA con pasos de revisión, y comunicaciones atadas a fechas límite.',
   },
   {
-    q: 'How client financial data is handled',
-    a: 'Everything runs in your accounts under your credentials, and the data stays in your systems. I work under whatever access you grant, and you can revoke it at any time.',
+    q: 'Cómo se manejan los datos financieros del cliente',
+    a: 'Todo corre en sus cuentas con sus credenciales, y los datos se quedan en sus sistemas. Trabajo con el acceso que usted me dé, y lo puede revocar cuando quiera.',
   },
   {
-    q: 'Whether AI sends anything to clients unreviewed',
-    a: 'Only if you decide it should. Default builds queue every AI-drafted letter and email for a reviewer. Automation removes the assembly work, and the review step stays.',
+    q: 'Si la IA le manda algo al cliente sin revisión',
+    a: 'Solo si usted decide que así sea. Por defecto, todo lo que la IA redacta queda en fila para que lo revise una persona. La automatización quita el trabajo de armado; el paso de revisión se queda.',
   },
   {
-    q: 'Where to start',
-    a: 'The $500 audit fits firms well: a 60-minute review of one workflow, quarterly letters are a common pick, then a written report within five business days. Credited in full toward a build.',
+    q: 'Por dónde empezar',
+    a: 'El diagnóstico de $500 le calza bien a las firmas: una revisión de 60 minutos de un solo proceso, las cartas trimestrales son la elección típica, y después un informe escrito dentro de cinco días hábiles. Se acredita completo a un desarrollo.',
   },
 ];
 
 const jsonLd = graph(
   serviceSchema({
-    name: 'AI Automation for Accounting & CPA Firms',
+    name: 'Automatización con IA para firmas contables',
     description: DESCRIPTION,
     path: '/industries/accounting-firms',
   }),
   breadcrumbs([
-    { name: 'Industries', path: '/industries' },
-    { name: 'Accounting & CPA firms', path: '/industries/accounting-firms' },
+    { name: 'Industrias', path: '/industries' },
+    { name: 'Firmas contables', path: '/industries/accounting-firms' },
   ]),
   faqSchema(faqs)
 );
 ---
 <Base
-  title="AI Automation for Accounting & CPA Firms | pocho.tech"
+  title="Automatización con IA para firmas contables | pocho.tech"
   description={DESCRIPTION}
   path="/industries/accounting-firms"
   jsonLd={jsonLd}
@@ -49,15 +49,15 @@ const jsonLd = graph(
   <!-- Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>Quarterly tax letters, assembled by automation, reviewed by your firm.</h1>
+      <h1>Cartas trimestrales armadas por automatización, revisadas por su firma.</h1>
       <p class="hero-sub">
-        I build automations for accounting and CPA firms: bookkeeping workflows in QuickBooks Online, practice
-        workflows in TaxDome, quarterly tax letters, and the client communications around every deadline. This
-        page describes what I build for firms; the production numbers elsewhere on this site come from the three
-        named clients I've already automated.
+        Construyo automatizaciones para firmas contables: flujos de contabilidad en QuickBooks Online, flujos de
+        práctica en TaxDome, cartas trimestrales de impuestos, y las comunicaciones con el cliente alrededor de
+        cada fecha límite. Esta página describe qué construyo para firmas; los números de producción del resto
+        del sitio vienen de los tres clientes que ya automaticé.
       </p>
       <div class="hero-ctas">
-        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
       </div>
     </div>
   </section>
@@ -65,15 +65,16 @@ const jsonLd = graph(
   <!-- Where the hours go -->
   <section class="section section-alt hours" aria-labelledby="hours-h">
     <div class="wrap">
-      <h2 id="hours-h">Where the hours go</h2>
+      <h2 id="hours-h">Dónde se van las horas</h2>
       <p>
-        Every quarter, someone assembles tax letters client by client: pulling the numbers, fitting them into
-        the firm's format, checking names against the file. The work is identical across clients, and it still
-        gets done one at a time.
+        Cada trimestre, alguien arma las cartas de impuestos cliente por cliente: saca los números, los mete en
+        el formato de la firma, revisa los nombres contra el expediente. El trabajo es idéntico entre clientes,
+        y aun así se hace de a uno.
       </p>
       <p>
-        Before every deadline, someone chases documents: the same reminder, personalized by hand, sent to each
-        client who hasn't uploaded. Status questions arrive all week, and each one means opening TaxDome to look.
+        Antes de cada fecha límite, alguien persigue documentos: el mismo recordatorio, personalizado a mano,
+        enviado a cada cliente que no ha subido nada. Las preguntas de estado llegan toda la semana, y cada una
+        significa abrir TaxDome para mirar.
       </p>
     </div>
   </section>
@@ -81,57 +82,59 @@ const jsonLd = graph(
   <!-- What I build -->
   <section class="section" aria-labelledby="build-h">
     <div class="wrap">
-      <h2 id="build-h">What I build for accounting firms</h2>
+      <h2 id="build-h">Qué construyo para firmas contables</h2>
       <div class="grid-2 systems-grid">
         <article class="card system-card">
-          <h3>Quarterly tax-letter workflow</h3>
+          <h3>Circuito de cartas trimestrales</h3>
           <p>
-            An automation that assembles each client's quarterly letter: data pulled from your books, the letter
-            drafted by AI in your format, queued for a reviewer before anything goes out. The reviewer approves
-            or edits; the system sends and logs.
+            Una automatización que arma la carta trimestral de cada cliente: los datos salen de sus libros, la
+            carta la redacta la IA en el formato de la firma, y queda en fila para que la revise una persona
+            antes de que salga nada. El revisor aprueba o edita; el sistema envía y registra.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>QuickBooks Online</li>
             <li>TaxDome</li>
-            <li>OpenAI or Anthropic</li>
+            <li>OpenAI o Anthropic</li>
             <li>Gmail</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Document chasing and deadline communications</h3>
+          <h3>Persecución de documentos y comunicaciones de fecha límite</h3>
           <p>
-            An automation that watches which clients haven't submitted, drafts each reminder from that client's
-            actual status, and escalates as the deadline approaches. Nothing sends without the review step your
-            firm sets.
+            Una automatización que vigila qué clientes no han entregado, redacta cada recordatorio a partir del
+            estado real de ese cliente, y escala a medida que se acerca la fecha. Nada sale sin el paso de
+            revisión que ponga su firma.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>TaxDome</li>
             <li>Gmail</li>
             <li>OpenAI</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Bookkeeping workflows in QuickBooks Online</h3>
+          <h3>Flujos de contabilidad en QuickBooks Online</h3>
           <p>
-            Automations that create customers and invoices, move data between systems, and keep the books in sync
-            with the tools around them. QuickBooks invoice creation already runs in my production work: an
-            event production agency's pipeline creates the customer and two invoices the moment a proposal is accepted.
+            Automatizaciones que crean clientes y facturas, mueven datos entre sistemas, y mantienen los libros
+            sincronizados con las herramientas de alrededor. La creación de facturas en QuickBooks ya corre en
+            mi trabajo de producción: el circuito de una agencia de producción de eventos crea el cliente y dos
+            facturas en el momento en que se acepta una propuesta.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>QuickBooks Online</li>
-            <li>plus whatever feeds it</li>
+            <li>y lo que sea que lo alimente</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Client intake and status</h3>
+          <h3>Alta de clientes y estado</h3>
           <p>
-            Intake that creates the client record everywhere it needs to exist, and status updates drafted
-            automatically when work moves stages. The inbox stops being the status system.
+            Un alta que crea el registro del cliente en todos los lados donde tiene que existir, y
+            actualizaciones de estado redactadas solas cuando el trabajo cambia de etapa. La bandeja de correo
+            deja de ser el sistema de estado.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>TaxDome</li>
             <li>Gmail</li>
-            <li>your CRM</li>
+            <li>su CRM</li>
           </ul>
         </article>
       </div>
@@ -141,33 +144,33 @@ const jsonLd = graph(
   <!-- Where the proof comes from -->
   <section class="section section-alt proof" aria-labelledby="proof-h">
     <div class="wrap">
-      <h2 id="proof-h">Where the proof comes from</h2>
+      <h2 id="proof-h">De dónde sale la prueba</h2>
       <p>
-        No accounting firm is named on this page yet. When one is, the numbers will be here. The component
-        systems are in production elsewhere.
+        En esta página todavía no hay ninguna firma contable nombrada. Cuando la haya, los números van a estar
+        acá. Las piezas que la componen sí están en producción en otro lado.
       </p>
       <ul class="proof-list">
         <li>
-          QuickBooks automation runs daily at the events agency: proposal acceptance to customer plus two invoices,
-          untouched.
+          La automatización de QuickBooks corre todos los días en la agencia de eventos: de propuesta aceptada a
+          cliente creado más dos facturas, sin que nadie toque nada.
         </li>
         <li>
-          AI drafting with human review runs at an EdTech workforce-training company: structured AI evaluations delivered to human
-          reviewers, plus automated daily reporting.
+          La redacción con IA y revisión humana corre en una empresa de formación laboral EdTech: evaluaciones
+          estructuradas de IA entregadas a revisores humanos, más reportes diarios automáticos.
         </li>
-        <li>Twelve automations in production across three teams, spanning more than twenty tools.</li>
+        <li>Doce automatizaciones en producción entre tres equipos, abarcando más de veinte herramientas.</li>
       </ul>
     </div>
   </section>
 
   <!-- FAQ -->
-  <Faq faqs={faqs} heading="Questions firms ask" />
+  <Faq faqs={faqs} heading="Preguntas que hacen las firmas" />
 
   <!-- CTA -->
   <CtaSection
-    heading="Tell me where the quarter's hours go."
-    body="Sixty minutes: you walk me through one deadline cycle, and I tell you what I'd automate first and what it would cost."
-    secondaryLabel={`Or write to me directly: ${EMAIL}`}
+    heading="Cuénteme dónde se van las horas del trimestre."
+    body="Sesenta minutos: usted me explica un ciclo de cierre, y yo le digo qué automatizaría primero y cuánto costaría."
+    secondaryLabel={`O escríbame directo: ${EMAIL}`}
     secondaryHref={`mailto:${EMAIL}`}
   />
 </Base>

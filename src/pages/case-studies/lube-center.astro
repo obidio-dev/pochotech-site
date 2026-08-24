@@ -7,135 +7,135 @@ import { EMAIL, BOILERPLATE } from '../../data/site';
 
 const faqs = [
   {
-    q: "Should a new business wait until it's bigger before it gets a system?",
-    a: 'No. Waiting means opening on paper, living with the pain of double entry for a few months, and migrating later under pressure once it already hurts. This shop skipped that phase entirely: the system was live before the first customer arrived, so there was never a paper process to migrate away from.',
+    q: '¿Un negocio nuevo debería esperar a ser más grande antes de tener sistema?',
+    a: 'No. Esperar significa abrir en papel, aguantar el dolor de la doble captura unos meses, y migrar después bajo presión cuando ya duele. Este taller se saltó esa etapa completa: el sistema estaba en vivo antes de que llegara el primer cliente, así que nunca hubo un proceso en papel del que migrar.',
   },
   {
-    q: 'How fast can a system like this be ready for an opening day?',
-    a: 'Fast enough to be running before day one, if the opening date is set early and the build is scoped against it. Here the system was in production about two weeks before the doors opened, which left time to work through it before a real customer touched it.',
+    q: '¿Qué tan rápido puede estar listo un sistema así para el día de apertura?',
+    a: 'Lo suficiente como para estar corriendo antes del día uno, si la fecha de apertura se define temprano y el desarrollo se dimensiona contra ella. Acá el sistema estuvo en producción unas dos semanas antes de que abrieran las puertas, lo que dejó tiempo para recorrerlo antes de que lo tocara un cliente real.',
   },
   {
-    q: 'Does it work on the phone at the counter, or only on a computer in the office?',
-    a: 'Both, from the same system. It is built as a progressive web app, so the phone at the counter and the computer in the office run the same thing, with nothing to install.',
+    q: '¿Funciona en el celular del mostrador, o solo en una computadora de oficina?',
+    a: 'En los dos, desde el mismo sistema. Está hecho como aplicación web progresiva, así que el celular del mostrador y la computadora de la oficina corren lo mismo, sin nada que instalar.',
   },
   {
-    q: 'What happens after opening day?',
-    a: 'The system keeps recording every order, service, and invoice as the shop runs, and it shipped with documentation so the team is not dependent on us for day-to-day use. We stay involved for what comes next: reporting, and adjustments to the catalog and checklist once the shop has real weeks of data behind it.',
+    q: '¿Qué pasa después del día de apertura?',
+    a: 'El sistema sigue registrando cada orden, cada servicio y cada factura mientras el taller opera, y se entregó con documentación para que el equipo no dependa de nosotros para el uso diario. Nos quedamos para lo que viene: reportes, y ajustes al catálogo y al checklist una vez que el taller tenga semanas reales de datos atrás.',
   },
   {
-    q: 'What does the multiservice checklist actually prevent?',
-    a: 'A skipped step on a job with more than one part, an oil change, a full inspection, that only gets noticed after the vehicle is already gone. The technician works down the same checklist every time instead of relying on memory, no matter how busy the shop is.',
+    q: '¿Qué evita en concreto el checklist multiservicio?',
+    a: 'Que se salte un paso en un trabajo con más de una parte, un cambio de aceite, una inspección completa, y que eso se note recién cuando el vehículo ya se fue. El técnico recorre el mismo checklist siempre en vez de confiar en la memoria, por más lleno que esté el taller.',
   },
 ];
 
 const jsonLd = graph(
   breadcrumbs([
-    { name: 'Home', path: '/' },
-    { name: 'Case Studies', path: '/case-studies' },
-    { name: 'Lube center', path: '/case-studies/lube-center' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Casos', path: '/case-studies' },
+    { name: 'Lubricentro', path: '/case-studies/lube-center' },
   ]),
   faqSchema(faqs)
 );
 ---
 <Base
-  title="Lube Center: Born Digital From Day One | pocho.tech"
-  description="A quick-lube shop's management system (service orders, checklist, invoicing, scheduling) went live before the first customer walked in. No paper phase, no migration later."
+  title="Lubricentro: nació digital desde el día uno | pocho.tech"
+  description="El sistema de gestión de un lubricentro (órdenes de servicio, checklist, facturación, agenda) entró en vivo antes de que llegara el primer cliente. Sin etapa de papel y sin migración después."
   path="/case-studies/lube-center"
   jsonLd={jsonLd}
 >
   <section class="cs-header">
     <div class="wrap">
-      <h1>Lube center: open on a Monday, running on its system since the Friday before.</h1>
-      <p class="client-line"><strong>A quick-lube shop.</strong> Opened by the owners of a brake-parts distributor we work with. One system: service orders, a catalog, a multiservice checklist, invoicing, and scheduling, live before the first customer arrived.</p>
+      <h1>Lubricentro: abrió un lunes, corriendo en su sistema desde el viernes anterior.</h1>
+      <p class="client-line"><strong>Un lubricentro.</strong> Abierto por los dueños de una distribuidora de repuestos de freno con la que trabajamos. Un solo sistema: órdenes de servicio, catálogo, checklist multiservicio, facturación y agenda, en vivo antes de que llegara el primer cliente.</p>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The decision</h2>
+      <h2>La decisión</h2>
       <div class="decision-block">
-        <p>Most new shops open on paper. A notebook at the counter, a folder for invoices, a whiteboard for the schedule, and a system that gets built later, once the paper is causing enough pain to justify the project.</p>
-        <p>The owners chose the other order. Before the shop had a single customer, it had a system. The management system was live in production about two weeks before opening day, running with no orders to process yet, waiting for the doors to open.</p>
-        <p>That is the decision in one sentence: build the system first, open the business on top of it, and skip the months of paper that every other new shop treats as normal.</p>
+        <p>Casi todos los negocios nuevos abren en papel. Un cuaderno en el mostrador, una carpeta para las facturas, una pizarra para la agenda, y un sistema que se construye después, cuando el papel ya duele lo suficiente como para justificar el proyecto.</p>
+        <p>Los dueños eligieron el orden contrario. Antes de que el taller tuviera un solo cliente, ya tenía sistema. El sistema de gestión estuvo en vivo en producción unas dos semanas antes de la apertura, corriendo sin órdenes que procesar todavía, esperando que abrieran las puertas.</p>
+        <p>Esa es la decisión en una frase: construir el sistema primero, abrir el negocio encima, y saltarse los meses de papel que cualquier otro negocio nuevo trata como normales.</p>
       </div>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>What we built</h2>
-      <p>One system, four jobs, no separate app for any of them.</p>
+      <h2>Qué construimos</h2>
+      <p>Un solo sistema, cuatro trabajos, sin una aplicación aparte para ninguno.</p>
       <ol class="systems">
-        <li><strong>Service orders</strong>: every vehicle gets one record from intake to close, so nobody has to ask what stage a car is at.</li>
-        <li><strong>Service catalog</strong>: what the shop offers is defined once, the same way every time, instead of decided from memory at the counter.</li>
-        <li><strong>Multiservice checklist</strong>: jobs with more than one step, an oil change, a full inspection, run down a checklist instead of memory, so a step doesn't get skipped because the shop is busy.</li>
-        <li><strong>Invoicing and agenda</strong>: the order closes into an invoice, and the day's schedule runs off the same data, not a separate calendar.</li>
+        <li><strong>Órdenes de servicio</strong>: cada vehículo tiene un solo registro desde que entra hasta que cierra, así nadie tiene que preguntar en qué etapa va un carro.</li>
+        <li><strong>Catálogo de servicios</strong>: lo que el taller ofrece se define una vez, igual siempre, en vez de decidirse de memoria en el mostrador.</li>
+        <li><strong>Checklist multiservicio</strong>: los trabajos con más de un paso, un cambio de aceite, una inspección completa, recorren un checklist en vez de la memoria, para que no se salte un paso porque el taller está lleno.</li>
+        <li><strong>Facturación y agenda</strong>: la orden cierra en una factura, y la agenda del día sale de los mismos datos, no de un calendario aparte.</li>
       </ol>
-      <p class="systems-note">It is a progressive web app. The phone at the counter and the computer in the office run the exact same system, with nothing to install.</p>
+      <p class="systems-note">Es una aplicación web progresiva. El celular del mostrador y la computadora de la oficina corren exactamente el mismo sistema, sin nada que instalar.</p>
     </div>
   </section>
 
   <figure style="margin: 36px 0 8px; overflow-x: auto;">
-        <svg viewBox="0 0 940 170" role="img" aria-label="Flow: system deployed two weeks before opening, doors open on Monday with the first order taken digitally, every service runs order, checklist, invoice" style="min-width: 760px; width: 100%; height: auto; display: block;">
+        <svg viewBox="0 0 940 170" role="img" aria-label="Recorrido: sistema desplegado dos semanas antes de abrir, las puertas abren un lunes con la primera orden tomada en digital, y cada servicio corre orden, checklist y factura" style="min-width: 760px; width: 100%; height: auto; display: block;">
           <defs>
             <marker id="arr-l" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#6a6a6a" />
             </marker>
           </defs>
           <rect x="8" y="30" width="280" height="110" rx="10" fill="#ffffff" stroke="#e03a24" stroke-width="1.5" />
-          <text x="28" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#e03a24">TWO WEEKS BEFORE OPENING</text>
-          <text x="28" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">System deployed</text>
-          <text x="28" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">to production</text>
+          <text x="28" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#e03a24">DOS SEMANAS ANTES DE ABRIR</text>
+          <text x="28" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">Sistema desplegado</text>
+          <text x="28" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">a producción</text>
           <line x1="290" y1="85" x2="318" y2="85" stroke="#6a6a6a" stroke-width="1.5" marker-end="url(#arr-l)" />
           <rect x="323" y="30" width="280" height="110" rx="10" fill="#ffffff" stroke="#e6e6e2" />
-          <text x="343" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#6a6a6a">OPENING MONDAY</text>
-          <text x="343" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">First customer,</text>
-          <text x="343" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">first digital order. No paper.</text>
+          <text x="343" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#6a6a6a">EL LUNES DE APERTURA</text>
+          <text x="343" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">Primer cliente,</text>
+          <text x="343" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">primera orden digital. Sin papel.</text>
           <line x1="605" y1="85" x2="633" y2="85" stroke="#6a6a6a" stroke-width="1.5" marker-end="url(#arr-l)" />
           <rect x="638" y="30" width="295" height="110" rx="10" fill="#f6f6f4" stroke="#e6e6e2" />
-          <text x="658" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#6a6a6a">EVERY SERVICE</text>
-          <text x="658" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">Order, then checklist,</text>
-          <text x="658" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">then invoice. Never a skipped step.</text>
+          <text x="658" y="60" font-family="ui-monospace, monospace" font-size="11" letter-spacing="1.5" fill="#6a6a6a">CADA SERVICIO</text>
+          <text x="658" y="86" font-family="system-ui, sans-serif" font-size="14" fill="#141414">Orden, después checklist,</text>
+          <text x="658" y="106" font-family="system-ui, sans-serif" font-size="14" fill="#141414">después factura. Sin pasos saltados.</text>
         </svg>
-        <figcaption style="font-size: 0.85rem; color: #6a6a6a; margin-top: 10px;">One PWA: the counter phone and the office computer run the same system.</figcaption>
+        <figcaption style="font-size: 0.85rem; color: #6a6a6a; margin-top: 10px;">Una sola aplicación: el celular del mostrador y la computadora de la oficina corren el mismo sistema.</figcaption>
       </figure>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The opening</h2>
+      <h2>La apertura</h2>
       <div class="decision-block">
-        <p>The shop opened on a Monday. Its first customer's order went into the system directly, the same way every order since has. There was no clipboard to fill out first and no separate step to type it up later.</p>
-        <p>That is the point of building the system before the business opens: there was never a paper process to reconcile against a digital one. No double-entry stage, no stretch of weeks where the counter runs on a notebook while someone catches the system up. The team's first order was already digital, and so was every one after it.</p>
+        <p>El taller abrió un lunes. La orden de su primer cliente entró directo al sistema, igual que todas las órdenes desde entonces. No hubo una tabla que llenar primero ni un paso aparte para transcribirla después.</p>
+        <p>Ese es el punto de construir el sistema antes de que el negocio abra: nunca hubo un proceso en papel que reconciliar contra uno digital. Sin etapa de doble captura, sin semanas en que el mostrador corre en un cuaderno mientras alguien pone el sistema al día. La primera orden del equipo ya fue digital, y todas las que siguieron también.</p>
       </div>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The deployment</h2>
+      <h2>El despliegue</h2>
       <div class="decision-block">
-        <p>Getting the system into production before opening day did not go smoothly on the first try. The first attempt used an automatic, fashionable deployment integration, the kind meant to push a project live with one click. It failed under the size of this project.</p>
-        <p>What worked was the classic method: deploying by hand, from the command line. Slower to set up, and it doesn't have the same story to tell in a demo, but it worked, and the opening date wasn't moving.</p>
-        <p class="systems-note">The lesson generalizes past this one shop: the boring tool that works beats the modern one that doesn't, on any project where the deadline is fixed.</p>
+        <p>Poner el sistema en producción antes del día de apertura no salió liso al primer intento. El primero usó una integración de despliegue automática y de moda, de esas que prometen publicar un proyecto con un clic. Se cayó por el tamaño de este proyecto.</p>
+        <p>Lo que funcionó fue el método clásico: desplegar a mano, desde la línea de comandos. Más lento de montar, y no tiene la misma historia para contar en una demostración, pero funcionó, y la fecha de apertura no se movía.</p>
+        <p class="systems-note">La lección se generaliza más allá de este taller: la herramienta aburrida que funciona le gana a la moderna que no, en cualquier proyecto donde la fecha es fija.</p>
       </div>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>How we built it</h2>
+      <h2>Cómo lo construimos</h2>
       <div class="decision-block">
-        <p>The build followed the method behind every system we ship: month one delivers the core that solves the most painful part of the process, not every feature the shop could eventually want. Here, that core was getting a vehicle from intake to invoice without losing track of it, with the checklist built in so multiservice jobs don't lose a step.</p>
-        <p>It shipped with documentation, so running the shop day to day doesn't depend on reaching us. What comes after opening, reporting, adjustments to the catalog and checklist, is its own phase, scoped once the shop has real weeks of data behind it.</p>
+        <p>El desarrollo siguió el método que hay detrás de cada sistema que entregamos: el mes uno entrega el núcleo que resuelve la parte más dolorosa del proceso, no todas las funciones que el taller podría querer algún día. Acá, ese núcleo era llevar un vehículo de la entrada a la factura sin perderle el rastro, con el checklist adentro para que los trabajos multiservicio no pierdan un paso.</p>
+        <p>Se entregó con documentación, para que operar el taller día a día no dependa de poder localizarnos. Lo que viene después de abrir, los reportes y los ajustes al catálogo y al checklist, es su propia fase, dimensionada cuando el taller tenga semanas reales de datos atrás.</p>
       </div>
     </div>
   </section>
 
-  <Faq faqs={faqs} heading="Questions about opening this way" />
+  <Faq faqs={faqs} heading="Preguntas sobre abrir así" />
 
   <CtaSection
-    heading="If you're opening a business and don't want a paper phase"
-    body="Sixty minutes: you walk us through your opening timeline, and we tell you what's worth having live before day one and what it would cost."
+    heading="Si va a abrir un negocio y no quiere una etapa de papel"
+    body="Sesenta minutos: usted nos explica su calendario de apertura, y nosotros le decimos qué vale la pena tener en vivo antes del día uno y cuánto costaría."
     secondaryLabel={EMAIL}
     secondaryHref={`mailto:${EMAIL}`}
   />

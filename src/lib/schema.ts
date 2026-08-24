@@ -8,7 +8,7 @@ export const personSchema = {
   '@type': 'Person',
   '@id': PERSON_ID,
   name: FOUNDER,
-  jobTitle: 'Founder & Automation Engineer',
+  jobTitle: 'Fundador e ingeniero de automatización',
   worksFor: { '@id': ORG_ID },
   email: `mailto:${EMAIL}`,
   knowsAbout: [
@@ -47,6 +47,7 @@ export const websiteSchema = {
   '@id': SITE_ID,
   url: `${SITE_URL}/`,
   name: SITE_NAME,
+  inLanguage: 'es',
   publisher: { '@id': ORG_ID },
 };
 

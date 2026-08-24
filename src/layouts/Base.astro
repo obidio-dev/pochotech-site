@@ -12,11 +12,11 @@ export interface Props {
   ogType?: string;
   jsonLd?: object[];
   noindex?: boolean;
-  /** Page language. The site is English; the demo gallery is Spanish. */
+  /** Page language. The site is Spanish; override only for a page that is not. */
   lang?: string;
 }
 
-const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [], noindex = false, lang = 'en' } = Astro.props;
+const { title, description, path, ogImage = '/og-image.png', ogType = 'website', jsonLd = [], noindex = false, lang = 'es' } = Astro.props;
 const canonical = new URL(path === '/' ? '/' : path, Astro.site).href;
 const ogImageAbs = new URL(ogImage, Astro.site).href;
 ---
@@ -47,21 +47,21 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
     ))}
   </head>
   <body>
-    <a href="#main" class="skip-link">Skip to content</a>
+    <a href="#main" class="skip-link">Ir al contenido</a>
     <header class="site-header">
       <div class="wrap header-inner">
-        <a href="/" class="logo" aria-label="pocho.tech home">pocho.<span class="logo-tech">tech</span></a>
-        <nav aria-label="Main">
+        <a href="/" class="logo" aria-label="Inicio de pocho.tech">pocho.<span class="logo-tech">tech</span></a>
+        <nav aria-label="Principal">
           <ul class="nav-list" id="nav-list">
-            <li><a href="/services">Services</a></li>
-            <li><a href="/industries">Industries</a></li>
+            <li><a href="/services">Servicios</a></li>
+            <li><a href="/industries">Industrias</a></li>
             <li><a href="/demos">Demos</a></li>
-            <li><a href="/case-studies">Case Studies</a></li>
-            <li><a href="/about">About</a></li>
+            <li><a href="/case-studies">Casos</a></li>
+            <li><a href="/about">Quién soy</a></li>
           </ul>
         </nav>
-        <a href="/contact" class="btn btn-primary btn-nav">Book a call</a>
-        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Menu">
+        <a href="/contact" class="btn btn-primary btn-nav">Agendar llamada</a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Menú">
           <span class="nav-toggle-bar"></span>
           <span class="nav-toggle-bar"></span>
         </button>
@@ -77,24 +77,24 @@ const ogImageAbs = new URL(ogImage, Astro.site).href;
         <div class="footer-grid">
           <div>
             <span class="logo logo-footer">pocho.<span class="logo-tech">tech</span></span>
-            <p class="footer-tag">AI Automation Studio. Custom automations for small teams.</p>
+            <p class="footer-tag">Estudio de automatización con IA. Sistemas y automatizaciones a la medida para equipos chicos.</p>
           </div>
-          <nav aria-label="Services">
-            <h2 class="footer-h">Services</h2>
+          <nav aria-label="Servicios">
+            <h2 class="footer-h">Servicios</h2>
             <ul>
-              <li><a href="/services/custom-automation">Custom Automation Build</a></li>
-              <li><a href="/services/management-system-build">Management System Build</a></li>
-              <li><a href="/services/automation-audit">Automation Audit</a></li>
-              <li><a href="/services/n8n-consulting">n8n &amp; Make.com Consulting</a></li>
+              <li><a href="/services/custom-automation">Automatización a la medida</a></li>
+              <li><a href="/services/management-system-build">Sistema de gestión propio</a></li>
+              <li><a href="/services/automation-audit">Diagnóstico de automatización</a></li>
+              <li><a href="/services/n8n-consulting">Consultoría n8n y Make.com</a></li>
             </ul>
           </nav>
-          <nav aria-label="Company">
-            <h2 class="footer-h">Company</h2>
+          <nav aria-label="Empresa">
+            <h2 class="footer-h">Pocho.tech</h2>
             <ul>
               <li><a href="/demos">Demos</a></li>
-              <li><a href="/case-studies">Case Studies</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/contact">Contact</a></li>
+              <li><a href="/case-studies">Casos</a></li>
+              <li><a href="/about">Quién soy</a></li>
+              <li><a href="/contact">Contacto</a></li>
             </ul>
           </nav>
         </div>

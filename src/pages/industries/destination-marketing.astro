@@ -6,42 +6,42 @@ import { CALENDLY, EMAIL } from '../../data/site';
 import { graph, serviceSchema, breadcrumbs, faqSchema } from '../../lib/schema';
 
 const DESCRIPTION =
-  "Partner tracking, AI email agents, content pipelines, and lead qualification for DMOs: built by the engineer behind a travel media company's automations.";
+  'Seguimiento de socios, agentes de correo con IA, circuitos de contenido y calificación de prospectos para organizaciones de promoción turística, construidos por el ingeniero detrás de las automatizaciones de una empresa de medios de viajes.';
 
 const faqs = [
   {
-    q: "Whether I've worked with a DMO directly",
-    a: 'My production case studies are in travel media and adjacent operations, and this page says so plainly. A first DMO engagement works like any other: discovery call, written scope, fixed price.',
+    q: 'Si trabajé directamente con una organización de promoción turística',
+    a: 'Mis casos en producción están en medios de viajes y en operaciones vecinas, y esta página lo dice sin vueltas. Un primer trabajo del rubro funciona como cualquier otro: llamada de diagnóstico, alcance escrito, precio fijo.',
   },
   {
-    q: 'What partner tracking covers',
-    a: 'Whatever channels your partners publish on: the tracker is configured per source, and the digest format is set with your team. At the media company, the sources are TikTok and Instagram; for a DMO the list is usually wider.',
+    q: 'Qué cubre el seguimiento de socios',
+    a: 'Los canales donde publiquen sus socios: el rastreador se configura por fuente, y el formato del resumen se define con su equipo. En la empresa de medios las fuentes son TikTok e Instagram; para una organización turística la lista suele ser más amplia.',
   },
   {
-    q: 'How AI-drafted emails stay in your voice',
-    a: "The model is given your past correspondence and notes for each relationship, and it drafts from those. Everything queues for review until you decide it doesn't need to.",
+    q: 'Cómo se mantienen en su voz los correos redactados por IA',
+    a: 'Al modelo se le da su correspondencia anterior y las notas de cada relación, y redacta a partir de eso. Todo queda en fila para revisión hasta que usted decida que ya no hace falta.',
   },
   {
-    q: 'Where to start',
-    a: 'The $500 audit: a 60-minute review of how your team works, then a written report within five business days, covering what to automate first, which tools, estimated time savings, and build scope per recommendation. Credited in full toward a build.',
+    q: 'Por dónde empezar',
+    a: 'El diagnóstico de $500: una revisión de 60 minutos de cómo trabaja su equipo, y después un informe escrito dentro de cinco días hábiles con qué automatizar primero, con qué herramientas, cuánto tiempo se estima ahorrar y el alcance de cada recomendación. Se acredita completo a un desarrollo.',
   },
 ];
 
 const jsonLd = graph(
   serviceSchema({
-    name: 'AI Automation for Destination Marketing Organizations',
+    name: 'Automatización con IA para organizaciones de promoción turística',
     description: DESCRIPTION,
     path: '/industries/destination-marketing',
   }),
   breadcrumbs([
-    { name: 'Industries', path: '/industries' },
-    { name: 'Destination marketing organizations', path: '/industries/destination-marketing' },
+    { name: 'Industrias', path: '/industries' },
+    { name: 'Organizaciones de promoción turística', path: '/industries/destination-marketing' },
   ]),
   faqSchema(faqs)
 );
 ---
 <Base
-  title="AI for Destination Marketing & Tourism Boards | pocho.tech"
+  title="IA para promoción turística y oficinas de turismo | pocho.tech"
   description={DESCRIPTION}
   path="/industries/destination-marketing"
   jsonLd={jsonLd}
@@ -49,16 +49,17 @@ const jsonLd = graph(
   <!-- Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>What I build for tourism boards, and where the proof comes from.</h1>
+      <h1>Qué construyo para oficinas de turismo, y de dónde sale la prueba.</h1>
       <p class="hero-sub">
-        I build AI automations for DMOs: partner tracking, AI email agents, content pipelines, and lead
-        qualification. I come to this work from the travel-media side: four of my automations run the editorial
-        back office at a travel media company, which operates GuideGeek, an AI travel product for destination marketing
-        organizations.
+        Construyo automatizaciones con IA para organizaciones de promoción turística: seguimiento de socios,
+        agentes de correo con IA, circuitos de contenido y calificación de prospectos. Llego a este trabajo
+        desde el lado de los medios de viajes: cuatro de mis automatizaciones corren el back office editorial de
+        una empresa de medios de viajes que además opera un producto de IA de viajes para organizaciones de
+        promoción turística.
       </p>
-      <p class="hero-sub hero-note">I also speak at this industry's conferences.</p>
+      <p class="hero-sub hero-note">También hablo en las conferencias de esta industria.</p>
       <div class="hero-ctas">
-        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
       </div>
     </div>
   </section>
@@ -66,15 +67,16 @@ const jsonLd = graph(
   <!-- Where the hours go -->
   <section class="section section-alt hours" aria-labelledby="hours-h">
     <div class="wrap">
-      <h2 id="hours-h">Where the hours go</h2>
+      <h2 id="hours-h">Dónde se van las horas</h2>
       <p>
-        A DMO's week is full of work that scales with partner count: tracking what member businesses are posting,
-        opening, and hosting. Most of it lives in spreadsheets that are current only on the day someone updates
-        them.
+        La semana de una organización de promoción turística está llena de trabajo que crece con la cantidad de
+        socios: seguir qué están publicando, abriendo y organizando los negocios afiliados. La mayor parte vive
+        en hojas de cálculo que están al día solo el día en que alguien las actualiza.
       </p>
       <p>
-        Planner inquiries and visitor leads arrive by form and email, and qualifying them means reading each one.
-        Partner outreach is the same email written over and over, personalized by hand when there's time.
+        Las consultas de organizadores y los prospectos de visitantes llegan por formulario y por correo, y
+        calificarlos significa leer cada uno. El contacto con socios es el mismo correo escrito una y otra vez,
+        personalizado a mano cuando hay tiempo.
       </p>
     </div>
   </section>
@@ -82,58 +84,59 @@ const jsonLd = graph(
   <!-- What I build -->
   <section class="section" aria-labelledby="build-h">
     <div class="wrap">
-      <h2 id="build-h">What I build for DMOs</h2>
+      <h2 id="build-h">Qué construyo para el rubro</h2>
       <div class="grid-2 systems-grid">
         <article class="card system-card">
-          <h3>Partner tracking</h3>
+          <h3>Seguimiento de socios</h3>
           <p>
-            An automation that watches your partners' channels: social posts, event listings, announcements. It
-            delivers a digest with every URL and its numbers attached. The same mechanism runs in production
-            at the media company, where it tracks 70 creators across TikTok and Instagram in 1.5 hours of staff
-            time a week.
+            Una automatización que vigila los canales de sus socios: publicaciones en redes, listados de
+            eventos, anuncios. Entrega un resumen con cada enlace y sus números pegados. El mismo mecanismo
+            corre en producción en la empresa de medios, donde sigue a 70 creadores entre TikTok e Instagram con
+            1.5 horas de trabajo del equipo por semana.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>Apify</li>
             <li>OpenAI</li>
-            <li>Google Sheets or your CRM</li>
+            <li>Google Sheets o su CRM</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>AI email agents</h3>
+          <h3>Agentes de correo con IA</h3>
           <p>
-            An AI that drafts partner and planner emails from your CRM history. It reads each relationship's
-            past correspondence and writes the check-in or follow-up in your voice, with a review step if you
-            want one.
+            Una IA que redacta los correos a socios y organizadores a partir del historial de su CRM. Lee la
+            correspondencia anterior de cada relación y escribe el seguimiento en su voz, con un paso de
+            revisión si usted lo quiere.
           </p>
-          <ul class="tools" aria-label="Tools">
-            <li>HubSpot or any CRM</li>
+          <ul class="tools" aria-label="Herramientas">
+            <li>HubSpot o cualquier CRM</li>
             <li>OpenAI</li>
             <li>Gmail</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Content pipelines</h3>
+          <h3>Circuitos de contenido</h3>
           <p>
-            An AI that reads your region's sources overnight: local news, partner feeds, event calendars. It
-            delivers a curated newsletter every morning. The production version of this system processes 400+
-            articles a day at the media company.
+            Una IA que lee de noche las fuentes de su región: prensa local, canales de socios, calendarios de
+            eventos. Entrega un newsletter curado cada mañana. La versión en producción de este sistema procesa
+            más de 400 artículos por día en la empresa de medios.
           </p>
-          <ul class="tools" aria-label="Tools">
+          <ul class="tools" aria-label="Herramientas">
             <li>Apify</li>
             <li>OpenAI</li>
             <li>Gmail</li>
           </ul>
         </article>
         <article class="card system-card">
-          <h3>Lead qualification</h3>
+          <h3>Calificación de prospectos</h3>
           <p>
-            An automation that takes each inbound lead: planner RFPs, group inquiries, web forms. It scores each one
-            against your criteria, and creates the CRM record with the score and reasoning attached. I run AI
-            scoring of this kind in production at an EdTech workforce-training company, where it turns interview transcripts into
-            structured briefs for human reviewers.
+            Una automatización que toma cada prospecto entrante: solicitudes de organizadores, consultas de
+            grupos, formularios del sitio. Califica cada uno contra sus criterios, y crea el registro en el CRM
+            con la calificación y el razonamiento pegados. Este tipo de calificación con IA la tengo en
+            producción en una empresa de formación laboral EdTech, donde convierte transcripciones de
+            entrevistas en resúmenes estructurados para revisores humanos.
           </p>
-          <ul class="tools" aria-label="Tools">
-            <li>your CRM</li>
+          <ul class="tools" aria-label="Herramientas">
+            <li>su CRM</li>
             <li>OpenAI</li>
           </ul>
         </article>
@@ -144,36 +147,36 @@ const jsonLd = graph(
   <!-- Where the proof comes from -->
   <section class="section section-alt proof" aria-labelledby="proof-h">
     <div class="wrap">
-      <h2 id="proof-h">Where the proof comes from</h2>
+      <h2 id="proof-h">De dónde sale la prueba</h2>
       <p>
-        No tourism board is named on this page, because I haven't published a DMO case study yet. The proof is
-        adjacent, and it's real.
+        En esta página no hay ninguna oficina de turismo nombrada, porque todavía no publiqué un caso del rubro.
+        La prueba es de al lado, y es real.
       </p>
       <ul class="proof-list">
         <li>
-          The media company, operator of GuideGeek for DMOs, runs four of my automations; the
-          numbers are on the media page.
+          La empresa de medios, que opera un producto de IA de viajes para este rubro, corre cuatro de mis
+          automatizaciones; los números están en la página de medios.
         </li>
         <li>
-          Each mechanism above, social tracking, AI curation, AI scoring, is in production for a named client
-          today.
+          Cada mecanismo de arriba, el seguimiento en redes, la curaduría con IA y la calificación con IA, está
+          hoy en producción para un cliente concreto.
         </li>
-        <li>I speak about this work at the industry's conferences.</li>
+        <li>Hablo de este trabajo en las conferencias de la industria.</li>
       </ul>
       <p class="proof-link">
-        <a href="/industries/media-publishing">Read the media company's numbers <span aria-hidden="true">&rarr;</span></a>
+        <a href="/industries/media-publishing">Ver los números de la empresa de medios <span aria-hidden="true">&rarr;</span></a>
       </p>
     </div>
   </section>
 
   <!-- FAQ -->
-  <Faq faqs={faqs} heading="Questions DMOs ask" />
+  <Faq faqs={faqs} heading="Preguntas que hace el rubro" />
 
   <!-- CTA -->
   <CtaSection
-    heading="Tell me where your team's hours go."
-    body="Sixty minutes: you walk me through partner tracking, the inbox, and the content calendar, and I tell you what I'd automate first and what it would cost."
-    secondaryLabel={`Or write to me directly: ${EMAIL}`}
+    heading="Cuénteme dónde se van las horas de su equipo."
+    body="Sesenta minutos: usted me explica el seguimiento de socios, la bandeja de correo y el calendario de contenido, y yo le digo qué automatizaría primero y cuánto costaría."
+    secondaryLabel={`O escríbame directo: ${EMAIL}`}
     secondaryHref={`mailto:${EMAIL}`}
   />
 </Base>

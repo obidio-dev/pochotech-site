@@ -5,35 +5,35 @@ import CtaSection from '../../components/CtaSection.astro';
 import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
 import { CALENDLY, EMAIL } from '../../data/site';
 
-const title = 'Automation Audit: $500, Credited to a Build | pocho.tech';
+const title = 'Diagnóstico de automatización: $500, acreditados a un desarrollo | pocho.tech';
 const description =
-  'A 60-minute review of how your team works, then a written automation plan within five business days. $500, credited in full toward a custom build.';
+  'Una revisión de 60 minutos de cómo trabaja su equipo, y después un plan de automatización escrito dentro de cinco días hábiles. $500, acreditados completos a un desarrollo a la medida.';
 
 const faqs = [
   {
-    q: 'How the $500 credit works',
-    a: "Commission a custom build after the audit and the full $500 comes off that build's price. Builds start at $1,500, so the audit effectively becomes a deposit on the work.",
+    q: 'Cómo funciona el crédito de los $500',
+    a: 'Si encarga un desarrollo a la medida después del diagnóstico, los $500 completos se descuentan del precio de ese desarrollo. Los desarrollos arrancan en $1,500, así que el diagnóstico funciona en la práctica como un anticipo del trabajo.',
   },
   {
-    q: 'What I need from you',
-    a: 'Sixty minutes with whoever actually does the work, and honest answers about how it happens today, including the spreadsheet workarounds. The closer I get to the real process, the sharper the report.',
+    q: 'Qué necesito de usted',
+    a: 'Sesenta minutos con quien de verdad hace el trabajo, y respuestas honestas sobre cómo pasa hoy, incluidos los parches en hojas de cálculo. Cuanto más me acerque al proceso real, más filoso sale el informe.',
   },
   {
-    q: "What happens if there's little worth automating",
-    a: 'That goes in the report. If the right answer is a process change, a simpler fix, or no automation at all, the report says so.',
+    q: 'Qué pasa si hay poco que valga la pena automatizar',
+    a: 'Eso va en el informe. Si la respuesta correcta es un cambio de proceso, un arreglo más simple, o directamente no automatizar, el informe lo dice.',
   },
 ];
 
 const jsonLd = graph(
   serviceSchema({
-    name: 'Automation Audit',
+    name: 'Diagnóstico de automatización',
     description,
     path: '/services/automation-audit',
     price: '500',
   }),
   breadcrumbs([
-    { name: 'Services', path: '/services' },
-    { name: 'Automation Audit', path: '/services/automation-audit' },
+    { name: 'Servicios', path: '/services' },
+    { name: 'Diagnóstico de automatización', path: '/services/automation-audit' },
   ]),
   faqSchema(faqs)
 );
@@ -41,53 +41,52 @@ const jsonLd = graph(
 <Base title={title} description={description} path="/services/automation-audit" jsonLd={jsonLd}>
   <section class="section hero">
     <div class="wrap">
-      <h1>Automation Audit</h1>
+      <h1>Diagnóstico de automatización</h1>
       <p>
-        The audit is a 60-minute review of how your team actually works, followed by a written report within five
-        business days. It costs $500, credited in full toward a custom build. If you go ahead, the plan cost you
-        nothing.
+        El diagnóstico es una revisión de 60 minutos de cómo trabaja su equipo de verdad, seguida de un informe
+        escrito dentro de cinco días hábiles. Cuesta $500, acreditados completos a un desarrollo a la medida. Si
+        sigue adelante, el plan no le costó nada.
       </p>
-      <p>You leave with priorities, tools, estimated time savings, and a build scope for every recommendation.</p>
-      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book an audit</a>
+      <p>Se lleva prioridades, herramientas, ahorro de tiempo estimado y el alcance de cada recomendación.</p>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar un diagnóstico</a>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="report-h">
     <div class="wrap">
-      <h2 id="report-h">What the report contains</h2>
-      <p>Four things, specific to your team and your tools:</p>
+      <h2 id="report-h">Qué trae el informe</h2>
+      <p>Cuatro cosas, específicas para su equipo y sus herramientas:</p>
       <ul class="report-list">
         <li>
-          <strong>What to automate first:</strong> your workflows ranked by hours recovered against effort to
-          build
+          <strong>Qué automatizar primero:</strong> sus procesos ordenados por horas recuperadas contra esfuerzo
+          de construcción
         </li>
         <li>
-          <strong>The tools for each:</strong> which platforms and APIs every recommendation would connect
+          <strong>Las herramientas de cada uno:</strong> qué plataformas y qué APIs conectaría cada recomendación
         </li>
         <li>
-          <strong>Estimated time savings:</strong> what each automation should give back, per week
+          <strong>Ahorro de tiempo estimado:</strong> cuánto debería devolver cada automatización, por semana
         </li>
         <li>
-          <strong>A build scope per recommendation:</strong> what it would cost and roughly how long it would
-          take
+          <strong>Un alcance por recomendación:</strong> cuánto costaría y aproximadamente cuánto tardaría
         </li>
       </ul>
-      <p>Whether you build with me, build in-house, or shelve it for a quarter, you have the plan in writing.</p>
+      <p>Construya conmigo, construya en casa o lo guarde para el trimestre que viene, el plan queda por escrito.</p>
     </div>
   </section>
 
   <section class="section" aria-labelledby="how-h">
     <div class="wrap">
-      <h2 id="how-h">How it works</h2>
+      <h2 id="how-h">Cómo funciona</h2>
       <div class="stages">
         <p>
-          <strong>The call: 60 minutes.</strong> You walk me through how the work actually happens, ideally with
-          the person who does it day to day on the call.
-          <a href={CALENDLY} rel="noopener">Book it directly on my calendar</a>.
+          <strong>La llamada: 60 minutos.</strong> Usted me explica cómo pasa el trabajo de verdad, idealmente
+          con la persona que lo hace todos los días en la llamada.
+          <a href={CALENDLY} rel="noopener">Agéndela directo en mi calendario</a>.
         </p>
         <p>
-          <strong>The report: within five business days.</strong> A written document covering the four sections
-          above, specific to your tools and your volume.
+          <strong>El informe: dentro de cinco días hábiles.</strong> Un documento escrito que cubre las cuatro
+          secciones de arriba, específico para sus herramientas y su volumen.
         </p>
       </div>
     </div>
@@ -95,29 +94,31 @@ const jsonLd = graph(
 
   <section class="section section-alt" aria-labelledby="why-h">
     <div class="wrap">
-      <h2 id="why-h">Why start here</h2>
+      <h2 id="why-h">Por qué empezar acá</h2>
       <p>
-        A custom build is $1,500 or more, and the right first automation isn't always obvious from inside the
-        team. The audit answers that in writing before you commit to anything.
+        Un desarrollo a la medida cuesta $1,500 o más, y cuál es la primera automatización correcta no siempre
+        se ve claro desde adentro del equipo. El diagnóstico responde eso por escrito antes de que se
+        comprometa con nada.
       </p>
       <p>
-        If you commission a build afterward, the full $500 comes off the price. If you don't, you keep a plan any
-        competent engineer could execute.
+        Si después encarga un desarrollo, los $500 completos salen del precio. Si no, se queda con un plan que
+        cualquier ingeniero competente podría ejecutar.
       </p>
       <p>
-        Sometimes the report says a workflow isn't worth automating yet. You get that in writing too.
+        A veces el informe dice que un proceso todavía no vale la pena automatizarlo. Eso también se lo entrego
+        por escrito.
       </p>
     </div>
   </section>
 
-  <Faq faqs={faqs} heading="Questions before you book an audit" />
+  <Faq faqs={faqs} heading="Preguntas antes de agendar un diagnóstico" />
 
   <CtaSection
-    heading="Sixty minutes, then a plan in writing"
-    body="Book the call, walk me through the work, and the report is in your inbox within five business days."
+    heading="Sesenta minutos, y después un plan por escrito"
+    body="Agende la llamada, explíqueme el trabajo, y el informe le llega al correo dentro de cinco días hábiles."
   />
   <div class="cta-postscript">
-    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    <p>O escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
   </div>
 </Base>
 

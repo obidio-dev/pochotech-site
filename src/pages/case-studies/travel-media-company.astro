@@ -6,65 +6,65 @@ import { EMAIL, BOILERPLATE } from '../../data/site';
 
 const jsonLd = graph(
   breadcrumbs([
-    { name: 'Home', path: '/' },
-    { name: 'Case Studies', path: '/case-studies' },
-    { name: 'Travel media company', path: '/case-studies/travel-media-company' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Casos', path: '/case-studies' },
+    { name: 'Empresa de medios de viajes', path: '/case-studies/travel-media-company' },
   ]),
   reviewSchema({
-    body: 'Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data.',
-    authorName: 'Editorial team',
-    authorTitle: 'Travel media company',
+    body: 'Erick nos ayudó a construir e implementar varias automatizaciones para nuestro departamento editorial, y nos ahorran tiempo cada semana que podemos dedicar a producir contenido en vez de a revolver correos y datos.',
+    authorName: 'Equipo editorial',
+    authorTitle: 'Empresa de medios de viajes',
   })
 );
 
 const metrics = [
-  { value: '5 hrs/week → 1.5 hrs', label: 'Creator tracking, by hand versus automated.' },
-  { value: '30 → 70', label: 'Creators tracked, same workflow.' },
-  { value: '400+ a day', label: 'Articles processed into one newsletter, zero human input.' },
+  { value: '5 hrs/semana → 1.5 hrs', label: 'Seguimiento de creadores, a mano contra automatizado.' },
+  { value: '30 → 70', label: 'Creadores seguidos, con el mismo flujo.' },
+  { value: '400+ por día', label: 'Artículos procesados en un newsletter, sin intervención humana.' },
 ];
 
 const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'];
 ---
 <Base
-  title="Travel media company: 400+ Articles a Day, Curated | pocho.tech"
-  description="Four automations run a travel media company's editorial back office: a daily AI newsletter from 400+ articles and a creator tracker cut from 5 hours to 1.5."
+  title="Empresa de medios de viajes: 400+ artículos por día, curados | pocho.tech"
+  description="Cuatro automatizaciones corren el back office editorial de una empresa de medios de viajes: un newsletter diario con IA a partir de más de 400 artículos y un rastreador de creadores que bajó de 5 horas a 1.5."
   path="/case-studies/travel-media-company"
   jsonLd={jsonLd}
 >
   <section class="cs-header">
     <div class="wrap">
-      <h1>Travel media company</h1>
-      <p class="client-line"><strong>Travel media.</strong> Around 50 people, with an editorial team of twelve. Four automations in production.</p>
+      <h1>Empresa de medios de viajes</h1>
+      <p class="client-line"><strong>Medios de viajes.</strong> Alrededor de 50 personas, con una redacción de doce. Cuatro automatizaciones en producción.</p>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The before</h2>
+      <h2>El antes</h2>
       <div class="before-block">
-        <p>Creator tracking meant opening TikTok and Instagram, finding every post, and copying URLs, views, and likes into a sheet by hand. Five hours a week covered 30 creators, and the program needed to be larger.</p>
-        <p>The morning news sweep had the same shape. Eleven-plus industry publications produce roughly 400 articles a day; an editorial team of twelve needed the ten worth reading.</p>
-        <p>Affiliate reporting and event research rounded it out: more data someone had to go collect before the editorial work could start.</p>
+        <p>Seguir a los creadores significaba abrir TikTok e Instagram, encontrar cada publicación, y copiar a mano el enlace, las vistas y los me gusta a una hoja. Cinco horas por semana cubrían 30 creadores, y el programa necesitaba ser más grande.</p>
+        <p>El barrido de noticias de la mañana tenía la misma forma. Once publicaciones de la industria o más producen cerca de 400 artículos por día; una redacción de doce necesitaba los diez que valía la pena leer.</p>
+        <p>Los reportes de afiliados y la búsqueda de eventos completaban el cuadro: más datos que alguien tenía que ir a juntar antes de que pudiera arrancar el trabajo editorial.</p>
       </div>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>What I built</h2>
-      <p>Four automations run the editorial back office.</p>
+      <h2>Qué construí</h2>
+      <p>Cuatro automatizaciones corren el back office editorial.</p>
       <ol class="systems">
-        <li><strong>Creator tracker</strong>: Scrapes TikTok and Instagram for every tracked creator and delivers a Monday digest of post URLs, views, and likes.</li>
-        <li><strong>AI newsletter curator</strong>: Apify collects roughly 400 articles a day from eleven-plus publications overnight; GPT-4o picks the top ten, writes the summaries, and a polished HTML newsletter arrives every morning.</li>
-        <li><strong>Affiliate link performance report</strong>: Every Monday, GA4 data becomes a report ranking the top 20 affiliate links, with AI insights.</li>
-        <li><strong>Event search</strong>: A monthly sweep of Eventbrite, Meetup, and Luma across 15 US cities.</li>
+        <li><strong>Rastreador de creadores</strong>: recorre TikTok e Instagram buscando las publicaciones de cada creador seguido y entrega un resumen los lunes con enlaces, vistas y me gusta.</li>
+        <li><strong>Curador de newsletter con IA</strong>: Apify junta de noche cerca de 400 artículos por día de once publicaciones o más; GPT-4o elige los diez mejores, escribe los resúmenes, y un newsletter en HTML terminado llega cada mañana.</li>
+        <li><strong>Reporte de desempeño de enlaces de afiliados</strong>: cada lunes, los datos de GA4 se convierten en un reporte que ordena los 20 mejores enlaces de afiliados, con observaciones de IA.</li>
+        <li><strong>Búsqueda de eventos</strong>: un barrido mensual de Eventbrite, Meetup y Luma en 15 ciudades de Estados Unidos.</li>
       </ol>
     </div>
   </section>
 
   <section class="section-alt numbers">
     <div class="wrap">
-      <h2>The numbers</h2>
+      <h2>Los números</h2>
       <div class="metric-grid">
         {metrics.map((m) => (
           <div class="metric-item">
@@ -73,27 +73,27 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
           </div>
         ))}
       </div>
-      <p class="numbers-note">One more metric that doesn't fit in a stat block: when the tracker goes down, the team emails within hours asking for it back.</p>
+      <p class="numbers-note">Hay otra métrica que no entra en un recuadro: cuando el rastreador se cae, el equipo escribe a las pocas horas pidiendo que vuelva.</p>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>What the team says</h2>
+      <h2>Qué dice el equipo</h2>
       <blockquote>
-        <p>"Erick has helped us build and implement multiple automations for our editorial department, and these save us time each week that can be spent producing content rather than sifting through emails and data."</p>
-        <cite>Editorial team, travel media company</cite>
+        <p>"Erick nos ayudó a construir e implementar varias automatizaciones para nuestro departamento editorial, y nos ahorran tiempo cada semana que podemos dedicar a producir contenido en vez de a revolver correos y datos."</p>
+        <cite>Equipo editorial, empresa de medios de viajes</cite>
       </blockquote>
       <blockquote>
-        <p>"Erick was incredibly helpful in setting up the system to automatically track creator content. This automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot of manual effort."</p>
-        <cite>Social media team, travel media company</cite>
+        <p>"Erick nos ayudó muchísimo a montar el sistema que rastrea el contenido de los creadores. Esa automatización me ahorra alrededor de 3 o 4 horas por semana, hizo mi trabajo mucho más fluido y me quita un montón de esfuerzo manual."</p>
+        <cite>Equipo de redes sociales, empresa de medios de viajes</cite>
       </blockquote>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The stack</h2>
+      <h2>Las herramientas</h2>
       <ul class="stack-row">
         {stack.map((tool) => <li class="pill">{tool}</li>)}
       </ul>
@@ -103,15 +103,15 @@ const stack = ['Apify', 'OpenAI', 'Google Analytics 4', 'Google Sheets', 'Gmail'
   <section class="cs-block">
     <div class="wrap">
       <aside class="how-started">
-        <h2>How it started</h2>
-        <p>I taught n8n to the company's AI Advocacy Director; then they hired me to build.</p>
+        <h2>Cómo empezó</h2>
+        <p>Le enseñé n8n a la directora de promoción de IA de la empresa; después me contrataron para construir.</p>
       </aside>
     </div>
   </section>
 
   <CtaSection
-    heading="If your team spends mornings collecting data"
-    body="Sixty minutes: you walk me through where the manual collection happens, and I tell you what I'd automate first and what it would cost."
+    heading="Si su equipo pasa las mañanas juntando datos"
+    body="Sesenta minutos: usted me explica dónde pasa la recolección manual, y yo le digo qué automatizaría primero y cuánto costaría."
     secondaryLabel={EMAIL}
     secondaryHref={`mailto:${EMAIL}`}
   />

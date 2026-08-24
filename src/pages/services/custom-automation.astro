@@ -5,39 +5,39 @@ import CtaSection from '../../components/CtaSection.astro';
 import { graph, breadcrumbs, serviceSchema, faqSchema } from '../../lib/schema';
 import { CALENDLY, EMAIL } from '../../data/site';
 
-const title = 'Custom Automation Build: From $1,500 | pocho.tech';
+const title = 'Automatización a la medida: desde $1,500 | pocho.tech';
 const description =
-  'Custom AI automation from $1,500, fixed price after a discovery call, built and tested on your systems, handed off in one to four weeks. You own it all.';
+  'Automatización con IA a la medida desde $1,500, precio fijo después de la llamada de diagnóstico, construida y probada sobre sus sistemas, entregada en una a cuatro semanas. Todo queda suyo.';
 
 const faqs = [
   {
-    q: 'What determines the price',
-    a: 'The number of systems involved, the volume moving through the workflow, and whether AI steps need their own design and testing. The pipeline at the events agency touches four systems; a workflow that touches one costs less to build.',
+    q: 'Qué determina el precio',
+    a: 'La cantidad de sistemas involucrados, el volumen que pasa por el flujo, y si los pasos de IA necesitan diseño y prueba propios. El circuito de la agencia de eventos toca cuatro sistemas; un flujo que toca uno solo cuesta menos construirlo.',
   },
   {
-    q: 'How long a build takes',
-    a: 'One to four weeks for most projects, depending on how many systems are involved. The timeline is in the scope document before work begins.',
+    q: 'Cuánto tarda un desarrollo',
+    a: 'De una a cuatro semanas en la mayoría de los proyectos, según cuántos sistemas estén involucrados. El plazo queda en el documento de alcance antes de que empiece el trabajo.',
   },
   {
-    q: 'Who maintains it after handoff',
-    a: 'Either your team, using the documentation and recorded walkthrough, or me, on a retainer scoped per engagement. When something breaks, you message the person who wrote it.',
+    q: 'Quién lo mantiene después de la entrega',
+    a: 'Su equipo, con la documentación y el recorrido grabado, o yo, con un acompañamiento dimensionado caso por caso. Cuando algo se rompe, le escribe a la persona que lo escribió.',
   },
   {
-    q: 'Which tools I can connect',
-    a: 'The twelve automations in production span more than twenty tools: HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, SharePoint, Power Automate, Apify, Google Analytics 4, Gmail, and others. If your tool has an API, it can probably join the list; the discovery call settles it.',
+    q: 'Qué herramientas puedo conectar',
+    a: 'Las doce automatizaciones en producción abarcan más de veinte herramientas: HubSpot, Airtable, Monday.com, QuickBooks, Slack, Supabase, SharePoint, Power Automate, Apify, Google Analytics 4, Gmail y otras. Si su herramienta tiene API, probablemente pueda sumarse a la lista; eso se resuelve en la llamada de diagnóstico.',
   },
 ];
 
 const jsonLd = graph(
   serviceSchema({
-    name: 'Custom Automation Build',
+    name: 'Automatización a la medida',
     description,
     path: '/services/custom-automation',
     price: '1500',
   }),
   breadcrumbs([
-    { name: 'Services', path: '/services' },
-    { name: 'Custom Automation Build', path: '/services/custom-automation' },
+    { name: 'Servicios', path: '/services' },
+    { name: 'Automatización a la medida', path: '/services/custom-automation' },
   ]),
   faqSchema(faqs)
 );
@@ -45,43 +45,43 @@ const jsonLd = graph(
 <Base title={title} description={description} path="/services/custom-automation" jsonLd={jsonLd}>
   <section class="section hero">
     <div class="wrap">
-      <h1>Custom Automation Build</h1>
+      <h1>Automatización a la medida</h1>
       <p>
-        A custom automation build at pocho.tech starts at $1,500, with a fixed price set in writing after a
-        60-minute discovery call. I design the workflow, build and test it on your systems, and hand it off with
-        documentation and a recorded walkthrough, typically in one to four weeks.
+        Un desarrollo a la medida en Pocho.tech arranca en $1,500, con precio fijo por escrito después de una
+        llamada de diagnóstico de 60 minutos. Diseño el flujo, lo construyo y lo pruebo sobre sus sistemas, y lo
+        entrego con documentación y un recorrido grabado, normalmente en una a cuatro semanas.
       </p>
-      <p>I'm Erick Bonilla, and I'm the engineer on every build, first call through handoff.</p>
-      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
+      <p>Soy Erick Bonilla, y soy el ingeniero de cada desarrollo, desde la primera llamada hasta la entrega.</p>
+      <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="example-h">
     <div class="wrap">
-      <h2 id="example-h">What a custom build looks like</h2>
-      <p>The clearest example runs at an event production agency, with a team of six to eight.</p>
+      <h2 id="example-h">Cómo se ve un desarrollo a la medida</h2>
+      <p>El ejemplo más claro corre en una agencia de producción de eventos, con un equipo de seis a ocho.</p>
       <p>
-        When a proposal is accepted in Fresh Proposals, the automation updates the HubSpot deal stage, builds the
-        Monday.com board, and creates the QuickBooks customer with two invoices split 50/50, untouched by anyone.
-        Processing one proposal went from 1.5–2 hours to 15 minutes.
+        Cuando se acepta una propuesta en Fresh Proposals, la automatización actualiza la etapa del negocio en
+        HubSpot, arma el tablero en Monday.com y crea el cliente en QuickBooks con dos facturas al 50 por
+        ciento, sin que nadie toque nada. Procesar una propuesta pasó de 1.5 o 2 horas a 15 minutos.
       </p>
       <p class="metric">1.5–2 hrs → 15 min</p>
-      <p>At 2–4 proposals a day, that's 6–8 hours of manual operations gone from every working day.</p>
-      <p>Other builds running in production:</p>
+      <p>A 2 o 4 propuestas por día, son de 6 a 8 horas de operación manual que desaparecen de cada jornada.</p>
+      <p>Otros desarrollos corriendo en producción:</p>
       <ul class="build-list">
         <li>
-          <strong>AI interview evaluation: EdTech workforce training.</strong> Read.ai interview transcripts arrive
-          by webhook; candidates get matched and objectively scored, and human reviewers get a structured brief
-          with direct quotes from the interview.
+          <strong>Evaluación de entrevistas con IA: formación laboral EdTech.</strong> Las transcripciones de
+          entrevistas de Read.ai llegan por webhook; los candidatos se emparejan y se califican de forma
+          objetiva, y los revisores humanos reciben un resumen estructurado con citas directas de la entrevista.
         </li>
         <li>
-          <strong>AI newsletter curator: Travel media company.</strong> Overnight, an AI reads 400+ articles across
-          eleven-plus publications, picks the top ten, and delivers a finished newsletter every morning with zero
-          human input.
+          <strong>Curador de newsletter con IA: empresa de medios de viajes.</strong> De noche, una IA lee más de
+          400 artículos de once publicaciones o más, elige los diez mejores y entrega el newsletter terminado
+          cada mañana, sin intervención humana.
         </li>
         <li>
-          <strong>Business card scanner: Event production agency.</strong> Drop a photo in Slack; GPT-4o Vision
-          reads the card, extracts every field, and creates the HubSpot contact.
+          <strong>Escáner de tarjetas de presentación: agencia de producción de eventos.</strong> Se suelta una
+          foto en Slack; GPT-4o Vision lee la tarjeta, extrae cada campo y crea el contacto en HubSpot.
         </li>
       </ul>
     </div>
@@ -89,37 +89,37 @@ const jsonLd = graph(
 
   <section class="section" aria-labelledby="cost-h">
     <div class="wrap">
-      <h2 id="cost-h">What it costs</h2>
+      <h2 id="cost-h">Cuánto cuesta</h2>
       <p>
-        Builds start at $1,500. The price depends on how many systems the workflow touches, the volume moving
-        through it, and whether AI evaluation or parsing needs design and testing of its own.
+        Los desarrollos arrancan en $1,500. El precio depende de cuántos sistemas toca el flujo, del volumen que
+        pasa por él, y de si la evaluación o el análisis con IA necesitan diseño y prueba propios.
       </p>
       <p>
-        You get the fixed number in writing in the scope document, before any work begins. If you started with the
-        <a href="/services/automation-audit">$500 audit</a>, that full amount comes off the price.
+        El número fijo lo recibe por escrito en el documento de alcance, antes de que empiece nada. Si empezó
+        con el <a href="/services/automation-audit">diagnóstico de $500</a>, ese monto completo sale del precio.
       </p>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="process-h">
     <div class="wrap">
-      <h2 id="process-h">How the process works</h2>
+      <h2 id="process-h">Cómo funciona el proceso</h2>
       <ol class="process">
         <li>
-          <strong>Discovery call: 60 minutes.</strong> You walk me through how the work actually happens, and I
-          look for where the hours go. <a href={CALENDLY} rel="noopener">Book it directly on my calendar</a>.
+          <strong>Llamada de diagnóstico: 60 minutos.</strong> Usted me explica cómo pasa el trabajo de verdad,
+          y yo busco dónde se van las horas. <a href={CALENDLY} rel="noopener">Agéndela directo en mi calendario</a>.
         </li>
         <li>
-          <strong>Solution design: a few days.</strong> You get a written scope: what I'll build, what it
-          connects to, the fixed price, and the timeline. Nothing starts until you've approved it.
+          <strong>Diseño de la solución: unos días.</strong> Recibe un alcance escrito: qué voy a construir, con
+          qué se conecta, el precio fijo y el plazo. Nada arranca hasta que usted lo aprueba.
         </li>
         <li>
-          <strong>Build and test: one to four weeks.</strong> I build on your systems and test against your real
-          data, checking in as each piece goes live.
+          <strong>Construcción y prueba: de una a cuatro semanas.</strong> Construyo sobre sus sistemas y pruebo
+          contra sus datos reales, avisándole a medida que cada pieza entra en vivo.
         </li>
         <li>
-          <strong>Handoff: one call.</strong> You get documentation and a recorded walkthrough of everything I
-          built.
+          <strong>Entrega: una llamada.</strong> Recibe la documentación y un recorrido grabado de todo lo
+          construido.
         </li>
       </ol>
     </div>
@@ -127,41 +127,41 @@ const jsonLd = graph(
 
   <section class="section" aria-labelledby="ownership-h">
     <div class="wrap">
-      <h2 id="ownership-h">Who owns what I build</h2>
+      <h2 id="ownership-h">De quién es lo que construyo</h2>
       <p>
-        You do. The workflows run in your accounts under your credentials. If we ever part ways, everything keeps
-        running.
+        Suyo. Los flujos corren en sus cuentas con sus credenciales. Si algún día nos separamos, todo sigue
+        funcionando.
       </p>
-      <p>There is no platform of mine in the middle and no ongoing fee back to me for what you own.</p>
+      <p>No hay ninguna plataforma mía en el medio ni ninguna cuota recurrente hacia mí por lo que es suyo.</p>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="after-h">
     <div class="wrap">
-      <h2 id="after-h">What happens after handoff</h2>
+      <h2 id="after-h">Qué pasa después de la entrega</h2>
       <p>
-        Most clients keep me on. All three teams on this site started with a single build and continue on embedded
-        retainers, scoped per engagement.
+        La mayoría de los clientes me deja adentro. Los tres equipos de este sitio empezaron con un solo
+        desarrollo y siguen con acompañamiento mensual, dimensionado caso por caso.
       </p>
       <blockquote>
         <p>
-          "Erick was incredibly helpful in setting up the system to automatically track creator content. This
-          automation saves me roughly 3-4 hours per week, and has made my workflow much smoother and saves a lot
-          of manual effort."
+          "Erick nos ayudó muchísimo a montar el sistema que rastrea el contenido de los creadores. Esa
+          automatización me ahorra alrededor de 3 o 4 horas por semana, hizo mi trabajo mucho más fluido y me
+          quita un montón de esfuerzo manual."
         </p>
-        <cite>Social media team, travel media company</cite>
+        <cite>Equipo de redes sociales, empresa de medios de viajes</cite>
       </blockquote>
     </div>
   </section>
 
-  <Faq faqs={faqs} heading="Questions I get before a build starts" />
+  <Faq faqs={faqs} heading="Preguntas que me hacen antes de arrancar un desarrollo" />
 
   <CtaSection
-    heading="Bring me the process that's eating the hours"
-    body="Sixty minutes: you walk me through how your team works, and I tell you what I'd build first and what it would cost. If the right answer is the $500 audit instead of a custom build, I'll say so."
+    heading="Tráigame el proceso que se está comiendo las horas"
+    body="Sesenta minutos: usted me explica cómo trabaja su equipo, y yo le digo qué construiría primero y cuánto costaría. Si la respuesta correcta es el diagnóstico de $500 en vez de un desarrollo a la medida, se lo digo."
   />
   <div class="cta-postscript">
-    <p>Or write to me directly: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    <p>O escríbame directo: <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
   </div>
 </Base>
 

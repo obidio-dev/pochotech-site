@@ -6,16 +6,16 @@ import { EMAIL, BOILERPLATE } from '../../data/site';
 
 const jsonLd = graph(
   breadcrumbs([
-    { name: 'Home', path: '/' },
-    { name: 'Case Studies', path: '/case-studies' },
-    { name: 'Event production agency', path: '/case-studies/event-production-agency' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Casos', path: '/case-studies' },
+    { name: 'Agencia de producción de eventos', path: '/case-studies/event-production-agency' },
   ])
 );
 
 const metrics = [
-  { value: '1.5–2 hours → 15 minutes', label: 'Processing one proposal, accepted to invoiced.' },
-  { value: '2–4 a day', label: 'Proposals through the pipeline.' },
-  { value: '6–8 hours', label: 'Manual operations eliminated from every working day.' },
+  { value: '1.5–2 horas → 15 minutos', label: 'Procesar una propuesta, de aceptada a facturada.' },
+  { value: '2 a 4 por día', label: 'Propuestas que pasan por el circuito.' },
+  { value: '6–8 horas', label: 'Operación manual eliminada de cada jornada.' },
 ];
 
 const stack = [
@@ -30,45 +30,45 @@ const stack = [
 ];
 ---
 <Base
-  title="Event production agency: 1.5 Hours to 15 Minutes | pocho.tech"
-  description="How four automations cut proposal processing at an event production agency from two hours to 15 minutes, with 6–8 hours of manual operations gone every day. Case study."
+  title="Agencia de producción de eventos: de 1.5 horas a 15 minutos | pocho.tech"
+  description="Cómo cuatro automatizaciones bajaron el procesamiento de propuestas de una agencia de producción de eventos de dos horas a 15 minutos, con 6 a 8 horas de operación manual eliminadas cada día."
   path="/case-studies/event-production-agency"
   jsonLd={jsonLd}
 >
   <section class="cs-header">
     <div class="wrap">
-      <h1>Event production agency</h1>
-      <p class="client-line"><strong>Event production and consulting.</strong> Team of six to eight. Four automations in production, on an embedded retainer.</p>
+      <h1>Agencia de producción de eventos</h1>
+      <p class="client-line"><strong>Producción de eventos y consultoría.</strong> Equipo de seis a ocho. Cuatro automatizaciones en producción, con acompañamiento continuo.</p>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The before</h2>
+      <h2>El antes</h2>
       <div class="before-block">
-        <p>An accepted proposal set off the same manual relay every time: update the deal in HubSpot, build the project board in Monday.com, create the customer in QuickBooks, draft two invoices, split 50/50. Done by hand, it took an hour and a half to two hours.</p>
-        <p>At two to four proposals a day, that relay was most of someone's day. Six to eight hours of manual operations, every working day, inside a team of six to eight people.</p>
-        <p>Leads had the same shape at smaller scale. Web form submissions, referrals arriving by email, business cards collected at events. Each one re-typed into HubSpot, or lost on the way there.</p>
+        <p>Una propuesta aceptada disparaba siempre la misma cadena manual: actualizar el negocio en HubSpot, armar el tablero del proyecto en Monday.com, crear el cliente en QuickBooks, redactar dos facturas al 50 por ciento. Hecho a mano, tomaba de hora y media a dos horas.</p>
+        <p>A dos o cuatro propuestas por día, esa cadena era casi el día completo de alguien. De seis a ocho horas de operación manual, cada jornada, dentro de un equipo de seis a ocho personas.</p>
+        <p>Los prospectos tenían la misma forma a menor escala. Envíos del formulario del sitio, referidos que llegaban por correo, tarjetas de presentación juntadas en eventos. Cada uno retranscrito a HubSpot, o perdido en el camino.</p>
       </div>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>What I built</h2>
-      <p>Four automations run the back office.</p>
+      <h2>Qué construí</h2>
+      <p>Cuatro automatizaciones corren el back office.</p>
       <ol class="systems">
-        <li><strong>Proposal-to-invoice pipeline</strong>: An accepted proposal in Fresh Proposals updates the HubSpot deal stage, builds the Monday.com board, and creates the QuickBooks customer with two invoices split 50/50.</li>
-        <li><strong>Web form lead routing</strong>: Every form submission creates the HubSpot contact, adds the subscriber in Beehiiv, and posts to Slack so the team sees the lead the moment it arrives.</li>
-        <li><strong>AI referral capture</strong>: An AI parses referral emails as they land and creates the contact in HubSpot, so an introduction doesn't depend on someone remembering to copy it over.</li>
-        <li><strong>Business card scanner</strong>: Drop a photo in Slack; GPT-4o Vision reads the card, extracts every field, and creates the HubSpot contact.</li>
+        <li><strong>Circuito de propuesta a factura</strong>: una propuesta aceptada en Fresh Proposals actualiza la etapa del negocio en HubSpot, arma el tablero en Monday.com y crea el cliente en QuickBooks con dos facturas al 50 por ciento.</li>
+        <li><strong>Enrutamiento de prospectos del sitio</strong>: cada envío del formulario crea el contacto en HubSpot, suma el suscriptor en Beehiiv y publica en Slack, para que el equipo vea el prospecto en el momento en que llega.</li>
+        <li><strong>Captura de referidos con IA</strong>: una IA interpreta los correos de referidos apenas caen y crea el contacto en HubSpot, para que una presentación no dependa de que alguien se acuerde de copiarla.</li>
+        <li><strong>Escáner de tarjetas de presentación</strong>: se suelta una foto en Slack; GPT-4o Vision lee la tarjeta, extrae cada campo y crea el contacto en HubSpot.</li>
       </ol>
     </div>
   </section>
 
   <section class="section-alt numbers">
     <div class="wrap">
-      <h2>The numbers</h2>
+      <h2>Los números</h2>
       <div class="metric-grid">
         {metrics.map((m) => (
           <div class="metric-item">
@@ -82,7 +82,7 @@ const stack = [
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The stack</h2>
+      <h2>Las herramientas</h2>
       <ul class="stack-row">
         {stack.map((tool) => <li class="pill">{tool}</li>)}
       </ul>
@@ -91,23 +91,23 @@ const stack = [
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>On testimonials</h2>
-      <p>No testimonial exists for this engagement, so none appears here. What does exist: the agency now refers new business.</p>
+      <h2>Sobre los testimonios</h2>
+      <p>No existe un testimonio escrito de este trabajo, así que acá no aparece ninguno. Lo que sí existe: la agencia hoy me recomienda negocio nuevo.</p>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
       <aside class="how-started">
-        <h2>How it started</h2>
-        <p>One automation, scoped on a discovery call. Working embedded, one became four, and the retainer is still running.</p>
+        <h2>Cómo empezó</h2>
+        <p>Una automatización, dimensionada en una llamada de diagnóstico. Trabajando metido adentro, una se volvió cuatro, y el acompañamiento sigue corriendo.</p>
       </aside>
     </div>
   </section>
 
   <CtaSection
-    heading="If your back office looks like this"
-    body="Sixty minutes: you walk me through how proposals, leads, and invoices move through your team, and I tell you what I'd automate first and what it would cost."
+    heading="Si su back office se parece a esto"
+    body="Sesenta minutos: usted me explica cómo se mueven las propuestas, los prospectos y las facturas por su equipo, y yo le digo qué automatizaría primero y cuánto costaría."
     secondaryLabel={EMAIL}
     secondaryHref={`mailto:${EMAIL}`}
   />

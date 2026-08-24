@@ -6,21 +6,21 @@ import { EMAIL, BOILERPLATE } from '../../data/site';
 
 const jsonLd = graph(
   breadcrumbs([
-    { name: 'Home', path: '/' },
-    { name: 'Case Studies', path: '/case-studies' },
-    { name: 'EdTech workforce training', path: '/case-studies/edtech-workforce-training' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Casos', path: '/case-studies' },
+    { name: 'Formación laboral EdTech', path: '/case-studies/edtech-workforce-training' },
   ]),
   reviewSchema({
-    body: "You have done such a great job that I can't remember how we were working before you.",
+    body: 'Han hecho un trabajo tan bueno que ya no me acuerdo de cómo trabajábamos antes de ustedes.',
     authorName: 'CEO',
-    authorTitle: 'EdTech workforce-training company',
+    authorTitle: 'Empresa de formación laboral EdTech',
   })
 );
 
 const metrics = [
-  { value: 'Zero → daily', label: 'From zero operational visibility to fully automated daily reporting.' },
-  { value: '30–40 → 12–16', label: 'Applicants to accepted, every stage tracked.' },
-  { value: 'Sunday, every week', label: 'At-risk stipend alerts to participant and coach, before the problem lands.' },
+  { value: 'Cero → diario', label: 'De cero visibilidad operativa a reportes diarios totalmente automáticos.' },
+  { value: '30–40 → 12–16', label: 'De postulantes a aceptados, con cada etapa seguida.' },
+  { value: 'Domingo, cada semana', label: 'Alertas de estipendio en riesgo al participante y a su coach, antes de que el problema caiga.' },
 ];
 
 const stack = [
@@ -35,48 +35,48 @@ const stack = [
 ];
 ---
 <Base
-  title="EdTech workforce training: Six Connected Systems | pocho.tech"
-  description="Six connected systems run admissions and operations at an EdTech workforce-training company: AI-scored interviews, stipend alerts, daily reports. Built by Erick Bonilla."
+  title="Formación laboral EdTech: seis sistemas conectados | pocho.tech"
+  description="Seis sistemas conectados corren las admisiones y la operación de una empresa de formación laboral EdTech: entrevistas calificadas por IA, alertas de estipendio y reportes diarios. Construidos por Erick Bonilla."
   path="/case-studies/edtech-workforce-training"
   jsonLd={jsonLd}
 >
   <section class="cs-header">
     <div class="wrap">
-      <h1>EdTech workforce training</h1>
-      <p class="client-line"><strong>Clean-tech workforce training, Boston.</strong> Runs an 8-week, stipend-based training program for immigrants and minorities. 30–40 applicants per cohort; 12–16 accepted. Six systems in production, built as an embedded team member.</p>
+      <h1>Formación laboral EdTech</h1>
+      <p class="client-line"><strong>Formación laboral en tecnología limpia, Boston.</strong> Corre un programa de capacitación de 8 semanas con estipendio para inmigrantes y minorías. De 30 a 40 postulantes por cohorte; de 12 a 16 aceptados. Seis sistemas en producción, construidos como un miembro más del equipo.</p>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The before</h2>
+      <h2>El antes</h2>
       <div class="before-block">
-        <p>Every cohort starts with 30 to 40 applications and ends with 12 to 16 seats. Between those two numbers: intake forms, interviews, scoring, scheduling emails, stipend rules, and a team holding it together by hand.</p>
-        <p>There was no operational visibility. Nobody could see, in one place, where a candidate stood, which interviews had been evaluated, or who was at risk of losing stipend eligibility.</p>
-        <p>The stipend part carried the most weight. Eligibility data sat in SharePoint, invisible to the participant and coach who needed the warning.</p>
+        <p>Cada cohorte arranca con 30 a 40 postulaciones y termina con 12 a 16 cupos. Entre esos dos números: formularios de ingreso, entrevistas, calificación, correos de agenda, reglas de estipendio, y un equipo sosteniendo todo a mano.</p>
+        <p>No había visibilidad operativa. Nadie podía ver, en un solo lugar, en qué punto estaba un candidato, qué entrevistas ya se habían evaluado, ni quién estaba en riesgo de perder la elegibilidad del estipendio.</p>
+        <p>La parte del estipendio era la que más pesaba. Los datos de elegibilidad vivían en SharePoint, invisibles para el participante y el coach que necesitaban el aviso.</p>
       </div>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>What I built</h2>
-      <p>Six connected systems, running as one operation.</p>
+      <h2>Qué construí</h2>
+      <p>Seis sistemas conectados, funcionando como una sola operación.</p>
       <ol class="systems">
-        <li><strong>Airtable ATS</strong>: Intake forms feed one applicant pipeline, so every candidate has a single record and a visible stage from application to acceptance.</li>
-        <li><strong>AI interview evaluation</strong>: A Read.ai transcript webhook matches the candidate, applies objective scoring, runs an AI qualitative evaluation with direct quotes from the interview, and delivers a structured brief to the human reviewers.</li>
-        <li><strong>Interview scheduling</strong>: Scheduling emails go out automatically as candidates advance through the pipeline.</li>
-        <li><strong>Daily and executive reporting</strong>: A 5pm report to the team every day, and a Monday executive summary for the CEO: week-over-week movement, demographics, bottleneck alerts.</li>
-        <li><strong>Stipend eligibility notifications</strong>: SharePoint data flows through Power Automate into Supabase; every Sunday, at-risk participants and their coach get an alert.</li>
-        <li><strong>Real-time dashboards</strong>: Live views of the pipeline and program operations.</li>
+        <li><strong>Sistema de postulaciones en Airtable</strong>: los formularios de ingreso alimentan un solo circuito de candidatos, así cada uno tiene un único registro y una etapa visible desde la postulación hasta la aceptación.</li>
+        <li><strong>Evaluación de entrevistas con IA</strong>: un webhook con la transcripción de Read.ai empareja al candidato, aplica una calificación objetiva, corre una evaluación cualitativa con IA usando citas directas de la entrevista, y entrega un resumen estructurado a los revisores humanos.</li>
+        <li><strong>Agenda de entrevistas</strong>: los correos de agenda salen solos a medida que los candidatos avanzan por el circuito.</li>
+        <li><strong>Reportes diarios y ejecutivos</strong>: un reporte a las 5 de la tarde para el equipo todos los días, y un resumen ejecutivo los lunes para el CEO: movimiento contra la semana anterior, datos demográficos y alertas de cuellos de botella.</li>
+        <li><strong>Avisos de elegibilidad del estipendio</strong>: los datos de SharePoint pasan por Power Automate a Supabase; cada domingo, los participantes en riesgo y su coach reciben una alerta.</li>
+        <li><strong>Tableros en tiempo real</strong>: vistas en vivo del circuito y de la operación del programa.</li>
       </ol>
-      <p class="systems-note">The AI doesn't decide who gets in. It reads, scores, and prepares the brief. The human reviewers make the call.</p>
+      <p class="systems-note">La IA no decide quién entra. Lee, califica y prepara el resumen. La decisión la toman los revisores humanos.</p>
     </div>
   </section>
 
   <section class="section-alt numbers">
     <div class="wrap">
-      <h2>The numbers</h2>
+      <h2>Los números</h2>
       <div class="metric-grid">
         {metrics.map((m) => (
           <div class="metric-item">
@@ -90,17 +90,17 @@ const stack = [
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>What the CEO says</h2>
+      <h2>Qué dice el CEO</h2>
       <blockquote>
-        <p>"You have done such a great job that I can't remember how we were working before you."</p>
-        <cite>CEO, EdTech workforce-training company</cite>
+        <p>"Han hecho un trabajo tan bueno que ya no me acuerdo de cómo trabajábamos antes de ustedes."</p>
+        <cite>CEO, empresa de formación laboral EdTech</cite>
       </blockquote>
     </div>
   </section>
 
   <section class="cs-block">
     <div class="wrap">
-      <h2>The stack</h2>
+      <h2>Las herramientas</h2>
       <ul class="stack-row">
         {stack.map((tool) => <li class="pill">{tool}</li>)}
       </ul>
@@ -110,15 +110,15 @@ const stack = [
   <section class="cs-block">
     <div class="wrap">
       <aside class="how-started">
-        <h2>How it started</h2>
-        <p>A single build, then embedded work inside the team. One system became six as each bottleneck surfaced.</p>
+        <h2>Cómo empezó</h2>
+        <p>Un solo desarrollo, y después trabajo metido adentro del equipo. Un sistema se volvió seis a medida que fue apareciendo cada cuello de botella.</p>
       </aside>
     </div>
   </section>
 
   <CtaSection
-    heading="If your program runs on forms, interviews, and deadlines"
-    body="Sixty minutes: you walk me through how applicants or clients move through your operation, and I tell you what I'd automate first and what it would cost."
+    heading="Si su programa corre sobre formularios, entrevistas y fechas límite"
+    body="Sesenta minutos: usted me explica cómo se mueven los postulantes o los clientes por su operación, y yo le digo qué automatizaría primero y cuánto costaría."
     secondaryLabel={EMAIL}
     secondaryHref={`mailto:${EMAIL}`}
   />

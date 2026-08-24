@@ -5,22 +5,22 @@ import { EMAIL } from '../../data/site';
 import { graph, breadcrumbs } from '../../lib/schema';
 
 const jsonLd = graph(
-  breadcrumbs([{ name: 'Industries', path: '/industries' }])
+  breadcrumbs([{ name: 'Industrias', path: '/industries' }])
 );
 ---
 <Base
-  title="AI Automation by Industry | pocho.tech"
-  description="I go deep in four industries instead of listing forty: media, agencies, destination marketing, and accounting. Twelve automations in production."
+  title="Automatización con IA por industria | pocho.tech"
+  description="Entro a fondo en cuatro industrias en vez de listar cuarenta: medios, agencias, promoción turística y firmas contables. Doce automatizaciones en producción."
   path="/industries"
   jsonLd={jsonLd}
 >
   <!-- Hero -->
   <section class="hero">
     <div class="wrap">
-      <h1>I go deep in a few industries instead of listing forty.</h1>
+      <h1>Entro a fondo en unas pocas industrias en vez de listar cuarenta.</h1>
       <p class="hero-sub">
-        Two of them come with full case studies and real numbers: media and agencies. The other two,
-        destination marketing and accounting, are pages about capability, and they say so plainly.
+        Dos vienen con casos completos y números reales: medios y agencias. Las otras dos, promoción turística y
+        contabilidad, son páginas de capacidad, y lo dicen sin vueltas.
       </p>
     </div>
   </section>
@@ -28,43 +28,45 @@ const jsonLd = graph(
   <!-- The four -->
   <section class="section" aria-labelledby="four-h">
     <div class="wrap">
-      <h2 id="four-h">The four</h2>
+      <h2 id="four-h">Las cuatro</h2>
       <div class="grid-2 industry-grid">
         <article class="card industry-card">
-          <h3>Media &amp; publishing</h3>
+          <h3>Medios y editoriales</h3>
           <p>
-            Four automations run a travel media company's editorial back office: newsletter curation from 400+ daily
-            articles, a 70-creator tracker, affiliate reporting, and event search across 15 cities. Full case
-            study, two testimonials, real numbers.
+            Cuatro automatizaciones corren el back office editorial de una empresa de medios de viajes: curaduría
+            del newsletter a partir de más de 400 artículos diarios, un rastreador de 70 creadores, reportes de
+            afiliados y búsqueda de eventos en 15 ciudades. Caso completo, dos testimonios, números reales.
           </p>
-          <a href="/industries/media-publishing" class="card-link">Media &amp; publishing <span aria-hidden="true">&rarr;</span></a>
+          <a href="/industries/media-publishing" class="card-link">Medios y editoriales <span aria-hidden="true">&rarr;</span></a>
         </article>
         <article class="card industry-card">
-          <h3>Marketing &amp; event agencies</h3>
+          <h3>Agencias de marketing y eventos</h3>
           <p>
-            An event production agency runs four: web lead routing, AI referral capture, a proposal-to-invoice pipeline that
-            cut processing from 1.5–2 hours to 15 minutes, and a business card scanner that lives in Slack. Full
-            case study.
+            Una agencia de producción de eventos corre cuatro: enrutamiento de prospectos del sitio, captura de
+            referidos con IA, un circuito de propuesta a factura que bajó el procesamiento de 1.5 o 2 horas a 15
+            minutos, y un escáner de tarjetas de presentación que vive en Slack. Caso completo.
           </p>
-          <a href="/industries/marketing-agencies" class="card-link">Marketing &amp; event agencies <span aria-hidden="true">&rarr;</span></a>
+          <a href="/industries/marketing-agencies" class="card-link">Agencias de marketing y eventos <span aria-hidden="true">&rarr;</span></a>
         </article>
         <article class="card industry-card">
-          <h3>Destination marketing organizations</h3>
+          <h3>Organizaciones de promoción turística</h3>
           <p>
-            For tourism boards and convention bureaus: partner tracking, AI email agents, content pipelines, and
-            lead qualification. I come from the travel-media side of this industry and speak at its conferences.
-            No DMO client is named on that page, and it says so.
+            Para oficinas de turismo y buróes de convenciones: seguimiento de socios, agentes de correo con IA,
+            circuitos de contenido y calificación de prospectos. Vengo del lado de los medios de viajes de esta
+            industria y hablo en sus conferencias. En esa página no hay ningún cliente del rubro nombrado, y así
+            lo dice.
           </p>
-          <a href="/industries/destination-marketing" class="card-link">Destination marketing <span aria-hidden="true">&rarr;</span></a>
+          <a href="/industries/destination-marketing" class="card-link">Promoción turística <span aria-hidden="true">&rarr;</span></a>
         </article>
         <article class="card industry-card">
-          <h3>Accounting &amp; CPA firms</h3>
+          <h3>Firmas contables</h3>
           <p>
-            Bookkeeping and tax workflow automation: QuickBooks Online, TaxDome, quarterly tax letters, and the
-            client communications around every deadline. A capability page: what I build for firms, with the
-            proof drawn from systems already in production elsewhere.
+            Automatización de contabilidad y flujos fiscales: QuickBooks Online, TaxDome, cartas trimestrales de
+            impuestos, y las comunicaciones con el cliente alrededor de cada fecha límite. Es una página de
+            capacidad: qué construyo para firmas, con la prueba tomada de sistemas que ya corren en producción
+            en otro lado.
           </p>
-          <a href="/industries/accounting-firms" class="card-link">Accounting &amp; CPA firms <span aria-hidden="true">&rarr;</span></a>
+          <a href="/industries/accounting-firms" class="card-link">Firmas contables <span aria-hidden="true">&rarr;</span></a>
         </article>
       </div>
     </div>
@@ -73,24 +75,24 @@ const jsonLd = graph(
   <!-- Outside the four -->
   <section class="section section-alt" aria-labelledby="outside-h">
     <div class="wrap">
-      <h2 id="outside-h">Outside the four</h2>
+      <h2 id="outside-h">Fuera de las cuatro</h2>
       <p class="outside-body">
-        The deepest engagement on this site fits none of these categories. An EdTech workforce-training company
-        in Boston runs six of my systems. If your industry isn't listed here, the discovery call works the same
-        way.
+        El trabajo más profundo de este sitio no entra en ninguna de estas categorías. Una empresa de formación
+        laboral EdTech en Boston corre seis de mis sistemas. Si su industria no está listada acá, la llamada de
+        diagnóstico funciona igual.
       </p>
       <blockquote class="quote">
-        <p>"You have done such a great job that I can't remember how we were working before you."</p>
-        <cite>CEO, EdTech workforce-training company</cite>
+        <p>"Han hecho un trabajo tan bueno que ya no me acuerdo de cómo trabajábamos antes de ustedes."</p>
+        <cite>CEO, empresa de formación laboral EdTech</cite>
       </blockquote>
     </div>
   </section>
 
   <!-- CTA -->
   <CtaSection
-    heading="Tell me where the hours go."
-    body="Sixty minutes: you walk me through how your team works, and I tell you what I'd automate first and what it would cost. If it's not a fit, you'll hear that on the call."
-    secondaryLabel={`Or write to me directly: ${EMAIL}`}
+    heading="Cuénteme dónde se van las horas."
+    body="Sesenta minutos: usted me explica cómo trabaja su equipo, y yo le digo qué automatizaría primero y cuánto costaría. Si no calza, lo escucha en la llamada."
+    secondaryLabel={`O escríbame directo: ${EMAIL}`}
     secondaryHref={`mailto:${EMAIL}`}
   />
 </Base>

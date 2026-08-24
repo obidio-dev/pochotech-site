@@ -8,130 +8,133 @@ const RESERVE_LINK = 'https://paypal.me/pochotech/100USD';
 
 const faqs = [
   {
-    q: 'Can a custom system really start with my real data?',
-    a: 'Yes, and it should. For a furniture factory we loaded 67 active orders with 364 pieces, using their own order numbers, before switch-on. A system running on sample data looks nice and tells the owner nothing; a system running on your real operation tells the truth from day one.',
+    q: '¿Un sistema propio puede arrancar de verdad con mis datos reales?',
+    a: 'Sí, y debería. Para una fábrica de muebles cargamos 67 órdenes activas con 364 piezas, usando sus propios números de orden, antes de encender. Un sistema corriendo con datos de ejemplo se ve bonito y no le dice nada al dueño; un sistema corriendo sobre su operación real dice la verdad desde el día uno.',
   },
   {
-    q: 'What if my process changes while the system is being built?',
-    a: 'It will, and the build is structured for it. One client round brought 13 change requests in a single pass; the system absorbed them without restarting, because we build in stages against the real business instead of locking a twelve-month spec upfront.',
+    q: '¿Qué pasa si mi proceso cambia mientras se construye el sistema?',
+    a: 'Va a cambiar, y el desarrollo está armado para eso. Una ronda de un cliente trajo 13 pedidos de cambio de una sola vez; el sistema los absorbió sin empezar de nuevo, porque construimos por etapas contra el negocio real en vez de cerrar una especificación de doce meses al principio.',
   },
   {
-    q: 'How fast can the first version be running?',
-    a: 'The first month delivers the piece that removes most of the pain, live on your data. A brand-new lube center opened its doors with the full system already in production; established businesses typically see their core process on screen within the first month.',
+    q: '¿Qué tan rápido puede estar corriendo la primera versión?',
+    a: 'El primer mes entrega la pieza que quita la mayor parte del dolor, en vivo sobre sus datos. Un lubricentro nuevo abrió sus puertas con el sistema completo ya en producción; los negocios establecidos suelen ver su proceso central en pantalla dentro del primer mes.',
   },
   {
-    q: 'Do my people need to be technical?',
-    a: 'No. The systems run in the browser, on the counter phone and the office computer alike, and the handoff includes documentation and a walkthrough. If your team can use WhatsApp, they can use this.',
+    q: '¿Mi gente tiene que ser técnica?',
+    a: 'No. Los sistemas corren en el navegador, igual en el celular del mostrador que en la computadora de la oficina, y la entrega incluye documentación y un recorrido. Si su equipo sabe usar WhatsApp, sabe usar esto.',
   },
   {
-    q: 'What does the $100 reservation actually do?',
-    a: 'We take a limited number of new builds each month to protect delivery quality. The deposit holds your slot and is credited in full toward the project. If the build does not start within 30 days for reasons on our side, it is refunded.',
+    q: '¿Qué hace en concreto la reserva de $100?',
+    a: 'Tomamos una cantidad limitada de desarrollos nuevos cada mes para proteger la calidad de entrega. El depósito le aparta el cupo y se acredita completo al proyecto. Si el desarrollo no arranca dentro de 30 días por razones nuestras, se devuelve.',
   },
 ];
 
 const jsonLd = graph(
   serviceSchema({
-    name: 'Custom Management System Build',
+    name: 'Sistema de gestión propio',
     description:
-      'A custom management system for operations that run on notebooks, spreadsheets, and WhatsApp: orders, inventory, production, and invoicing, live on real data in the first month.',
+      'Un sistema de gestión propio para operaciones que corren en cuadernos, hojas de cálculo y WhatsApp: órdenes, inventario, producción y facturación, en vivo sobre datos reales en el primer mes.',
     path: '/services/management-system-build',
   }),
   breadcrumbs([
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'Management System Build', path: '/services/management-system-build' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Servicios', path: '/services' },
+    { name: 'Sistema de gestión propio', path: '/services/management-system-build' },
   ]),
   faqSchema(faqs)
 );
 ---
 <Base
-  title="Management System Build for Businesses Running on Paper | pocho.tech"
-  description="A custom management system for operations still on notebooks, Excel, and WhatsApp: orders, inventory, production. Live on your real data in the first month."
+  title="Sistema de gestión para negocios que corren en papel | pocho.tech"
+  description="Un sistema de gestión propio para operaciones que todavía andan en cuadernos, Excel y WhatsApp: órdenes, inventario, producción. En vivo sobre sus datos reales en el primer mes."
   path="/services/management-system-build"
   jsonLd={jsonLd}
 >
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow">Management System Build</p>
-      <h1>A system built on how your business actually works.</h1>
+      <p class="eyebrow">Sistema de gestión propio</p>
+      <h1>Un sistema construido sobre cómo funciona su negocio de verdad.</h1>
       <p class="hero-sub">
-        For established operations, and for businesses about to open, that would otherwise run on notebooks, a
-        spreadsheet one person understands, and a WhatsApp thread where the whole operation lives.
+        Para operaciones establecidas, y para negocios que están por abrir, que si no correrían en cuadernos, en
+        una hoja de cálculo que entiende una sola persona, y en un hilo de WhatsApp donde vive toda la
+        operación.
       </p>
       <div class="hero-ctas">
-        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Book a discovery call</a>
-        <a href={RESERVE_LINK} class="btn btn-secondary" rel="noopener">Reserve a build slot: $100</a>
+        <a href={CALENDLY} class="btn btn-primary" rel="noopener">Agendar una llamada</a>
+        <a href={RESERVE_LINK} class="btn btn-secondary" rel="noopener">Reservar cupo: $100</a>
       </div>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="for-h">
     <div class="wrap">
-      <h2 id="for-h">Who this is for</h2>
+      <h2 id="for-h">Para quién es</h2>
       <p>
-        A factory that tracks production in a notebook. A distributor whose inventory lives in a spreadsheet
-        only one person can update. A workshop where the schedule is in somebody's head, and the business slows
-        down the week that person is away. Teams from ten people to a hundred; the size matters less than the
-        symptom.
+        Una fábrica que lleva la producción en un cuaderno. Una distribuidora cuyo inventario vive en una hoja
+        de cálculo que solo una persona puede actualizar. Un taller donde la agenda está en la cabeza de
+        alguien, y el negocio se frena la semana que esa persona no está. Equipos de diez personas a cien; el
+        tamaño importa menos que el síntoma.
       </p>
       <p>
-        The diagnostic question we ask about every process is the same: is it documented, or is it in someone's
-        head? If the honest answer is the second one, that is the risk the system removes first.
+        La pregunta de diagnóstico que hacemos sobre cada proceso es siempre la misma: ¿está documentado, o está
+        en la cabeza de alguien? Si la respuesta honesta es la segunda, ese es el riesgo que el sistema quita
+        primero.
       </p>
     </div>
   </section>
 
   <section class="section" aria-labelledby="get-h">
     <div class="wrap">
-      <h2 id="get-h">What you get, month by month</h2>
+      <h2 id="get-h">Qué recibe, mes a mes</h2>
       <ol class="process">
         <li>
-          <h3>Month one <span class="step-time">the core, live</span></h3>
-          <p>The twenty percent of the system that removes eighty percent of the pain, running on your real data. Not a demo, not sample records: your actual orders, your actual inventory.</p>
+          <h3>Mes uno <span class="step-time">el núcleo, en vivo</span></h3>
+          <p>El veinte por ciento del sistema que quita el ochenta por ciento del dolor, corriendo sobre sus datos reales. No es una demostración ni registros de ejemplo: sus órdenes de verdad, su inventario de verdad.</p>
         </li>
         <li>
-          <h3>Month two <span class="step-time">the processes around it</span></h3>
-          <p>The workflows that depend on the core: dispatch, invoicing, checklists, whatever your operation needs next.</p>
+          <h3>Mes dos <span class="step-time">los procesos alrededor</span></h3>
+          <p>Los flujos que dependen del núcleo: despacho, facturación, checklists, lo que su operación necesite después.</p>
         </li>
         <li>
-          <h3>Month three <span class="step-time">polish and handoff</span></h3>
-          <p>Refinement based on real daily use, plus documentation, so the system never becomes the new version of knowledge that lives in one head.</p>
+          <h3>Mes tres <span class="step-time">afinado y entrega</span></h3>
+          <p>Ajustes a partir del uso diario real, más la documentación, para que el sistema nunca se convierta en la nueva versión del conocimiento que vive en una sola cabeza.</p>
         </li>
       </ol>
       <div class="process-notes">
-        <p><strong>You own everything.</strong> The system, the code, and the data are yours. Nothing we build depends on infrastructure that belongs to us.</p>
-        <p><strong>Real data from day one.</strong> That is how a furniture factory saw 11 late orders on its first morning: the truth was finally on one screen.</p>
+        <p><strong>Todo es suyo.</strong> El sistema, el código y los datos le pertenecen. Nada de lo que construimos depende de infraestructura nuestra.</p>
+        <p><strong>Datos reales desde el día uno.</strong> Así fue como una fábrica de muebles vio sus 11 órdenes atrasadas la primera mañana: la verdad por fin estaba en una sola pantalla.</p>
       </div>
       <p class="proof-links">
-        See it in production: <a href="/case-studies/furniture-factory">the furniture factory</a> and
-        <a href="/case-studies/lube-center">the lube center that opened with its system running</a>.
+        Véalo funcionando: <a href="/case-studies/furniture-factory">la fábrica de muebles</a> y
+        <a href="/case-studies/lube-center">el lubricentro que abrió con su sistema corriendo</a>. También puede
+        recorrer <a href="/demos">las demos</a>.
       </p>
     </div>
   </section>
 
   <section class="section section-alt" aria-labelledby="price-h">
     <div class="wrap">
-      <h2 id="price-h">Pricing, the honest way</h2>
+      <h2 id="price-h">El precio, a la manera honesta</h2>
       <p>
-        We never quote on the spot, because pricing a system before understanding your operation is guessing
-        with your money. After a discovery call you get a written proposal: what is honestly deliverable, by
-        when, and at what cost. Fixed, in writing, before any work starts.
+        Nunca cotizamos en el momento, porque ponerle precio a un sistema antes de entender su operación es
+        adivinar con su plata. Después de una llamada de diagnóstico recibe una propuesta escrita: qué es
+        honestamente entregable, para cuándo, y a qué costo. Fijo, por escrito, antes de que empiece nada.
       </p>
       <p>
-        We take a limited number of new builds each month to protect delivery quality. If you want to hold your
-        place while we schedule the discovery call, the reservation is $100, credited in full toward the
-        project, and refunded if the build does not start within 30 days for reasons on our side.
+        Tomamos una cantidad limitada de desarrollos nuevos cada mes para proteger la calidad de entrega. Si
+        quiere apartar su lugar mientras agendamos la llamada, la reserva es de $100, acreditados completos al
+        proyecto, y se devuelven si el desarrollo no arranca dentro de 30 días por razones nuestras.
       </p>
       <div class="hero-ctas">
-        <a href={RESERVE_LINK} class="btn btn-primary" rel="noopener">Reserve a build slot: $100</a>
-        <a href={CALENDLY} class="btn btn-secondary" rel="noopener">Book the discovery call first</a>
+        <a href={RESERVE_LINK} class="btn btn-primary" rel="noopener">Reservar cupo: $100</a>
+        <a href={CALENDLY} class="btn btn-secondary" rel="noopener">Primero agendar la llamada</a>
       </div>
     </div>
   </section>
 
   <section class="section" aria-labelledby="faq-h">
     <div class="wrap">
-      <h2 id="faq-h">Questions owners ask us</h2>
+      <h2 id="faq-h">Preguntas que nos hacen los dueños</h2>
       {faqs.map((f) => (
         <details class="faq-item">
           <summary><h3>{f.q}</h3></summary>
@@ -142,8 +145,8 @@ const jsonLd = graph(
   </section>
 
   <CtaSection
-    heading="Tell us how your operation runs today."
-    body="Sixty minutes: you walk us through how the work actually happens, and you get a written proposal of what we would build first, by when, and at what cost."
+    heading="Cuéntenos cómo corre su operación hoy."
+    body="Sesenta minutos: usted nos explica cómo pasa el trabajo de verdad, y recibe una propuesta escrita de qué construiríamos primero, para cuándo y a qué costo."
     secondaryLabel={EMAIL}
     secondaryHref={`mailto:${EMAIL}`}
   />
