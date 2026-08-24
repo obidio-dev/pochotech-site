@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sentinel Facility Services — Operations Portal Demo</title>
+  <title>Sentinel Facility Services — Demo del Portal de Operaciones</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -335,17 +335,17 @@
 <header id="site-header">
   <div class="brand">
     <span class="brand-name">Sentinel Facility Services</span>
-    <span class="brand-sub">What your own system would look like — prepared by Pocho.tech</span>
+    <span class="brand-sub">Así se vería su sistema propio — preparado por Pocho.tech</span>
   </div>
-  <span class="demo-badge">DEMO · sample data</span>
+  <span class="demo-badge">DEMO · datos de muestra</span>
 </header>
 
 <!-- ════════════ TABS ════════════ -->
 <nav id="tab-bar" role="tablist">
-  <button class="tab-btn active" data-tab="dispatch"   role="tab">📋 Dispatch Board</button>
-  <button class="tab-btn"        data-tab="detail"     role="tab">🔧 Work Order Detail</button>
-  <button class="tab-btn"        data-tab="portal"     role="tab">⚡ Client Portal</button>
-  <button class="tab-btn"        data-tab="reports"    role="tab">📊 Reports &amp; Search</button>
+  <button class="tab-btn active" data-tab="dispatch"   role="tab">📋 Tablero de despacho</button>
+  <button class="tab-btn"        data-tab="detail"     role="tab">🔧 Detalle de la orden</button>
+  <button class="tab-btn"        data-tab="portal"     role="tab">⚡ Portal del cliente</button>
+  <button class="tab-btn"        data-tab="reports"    role="tab">📊 Reportes y búsqueda</button>
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -357,28 +357,28 @@
   <div class="stat-grid">
     <div class="stat-card">
       <div class="stat-val" id="stat-open">14</div>
-      <div class="stat-lbl">Open Work Orders</div>
-      <div class="stat-delta delta-warn">3 overdue</div>
+      <div class="stat-lbl">Órdenes abiertas</div>
+      <div class="stat-delta delta-warn">3 vencidas</div>
     </div>
     <div class="stat-card">
       <div class="stat-val">6</div>
-      <div class="stat-lbl">In Progress Today</div>
-      <div class="stat-delta delta-up">↑ 2 vs yesterday</div>
+      <div class="stat-lbl">En curso hoy</div>
+      <div class="stat-delta delta-up">↑ 2 contra ayer</div>
     </div>
     <div class="stat-card">
       <div class="stat-val">28</div>
-      <div class="stat-lbl">Upcoming (7 days)</div>
-      <div class="stat-delta" style="color:#6b7a99;">Recurring services</div>
+      <div class="stat-lbl">Próximas (7 días)</div>
+      <div class="stat-delta" style="color:#6b7a99;">Servicios recurrentes</div>
     </div>
     <div class="stat-card">
       <div class="stat-val">$47,820</div>
-      <div class="stat-lbl">Unbilled this month</div>
-      <div class="stat-delta delta-warn">12 uninvoiced WOs</div>
+      <div class="stat-lbl">Sin facturar este mes</div>
+      <div class="stat-delta delta-warn">12 órdenes sin factura</div>
     </div>
     <div class="stat-card">
       <div class="stat-val" id="stat-upsell">5</div>
-      <div class="stat-lbl">Upsell Alerts</div>
-      <div class="stat-delta delta-up">Flagged by techs</div>
+      <div class="stat-lbl">Alertas de venta adicional</div>
+      <div class="stat-delta delta-up">Marcadas por los técnicos</div>
     </div>
   </div>
 
@@ -386,29 +386,28 @@
   <div class="inline-alert">
     <span style="font-size:1.1rem;flex-shrink:0;">📞</span>
     <div>
-      <strong>Before this system:</strong> every one of these work orders started as a phone call to <strong>713-555-0142</strong>.
-      Facility managers at 20+ locations, no way to submit or track requests online — every update required a callback.
+      <strong>Antes de este sistema:</strong> cada una de estas órdenes empezaba como una llamada al <strong>713-555-0142</strong>. Gerentes de instalaciones en más de 20 sedes, sin forma de mandar ni seguir solicitudes en línea &mdash; cada actualización exigía devolver la llamada.
     </div>
   </div>
 
   <!-- Action row -->
   <div style="display:flex;gap:.6rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;">
-    <button class="btn-orange" id="btn-new-wo" onclick="dispatchNewWO()">+ New Work Order</button>
-    <button class="btn-primary" onclick="showTab('reports')">Search WOs</button>
+    <button class="btn-orange" id="btn-new-wo" onclick="dispatchNewWO()">+ Nueva orden de trabajo</button>
+    <button class="btn-primary" onclick="showTab('reports')">Buscar órdenes</button>
     <select style="border:1px solid #e5e7eb;border-radius:6px;padding:.45rem .7rem;font-size:.8rem;color:var(--text);background:#fff;cursor:pointer;">
-      <option>All Trades</option>
-      <option>Hood Cleaning</option>
-      <option>Fire &amp; Water Restoration</option>
-      <option>Roofing</option>
-      <option>Paving</option>
-      <option>Janitorial</option>
+      <option>Todos los oficios</option>
+      <option>Limpieza de campanas</option>
+      <option>Restauración por fuego y agua</option>
+      <option>Techos</option>
+      <option>Pavimentación</option>
+      <option>Limpieza</option>
     </select>
     <select style="border:1px solid #e5e7eb;border-radius:6px;padding:.45rem .7rem;font-size:.8rem;color:var(--text);background:#fff;cursor:pointer;">
-      <option>All Status</option>
-      <option>Open</option>
-      <option>In Progress</option>
-      <option>Awaiting Review</option>
-      <option>Complete</option>
+      <option>Todos los estados</option>
+      <option>Abierta</option>
+      <option>En curso</option>
+      <option>Esperando revisión</option>
+      <option>Completa</option>
     </select>
   </div>
 
@@ -418,13 +417,13 @@
       <thead>
         <tr>
           <th style="width:28px;"></th>
-          <th>WO #</th>
-          <th>Location / Client</th>
-          <th>Trade(s)</th>
-          <th>Status</th>
-          <th>Scheduled</th>
-          <th>Assigned Tech</th>
-          <th>Action</th>
+          <th>Orden</th>
+          <th>Sede / cliente</th>
+          <th>Oficio(s)</th>
+          <th>Estado</th>
+          <th>Programada</th>
+          <th>Técnico asignado</th>
+          <th>Acción</th>
         </tr>
       </thead>
       <tbody id="wo-tbody">
@@ -444,104 +443,104 @@
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.75rem;">
       <div>
-        <div style="font-size:.72rem;color:#6b7a99;margin-bottom:2px;">WORK ORDER</div>
+        <div style="font-size:.72rem;color:#6b7a99;margin-bottom:2px;">ORDEN DE TRABAJO</div>
         <div style="font-size:1.4rem;font-weight:800;color:var(--navy);">WO-2024-0187</div>
         <div style="font-size:.82rem;color:#4b5563;margin-top:2px;">
-          QSR — Pasadena, TX · Created Jul 14, 2026 · Priority: <strong style="color:#ef4444;">HIGH</strong>
+          Restaurante rápido — Pasadena, TX · creada el 14 jul 2026 · prioridad: <strong style="color:#ef4444;">ALTA</strong>
         </div>
       </div>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-        <span class="badge badge-progress">In Progress</span>
-        <span class="trade-tag trade-hood">Hood Cleaning</span>
-        <span class="trade-tag trade-restore">Fire &amp; Water Restoration</span>
+        <span class="badge badge-progress">En curso</span>
+        <span class="trade-tag trade-hood">Limpieza de campanas</span>
+        <span class="trade-tag trade-restore">Restauración por fuego y agua</span>
       </div>
     </div>
     <hr class="divider">
     <!-- Details grid -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;font-size:.82rem;">
       <div>
-        <div class="section-title" style="margin-bottom:2px;">Assigned Technician</div>
+        <div class="section-title" style="margin-bottom:2px;">Técnico asignado</div>
         <div style="font-weight:600;">Roberto M.</div>
-        <div style="color:#6b7a99;">Hood cleaning cert · IICRC</div>
+        <div style="color:#6b7a99;">Certificación de campanas · IICRC</div>
       </div>
       <div>
-        <div class="section-title" style="margin-bottom:2px;">Service Frequency</div>
-        <div style="font-weight:600;">Monthly (NFPA 96)</div>
-        <div style="color:#6b7a99;">Next due: Aug 14, 2026</div>
+        <div class="section-title" style="margin-bottom:2px;">Frecuencia del servicio</div>
+        <div style="font-weight:600;">Mensual (NFPA 96)</div>
+        <div style="color:#6b7a99;">Próxima: 14 ago 2026</div>
       </div>
       <div>
-        <div class="section-title" style="margin-bottom:2px;">Scope</div>
-        <div style="font-weight:600;">Hood clean + emergency restoration</div>
-        <div style="color:#6b7a99;">Charbroiler line · water leak detected</div>
+        <div class="section-title" style="margin-bottom:2px;">Alcance</div>
+        <div style="font-weight:600;">Limpieza de campana + restauración de emergencia</div>
+        <div style="color:#6b7a99;">Línea de parrilla · fuga de agua detectada</div>
       </div>
       <div>
-        <div class="section-title" style="margin-bottom:2px;">Estimate</div>
+        <div class="section-title" style="margin-bottom:2px;">Estimado</div>
         <div style="font-weight:600;">$3,450</div>
-        <div style="color:#6b7a99;">Awaiting adjuster coordination</div>
+        <div style="color:#6b7a99;">Esperando coordinación con el ajustador</div>
       </div>
     </div>
     <hr class="divider">
     <!-- Progress bar -->
-    <div class="section-title">Completion Progress</div>
+    <div class="section-title">Avance</div>
     <div style="display:flex;align-items:center;gap:.75rem;">
       <div class="progress-track" style="flex:1;">
         <div class="progress-fill" style="width:65%;"></div>
       </div>
       <span style="font-size:.78rem;font-weight:700;color:var(--navy);">65%</span>
     </div>
-    <div style="font-size:.72rem;color:#6b7a99;margin-top:4px;">Hood cleaning complete · Restoration drying phase active</div>
+    <div style="font-size:.72rem;color:#6b7a99;margin-top:4px;">Limpieza de campana completa · fase de secado de la restauración en curso</div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
 
     <!-- Compliance / NFPA 96 block -->
     <div class="card">
-      <div class="section-title">Compliance &amp; Certifications</div>
+      <div class="section-title">Cumplimiento y certificaciones</div>
       <div style="font-size:.82rem;">
         <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
-          <span>NFPA 96 Service Report</span><span style="color:#15803d;font-weight:700;">✓ Generated</span>
+          <span>Reporte de servicio NFPA 96</span><span style="color:#15803d;font-weight:700;">✓ Generado</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
-          <span>Grease buildup — before</span><span style="color:#15803d;font-weight:700;">✓ Documented</span>
+          <span>Acumulación de grasa — antes</span><span style="color:#15803d;font-weight:700;">✓ Documentada</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
-          <span>Exhaust fan inspection</span><span style="color:#15803d;font-weight:700;">✓ Pass</span>
+          <span>Inspección del extractor</span><span style="color:#15803d;font-weight:700;">✓ Aprobada</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
-          <span>Moisture readings — Day 1</span><span style="color:#15803d;font-weight:700;">✓ Logged</span>
+          <span>Lecturas de humedad — día 1</span><span style="color:#15803d;font-weight:700;">✓ Registradas</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
-          <span>Moisture readings — Day 2</span><span style="color:#f59e0b;font-weight:700;">⏳ Pending</span>
+          <span>Lecturas de humedad — día 2</span><span style="color:#f59e0b;font-weight:700;">⏳ Pendientes</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:.4rem 0;">
-          <span>Scope report (adjuster)</span><span style="color:#f59e0b;font-weight:700;">⏳ In Review</span>
+          <span>Reporte de alcance (ajustador)</span><span style="color:#f59e0b;font-weight:700;">⏳ En revisión</span>
         </div>
       </div>
     </div>
 
     <!-- Photo documentation -->
     <div class="card">
-      <div class="section-title">Photo Documentation</div>
+      <div class="section-title">Documentación fotográfica</div>
       <div class="photo-grid">
         <div class="photo-thumb" style="background:linear-gradient(135deg,#374151,#1f2937);">
-          <span>Hood<br>Before</span>
-          <span class="photo-label">Jul 14 · 08:22 AM</span>
+          <span>Campana<br>Antes</span>
+          <span class="photo-label">14 jul · 08:22 AM</span>
         </div>
         <div class="photo-thumb" style="background:linear-gradient(135deg,#1B2A4A,#2d4070);">
-          <span>Hood<br>After</span>
-          <span class="photo-label">Jul 14 · 11:45 AM</span>
+          <span>Campana<br>Después</span>
+          <span class="photo-label">14 jul · 11:45 AM</span>
         </div>
         <div class="photo-thumb" style="background:linear-gradient(135deg,#374151,#4b5563);">
-          <span>Water<br>Damage</span>
-          <span class="photo-label">Jul 14 · 12:10 PM</span>
+          <span>Daño por<br>agua</span>
+          <span class="photo-label">14 jul · 12:10 PM</span>
         </div>
         <div class="photo-thumb" style="background:linear-gradient(135deg,#1e3a5f,#1B2A4A);">
-          <span>Drying<br>Setup</span>
-          <span class="photo-label">Jul 15 · 09:00 AM</span>
+          <span>Montaje de<br>secado</span>
+          <span class="photo-label">15 jul · 09:00 AM</span>
         </div>
       </div>
       <div style="font-size:.72rem;color:#6b7a99;margin-top:.6rem;">
-        Auto-delivered to facility manager upon job close. No email thread required.
+        Se entrega sola al gerente de instalaciones al cerrar el trabajo. Sin cadena de correos.
       </div>
     </div>
 
@@ -549,48 +548,48 @@
 
   <!-- Activity Timeline -->
   <div class="card">
-    <div class="section-title">Activity &amp; History</div>
+    <div class="section-title">Actividad e historial</div>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-date">Jul 14, 2026 · 7:55 AM</div>
-        <div class="tl-text"><strong>Work order submitted</strong> — Client portal (facility manager, Pasadena location)</div>
-        <div class="tl-sub">Multi-trade WO created in 90 seconds. No phone call required.</div>
+        <div class="tl-date">14 jul 2026 · 7:55 AM</div>
+        <div class="tl-text"><strong>Orden de trabajo enviada</strong> — portal del cliente (gerente de instalaciones, sede Pasadena)</div>
+        <div class="tl-sub">Orden de varios oficios creada en 90 segundos. Sin una sola llamada.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-date">Jul 14, 2026 · 8:10 AM</div>
-        <div class="tl-text"><strong>Dispatched</strong> — Roberto M. assigned, ETA confirmed</div>
+        <div class="tl-date">14 jul 2026 · 8:10 AM</div>
+        <div class="tl-text"><strong>Despachada</strong> — Roberto M. asignado, hora de llegada confirmada</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-date">Jul 14, 2026 · 8:22 AM</div>
-        <div class="tl-text"><strong>On-site — Hood cleaning started</strong></div>
-        <div class="tl-sub">Before photos uploaded. Grease buildup documented per NFPA 96.</div>
+        <div class="tl-date">14 jul 2026 · 8:22 AM</div>
+        <div class="tl-text"><strong>En sitio — arrancó la limpieza de campana</strong></div>
+        <div class="tl-sub">Fotos del antes subidas. Acumulación de grasa documentada según NFPA 96.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-date">Jul 14, 2026 · 12:00 PM</div>
-        <div class="tl-text"><strong>Hood cleaning complete</strong> — NFPA 96 service report generated</div>
-        <div class="tl-sub">Tech flagged water intrusion at roofline. Restoration WO auto-added to same job.</div>
+        <div class="tl-date">14 jul 2026 · 12:00 PM</div>
+        <div class="tl-text"><strong>Limpieza de campana completa</strong> — reporte de servicio NFPA 96 generado</div>
+        <div class="tl-sub">El técnico marcó entrada de agua en la línea del techo. La orden de restauración se agregó sola al mismo trabajo.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-date">Jul 15, 2026 · 9:00 AM</div>
-        <div class="tl-text"><strong>Restoration — Drying equipment deployed</strong></div>
-        <div class="tl-sub">Moisture readings logged: Day 1. Drying log started. Adjuster coordination initiated.</div>
+        <div class="tl-date">15 jul 2026 · 9:00 AM</div>
+        <div class="tl-text"><strong>Restauración — equipo de secado instalado</strong></div>
+        <div class="tl-sub">Lecturas de humedad registradas: día 1. Bitácora de secado iniciada. Coordinación con el ajustador arrancada.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot active"></div>
-        <div class="tl-date">Jul 16, 2026 · — (today)</div>
-        <div class="tl-text"><strong>Drying Day 2 — moisture readings pending</strong></div>
-        <div class="tl-sub">System will auto-remind Roberto at 9:00 AM. Client portal shows live status.</div>
+        <div class="tl-date">16 jul 2026 · — (hoy)</div>
+        <div class="tl-text"><strong>Secado día 2 — lecturas de humedad pendientes</strong></div>
+        <div class="tl-sub">El sistema le recuerda solo a Roberto a las 9:00 AM. El portal del cliente muestra el estado en vivo.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot pending"></div>
-        <div class="tl-date">Est. Jul 18, 2026</div>
-        <div class="tl-text" style="color:#9ca3af;"><strong>Restoration close + invoice generation</strong></div>
-        <div class="tl-sub" style="color:#9ca3af;">Content inventory report + scope report delivered to facility manager automatically.</div>
+        <div class="tl-date">Estimado 18 jul 2026</div>
+        <div class="tl-text" style="color:#9ca3af;"><strong>Cierre de la restauración y generación de factura</strong></div>
+        <div class="tl-sub" style="color:#9ca3af;">El inventario de contenidos y el reporte de alcance le llegan solos al gerente de instalaciones.</div>
       </div>
     </div>
   </div>
@@ -600,14 +599,13 @@
     <div style="display:flex;gap:.75rem;align-items:flex-start;">
       <div class="icon-circle" style="background:#fff3e0;color:var(--orange);">🔔</div>
       <div style="flex:1;">
-        <div style="font-weight:700;color:var(--navy);font-size:.9rem;">Tech-flagged Upsell — Roofing Assessment Needed</div>
+        <div style="font-weight:700;color:var(--navy);font-size:.9rem;">Venta adicional marcada por el técnico — hace falta evaluar el techo</div>
         <div style="font-size:.8rem;color:#4b5563;margin-top:3px;">
-          Roberto noted visible membrane damage at the east parapet during restoration setup.
-          A roofing WO can be dispatched before the next rain event — same single-source provider, no new vendor needed.
+          Roberto anotó daño visible en la membrana del parapeto este mientras montaba el secado. Se puede despachar una orden de techos antes de la próxima lluvia, con el mismo proveedor, sin buscar a nadie más.
         </div>
         <div style="margin-top:.75rem;display:flex;gap:.5rem;flex-wrap:wrap;">
-          <button class="btn-orange" style="font-size:.75rem;padding:.35rem .85rem;">Add Roofing WO</button>
-          <button class="btn-primary" style="font-size:.75rem;padding:.35rem .85rem;">Notify Facility Manager</button>
+          <button class="btn-orange" style="font-size:.75rem;padding:.35rem .85rem;">Agregar orden de techos</button>
+          <button class="btn-primary" style="font-size:.75rem;padding:.35rem .85rem;">Avisar al gerente de instalaciones</button>
         </div>
       </div>
     </div>
@@ -622,143 +620,143 @@
 
   <div style="background:var(--navy);color:#fff;border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
     <div style="flex:1;">
-      <div style="font-size:.72rem;color:#a8b9d4;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">Facility Manager View</div>
-      <div style="font-size:1.1rem;font-weight:700;">Multi-Location Client — Houston &amp; Greater Area</div>
-      <div style="font-size:.78rem;color:#a8b9d4;margin-top:2px;">12 locations enrolled · Single login · All work orders, all trades, all sites</div>
+      <div style="font-size:.72rem;color:#a8b9d4;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">Vista del gerente de instalaciones</div>
+      <div style="font-size:1.1rem;font-weight:700;">Cliente con varias sedes — Houston y alrededores</div>
+      <div style="font-size:.78rem;color:#a8b9d4;margin-top:2px;">12 sedes inscritas · un solo acceso · todas las órdenes, todos los oficios, todas las sedes</div>
     </div>
     <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:.7rem 1rem;text-align:center;">
       <div style="font-size:1.4rem;font-weight:800;">12</div>
-      <div style="font-size:.68rem;color:#a8b9d4;text-transform:uppercase;letter-spacing:.05em;">Active Sites</div>
+      <div style="font-size:.68rem;color:#a8b9d4;text-transform:uppercase;letter-spacing:.05em;">Sedes activas</div>
     </div>
   </div>
 
   <!-- The before/after pain dramatization -->
   <div class="card" style="border-top:3px solid var(--orange);">
-    <div class="section-title">The Difference a Portal Makes</div>
+    <div class="section-title">La diferencia que hace un portal</div>
     <div class="pain-split">
       <div class="pain-card pain-before">
-        <div class="pain-head pain-head-before">⛔ Without a Portal — Today</div>
-        <div class="pain-item">📞 <span>Facility manager calls 713-555-0142 to report a leak at 10 PM</span></div>
-        <div class="pain-item">📬 <span>Leaves a voicemail. Waits for a callback the next morning.</span></div>
-        <div class="pain-item">🗂 <span>No way to track whether the work order was received, assigned, or scheduled</span></div>
-        <div class="pain-item">📸 <span>Before/after photos arrive via email thread — if they arrive at all</span></div>
-        <div class="pain-item">📄 <span>NFPA 96 compliance report has to be requested separately, each time</span></div>
-        <div class="pain-item">🧾 <span>Invoice comes days later, manually, with no connection to the service record</span></div>
-        <div class="pain-item">🤷 <span>Rooftop damage noted by tech? Might get followed up. Might get forgotten.</span></div>
+        <div class="pain-head pain-head-before">⛔ Sin portal — hoy</div>
+        <div class="pain-item">📞 <span>El gerente de instalaciones llama al 713-555-0142 para reportar una fuga a las 10 de la noche</span></div>
+        <div class="pain-item">📬 <span>Deja un mensaje de voz. Espera a que le devuelvan la llamada al día siguiente.</span></div>
+        <div class="pain-item">🗂 <span>Ninguna forma de saber si la orden se recibió, se asignó o se programó</span></div>
+        <div class="pain-item">📸 <span>Las fotos de antes y después llegan por correo &mdash; si es que llegan</span></div>
+        <div class="pain-item">📄 <span>El reporte de cumplimiento NFPA 96 hay que pedirlo aparte, cada vez</span></div>
+        <div class="pain-item">🧾 <span>La factura llega días después, hecha a mano y sin conexión con el registro del servicio</span></div>
+        <div class="pain-item">🤷 <span>¿El técnico vio daño en el techo? Quizá le den seguimiento. Quizá se olvide.</span></div>
       </div>
       <div class="pain-card pain-after">
-        <div class="pain-head pain-head-after">✅ With This Portal — 90 Seconds</div>
-        <div class="pain-item">🌐 <span>Facility manager opens the portal from their phone at 10 PM</span></div>
-        <div class="pain-item">⚡ <span>Multi-trade work order submitted in 90 seconds. Sentinel gets an instant alert.</span></div>
-        <div class="pain-item">📍 <span>Real-time status: Dispatched → On-Site → In Progress → Complete</span></div>
-        <div class="pain-item">📸 <span>Before/after photo documentation delivered automatically at job close</span></div>
-        <div class="pain-item">📋 <span>NFPA 96 &amp; IICRC service reports auto-generated and attached to the record</span></div>
-        <div class="pain-item">🧾 <span>Invoice tied to service record — one click to approve and download</span></div>
-        <div class="pain-item">🔔 <span>Tech flags rooftop damage → alert sent to facility manager before they leave the lot</span></div>
+        <div class="pain-head pain-head-after">✅ Con este portal — 90 segundos</div>
+        <div class="pain-item">🌐 <span>El gerente de instalaciones abre el portal desde el celular a las 10 de la noche</span></div>
+        <div class="pain-item">⚡ <span>Orden de varios oficios enviada en 90 segundos. A Sentinel le llega la alerta al instante.</span></div>
+        <div class="pain-item">📍 <span>Estado en vivo: despachada → en sitio → en curso → completa</span></div>
+        <div class="pain-item">📸 <span>La documentación fotográfica de antes y después se entrega sola al cerrar el trabajo</span></div>
+        <div class="pain-item">📋 <span>Los reportes NFPA 96 e IICRC se generan solos y quedan adjuntos al registro</span></div>
+        <div class="pain-item">🧾 <span>La factura queda ligada al registro del servicio &mdash; un clic para aprobar y descargar</span></div>
+        <div class="pain-item">🔔 <span>El técnico marca el daño del techo → la alerta le llega al gerente antes de que se vaya del lugar</span></div>
       </div>
     </div>
   </div>
 
   <!-- My Locations summary -->
   <div class="card">
-    <div class="section-title">My Locations — Open &amp; Upcoming</div>
+    <div class="section-title">Mis sedes — abiertas y próximas</div>
     <table>
       <thead>
         <tr>
-          <th>Location</th>
-          <th>Next Scheduled Service</th>
-          <th>Open WOs</th>
-          <th>Last Service</th>
-          <th>Status</th>
+          <th>Sede</th>
+          <th>Próximo servicio programado</th>
+          <th>Órdenes abiertas</th>
+          <th>Último servicio</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody style="font-size:.82rem;">
         <tr>
           <td><strong>Houston — Main St</strong><br><span style="color:#6b7a99;font-size:.72rem;">Houston, TX 77004</span></td>
-          <td>Hood clean — Aug 1</td>
+          <td>Limpieza de campana — 1 ago</td>
           <td>0</td>
-          <td>Jul 1, 2026</td>
-          <td><span class="badge badge-complete">All Clear</span></td>
+          <td>1 jul 2026</td>
+          <td><span class="badge badge-complete">Sin novedad</span></td>
         </tr>
         <tr>
           <td><strong>Pasadena — East Blvd</strong><br><span style="color:#6b7a99;font-size:.72rem;">Pasadena, TX 77506</span></td>
-          <td>Restoration follow-up — Jul 18</td>
+          <td>Seguimiento de restauración — 18 jul</td>
           <td>1</td>
-          <td>Jul 14, 2026</td>
-          <td><span class="badge badge-progress">In Progress</span></td>
+          <td>14 jul 2026</td>
+          <td><span class="badge badge-progress">En curso</span></td>
         </tr>
         <tr>
           <td><strong>Katy — Grand Pkwy</strong><br><span style="color:#6b7a99;font-size:.72rem;">Katy, TX 77494</span></td>
-          <td>Hood clean — Aug 5</td>
+          <td>Limpieza de campana — 5 ago</td>
           <td>0</td>
-          <td>Jul 5, 2026</td>
-          <td><span class="badge badge-complete">All Clear</span></td>
+          <td>5 jul 2026</td>
+          <td><span class="badge badge-complete">Sin novedad</span></td>
         </tr>
         <tr>
           <td><strong>The Woodlands — Research</strong><br><span style="color:#6b7a99;font-size:.72rem;">The Woodlands, TX 77380</span></td>
-          <td>Deep cleaning — Jul 28</td>
+          <td>Limpieza profunda — 28 jul</td>
           <td>0</td>
-          <td>Jun 28, 2026</td>
-          <td><span class="badge badge-scheduled">Scheduled</span></td>
+          <td>28 jun 2026</td>
+          <td><span class="badge badge-scheduled">Programado</span></td>
         </tr>
         <tr>
           <td><strong>Baytown — Sjolander Rd</strong><br><span style="color:#6b7a99;font-size:.72rem;">Baytown, TX 77521</span></td>
-          <td>Paving seal coat — Aug 12</td>
+          <td>Sellado de pavimento — 12 ago</td>
           <td>1</td>
-          <td>Jul 10, 2026</td>
-          <td><span class="badge badge-review">Awaiting Approval</span></td>
+          <td>10 jul 2026</td>
+          <td><span class="badge badge-review">Esperando aprobación</span></td>
         </tr>
         <tr>
           <td><strong>Spring — FM 2920</strong><br><span style="color:#6b7a99;font-size:.72rem;">Spring, TX 77379</span></td>
-          <td>Hood clean — Jul 30</td>
+          <td>Limpieza de campana — 30 jul</td>
           <td>0</td>
-          <td>Jun 30, 2026</td>
-          <td><span class="badge badge-complete">All Clear</span></td>
+          <td>30 jun 2026</td>
+          <td><span class="badge badge-complete">Sin novedad</span></td>
         </tr>
       </tbody>
     </table>
 
     <div style="margin-top:1rem;text-align:center;">
-      <button class="btn-orange" onclick="openCalendly()">Submit a New Work Order for Any Location</button>
+      <button class="btn-orange" onclick="openCalendly()">Envíe una orden nueva para cualquier sede</button>
     </div>
   </div>
 
   <!-- Recurring schedule -->
   <div class="card">
-    <div class="section-title">Recurring Service Schedule — Next 30 Days</div>
+    <div class="section-title">Calendario de servicios recurrentes — próximos 30 días</div>
     <div style="font-size:.78rem;color:#4b5563;margin-bottom:.75rem;">
-      40 years of never missing a service — now enforced by the system, not by memory.
+      Cuarenta años sin fallar un servicio &mdash; ahora lo sostiene el sistema, no la memoria.
     </div>
     <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.82rem;">
       <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
-        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Jul 28</span>
-        <span class="trade-tag trade-janitorial">Janitorial</span>
-        <span>Deep cleaning — The Woodlands Medical Complex</span>
-        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">28 jul</span>
+        <span class="trade-tag trade-janitorial">Limpieza</span>
+        <span>Limpieza profunda — complejo médico The Woodlands</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmado</span>
       </div>
       <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
-        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Jul 30</span>
-        <span class="trade-tag trade-hood">Hood Clean</span>
-        <span>Monthly NFPA 96 service — Spring FM 2920</span>
-        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">30 jul</span>
+        <span class="trade-tag trade-hood">Limpieza de campana</span>
+        <span>Servicio mensual NFPA 96 — Spring FM 2920</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmado</span>
       </div>
       <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
-        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Aug 1</span>
-        <span class="trade-tag trade-hood">Hood Clean</span>
-        <span>Monthly NFPA 96 service — Houston Main St</span>
-        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">1 ago</span>
+        <span class="trade-tag trade-hood">Limpieza de campana</span>
+        <span>Servicio mensual NFPA 96 — Houston Main St</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmado</span>
       </div>
       <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
-        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Aug 5</span>
-        <span class="trade-tag trade-hood">Hood Clean</span>
-        <span>Monthly NFPA 96 service — Katy Grand Pkwy</span>
-        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">5 ago</span>
+        <span class="trade-tag trade-hood">Limpieza de campana</span>
+        <span>Servicio mensual NFPA 96 — Katy Grand Pkwy</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmado</span>
       </div>
       <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
-        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Aug 12</span>
-        <span class="trade-tag trade-paving">Paving</span>
-        <span>Seal coating — Baytown Sjolander Rd</span>
-        <span class="badge badge-review" style="margin-left:auto;">Pending Approval</span>
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">12 ago</span>
+        <span class="trade-tag trade-paving">Pavimentación</span>
+        <span>Sellado — Baytown Sjolander Rd</span>
+        <span class="badge badge-review" style="margin-left:auto;">Esperando aprobación</span>
       </div>
     </div>
   </div>
@@ -772,17 +770,17 @@
 
   <!-- Search Bar -->
   <div class="card">
-    <div class="section-title">Search Work Orders &amp; Service Records</div>
+    <div class="section-title">Buscar órdenes y registros de servicio</div>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;">
-      <input type="text" class="search-input" placeholder="Search by location, trade, tech, WO number…" style="max-width:400px;" id="search-input" oninput="filterReport()" />
+      <input type="text" class="search-input" placeholder="Buscar por sede, oficio, técnico, número de orden…" style="max-width:400px;" id="search-input" oninput="filterReport()" />
     </div>
     <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-      <span class="filter-chip active" onclick="setFilter(this,'all')">All</span>
-      <span class="filter-chip" onclick="setFilter(this,'hood')">Hood Cleaning</span>
-      <span class="filter-chip" onclick="setFilter(this,'restore')">Restoration</span>
-      <span class="filter-chip" onclick="setFilter(this,'paving')">Paving</span>
-      <span class="filter-chip" onclick="setFilter(this,'janitorial')">Janitorial</span>
-      <span class="filter-chip" onclick="setFilter(this,'roofing')">Roofing</span>
+      <span class="filter-chip active" onclick="setFilter(this,'all')">Todos</span>
+      <span class="filter-chip" onclick="setFilter(this,'hood')">Limpieza de campanas</span>
+      <span class="filter-chip" onclick="setFilter(this,'restore')">Restauración</span>
+      <span class="filter-chip" onclick="setFilter(this,'paving')">Pavimentación</span>
+      <span class="filter-chip" onclick="setFilter(this,'janitorial')">Limpieza</span>
+      <span class="filter-chip" onclick="setFilter(this,'roofing')">Techos</span>
     </div>
   </div>
 
@@ -790,57 +788,57 @@
   <div class="stat-grid">
     <div class="stat-card">
       <div class="stat-val">$212,540</div>
-      <div class="stat-lbl">Invoiced YTD</div>
-      <div class="stat-delta delta-up">↑ 18% vs prior year</div>
+      <div class="stat-lbl">Facturado en el año</div>
+      <div class="stat-delta delta-up">↑ 18% contra el año anterior</div>
     </div>
     <div class="stat-card">
       <div class="stat-val">143</div>
-      <div class="stat-lbl">WOs Closed YTD</div>
-      <div class="stat-delta delta-up">avg 3.2 days to close</div>
+      <div class="stat-lbl">Órdenes cerradas en el año</div>
+      <div class="stat-delta delta-up">promedio de 3.2 días para cerrar</div>
     </div>
     <div class="stat-card">
       <div class="stat-val">31</div>
-      <div class="stat-lbl">Recurring Clients</div>
-      <div class="stat-delta" style="color:#6b7a99;">Multi-location operators</div>
+      <div class="stat-lbl">Clientes recurrentes</div>
+      <div class="stat-delta" style="color:#6b7a99;">Operadores con varias sedes</div>
     </div>
     <div class="stat-card">
       <div class="stat-val">94%</div>
-      <div class="stat-lbl">On-Time Service Rate</div>
-      <div class="stat-delta delta-up">NFPA 96 compliant schedules</div>
+      <div class="stat-lbl">Servicios a tiempo</div>
+      <div class="stat-delta delta-up">Calendarios conformes a NFPA 96</div>
     </div>
   </div>
 
   <!-- Trade breakdown -->
   <div class="card">
-    <div class="section-title">Revenue by Trade — YTD</div>
+    <div class="section-title">Ingreso por oficio — en el año</div>
     <div style="display:flex;flex-direction:column;gap:.6rem;" id="trade-breakdown">
       <div data-trade="hood">
         <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
-          <span style="font-weight:600;">Hood Cleaning <span class="trade-tag trade-hood">NFPA 96</span></span><span style="color:var(--navy);font-weight:700;">$68,200</span>
+          <span style="font-weight:600;">Limpieza de campanas <span class="trade-tag trade-hood">NFPA 96</span></span><span style="color:var(--navy);font-weight:700;">$68,200</span>
         </div>
         <div class="progress-track"><div class="progress-fill" style="width:32%;"></div></div>
       </div>
       <div data-trade="restore">
         <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
-          <span style="font-weight:600;">Fire &amp; Water Restoration <span class="trade-tag trade-restore">IICRC</span></span><span style="color:var(--navy);font-weight:700;">$77,400</span>
+          <span style="font-weight:600;">Restauración por fuego y agua <span class="trade-tag trade-restore">IICRC</span></span><span style="color:var(--navy);font-weight:700;">$77,400</span>
         </div>
         <div class="progress-track"><div class="progress-fill" style="width:36%;"></div></div>
       </div>
       <div data-trade="janitorial">
         <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
-          <span style="font-weight:600;">Janitorial Services</span><span style="color:var(--navy);font-weight:700;">$34,100</span>
+          <span style="font-weight:600;">Servicios de limpieza</span><span style="color:var(--navy);font-weight:700;">$34,100</span>
         </div>
         <div class="progress-track"><div class="progress-fill" style="width:16%;"></div></div>
       </div>
       <div data-trade="roofing">
         <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
-          <span style="font-weight:600;">Roofing</span><span style="color:var(--navy);font-weight:700;">$19,840</span>
+          <span style="font-weight:600;">Techos</span><span style="color:var(--navy);font-weight:700;">$19,840</span>
         </div>
         <div class="progress-track"><div class="progress-fill" style="width:9%;background:#7c3aed;"></div></div>
       </div>
       <div data-trade="paving">
         <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
-          <span style="font-weight:600;">Paving &amp; Seal Coating</span><span style="color:var(--navy);font-weight:700;">$13,000</span>
+          <span style="font-weight:600;">Pavimentación y sellado</span><span style="color:var(--navy);font-weight:700;">$13,000</span>
         </div>
         <div class="progress-track"><div class="progress-fill" style="width:6%;background:#166534;"></div></div>
       </div>
@@ -850,18 +848,18 @@
   <!-- Searchable WO log -->
   <div class="card" style="padding:0;overflow-x:auto;">
     <div style="padding:.85rem 1rem .5rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7a99;">
-      Service Record Log
+      Bitácora de registros de servicio
     </div>
     <table id="report-table">
       <thead>
         <tr>
-          <th>WO #</th>
-          <th>Location</th>
-          <th>Trade</th>
-          <th>Tech</th>
-          <th>Closed</th>
-          <th>Amount</th>
-          <th>Compliance</th>
+          <th>Orden</th>
+          <th>Sede</th>
+          <th>Oficio</th>
+          <th>Técnico</th>
+          <th>Cerrada</th>
+          <th>Monto</th>
+          <th>Cumplimiento</th>
         </tr>
       </thead>
       <tbody id="report-tbody">
@@ -874,68 +872,67 @@
   <div class="inline-alert" style="margin-top:1rem;">
     <span style="font-size:1.1rem;flex-shrink:0;">🧾</span>
     <div>
-      <strong>12 work orders completed but not yet invoiced</strong> — total value: <strong>$47,820</strong>.
-      Manual billing at this scale means cash flow gaps of 15–30 days. A connected invoicing module closes the loop automatically at job completion.
+      <strong>12 órdenes completadas pero todavía sin facturar</strong> — valor total: <strong>$47,820</strong>. Facturar a mano a esta escala significa huecos de flujo de caja de 15 a 30 días. Un módulo de facturación conectado cierra el ciclo solo al terminar el trabajo.
     </div>
   </div>
 
 </section>
 
 <!-- ════════════ FLOATING CTA ════════════ -->
-<button id="cta-float" onclick="openCalendly()">Like what you see? Let's talk</button>
+<button id="cta-float" onclick="openCalendly()">¿Le gustó? Hablemos</button>
 
 <!-- ════════════ MODAL ════════════ -->
 <div id="modal-overlay">
   <div id="modal-box">
     <div style="font-size:2rem;margin-bottom:.5rem;">🏗️</div>
-    <h2>This is what your ops could look like.</h2>
-    <p>A dispatch board, client portal, and service records — custom-built for Sentinel Facility Services.</p>
-    <p style="color:#6b7a99;font-size:.78rem;margin-top:.5rem;">No phone-tag for work orders. No missed follow-ups. No uninvoiced jobs.</p>
+    <h2>Así se podría ver su operación.</h2>
+    <p>Un tablero de despacho, un portal del cliente y registros de servicio &mdash; hechos a la medida de Sentinel Facility Services.</p>
+    <p style="color:#6b7a99;font-size:.78rem;margin-top:.5rem;">Sin perseguirse por teléfono para levantar órdenes. Sin seguimientos olvidados. Sin trabajos sin facturar.</p>
     <a id="modal-cta-link" href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=protechfacilitys" target="_blank" rel="noopener" class="modal-cta">
-      Schedule a walkthrough
+      Agendar un recorrido
     </a>
-    <button class="modal-skip" onclick="closeModal()">Maybe later</button>
+    <button class="modal-skip" onclick="closeModal()">Quizá después</button>
   </div>
 </div>
 
 <!-- ════════════ FOOTER ════════════ -->
 <footer>
-  Mockup with sample data. Built by <span>Pocho.tech</span> — custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por <span>Pocho.tech</span> — sistemas propios para negocios que ya funcionan.
 </footer>
 
 <!-- ════════════ JAVASCRIPT ════════════ -->
 <script>
 // ── Data ───────────────────────────────────────────────────
 const WO_DATA = [
-  { id:'WO-2026-0187', location:'QSR — Pasadena, TX',          trades:['Hood Cleaning','Restoration'], status:'progress',  date:'Jul 14', tech:'Roberto M.', prio:'high', amount:3450, closed:null },
-  { id:'WO-2026-0188', location:'Industrial — Baytown',         trades:['Janitorial'],                  status:'open',      date:'Jul 15', tech:'Maria G.',   prio:'med',  amount:1200, closed:null },
-  { id:'WO-2026-0186', location:'Retail Strip — Katy',          trades:['Paving'],                      status:'complete',  date:'Jul 10', tech:'Carlos R.',  prio:'low',  amount:4800, closed:'Jul 12' },
-  { id:'WO-2026-0185', location:'QSR — Spring, TX',             trades:['Hood Cleaning'],               status:'complete',  date:'Jul 8',  tech:'Roberto M.', prio:'low',  amount:680,  closed:'Jul 8' },
-  { id:'WO-2026-0184', location:'Medical — The Woodlands',      trades:['Janitorial'],                  status:'scheduled', date:'Jul 28', tech:'TBD',        prio:'low',  amount:920,  closed:null },
-  { id:'WO-2026-0183', location:'QSR — Baytown',                trades:['Hood Cleaning'],               status:'overdue',   date:'Jul 5',  tech:'Unassigned', prio:'high', amount:680,  closed:null },
-  { id:'WO-2026-0182', location:'Hotel — Pasadena',             trades:['Restoration','Roofing'],       status:'review',    date:'Jul 3',  tech:'Maria G.',   prio:'high', amount:9200, closed:null },
-  { id:'WO-2026-0181', location:'QSR — Conroe, TX',             trades:['Hood Cleaning'],               status:'complete',  date:'Jul 1',  tech:'Carlos R.',  prio:'low',  amount:680,  closed:'Jul 1' },
-  { id:'WO-2026-0180', location:'School District — Baytown',    trades:['Janitorial'],                  status:'complete',  date:'Jun 28', tech:'Maria G.',   prio:'med',  amount:2100, closed:'Jun 28' },
-  { id:'WO-2026-0179', location:'QSR — Galveston, TX',          trades:['Hood Cleaning'],               status:'complete',  date:'Jun 25', tech:'Roberto M.', prio:'low',  amount:680,  closed:'Jun 25' },
-  { id:'WO-2026-0178', location:'Warehouse — Baytown Ship',     trades:['Janitorial'],                  status:'complete',  date:'Jun 22', tech:'Carlos R.',  prio:'low',  amount:3400, closed:'Jun 23' },
-  { id:'WO-2026-0177', location:'QSR — League City',            trades:['Hood Cleaning','Roofing'],     status:'complete',  date:'Jun 18', tech:'Roberto M.', prio:'med',  amount:2100, closed:'Jun 20' },
+  { id:'WO-2026-0187', location:'Restaurante rápido — Pasadena, TX',          trades:['Limpieza de campanas','Restauración'], status:'progress',  date:'14 jul', tech:'Roberto M.', prio:'high', amount:3450, closed:null },
+  { id:'WO-2026-0188', location:'Industrial — Baytown',         trades:['Limpieza'],                  status:'open',      date:'15 jul', tech:'Maria G.',   prio:'med',  amount:1200, closed:null },
+  { id:'WO-2026-0186', location:'Franja comercial — Katy',          trades:['Pavimentación'],                      status:'complete',  date:'10 jul', tech:'Carlos R.',  prio:'low',  amount:4800, closed:'12 jul' },
+  { id:'WO-2026-0185', location:'Restaurante rápido — Spring, TX',             trades:['Limpieza de campanas'],               status:'complete',  date:'8 jul',  tech:'Roberto M.', prio:'low',  amount:680,  closed:'8 jul' },
+  { id:'WO-2026-0184', location:'Médico — The Woodlands',      trades:['Limpieza'],                  status:'scheduled', date:'28 jul', tech:'Por asignar',        prio:'low',  amount:920,  closed:null },
+  { id:'WO-2026-0183', location:'Restaurante rápido — Baytown',                trades:['Limpieza de campanas'],               status:'overdue',   date:'5 jul',  tech:'Sin asignar', prio:'high', amount:680,  closed:null },
+  { id:'WO-2026-0182', location:'Hotel — Pasadena',             trades:['Restauración','Techos'],       status:'review',    date:'3 jul',  tech:'Maria G.',   prio:'high', amount:9200, closed:null },
+  { id:'WO-2026-0181', location:'Restaurante rápido — Conroe, TX',             trades:['Limpieza de campanas'],               status:'complete',  date:'1 jul',  tech:'Carlos R.',  prio:'low',  amount:680,  closed:'1 jul' },
+  { id:'WO-2026-0180', location:'Distrito escolar — Baytown',    trades:['Limpieza'],                  status:'complete',  date:'28 jun', tech:'Maria G.',   prio:'med',  amount:2100, closed:'28 jun' },
+  { id:'WO-2026-0179', location:'Restaurante rápido — Galveston, TX',          trades:['Limpieza de campanas'],               status:'complete',  date:'25 jun', tech:'Roberto M.', prio:'low',  amount:680,  closed:'25 jun' },
+  { id:'WO-2026-0178', location:'Bodega — Baytown Ship',     trades:['Limpieza'],                  status:'complete',  date:'22 jun', tech:'Carlos R.',  prio:'low',  amount:3400, closed:'23 jun' },
+  { id:'WO-2026-0177', location:'Restaurante rápido — League City',            trades:['Limpieza de campanas','Techos'],     status:'complete',  date:'18 jun', tech:'Roberto M.', prio:'med',  amount:2100, closed:'20 jun' },
 ];
 
 const TRADE_STYLE = {
-  'Hood Cleaning':        'trade-hood',
-  'Restoration':          'trade-restore',
-  'Roofing':              'trade-roofing',
-  'Paving':               'trade-paving',
-  'Janitorial':           'trade-janitorial',
-  'Fire & Water Restoration': 'trade-restore',
+  'Limpieza de campanas':        'trade-hood',
+  'Restauración':          'trade-restore',
+  'Techos':              'trade-roofing',
+  'Pavimentación':               'trade-paving',
+  'Limpieza':           'trade-janitorial',
+  'Restauración por fuego y agua': 'trade-restore',
 };
 const STATUS_MAP = {
-  open:      { label:'Open',            cls:'badge-open'      },
-  progress:  { label:'In Progress',     cls:'badge-progress'  },
-  review:    { label:'Awaiting Review', cls:'badge-review'    },
-  complete:  { label:'Complete',        cls:'badge-complete'  },
-  overdue:   { label:'Overdue',         cls:'badge-overdue'   },
-  scheduled: { label:'Scheduled',       cls:'badge-scheduled' },
+  open:      { label:'Abierta',            cls:'badge-open'      },
+  progress:  { label:'En curso',     cls:'badge-progress'  },
+  review:    { label:'Esperando revisión', cls:'badge-review'    },
+  complete:  { label:'Completa',        cls:'badge-complete'  },
+  overdue:   { label:'Vencida',         cls:'badge-overdue'   },
+  scheduled: { label:'Programada',       cls:'badge-scheduled' },
 };
 
 // ── Tab switching ─────────────────────────────────────────
@@ -977,20 +974,20 @@ function renderWOTable() {
       <td><span class="badge ${s.cls}">${s.label}</span></td>
       <td style="font-size:.78rem;color:#4b5563;">${wo.date}</td>
       <td style="font-size:.78rem;">${wo.tech}</td>
-      <td><button class="btn-primary" style="font-size:.7rem;padding:.3rem .7rem;" onclick="event.stopPropagation();showTab('detail')">View</button></td>
+      <td><button class="btn-primary" style="font-size:.7rem;padding:.3rem .7rem;" onclick="event.stopPropagation();showTab('detail')">Ver</button></td>
     </tr>`;
   }).join('');
 }
 
 // ── Report Table ─────────────────────────────────────────
 const REPORT_DATA = [
-  { id:'WO-2026-0186', location:'Retail Strip — Katy',       trade:'paving',     tech:'Carlos R.',  closed:'Jul 12', amount:'$4,800', compliance:'—' },
-  { id:'WO-2026-0185', location:'QSR — Spring, TX',          trade:'hood',       tech:'Roberto M.', closed:'Jul 8',  amount:'$680',   compliance:'NFPA 96 ✓' },
-  { id:'WO-2026-0181', location:'QSR — Conroe, TX',          trade:'hood',       tech:'Carlos R.',  closed:'Jul 1',  amount:'$680',   compliance:'NFPA 96 ✓' },
-  { id:'WO-2026-0180', location:'School District — Baytown', trade:'janitorial', tech:'Maria G.',   closed:'Jun 28', amount:'$2,100', compliance:'Infection Control ✓' },
-  { id:'WO-2026-0179', location:'QSR — Galveston, TX',       trade:'hood',       tech:'Roberto M.', closed:'Jun 25', amount:'$680',   compliance:'NFPA 96 ✓' },
-  { id:'WO-2026-0178', location:'Warehouse — Baytown Ship',  trade:'janitorial', tech:'Carlos R.',  closed:'Jun 23', amount:'$3,400', compliance:'—' },
-  { id:'WO-2026-0177', location:'QSR — League City',         trade:'roofing',    tech:'Roberto M.', closed:'Jun 20', amount:'$2,100', compliance:'NFPA 96 ✓' },
+  { id:'WO-2026-0186', location:'Franja comercial — Katy',       trade:'paving',     tech:'Carlos R.',  closed:'12 jul', amount:'$4,800', compliance:'—' },
+  { id:'WO-2026-0185', location:'Restaurante rápido — Spring, TX',          trade:'hood',       tech:'Roberto M.', closed:'8 jul',  amount:'$680',   compliance:'NFPA 96 ✓' },
+  { id:'WO-2026-0181', location:'Restaurante rápido — Conroe, TX',          trade:'hood',       tech:'Carlos R.',  closed:'1 jul',  amount:'$680',   compliance:'NFPA 96 ✓' },
+  { id:'WO-2026-0180', location:'Distrito escolar — Baytown', trade:'janitorial', tech:'Maria G.',   closed:'28 jun', amount:'$2,100', compliance:'Control de infecciones ✓' },
+  { id:'WO-2026-0179', location:'Restaurante rápido — Galveston, TX',       trade:'hood',       tech:'Roberto M.', closed:'25 jun', amount:'$680',   compliance:'NFPA 96 ✓' },
+  { id:'WO-2026-0178', location:'Bodega — Baytown Ship',  trade:'janitorial', tech:'Carlos R.',  closed:'23 jun', amount:'$3,400', compliance:'—' },
+  { id:'WO-2026-0177', location:'Restaurante rápido — League City',         trade:'roofing',    tech:'Roberto M.', closed:'20 jun', amount:'$2,100', compliance:'NFPA 96 ✓' },
 ];
 
 let currentFilter = 'all';
@@ -998,7 +995,7 @@ let currentFilter = 'all';
 function renderReport(data) {
   const tbody = document.getElementById('report-tbody');
   tbody.innerHTML = data.map(r => {
-    const tradeLabel = { hood:'Hood Cleaning', restore:'Restoration', paving:'Paving', janitorial:'Janitorial', roofing:'Roofing' }[r.trade] || r.trade;
+    const tradeLabel = { hood:'Limpieza de campanas', restore:'Restauración', paving:'Pavimentación', janitorial:'Limpieza', roofing:'Techos' }[r.trade] || r.trade;
     const tradeCls   = { hood:'trade-hood', restore:'trade-restore', paving:'trade-paving', janitorial:'trade-janitorial', roofing:'trade-roofing' }[r.trade] || '';
     return `<tr>
       <td style="font-size:.78rem;font-weight:700;color:var(--navy);">${r.id}</td>
@@ -1038,18 +1035,18 @@ let woCounter = WO_DATA.length;
 function dispatchNewWO() {
   const btn = document.getElementById('btn-new-wo');
   btn.disabled = true;
-  btn.textContent = 'Dispatching…';
+  btn.textContent = 'Despachando…';
   btn.style.opacity = '.6';
 
   setTimeout(() => {
     // Insert new row at top
     const newWO = {
       id: 'WO-2026-0' + (188 + woCounter),
-      location: 'QSR — Houston, TX',
-      trades: ['Hood Cleaning'],
+      location: 'Restaurante rápido — Houston, TX',
+      trades: ['Limpieza de campanas'],
       status: 'open',
-      date: 'Jul 26',
-      tech: 'Unassigned',
+      date: '26 jul',
+      tech: 'Sin asignar',
       prio: 'med',
       amount: 680,
       closed: null,
@@ -1071,13 +1068,13 @@ function dispatchNewWO() {
     }
 
     btn.disabled = false;
-    btn.textContent = '+ New Work Order';
+    btn.textContent = '+ Nueva orden de trabajo';
     btn.style.opacity = '1';
 
     // Show a brief inline confirmation
     const alert = document.createElement('div');
     alert.style.cssText = 'position:fixed;top:80px;right:20px;z-index:200;background:var(--navy);color:#fff;border-radius:8px;padding:.65rem 1rem;font-size:.82rem;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:opacity .4s;';
-    alert.textContent = '✓ Work order dispatched — client portal updated';
+    alert.textContent = '✓ Orden despachada — portal del cliente actualizado';
     document.body.appendChild(alert);
     setTimeout(() => { alert.style.opacity = '0'; setTimeout(() => alert.remove(), 400); }, 2800);
   }, 900);

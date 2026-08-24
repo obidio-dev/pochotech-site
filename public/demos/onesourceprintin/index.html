@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Printworks Direct — Client Portal Demo</title>
+  <title>Printworks Direct — Demo del Portal de Clientes</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -370,25 +370,25 @@
   <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
     <div>
       <h1>Printworks Direct</h1>
-      <p>What your own system would look like — prepared by Pocho.tech</p>
+      <p>Así se vería su sistema propio — preparado por Pocho.tech</p>
     </div>
-    <span class="demo-badge">DEMO &middot; sample data</span>
+    <span class="demo-badge">DEMO &middot; datos de muestra</span>
   </div>
 </header>
 
 <!-- TABS -->
 <nav class="tab-bar" role="tablist">
   <button class="tab-btn active" data-tab="dashboard" role="tab" onclick="switchTab('dashboard', this)">
-    &#9783; Operations Dashboard
+    &#9783; Tablero de operaciones
   </button>
   <button class="tab-btn" data-tab="detail" role="tab" onclick="switchTab('detail', this)">
-    &#128196; Order Detail
+    &#128196; Detalle de la orden
   </button>
   <button class="tab-btn" data-tab="pain" role="tab" onclick="switchTab('pain', this)">
-    &#9889; Before &amp; After
+    &#9889; Antes y después
   </button>
   <button class="tab-btn" data-tab="reports" role="tab" onclick="switchTab('reports', this)">
-    &#128202; Reports &amp; Search
+    &#128202; Reportes y búsqueda
   </button>
 </nav>
 
@@ -399,23 +399,23 @@
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;">
     <div class="stat-tile">
       <div class="stat-num">23</div>
-      <div class="stat-label">Active Orders</div>
-      <div class="stat-delta delta-up">&#9650; 4 this week</div>
+      <div class="stat-label">Órdenes activas</div>
+      <div class="stat-delta delta-up">&#9650; 4 esta semana</div>
     </div>
     <div class="stat-tile">
       <div class="stat-num" id="stat-proof">5</div>
-      <div class="stat-label">Awaiting Proof Approval</div>
-      <div class="stat-delta delta-down">&#9660; Needs action</div>
+      <div class="stat-label">Esperando aprobación de prueba</div>
+      <div class="stat-delta delta-down">&#9660; Requiere acción</div>
     </div>
     <div class="stat-tile">
       <div class="stat-num">3</div>
-      <div class="stat-label">New Quotes Submitted</div>
-      <div class="stat-delta delta-up">After-hours requests</div>
+      <div class="stat-label">Cotizaciones nuevas recibidas</div>
+      <div class="stat-delta delta-up">Pedidas fuera de horario</div>
     </div>
     <div class="stat-tile">
       <div class="stat-num">97%</div>
-      <div class="stat-label">On-Time Delivery (30d)</div>
-      <div class="stat-delta delta-up">&#9650; vs last month</div>
+      <div class="stat-label">Entregas a tiempo (30 días)</div>
+      <div class="stat-delta delta-up">&#9650; contra el mes pasado</div>
     </div>
   </div>
 
@@ -423,30 +423,30 @@
   <div style="background:#fff8ed;border:1px solid #fcd34d;border-radius:8px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px;">
     <span style="font-size:1.2rem;">&#9888;</span>
     <div>
-      <div style="font-size:0.83rem;font-weight:600;">3 quote requests arrived after 5pm yesterday.</div>
-      <div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">With the portal, these come in automatically — no missed leads, no Monday morning backlog.</div>
+      <div style="font-size:0.83rem;font-weight:600;">Ayer entraron 3 solicitudes de cotización después de las 5 de la tarde.</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">Con el portal entran solas &mdash; sin prospectos perdidos y sin la pila acumulada del lunes por la mañana.</div>
     </div>
-    <button class="btn-primary" style="margin-left:auto;font-size:0.75rem;padding:7px 14px;white-space:nowrap;" onclick="switchTab('dashboard',null);alert('Quotes reviewed — clients notified automatically.')">Review Quotes</button>
+    <button class="btn-primary" style="margin-left:auto;font-size:0.75rem;padding:7px 14px;white-space:nowrap;" onclick="switchTab('dashboard',null);alert('Quotes reviewed — clients notified automatically.')">Revisar cotizaciones</button>
   </div>
 
   <!-- Orders Table -->
   <div class="card" style="padding:0;overflow:hidden;">
     <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-      <span class="card-title" style="margin:0;">All Active Orders</span>
+      <span class="card-title" style="margin:0;">Todas las órdenes activas</span>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <select class="select-filter" id="filter-status" onchange="filterOrders()">
-          <option value="">All Statuses</option>
-          <option value="Awaiting Proof">Awaiting Proof</option>
-          <option value="In Production">In Production</option>
-          <option value="Ready for Pickup">Ready for Pickup</option>
-          <option value="Quote Requested">Quote Requested</option>
+          <option value="">Todos los estados</option>
+          <option value="Esperando prueba">Esperando prueba</option>
+          <option value="En producción">En producción</option>
+          <option value="Listo para retiro">Listo para retiro</option>
+          <option value="Cotización solicitada">Cotización solicitada</option>
         </select>
         <select class="select-filter" id="filter-service" onchange="filterOrders()">
-          <option value="">All Services</option>
-          <option value="Digital Printing">Digital Printing</option>
-          <option value="Large Format">Large Format</option>
-          <option value="Laser Engraving">Laser Engraving</option>
-          <option value="Branded Merch">Branded Merch</option>
+          <option value="">Todos los servicios</option>
+          <option value="Impresión digital">Impresión digital</option>
+          <option value="Gran formato">Gran formato</option>
+          <option value="Grabado láser">Grabado láser</option>
+          <option value="Merch con marca">Merch con marca</option>
         </select>
       </div>
     </div>
@@ -454,14 +454,14 @@
       <table id="orders-table">
         <thead>
           <tr>
-            <th>Order #</th>
-            <th>Client</th>
-            <th>Product</th>
-            <th>Service Line</th>
-            <th>Qty</th>
-            <th>Due Date</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>Orden</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Línea de servicio</th>
+            <th>Cant.</th>
+            <th>Entrega</th>
+            <th>Estado</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody id="orders-body">
@@ -477,76 +477,76 @@
 
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
     <div>
-      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">Order #PWD-2024-0187</div>
-      <h2 style="margin:0;font-size:1.2rem;font-weight:700;">Pocket Folders — Corporate Kit</h2>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">Orden #PWD-2024-0187</div>
+      <h2 style="margin:0;font-size:1.2rem;font-weight:700;">Folders con bolsillo — kit corporativo</h2>
     </div>
-    <span class="badge badge-proof" style="font-size:0.78rem;padding:5px 12px;">Awaiting Proof Approval</span>
+    <span class="badge badge-proof" style="font-size:0.78rem;padding:5px 12px;">Esperando aprobación de prueba</span>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
 
     <!-- Left: Order info -->
     <div class="card">
-      <div class="card-title">Order Details</div>
+      <div class="card-title">Detalle de la orden</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div>
-          <div class="detail-label">Client</div>
+          <div class="detail-label">Cliente</div>
           <div class="detail-value" style="font-weight:600;">Greenway Building Partners</div>
         </div>
         <div>
-          <div class="detail-label">Contact</div>
+          <div class="detail-label">Contacto</div>
           <div class="detail-value">Marcus Hill</div>
         </div>
         <div>
-          <div class="detail-label">Product</div>
-          <div class="detail-value">Pocket Folders w/ card slot</div>
+          <div class="detail-label">Producto</div>
+          <div class="detail-value">Folder con bolsillo y ranura para tarjeta</div>
         </div>
         <div>
-          <div class="detail-label">Quantity</div>
-          <div class="detail-value">500 units</div>
+          <div class="detail-label">Cantidad</div>
+          <div class="detail-value">500 unidades</div>
         </div>
         <div>
-          <div class="detail-label">Service Line</div>
-          <div class="detail-value">Digital Printing</div>
+          <div class="detail-label">Línea de servicio</div>
+          <div class="detail-value">Impresión digital</div>
         </div>
         <div>
-          <div class="detail-label">Finishing</div>
-          <div class="detail-value">Soft-touch laminate, spot UV</div>
+          <div class="detail-label">Acabado</div>
+          <div class="detail-value">Laminado soft touch, UV localizado</div>
         </div>
         <div>
-          <div class="detail-label">Substrates</div>
-          <div class="detail-value">14pt gloss coated</div>
+          <div class="detail-label">Sustrato</div>
+          <div class="detail-value">Couché 14 pt brillante</div>
         </div>
         <div>
-          <div class="detail-label">Turnaround</div>
-          <div class="detail-value">5 business days</div>
+          <div class="detail-label">Tiempo de entrega</div>
+          <div class="detail-value">5 días hábiles</div>
         </div>
         <div>
-          <div class="detail-label">Order Date</div>
-          <div class="detail-value">Jul 22, 2026</div>
+          <div class="detail-label">Fecha de la orden</div>
+          <div class="detail-value">22 jul 2026</div>
         </div>
         <div>
-          <div class="detail-label">Due Date</div>
-          <div class="detail-value" style="color:#dc2626;font-weight:600;">Jul 29, 2026</div>
+          <div class="detail-label">Fecha de entrega</div>
+          <div class="detail-value" style="color:#dc2626;font-weight:600;">29 jul 2026</div>
         </div>
       </div>
     </div>
 
     <!-- Right: Proof approval -->
     <div class="card">
-      <div class="card-title">Proof Approval</div>
+      <div class="card-title">Aprobación de la prueba</div>
       <div id="approval-zone">
         <div style="background:#f9fafb;border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
           <span style="font-size:1.5rem;">&#128196;</span>
           <div>
-            <div style="font-size:0.83rem;font-weight:600;">Proof v2 — GBP_PocketFolder_Proof2.pdf</div>
-            <div style="font-size:0.72rem;color:var(--muted);">Uploaded Jul 24, 2026 by PWD Production</div>
+            <div style="font-size:0.83rem;font-weight:600;">Prueba v2 — GBP_Folder_Prueba2.pdf</div>
+            <div style="font-size:0.72rem;color:var(--muted);">Subida el 24 jul 2026 por producción de PWD</div>
           </div>
         </div>
-        <div style="font-size:0.8rem;color:var(--muted);margin-bottom:14px;">Client reviews this link — no email thread needed. One click to approve or request changes.</div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-bottom:14px;">El cliente revisa este enlace &mdash; no hace falta ninguna cadena de correos. Un clic para aprobar o pedir cambios.</div>
         <div id="approval-buttons" style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button class="btn-primary" id="btn-approve" onclick="approveProof()">&#10003; Approve Proof</button>
-          <button class="btn-danger" onclick="requestChanges()">Request Changes</button>
+          <button class="btn-primary" id="btn-approve" onclick="approveProof()">&#10003; Aprobar prueba</button>
+          <button class="btn-danger" onclick="requestChanges()">Pedir cambios</button>
         </div>
         <div id="approval-msg" style="display:none;"></div>
       </div>
@@ -555,64 +555,64 @@
 
   <!-- Activity Timeline -->
   <div class="card" style="margin-bottom:16px;">
-    <div class="card-title">Order History</div>
+    <div class="card-title">Historial de la orden</div>
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-time">Jul 22, 2026 &mdash; 3:41 PM</div>
-        <div class="tl-text">Order submitted via client portal</div>
-        <div class="tl-sub">Print-ready artwork uploaded — GBP_Folder_Artwork_v1.pdf (8.4 MB)</div>
+        <div class="tl-time">22 jul 2026 &mdash; 3:41 PM</div>
+        <div class="tl-text">Orden enviada por el portal del cliente</div>
+        <div class="tl-sub">Arte listo para imprenta subido — GBP_Folder_Arte_v1.pdf (8.4 MB)</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-time">Jul 22, 2026 &mdash; 5:02 PM</div>
-        <div class="tl-text">Artwork reviewed by PWD Production</div>
-        <div class="tl-sub">Minor bleed adjustment noted. Proof v1 sent to client.</div>
+        <div class="tl-time">22 jul 2026 &mdash; 5:02 PM</div>
+        <div class="tl-text">Arte revisado por producción de PWD</div>
+        <div class="tl-sub">Se anotó un ajuste menor de rebase. Prueba v1 enviada al cliente.</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot done"></div>
-        <div class="tl-time">Jul 23, 2026 &mdash; 10:15 AM</div>
-        <div class="tl-text">Client requested color correction on logo</div>
-        <div class="tl-sub">Changed through portal — no email needed</div>
+        <div class="tl-time">23 jul 2026 &mdash; 10:15 AM</div>
+        <div class="tl-text">El cliente pidió corrección de color en el logo</div>
+        <div class="tl-sub">Cambiado por el portal &mdash; sin un solo correo</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot active"></div>
-        <div class="tl-time">Jul 24, 2026 &mdash; 2:30 PM</div>
-        <div class="tl-text" style="font-weight:700;">Proof v2 uploaded — awaiting client approval &#9650;</div>
-        <div class="tl-sub">Client notified automatically by portal</div>
+        <div class="tl-time">24 jul 2026 &mdash; 2:30 PM</div>
+        <div class="tl-text" style="font-weight:700;">Prueba v2 subida — esperando aprobación del cliente &#9650;</div>
+        <div class="tl-sub">Al cliente se le avisó solo por el portal</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot pending"></div>
-        <div class="tl-time" style="color:#9ca3af;">Pending</div>
-        <div class="tl-text" style="color:#9ca3af;">Approved &#8594; Production starts</div>
+        <div class="tl-time" style="color:#9ca3af;">Pendiente</div>
+        <div class="tl-text" style="color:#9ca3af;">Aprobada &#8594; arranca producción</div>
       </div>
       <div class="tl-item">
         <div class="tl-dot pending"></div>
-        <div class="tl-time" style="color:#9ca3af;">Jul 29, 2026</div>
-        <div class="tl-text" style="color:#9ca3af;">Ready for pickup / delivery</div>
+        <div class="tl-time" style="color:#9ca3af;">29 jul 2026</div>
+        <div class="tl-text" style="color:#9ca3af;">Lista para retiro o entrega</div>
       </div>
     </div>
   </div>
 
   <!-- Files -->
   <div class="card">
-    <div class="card-title">Files &amp; Attachments</div>
+    <div class="card-title">Archivos y adjuntos</div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#f9fafb;border-radius:6px;border:1px solid var(--border);">
         <span style="font-size:1.2rem;">&#128196;</span>
         <div style="flex:1;">
-          <div style="font-size:0.83rem;font-weight:500;">GBP_Folder_Artwork_v1.pdf</div>
-          <div style="font-size:0.72rem;color:var(--muted);">Client upload &mdash; Jul 22 &mdash; 8.4 MB</div>
+          <div style="font-size:0.83rem;font-weight:500;">GBP_Folder_Arte_v1.pdf</div>
+          <div style="font-size:0.72rem;color:var(--muted);">Subido por el cliente &mdash; 22 jul &mdash; 8.4 MB</div>
         </div>
         <span class="badge badge-done">Original</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#f9fafb;border-radius:6px;border:1px solid var(--border);">
         <span style="font-size:1.2rem;">&#128196;</span>
         <div style="flex:1;">
-          <div style="font-size:0.83rem;font-weight:500;">GBP_PocketFolder_Proof2.pdf</div>
-          <div style="font-size:0.72rem;color:var(--muted);">PWD upload &mdash; Jul 24 &mdash; 5.1 MB</div>
+          <div style="font-size:0.83rem;font-weight:500;">GBP_Folder_Prueba2.pdf</div>
+          <div style="font-size:0.72rem;color:var(--muted);">Subido por PWD &mdash; 24 jul &mdash; 5.1 MB</div>
         </div>
-        <span class="badge badge-proof">Proof v2</span>
+        <span class="badge badge-proof">Prueba v2</span>
       </div>
     </div>
   </div>
@@ -622,54 +622,54 @@
 <div id="tab-pain" class="panel">
 
   <div style="margin-bottom:22px;">
-    <h2 style="margin:0 0 6px;font-size:1.15rem;font-weight:700;">What changes when every order goes through the portal</h2>
-    <p style="margin:0;font-size:0.85rem;color:var(--muted);">Real workflows, reframed. The production stays identical — only the coordination overhead disappears.</p>
+    <h2 style="margin:0 0 6px;font-size:1.15rem;font-weight:700;">Qué cambia cuando cada orden pasa por el portal</h2>
+    <p style="margin:0;font-size:0.85rem;color:var(--muted);">Flujos reales, replanteados. La producción queda igual &mdash; lo que desaparece es el costo de coordinar.</p>
   </div>
 
   <!-- Pain 1 -->
   <div class="pain-card">
-    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">01 &mdash; Quote Requests After Hours</div>
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">01 &mdash; Cotizaciones fuera de horario</div>
     <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;">
       <div class="pain-before">
-        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Today</div>
-        <p style="margin:0 0 6px;font-size:0.82rem;">Client needs 500 pocket folders for Monday. It's 6pm Friday. They call <span style="font-weight:600;">713-555-0168</span> — no answer. They email info@printworksdirect.com. Nobody sees it until Monday morning.</p>
+        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Hoy</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">El cliente necesita 500 folders para el lunes. Son las 6 de la tarde del viernes. Llama <span style="font-weight:600;">713-555-0168</span> &mdash; nadie contesta. Escribe a info@printworksdirect.com. Nadie lo ve hasta el lunes por la mañana.</p>
         <div class="email-counter" style="margin-top:10px;">
-          <span>&#9993;</span> <span>Lead lost.</span>
+          <span>&#9993;</span> <span>Prospecto perdido.</span>
         </div>
       </div>
       <div class="vs-arrow">&#8594;</div>
       <div class="pain-after">
-        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; With the portal</div>
-        <p style="margin:0 0 6px;font-size:0.82rem;">Client fills out the quote form online at 6pm — product, quantity, delivery date, file upload. PWD receives a structured request at 8am Monday. Grace reviews it in 2 minutes.</p>
-        <div style="margin-top:10px;font-size:0.82rem;font-weight:600;color:#065f46;">Zero missed leads. Automatic after-hours intake.</div>
+        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; Con el portal</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">El cliente llena el formulario de cotización en línea a las 6 de la tarde: producto, cantidad, fecha de entrega y archivo. PWD recibe una solicitud estructurada el lunes a las 8. Grace la revisa en 2 minutos.</p>
+        <div style="margin-top:10px;font-size:0.82rem;font-weight:600;color:#065f46;">Cero prospectos perdidos. Captura automática fuera de horario.</div>
       </div>
     </div>
   </div>
 
   <!-- Pain 2: Email Thread Counter (the live interaction) -->
   <div class="pain-card">
-    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">02 &mdash; The Proof Approval Email Chain</div>
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">02 &mdash; La cadena de correos para aprobar la prueba</div>
     <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start;">
       <div class="pain-before">
-        <div style="font-weight:600;color:#9f1239;margin-bottom:8px;">&#10007; Today — one recurring order</div>
+        <div style="font-weight:600;color:#9f1239;margin-bottom:8px;">&#10007; Hoy — una sola orden recurrente</div>
         <div id="email-steps" style="display:flex;flex-direction:column;gap:6px;font-size:0.78rem;"></div>
         <div style="margin-top:12px;display:flex;align-items:center;gap:10px;">
-          <button class="btn-outline" id="btn-add-email" onclick="addEmailStep()" style="font-size:0.75rem;padding:6px 12px;">+ Send next email</button>
-          <div style="font-size:0.85rem;color:#dc2626;font-weight:700;">Total: <span id="email-count">0</span> emails</div>
+          <button class="btn-outline" id="btn-add-email" onclick="addEmailStep()" style="font-size:0.75rem;padding:6px 12px;">+ Mandar el siguiente correo</button>
+          <div style="font-size:0.85rem;color:#dc2626;font-weight:700;">Total: <span id="email-count">0</span> correos</div>
         </div>
-        <div style="font-size:0.72rem;color:var(--muted);margin-top:6px;">Press to simulate a typical order cycle.</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:6px;">Presione para simular un ciclo de orden típico.</div>
       </div>
       <div class="vs-arrow" style="margin-top:40px;">&#8594;</div>
       <div class="pain-after">
-        <div style="font-weight:600;color:#065f46;margin-bottom:8px;">&#10003; With the portal</div>
+        <div style="font-weight:600;color:#065f46;margin-bottom:8px;">&#10003; Con el portal</div>
         <div style="display:flex;flex-direction:column;gap:8px;font-size:0.78rem;">
-          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">1</span> Client uploads artwork &amp; submits order</div>
-          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">2</span> PWD uploads proof — client gets portal notification</div>
-          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">3</span> Client clicks "Approve" — production starts automatically</div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">1</span> El cliente sube el arte y manda la orden</div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">2</span> PWD sube la prueba — al cliente le llega el aviso por el portal</div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">3</span> El cliente hace clic en "Aprobar" — la producción arranca sola</div>
         </div>
         <div style="margin-top:12px;background:#d1fae5;border-radius:6px;padding:10px;font-size:0.82rem;">
-          <strong>3 actions. 0 emails.</strong><br/>
-          <span style="font-size:0.75rem;color:#065f46;">For 50 recurring orders/month = 450 fewer emails handled by Grace.</span>
+          <strong>3 acciones. 0 correos.</strong><br/>
+          <span style="font-size:0.75rem;color:#065f46;">Con 50 órdenes recurrentes al mes, son 450 correos menos que Grace tiene que atender.</span>
         </div>
       </div>
     </div>
@@ -677,36 +677,36 @@
 
   <!-- Pain 3 -->
   <div class="pain-card">
-    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">03 &mdash; Institutional Client Reporting</div>
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">03 &mdash; Reportes para clientes institucionales</div>
     <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;">
       <div class="pain-before">
-        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Today</div>
-        <p style="margin:0 0 6px;font-size:0.82rem;">A procurement officer from a government account needs the complete order history from the past 12 months for their annual audit. Grace spends half a day digging through email threads, spreadsheets, and memory.</p>
-        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#9f1239;">&#8987; 4–6 hours to compile. Error-prone.</div>
+        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Hoy</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">Un encargado de compras de una cuenta de gobierno necesita el historial completo de órdenes de los últimos 12 meses para su auditoría anual. Grace se pasa media jornada excavando entre correos, hojas de cálculo y memoria.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#9f1239;">&#8987; De 4 a 6 horas para armarlo. Y propenso a errores.</div>
       </div>
       <div class="vs-arrow">&#8594;</div>
       <div class="pain-after">
-        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; With the portal</div>
-        <p style="margin:0 0 6px;font-size:0.82rem;">Every order is logged automatically — product, quantity, proof version, approval date, delivery date. The client can export their own history in 30 seconds. Grace never touches it.</p>
-        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#065f46;">&#9679; One click. Auditable. No dependency on anyone's memory.</div>
+        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; Con el portal</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">Cada orden queda registrada sola: producto, cantidad, versión de la prueba, fecha de aprobación, fecha de entrega. El cliente exporta su propio historial en 30 segundos. Grace ni lo toca.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#065f46;">&#9679; Un clic. Auditable. Sin depender de la memoria de nadie.</div>
       </div>
     </div>
   </div>
 
   <!-- Pain 4 -->
   <div class="pain-card" style="border-left-color:#e8b000;">
-    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#92400e;margin-bottom:10px;">04 &mdash; Four Service Lines, One Conversation</div>
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#92400e;margin-bottom:10px;">04 &mdash; Cuatro líneas de servicio, una sola conversación</div>
     <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;">
       <div class="pain-before">
-        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Today</div>
-        <p style="margin:0 0 6px;font-size:0.82rem;">A construction company needs folders (digital printing), site signage (large format), and engraved name plates (laser engraving) for a project kickoff. That's three separate conversations with three separate coordinators — and the client has to chase each one.</p>
-        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#9f1239;">3 service lines = 3 disconnected threads.</div>
+        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Hoy</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">Una constructora necesita folders (impresión digital), señalización de obra (gran formato) y placas de nombre grabadas (grabado láser) para arrancar un proyecto. Son tres conversaciones separadas con tres coordinadores distintos &mdash; y el cliente tiene que perseguir a cada uno.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#9f1239;">3 líneas de servicio = 3 hilos desconectados.</div>
       </div>
       <div class="vs-arrow">&#8594;</div>
       <div class="pain-after">
-        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; With the portal</div>
-        <p style="margin:0 0 6px;font-size:0.82rem;">One order. Multiple line items — digital printing, large format, laser engraving. Each routed internally to the right team. Client sees one status page. One delivery date. One conversation.</p>
-        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#065f46;">&#9650; Higher order value, lower coordination cost.</div>
+        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; Con el portal</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">Una orden. Varias partidas: impresión digital, gran formato, grabado láser. Cada una se enruta internamente al equipo correcto. El cliente ve una sola página de estado. Una fecha de entrega. Una conversación.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#065f46;">&#9650; Mayor valor por orden, menor costo de coordinación.</div>
       </div>
     </div>
   </div>
@@ -718,18 +718,18 @@
 
   <!-- Search bar -->
   <div class="card" style="margin-bottom:18px;">
-    <div class="card-title">Order Search</div>
+    <div class="card-title">Búsqueda de órdenes</div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
-      <input type="text" class="search-input" id="search-field" placeholder="Search by client, product, or order #..." style="flex:1;min-width:180px;" oninput="doSearch()" />
+      <input type="text" class="search-input" id="search-field" placeholder="Buscar por cliente, producto o número de orden..." style="flex:1;min-width:180px;" oninput="doSearch()" />
       <select class="select-filter" id="search-service" onchange="doSearch()">
-        <option value="">All Services</option>
-        <option value="Digital Printing">Digital Printing</option>
-        <option value="Large Format">Large Format</option>
-        <option value="Laser Engraving">Laser Engraving</option>
-        <option value="Branded Merch">Branded Merch</option>
+        <option value="">Todos los servicios</option>
+        <option value="Impresión digital">Impresión digital</option>
+        <option value="Gran formato">Gran formato</option>
+        <option value="Grabado láser">Grabado láser</option>
+        <option value="Merch con marca">Merch con marca</option>
       </select>
       <select class="select-filter" id="search-year" onchange="doSearch()">
-        <option value="">All Years</option>
+        <option value="">Todos los años</option>
         <option value="2026">2026</option>
         <option value="2025">2025</option>
         <option value="2024">2024</option>
@@ -739,13 +739,13 @@
       <table>
         <thead>
           <tr>
-            <th>Order #</th>
-            <th>Client</th>
-            <th>Product</th>
-            <th>Service</th>
-            <th>Qty</th>
-            <th>Delivered</th>
-            <th>Status</th>
+            <th>Orden</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Servicio</th>
+            <th>Cant.</th>
+            <th>Entregada</th>
+            <th>Estado</th>
           </tr>
         </thead>
         <tbody id="search-results">
@@ -759,31 +759,31 @@
   <!-- Volume by service chart -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
     <div class="card">
-      <div class="card-title">Orders by Service Line — Last 90 Days</div>
+      <div class="card-title">Órdenes por línea de servicio — últimos 90 días</div>
       <div class="chart-bar-wrap" id="service-chart"></div>
       <div id="service-labels" style="display:flex;gap:10px;margin-top:4px;"></div>
     </div>
     <div class="card">
-      <div class="card-title">Repeat Client Rate</div>
+      <div class="card-title">Tasa de clientes que repiten</div>
       <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Institutional / Government</span><strong>64%</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Institucional / gobierno</span><strong>64%</strong></div>
           <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:64%;background:#1A3E6C;"></div></div>
         </div>
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Corporate</span><strong>51%</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Corporativo</span><strong>51%</strong></div>
           <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:51%;background:#234d84;"></div></div>
         </div>
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Education / Schools</span><strong>79%</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Educación / escuelas</span><strong>79%</strong></div>
           <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:79%;background:#1A3E6C;"></div></div>
         </div>
         <div>
-          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Construction / Industrial</span><strong>43%</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Construcción / industrial</span><strong>43%</strong></div>
           <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:43%;background:#3a6ea8;"></div></div>
         </div>
       </div>
-      <div style="font-size:0.72rem;color:var(--muted);margin-top:14px;">Every repeat order is logged automatically. Renewals don't slip through the cracks.</div>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:14px;">Cada orden repetida queda registrada sola. Las renovaciones no se caen por el camino.</div>
     </div>
   </div>
 
@@ -792,33 +792,33 @@
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
       <div style="font-size:1.8rem;">&#128194;</div>
       <div style="flex:1;">
-        <div style="font-weight:700;margin-bottom:4px;">Client Procurement Report — 12 months</div>
-        <div style="font-size:0.8rem;color:var(--muted);">Institutional clients can pull their own order history for audits, budget reports, or contract renewals — without involving Grace or anyone on the PWD team.</div>
+        <div style="font-weight:700;margin-bottom:4px;">Reporte de compras del cliente — 12 meses</div>
+        <div style="font-size:0.8rem;color:var(--muted);">Los clientes institucionales pueden sacar su propio historial de órdenes para auditorías, reportes de presupuesto o renovaciones de contrato, sin involucrar a Grace ni a nadie del equipo de PWD.</div>
       </div>
-      <button class="btn-primary" onclick="showToast('Report exported — ready for download.')">&#8595; Export CSV</button>
+      <button class="btn-primary" onclick="showToast('Report exported — ready for download.')">&#8595; Exportar CSV</button>
     </div>
   </div>
 </div>
 
 <!-- FLOATING CTA -->
 <button class="cta-float" onclick="openCalendly()">
-  <span>&#128172;</span> Like what you see? Let's talk
+  <span>&#128172;</span> ¿Le gustó? Hablemos
 </button>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="cta-modal">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
     <div style="font-size:2rem;margin-bottom:12px;">&#128200;</div>
-    <h3 style="margin:0 0 10px;font-size:1.15rem;font-weight:700;color:var(--navy);">Printworks Direct deserves a system built for how it actually works.</h3>
-    <p style="font-size:0.85rem;color:var(--muted);margin:0 0 16px;">38 years of production expertise — running on phone calls and email threads. This portal closes the gap: online quotes, proof approvals, order tracking, and institutional reporting — all in one place.</p>
+    <h3 style="margin:0 0 10px;font-size:1.15rem;font-weight:700;color:var(--navy);">Printworks Direct merece un sistema construido para cómo trabaja de verdad.</h3>
+    <p style="font-size:0.85rem;color:var(--muted);margin:0 0 16px;">Treinta y ocho años de experiencia en producción, funcionando a punta de llamadas y cadenas de correo. Este portal cierra ese hueco: cotizaciones en línea, aprobación de pruebas, seguimiento de órdenes y reportes institucionales, todo en un solo lugar.</p>
     <ul style="font-size:0.83rem;margin:0 0 20px;padding-left:18px;color:var(--text);line-height:1.7;">
-      <li>No more after-hours leads falling through the cracks</li>
-      <li>No more 10-email chains per order</li>
-      <li>No more manual report assembly for institutional clients</li>
+      <li>Se acabaron los prospectos de fuera de horario que se pierden</li>
+      <li>Se acabaron las cadenas de 10 correos por orden</li>
+      <li>Se acabó armar reportes a mano para los clientes institucionales</li>
     </ul>
-    <button class="btn-primary" style="width:100%;padding:14px;font-size:0.95rem;" onclick="openCalendly()">Book a conversation with Erick</button>
-    <div style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:10px;">Custom-built for your operation. No generic software.</div>
+    <button class="btn-primary" style="width:100%;padding:14px;font-size:0.95rem;" onclick="openCalendly()">Agendar una conversación con Erick</button>
+    <div style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:10px;">Hecho a la medida de su operación. Nada de software genérico.</div>
   </div>
 </div>
 
@@ -827,7 +827,7 @@
 
 <!-- FOOTER -->
 <footer style="text-align:center;padding:24px;font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border);margin-top:32px;background:#fff;">
-  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
 </footer>
 
 <script>
@@ -835,32 +835,32 @@
 // DATA
 // ============================================================
 const ORDERS = [
-  { id:'PWD-2026-0204', client:'Westside Medical Group', product:'Carbonless Forms (3-part)', service:'Digital Printing', qty:1000, due:'Aug 1, 2026', status:'In Production', year:2026 },
-  { id:'PWD-2026-0203', client:'Greenway Building Partners', product:'Pocket Folders w/ card slot', service:'Digital Printing', qty:500, due:'Jul 29, 2026', status:'Awaiting Proof', year:2026 },
-  { id:'PWD-2026-0202', client:'Houston Energy Expo', product:'Event Banners & Displays', service:'Large Format', qty:12, due:'Jul 31, 2026', status:'In Production', year:2026 },
-  { id:'PWD-2026-0201', client:'River Oaks Automotive', product:'Fleet Decals', service:'Large Format', qty:48, due:'Aug 3, 2026', status:'Awaiting Proof', year:2026 },
-  { id:'PWD-2026-0200', client:'Lakewood Church Admin', product:'Notepads — Custom Logo', service:'Digital Printing', qty:200, due:'Aug 5, 2026', status:'Ready for Pickup', year:2026 },
-  { id:'PWD-2026-0199', client:'Memorial Hermann Foundation', product:'Name Plates (laser engraved)', service:'Laser Engraving', qty:30, due:'Jul 30, 2026', status:'Awaiting Proof', year:2026 },
-  { id:'PWD-2026-0198', client:'SolarTech Houston', product:'Branded Merchandise Kit', service:'Branded Merch', qty:150, due:'Aug 8, 2026', status:'Quote Requested', year:2026 },
-  { id:'PWD-2026-0197', client:'Conroe ISD Procurement', product:'Brochures — Back to School', service:'Digital Printing', qty:2500, due:'Aug 2, 2026', status:'In Production', year:2026 },
-  { id:'PWD-2026-0196', client:'Fort Bend Engineering', product:'Industrial Tags (metal)', service:'Laser Engraving', qty:200, due:'Aug 6, 2026', status:'Quote Requested', year:2026 },
-  { id:'PWD-2026-0195', client:'The Woodlands Conference Ctr', product:'Table Throws & Trade Show Displays', service:'Large Format', qty:6, due:'Aug 10, 2026', status:'Awaiting Proof', year:2026 },
-  { id:'PWD-2026-0194', client:'Greenway Building Partners', product:'Corporate Gifts — Engraved Trophies', service:'Laser Engraving', qty:15, due:'Jul 25, 2026', status:'Ready for Pickup', year:2026 },
-  { id:'PWD-2026-0193', client:'Champions Real Estate', product:'Postcards (5x7) — New Listings', service:'Digital Printing', qty:5000, due:'Jul 27, 2026', status:'Ready for Pickup', year:2026 },
+  { id:'PWD-2026-0204', client:'Westside Medical Group', product:'Formularios autocopiativos (3 partes)', service:'Impresión digital', qty:1000, due:'1 ago 2026', status:'En producción', year:2026 },
+  { id:'PWD-2026-0203', client:'Greenway Building Partners', product:'Folder con bolsillo y ranura para tarjeta', service:'Impresión digital', qty:500, due:'29 jul 2026', status:'Esperando prueba', year:2026 },
+  { id:'PWD-2026-0202', client:'Houston Energy Expo', product:'Banners y displays para evento', service:'Gran formato', qty:12, due:'31 jul 2026', status:'En producción', year:2026 },
+  { id:'PWD-2026-0201', client:'River Oaks Automotive', product:'Calcomanías de flota', service:'Gran formato', qty:48, due:'3 ago 2026', status:'Esperando prueba', year:2026 },
+  { id:'PWD-2026-0200', client:'Lakewood Church Admin', product:'Blocs de notas con logo', service:'Impresión digital', qty:200, due:'5 ago 2026', status:'Listo para retiro', year:2026 },
+  { id:'PWD-2026-0199', client:'Memorial Hermann Foundation', product:'Placas de nombre (grabado láser)', service:'Grabado láser', qty:30, due:'30 jul 2026', status:'Esperando prueba', year:2026 },
+  { id:'PWD-2026-0198', client:'SolarTech Houston', product:'Kit de merch con marca', service:'Merch con marca', qty:150, due:'8 ago 2026', status:'Cotización solicitada', year:2026 },
+  { id:'PWD-2026-0197', client:'Conroe ISD Procurement', product:'Brochures — regreso a clases', service:'Impresión digital', qty:2500, due:'2 ago 2026', status:'En producción', year:2026 },
+  { id:'PWD-2026-0196', client:'Fort Bend Engineering', product:'Placas industriales (metal)', service:'Grabado láser', qty:200, due:'6 ago 2026', status:'Cotización solicitada', year:2026 },
+  { id:'PWD-2026-0195', client:'The Woodlands Conference Ctr', product:'Manteles y displays de feria', service:'Gran formato', qty:6, due:'10 ago 2026', status:'Esperando prueba', year:2026 },
+  { id:'PWD-2026-0194', client:'Greenway Building Partners', product:'Regalos corporativos — trofeos grabados', service:'Grabado láser', qty:15, due:'25 jul 2026', status:'Listo para retiro', year:2026 },
+  { id:'PWD-2026-0193', client:'Champions Real Estate', product:'Postales (5x7) — propiedades nuevas', service:'Impresión digital', qty:5000, due:'27 jul 2026', status:'Listo para retiro', year:2026 },
   // Historical
-  { id:'PWD-2025-0412', client:'Conroe ISD Procurement', product:'Pocket Folders — Staff Training', service:'Digital Printing', qty:800, due:'Nov 15, 2025', status:'Delivered', year:2025 },
-  { id:'PWD-2025-0389', client:'Fort Bend Engineering', product:'Weatherproof Labels', service:'Digital Printing', qty:1000, due:'Oct 3, 2025', status:'Delivered', year:2025 },
-  { id:'PWD-2025-0360', client:'Westside Medical Group', product:'Carbonless Forms (2-part)', service:'Digital Printing', qty:2000, due:'Sep 12, 2025', status:'Delivered', year:2025 },
-  { id:'PWD-2024-0187', client:'Greenway Building Partners', product:'Annual Report Booklets', service:'Digital Printing', qty:300, due:'Dec 10, 2024', status:'Delivered', year:2024 },
+  { id:'PWD-2025-0412', client:'Conroe ISD Procurement', product:'Folders con bolsillo — capacitación de personal', service:'Impresión digital', qty:800, due:'15 nov 2025', status:'Entregada', year:2025 },
+  { id:'PWD-2025-0389', client:'Fort Bend Engineering', product:'Etiquetas resistentes a la intemperie', service:'Impresión digital', qty:1000, due:'3 oct 2025', status:'Entregada', year:2025 },
+  { id:'PWD-2025-0360', client:'Westside Medical Group', product:'Formularios autocopiativos (2 partes)', service:'Impresión digital', qty:2000, due:'12 sep 2025', status:'Entregada', year:2025 },
+  { id:'PWD-2024-0187', client:'Greenway Building Partners', product:'Libretas de reporte anual', service:'Impresión digital', qty:300, due:'10 dic 2024', status:'Entregada', year:2024 },
 ];
 
 const STATUS_BADGE = {
-  'Awaiting Proof': 'badge-proof',
-  'In Production': 'badge-prod',
-  'Ready for Pickup': 'badge-ready',
-  'Quote Requested': 'badge-quote',
-  'New': 'badge-new',
-  'Delivered': 'badge-done',
+  'Esperando prueba': 'badge-proof',
+  'En producción': 'badge-prod',
+  'Listo para retiro': 'badge-ready',
+  'Cotización solicitada': 'badge-quote',
+  'Nueva': 'badge-new',
+  'Entregada': 'badge-done',
 };
 
 // ============================================================
@@ -925,7 +925,7 @@ function statusBadge(status) {
 function renderOrders(data) {
   const tbody = document.getElementById('orders-body');
   if (!data.length) {
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">No orders match the selected filters.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Ninguna orden coincide con los filtros elegidos.</td></tr>`;
     return;
   }
   tbody.innerHTML = data.map((o, i) => `
@@ -938,9 +938,9 @@ function renderOrders(data) {
       <td style="font-size:0.82rem;">${o.due}</td>
       <td>${statusBadge(o.status)}</td>
       <td>
-        ${o.status === 'Awaiting Proof'
+        ${o.status === 'Esperando prueba'
           ? `<button class="btn-primary" style="font-size:0.72rem;padding:5px 11px;" onclick="quickApprove(this, '${o.id}')">Approve Proof</button>`
-          : o.status === 'Quote Requested'
+          : o.status === 'Cotización solicitada'
           ? `<button class="btn-outline" style="font-size:0.72rem;padding:5px 11px;" onclick="sendQuote(this, '${o.id}')">Send Quote</button>`
           : `<button class="btn-outline" style="font-size:0.72rem;padding:5px 11px;" onclick="switchTab('detail', null)">View</button>`
         }
@@ -965,28 +965,28 @@ function filterOrders() {
 // ============================================================
 function quickApprove(btn, orderId) {
   btn.disabled = true;
-  btn.textContent = 'Approving…';
+  btn.textContent = 'Aprobando…';
   setTimeout(() => {
-    btn.innerHTML = '&#10003; Approved';
+    btn.innerHTML = '&#10003; Aprobada';
     btn.style.background = '#059669';
     const row = btn.closest('tr');
     const statusCell = row.querySelector('td:nth-child(7)');
-    statusCell.innerHTML = statusBadge('In Production');
+    statusCell.innerHTML = statusBadge('En producción');
     const countEl = document.getElementById('stat-proof');
     const current = parseInt(countEl.textContent);
     if (current > 0) countEl.textContent = current - 1;
-    showToast('Proof approved — order moved to production.');
+    showToast('Prueba aprobada — la orden pasó a producción.');
   }, 900);
 }
 
 function sendQuote(btn, orderId) {
   btn.disabled = true;
-  btn.textContent = 'Sending…';
+  btn.textContent = 'Enviando…';
   setTimeout(() => {
-    btn.innerHTML = '&#10003; Quote Sent';
+    btn.innerHTML = '&#10003; Cotización enviada';
     btn.style.color = '#059669';
     btn.style.borderColor = '#059669';
-    showToast('Quote sent to client — no email needed.');
+    showToast('Cotización enviada al cliente — sin un solo correo.');
   }, 800);
 }
 
@@ -997,7 +997,7 @@ function approveProof() {
   const zone = document.getElementById('approval-zone');
   const buttons = document.getElementById('approval-buttons');
   const msg = document.getElementById('approval-msg');
-  buttons.innerHTML = '<div style="font-size:0.85rem;color:var(--muted);">Processing…</div>';
+  buttons.innerHTML = '<div style="font-size:0.85rem;color:var(--muted);">Procesando…</div>';
   setTimeout(() => {
     zone.classList.add('approved');
     buttons.style.display = 'none';
@@ -1006,42 +1006,42 @@ function approveProof() {
       <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
         <span style="font-size:1.5rem;">&#10003;</span>
         <div>
-          <div style="font-weight:700;color:#065f46;">Proof approved by Marcus Hill</div>
-          <div style="font-size:0.78rem;color:var(--muted);">Jul 28, 2026 — 9:14 AM &middot; Production notified automatically</div>
+          <div style="font-weight:700;color:#065f46;">Prueba aprobada por Marcus Hill</div>
+          <div style="font-size:0.78rem;color:var(--muted);">28 jul 2026 — 9:14 AM &middot; producción avisada automáticamente</div>
         </div>
       </div>
     `;
-    showToast('Proof approved — production team notified.');
+    showToast('Prueba aprobada — equipo de producción avisado.');
     // Update the badge at top
     document.querySelector('#tab-detail .badge').className = 'badge badge-prod';
-    document.querySelector('#tab-detail .badge').textContent = 'In Production';
+    document.querySelector('#tab-detail .badge').textContent = 'En producción';
   }, 800);
 }
 
 function requestChanges() {
-  showToast('Change request sent to production team.');
+  showToast('Solicitud de cambio enviada al equipo de producción.');
 }
 
 // ============================================================
 // EMAIL CHAIN SIMULATOR (Pain view)
 // ============================================================
 const EMAIL_STEPS = [
-  { from:'Client', msg:'Hi Grace, can we get a quote for 500 pocket folders?', ico:'&#128100;' },
-  { from:'PWD', msg:'Hi! Sure, what size and quantity? Can you send the artwork?', ico:'&#127970;' },
-  { from:'Client', msg:'Attached. 9x12 with card slot, 500 units, full bleed.', ico:'&#128100;' },
-  { from:'PWD', msg:'Got it. Bleed needs to be 0.125". Can you resend with correct bleed?', ico:'&#127970;' },
-  { from:'Client', msg:'Resending — here is the corrected file.', ico:'&#128100;' },
-  { from:'PWD', msg:'Thanks! Here is proof v1 for your approval. (PDF attached)', ico:'&#127970;' },
-  { from:'Client', msg:'Logo color looks off — can you match the PMS 286?', ico:'&#128100;' },
-  { from:'PWD', msg:'Corrected. Proof v2 attached — please review.', ico:'&#127970;' },
-  { from:'Client', msg:'Approved! When will it be ready?', ico:'&#128100;' },
-  { from:'PWD', msg:'5 business days from today. We will call when ready.', ico:'&#127970;' },
+  { from:'Cliente', msg:'Hola Grace, ¿nos pueden cotizar 500 folders con bolsillo?', ico:'&#128100;' },
+  { from:'PWD', msg:'¡Claro! ¿De qué tamaño y qué cantidad? ¿Nos mandan el arte?', ico:'&#127970;' },
+  { from:'Cliente', msg:'Adjunto. 9x12 con ranura para tarjeta, 500 unidades, a rebase.', ico:'&#128100;' },
+  { from:'PWD', msg:'Recibido. El rebase tiene que ser de 0.125". ¿Nos lo reenvían corregido?', ico:'&#127970;' },
+  { from:'Cliente', msg:'Reenviando — acá está el archivo corregido.', ico:'&#128100;' },
+  { from:'PWD', msg:'¡Gracias! Acá va la prueba v1 para su aprobación. (PDF adjunto)', ico:'&#127970;' },
+  { from:'Cliente', msg:'El color del logo se ve raro — ¿pueden igualar el PMS 286?', ico:'&#128100;' },
+  { from:'PWD', msg:'Corregido. Prueba v2 adjunta — favor revisar.', ico:'&#127970;' },
+  { from:'Cliente', msg:'¡Aprobada! ¿Cuándo está lista?', ico:'&#128100;' },
+  { from:'PWD', msg:'5 días hábiles desde hoy. Les llamamos cuando esté.', ico:'&#127970;' },
 ];
 let emailIdx = 0;
 
 function addEmailStep() {
   if (emailIdx >= EMAIL_STEPS.length) {
-    document.getElementById('btn-add-email').textContent = 'Done — 10 emails for one order.';
+    document.getElementById('btn-add-email').textContent = 'Listo — 10 correos para una sola orden.';
     document.getElementById('btn-add-email').disabled = true;
     return;
   }
@@ -1061,7 +1061,7 @@ function addEmailStep() {
   emailIdx++;
   document.getElementById('email-count').textContent = emailIdx;
   if (emailIdx >= EMAIL_STEPS.length) {
-    document.getElementById('btn-add-email').textContent = 'Done — 10 emails for one order.';
+    document.getElementById('btn-add-email').textContent = 'Listo — 10 correos para una sola orden.';
     document.getElementById('btn-add-email').disabled = true;
   }
 }
@@ -1100,9 +1100,9 @@ function doSearch() {
 function renderChart() {
   const services = [
     { label: 'Digital', value: 47, pct: 47 },
-    { label: 'Lg. Format', value: 24, pct: 24 },
-    { label: 'Laser Engr.', value: 18, pct: 18 },
-    { label: 'Branded', value: 11, pct: 11 },
+    { label: 'Gran formato', value: 24, pct: 24 },
+    { label: 'Grabado láser', value: 18, pct: 18 },
+    { label: 'Con marca', value: 11, pct: 11 },
   ];
   const max = Math.max(...services.map(s => s.pct));
   const chart = document.getElementById('service-chart');

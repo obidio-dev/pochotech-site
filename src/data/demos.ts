@@ -113,7 +113,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Pedidos por peso, cortes y clientes que repiten. El módulo antes y después muestra el mismo día de trabajo con y sin sistema.',
     modulos: ['Pedidos del día', 'Detalle de pedido', 'Antes y después', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'meatplanetinc',
@@ -153,7 +153,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Cuentas que dejan de pedir sin avisar. El sistema marca la cuenta en riesgo antes de que se pierda y prepara el mensaje para recuperarla.',
     modulos: ['Operaciones de hoy', 'Ficha de cuenta', 'Cuentas en riesgo', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
 
   // ── Catering y eventos ──────────────────────────────────────────────────
@@ -165,7 +165,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Cada evento arrastra un historial de preferencias, alergias y montajes. El sistema lo guarda por cliente para que no se vuelva a preguntar.',
     modulos: ['Agenda de clientes', 'Ficha del cliente', 'Nueva propuesta', 'Reporte de certificaciones'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'goodecompanycate',
@@ -175,7 +175,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Las solicitudes entran a una bandeja compartida y se pierden entre correos. El sistema las convierte en eventos con dueño y fecha de respuesta.',
     modulos: ['Tablero de hoy', 'Detalle del evento', 'El problema de la bandeja', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'jacksoncompany',
@@ -185,7 +185,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Propuestas largas que se arman a mano cada vez. El constructor de propuestas las genera desde el historial de la cuenta.',
     modulos: ['Tablero de operaciones', 'Cuenta del cliente', 'Constructor de propuestas', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'localfoodsricevi',
@@ -195,7 +195,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'El menú cambia por temporada y el catering corporativo corre en paralelo al salón. El sistema sincroniza ambos sin duplicar trabajo.',
     modulos: ['Operaciones del día', 'Pipeline de catering', 'Sincronía de menú', 'Reportes y búsqueda'],
-    idioma: 'en',
+    idioma: 'es',
   },
 
   // ── Piedra y remodelación ───────────────────────────────────────────────
@@ -207,7 +207,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Un trabajo pasa por medición, corte, instalación y cobro, y el estado real se pregunta por teléfono. El tablero lo deja a la vista.',
     modulos: ['Tablero del día', 'Detalle del trabajo', 'Qué cambia', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'grandstonellc',
@@ -227,7 +227,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Las consultas llegan por varios lados y algunas nunca se contestan. La captura de prospectos las junta en una sola fila con seguimiento.',
     modulos: ['Tablero del día', 'Detalle del trabajo', 'Captura de prospectos', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'tajamsmarbleandg',
@@ -237,7 +237,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Inventario de losas repartido en varios showrooms y prospectos que quieren reservar. El sistema muestra existencias en vivo y permite apartar.',
     modulos: ['Operaciones del día', 'Detalle del proyecto', 'Inventario en vivo', 'Pipeline de prospectos'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'pyramid',
@@ -259,7 +259,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Cada rótulo es un proyecto con arte, permisos e instalación. El tablero muestra en qué etapa está cada uno sin preguntar.',
     modulos: ['Tablero de proyectos', 'Perfil del cliente', 'Por qué esto importa', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'joviprinting',
@@ -279,7 +279,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Órdenes que van y vienen por correo hasta la aprobación. El módulo antes y después contrasta el flujo actual contra el que propone el sistema.',
     modulos: ['Tablero de operaciones', 'Detalle de orden', 'Antes y después', 'Reportes y búsqueda'],
-    idioma: 'en',
+    idioma: 'es',
   },
 
   // ── Limpieza y facility ─────────────────────────────────────────────────
@@ -291,7 +291,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Cuadrillas en varios sitios y cotizaciones que se piden por formulario. El sistema junta despacho, alta de cliente y cotización.',
     modulos: ['Operaciones del día', 'Ficha del cliente', 'Cotización y alta', 'Reportes y búsqueda'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'protechfacilitys',
@@ -301,7 +301,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Órdenes de trabajo que el cliente quiere poder consultar. El portal les da estado y evidencia sin que nadie tenga que contestar el teléfono.',
     modulos: ['Tablero de despacho', 'Detalle de orden de trabajo', 'Portal del cliente', 'Reportes y búsqueda'],
-    idioma: 'en',
+    idioma: 'es',
   },
   {
     slug: 'zionjanitorialho',
@@ -321,7 +321,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Cuadrillas que salen cada mañana y clientes con contrato recurrente. El despacho diario y el expediente del cliente van juntos.',
     modulos: ['Despacho diario', 'Expediente del cliente', 'Flujo de cotización', 'Búsqueda y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
 
   // ── Manufactura y suministro ────────────────────────────────────────────
@@ -353,7 +353,7 @@ export const DEMOS: Demo[] = [
     resumen:
       'Vende al público y a clínicas con condiciones distintas. El portal B2B deja que la cuenta institucional pida sola, con su lista y sus precios.',
     modulos: ['Tablero general', 'Detalle de cuenta', 'Portal de pedidos B2B', 'Inventario y reportes'],
-    idioma: 'en',
+    idioma: 'es',
   },
 ];
 

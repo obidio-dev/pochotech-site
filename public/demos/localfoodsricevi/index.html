@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mercado Sur — Operations Hub · Demo by Pocho.tech</title>
+  <title>Mercado Sur — Centro de Operaciones · Demo de Pocho.tech</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -295,28 +295,28 @@
 <header class="site-header">
   <div>
     <div class="brand">Mercado Sur — Rice Village</div>
-    <div class="sub">What your own system would look like — prepared by Pocho.tech</div>
+    <div class="sub">Así se vería su sistema propio — preparado por Pocho.tech</div>
   </div>
-  <span class="demo-badge">DEMO · sample data</span>
+  <span class="demo-badge">DEMO · datos de muestra</span>
 </header>
 
 <!-- ═══════════════════════════════════ TABS ═══════════════════════════════════ -->
 <nav class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('ops', this)">
     <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 000 2h14a1 1 0 000-2H3zm0 5a1 1 0 000 2h14a1 1 0 000-2H3zm0 5a1 1 0 000 2h7a1 1 0 000-2H3z"/></svg>
-    Daily Operations
+    Operaciones del día
   </button>
   <button class="tab-btn" onclick="switchTab('catering', this)">
     <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 000-2H9zM4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg>
-    Catering Pipeline
+    Pipeline de catering
   </button>
   <button class="tab-btn" onclick="switchTab('sync', this)">
     <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
-    Seasonal Menu Sync
+    Sincronía de menú de temporada
   </button>
   <button class="tab-btn" onclick="switchTab('reports', this)">
     <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
-    Reports & Search
+    Reportes y búsqueda
   </button>
 </nav>
 
@@ -327,41 +327,41 @@
   <div class="stat-row">
     <div class="stat-card">
       <div class="value">7</div>
-      <div class="label">Active Locations</div>
-      <div class="delta">2 HOU · 2 ATX · 1 campus</div>
+      <div class="label">Sedes activas</div>
+      <div class="delta">2 Houston · 2 Austin · 1 campus</div>
     </div>
     <div class="stat-card">
       <div class="value">3</div>
-      <div class="label">Seasonal Rotations Pending</div>
-      <div class="delta neg">Avg. 6.5 hrs manual sync</div>
+      <div class="label">Rotaciones de temporada pendientes</div>
+      <div class="delta neg">Promedio de 6.5 h de sincronía a mano</div>
     </div>
     <div class="stat-card">
       <div class="value">8</div>
-      <div class="label">Open Catering Requests</div>
-      <div class="delta">↑ 2 new today</div>
+      <div class="label">Solicitudes de catering abiertas</div>
+      <div class="delta">↑ 2 nuevas hoy</div>
     </div>
     <div class="stat-card">
       <div class="value">15</div>
-      <div class="label">Seasonal Features Active</div>
-      <div class="delta">Summer rotation · Jul 2026</div>
+      <div class="label">Platillos de temporada activos</div>
+      <div class="delta">Rotación de verano · jul 2026</div>
     </div>
   </div>
 
   <!-- Location status board -->
   <div class="card">
-    <div class="section-title">Location Status Board — Today</div>
+    <div class="section-title">Tablero de estado por sede — hoy</div>
 
     <!-- Rice Village -->
     <div class="location-row">
       <div>
         <div class="loc-name">Rice Village</div>
-        <div class="loc-meta">10am–8pm · Walk-Up 8:15am</div>
+        <div class="loc-meta">10am a 8pm · mostrador desde 8:15am</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Open</span>
-        <span class="pill pill-amber">2 items 86'd</span>
-        <span class="pill pill-blue">3 pending sync</span>
-        <button class="action-btn btn-outline" onclick="openDetail('rice-village')">View</button>
+        <span class="pill pill-green">Abierta</span>
+        <span class="pill pill-amber">2 platillos agotados</span>
+        <span class="pill pill-blue">3 pendientes de sincronía</span>
+        <button class="action-btn btn-outline" onclick="openDetail('rice-village')">Ver</button>
       </div>
     </div>
 
@@ -369,12 +369,12 @@
     <div class="location-row">
       <div>
         <div class="loc-name">Upper Kirby</div>
-        <div class="loc-meta">10am–8pm · Full service</div>
+        <div class="loc-meta">10am a 8pm · servicio completo</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Open</span>
-        <span class="pill pill-green">All synced</span>
-        <button class="action-btn btn-outline" onclick="openDetail('upper-kirby')">View</button>
+        <span class="pill pill-green">Abierta</span>
+        <span class="pill pill-green">Todo sincronizado</span>
+        <button class="action-btn btn-outline" onclick="openDetail('upper-kirby')">Ver</button>
       </div>
     </div>
 
@@ -382,13 +382,13 @@
     <div class="location-row">
       <div>
         <div class="loc-name">Post Oak</div>
-        <div class="loc-meta">10am–8pm · Full service</div>
+        <div class="loc-meta">10am a 8pm · servicio completo</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Open</span>
-        <span class="pill pill-red">Summer Bowl not pushed</span>
-        <button class="action-btn btn-orange" onclick="pushItem(event,'post-oak','Summer Grain Bowl')">Push Now</button>
-        <button class="action-btn btn-outline" onclick="openDetail('post-oak')">View</button>
+        <span class="pill pill-green">Abierta</span>
+        <span class="pill pill-red">El bowl de verano no se envió</span>
+        <button class="action-btn btn-orange" onclick="pushItem(event,'post-oak','Summer Grain Bowl')">Enviar ahora</button>
+        <button class="action-btn btn-outline" onclick="openDetail('post-oak')">Ver</button>
       </div>
     </div>
 
@@ -396,80 +396,80 @@
     <div class="location-row">
       <div>
         <div class="loc-name">The Heights</div>
-        <div class="loc-meta">10am–8pm · Full service</div>
+        <div class="loc-meta">10am a 8pm · servicio completo</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Open</span>
-        <span class="pill pill-amber">1 item 86'd</span>
-        <span class="pill pill-blue">1 pending sync</span>
-        <button class="action-btn btn-outline" onclick="openDetail('the-heights')">View</button>
+        <span class="pill pill-green">Abierta</span>
+        <span class="pill pill-amber">1 platillo agotado</span>
+        <span class="pill pill-blue">1 pendiente de sincronía</span>
+        <button class="action-btn btn-outline" onclick="openDetail('the-heights')">Ver</button>
       </div>
     </div>
 
     <!-- LFM Rice University -->
     <div class="location-row">
       <div>
-        <div class="loc-name">LFM — Rice University</div>
-        <div class="loc-meta">Campus · 10am–3pm today</div>
+        <div class="loc-name">Mercado Sur — Universidad Rice</div>
+        <div class="loc-meta">Campus · hoy de 10am a 3pm</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Open</span>
-        <span class="pill pill-green">All synced</span>
-        <button class="action-btn btn-outline" onclick="openDetail('lfm-rice')">View</button>
+        <span class="pill pill-green">Abierta</span>
+        <span class="pill pill-green">Todo sincronizado</span>
+        <button class="action-btn btn-outline" onclick="openDetail('lfm-rice')">Ver</button>
       </div>
     </div>
 
     <!-- Austin 2nd Street -->
     <div class="location-row">
       <div>
-        <div class="loc-name">2nd Street District — ATX</div>
-        <div class="loc-meta">10am–8pm · Summer Hours</div>
+        <div class="loc-name">Distrito 2nd Street — Austin</div>
+        <div class="loc-meta">10am a 8pm · horario de verano</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Open</span>
-        <span class="pill pill-red">3 items not pushed</span>
-        <button class="action-btn btn-orange" onclick="pushAll(event,'atx-2nd')">Push All</button>
-        <button class="action-btn btn-outline" onclick="openDetail('atx-2nd')">View</button>
+        <span class="pill pill-green">Abierta</span>
+        <span class="pill pill-red">3 platillos sin enviar</span>
+        <button class="action-btn btn-orange" onclick="pushAll(event,'atx-2nd')">Enviar todos</button>
+        <button class="action-btn btn-outline" onclick="openDetail('atx-2nd')">Ver</button>
       </div>
     </div>
 
     <!-- Austin 38th -->
     <div class="location-row">
       <div>
-        <div class="loc-name">38th & Lamar — ATX</div>
-        <div class="loc-meta">Opening 2026 · Pre-launch</div>
+        <div class="loc-name">38th y Lamar — Austin</div>
+        <div class="loc-meta">Abre en 2026 · prelanzamiento</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-gray">Pre-Launch</span>
-        <span class="pill pill-blue">Menu staging</span>
-        <button class="action-btn btn-outline" onclick="openDetail('atx-38')">View</button>
+        <span class="pill pill-gray">Prelanzamiento</span>
+        <span class="pill pill-blue">Menú en preparación</span>
+        <button class="action-btn btn-outline" onclick="openDetail('atx-38')">Ver</button>
       </div>
     </div>
   </div>
 
   <!-- Today's 86'd items -->
   <div class="card" style="margin-top:14px;">
-    <div class="section-title">86'd Today — Scratch Kitchen Alerts</div>
+    <div class="section-title">Agotados de hoy — alertas de cocina</div>
     <div class="location-row">
       <div>
-        <div style="font-size:.84rem; font-weight:600;">Bee2Bee Honey Glazed Salmon</div>
-        <div class="loc-meta">Rice Village · 86'd 11:42am · Source: BOH team</div>
+        <div style="font-size:.84rem; font-weight:600;">Salmón glaseado con miel</div>
+        <div class="loc-meta">Rice Village · agotado 11:42am · fuente: equipo de cocina</div>
       </div>
       <span class="pill pill-red">86'd</span>
     </div>
     <div class="location-row">
       <div>
-        <div style="font-size:.84rem; font-weight:600;">Seasonal Soup of the Day</div>
-        <div class="loc-meta">The Heights · 86'd 1:05pm · Source: BOH team</div>
+        <div style="font-size:.84rem; font-weight:600;">Sopa del día de temporada</div>
+        <div class="loc-meta">The Heights · agotada 1:05pm · fuente: equipo de cocina</div>
       </div>
       <span class="pill pill-red">86'd</span>
     </div>
     <div class="location-row">
       <div>
-        <div style="font-size:.84rem; font-weight:600;">Gulf Shrimp &amp; Avocado Sandwich</div>
-        <div class="loc-meta">Rice Village · Low stock · 4 remaining</div>
+        <div style="font-size:.84rem; font-weight:600;">Sándwich de camarón del Golfo y aguacate</div>
+        <div class="loc-meta">Rice Village · poco stock · quedan 4</div>
       </div>
-      <span class="pill pill-amber">Low Stock</span>
+      <span class="pill pill-amber">Poco stock</span>
     </div>
   </div>
 
@@ -479,130 +479,130 @@
 <div id="view-catering" class="view">
 
   <div class="insight">
-    <strong>Typically where teams lose time:</strong> Without a dedicated intake-to-quote workflow, large corporate events go through email and calls — slowing quote turnaround and capping how many events your team can handle in parallel.
+    <strong>Dónde se suele perder el tiempo:</strong> Sin un flujo dedicado que vaya de la solicitud a la cotización, los eventos corporativos grandes se manejan por correo y llamadas, lo que atrasa la respuesta y pone techo a cuántos eventos puede llevar su equipo en paralelo.
   </div>
 
   <!-- Pipeline stages -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px;">
     <div class="stat-card" style="border-top:3px solid #93c5fd;">
       <div class="value" style="color:#1d4ed8;">3</div>
-      <div class="label">New Inquiries</div>
-      <div class="delta" style="color:#1d4ed8;">Intake received</div>
+      <div class="label">Consultas nuevas</div>
+      <div class="delta" style="color:#1d4ed8;">Solicitud recibida</div>
     </div>
     <div class="stat-card" style="border-top:3px solid #fcd34d;">
       <div class="value" style="color:#92400e;">2</div>
-      <div class="label">Quote in Progress</div>
-      <div class="delta" style="color:#92400e;">Awaiting menu confirm</div>
+      <div class="label">Cotización en curso</div>
+      <div class="delta" style="color:#92400e;">Esperando confirmar el menú</div>
     </div>
     <div class="stat-card" style="border-top:3px solid #86efac;">
       <div class="value" style="color:#166534;">2</div>
-      <div class="label">Confirmed Events</div>
-      <div class="delta">Deposits received</div>
+      <div class="label">Eventos confirmados</div>
+      <div class="delta">Anticipos recibidos</div>
     </div>
     <div class="stat-card" style="border-top:3px solid var(--orange);">
       <div class="value" style="color:var(--orange);">1</div>
-      <div class="label">Needs Follow-up</div>
-      <div class="delta neg">No reply · 4 days</div>
+      <div class="label">Requieren seguimiento</div>
+      <div class="delta neg">Sin respuesta · 4 días</div>
     </div>
   </div>
 
   <!-- Event list -->
   <div class="card">
-    <div class="section-title">Active Catering Requests — Jul / Aug 2026</div>
+    <div class="section-title">Solicitudes de catering activas — jul y ago 2026</div>
 
     <!-- Row 1 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">Energy Company · Team Lunch</div>
-        <div class="loc-meta">Aug 5 · ~60 guests · Rice Village pickup · Contact: M. Caldwell</div>
+        <div class="loc-name">Empresa de energía · almuerzo de equipo</div>
+        <div class="loc-meta">5 ago · ~60 invitados · retiro en Rice Village · contacto: M. Caldwell</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-amber">Quote in Progress</span>
-        <button class="action-btn btn-outline" onclick="openCateringDetail('energy-co')">Open</button>
+        <span class="pill pill-amber">Cotización en curso</span>
+        <button class="action-btn btn-outline" onclick="openCateringDetail('energy-co')">Abrir</button>
       </div>
     </div>
 
     <!-- Row 2 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">University Event · Faculty Welcome</div>
-        <div class="loc-meta">Aug 12 · ~45 guests · On-campus delivery · Contact: Dr. Reyes</div>
+        <div class="loc-name">Evento universitario · bienvenida a docentes</div>
+        <div class="loc-meta">12 ago · ~45 invitados · entrega en campus · contacto: Dr. Reyes</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Confirmed</span>
-        <button class="action-btn btn-outline" onclick="openCateringDetail('univ-faculty')">Open</button>
+        <span class="pill pill-green">Confirmado</span>
+        <button class="action-btn btn-outline" onclick="openCateringDetail('univ-faculty')">Abrir</button>
       </div>
     </div>
 
     <!-- Row 3 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">Neighborhood Association · Summer Social</div>
-        <div class="loc-meta">Jul 31 · ~35 guests · Rice Village · Contact: T. Morrison</div>
+        <div class="loc-name">Asociación de vecinos · convivio de verano</div>
+        <div class="loc-meta">31 jul · ~35 invitados · Rice Village · contacto: T. Morrison</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-blue">New Inquiry</span>
-        <button class="action-btn btn-green" onclick="openCateringDetail('neighborhood')">Review</button>
+        <span class="pill pill-blue">Consulta nueva</span>
+        <button class="action-btn btn-green" onclick="openCateringDetail('neighborhood')">Revisar</button>
       </div>
     </div>
 
     <!-- Row 4 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">Corporate HQ · Quarterly Kickoff</div>
-        <div class="loc-meta">Aug 20 · ~120 guests · Full setup · Contact: S. Okafor</div>
+        <div class="loc-name">Corporativo · arranque trimestral</div>
+        <div class="loc-meta">20 ago · ~120 invitados · montaje completo · contacto: S. Okafor</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-green">Confirmed</span>
-        <button class="action-btn btn-outline" onclick="openCateringDetail('corp-hq')">Open</button>
+        <span class="pill pill-green">Confirmado</span>
+        <button class="action-btn btn-outline" onclick="openCateringDetail('corp-hq')">Abrir</button>
       </div>
     </div>
 
     <!-- Row 5 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">Law Firm · Working Lunch</div>
-        <div class="loc-meta">Sent quote Jul 21 · No reply · ~25 guests · Contact: P. Walsh</div>
+        <div class="loc-name">Bufete de abogados · almuerzo de trabajo</div>
+        <div class="loc-meta">Cotización enviada el 21 jul · sin respuesta · ~25 invitados · contacto: P. Walsh</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-red">Follow-up Needed</span>
-        <button class="action-btn btn-orange" onclick="markFollowUp(event)">Mark Sent</button>
+        <span class="pill pill-red">Falta seguimiento</span>
+        <button class="action-btn btn-orange" onclick="markFollowUp(event)">Marcar enviado</button>
       </div>
     </div>
 
     <!-- Row 6 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">Tech Company · Office Catering Box</div>
-        <div class="loc-meta">Aug 7 · ~80 boxes · Corporate Sandwich Box package · Contact: R. Lin</div>
+        <div class="loc-name">Empresa de tecnología · cajas de catering</div>
+        <div class="loc-meta">7 ago · ~80 cajas · paquete de caja de sándwich corporativa · contacto: R. Lin</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-blue">New Inquiry</span>
-        <button class="action-btn btn-green" onclick="openCateringDetail('tech-co')">Review</button>
+        <span class="pill pill-blue">Consulta nueva</span>
+        <button class="action-btn btn-green" onclick="openCateringDetail('tech-co')">Revisar</button>
       </div>
     </div>
 
     <!-- Row 7 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">Nonprofit Gala · Community Giving</div>
-        <div class="loc-meta">Aug 28 · ~200 guests · Upper Kirby · Contact: K. Graves</div>
+        <div class="loc-name">Gala de fundación · donación comunitaria</div>
+        <div class="loc-meta">28 ago · ~200 invitados · Upper Kirby · contacto: K. Graves</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-amber">Quote in Progress</span>
-        <button class="action-btn btn-outline" onclick="openCateringDetail('nonprofit')">Open</button>
+        <span class="pill pill-amber">Cotización en curso</span>
+        <button class="action-btn btn-outline" onclick="openCateringDetail('nonprofit')">Abrir</button>
       </div>
     </div>
 
     <!-- Row 8 -->
     <div class="location-row">
       <div style="flex:1;">
-        <div class="loc-name">Real Estate Firm · Client Appreciation</div>
-        <div class="loc-meta">Aug 15 · ~50 guests · Post Oak · Contact: A. Nguyen</div>
+        <div class="loc-name">Inmobiliaria · agradecimiento a clientes</div>
+        <div class="loc-meta">15 ago · ~50 invitados · Post Oak · contacto: A. Nguyen</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span class="pill pill-blue">New Inquiry</span>
-        <button class="action-btn btn-green" onclick="openCateringDetail('realestate')">Review</button>
+        <span class="pill pill-blue">Consulta nueva</span>
+        <button class="action-btn btn-green" onclick="openCateringDetail('realestate')">Revisar</button>
       </div>
     </div>
   </div>
@@ -616,22 +616,22 @@
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <span id="cd-status" class="pill pill-amber"></span>
-        <button class="action-btn btn-green" onclick="confirmEvent()">Confirm &amp; Send Quote</button>
-        <button class="btn-outline" style="font-size:.72rem;padding:5px 10px;border-radius:6px;cursor:pointer;" onclick="closeCateringDetail()">Close</button>
+        <button class="action-btn btn-green" onclick="confirmEvent()">Confirmar y enviar cotización</button>
+        <button class="btn-outline" style="font-size:.72rem;padding:5px 10px;border-radius:6px;cursor:pointer;" onclick="closeCateringDetail()">Cerrar</button>
       </div>
     </div>
 
     <div class="detail-grid">
       <div>
-        <div class="field-row"><div class="field-label">Event Date</div><div id="cd-date" class="field-value"></div></div>
-        <div class="field-row"><div class="field-label">Guest Count</div><div id="cd-guests" class="field-value"></div></div>
-        <div class="field-row"><div class="field-label">Location / Delivery</div><div id="cd-loc" class="field-value"></div></div>
-        <div class="field-row"><div class="field-label">Primary Contact</div><div id="cd-contact" class="field-value"></div></div>
-        <div class="field-row"><div class="field-label">Package</div><div id="cd-pkg" class="field-value"></div></div>
-        <div class="field-row"><div class="field-label">Dietary Notes</div><div id="cd-diet" class="field-value"></div></div>
+        <div class="field-row"><div class="field-label">Fecha del evento</div><div id="cd-date" class="field-value"></div></div>
+        <div class="field-row"><div class="field-label">Cantidad de invitados</div><div id="cd-guests" class="field-value"></div></div>
+        <div class="field-row"><div class="field-label">Sede / entrega</div><div id="cd-loc" class="field-value"></div></div>
+        <div class="field-row"><div class="field-label">Contacto principal</div><div id="cd-contact" class="field-value"></div></div>
+        <div class="field-row"><div class="field-label">Paquete</div><div id="cd-pkg" class="field-value"></div></div>
+        <div class="field-row"><div class="field-label">Notas alimentarias</div><div id="cd-diet" class="field-value"></div></div>
       </div>
       <div>
-        <div class="section-title" style="margin-bottom:8px;">Activity Log</div>
+        <div class="section-title" style="margin-bottom:8px;">Bitácora de actividad</div>
         <div id="cd-timeline"></div>
       </div>
     </div>
@@ -643,75 +643,75 @@
 <div id="view-sync" class="view">
 
   <div class="insight">
-    <strong>The pain point:</strong> With 7 locations running hyper-seasonal menus on Toast, a single rotation update — like adding the Summer Grain Bowl — has to be pushed store by store. Operators with this stack typically spend <strong>6–8 hours/week</strong> on manual item-level reconciliation. Below is what that gap looks like in real time — and what a 10-minute sync push solves.
+    <strong>El punto de dolor:</strong> Con 7 sedes corriendo menús muy estacionales en el punto de venta, una sola actualización de rotación &mdash; como agregar el bowl de granos de verano &mdash; hay que enviarla tienda por tienda. Los operadores con este esquema suelen gastar <strong>de 6 a 8 horas por semana</strong> cuadrando platillo por platillo. Abajo está cómo se ve ese hueco en tiempo real, y qué resuelve un envío de sincronía de 10 minutos.
   </div>
 
   <!-- Before/After toggle -->
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;">
-    <div class="section-title" style="margin:0;">Seasonal Feature: <strong>Summer Grain Bowl</strong> — Falcon Lake Farms Chicken · Flying Saucer Farms</div>
+    <div class="section-title" style="margin:0;">Platillo de temporada: <strong>Bowl de granos de verano</strong> — pollo de Granja Río Claro · Huerta El Sauce</div>
     <button id="sync-toggle" class="action-btn btn-green" onclick="runMenuSync()" style="margin-left:auto;">
-      Run Seasonal Menu Sync →
+      Correr la sincronía de menú →
     </button>
   </div>
 
   <!-- State: before sync -->
   <div id="sync-before-section">
-    <div class="sync-label before" style="margin-bottom:10px;">Before Sync — Manual state across 7 locations</div>
+    <div class="sync-label before" style="margin-bottom:10px;">Antes de sincronizar — cómo está a mano en las 7 sedes</div>
     <div class="sync-grid">
       <div class="sync-card sync-before">
         <div class="loc-label">Rice Village</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-86">86'd</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-86">86'd</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-before">
         <div class="loc-label">Upper Kirby</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-before" style="border-color:#fca5a5;">
         <div class="loc-label">Post Oak</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-none">Not pushed</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-86">86'd</span></div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-none">Sin enviar</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-86">86'd</span></div>
       </div>
       <div class="sync-card sync-before">
         <div class="loc-label">The Heights</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-before">
-        <div class="loc-label">LFM — Rice University</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-none">Not on menu</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="loc-label">Mercado Sur — Universidad Rice</div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-none">No está en el menú</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-before" style="border-color:#fca5a5;">
-        <div class="loc-label">2nd Street — ATX</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-none">Not pushed</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-none">Not pushed</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-none">Not pushed</span></div>
+        <div class="loc-label">2nd Street — Austin</div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-none">Sin enviar</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-none">Sin enviar</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-none">Sin enviar</span></div>
       </div>
       <div class="sync-card sync-before">
-        <div class="loc-label">38th &amp; Lamar — ATX</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-sync">Staging</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-sync">Staging</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-sync">Staging</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-sync">Staging</span></div>
+        <div class="loc-label">38th y Lamar — Austin</div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-sync">En preparación</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-sync">En preparación</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-sync">En preparación</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-sync">En preparación</span></div>
       </div>
     </div>
 
     <div class="card" style="margin-top:16px;background:#fff8f4;border-color:#f5d0b5;">
       <div style="font-size:.82rem;color:#5a3220;">
-        <strong style="color:var(--orange);">Manual process today:</strong> Each location manager updates Toast separately → item-level mismatches → a guest at Post Oak orders the Summer Grain Bowl online and sees it available, but the store never got the push. That gap is a guest experience miss that compounds with every rotation.
+        <strong style="color:var(--orange);">El proceso manual de hoy:</strong> Cada gerente de sede actualiza el punto de venta por su cuenta → los platillos quedan descuadrados → un comensal en Post Oak pide el bowl de granos en línea y lo ve disponible, pero a esa tienda nunca le llegó el envío. Ese hueco es una mala experiencia que se repite con cada rotación.
       </div>
     </div>
   </div>
@@ -719,71 +719,71 @@
   <!-- Syncing state -->
   <div id="sync-progress" style="display:none; margin-top:18px;">
     <div class="card" style="text-align:center;padding:32px;">
-      <div class="syncing" style="font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:8px;">Syncing Summer Rotation to All 7 Locations…</div>
+      <div class="syncing" style="font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:8px;">Sincronizando la rotación de verano en las 7 sedes…</div>
       <div id="sync-prog-bar" style="background:#e8e4db;border-radius:99px;height:8px;width:100%;margin:16px 0;">
         <div id="sync-fill" style="background:var(--green);height:100%;border-radius:99px;width:0%;transition:width .4s;"></div>
       </div>
-      <div id="sync-msg" style="font-size:.8rem;color:var(--muted);">Pushing to Rice Village…</div>
+      <div id="sync-msg" style="font-size:.8rem;color:var(--muted);">Enviando a Rice Village…</div>
     </div>
   </div>
 
   <!-- After sync state -->
   <div id="sync-after-section" style="display:none;">
-    <div class="sync-label after" style="margin-bottom:10px;">After Sync — All 7 locations updated in one push</div>
+    <div class="sync-label after" style="margin-bottom:10px;">Después de sincronizar — las 7 sedes actualizadas en un solo envío</div>
     <div class="sync-grid">
       <div class="sync-card sync-after" style="border-color:#86efac;">
         <div class="loc-label">Rice Village</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-86">86'd (kept)</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-86">Agotado (se respeta)</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-after" style="border-color:#86efac;">
         <div class="loc-label">Upper Kirby</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-after" style="border-color:#86efac;">
-        <div class="loc-label">Post Oak ✓ Fixed</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Now Live</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-86">86'd (kept)</span></div>
+        <div class="loc-label">Post Oak ✓ corregida</div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Ya está en vivo</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-86">Agotado (se respeta)</span></div>
       </div>
       <div class="sync-card sync-after" style="border-color:#86efac;">
         <div class="loc-label">The Heights</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-after" style="border-color:#86efac;">
-        <div class="loc-label">LFM — Rice University</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-none">Not on menu</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Available</span></div>
+        <div class="loc-label">Mercado Sur — Universidad Rice</div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-none">No está en el menú</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Disponible</span></div>
       </div>
       <div class="sync-card sync-after" style="border-color:#86efac;">
-        <div class="loc-label">2nd Street — ATX ✓ Fixed</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Now Live</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Now Live</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Available</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Now Live</span></div>
+        <div class="loc-label">2nd Street — Austin ✓ corregida</div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Ya está en vivo</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Ya está en vivo</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Disponible</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Ya está en vivo</span></div>
       </div>
       <div class="sync-card sync-after" style="border-color:#86efac;">
-        <div class="loc-label">38th &amp; Lamar — ATX</div>
-        <div class="sync-item"><span class="sync-item-name">Summer Grain Bowl</span><span class="diff-pill dp-ok">Activated</span></div>
-        <div class="sync-item"><span class="sync-item-name">Gulf Shrimp &amp; Avo</span><span class="diff-pill dp-ok">Activated</span></div>
-        <div class="sync-item"><span class="sync-item-name">Katz Cold Brew</span><span class="diff-pill dp-ok">Activated</span></div>
-        <div class="sync-item"><span class="sync-item-name">44 Farms Beef Sandwich</span><span class="diff-pill dp-ok">Activated</span></div>
+        <div class="loc-label">38th y Lamar — Austin</div>
+        <div class="sync-item"><span class="sync-item-name">Bowl de granos de verano</span><span class="diff-pill dp-ok">Activado</span></div>
+        <div class="sync-item"><span class="sync-item-name">Camarón del Golfo y aguacate</span><span class="diff-pill dp-ok">Activado</span></div>
+        <div class="sync-item"><span class="sync-item-name">Café frío Norte</span><span class="diff-pill dp-ok">Activado</span></div>
+        <div class="sync-item"><span class="sync-item-name">Sándwich de res Rancho Bravo</span><span class="diff-pill dp-ok">Activado</span></div>
       </div>
     </div>
     <div class="card" style="margin-top:16px;background:#f0fdf4;border-color:#86efac;">
       <div style="font-size:.82rem;color:#14532d;">
-        <strong style="color:#15803d;">Sync complete in ~8 minutes.</strong> What used to take 6–8 hours of back-and-forth across store managers is now a single push — with 86'd statuses preserved, campus-only exclusions respected, and the ATX gap closed before any guest hits it. The system you see here is exactly what Pocho.tech would build for Mercado Sur.
+        <strong style="color:#15803d;">Sincronía completa en unos 8 minutos.</strong> Lo que antes tomaba de 6 a 8 horas de ida y vuelta entre gerentes de tienda ahora es un solo envío &mdash; con los agotados respetados, las exclusiones del campus respetadas y el hueco de Austin cerrado antes de que ningún comensal se lo tope. El sistema que ve acá es exactamente lo que Pocho.tech construiría para Mercado Sur.
       </div>
     </div>
   </div>
@@ -794,47 +794,47 @@
 <div id="view-reports" class="view">
 
   <div class="insight">
-    <strong>The gap BentoBox + Toast leaves open:</strong> Without a unified reporting layer, each location's performance lives in separate dashboards. This view shows what a cross-location view of your seasonal features and catering pipeline would look like — the kind of insight chain operators already have.
+    <strong>El hueco que dejan abierto el punto de venta y el sitio de pedidos:</strong> Sin una capa de reportes unificada, el desempeño de cada sede vive en tableros separados. Esta vista muestra cómo se vería una mirada cruzada de sus platillos de temporada y su pipeline de catering &mdash; el tipo de información que las cadenas grandes ya tienen.
   </div>
 
   <!-- Filters -->
   <div class="filter-bar">
     <select class="filter-select" id="filter-loc" onchange="applyFilters()">
-      <option value="all">All Locations</option>
+      <option value="all">Todas las sedes</option>
       <option value="hou">Houston (4)</option>
       <option value="atx">Austin (2)</option>
       <option value="campus">Campus (1)</option>
     </select>
     <select class="filter-select" id="filter-type" onchange="applyFilters()">
-      <option value="all">All Item Types</option>
+      <option value="all">Todos los tipos de platillo</option>
       <option value="bowl">Bowls</option>
-      <option value="sandwich">Sandwiches</option>
+      <option value="sandwich">Sándwiches</option>
       <option value="catering">Catering</option>
-      <option value="beverage">Beverages</option>
+      <option value="beverage">Bebidas</option>
     </select>
     <select class="filter-select" id="filter-status" onchange="applyFilters()">
-      <option value="all">All Statuses</option>
-      <option value="available">Available</option>
+      <option value="all">Todos los estados</option>
+      <option value="available">Disponible</option>
       <option value="86d">86'd</option>
-      <option value="pending">Pending Sync</option>
+      <option value="pending">Pendiente de sincronía</option>
     </select>
-    <input id="search-input" type="text" placeholder="Search items, partners, guests…"
+    <input id="search-input" type="text" placeholder="Buscar platillos, proveedores, comensales…"
       style="flex:2;min-width:160px;font-size:.78rem;border:1px solid var(--border);border-radius:6px;padding:6px 10px;background:#fff;"
       oninput="applyFilters()" />
   </div>
 
   <!-- Seasonal feature coverage table -->
   <div class="card" style="overflow-x:auto;margin-bottom:16px;">
-    <div class="section-title">Seasonal Feature Coverage — Summer 2026</div>
+    <div class="section-title">Cobertura de platillos de temporada — verano 2026</div>
     <table class="report-table" id="coverage-table">
       <thead>
         <tr>
-          <th>Item Name</th>
-          <th>Category</th>
-          <th>Partner / Source</th>
-          <th>Locations Active</th>
-          <th>Coverage</th>
-          <th>Status</th>
+          <th>Platillo</th>
+          <th>Categoría</th>
+          <th>Proveedor / origen</th>
+          <th>Sedes activas</th>
+          <th>Cobertura</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody id="coverage-tbody">
@@ -845,26 +845,26 @@
 
   <!-- Catering report -->
   <div class="card" style="overflow-x:auto;">
-    <div class="section-title">Catering Pipeline — Jul–Aug 2026</div>
+    <div class="section-title">Pipeline de catering — jul y ago 2026</div>
     <table class="report-table">
       <thead>
         <tr>
-          <th>Event</th>
-          <th>Date</th>
-          <th>Guests</th>
-          <th>Location</th>
-          <th>Stage</th>
+          <th>Evento</th>
+          <th>Fecha</th>
+          <th>Invitados</th>
+          <th>Sede</th>
+          <th>Etapa</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Energy Company · Team Lunch</td><td>Aug 5</td><td>60</td><td>Rice Village</td><td><span class="pill pill-amber">Quote in Progress</span></td></tr>
-        <tr><td>University Event · Faculty Welcome</td><td>Aug 12</td><td>45</td><td>Campus</td><td><span class="pill pill-green">Confirmed</span></td></tr>
-        <tr><td>Neighborhood Association · Summer Social</td><td>Jul 31</td><td>35</td><td>Rice Village</td><td><span class="pill pill-blue">New Inquiry</span></td></tr>
-        <tr><td>Corporate HQ · Quarterly Kickoff</td><td>Aug 20</td><td>120</td><td>Post Oak</td><td><span class="pill pill-green">Confirmed</span></td></tr>
-        <tr><td>Law Firm · Working Lunch</td><td>TBD</td><td>25</td><td>Upper Kirby</td><td><span class="pill pill-red">Follow-up Needed</span></td></tr>
-        <tr><td>Tech Company · Office Catering Box</td><td>Aug 7</td><td>80</td><td>The Heights</td><td><span class="pill pill-blue">New Inquiry</span></td></tr>
-        <tr><td>Nonprofit Gala · Community Giving</td><td>Aug 28</td><td>200</td><td>Upper Kirby</td><td><span class="pill pill-amber">Quote in Progress</span></td></tr>
-        <tr><td>Real Estate Firm · Client Appreciation</td><td>Aug 15</td><td>50</td><td>Post Oak</td><td><span class="pill pill-blue">New Inquiry</span></td></tr>
+        <tr><td>Empresa de energía · almuerzo de equipo</td><td>5 ago</td><td>60</td><td>Rice Village</td><td><span class="pill pill-amber">Cotización en curso</span></td></tr>
+        <tr><td>Evento universitario · bienvenida a docentes</td><td>12 ago</td><td>45</td><td>Campus</td><td><span class="pill pill-green">Confirmado</span></td></tr>
+        <tr><td>Asociación de vecinos · convivio de verano</td><td>31 jul</td><td>35</td><td>Rice Village</td><td><span class="pill pill-blue">Consulta nueva</span></td></tr>
+        <tr><td>Corporativo · arranque trimestral</td><td>20 ago</td><td>120</td><td>Post Oak</td><td><span class="pill pill-green">Confirmado</span></td></tr>
+        <tr><td>Bufete de abogados · almuerzo de trabajo</td><td>Por definir</td><td>25</td><td>Upper Kirby</td><td><span class="pill pill-red">Falta seguimiento</span></td></tr>
+        <tr><td>Empresa de tecnología · cajas de catering</td><td>7 ago</td><td>80</td><td>The Heights</td><td><span class="pill pill-blue">Consulta nueva</span></td></tr>
+        <tr><td>Gala de fundación · donación comunitaria</td><td>28 ago</td><td>200</td><td>Upper Kirby</td><td><span class="pill pill-amber">Cotización en curso</span></td></tr>
+        <tr><td>Inmobiliaria · agradecimiento a clientes</td><td>15 ago</td><td>50</td><td>Post Oak</td><td><span class="pill pill-blue">Consulta nueva</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -874,20 +874,20 @@
 <!-- ═══════════════════════════ FLOATING CTA ═══════════════════════════════════ -->
 <button class="fab" onclick="openCalendly()">
   <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/></svg>
-  Like what you see? Let's talk
+  ¿Le gustó? Hablemos
 </button>
 
 <!-- ═══════════════════════════ MODAL ════════════════════════════════════════════ -->
 <div id="won-modal" class="modal-overlay" role="dialog" aria-modal="true">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">✕</button>
     <div style="font-size:2rem;margin-bottom:10px;">🌿</div>
-    <h2>This could be your actual system.</h2>
-    <p>You already have the right stack — Toast + BentoBox. What's missing is the layer that connects 7 locations, syncs seasonal menus in minutes, and handles catering intake without the inbox chaos.</p>
+    <h2>Este podría ser su sistema de verdad.</h2>
+    <p>Las herramientas ya las tiene: el punto de venta y el sitio de pedidos. Lo que falta es la capa que conecta las 7 sedes, sincroniza los menús de temporada en minutos y maneja las solicitudes de catering sin el caos de la bandeja de correo.</p>
     <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=localfoodsricevi" target="_blank" rel="noopener" class="modal-cta" onclick="closeModal()">
-      Book a call with Erick
+      Agendar una llamada con Erick
     </a>
-    <div class="modal-note">No pitch. Just a conversation about what makes sense for Mercado Sur.</div>
+    <div class="modal-note">Sin venta. Solo una conversación sobre qué tiene sentido para Mercado Sur.</div>
   </div>
 </div>
 
@@ -896,7 +896,7 @@
 
 <!-- ═══════════════════════════ FOOTER ══════════════════════════════════════════ -->
 <footer style="background:var(--green);color:#a8c5a9;text-align:center;font-size:.72rem;padding:16px;margin-top:0;">
-  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
 </footer>
 
 <!-- ═══════════════════════════ JAVASCRIPT ══════════════════════════════════════ -->
@@ -959,13 +959,13 @@
 
   // ── Ops view interactions ──────────────────────────────────────────────────
   function openDetail(loc) {
-    showToast('Loading ' + loc.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()) + ' details…');
+    showToast('Cargando detalles de ' + loc.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()) + '…');
   }
 
   function pushItem(e, loc, item) {
-    showToast('Pushing "' + item + '" to ' + loc.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()) + ' on Toast…');
+    showToast('Enviando "' + item + '" a ' + loc.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()) + ' al punto de venta…');
     // Update the button visually
-    e.target.textContent = '✓ Pushed';
+    e.target.textContent = '✓ Enviado';
     e.target.disabled = true;
     e.target.style.opacity = '0.6';
     // Find and update the pill in the same row
@@ -973,22 +973,22 @@
     if (row) {
       const redPill = row.querySelector('.pill-red');
       if (redPill) {
-        redPill.textContent = 'Synced';
+        redPill.textContent = 'Sincronizada';
         redPill.className = 'pill pill-green';
       }
     }
   }
 
   function pushAll(e, loc) {
-    showToast('Pushing all 3 items to 2nd Street Austin on Toast…');
-    e.target.textContent = '✓ All Pushed';
+    showToast('Enviando los 3 platillos a 2nd Street Austin en el punto de venta…');
+    e.target.textContent = '✓ Todos enviados';
     e.target.disabled = true;
     e.target.style.opacity = '0.6';
     const row = e.target.closest('.location-row');
     if (row) {
       const redPill = row.querySelector('.pill-red');
       if (redPill) {
-        redPill.textContent = 'All Synced';
+        redPill.textContent = 'Todo sincronizado';
         redPill.className = 'pill pill-green';
       }
     }
@@ -997,105 +997,105 @@
   // ── Catering detail data ───────────────────────────────────────────────────
   const cateringData = {
     'energy-co': {
-      title: 'Energy Company · Team Lunch',
-      sub:   'Corporate catering — Rice Village',
-      status:'Quote in Progress', statusClass:'pill-amber',
-      date:  'August 5, 2026', guests:'~60 guests',
-      loc:   'Rice Village pickup',
-      contact:'M. Caldwell, Executive Assistant',
-      pkg:   'Corporate Sandwich Box · Scratch Lemonade · Slow Dough sides',
-      diet:  'Gluten-free option requested for 8 guests',
+      title: 'Empresa de energía · almuerzo de equipo',
+      sub:   'Catering corporativo — Rice Village',
+      status:'Cotización en curso', statusClass:'pill-amber',
+      date:  '5 de agosto de 2026', guests:'~60 invitados',
+      loc:   'Retiro en Rice Village',
+      contact:'M. Caldwell, asistente ejecutiva',
+      pkg:   'Caja de sándwich corporativa · limonada de la casa · guarniciones de Masa Lenta',
+      diet:  'Se pidió opción sin gluten para 8 invitados',
       timeline:[
-        {date:'Jul 22', dot:'td-blue', text:'Inquiry received via email. Forwarded to events team.'},
-        {date:'Jul 23', dot:'td-green', text:'Initial call with M. Caldwell. Menu preferences noted.'},
-        {date:'Jul 24', dot:'td-orange', text:'Quote draft in progress — awaiting Falcon Lake Farms availability confirm.'},
+        {date:'22 jul', dot:'td-blue', text:'Consulta recibida por correo. Reenviada al equipo de eventos.'},
+        {date:'23 jul', dot:'td-green', text:'Primera llamada con M. Caldwell. Preferencias de menú anotadas.'},
+        {date:'24 jul', dot:'td-orange', text:'Borrador de cotización en curso — esperando confirmar disponibilidad de Granja Río Claro.'},
       ]
     },
     'univ-faculty': {
-      title: 'University Event · Faculty Welcome',
-      sub:   'Campus catering — Rice University delivery',
-      status:'Confirmed', statusClass:'pill-green',
-      date:  'August 12, 2026', guests:'~45 guests',
-      loc:   'On-campus delivery — Rice University',
-      contact:'Dr. Reyes, Faculty Affairs Office',
-      pkg:   'Falcon Lake Farms Chicken Bowl · Flying Saucer Greens Salad · Katz Cold Brew',
-      diet:  'Vegetarian option for 12; nut-free for 4',
+      title: 'Evento universitario · bienvenida a docentes',
+      sub:   'Catering de campus — entrega en la Universidad Rice',
+      status:'Confirmado', statusClass:'pill-green',
+      date:  '12 de agosto de 2026', guests:'~45 invitados',
+      loc:   'Entrega en campus — Universidad Rice',
+      contact:'Dr. Reyes, oficina de asuntos docentes',
+      pkg:   'Bowl de pollo de Granja Río Claro · ensalada de Huerta El Sauce · café frío Norte',
+      diet:  'Opción vegetariana para 12; sin nueces para 4',
       timeline:[
-        {date:'Jul 10', dot:'td-blue', text:'Inquiry received. Routed from Toast Tab form.'},
-        {date:'Jul 12', dot:'td-green', text:'Quote sent. Seasonal bowl selected.'},
-        {date:'Jul 15', dot:'td-green', text:'Deposit received. Event confirmed.'},
-        {date:'Jul 24', dot:'td-green', text:'Dietary details finalized with Dr. Reyes.'},
+        {date:'10 jul', dot:'td-blue', text:'Consulta recibida. Llegó del formulario del punto de venta.'},
+        {date:'12 jul', dot:'td-green', text:'Cotización enviada. Eligieron el bowl de temporada.'},
+        {date:'15 jul', dot:'td-green', text:'Anticipo recibido. Evento confirmado.'},
+        {date:'24 jul', dot:'td-green', text:'Detalles alimentarios cerrados con el Dr. Reyes.'},
       ]
     },
     'neighborhood': {
-      title: 'Neighborhood Association · Summer Social',
-      sub:   'Community event — Rice Village area',
-      status:'New Inquiry', statusClass:'pill-blue',
-      date:  'July 31, 2026', guests:'~35 guests',
-      loc:   'Rice Village — outdoor setup',
-      contact:'T. Morrison, Neighborhood President',
-      pkg:   'TBD — guest requested seasonal mix',
-      diet:  'No restrictions noted',
+      title: 'Asociación de vecinos · convivio de verano',
+      sub:   'Evento comunitario — zona de Rice Village',
+      status:'Consulta nueva', statusClass:'pill-blue',
+      date:  '31 de julio de 2026', guests:'~35 invitados',
+      loc:   'Rice Village — montaje al aire libre',
+      contact:'T. Morrison, presidente de la asociación',
+      pkg:   'Por definir — pidieron una mezcla de temporada',
+      diet:  'Sin restricciones anotadas',
       timeline:[
-        {date:'Jul 25', dot:'td-blue', text:'Inquiry received. Needs quote within 48 hrs.'},
+        {date:'25 jul', dot:'td-blue', text:'Consulta recibida. Hay que cotizar en 48 horas.'},
       ]
     },
     'corp-hq': {
-      title: 'Corporate HQ · Quarterly Kickoff',
-      sub:   'Large corporate catering — Post Oak',
-      status:'Confirmed', statusClass:'pill-green',
-      date:  'August 20, 2026', guests:'~120 guests',
-      loc:   'Client office — full setup and service',
-      contact:'S. Okafor, Office Manager',
-      pkg:   '44 Farms Beef Sandwich · Houston Dairymaids Cheese Board · Scratch Lemonade · Rio Grande Organics Wraps',
-      diet:  'Halal protein option for 15; vegan for 10',
+      title: 'Corporativo · arranque trimestral',
+      sub:   'Catering corporativo grande — Post Oak',
+      status:'Confirmado', statusClass:'pill-green',
+      date:  '20 de agosto de 2026', guests:'~120 invitados',
+      loc:   'Oficina del cliente — montaje y servicio completo',
+      contact:'S. Okafor, gerente de oficina',
+      pkg:   'Sándwich de res Rancho Bravo · tabla de quesos del Bayou · limonada de la casa · wraps de Orgánicos del Valle',
+      diet:  'Opción de proteína halal para 15; vegana para 10',
       timeline:[
-        {date:'Jul 5', dot:'td-blue', text:'Inquiry via email — large corporate event flagged.'},
-        {date:'Jul 8', dot:'td-green', text:'Discovery call with S. Okafor.'},
-        {date:'Jul 12', dot:'td-green', text:'Full quote sent. Package customized.'},
-        {date:'Jul 18', dot:'td-green', text:'Contract signed. 50% deposit received.'},
-        {date:'Jul 24', dot:'td-green', text:'Dietary breakdown finalized.'},
+        {date:'5 jul', dot:'td-blue', text:'Consulta por correo — evento corporativo grande marcado.'},
+        {date:'8 jul', dot:'td-green', text:'Llamada de diagnóstico con S. Okafor.'},
+        {date:'12 jul', dot:'td-green', text:'Cotización completa enviada. Paquete ajustado a la medida.'},
+        {date:'18 jul', dot:'td-green', text:'Contrato firmado. Anticipo del 50% recibido.'},
+        {date:'24 jul', dot:'td-green', text:'Desglose alimentario cerrado.'},
       ]
     },
     'tech-co': {
-      title: 'Tech Company · Office Catering Box',
-      sub:   'Corporate catering box program — The Heights',
-      status:'New Inquiry', statusClass:'pill-blue',
-      date:  'August 7, 2026', guests:'~80 boxes',
-      loc:   'Client office delivery — Midtown Houston',
-      contact:'R. Lin, Office Coordinator',
-      pkg:   'Corporate Sandwich Box (80 units) · Scratch Lemonade · Treehouse Herb Side',
-      diet:  'Vegetarian boxes for 20; no nuts for 8',
+      title: 'Empresa de tecnología · cajas de catering',
+      sub:   'Programa de cajas corporativas — The Heights',
+      status:'Consulta nueva', statusClass:'pill-blue',
+      date:  '7 de agosto de 2026', guests:'~80 cajas',
+      loc:   'Entrega en oficina del cliente — Midtown Houston',
+      contact:'R. Lin, coordinador de oficina',
+      pkg:   'Caja de sándwich corporativa (80 unidades) · limonada de la casa · guarnición de hierbas de la Microgranja',
+      diet:  'Cajas vegetarianas para 20; sin nueces para 8',
       timeline:[
-        {date:'Jul 24', dot:'td-blue', text:'Inquiry received. Box program requested — recurring potential noted.'},
+        {date:'24 jul', dot:'td-blue', text:'Consulta recibida. Pidieron programa de cajas — se anotó el potencial recurrente.'},
       ]
     },
     'nonprofit': {
-      title: 'Nonprofit Gala · Community Giving',
-      sub:   'Community event — Upper Kirby',
-      status:'Quote in Progress', statusClass:'pill-amber',
-      date:  'August 28, 2026', guests:'~200 guests',
-      loc:   'Venue — Upper Kirby area',
-      contact:'K. Graves, Events Director',
-      pkg:   'Bee2Bee Honey Glazed Salmon · Houston Dairymaids · Pure Luck Dairy · Scratch Lemonade',
-      diet:  'Full dietary breakdown needed — pending response',
+      title: 'Gala de fundación · donación comunitaria',
+      sub:   'Evento comunitario — Upper Kirby',
+      status:'Cotización en curso', statusClass:'pill-amber',
+      date:  '28 de agosto de 2026', guests:'~200 invitados',
+      loc:   'Salón — zona de Upper Kirby',
+      contact:'K. Graves, directora de eventos',
+      pkg:   'Salmón glaseado con miel · quesos del Bayou · lácteos Cabra Blanca · limonada de la casa',
+      diet:  'Falta el desglose alimentario completo — pendiente de respuesta',
       timeline:[
-        {date:'Jul 18', dot:'td-blue', text:'Inquiry received. Largest event this quarter.'},
-        {date:'Jul 20', dot:'td-green', text:'Intro call with K. Graves. Mission-aligned event.'},
-        {date:'Jul 23', dot:'td-orange', text:'Menu options sent. Awaiting dietary breakdown from client.'},
+        {date:'18 jul', dot:'td-blue', text:'Consulta recibida. El evento más grande del trimestre.'},
+        {date:'20 jul', dot:'td-green', text:'Llamada de presentación con K. Graves. Evento alineado con la causa.'},
+        {date:'23 jul', dot:'td-orange', text:'Opciones de menú enviadas. Esperando el desglose alimentario del cliente.'},
       ]
     },
     'realestate': {
-      title: 'Real Estate Firm · Client Appreciation',
-      sub:   'Corporate catering — Post Oak',
-      status:'New Inquiry', statusClass:'pill-blue',
-      date:  'August 15, 2026', guests:'~50 guests',
-      loc:   'Post Oak office — cocktail style',
-      contact:'A. Nguyen, Marketing Director',
-      pkg:   'TBD — premium seasonal request',
-      diet:  'No restrictions noted',
+      title: 'Inmobiliaria · agradecimiento a clientes',
+      sub:   'Catering corporativo — Post Oak',
+      status:'Consulta nueva', statusClass:'pill-blue',
+      date:  '15 de agosto de 2026', guests:'~50 invitados',
+      loc:   'Oficina de Post Oak — estilo coctel',
+      contact:'A. Nguyen, director de marketing',
+      pkg:   'Por definir — pidieron algo premium de temporada',
+      diet:  'Sin restricciones anotadas',
       timeline:[
-        {date:'Jul 25', dot:'td-blue', text:'Inquiry received. Premium presentation requested.'},
+        {date:'25 jul', dot:'td-blue', text:'Consulta recibida. Pidieron presentación premium.'},
       ]
     },
   };
@@ -1131,42 +1131,42 @@
   }
 
   function confirmEvent() {
-    showToast('Quote confirmed and sent to guest. Event marked Confirmed.');
+    showToast('Cotización confirmada y enviada al cliente. El evento pasó a confirmado.');
     const st = document.getElementById('cd-status');
-    st.textContent = 'Confirmed';
+    st.textContent = 'Confirmado';
     st.className   = 'pill pill-green';
   }
 
   function markFollowUp(e) {
-    showToast('Follow-up marked as sent. Reminder set for 48 hrs.');
-    e.target.textContent = '✓ Sent';
+    showToast('Seguimiento marcado como enviado. Recordatorio puesto a 48 horas.');
+    e.target.textContent = '✓ Enviado';
     e.target.disabled = true;
     e.target.style.opacity = '0.6';
     const row = e.target.closest('.location-row');
     if (row) {
       const p = row.querySelector('.pill-red');
-      if (p) { p.textContent = 'Follow-up Sent'; p.className = 'pill pill-amber'; }
+      if (p) { p.textContent = 'Seguimiento enviado'; p.className = 'pill pill-amber'; }
     }
   }
 
   // ── Menu sync animation ────────────────────────────────────────────────────
   const syncMsgs = [
-    'Pushing to Rice Village…',
-    'Pushing to Upper Kirby…',
-    'Pushing to Post Oak… (3 items missing)',
-    'Pushing to The Heights…',
-    'Pushing to LFM — Rice University…',
-    'Pushing to 2nd Street ATX… (4 items missing)',
-    'Staging 38th & Lamar ATX…',
-    'Verifying sync — all 7 locations…',
-    'Complete.',
+    'Enviando a Rice Village…',
+    'Enviando a Upper Kirby…',
+    'Enviando a Post Oak… (faltan 3 platillos)',
+    'Enviando a The Heights…',
+    'Enviando a Mercado Sur — Universidad Rice…',
+    'Enviando a 2nd Street Austin… (faltan 4 platillos)',
+    'Preparando 38th y Lamar Austin…',
+    'Verificando la sincronía — las 7 sedes…',
+    'Completa.',
   ];
 
   function runMenuSync() {
     if (syncDone || syncRunning) return;
     syncRunning = true;
     const btn = document.getElementById('sync-toggle');
-    btn.textContent = 'Syncing…';
+    btn.textContent = 'Sincronizando…';
     btn.disabled = true;
 
     document.getElementById('sync-before-section').style.display = 'none';
@@ -1180,14 +1180,14 @@
       step++;
       const pct = Math.min(step / syncMsgs.length * 100, 100);
       fill.style.width = pct + '%';
-      msg.textContent  = syncMsgs[step - 1] || 'Complete.';
+      msg.textContent  = syncMsgs[step - 1] || 'Completa.';
       if (step >= syncMsgs.length) {
         clearInterval(interval);
         setTimeout(function() {
           document.getElementById('sync-progress').style.display = 'none';
           document.getElementById('sync-after-section').style.display = 'block';
           syncDone = true; syncRunning = false;
-          showToast('All 7 locations synced. Summer rotation is live.');
+          showToast('Las 7 sedes sincronizadas. La rotación de verano está en vivo.');
           checkModalTrigger();
         }, 600);
       }
@@ -1196,27 +1196,27 @@
 
   // ── Reports data ───────────────────────────────────────────────────────────
   const coverageData = [
-    { name:'Summer Grain Bowl',              cat:'Bowl',      partner:'Falcon Lake Farms',      active:5, total:7, status:'pending',   type:'bowl',      loc:'hou' },
-    { name:'Gulf Shrimp & Avocado Sandwich', cat:'Sandwich',  partner:'Blue Horizon Seafood',   active:6, total:7, status:'available', type:'sandwich',  loc:'hou' },
-    { name:'Bee2Bee Honey Glazed Salmon',    cat:'Seasonal',  partner:'Bee2Bee Honey',          active:7, total:7, status:'86d',       type:'bowl',      loc:'atx' },
-    { name:'44 Farms Beef Sandwich',         cat:'Sandwich',  partner:'44 Farms',               active:6, total:7, status:'available', type:'sandwich',  loc:'hou' },
-    { name:'Falcon Lake Farms Chicken Bowl', cat:'Bowl',      partner:'Falcon Lake Farms',      active:7, total:7, status:'available', type:'bowl',      loc:'hou' },
-    { name:'Flying Saucer Greens Salad',     cat:'Salad',     partner:'Flying Saucer Farms',    active:7, total:7, status:'available', type:'bowl',      loc:'campus' },
-    { name:'Houston Dairymaids Cheese Board',cat:'Catering',  partner:'Houston Dairymaids',     active:4, total:7, status:'available', type:'catering',  loc:'hou' },
-    { name:'Rio Grande Organics Veg Wrap',   cat:'Wrap',      partner:'Rio Grande Organics',    active:5, total:7, status:'available', type:'sandwich',  loc:'atx' },
-    { name:'Pure Luck Dairy Goat Cheese Toast',cat:'Breakfast',partner:'Pure Luck Dairy',       active:3, total:7, status:'available', type:'sandwich',  loc:'atx' },
-    { name:'Slow Dough Sourdough Toast',     cat:'Bread',     partner:'Slow Dough Bread Co.',   active:7, total:7, status:'available', type:'sandwich',  loc:'hou' },
-    { name:'Katz Cold Brew',                 cat:'Beverage',  partner:'Katz Coffee',            active:7, total:7, status:'available', type:'beverage',  loc:'hou' },
-    { name:'Scratch Lemonade — Rotating',    cat:'Beverage',  partner:'In-house scratch',       active:6, total:7, status:'available', type:'beverage',  loc:'atx' },
-    { name:'Treehouse Micro Farm Herb Side', cat:'Side',      partner:'Treehouse Micro Farm',   active:4, total:7, status:'available', type:'bowl',      loc:'campus' },
-    { name:'Seasonal Soup of the Day',       cat:'Rotating',  partner:'Scratch kitchen',        active:7, total:7, status:'86d',       type:'bowl',      loc:'hou' },
-    { name:'Corporate Sandwich Box',         cat:'Catering',  partner:'Multi-partner package',  active:5, total:7, status:'available', type:'catering',  loc:'atx' },
+    { name:'Bowl de granos de verano',              cat:'Bowl',      partner:'Granja Río Claro',      active:5, total:7, status:'pending',   type:'bowl',      loc:'hou' },
+    { name:'Sándwich de camarón del Golfo y aguacate', cat:'Sándwich',  partner:'Mariscos Horizonte',   active:6, total:7, status:'available', type:'sandwich',  loc:'hou' },
+    { name:'Salmón glaseado con miel',    cat:'De temporada',  partner:'Miel Colmena',          active:7, total:7, status:'86d',       type:'bowl',      loc:'atx' },
+    { name:'Sándwich de res Rancho Bravo',         cat:'Sándwich',  partner:'Rancho Bravo',               active:6, total:7, status:'available', type:'sandwich',  loc:'hou' },
+    { name:'Bowl de pollo de Granja Río Claro', cat:'Bowl',      partner:'Granja Río Claro',      active:7, total:7, status:'available', type:'bowl',      loc:'hou' },
+    { name:'Ensalada verde de Huerta El Sauce',     cat:'Ensalada',     partner:'Huerta El Sauce',    active:7, total:7, status:'available', type:'bowl',      loc:'campus' },
+    { name:'Tabla de quesos del Bayou',cat:'Catering',  partner:'Quesos del Bayou',     active:4, total:7, status:'available', type:'catering',  loc:'hou' },
+    { name:'Wrap vegetariano de Orgánicos del Valle',   cat:'Wrap',      partner:'Orgánicos del Valle',    active:5, total:7, status:'available', type:'sandwich',  loc:'atx' },
+    { name:'Tostada de queso de cabra Cabra Blanca',cat:'Desayuno',partner:'Lácteos Cabra Blanca',       active:3, total:7, status:'available', type:'sandwich',  loc:'atx' },
+    { name:'Tostada de masa madre de Masa Lenta',     cat:'Pan',     partner:'Masa Lenta Panadería',   active:7, total:7, status:'available', type:'sandwich',  loc:'hou' },
+    { name:'Café frío Norte',                 cat:'Bebida',  partner:'Café Norte',            active:7, total:7, status:'available', type:'beverage',  loc:'hou' },
+    { name:'Limonada de la casa — rotativa',    cat:'Bebida',  partner:'Hecha en casa',       active:6, total:7, status:'available', type:'beverage',  loc:'atx' },
+    { name:'Guarnición de hierbas de la Microgranja', cat:'Guarnición',      partner:'Microgranja El Árbol',   active:4, total:7, status:'available', type:'bowl',      loc:'campus' },
+    { name:'Sopa del día de temporada',       cat:'Rotativa',  partner:'Cocina de la casa',        active:7, total:7, status:'86d',       type:'bowl',      loc:'hou' },
+    { name:'Caja de sándwich corporativa',         cat:'Catering',  partner:'Paquete de varios proveedores',  active:5, total:7, status:'available', type:'catering',  loc:'atx' },
   ];
 
   function statusPill(s) {
-    if (s === 'available') return '<span class="pill pill-green">Available</span>';
+    if (s === 'available') return '<span class="pill pill-green">Disponible</span>';
     if (s === '86d')       return '<span class="pill pill-red">86\'d</span>';
-    if (s === 'pending')   return '<span class="pill pill-amber">Pending Sync</span>';
+    if (s === 'pending')   return '<span class="pill pill-amber">Pendiente de sincronía</span>';
     return '';
   }
 

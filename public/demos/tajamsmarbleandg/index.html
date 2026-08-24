@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solano Mármol y Granito — Operations Platform</title>
+  <title>Solano Mármol y Granito — Plataforma de Operaciones</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -479,15 +479,15 @@
   <div class="header-top flex items-start justify-between gap-4">
     <div>
       <div class="header-brand">Solano Mármol y Granito</div>
-      <div class="header-sub">What your own system would look like — prepared by Pocho.tech</div>
+      <div class="header-sub">Así se vería su sistema propio — preparado por Pocho.tech</div>
     </div>
-    <div class="demo-badge mt-1">DEMO · sample data</div>
+    <div class="demo-badge mt-1">DEMO · datos de muestra</div>
   </div>
   <nav class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('dashboard', this)">Daily Operations</button>
-    <button class="tab-btn" onclick="switchTab('project', this)">Project Detail</button>
-    <button class="tab-btn" onclick="switchTab('inventory', this)">Live Inventory</button>
-    <button class="tab-btn" onclick="switchTab('leads', this)">Lead Pipeline</button>
+    <button class="tab-btn active" onclick="switchTab('dashboard', this)">Operaciones del día</button>
+    <button class="tab-btn" onclick="switchTab('project', this)">Detalle del proyecto</button>
+    <button class="tab-btn" onclick="switchTab('inventory', this)">Inventario en vivo</button>
+    <button class="tab-btn" onclick="switchTab('leads', this)">Pipeline de prospectos</button>
   </nav>
 </header>
 
@@ -500,54 +500,54 @@
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
     <div class="stat-box">
       <div class="stat-num">14</div>
-      <div class="stat-label">Active Projects — All Locations</div>
-      <div class="stat-delta text-blue-600">↑ 3 this week</div>
+      <div class="stat-label">Proyectos activos — todas las sedes</div>
+      <div class="stat-delta text-blue-600">↑ 3 esta semana</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">$218k</div>
-      <div class="stat-label">Open Quote Value</div>
-      <div class="stat-delta" style="color:var(--gold)">7 quotes pending response</div>
+      <div class="stat-label">Valor de cotizaciones abiertas</div>
+      <div class="stat-delta" style="color:var(--gold)">7 cotizaciones esperando respuesta</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">31</div>
-      <div class="stat-label">Showroom Leads — Last 7 Days</div>
-      <div class="stat-delta text-red-500">12 with no follow-up</div>
+      <div class="stat-label">Prospectos de showroom — últimos 7 días</div>
+      <div class="stat-delta text-red-500">12 sin seguimiento</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">846</div>
-      <div class="stat-label">Slabs in Live Inventory</div>
-      <div class="stat-delta text-green-600">Across 4 showrooms</div>
+      <div class="stat-label">Losas en inventario en vivo</div>
+      <div class="stat-delta text-green-600">En 4 showrooms</div>
     </div>
   </div>
 
   <!-- Pain callout — before/after -->
   <div class="pain-callout mb-4 sans text-sm">
-    <span class="font-bold text-red-700">Without a unified system:</span>
-    <span class="text-red-800"> A contractor calls Houston asking for 15 slabs of Taj Mahal 3cm. The rep doesn't know Dallas has 11 in stock. The client waits 3 days while internal calls are made.</span>
+    <span class="font-bold text-red-700">Sin un sistema unificado:</span>
+    <span class="text-red-800"> Un contratista llama a Houston pidiendo 15 losas de Taj Mahal 3 cm. El vendedor no sabe que Dallas tiene 11 en existencia. El cliente espera 3 días mientras se hacen llamadas internas.</span>
   </div>
   <div class="pain-callout solved mb-6 sans text-sm">
-    <span class="font-bold text-green-700">With your system:</span>
-    <span class="text-green-800"> Search any slab, see stock across all 4 locations in real time. Answer the contractor in under 60 seconds.</span>
+    <span class="font-bold text-green-700">Con su sistema:</span>
+    <span class="text-green-800"> Busque cualquier losa y vea la existencia de las 4 sedes en tiempo real. Le responde al contratista en menos de 60 segundos.</span>
   </div>
 
   <!-- Orders table + interaction -->
   <div class="card mb-6">
     <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
-      <div class="card-title mb-0">Open Orders — All Locations</div>
+      <div class="card-title mb-0">Órdenes abiertas — todas las sedes</div>
       <div class="flex gap-2 flex-wrap">
         <select class="filter-select sans" id="loc-filter" onchange="filterOrders()">
-          <option value="">All Locations</option>
+          <option value="">Todas las sedes</option>
           <option value="Houston">Houston</option>
           <option value="Dallas">Dallas</option>
           <option value="McAllen">McAllen</option>
           <option value="Harlingen">Harlingen</option>
         </select>
         <select class="filter-select sans" id="status-filter" onchange="filterOrders()">
-          <option value="">All Statuses</option>
-          <option value="Quote Sent">Quote Sent</option>
-          <option value="Slabs Reserved">Slabs Reserved</option>
-          <option value="New Inquiry">New Inquiry</option>
-          <option value="Closed Won">Closed Won</option>
+          <option value="">Todos los estados</option>
+          <option value="Cotización enviada">Cotización enviada</option>
+          <option value="Losas reservadas">Losas reservadas</option>
+          <option value="Consulta nueva">Consulta nueva</option>
+          <option value="Cerrada ganada">Cerrada ganada</option>
         </select>
       </div>
     </div>
@@ -555,15 +555,15 @@
       <table class="data-table" id="orders-table">
         <thead>
           <tr>
-            <th>Order / Project</th>
-            <th>Client</th>
-            <th>Type</th>
-            <th>Location</th>
-            <th>Slab</th>
-            <th>Qty</th>
-            <th>Value</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>Orden / proyecto</th>
+            <th>Cliente</th>
+            <th>Tipo</th>
+            <th>Sede</th>
+            <th>Losa</th>
+            <th>Cant.</th>
+            <th>Valor</th>
+            <th>Estado</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody id="orders-body">
@@ -574,7 +574,7 @@
 
   <!-- Notification about interaction -->
   <div id="action-note" class="hidden card sans text-sm" style="border-left:4px solid var(--gold); background:var(--warm)">
-    <strong>Slabs reserved.</strong> Marcos Reyes — Taj Mahal 3cm (8 slabs) status updated to <span class="badge badge-reserved">Slabs Reserved</span>. The client portal shows the update instantly. No phone call needed.
+    <strong>Losas reservadas.</strong> Marcos Reyes — Taj Mahal 3 cm (8 losas) pasó a <span class="badge badge-reserved">Losas reservadas</span>. El portal del cliente muestra el cambio al instante. Sin una sola llamada.
   </div>
 </div>
 
@@ -583,32 +583,32 @@
      ══════════════════════════════════════════════════════ -->
 <div id="tab-project" class="tab-panel">
   <div class="mb-4 flex items-center gap-3 flex-wrap">
-    <h2 class="text-xl font-bold" style="font-family:Georgia,serif">Apex Custom Homes — Q3 Contract</h2>
-    <span class="badge badge-active">Active</span>
-    <span class="sans text-sm" style="color:var(--muted)">Builder · B2B Account · 12 active projects</span>
+    <h2 class="text-xl font-bold" style="font-family:Georgia,serif">Apex Custom Homes — contrato del 3er trimestre</h2>
+    <span class="badge badge-active">Activo</span>
+    <span class="sans text-sm" style="color:var(--muted)">Constructora · cuenta B2B · 12 proyectos activos</span>
   </div>
 
   <div class="pain-callout mb-4 sans text-sm">
-    <span class="font-bold text-red-700">Current reality:</span>
-    <span class="text-red-800"> This builder has 12 active projects. Every status check is a manual phone call to your sales team. That's 12 calls your reps have to handle that aren't closing new business.</span>
+    <span class="font-bold text-red-700">Cómo es hoy:</span>
+    <span class="text-red-800"> Esta constructora tiene 12 proyectos activos. Cada consulta de estado es una llamada manual a su equipo de ventas. Son 12 llamadas que sus vendedores tienen que atender y que no cierran negocio nuevo.</span>
   </div>
   <div class="pain-callout solved mb-6 sans text-sm">
-    <span class="font-bold text-green-700">With a client portal:</span>
-    <span class="text-green-800"> Apex logs in and sees every project, every reserved slab, every estimated delivery — at 11pm if they want. Zero calls to your team.</span>
+    <span class="font-bold text-green-700">Con un portal del cliente:</span>
+    <span class="text-green-800"> Apex entra y ve cada proyecto, cada losa reservada y cada entrega estimada, a las 11 de la noche si quiere. Cero llamadas a su equipo.</span>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="stat-box">
       <div class="stat-num">12</div>
-      <div class="stat-label">Active Projects</div>
+      <div class="stat-label">Proyectos activos</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">$84,200</div>
-      <div class="stat-label">YTD Purchase Volume</div>
+      <div class="stat-label">Volumen de compra del año</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">97</div>
-      <div class="stat-label">Slabs Purchased — 2026</div>
+      <div class="stat-label">Losas compradas — 2026</div>
     </div>
   </div>
 
@@ -616,58 +616,58 @@
     <!-- Left: project list -->
     <div class="md:col-span-2">
       <div class="card">
-        <div class="card-title">Projects — Current Quarter</div>
+        <div class="card-title">Proyectos — trimestre actual</div>
         <table class="data-table">
           <thead>
             <tr>
-              <th>Project</th>
+              <th>Proyecto</th>
               <th>Material</th>
-              <th>Slabs</th>
-              <th>Location</th>
-              <th>Est. Delivery</th>
-              <th>Status</th>
+              <th>Losas</th>
+              <th>Sede</th>
+              <th>Entrega estimada</th>
+              <th>Estado</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><span class="font-semibold">Cypress Creek Kitchen</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — 3cm countertops</span></td>
-              <td>Calacatta Gold Marble</td>
+              <td><span class="font-semibold">Cocina Cypress Creek</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — countertops de 3 cm</span></td>
+              <td>Mármol Calacatta Gold</td>
               <td>8</td>
               <td><span class="loc-pill"><span class="dot dot-hou"></span>Houston</span></td>
-              <td class="sans text-sm">Aug 5, 2026</td>
-              <td><span class="badge badge-reserved">Slabs Reserved</span></td>
+              <td class="sans text-sm">5 ago 2026</td>
+              <td><span class="badge badge-reserved">Losas reservadas</span></td>
             </tr>
             <tr>
-              <td><span class="font-semibold">Bellaire Master Bath</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — 2cm vanity tops</span></td>
-              <td>Bianco Carrara Marble</td>
+              <td><span class="font-semibold">Baño principal Bellaire</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — tocadores de 2 cm</span></td>
+              <td>Mármol Bianco Carrara</td>
               <td>4</td>
               <td><span class="loc-pill"><span class="dot dot-hou"></span>Houston</span></td>
-              <td class="sans text-sm">Aug 12, 2026</td>
-              <td><span class="badge badge-active">In Fabrication</span></td>
+              <td class="sans text-sm">12 ago 2026</td>
+              <td><span class="badge badge-active">En fabricación</span></td>
             </tr>
             <tr>
-              <td><span class="font-semibold">Plano Commercial Office</span><br><span class="sans text-xs" style="color:var(--muted)">Dallas TX — reception desk tops</span></td>
-              <td>Absolute Black Granite</td>
+              <td><span class="font-semibold">Oficina comercial Plano</span><br><span class="sans text-xs" style="color:var(--muted)">Dallas TX — mostradores de recepción</span></td>
+              <td>Granito Absolute Black</td>
               <td>11</td>
               <td><span class="loc-pill"><span class="dot dot-dal"></span>Dallas</span></td>
-              <td class="sans text-sm">Aug 18, 2026</td>
-              <td><span class="badge badge-quote">Quote Accepted</span></td>
+              <td class="sans text-sm">18 ago 2026</td>
+              <td><span class="badge badge-quote">Cotización aceptada</span></td>
             </tr>
             <tr>
-              <td><span class="font-semibold">Sugar Land Kitchen Remodel</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — island + perimeter</span></td>
-              <td>Taj Mahal Quartzite 3cm</td>
+              <td><span class="font-semibold">Remodelación de cocina Sugar Land</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — isla y perímetro</span></td>
+              <td>Cuarcita Taj Mahal 3 cm</td>
               <td>9</td>
               <td><span class="loc-pill"><span class="dot dot-hou"></span>Houston</span></td>
-              <td class="sans text-sm">Aug 25, 2026</td>
-              <td><span class="badge badge-pending">Awaiting Fabricator</span></td>
+              <td class="sans text-sm">25 ago 2026</td>
+              <td><span class="badge badge-pending">Esperando al fabricante</span></td>
             </tr>
             <tr>
-              <td><span class="font-semibold">Mission Hills Master Bath</span><br><span class="sans text-xs" style="color:var(--muted)">McAllen TX — 2cm marble</span></td>
-              <td>Statuario Maximus Marble</td>
+              <td><span class="font-semibold">Baño principal Mission Hills</span><br><span class="sans text-xs" style="color:var(--muted)">McAllen TX — mármol de 2 cm</span></td>
+              <td>Mármol Statuario Maximus</td>
               <td>5</td>
               <td><span class="loc-pill"><span class="dot dot-mca"></span>McAllen</span></td>
-              <td class="sans text-sm">Sep 3, 2026</td>
-              <td><span class="badge badge-new">Measuring Scheduled</span></td>
+              <td class="sans text-sm">3 sep 2026</td>
+              <td><span class="badge badge-new">Medición programada</span></td>
             </tr>
           </tbody>
         </table>
@@ -677,54 +677,54 @@
     <!-- Right: timeline -->
     <div>
       <div class="card">
-        <div class="card-title">Recent Activity</div>
+        <div class="card-title">Actividad reciente</div>
         <ul class="timeline sans text-sm">
           <li>
             <div class="tl-dot" style="background:#ECFDF5;color:#059669;font-size:14px;">✓</div>
             <div>
-              <div class="tl-event"><strong>8 slabs reserved</strong> — Calacatta Gold, Cypress Creek</div>
-              <div class="tl-time">Jul 28 · 9:14am · Houston</div>
+              <div class="tl-event"><strong>8 losas reservadas</strong> — Calacatta Gold, Cypress Creek</div>
+              <div class="tl-time">28 jul · 9:14am · Houston</div>
             </div>
           </li>
           <li>
             <div class="tl-dot" style="background:#EFF6FF;color:#1D4ED8;font-size:14px;">Q</div>
             <div>
-              <div class="tl-event"><strong>Quote sent</strong> — Plano Commercial, $18,400</div>
-              <div class="tl-time">Jul 25 · 3:41pm · Dallas</div>
+              <div class="tl-event"><strong>Cotización enviada</strong> — Plano Comercial, $18,400</div>
+              <div class="tl-time">25 jul · 3:41pm · Dallas</div>
             </div>
           </li>
           <li>
             <div class="tl-dot" style="background:#FFF7ED;color:#D97706;font-size:12px;">!</div>
             <div>
-              <div class="tl-event"><strong>Delivery confirmed</strong> — Bellaire Bath, in fabrication</div>
-              <div class="tl-time">Jul 23 · 11:05am · Houston</div>
+              <div class="tl-event"><strong>Entrega confirmada</strong> — Baño Bellaire, en fabricación</div>
+              <div class="tl-time">23 jul · 11:05am · Houston</div>
             </div>
           </li>
           <li>
             <div class="tl-dot" style="background:#F0FDF4;color:#15803D;font-size:14px;">✓</div>
             <div>
-              <div class="tl-event"><strong>Payment received</strong> — $7,200 deposit, Sugar Land</div>
-              <div class="tl-time">Jul 21 · 2:08pm</div>
+              <div class="tl-event"><strong>Pago recibido</strong> — anticipo de $7,200, Sugar Land</div>
+              <div class="tl-time">21 jul · 2:08pm</div>
             </div>
           </li>
           <li>
             <div class="tl-dot" style="background:#F1F5F9;color:#475569;font-size:12px;">→</div>
             <div>
-              <div class="tl-event"><strong>New project opened</strong> — Mission Hills, McAllen</div>
-              <div class="tl-time">Jul 18 · 10:30am</div>
+              <div class="tl-event"><strong>Proyecto nuevo abierto</strong> — Mission Hills, McAllen</div>
+              <div class="tl-time">18 jul · 10:30am</div>
             </div>
           </li>
         </ul>
       </div>
 
       <div class="card mt-4" style="background:var(--warm);border-color:#E8DCC8">
-        <div class="card-title">Purchase History</div>
+        <div class="card-title">Historial de compras</div>
         <div class="sans text-sm space-y-2">
-          <div class="flex justify-between"><span style="color:var(--muted)">2025 Total</span><span class="font-semibold">$61,800</span></div>
-          <div class="flex justify-between"><span style="color:var(--muted)">2026 YTD</span><span class="font-semibold">$84,200</span></div>
-          <div class="flex justify-between"><span style="color:var(--muted)">Avg. Project Value</span><span class="font-semibold">$7,015</span></div>
-          <div class="flex justify-between"><span style="color:var(--muted)">Preferred Material</span><span class="font-semibold">Marble / Quartzite</span></div>
-          <div class="flex justify-between"><span style="color:var(--muted)">Locations Used</span><span class="font-semibold">Houston · Dallas · McAllen</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">Total 2025</span><span class="font-semibold">$61,800</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">2026 en curso</span><span class="font-semibold">$84,200</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">Valor promedio por proyecto</span><span class="font-semibold">$7,015</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">Material preferido</span><span class="font-semibold">Mármol / cuarcita</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">Sedes que usa</span><span class="font-semibold">Houston · Dallas · McAllen</span></div>
         </div>
       </div>
     </div>
@@ -737,34 +737,34 @@
 <div id="tab-inventory" class="tab-panel">
 
   <div class="mb-5">
-    <h2 class="text-xl font-bold mb-1" style="font-family:Georgia,serif">Live Inventory — All Showrooms</h2>
-    <p class="sans text-sm" style="color:var(--muted)">stoneprofitsweb tells you how many slabs you have. This layer tells you where they are — and which ones your clients are already looking at.</p>
+    <h2 class="text-xl font-bold mb-1" style="font-family:Georgia,serif">Inventario en vivo — todos los showrooms</h2>
+    <p class="sans text-sm" style="color:var(--muted)">Su sistema de inventario actual le dice cuántas losas tiene. Esta capa le dice dónde están &mdash; y cuáles ya están mirando sus clientes.</p>
   </div>
 
   <div class="pain-callout mb-4 sans text-sm">
-    <span class="font-bold text-red-700">The gap today:</span>
-    <span class="text-red-800"> A contractor walks into Houston asking for 15 slabs of Taj Mahal 3cm. Houston has 4. The rep doesn't know Dallas has 11 more. The client leaves to call another supplier while your team makes internal calls.</span>
+    <span class="font-bold text-red-700">El hueco de hoy:</span>
+    <span class="text-red-800"> Un contratista entra a Houston pidiendo 15 losas de Taj Mahal 3 cm. Houston tiene 4. El vendedor no sabe que Dallas tiene 11 más. El cliente se va a llamar a otro proveedor mientras su equipo hace llamadas internas.</span>
   </div>
   <div class="pain-callout solved mb-6 sans text-sm">
-    <span class="font-bold text-green-700">What this view gives you:</span>
-    <span class="text-green-800"> One search. Every location. Real-time stock. Reserve slabs in 30 seconds — across any showroom, for any project.</span>
+    <span class="font-bold text-green-700">Lo que le da esta vista:</span>
+    <span class="text-green-800"> Una búsqueda. Todas las sedes. Existencia en tiempo real. Reservar losas en 30 segundos, en cualquier showroom, para cualquier proyecto.</span>
   </div>
 
   <div class="card mb-4">
     <div class="search-bar mb-4">
-      <input class="search-input" id="inv-search" type="text" placeholder="Search by material, type, or thickness… (e.g. Quartzite 3cm)" oninput="filterInventory()" />
+      <input class="search-input" id="inv-search" type="text" placeholder="Buscar por material, tipo o espesor… (ej. cuarcita 3 cm)" oninput="filterInventory()" />
       <select class="filter-select" id="inv-type" onchange="filterInventory()">
-        <option value="">All Types</option>
-        <option value="Natural / Marble">Marble</option>
-        <option value="Natural / Granite">Granite</option>
-        <option value="Natural / Quartzite">Quartzite</option>
-        <option value="Engineered / Quartz">Engineered Quartz</option>
-        <option value="Natural / Dolomite">Dolomite</option>
+        <option value="">Todos los tipos</option>
+        <option value="Natural / mármol">Mármol</option>
+        <option value="Natural / granito">Granito</option>
+        <option value="Natural / cuarcita">Cuarcita</option>
+        <option value="Industrializado / cuarzo">Cuarzo industrializado</option>
+        <option value="Natural / dolomita">Dolomita</option>
       </select>
       <select class="filter-select" id="inv-thick" onchange="filterInventory()">
-        <option value="">All Thicknesses</option>
-        <option value="2cm">2cm</option>
-        <option value="3cm">3cm</option>
+        <option value="">Todos los espesores</option>
+        <option value="2 cm">2 cm</option>
+        <option value="3 cm">3 cm</option>
       </select>
     </div>
 
@@ -772,28 +772,28 @@
       <table class="data-table" id="inv-table">
         <thead>
           <tr>
-            <th>Slab / Material</th>
-            <th>Type</th>
-            <th>Thick.</th>
+            <th>Losa / material</th>
+            <th>Tipo</th>
+            <th>Esp.</th>
             <th><span class="flex items-center gap-1"><span class="dot dot-hou" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Houston</span></th>
             <th><span class="flex items-center gap-1"><span class="dot dot-dal" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Dallas</span></th>
             <th><span class="flex items-center gap-1"><span class="dot dot-mca" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>McAllen</span></th>
             <th><span class="flex items-center gap-1"><span class="dot dot-har" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Harlingen</span></th>
             <th>Total</th>
-            <th>~Price/sqft</th>
-            <th>Action</th>
+            <th>~Precio/pie²</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody id="inv-body"></tbody>
       </table>
     </div>
-    <div id="inv-empty" class="hidden sans text-sm text-center py-10" style="color:var(--muted)">No slabs match your search. Try a different material or thickness.</div>
+    <div id="inv-empty" class="hidden sans text-sm text-center py-10" style="color:var(--muted)">Ninguna losa coincide con su búsqueda. Pruebe con otro material u otro espesor.</div>
   </div>
 
   <!-- Legend -->
   <div class="flex gap-4 flex-wrap sans text-xs mt-2" style="color:var(--muted)">
-    <span><span class="inv-bar-fill" style="display:inline-block;width:20px;height:6px;background:var(--gold);border-radius:3px;vertical-align:middle;margin-right:4px"></span>Stock bar = % of max across locations</span>
-    <span>Prices are sample ranges for demo purposes only.</span>
+    <span><span class="inv-bar-fill" style="display:inline-block;width:20px;height:6px;background:var(--gold);border-radius:3px;vertical-align:middle;margin-right:4px"></span>La barra de existencia es el % del máximo entre sedes</span>
+    <span>Los precios son rangos de muestra, solo para la demostración.</span>
   </div>
 </div>
 
@@ -803,55 +803,55 @@
 <div id="tab-leads" class="tab-panel">
 
   <div class="mb-5">
-    <h2 class="text-xl font-bold mb-1" style="font-family:Georgia,serif">Showroom Lead Pipeline — All Locations</h2>
-    <p class="sans text-sm" style="color:var(--muted)">Every walk-in, every conversation, every follow-up — tracked automatically from the moment they step into your showroom.</p>
+    <h2 class="text-xl font-bold mb-1" style="font-family:Georgia,serif">Pipeline de prospectos de showroom — todas las sedes</h2>
+    <p class="sans text-sm" style="color:var(--muted)">Cada visita, cada conversación, cada seguimiento &mdash; registrados solos desde que la persona pisa el showroom.</p>
   </div>
 
   <div class="pain-callout mb-4 sans text-sm">
-    <span class="font-bold text-red-700">This Saturday at Houston:</span>
-    <span class="text-red-800"> 40 people walk through. Monday morning, nobody knows who came in, what they liked, or if they left a number. stoneprofitsweb tells you how many slabs you have — not how many customers you lost this week.</span>
+    <span class="font-bold text-red-700">Este sábado en Houston:</span>
+    <span class="text-red-800"> Entran 40 personas. El lunes por la mañana nadie sabe quién vino, qué le gustó ni si dejó un teléfono. Su sistema de inventario le dice cuántas losas tiene, no cuántos clientes perdió esta semana.</span>
   </div>
   <div class="pain-callout solved mb-6 sans text-sm">
-    <span class="font-bold text-green-700">With showroom capture:</span>
-    <span class="text-green-800"> Every visitor is logged via tablet or QR. Interested in Taj Mahal? Tagged automatically. Automatic follow-up goes out within 2 hours. Your team sees the full pipeline without a single spreadsheet.</span>
+    <span class="font-bold text-green-700">Con captura en showroom:</span>
+    <span class="text-green-800"> Cada visitante queda registrado desde una tableta o un código QR. ¿Le interesó el Taj Mahal? Queda etiquetado solo. El seguimiento automático sale en menos de 2 horas. Su equipo ve el pipeline completo sin una sola hoja de cálculo.</span>
   </div>
 
   <!-- Stats row -->
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
     <div class="stat-box">
       <div class="stat-num text-red-600">12</div>
-      <div class="stat-label">Hot Leads — Need Contact Today</div>
+      <div class="stat-label">Calientes — hay que contactarlos hoy</div>
     </div>
     <div class="stat-box">
       <div class="stat-num" style="color:var(--gold)">19</div>
-      <div class="stat-label">Warm — Follow-up Sequence Active</div>
+      <div class="stat-label">Tibios — secuencia de seguimiento activa</div>
     </div>
     <div class="stat-box">
       <div class="stat-num text-slate-400">14</div>
-      <div class="stat-label">Cold — Last contact 7+ days ago</div>
+      <div class="stat-label">Fríos — último contacto hace más de 7 días</div>
     </div>
     <div class="stat-box">
       <div class="stat-num text-green-600">6</div>
-      <div class="stat-label">Converted to Quote This Week</div>
+      <div class="stat-label">Convertidos a cotización esta semana</div>
     </div>
   </div>
 
   <div class="card">
     <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
-      <div class="card-title mb-0">Lead Tracker — Last 14 Days</div>
+      <div class="card-title mb-0">Seguimiento de prospectos — últimos 14 días</div>
       <div class="flex gap-2 flex-wrap">
         <select class="filter-select" id="lead-loc" onchange="filterLeads()">
-          <option value="">All Locations</option>
+          <option value="">Todas las sedes</option>
           <option value="Houston">Houston</option>
           <option value="Dallas">Dallas</option>
           <option value="McAllen">McAllen</option>
           <option value="Harlingen">Harlingen</option>
         </select>
         <select class="filter-select" id="lead-temp" onchange="filterLeads()">
-          <option value="">All Temperatures</option>
-          <option value="Hot">Hot</option>
-          <option value="Warm">Warm</option>
-          <option value="Cold">Cold</option>
+          <option value="">Todas las temperaturas</option>
+          <option value="Caliente">Caliente</option>
+          <option value="Tibio">Tibio</option>
+          <option value="Frío">Frío</option>
         </select>
       </div>
     </div>
@@ -859,15 +859,15 @@
       <table class="data-table" id="leads-table">
         <thead>
           <tr>
-            <th>Lead</th>
-            <th>Type</th>
-            <th>Interested In</th>
+            <th>Prospecto</th>
+            <th>Tipo</th>
+            <th>Le interesó</th>
             <th>Showroom</th>
-            <th>Visit Date</th>
-            <th>Last Contact</th>
+            <th>Fecha de visita</th>
+            <th>Último contacto</th>
             <th>Temp.</th>
-            <th>Stage</th>
-            <th>Action</th>
+            <th>Etapa</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody id="leads-body"></tbody>
@@ -879,7 +879,7 @@
 <!-- ═══════════════════════════════════════════════════════
      FLOATING CTA
      ══════════════════════════════════════════════════════ -->
-<button class="cta-float sans" onclick="openCTA()">Like what you see? Let's talk</button>
+<button class="cta-float sans" onclick="openCTA()">¿Le gustó? Hablemos</button>
 
 <!-- ═══════════════════════════════════════════════════════
      MODAL
@@ -889,65 +889,65 @@
     <div class="modal-gold-line"></div>
     <button class="modal-close" onclick="closeModal()">×</button>
     <div class="modal-eyebrow">Pocho.tech</div>
-    <div class="modal-title">Ready to see this built for Solano?</div>
+    <div class="modal-title">¿Listo para ver esto construido para Solano?</div>
     <div class="modal-body">
-      You already have the volume. Four showrooms, a live inventory system, clients buying in bulk — what's missing is the layer that turns that activity into consistent, trackable revenue.<br><br>
-      Book a conversation with Erick to see exactly what your system would look like, scope, and cost.
+      El volumen ya lo tiene. Cuatro showrooms, un inventario en vivo, clientes que compran al por mayor. Lo que falta es la capa que convierte esa actividad en ingreso constante y medible.<br><br>
+      Agende una conversación con Erick para ver exactamente cómo sería su sistema, con qué alcance y a qué costo.
     </div>
-    <button class="modal-cta" onclick="goCTA()">Book a conversation with Erick</button>
+    <button class="modal-cta" onclick="goCTA()">Agendar una conversación con Erick</button>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
 </footer>
 
 <script>
 // ─── Data ──────────────────────────────────────────────────────────────────
 
 const orders = [
-  { id:'SMG-2026-148', project:'Cinco Ranch Kitchen', client:'Marcos Reyes', type:'Contractor', loc:'Houston', slab:'Taj Mahal Quartzite 3cm', qty:8,  val:'$14,400', status:'New Inquiry',    orig:'New Inquiry' },
-  { id:'SMG-2026-147', project:'Uptown Penthouse Bath', client:'Apex Custom Homes', type:'Builder', loc:'Dallas', slab:'Calacatta Gold Marble 3cm', qty:12, val:'$28,800', status:'Quote Sent',      orig:'Quote Sent' },
-  { id:'SMG-2026-146', project:'Katy Residential Kitchen', client:'Sunrise Builders', type:'Builder', loc:'Houston', slab:'Super White Quartzite 3cm', qty:6,  val:'$10,200', status:'Slabs Reserved', orig:'Slabs Reserved' },
-  { id:'SMG-2026-145', project:'McAllen Dental Office', client:'Grupo Medina', type:'Commercial', loc:'McAllen', slab:'Absolute Black Granite 3cm', qty:14, val:'$18,900', status:'Quote Sent',      orig:'Quote Sent' },
-  { id:'SMG-2026-144', project:'Mission Hills Vanity', client:'Cantu Renovations', type:'Contractor', loc:'Harlingen', slab:'Bianco Carrara Marble 2cm', qty:4,  val:'$5,600', status:'Slabs Reserved', orig:'Slabs Reserved' },
-  { id:'SMG-2026-143', project:'Woodlands Master Bath', client:'Premier Luxury Homes', type:'Builder', loc:'Houston', slab:'Statuario Maximus Marble 3cm', qty:7,  val:'$16,100', status:'Closed Won',    orig:'Closed Won' },
-  { id:'SMG-2026-142', project:'Plano Office Lobby', client:'DFW Contract Group', type:'Commercial', loc:'Dallas', slab:'Silver Clouds Dolomite 3cm', qty:18, val:'$23,400', status:'Quote Sent',      orig:'Quote Sent' },
-  { id:'SMG-2026-141', project:'Laredo Kitchen Remodel', client:'Rodriguez & Sons', type:'Contractor', loc:'McAllen', slab:'Santa Cecilia Granite 3cm', qty:5,  val:'$6,250', status:'Slabs Reserved', orig:'Slabs Reserved' },
+  { id:'SMG-2026-148', project:'Cocina Cinco Ranch', client:'Marcos Reyes', type:'Contratista', loc:'Houston', slab:'Cuarcita Taj Mahal 3 cm', qty:8,  val:'$14,400', status:'Consulta nueva',    orig:'Consulta nueva' },
+  { id:'SMG-2026-147', project:'Baño de penthouse Uptown', client:'Apex Custom Homes', type:'Constructora', loc:'Dallas', slab:'Mármol Calacatta Gold 3 cm', qty:12, val:'$28,800', status:'Cotización enviada',      orig:'Cotización enviada' },
+  { id:'SMG-2026-146', project:'Cocina residencial Katy', client:'Sunrise Builders', type:'Constructora', loc:'Houston', slab:'Cuarcita Super White 3 cm', qty:6,  val:'$10,200', status:'Losas reservadas', orig:'Losas reservadas' },
+  { id:'SMG-2026-145', project:'Consultorio dental McAllen', client:'Grupo Medina', type:'Comercial', loc:'McAllen', slab:'Granito Absolute Black 3 cm', qty:14, val:'$18,900', status:'Cotización enviada',      orig:'Cotización enviada' },
+  { id:'SMG-2026-144', project:'Tocador Mission Hills', client:'Cantu Renovations', type:'Contratista', loc:'Harlingen', slab:'Mármol Bianco Carrara 2 cm', qty:4,  val:'$5,600', status:'Losas reservadas', orig:'Losas reservadas' },
+  { id:'SMG-2026-143', project:'Baño principal Woodlands', client:'Premier Luxury Homes', type:'Constructora', loc:'Houston', slab:'Mármol Statuario Maximus 3 cm', qty:7,  val:'$16,100', status:'Cerrada ganada',    orig:'Cerrada ganada' },
+  { id:'SMG-2026-142', project:'Lobby de oficina Plano', client:'DFW Contract Group', type:'Comercial', loc:'Dallas', slab:'Dolomita Silver Clouds 3 cm', qty:18, val:'$23,400', status:'Cotización enviada',      orig:'Cotización enviada' },
+  { id:'SMG-2026-141', project:'Remodelación de cocina Laredo', client:'Rodriguez & Sons', type:'Contratista', loc:'McAllen', slab:'Granito Santa Cecilia 3 cm', qty:5,  val:'$6,250', status:'Losas reservadas', orig:'Losas reservadas' },
 ];
 
 const inventory = [
-  { name:'Taj Mahal',            full:'Taj Mahal — Quartzite Slab 3cm',            type:'Natural / Quartzite', thick:'3cm', hou:4,  dal:11, mca:0, har:2,  price:'$85–$120' },
-  { name:'Calacatta Gold',       full:'Calacatta Gold — Marble Slab 3cm',           type:'Natural / Marble',    thick:'3cm', hou:8,  dal:3,  mca:5, har:0,  price:'$90–$130' },
-  { name:'Super White',          full:'Super White — Quartzite Slab 3cm',           type:'Natural / Quartzite', thick:'3cm', hou:14, dal:6,  mca:3, har:1,  price:'$75–$105' },
-  { name:'Bianco Carrara',       full:'Bianco Carrara — Marble Slab 2cm',           type:'Natural / Marble',    thick:'2cm', hou:6,  dal:9,  mca:2, har:4,  price:'$55–$80' },
-  { name:'Santa Cecilia',        full:'Santa Cecilia — Granite Slab 3cm',           type:'Natural / Granite',   thick:'3cm', hou:20, dal:14, mca:8, har:6,  price:'$45–$65' },
-  { name:'Black Galaxy',         full:'Black Galaxy — Granite Slab 3cm',            type:'Natural / Granite',   thick:'3cm', hou:11, dal:7,  mca:5, har:3,  price:'$50–$70' },
-  { name:'Calacatta Miraggio',   full:'Calacatta Miraggio — Engineered Quartz 3cm', type:'Engineered / Quartz', thick:'3cm', hou:18, dal:22, mca:10,har:8,  price:'$60–$85' },
-  { name:'Calacatta Laza',       full:'Calacatta Laza — Engineered Quartz 3cm',     type:'Engineered / Quartz', thick:'3cm', hou:24, dal:18, mca:12,har:5,  price:'$58–$82' },
-  { name:'Silver Clouds',        full:'Silver Clouds — Dolomite Slab 3cm',          type:'Natural / Dolomite',  thick:'3cm', hou:7,  dal:4,  mca:2, har:0,  price:'$70–$95' },
-  { name:'Statuario Maximus',    full:'Statuario Maximus — Marble Slab 3cm',        type:'Natural / Marble',    thick:'3cm', hou:3,  dal:5,  mca:4, har:1,  price:'$95–$135' },
-  { name:'Absolute Black',       full:'Absolute Black — Granite Slab 3cm',          type:'Natural / Granite',   thick:'3cm', hou:16, dal:12, mca:9, har:7,  price:'$48–$68' },
-  { name:'Stormy Night',         full:'Stormy Night — Engineered Quartz 2cm',       type:'Engineered / Quartz', thick:'2cm', hou:10, dal:8,  mca:6, har:4,  price:'$55–$75' },
-  { name:'Perla Venata',         full:'Perla Venata — Quartzite Slab 2cm',          type:'Natural / Quartzite', thick:'2cm', hou:5,  dal:2,  mca:1, har:3,  price:'$80–$110' },
-  { name:'Fusion',               full:'Fusion — Granite Slab 3cm',                  type:'Natural / Granite',   thick:'3cm', hou:9,  dal:11, mca:7, har:2,  price:'$52–$72' },
-  { name:'Sparkling White',      full:'Sparkling White — Engineered Quartz 3cm',    type:'Engineered / Quartz', thick:'3cm', hou:21, dal:15, mca:11,har:6,  price:'$57–$78' },
+  { name:'Taj Mahal',            full:'Taj Mahal — losa de cuarcita 3 cm',            type:'Natural / cuarcita', thick:'3 cm', hou:4,  dal:11, mca:0, har:2,  price:'$85–$120' },
+  { name:'Calacatta Gold',       full:'Calacatta Gold — losa de mármol 3 cm',           type:'Natural / mármol',    thick:'3 cm', hou:8,  dal:3,  mca:5, har:0,  price:'$90–$130' },
+  { name:'Super White',          full:'Super White — losa de cuarcita 3 cm',           type:'Natural / cuarcita', thick:'3 cm', hou:14, dal:6,  mca:3, har:1,  price:'$75–$105' },
+  { name:'Bianco Carrara',       full:'Bianco Carrara — losa de mármol 2 cm',           type:'Natural / mármol',    thick:'2 cm', hou:6,  dal:9,  mca:2, har:4,  price:'$55–$80' },
+  { name:'Santa Cecilia',        full:'Santa Cecilia — losa de granito 3 cm',           type:'Natural / granito',   thick:'3 cm', hou:20, dal:14, mca:8, har:6,  price:'$45–$65' },
+  { name:'Black Galaxy',         full:'Black Galaxy — losa de granito 3 cm',            type:'Natural / granito',   thick:'3 cm', hou:11, dal:7,  mca:5, har:3,  price:'$50–$70' },
+  { name:'Calacatta Miraggio',   full:'Calacatta Miraggio — cuarzo industrializado 3 cm', type:'Industrializado / cuarzo', thick:'3 cm', hou:18, dal:22, mca:10,har:8,  price:'$60–$85' },
+  { name:'Calacatta Laza',       full:'Calacatta Laza — cuarzo industrializado 3 cm',     type:'Industrializado / cuarzo', thick:'3 cm', hou:24, dal:18, mca:12,har:5,  price:'$58–$82' },
+  { name:'Silver Clouds',        full:'Silver Clouds — losa de dolomita 3 cm',          type:'Natural / dolomita',  thick:'3 cm', hou:7,  dal:4,  mca:2, har:0,  price:'$70–$95' },
+  { name:'Statuario Maximus',    full:'Statuario Maximus — losa de mármol 3 cm',        type:'Natural / mármol',    thick:'3 cm', hou:3,  dal:5,  mca:4, har:1,  price:'$95–$135' },
+  { name:'Absolute Black',       full:'Absolute Black — losa de granito 3 cm',          type:'Natural / granito',   thick:'3 cm', hou:16, dal:12, mca:9, har:7,  price:'$48–$68' },
+  { name:'Stormy Night',         full:'Stormy Night — cuarzo industrializado 2 cm',       type:'Industrializado / cuarzo', thick:'2 cm', hou:10, dal:8,  mca:6, har:4,  price:'$55–$75' },
+  { name:'Perla Venata',         full:'Perla Venata — losa de cuarcita 2 cm',          type:'Natural / cuarcita', thick:'2 cm', hou:5,  dal:2,  mca:1, har:3,  price:'$80–$110' },
+  { name:'Fusion',               full:'Fusion — losa de granito 3 cm',                  type:'Natural / granito',   thick:'3 cm', hou:9,  dal:11, mca:7, har:2,  price:'$52–$72' },
+  { name:'Sparkling White',      full:'Sparkling White — cuarzo industrializado 3 cm',    type:'Industrializado / cuarzo', thick:'3 cm', hou:21, dal:15, mca:11,har:6,  price:'$57–$78' },
 ];
 
 const leads = [
-  { name:'Jennifer Morales',  type:'Homeowner',   interest:'Calacatta Gold Marble',   loc:'Houston',   visit:'Jul 28',  lastContact:'Today 10am',      temp:'Hot',  stage:'Quote Pending' },
-  { name:'Robert Tran',       type:'Contractor',  interest:'Taj Mahal Quartzite 3cm', loc:'Dallas',    visit:'Jul 27',  lastContact:'Yesterday 3pm',   temp:'Hot',  stage:'Measuring Scheduled' },
-  { name:'Sandra Ochoa',      type:'Homeowner',   interest:'Super White Quartzite',   loc:'McAllen',   visit:'Jul 27',  lastContact:'Auto email sent',  temp:'Warm', stage:'Follow-up Seq. #1' },
-  { name:'Mark Hoffmann',     type:'Builder',     interest:'Engineered Quartz bundle',loc:'Houston',   visit:'Jul 26',  lastContact:'Jul 26 5pm',       temp:'Hot',  stage:'Quote Sent' },
-  { name:'Diana Reyna',       type:'Homeowner',   interest:'Bianco Carrara 2cm',      loc:'Harlingen', visit:'Jul 25',  lastContact:'Auto email sent',  temp:'Warm', stage:'Follow-up Seq. #2' },
-  { name:'Carlos Espinoza',   type:'Contractor',  interest:'Santa Cecilia Granite',   loc:'McAllen',   visit:'Jul 25',  lastContact:'Jul 25 2pm',       temp:'Warm', stage:'Quote Pending' },
-  { name:'Amy Nguyen',        type:'Homeowner',   interest:'Calacatta Laza Quartz',   loc:'Houston',   visit:'Jul 24',  lastContact:'Auto email sent',  temp:'Warm', stage:'Follow-up Seq. #3' },
-  { name:'James Patel',       type:'Builder',     interest:'Absolute Black Granite',  loc:'Dallas',    visit:'Jul 23',  lastContact:'Jul 23 4pm',       temp:'Hot',  stage:'Slabs Reserved' },
-  { name:'Laura Gutierrez',   type:'Homeowner',   interest:'Silver Clouds Dolomite',  loc:'Houston',   visit:'Jul 22',  lastContact:'Jul 22',           temp:'Cold', stage:'No response x2' },
-  { name:'Kevin Brooks',      type:'Contractor',  interest:'Taj Mahal Quartzite 3cm', loc:'Dallas',    visit:'Jul 21',  lastContact:'Jul 21',           temp:'Cold', stage:'No response x1' },
-  { name:'Pamela Rios',       type:'Homeowner',   interest:'Statuario Maximus Marble',loc:'Houston',   visit:'Jul 20',  lastContact:'Jul 19',           temp:'Cold', stage:'No response x3' },
-  { name:'David Kim',         type:'Builder',     interest:'Engineered Quartz bundle',loc:'Houston',   visit:'Jul 19',  lastContact:'Today — reopened', temp:'Hot',  stage:'Demo Requested' },
+  { name:'Jennifer Morales',  type:'Dueña de casa',   interest:'Mármol Calacatta Gold',   loc:'Houston',   visit:'28 jul',  lastContact:'Hoy 10am',      temp:'Caliente',  stage:'Cotización pendiente' },
+  { name:'Robert Tran',       type:'Contratista',  interest:'Cuarcita Taj Mahal 3 cm', loc:'Dallas',    visit:'27 jul',  lastContact:'Ayer 3pm',   temp:'Caliente',  stage:'Medición programada' },
+  { name:'Sandra Ochoa',      type:'Dueña de casa',   interest:'Cuarcita Super White',   loc:'McAllen',   visit:'27 jul',  lastContact:'Correo automático enviado',  temp:'Tibio', stage:'Seguimiento #1' },
+  { name:'Mark Hoffmann',     type:'Constructora',     interest:'Paquete de cuarzo industrializado',loc:'Houston',   visit:'26 jul',  lastContact:'26 jul 5pm',       temp:'Caliente',  stage:'Cotización enviada' },
+  { name:'Diana Reyna',       type:'Dueña de casa',   interest:'Bianco Carrara 2 cm',      loc:'Harlingen', visit:'25 jul',  lastContact:'Correo automático enviado',  temp:'Tibio', stage:'Seguimiento #2' },
+  { name:'Carlos Espinoza',   type:'Contratista',  interest:'Granito Santa Cecilia',   loc:'McAllen',   visit:'25 jul',  lastContact:'25 jul 2pm',       temp:'Tibio', stage:'Cotización pendiente' },
+  { name:'Amy Nguyen',        type:'Dueña de casa',   interest:'Cuarzo Calacatta Laza',   loc:'Houston',   visit:'24 jul',  lastContact:'Correo automático enviado',  temp:'Tibio', stage:'Seguimiento #3' },
+  { name:'James Patel',       type:'Constructora',     interest:'Granito Absolute Black',  loc:'Dallas',    visit:'23 jul',  lastContact:'23 jul 4pm',       temp:'Caliente',  stage:'Losas reservadas' },
+  { name:'Laura Gutierrez',   type:'Dueña de casa',   interest:'Dolomita Silver Clouds',  loc:'Houston',   visit:'22 jul',  lastContact:'22 jul',           temp:'Frío', stage:'Sin respuesta x2' },
+  { name:'Kevin Brooks',      type:'Contratista',  interest:'Cuarcita Taj Mahal 3 cm', loc:'Dallas',    visit:'21 jul',  lastContact:'21 jul',           temp:'Frío', stage:'Sin respuesta x1' },
+  { name:'Pamela Rios',       type:'Dueña de casa',   interest:'Mármol Statuario Maximus',loc:'Houston',   visit:'20 jul',  lastContact:'19 jul',           temp:'Frío', stage:'Sin respuesta x3' },
+  { name:'David Kim',         type:'Constructora',     interest:'Paquete de cuarzo industrializado',loc:'Houston',   visit:'19 jul',  lastContact:'Hoy — reabierto', temp:'Caliente',  stage:'Pidió demostración' },
 ];
 
 // ─── Tab switching ─────────────────────────────────────────────────────────
@@ -969,9 +969,9 @@ let orderInteracted = false;
 
 function statusBadge(s) {
   const map = {
-    'New Inquiry':'badge-new','Quote Sent':'badge-quote',
-    'Slabs Reserved':'badge-reserved','Closed Won':'badge-closed',
-    'In Fabrication':'badge-active','Quote Accepted':'badge-quote',
+    'Consulta nueva':'badge-new','Cotización enviada':'badge-quote',
+    'Losas reservadas':'badge-reserved','Cerrada ganada':'badge-closed',
+    'En fabricación':'badge-active','Cotización aceptada':'badge-quote',
   };
   return `<span class="badge ${map[s]||'badge-new'}">${s}</span>`;
 }
@@ -981,9 +981,9 @@ function renderOrders(data) {
   tbody.innerHTML = '';
   data.forEach((o, i) => {
     const isFirst = i === 0 && !orderInteracted;
-    const actionBtn = (o.orig === 'New Inquiry' && !orderInteracted)
-      ? `<button class="action-btn primary-btn" onclick="reserveSlabs(this)">Reserve Slabs</button>`
-      : `<button class="action-btn" onclick="openTab('project')">View Detail</button>`;
+    const actionBtn = (o.orig === 'Consulta nueva' && !orderInteracted)
+      ? `<button class="action-btn primary-btn" onclick="reserveSlabs(this)">Reservar losas</button>`
+      : `<button class="action-btn" onclick="openTab('project')">Ver detalle</button>`;
     tbody.innerHTML += `
       <tr data-loc="${o.loc}" data-status="${o.status}" id="order-row-${i}">
         <td>
@@ -1018,13 +1018,13 @@ function reserveSlabs(btn) {
   orderInteracted = true;
   const row = btn.closest('tr');
   // Update status
-  orders[0].status = 'Slabs Reserved';
-  btn.textContent = 'Reserved ✓';
+  orders[0].status = 'Losas reservadas';
+  btn.textContent = 'Reservadas ✓';
   btn.disabled = true;
   btn.style.opacity = '0.6';
   // Update badge in row
   const badgeCell = row.querySelector('td:nth-child(8)');
-  badgeCell.innerHTML = statusBadge('Slabs Reserved');
+  badgeCell.innerHTML = statusBadge('Losas reservadas');
   // Flash row
   row.classList.add('row-flash');
   setTimeout(() => row.classList.remove('row-flash'), 2000);
@@ -1072,7 +1072,7 @@ function renderInventory(data) {
         <td class="sans text-sm">${bar(item.har, maxVal)}</td>
         <td class="font-bold sans text-sm">${total}</td>
         <td class="sans text-xs" style="color:var(--muted)">${item.price}/sqft</td>
-        <td><button class="action-btn" onclick="openTab('project')">Reserve</button></td>
+        <td><button class="action-btn" onclick="openTab('project')">Reservar</button></td>
       </tr>`;
   });
 }
@@ -1113,7 +1113,7 @@ function renderLeads(data) {
         <td class="sans text-sm">${l.lastContact}</td>
         <td>${tempBadge(l.temp)}</td>
         <td class="sans text-sm">${l.stage}</td>
-        <td><button class="action-btn" onclick="openTab('project')">Open</button></td>
+        <td><button class="action-btn" onclick="openTab('project')">Abrir</button></td>
       </tr>`;
   });
 }

@@ -1000,7 +1000,7 @@
         const now = new Date();
         const hh = String(now.getHours()).padStart(2, '0');
         const mm = String(now.getMinutes()).padStart(2, '0');
-        detailEl.textContent = 'Multigrano ×8 · Scone ×18 · ✓ Entregado' + hh + ':' + mm + ' a.m.';
+        detailEl.textContent = 'Multigrano ×8 · Scone ×18 · ✓ Entregado ' + hh + ':' + mm + ' a.m.';
       }
     }
 
@@ -1050,7 +1050,7 @@
     btn.style.background = '#065f46';
     btn.disabled = true;
     const cuenta = document.getElementById('cuenta-re').textContent;
-    mostrarToast('Mensaje de reactivación enviado —' + cuenta);
+    mostrarToast('Mensaje de reactivación enviado — ' + cuenta);
   }
 
   // ---- SEARCH / FILTER ----
