@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bayou Stone & Remodel — Operations Demo | Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy:       #1B3A5C;
+      --navy-dark:  #122840;
+      --gold:       #C4882A;
+      --gold-light: #D9A04A;
+      --gold-pale:  #F5E9D5;
+      --white:      #FFFFFF;
+      --off-white:  #F8F6F2;
+      --text-main:  #2E2E2E;
+      --text-mid:   #5A5A5A;
+      --text-light: #9E9E9E;
+      --border:     #DDD8CF;
+      --green-ok:   #1E7D4E;
+      --green-bg:   #EAF6EF;
+      --amber:      #B86A00;
+      --amber-bg:   #FFF4E0;
+      --red-alert:  #B22222;
+      --red-bg:     #FDECEA;
+      --blue-info:  #1F5FA6;
+      --blue-bg:    #EBF2FB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--off-white);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    /* ─── DEMO BADGE ─── */
+    .demo-badge {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: var(--navy);
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 3px;
+      pointer-events: none;
+      border: 1px solid var(--gold);
+    }
+
+    /* ─── HEADER ─── */
+    .site-header {
+      background: var(--navy-dark);
+      color: #fff;
+      padding: 18px 24px 14px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .site-header .biz-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #fff;
+    }
+    .site-header .tagline {
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      margin-top: 3px;
+      font-style: italic;
+      font-family: 'Arial', sans-serif;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .location-chip {
+      background: rgba(196,136,42,0.18);
+      border: 1px solid rgba(196,136,42,0.4);
+      color: var(--gold-light);
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ─── TABS ─── */
+    .tab-bar {
+      background: var(--navy);
+      display: flex;
+      overflow-x: auto;
+      border-bottom: 2px solid var(--gold);
+    }
+    .tab-bar::-webkit-scrollbar { height: 4px; }
+    .tab-bar::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 12px 20px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+    .tab-btn:hover { color: rgba(255,255,255,0.9); }
+    .tab-btn.active {
+      color: #fff;
+      border-bottom-color: var(--gold);
+    }
+
+    /* ─── VIEWS ─── */
+    .view { display: none; padding: 20px; max-width: 1100px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    /* ─── CARDS & PANELS ─── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 0.82rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    /* ─── STATUS CHIPS ─── */
+    .status {
+      display: inline-block;
+      font-family: 'Arial', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 10px;
+    }
+    .status-quote    { background: var(--blue-bg);   color: var(--blue-info); }
+    .status-template { background: var(--amber-bg);  color: var(--amber);     }
+    .status-fab      { background: #EDE7F6;           color: #5E35B1;          }
+    .status-install  { background: var(--amber-bg);  color: var(--amber);     }
+    .status-done     { background: var(--green-bg);  color: var(--green-ok);  }
+    .status-hot      { background: var(--red-bg);    color: var(--red-alert); }
+    .status-warm     { background: var(--amber-bg);  color: var(--amber);     }
+    .status-closed   { background: var(--green-bg);  color: var(--green-ok);  }
+    .status-new      { background: var(--gold-pale); color: var(--gold);      }
+
+    /* ─── JOB ROW ─── */
+    .job-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .job-row:last-child { border-bottom: none; }
+    .job-row:hover { background: var(--gold-pale); }
+    .job-row.header-row {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-mid);
+      cursor: default;
+      background: var(--off-white);
+      border-radius: 4px 4px 0 0;
+    }
+    .job-row.header-row:hover { background: var(--off-white); }
+    .job-name { font-weight: 600; color: var(--navy); }
+    .job-sub  { font-size: 11px; color: var(--text-mid); margin-top: 2px; }
+
+    /* ─── HIGHLIGHT ROW ─── */
+    .job-row.highlighted {
+      background: #FFF9EF;
+      border-left: 3px solid var(--gold);
+      padding-left: 11px;
+    }
+
+    /* ─── STAT PILLS ─── */
+    .stat-pill {
+      text-align: center;
+      padding: 16px 12px;
+    }
+    .stat-pill .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .stat-pill .stat-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      color: var(--text-mid);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-pill .stat-sub {
+      font-family: 'Arial', sans-serif;
+      font-size: 10px;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* ─── DETAIL VIEW ─── */
+    .detail-section { margin-bottom: 18px; }
+    .detail-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-mid);
+      margin-bottom: 4px;
+    }
+    .detail-value {
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    /* ─── TIMELINE ─── */
+    .timeline { list-style: none; padding: 0; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline li {
+      position: relative;
+      padding: 0 0 14px 36px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+    }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border);
+      border: 2px solid #fff;
+    }
+    .timeline li.done::before { background: var(--green-ok); }
+    .timeline li.active::before { background: var(--gold); }
+    .timeline li.pending::before { background: #ccc; }
+    .tl-date { font-size: 10px; color: var(--text-light); }
+    .tl-note { font-size: 12px; color: var(--text-mid); margin-top: 1px; }
+
+    /* ─── PAIN BOARD ─── */
+    .pain-board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+    }
+    .pain-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .pain-card-head {
+      padding: 10px 14px;
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .pain-card-head.before { background: var(--red-bg); color: var(--red-alert); }
+    .pain-card-head.after  { background: var(--green-bg); color: var(--green-ok); }
+    .pain-card-body { padding: 14px; }
+    .pain-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+    .pain-item:last-child { margin-bottom: 0; }
+    .pain-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── ALERT BOX ─── */
+    .alert-box {
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .alert-box.danger { background: var(--red-bg); border: 1px solid #f5c6c6; color: var(--red-alert); }
+    .alert-box.warn   { background: var(--amber-bg); border: 1px solid #f5dea6; color: var(--amber); }
+    .alert-box.info   { background: var(--blue-bg); border: 1px solid #b8d4f0; color: var(--blue-info); }
+    .alert-box .alert-icon { font-size: 16px; flex-shrink: 0; }
+
+    /* ─── SEARCH VIEW ─── */
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 9px 13px;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      color: var(--text-main);
+      background: var(--white);
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--navy); }
+    .filter-select {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 9px 12px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      color: var(--text-main);
+      background: var(--white);
+      outline: none;
+    }
+    .btn-search {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 9px 18px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-search:hover { background: var(--navy-dark); }
+
+    .report-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+    }
+    .report-row:last-child { border-bottom: none; }
+    .report-row.hdr {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-mid);
+      background: var(--off-white);
+      border-radius: 4px 4px 0 0;
+    }
+    .amount { font-weight: 700; color: var(--navy); }
+    .amount.large { font-size: 16px; }
+
+    /* ─── CTA FLOAT ─── */
+    .cta-float {
+      position: fixed;
+      bottom: 22px;
+      right: 20px;
+      z-index: 8000;
+    }
+    .cta-btn {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 28px;
+      padding: 13px 22px;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(196,136,42,0.45);
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .cta-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(18,40,64,0.72);
+      z-index: 9500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 10px;
+      max-width: 480px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal-head {
+      background: var(--navy-dark);
+      color: #fff;
+      padding: 20px 24px 16px;
+      border-bottom: 3px solid var(--gold);
+    }
+    .modal-head h2 {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    .modal-head p {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+    }
+    .modal-body { padding: 22px 24px; }
+    .modal-body p {
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .modal-body ul {
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      color: var(--text-mid);
+      padding-left: 18px;
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 11px 20px;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      flex: 1;
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+    .btn-dismiss {
+      background: transparent;
+      color: var(--text-mid);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 11px 16px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .btn-dismiss:hover { background: var(--off-white); }
+
+    /* ─── ACTION BUTTON ─── */
+    .btn-action {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-action:hover { background: var(--navy-dark); }
+    .btn-action.gold {
+      background: var(--gold);
+    }
+    .btn-action.gold:hover { background: var(--gold-light); }
+    .btn-action:disabled {
+      background: var(--green-ok);
+      cursor: default;
+      opacity: 0.9;
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-wrap { background: var(--border); border-radius: 4px; height: 8px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+
+    /* ─── MISC ─── */
+    .section-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      margin-bottom: 8px;
+    }
+    .inline-badge {
+      display: inline-block;
+      font-family: 'Arial', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 3px;
+      padding: 1px 5px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .job-row {
+        grid-template-columns: 1fr 1fr;
+        font-size: 12px;
+      }
+      .job-row > *:nth-child(n+4) { display: none; }
+      .report-row {
+        grid-template-columns: 1fr 1fr;
+        font-size: 12px;
+      }
+      .report-row > *:nth-child(n+4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DEMO BADGE -->
+<div class="demo-badge">DEMO &middot; SAMPLE DATA</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="biz-name">Bayou Stone & Remodel</div>
+    <div class="tagline">What your own system would look like &mdash; prepared by Pocho.tech</div>
+    <div class="header-meta">
+      <span class="location-chip">&#9679; Houston Showroom</span>
+      <span class="location-chip">&#9679; Katy Showroom</span>
+      <span class="location-chip">Est. 1979 &middot; ~60 People</span>
+    </div>
+  </div>
+</header>
+
+<!-- TAB BAR -->
+<nav class="tab-bar" role="tablist">
+  <button class="tab-btn active" data-view="dashboard" role="tab">Daily Board</button>
+  <button class="tab-btn" data-view="detail" role="tab">Job Detail</button>
+  <button class="tab-btn" data-view="pain" role="tab">What Changes</button>
+  <button class="tab-btn" data-view="search" role="tab">Search &amp; Reports</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VIEW 1 — DAILY OPERATIONS BOARD
+═══════════════════════════════════════════════════════════════ -->
+<section class="view active" id="view-dashboard">
+
+  <!-- KPI Strip -->
+  <div class="card" style="padding:10px 20px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;border-radius:4px;overflow:hidden;">
+      <div class="stat-pill" style="border-right:1px solid var(--border);">
+        <div class="stat-number" id="kpi-active">12</div>
+        <div class="stat-label">Active Jobs</div>
+        <div class="stat-sub">Both Locations</div>
+      </div>
+      <div class="stat-pill" style="border-right:1px solid var(--border);">
+        <div class="stat-number" style="color:var(--gold);">$618K</div>
+        <div class="stat-label">Open Pipeline</div>
+        <div class="stat-sub">Quotes + Active</div>
+      </div>
+      <div class="stat-pill" style="border-right:1px solid var(--border);">
+        <div class="stat-number" style="color:var(--red-alert);" id="kpi-alerts">3</div>
+        <div class="stat-label">Need Attention</div>
+        <div class="stat-sub">Overdue / Stale</div>
+      </div>
+      <div class="stat-pill" style="border-right:1px solid var(--border);">
+        <div class="stat-number" style="color:var(--green-ok);">4</div>
+        <div class="stat-label">Installing This Week</div>
+        <div class="stat-sub">Houston + Katy</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Open Quotes</div>
+        <div class="stat-sub">Awaiting Follow-up</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div class="alert-box danger" id="alert-lead">
+    <span class="alert-icon">&#9888;</span>
+    <div>
+      <strong>Lead follow-up overdue &mdash; 2 inquiries:</strong> R. Montoya (kitchen remodel, Katy) filled the form Friday 5:48 PM &mdash; no response yet. P. Okafor (bath + closet, Houston) waiting 51 hours. Projects estimated $38K&ndash;$72K.
+      <span class="inline-badge">REVENUE AT RISK</span>
+    </div>
+  </div>
+  <div class="alert-box warn">
+    <span class="alert-icon">&#9888;</span>
+    <div><strong>Material conflict &mdash; Houston &amp; Katy:</strong> Absolute Black granite (3 slabs) assigned to both Job #1047 (Houston) and Job #1051 (Katy) for the same install week. Confirm allocation before fabrication begins.</div>
+  </div>
+
+  <!-- Jobs Table -->
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div style="padding:14px 20px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <span class="card-title" style="margin:0;padding:0;border:none;">Active Jobs &mdash; All Locations</span>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <select class="filter-select" style="font-size:12px;padding:5px 10px;" onchange="filterJobs(this.value)">
+          <option value="all">All Stages</option>
+          <option value="quote">Quote</option>
+          <option value="template">Template</option>
+          <option value="fab">Fabrication</option>
+          <option value="install">Install</option>
+          <option value="done">Complete</option>
+        </select>
+        <select class="filter-select" style="font-size:12px;padding:5px 10px;" onchange="filterLocation(this.value)">
+          <option value="all">Both Locations</option>
+          <option value="houston">Houston</option>
+          <option value="katy">Katy</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="job-row header-row">
+      <div>Job / Client</div>
+      <div>Type</div>
+      <div>Stage</div>
+      <div>Location</div>
+      <div>Value</div>
+    </div>
+
+    <div id="jobs-tbody">
+      <!-- rows injected by JS -->
+    </div>
+  </div>
+
+  <!-- Quick action hint -->
+  <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-light);text-align:center;margin-top:8px;">
+    &#9432; Click any job row to open the detail view. Try advancing a job stage with the button below.
+  </div>
+
+  <!-- Simulated interaction -->
+  <div class="card" style="border-color:var(--gold);background:var(--gold-pale);">
+    <div style="font-family:'Arial',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">
+      &#9654; Simulated Action &mdash; Advance Job #1044 to Installation
+    </div>
+    <div style="font-family:'Arial',sans-serif;font-size:13px;color:var(--text-main);margin-bottom:12px;">
+      Job #1044 (R. Sullivan &mdash; Kitchen Remodel, Absolute Black, 65 sq ft) has completed fabrication.
+      Mark it ready for installation and the board updates immediately &mdash; both showrooms see the change.
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <button class="btn-action gold" id="advance-btn" onclick="advanceJob()">Mark Fabrication Complete &rarr; Advance to Install</button>
+      <span id="advance-status" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);"></span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VIEW 2 — JOB DETAIL + HISTORY
+═══════════════════════════════════════════════════════════════ -->
+<section class="view" id="view-detail">
+
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+    <div>
+      <div style="font-size:1.1rem;font-weight:700;color:var(--navy);" id="detail-title">
+        Job #1044 &mdash; R. Sullivan Kitchen Remodel
+      </div>
+      <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);margin-top:2px;">
+        Houston Showroom &middot; Opened Jul 2, 2026
+      </div>
+    </div>
+    <span class="status status-install" id="detail-status-chip">Installation</span>
+  </div>
+
+  <div class="panel-grid">
+
+    <!-- Left: Job specs -->
+    <div class="card">
+      <div class="card-title">Project Specifications</div>
+      <div class="detail-grid">
+        <div class="detail-section">
+          <div class="detail-label">Type</div>
+          <div class="detail-value">Kitchen Remodel</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Material</div>
+          <div class="detail-value">Absolute Black Granite</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Edge Profile</div>
+          <div class="detail-value">Bullnose</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Square Footage</div>
+          <div class="detail-value">65 sq ft</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Sink Cutout</div>
+          <div class="detail-value">Undermount, 1 basin</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Designer</div>
+          <div class="detail-value">M. Torres</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Installer Assigned</div>
+          <div class="detail-value">J. Reyes (Houston)</div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-label">Location</div>
+          <div class="detail-value">Houston Showroom</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Financials + Status -->
+    <div>
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-title">Quote &amp; Payments</div>
+        <div class="detail-grid">
+          <div class="detail-section">
+            <div class="detail-label">Project Value</div>
+            <div class="detail-value" style="font-size:1.3rem;font-weight:700;color:var(--navy);">$47,500</div>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Deposit Received</div>
+            <div class="detail-value" style="color:var(--green-ok);font-weight:700;">$23,750 (50%)</div>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Balance Due</div>
+            <div class="detail-value" style="color:var(--amber);font-weight:700;">$23,750 &mdash; on install</div>
+          </div>
+          <div class="detail-section">
+            <div class="detail-label">Install Date</div>
+            <div class="detail-value" id="install-date">Aug 5, 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Stage Progress</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);margin-bottom:10px;">
+          Stage 4 of 5
+        </div>
+        <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:40px;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--green-ok);font-weight:700;">QUOTE</div>
+            <div class="progress-wrap"><div class="progress-fill" style="width:100%;background:var(--green-ok);"></div></div>
+          </div>
+          <div style="flex:1;min-width:40px;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--green-ok);font-weight:700;">TEMPLATE</div>
+            <div class="progress-wrap"><div class="progress-fill" style="width:100%;background:var(--green-ok);"></div></div>
+          </div>
+          <div style="flex:1;min-width:40px;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--green-ok);font-weight:700;">FAB</div>
+            <div class="progress-wrap"><div class="progress-fill" id="fab-bar" style="width:100%;background:var(--green-ok);"></div></div>
+          </div>
+          <div style="flex:1;min-width:40px;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--gold);font-weight:700;" id="install-label">INSTALL</div>
+            <div class="progress-wrap"><div class="progress-fill" id="install-bar" style="width:40%;background:var(--gold);"></div></div>
+          </div>
+          <div style="flex:1;min-width:40px;">
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--text-light);">DONE</div>
+            <div class="progress-wrap"><div class="progress-fill" id="done-bar" style="width:0%;background:var(--green-ok);"></div></div>
+          </div>
+        </div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);font-style:italic;" id="stage-note">
+          Installation scheduled Aug 5. J. Reyes confirmed. Drop cloths + protection ordered.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Portal Preview -->
+  <div class="card" style="border-color:var(--blue-info);background:var(--blue-bg);">
+    <div class="card-title" style="color:var(--blue-info);">Client Portal Preview &mdash; What the Homeowner Sees</div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:16px 20px;font-family:'Arial',sans-serif;font-size:13px;">
+      <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">Your Kitchen Remodel &mdash; Status Update</div>
+      <div style="color:var(--text-mid);font-size:12px;margin-bottom:12px;">Last updated: today at 9:14 AM by M. Torres</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="status status-install">Installation Scheduled</span>
+        <span style="color:var(--text-mid);">Install date: <strong>Aug 5, 2026</strong></span>
+      </div>
+      <div style="color:var(--text-main);line-height:1.6;">
+        Your countertop has been fabricated and quality-checked. Your installation is confirmed for <strong>Aug 5</strong>. Our team will arrive between 8&ndash;9 AM. Please ensure cabinet access is clear. Questions? Reply to this message.
+      </div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);color:var(--text-light);font-size:11px;font-style:italic;">
+        &#9432; This portal eliminates "how is my kitchen coming along?" calls &mdash; the client checks here instead.
+      </div>
+    </div>
+  </div>
+
+  <!-- Job History -->
+  <div class="card">
+    <div class="card-title">Activity History</div>
+    <ul class="timeline">
+      <li class="done">
+        <strong>Jul 2 &mdash; Consultation &amp; Quote</strong>
+        <div class="tl-date">Designer: M. Torres &middot; Houston Showroom</div>
+        <div class="tl-note">Client selected Absolute Black granite, bullnose edge. 3D rendering shared. Quote $47,500 approved.</div>
+      </li>
+      <li class="done">
+        <strong>Jul 9 &mdash; Deposit Received</strong>
+        <div class="tl-date">$23,750 &middot; 50% deposit</div>
+        <div class="tl-note">Job scheduled. Material reserved: 3 slabs Absolute Black from Houston inventory.</div>
+      </li>
+      <li class="done">
+        <strong>Jul 14 &mdash; Template Appointment</strong>
+        <div class="tl-date">Technician: D. Garza &middot; Field measurement</div>
+        <div class="tl-note">Precise measurements taken. Undermount sink cutout confirmed. Template signed off.</div>
+      </li>
+      <li class="done">
+        <strong>Jul 21&ndash;28 &mdash; Fabrication</strong>
+        <div class="tl-date">Shop &middot; Houston</div>
+        <div class="tl-note" id="fab-note">Slabs cut, edged, and polished. Quality check passed. Ready for install.</div>
+      </li>
+      <li class="active" id="tl-install">
+        <strong>Aug 5 &mdash; Installation (Scheduled)</strong>
+        <div class="tl-date">Installer: J. Reyes &middot; Houston team</div>
+        <div class="tl-note">Drop cloths, protection materials staged. Client confirmed availability.</div>
+      </li>
+      <li class="pending">
+        <strong>Post-Install &mdash; Final Payment &amp; Close</strong>
+        <div class="tl-date">Balance: $23,750 due on completion</div>
+        <div class="tl-note">Client satisfaction sign-off + photo documentation for portfolio.</div>
+      </li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VIEW 3 — WHAT CHANGES (Pain Dramatization)
+═══════════════════════════════════════════════════════════════ -->
+<section class="view" id="view-pain">
+
+  <div style="margin-bottom:16px;">
+    <div style="font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:4px;">Three problems. One system that closes them.</div>
+    <div style="font-family:'Arial',sans-serif;font-size:13px;color:var(--text-mid);">
+      47 years of doing great work &mdash; without a system tracking it. That's the gap. Here's what it looks like before and after.
+    </div>
+  </div>
+
+  <!-- Pain 1 -->
+  <div style="margin-bottom:20px;">
+    <div style="font-family:'Arial',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mid);margin-bottom:8px;">
+      Challenge 1 &mdash; Two showrooms, zero shared job board
+    </div>
+    <div class="pain-board-grid">
+      <div class="pain-card">
+        <div class="pain-card-head before">Without a system</div>
+        <div class="pain-card-body">
+          <div class="pain-item"><span class="pain-icon">&#128222;</span> Katy calls Houston to ask which installer is free next week &mdash; nobody has the answer in front of them.</div>
+          <div class="pain-item"><span class="pain-icon">&#128197;</span> Material allocation lives on a whiteboard in one location. The other showroom doesn't know what's reserved.</div>
+          <div class="pain-item"><span class="pain-icon">&#128202;</span> If Daniel is at the Houston shop, he can't see what Katy has in flight without calling.</div>
+          <div class="pain-item"><span class="pain-icon">&#9888;</span> Same slab gets assigned to two different jobs. One team shows up to fabricate and the material isn't there.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-card-head after">With your system</div>
+        <div class="pain-card-body">
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Every active job from both showrooms on one board &mdash; stage, material, installer, install date.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Material reserved on the job record &mdash; both teams see allocation before fabrication starts.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Installer schedule visible across locations &mdash; no double-booking, no phone tag.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Conflict alerts fire automatically when the same slab or the same installer is assigned twice.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pain 2 -->
+  <div style="margin-bottom:20px;">
+    <div style="font-family:'Arial',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mid);margin-bottom:8px;">
+      Challenge 2 &mdash; $20K&ndash;$115K quotes with no follow-up trail
+    </div>
+    <div class="pain-board-grid">
+      <div class="pain-card">
+        <div class="pain-card-head before">Without a system</div>
+        <div class="pain-card-body">
+          <div class="pain-item"><span class="pain-icon">&#128222;</span> Client fills the form Friday at 5 PM. Nobody follows up until Monday. They've already called two competitors.</div>
+          <div class="pain-item"><span class="pain-icon">&#128203;</span> Designer memory is the CRM. When the designer is out, the lead is invisible.</div>
+          <div class="pain-item"><span class="pain-icon">&#128197;</span> No record of when a quote was sent, whether it was opened, or whether the client has gone cold.</div>
+          <div class="pain-item"><span class="pain-icon">&#9888;</span> A $72,000 kitchen remodel falls through because the follow-up came two days too late.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-card-head after">With your system</div>
+        <div class="pain-card-body">
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Every inquiry captured with timestamp, project type, and estimated value &mdash; no lead falls through.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Automatic confirmation sent the same day the form is submitted &mdash; client knows you're on it.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Designer dashboard shows which leads are hot (under 24h), warm (24&ndash;72h), and stale (&gt;72h). Priority is clear.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Quote pipeline shows total open value &mdash; so you can see revenue that's one follow-up call away from closing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pain 3 -->
+  <div style="margin-bottom:20px;">
+    <div style="font-family:'Arial',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mid);margin-bottom:8px;">
+      Challenge 3 &mdash; "How's my kitchen coming along?" calls that don't need to happen
+    </div>
+    <div class="pain-board-grid">
+      <div class="pain-card">
+        <div class="pain-card-head before">Without a system</div>
+        <div class="pain-card-body">
+          <div class="pain-item"><span class="pain-icon">&#128222;</span> Client calls. Staff pauses. Finds the paper or calls the shop. Calls back. Every remodel project, multiple times.</div>
+          <div class="pain-item"><span class="pain-icon">&#128274;</span> Homeowner and contractor have no visibility into fabrication timeline &mdash; they're guessing.</div>
+          <div class="pain-item"><span class="pain-icon">&#9203;</span> Your best people spend part of their day answering status calls instead of fabricating or installing.</div>
+          <div class="pain-item"><span class="pain-icon">&#9888;</span> When a delay happens (material, scheduling), client finds out by calling &mdash; not because you told them.</div>
+        </div>
+      </div>
+      <div class="pain-card">
+        <div class="pain-card-head after">With your system</div>
+        <div class="pain-card-body">
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Client portal shows current stage, install date, and the last note from the designer &mdash; no phone call needed.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> When a date changes, the client gets notified automatically. They're not surprised; they're informed.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Contractors get the same portal &mdash; they coordinate their own crews around your install schedule.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Your team fabricates. Your system handles the "where are we?" conversations.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary callout -->
+  <div class="card" style="background:var(--navy-dark);border-color:var(--gold);color:#fff;">
+    <div style="font-size:1rem;font-weight:700;margin-bottom:10px;color:var(--gold-light);">
+      The real cost of no system isn't the chaos &mdash; it's what doesn't get built.
+    </div>
+    <div style="font-family:'Arial',sans-serif;font-size:13px;color:rgba(255,255,255,0.82);line-height:1.7;">
+      Bayou Stone has been the system for 47 years. That's how the business grew to 60 people and two locations &mdash; because Daniel's judgment and memory filled every gap. The problem with that model isn't quality. It's scale.
+      Every dollar of growth from here depends on someone else being able to see what Daniel sees &mdash; which jobs are moving, which leads are hot, which materials are allocated, and which client needs a call before they call you.
+      <br><br>
+      <strong style="color:#fff;">A system doesn't replace that judgment. It makes it visible to the rest of the team.</strong>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VIEW 4 — SEARCH & REPORTS
+═══════════════════════════════════════════════════════════════ -->
+<section class="view" id="view-search">
+
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title">Find Any Job, Lead, or Client</div>
+    <div class="search-bar">
+      <input type="text" class="search-input" id="search-input" placeholder="Search by name, material, job type, installer..." oninput="runSearch()">
+      <select class="filter-select" id="search-stage" onchange="runSearch()">
+        <option value="">All Stages</option>
+        <option value="Quote">Quote</option>
+        <option value="Template">Template</option>
+        <option value="Fabrication">Fabrication</option>
+        <option value="Installation">Installation</option>
+        <option value="Complete">Complete</option>
+      </select>
+      <select class="filter-select" id="search-loc" onchange="runSearch()">
+        <option value="">Both Locations</option>
+        <option value="Houston">Houston</option>
+        <option value="Katy">Katy</option>
+      </select>
+    </div>
+    <div id="search-results">
+      <!-- injected -->
+    </div>
+  </div>
+
+  <!-- Revenue snapshot -->
+  <div class="panel-grid">
+    <div class="card">
+      <div class="card-title">Revenue Snapshot &mdash; July 2026</div>
+      <div class="report-row hdr">
+        <div>Category</div>
+        <div>Jobs</div>
+        <div>Value</div>
+        <div>Avg Size</div>
+        <div>Location</div>
+      </div>
+      <div class="report-row">
+        <div><strong>Kitchen Remodel</strong></div>
+        <div>5</div>
+        <div class="amount">$271K</div>
+        <div>$54.2K</div>
+        <div>Mix</div>
+      </div>
+      <div class="report-row">
+        <div><strong>Bath Remodel</strong></div>
+        <div>3</div>
+        <div class="amount">$89K</div>
+        <div>$29.7K</div>
+        <div>Houston</div>
+      </div>
+      <div class="report-row">
+        <div><strong>Closet Remodel</strong></div>
+        <div>2</div>
+        <div class="amount">$58K</div>
+        <div>$29K</div>
+        <div>Katy</div>
+      </div>
+      <div class="report-row">
+        <div><strong>Commercial</strong></div>
+        <div>2</div>
+        <div class="amount">$47K</div>
+        <div>$23.5K</div>
+        <div>Houston</div>
+      </div>
+      <div class="report-row" style="background:var(--gold-pale);">
+        <div><strong>Total</strong></div>
+        <div><strong>12</strong></div>
+        <div class="amount large">$465K</div>
+        <div>&mdash;</div>
+        <div>&mdash;</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Lead Pipeline &mdash; Open Quotes</div>
+      <div class="report-row hdr">
+        <div>Lead</div>
+        <div>Type</div>
+        <div>Value</div>
+        <div>Age</div>
+        <div>Status</div>
+      </div>
+      <div class="report-row">
+        <div><strong>R. Montoya</strong></div>
+        <div>Kitchen</div>
+        <div class="amount">$72K</div>
+        <div style="color:var(--red-alert);font-weight:700;">51h</div>
+        <div><span class="status status-hot">Stale</span></div>
+      </div>
+      <div class="report-row">
+        <div><strong>P. Okafor</strong></div>
+        <div>Bath+Closet</div>
+        <div class="amount">$38K</div>
+        <div style="color:var(--red-alert);font-weight:700;">51h</div>
+        <div><span class="status status-hot">Stale</span></div>
+      </div>
+      <div class="report-row">
+        <div><strong>T. Welch</strong></div>
+        <div>Kitchen</div>
+        <div class="amount">$55K</div>
+        <div style="color:var(--amber);font-weight:700;">29h</div>
+        <div><span class="status status-warm">Warm</span></div>
+      </div>
+      <div class="report-row">
+        <div><strong>D. Navarro</strong></div>
+        <div>Bath</div>
+        <div class="amount">$28K</div>
+        <div style="color:var(--green-ok);font-weight:700;">8h</div>
+        <div><span class="status status-new">New</span></div>
+      </div>
+      <div class="report-row">
+        <div><strong>H. Patel</strong></div>
+        <div>Closet</div>
+        <div class="amount">$33K</div>
+        <div style="color:var(--green-ok);font-weight:700;">3h</div>
+        <div><span class="status status-new">New</span></div>
+      </div>
+      <div class="report-row" style="background:var(--gold-pale);">
+        <div><strong>Open Pipeline</strong></div>
+        <div>&mdash;</div>
+        <div class="amount large">$226K</div>
+        <div>&mdash;</div>
+        <div>&mdash;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Material utilization -->
+  <div class="card">
+    <div class="card-title">Material Utilization &mdash; Current Inventory Allocation</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:13px;">
+        <thead>
+          <tr style="background:var(--off-white);color:var(--text-mid);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">
+            <th style="text-align:left;padding:10px 12px;">Material</th>
+            <th style="text-align:left;padding:10px 12px;">Slabs in Stock</th>
+            <th style="text-align:left;padding:10px 12px;">Allocated</th>
+            <th style="text-align:left;padding:10px 12px;">Available</th>
+            <th style="text-align:left;padding:10px 12px;">Location</th>
+            <th style="text-align:left;padding:10px 12px;">Flag</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 12px;font-weight:600;">Absolute Black Granite</td>
+            <td style="padding:10px 12px;">8</td>
+            <td style="padding:10px 12px;">8</td>
+            <td style="padding:10px 12px;color:var(--red-alert);font-weight:700;">0</td>
+            <td style="padding:10px 12px;">Houston + Katy</td>
+            <td style="padding:10px 12px;"><span class="status status-hot">Conflict</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 12px;font-weight:600;">White Carrara Marble</td>
+            <td style="padding:10px 12px;">5</td>
+            <td style="padding:10px 12px;">2</td>
+            <td style="padding:10px 12px;color:var(--green-ok);font-weight:700;">3</td>
+            <td style="padding:10px 12px;">Houston</td>
+            <td style="padding:10px 12px;"><span class="status status-done">OK</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:10px 12px;font-weight:600;">Silestone Calacatta</td>
+            <td style="padding:10px 12px;">4</td>
+            <td style="padding:10px 12px;">3</td>
+            <td style="padding:10px 12px;color:var(--amber);font-weight:700;">1</td>
+            <td style="padding:10px 12px;">Katy</td>
+            <td style="padding:10px 12px;"><span class="status status-warm">Low</span></td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;font-weight:600;">Uba Tuba Granite</td>
+            <td style="padding:10px 12px;">6</td>
+            <td style="padding:10px 12px;">2</td>
+            <td style="padding:10px 12px;color:var(--green-ok);font-weight:700;">4</td>
+            <td style="padding:10px 12px;">Houston</td>
+            <td style="padding:10px 12px;"><span class="status status-done">OK</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-light);margin-top:10px;font-style:italic;">
+      &#9432; Sample data. Absolute Black conflict (see alert on Daily Board) requires resolution before either job proceeds to fabrication.
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+</footer>
+
+<!-- ─── CTA FLOAT ─── -->
+<div class="cta-float">
+  <button class="cta-btn" onclick="openCTA()">Like what you see? Let&rsquo;s talk</button>
+</div>
+
+<!-- ─── MODAL ─── -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>This could be your system.</h2>
+      <p>Built for Bayou Stone & Remodel &mdash; two showrooms, one board.</p>
+    </div>
+    <div class="modal-body">
+      <p>
+        You just saw what a centralized operations system looks like for a countertop fabrication business with two locations, ~60 people, and projects up to $115K.
+      </p>
+      <ul>
+        <li>One job board across Houston and Katy &mdash; stages, materials, installers</li>
+        <li>Lead pipeline with follow-up aging &mdash; no more cold leads by Monday</li>
+        <li>Client portal that handles status calls so your team doesn't have to</li>
+        <li>Material allocation that flags conflicts before fabrication starts</li>
+      </ul>
+      <p>
+        This is a conversation about whether it fits your operation &mdash; not a pitch for software you don't need.
+      </p>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="goCalendly()">Let&rsquo;s talk &mdash; book a time</button>
+        <button class="btn-dismiss" onclick="closeModal()">Not right now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ─── DATA ───
+  const JOBS = [
+    { id:'1041', name:'M. Harrington', type:'Kitchen Remodel', stage:'Complete', loc:'Houston', value:'$85,000', stageKey:'done' },
+    { id:'1042', name:'A. Russo',      type:'Bath Remodel',    stage:'Complete', loc:'Katy',    value:'$31,500', stageKey:'done' },
+    { id:'1043', name:'T. Kimura',     type:'Closet Remodel',  stage:'Install',  loc:'Katy',    value:'$29,000', stageKey:'install' },
+    { id:'1044', name:'R. Sullivan',   type:'Kitchen Remodel', stage:'Fab',      loc:'Houston', value:'$47,500', stageKey:'fab',     highlight:true },
+    { id:'1045', name:'L. Washington', type:'Bath Remodel',    stage:'Fab',      loc:'Houston', value:'$38,200', stageKey:'fab' },
+    { id:'1046', name:'G. Nguyen',     type:'Kitchen Remodel', stage:'Fab',      loc:'Katy',    value:'$62,000', stageKey:'fab' },
+    { id:'1047', name:'C. Torres',     type:'Kitchen Remodel', stage:'Template', loc:'Houston', value:'$54,000', stageKey:'template', flag:'Material conflict' },
+    { id:'1048', name:'B. Okonkwo',    type:'Bath Remodel',    stage:'Template', loc:'Houston', value:'$27,500', stageKey:'template' },
+    { id:'1049', name:'S. Patel',      type:'Closet Remodel',  stage:'Quote',    loc:'Katy',    value:'$33,000', stageKey:'quote' },
+    { id:'1050', name:'D. Fernandez',  type:'Kitchen Remodel', stage:'Quote',    loc:'Houston', value:'$71,000', stageKey:'quote' },
+    { id:'1051', name:'J. Ashford',    type:'Kitchen Remodel', stage:'Template', loc:'Katy',    value:'$48,000', stageKey:'template', flag:'Material conflict' },
+    { id:'1052', name:'R. Montoya',    type:'Kitchen Remodel', stage:'Quote',    loc:'Katy',    value:'$72,000', stageKey:'quote', hot:true },
+  ];
+
+  const STAGE_MAP = {
+    done:'status-done', install:'status-install', fab:'status-fab',
+    template:'status-template', quote:'status-quote'
+  };
+  const STAGE_LABEL = {
+    done:'Complete', install:'Installation', fab:'Fabrication',
+    template:'Template', quote:'Quote'
+  };
+
+  // ─── RENDER JOBS ───
+  function renderJobs(list) {
+    const tbody = document.getElementById('jobs-tbody');
+    tbody.innerHTML = '';
+    list.forEach(j => {
+      const row = document.createElement('div');
+      row.className = 'job-row' + (j.highlight ? ' highlighted' : '');
+      row.innerHTML = `
+        <div>
+          <div class="job-name">#${j.id} &mdash; ${j.name}</div>
+          <div class="job-sub">${j.type}${j.flag ? ' &mdash; <span style="color:var(--red-alert);font-weight:700;">' + j.flag + '</span>' : ''}${j.hot ? ' &mdash; <span style="color:var(--red-alert);font-weight:700;">No follow-up</span>' : ''}</div>
+        </div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);">${j.type.replace(' Remodel','')}</div>
+        <div><span class="status ${STAGE_MAP[j.stageKey]}">${STAGE_LABEL[j.stageKey]}</span></div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;">${j.loc}</div>
+        <div style="font-family:'Arial',sans-serif;font-size:13px;font-weight:700;color:var(--navy);">${j.value}</div>
+      `;
+      row.addEventListener('click', () => {
+        openDetail(j);
+      });
+      tbody.appendChild(row);
+    });
+  }
+
+  let activeLocFilter = 'all';
+  let activeStageFilter = 'all';
+
+  function filterJobs(stage) {
+    activeStageFilter = stage;
+    applyFilters();
+  }
+  function filterLocation(loc) {
+    activeLocFilter = loc;
+    applyFilters();
+  }
+  function applyFilters() {
+    let list = JOBS;
+    if (activeStageFilter !== 'all') {
+      list = list.filter(j => j.stageKey === activeStageFilter);
+    }
+    if (activeLocFilter !== 'all') {
+      list = list.filter(j => j.loc.toLowerCase() === activeLocFilter);
+    }
+    renderJobs(list);
+  }
+
+  // ─── OPEN DETAIL ───
+  function openDetail(j) {
+    document.getElementById('detail-title').textContent = `Job #${j.id} — ${j.name} ${j.type}`;
+    const chip = document.getElementById('detail-status-chip');
+    chip.className = 'status ' + STAGE_MAP[j.stageKey];
+    chip.textContent = STAGE_LABEL[j.stageKey];
+    switchView('detail');
+  }
+
+  // ─── ADVANCE JOB ACTION ───
+  let advanced = false;
+  function advanceJob() {
+    if (advanced) return;
+    advanced = true;
+    const btn = document.getElementById('advance-btn');
+    const statusEl = document.getElementById('advance-status');
+    btn.disabled = true;
+    btn.textContent = '✓ Done — Board Updated';
+    statusEl.textContent = 'Job #1044 advanced. Both showrooms now see: Installation.';
+    statusEl.style.color = 'var(--green-ok)';
+    statusEl.style.fontWeight = '700';
+
+    // Update job in JOBS array
+    const job = JOBS.find(j => j.id === '1044');
+    if (job) {
+      job.stage = 'Installation';
+      job.stageKey = 'install';
+    }
+    applyFilters();
+
+    // Update KPI
+    const kpiAlerts = document.getElementById('kpi-alerts');
+    kpiAlerts.textContent = '2';
+
+    // Update detail view progress
+    const installBar = document.getElementById('install-bar');
+    if (installBar) installBar.style.width = '75%';
+    const fabNote = document.getElementById('fab-note');
+    if (fabNote) fabNote.textContent = 'Fabrication complete. Confirmed Jul 28. Advanced to installation stage.';
+    const stageNote = document.getElementById('stage-note');
+    if (stageNote) stageNote.textContent = 'Fabrication confirmed complete Jul 28. Installation on track for Aug 5.';
+
+    // Dismiss alert after action
+    const alert = document.getElementById('alert-lead');
+    if (alert) {
+      alert.style.opacity = '0.5';
+    }
+  }
+
+  // ─── TABS ───
+  let viewCount = 1; // start at 1 because initial view is already shown
+  let modalShown = sessionStorage.getItem('cbm_modal_shown') === '1';
+  let modalTimer;
+
+  function switchView(viewId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('view-' + viewId).classList.add('active');
+    const btn = document.querySelector(`[data-view="${viewId}"]`);
+    if (btn) btn.classList.add('active');
+
+    viewCount++;
+    checkModalCondition();
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchView(btn.dataset.view);
+    });
+  });
+
+  // ─── MODAL LOGIC ───
+  function checkModalCondition() {
+    if (!modalShown && viewCount >= 3) {
+      showModal();
+    }
+  }
+
+  function startModalTimer() {
+    if (modalShown) return;
+    modalTimer = setTimeout(() => {
+      if (!modalShown) showModal();
+    }, 75000);
+  }
+
+  function showModal() {
+    if (modalShown) return;
+    modalShown = true;
+    sessionStorage.setItem('cbm_modal_shown', '1');
+    clearTimeout(modalTimer);
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function openCTA() {
+    window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=craigbakermarble', '_blank');
+  }
+
+  function goCalendly() {
+    window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=craigbakermarble', '_blank');
+    closeModal();
+  }
+
+  // Click outside modal to close
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ─── SEARCH ───
+  function runSearch() {
+    const q = document.getElementById('search-input').value.toLowerCase();
+    const stage = document.getElementById('search-stage').value;
+    const loc = document.getElementById('search-loc').value;
+
+    let results = JOBS;
+    if (q) {
+      results = results.filter(j =>
+        j.name.toLowerCase().includes(q) ||
+        j.type.toLowerCase().includes(q) ||
+        j.id.includes(q) ||
+        j.loc.toLowerCase().includes(q)
+      );
+    }
+    if (stage) results = results.filter(j => STAGE_LABEL[j.stageKey] === stage);
+    if (loc)   results = results.filter(j => j.loc === loc);
+
+    const container = document.getElementById('search-results');
+    if (!q && !stage && !loc) {
+      container.innerHTML = '<div style="font-family:Arial,sans-serif;font-size:13px;color:var(--text-mid);padding:8px 0;">Enter a name, material type, or job number to search across all jobs.</div>';
+      return;
+    }
+
+    if (results.length === 0) {
+      container.innerHTML = '<div style="font-family:Arial,sans-serif;font-size:13px;color:var(--text-mid);padding:8px 0;">No matching jobs found.</div>';
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="report-row hdr" style="margin-top:12px;">
+        <div>Job / Client</div>
+        <div>Stage</div>
+        <div>Location</div>
+        <div>Type</div>
+        <div>Value</div>
+      </div>
+      ${results.map(j => `
+        <div class="report-row">
+          <div><strong>#${j.id} — ${j.name}</strong></div>
+          <div><span class="status ${STAGE_MAP[j.stageKey]}">${STAGE_LABEL[j.stageKey]}</span></div>
+          <div>${j.loc}</div>
+          <div style="color:var(--text-mid);">${j.type}</div>
+          <div class="amount">${j.value}</div>
+        </div>
+      `).join('')}
+    `;
+  }
+
+  // ─── INIT ───
+  renderJobs(JOBS);
+  runSearch();
+  startModalTimer();
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

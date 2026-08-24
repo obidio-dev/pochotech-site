@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitals Uniformes y Suministro Médico — Business System Demo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --blue:    #1A73C8;
+    --navy:    #0D3C6E;
+    --green:   #2E9E6B;
+    --bg:      #F4F7FB;
+    --text:    #1C1C1C;
+    --border:  #D1DCF0;
+    --muted:   #6B7A90;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+
+  /* ── Header ── */
+  .site-header { background: var(--navy); color: #fff; }
+  .site-header .sub { color: #A8C4E8; font-size: 0.78rem; }
+
+  /* ── Demo badge ── */
+  .demo-badge {
+    position: fixed; top: 12px; right: 12px; z-index: 9000;
+    background: #F59E0B; color: #1C1C1C;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 3px 10px; border-radius: 999px;
+    pointer-events: none;
+  }
+
+  /* ── Tabs ── */
+  .tabs { border-bottom: 2px solid var(--border); background: #fff; }
+  .tab-btn {
+    padding: 12px 20px; font-size: 0.85rem; font-weight: 600;
+    color: var(--muted); border-bottom: 3px solid transparent;
+    margin-bottom: -2px; transition: all .15s; cursor: pointer; background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .tab-btn:hover { color: var(--blue); }
+  .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+  /* ── Cards ── */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 10px; }
+
+  /* ── Status pills ── */
+  .pill { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; letter-spacing: 0.04em; }
+  .pill-green  { background: #D1FAE5; color: #065F46; }
+  .pill-blue   { background: #DBEAFE; color: #1E40AF; }
+  .pill-yellow { background: #FEF3C7; color: #92400E; }
+  .pill-red    { background: #FEE2E2; color: #991B1B; }
+  .pill-gray   { background: #E5E7EB; color: #374151; }
+  .pill-navy   { background: #E0EAF6; color: var(--navy); }
+
+  /* ── KPI cards ── */
+  .kpi { border-left: 4px solid var(--blue); }
+  .kpi-green { border-left-color: var(--green); }
+  .kpi-yellow { border-left-color: #F59E0B; }
+  .kpi-red { border-left-color: #EF4444; }
+
+  /* ── Table ── */
+  table { border-collapse: collapse; width: 100%; }
+  th { background: #F1F5F9; font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 14px; text-align: left; }
+  td { padding: 11px 14px; font-size: 0.85rem; border-top: 1px solid var(--border); vertical-align: middle; }
+  tr:hover td { background: #F8FAFD; }
+
+  /* ── Pain banner ── */
+  .pain-old { background: #FEF2F2; border: 1px solid #FECACA; }
+  .pain-new  { background: #ECFDF5; border: 1px solid #A7F3D0; }
+
+  /* ── CTA float ── */
+  .cta-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 8000;
+    background: var(--blue); color: #fff;
+    padding: 13px 22px; border-radius: 999px;
+    font-weight: 700; font-size: 0.9rem;
+    box-shadow: 0 4px 20px rgba(26,115,200,.40);
+    cursor: pointer; border: none;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .cta-float:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(26,115,200,.50); }
+
+  /* ── Modal ── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45);
+    z-index: 9500; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box { background: #fff; border-radius: 14px; max-width: 430px; width: 92%; padding: 36px 32px; box-shadow: 0 8px 40px rgba(0,0,0,.25); }
+
+  /* ── Inventory bar ── */
+  .inv-bar { height: 8px; border-radius: 4px; background: #E5E7EB; overflow: hidden; }
+  .inv-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+
+  /* ── Timeline ── */
+  .timeline-line { border-left: 2px solid var(--border); margin-left: 12px; }
+  .timeline-dot { width: 10px; height: 10px; border-radius: 50%; margin-left: -6px; flex-shrink: 0; }
+
+  /* ── Approve animation ── */
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .fade-in { animation: fadeIn .4s ease forwards; }
+
+  /* ── B2B order form ── */
+  .form-row label { font-size: 0.78rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 3px; }
+  .form-row input, .form-row select {
+    width: 100%; border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 10px; font-size: 0.85rem; outline: none;
+    background: #FAFBFD;
+  }
+  .form-row input:focus, .form-row select:focus { border-color: var(--blue); background: #fff; }
+
+  /* ── Search highlight ── */
+  mark { background: #FEF9C3; color: inherit; border-radius: 2px; }
+
+  @media (max-width: 640px) {
+    .tab-btn { padding: 10px 12px; font-size: 0.78rem; }
+    .cta-float { bottom: 16px; right: 16px; font-size: 0.82rem; padding: 11px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── DEMO BADGE ── -->
+<div class="demo-badge">DEMO · sample data</div>
+
+<!-- ── HEADER ── -->
+<header class="site-header px-4 py-4">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+    <div>
+      <div class="flex items-center gap-2">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A8C4E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span class="text-white font-bold text-lg tracking-wide">Vitals Uniformes &amp; Med Supply</span>
+      </div>
+      <p class="sub mt-0.5 ml-7">What your own system would look like — prepared by Pocho.tech</p>
+    </div>
+    <div class="flex gap-2 mt-2 sm:mt-0">
+      <span class="pill pill-navy text-xs">Uniforms &amp; Medical Supply</span>
+      <span class="pill pill-green text-xs">Houston, TX</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── TABS ── -->
+<nav class="tabs px-4 overflow-x-auto">
+  <div class="max-w-6xl mx-auto flex gap-0 whitespace-nowrap">
+    <button class="tab-btn active" onclick="switchTab('dashboard', this)">Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('account', this)">Account Detail</button>
+    <button class="tab-btn" onclick="switchTab('b2b', this)">B2B Order Portal</button>
+    <button class="tab-btn" onclick="switchTab('inventory', this)">Inventory &amp; Reports</button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     TAB 1 — DASHBOARD (daily operations)
+═══════════════════════════════════════════════════ -->
+<div id="tab-dashboard" class="tab-panel max-w-6xl mx-auto px-4 py-6">
+
+  <!-- KPIs -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+    <div class="card kpi p-4">
+      <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Open B2B Orders</p>
+      <p class="text-2xl font-bold text-gray-800 mt-1" id="kpi-open">8</p>
+      <p class="text-xs text-gray-400 mt-0.5">3 awaiting approval</p>
+    </div>
+    <div class="card kpi kpi-green p-4">
+      <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Fulfilled This Week</p>
+      <p class="text-2xl font-bold text-gray-800 mt-1">14</p>
+      <p class="text-xs text-gray-400 mt-0.5">+2 vs last week</p>
+    </div>
+    <div class="card kpi kpi-yellow p-4">
+      <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Reorders Due</p>
+      <p class="text-2xl font-bold text-gray-800 mt-1">3</p>
+      <p class="text-xs text-gray-400 mt-0.5">Next 7 days</p>
+    </div>
+    <div class="card kpi kpi-red p-4">
+      <p class="text-xs text-gray-500 font-semibold uppercase tracking-wide">Low Stock SKUs</p>
+      <p class="text-2xl font-bold text-gray-800 mt-1" id="kpi-low">5</p>
+      <p class="text-xs text-gray-400 mt-0.5">Below threshold</p>
+    </div>
+  </div>
+
+  <!-- Active B2B Orders Table -->
+  <div class="card overflow-hidden mb-6">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+      <h2 class="font-bold text-base text-gray-800">Active B2B Orders</h2>
+      <span class="text-xs text-gray-400">Sample data · 2026-07-28</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Account</th>
+            <th>Category</th>
+            <th>Items</th>
+            <th>Value</th>
+            <th>Terms</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="order-table-body">
+          <tr id="row-B2241">
+            <td class="font-mono text-xs text-gray-500">B2-241</td>
+            <td>
+              <p class="font-semibold text-sm">Sunrise Home Health</p>
+              <p class="text-xs text-gray-400">Staffing Agency</p>
+            </td>
+            <td><span class="pill pill-blue">Uniforms</span></td>
+            <td class="text-sm">12 scrub sets · 6 colors</td>
+            <td class="font-semibold">$1,440</td>
+            <td><span class="pill pill-navy">Net-30</span></td>
+            <td id="status-B2241"><span class="pill pill-yellow">Awaiting Approval</span></td>
+            <td>
+              <button onclick="approveOrder('B2241')" id="btn-B2241"
+                class="text-xs font-semibold text-white rounded-md px-3 py-1.5 transition-colors"
+                style="background:var(--blue)">
+                Approve
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="font-mono text-xs text-gray-500">B2-240</td>
+            <td>
+              <p class="font-semibold text-sm">ClearPath Logistics</p>
+              <p class="text-xs text-gray-400">Employer · Construction</p>
+            </td>
+            <td><span class="pill pill-green" style="background:#D1FAE5;color:#065F46;">Drug Test</span></td>
+            <td class="text-sm">200 × 5-panel oral saliva</td>
+            <td class="font-semibold">$1,180</td>
+            <td><span class="pill pill-navy">Net-30</span></td>
+            <td><span class="pill pill-yellow">Awaiting Approval</span></td>
+            <td><button class="text-xs font-semibold text-white rounded-md px-3 py-1.5" style="background:var(--blue)">Approve</button></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-xs text-gray-500">B2-239</td>
+            <td>
+              <p class="font-semibold text-sm">Meridian Staffing</p>
+              <p class="text-xs text-gray-400">Medical Staffing Agency</p>
+            </td>
+            <td><span class="pill pill-blue">Uniforms</span></td>
+            <td class="text-sm">8 lab coats · 4 sizes</td>
+            <td class="font-semibold">$680</td>
+            <td><span class="pill pill-gray">COD</span></td>
+            <td><span class="pill pill-blue">In Fulfillment</span></td>
+            <td><button class="text-xs font-semibold rounded-md px-3 py-1.5 border border-gray-300 text-gray-600">Mark Shipped</button></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-xs text-gray-500">B2-238</td>
+            <td>
+              <p class="font-semibold text-sm">TexStar Security</p>
+              <p class="text-xs text-gray-400">Employer · Security</p>
+            </td>
+            <td><span class="pill pill-green" style="background:#D1FAE5;color:#065F46;">Drug Test</span></td>
+            <td class="text-sm">Post-accident screening · 1 employee</td>
+            <td class="font-semibold">$85</td>
+            <td><span class="pill pill-gray">COD</span></td>
+            <td><span class="pill pill-green">Completed</span></td>
+            <td><button class="text-xs font-semibold rounded-md px-3 py-1.5 border border-gray-300 text-gray-600">Invoice</button></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-xs text-gray-500">B2-237</td>
+            <td>
+              <p class="font-semibold text-sm">Bayou Diagnostics</p>
+              <p class="text-xs text-gray-400">Clinical Lab</p>
+            </td>
+            <td><span class="pill pill-green" style="background:#D1FAE5;color:#065F46;">Drug Test</span></td>
+            <td class="text-sm">10-panel urine cards · monthly reorder</td>
+            <td class="font-semibold">$540</td>
+            <td><span class="pill pill-navy">Net-30</span></td>
+            <td><span class="pill pill-green">Completed</span></td>
+            <td><button class="text-xs font-semibold rounded-md px-3 py-1.5 border border-gray-300 text-gray-600">Invoice</button></td>
+          </tr>
+          <tr id="row-B2242" style="display:none;">
+            <td class="font-mono text-xs text-gray-500">B2-242</td>
+            <td>
+              <p class="font-semibold text-sm">Sunrise Home Health</p>
+              <p class="text-xs text-gray-400">Staffing Agency</p>
+            </td>
+            <td><span class="pill pill-blue">Uniforms</span></td>
+            <td class="text-sm">12 scrub sets · 6 colors</td>
+            <td class="font-semibold">$1,440</td>
+            <td><span class="pill pill-navy">Net-30</span></td>
+            <td><span class="pill pill-green">Approved</span></td>
+            <td><span class="text-xs text-gray-400">Sent to fulfillment</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Upcoming Reorders -->
+  <div class="card overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-100">
+      <h2 class="font-bold text-base text-gray-800">Upcoming Recurring Reorders</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Frequency</th>
+            <th>Next Due</th>
+            <th>Auto-Send</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="font-semibold">Bayou Diagnostics</span></td>
+            <td class="text-sm">McKesson 10-panel urine cards</td>
+            <td>100 units</td>
+            <td>Monthly</td>
+            <td><span class="pill pill-yellow">Aug 1</span></td>
+            <td><span class="pill pill-green">On</span></td>
+          </tr>
+          <tr>
+            <td><span class="font-semibold">ClearPath Logistics</span></td>
+            <td class="text-sm">Healgen 5-panel oral saliva kit</td>
+            <td>200 units</td>
+            <td>Monthly</td>
+            <td><span class="pill pill-yellow">Aug 5</span></td>
+            <td><span class="pill pill-green">On</span></td>
+          </tr>
+          <tr>
+            <td><span class="font-semibold">Meridian Staffing</span></td>
+            <td class="text-sm">Cherokee Revolution V-Neck Top — Assorted</td>
+            <td>24 units</td>
+            <td>Quarterly</td>
+            <td><span class="pill pill-gray">Oct 15</span></td>
+            <td><span class="pill pill-gray">Off</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 2 — ACCOUNT DETAIL (with history)
+═══════════════════════════════════════════════════ -->
+<div id="tab-account" class="tab-panel max-w-6xl mx-auto px-4 py-6 hidden">
+
+  <!-- Account header -->
+  <div class="card p-6 mb-6">
+    <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-3 flex-wrap">
+          <h2 class="font-bold text-xl text-gray-800">Sunrise Home Health Agency</h2>
+          <span class="pill pill-blue">Active B2B Account</span>
+        </div>
+        <p class="text-sm text-gray-500 mt-1">Staffing Agency · Houston, TX · Account since Jan 2024</p>
+        <div class="flex gap-6 mt-4 flex-wrap">
+          <div>
+            <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Total Spend (12 mo)</p>
+            <p class="text-xl font-bold text-gray-800">$11,280</p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Orders Placed</p>
+            <p class="text-xl font-bold text-gray-800">8</p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Payment Terms</p>
+            <p class="text-xl font-bold text-gray-800">Net-30</p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-400 uppercase tracking-wide font-semibold">Open Balance</p>
+            <p class="text-xl font-bold" style="color:#EF4444;">$1,440</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 shrink-0">
+        <button class="text-xs font-semibold text-white rounded-md px-4 py-2" style="background:var(--blue)">New Order</button>
+        <button class="text-xs font-semibold rounded-md px-4 py-2 border border-gray-300 text-gray-600">Send Statement</button>
+        <button class="text-xs font-semibold rounded-md px-4 py-2 border border-gray-300 text-gray-600">Flag for Follow-up</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preferences & Order History side by side -->
+  <div class="grid sm:grid-cols-3 gap-5 mb-6">
+    <!-- Left: Preferences -->
+    <div class="card p-5">
+      <h3 class="font-bold text-sm text-gray-700 mb-3">Account Preferences</h3>
+      <ul class="space-y-2 text-sm text-gray-600">
+        <li class="flex justify-between"><span class="text-gray-400">Preferred brand</span><span class="font-medium">Cherokee WorkWear</span></li>
+        <li class="flex justify-between"><span class="text-gray-400">Sizes stocked</span><span class="font-medium">XXS – 3XL</span></li>
+        <li class="flex justify-between"><span class="text-gray-400">Colors</span><span class="font-medium">Navy, Ceil, Wine</span></li>
+        <li class="flex justify-between"><span class="text-gray-400">Delivery</span><span class="font-medium">Ship to address</span></li>
+        <li class="flex justify-between"><span class="text-gray-400">Invoice contact</span><span class="font-medium">Accounts Payable</span></li>
+        <li class="flex justify-between"><span class="text-gray-400">PO required</span><span class="font-medium text-green-700">Yes</span></li>
+      </ul>
+      <div class="mt-4 pt-4 border-t border-gray-100">
+        <p class="text-xs text-gray-400 font-semibold uppercase mb-2">Internal Notes</p>
+        <p class="text-xs text-gray-600 italic">"Always needs size breakdown by location. Pre-packs preferred when available. Follows up quickly."</p>
+      </div>
+    </div>
+
+    <!-- Right: Order history -->
+    <div class="card p-5 sm:col-span-2">
+      <h3 class="font-bold text-sm text-gray-700 mb-4">Order History</h3>
+      <div class="space-y-0">
+
+        <!-- Timeline item -->
+        <div class="flex gap-3 pb-4">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot mt-1" style="background:var(--blue)"></div>
+            <div class="timeline-line flex-1"></div>
+          </div>
+          <div class="pb-4">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-mono text-gray-400">B2-241</span>
+              <span class="pill pill-yellow">Awaiting Approval</span>
+              <span class="text-xs text-gray-400">Jul 28, 2026</span>
+            </div>
+            <p class="text-sm text-gray-700 mt-0.5">12 scrub sets · 6 colors · sizes XXS–3XL</p>
+            <p class="text-xs text-gray-400">$1,440 · Net-30</p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 pb-4">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot mt-1" style="background:var(--green)"></div>
+            <div class="timeline-line flex-1"></div>
+          </div>
+          <div class="pb-4">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-mono text-gray-400">B2-224</span>
+              <span class="pill pill-green">Completed · Paid</span>
+              <span class="text-xs text-gray-400">Apr 12, 2026</span>
+            </div>
+            <p class="text-sm text-gray-700 mt-0.5">10 scrub sets · Navy + Ceil · Reorder</p>
+            <p class="text-xs text-gray-400">$1,200 · Net-30</p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 pb-4">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot mt-1" style="background:var(--green)"></div>
+            <div class="timeline-line flex-1"></div>
+          </div>
+          <div class="pb-4">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-mono text-gray-400">B2-210</span>
+              <span class="pill pill-green">Completed · Paid</span>
+              <span class="text-xs text-gray-400">Jan 8, 2026</span>
+            </div>
+            <p class="text-sm text-gray-700 mt-0.5">6 lab coats + 8 scrub tops · initial order</p>
+            <p class="text-xs text-gray-400">$980 · Net-30</p>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot mt-1" style="background:#D1D5DB"></div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-mono text-gray-400">B2-198</span>
+              <span class="pill pill-gray">Completed</span>
+              <span class="text-xs text-gray-400">Oct 22, 2025</span>
+            </div>
+            <p class="text-sm text-gray-700 mt-0.5">4 scrub sets · trial order</p>
+            <p class="text-xs text-gray-400">$480 · COD</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Screening services history -->
+  <div class="card overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+      <h3 class="font-bold text-sm text-gray-700">Workforce Screening Events</h3>
+      <span class="text-xs text-gray-400">For this account only</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Candidate</th>
+            <th>Panel</th>
+            <th>Collection</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-xs text-gray-400">Jul 15, 2026</td>
+            <td><span class="pill pill-blue">Pre-employment</span></td>
+            <td class="text-sm text-gray-600">Candidate #0047</td>
+            <td>10-panel oral saliva</td>
+            <td>In-store</td>
+            <td><span class="pill pill-green">Negative</span></td>
+          </tr>
+          <tr>
+            <td class="text-xs text-gray-400">Jun 3, 2026</td>
+            <td><span class="pill pill-yellow">Random</span></td>
+            <td class="text-sm text-gray-600">Candidate #0031</td>
+            <td>5-panel oral saliva</td>
+            <td>In-store</td>
+            <td><span class="pill pill-green">Negative</span></td>
+          </tr>
+          <tr>
+            <td class="text-xs text-gray-400">Mar 20, 2026</td>
+            <td><span class="pill pill-blue">Pre-employment</span></td>
+            <td class="text-sm text-gray-600">Candidate #0019</td>
+            <td>10-panel oral saliva</td>
+            <td>In-store</td>
+            <td><span class="pill pill-green">Negative</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 3 — B2B ORDER PORTAL (pain dramatization)
+═══════════════════════════════════════════════════ -->
+<div id="tab-b2b" class="tab-panel max-w-6xl mx-auto px-4 py-6 hidden">
+
+  <!-- Before / After comparison -->
+  <div class="grid sm:grid-cols-2 gap-5 mb-6">
+    <!-- BEFORE -->
+    <div class="card pain-old p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-lg">📋</span>
+        <h3 class="font-bold text-sm text-red-800">Without a system — today</h3>
+      </div>
+      <div class="space-y-3 text-sm text-red-900">
+        <div class="flex gap-2">
+          <span class="mt-0.5 shrink-0">⏱</span>
+          <p>A clinic emails asking for 12 scrub sets, 6 colors, sizes XXS to 3XL. You reply to clarify colors. They reply the next day. You check Shopify — you're not sure if stock reflects the warehouse.</p>
+        </div>
+        <div class="flex gap-2">
+          <span class="mt-0.5 shrink-0">📞</span>
+          <p>They call to ask about net-30. You remember verbally from last time. No written record.</p>
+        </div>
+        <div class="flex gap-2">
+          <span class="mt-0.5 shrink-0">✉️</span>
+          <p>3 emails back and forth. One size gets mixed up. The client waits 3 days for a final quote. By day 4, they've called a competitor.</p>
+        </div>
+      </div>
+      <div class="mt-4 pt-4 border-t border-red-200">
+        <p class="text-xs text-red-700 font-semibold">Time to quote: ~3 days &nbsp;|&nbsp; Risk: size error, lost client</p>
+      </div>
+    </div>
+
+    <!-- AFTER -->
+    <div class="card pain-new p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-lg">✅</span>
+        <h3 class="font-bold text-sm text-green-800">With your system — same scenario</h3>
+      </div>
+      <div class="space-y-3 text-sm text-green-900">
+        <div class="flex gap-2">
+          <span class="mt-0.5 shrink-0">🔗</span>
+          <p>The clinic logs into their B2B portal, selects Cherokee Revolution, picks colors by department, enters sizes from a dropdown that shows live stock per size.</p>
+        </div>
+        <div class="flex gap-2">
+          <span class="mt-0.5 shrink-0">📄</span>
+          <p>A quote is generated instantly with their net-30 terms already on file. One click to approve. PO number auto-attached.</p>
+        </div>
+        <div class="flex gap-2">
+          <span class="mt-0.5 shrink-0">📬</span>
+          <p>You get a notification. Order is in the system. No email thread, no size error, no 3-day delay.</p>
+        </div>
+      </div>
+      <div class="mt-4 pt-4 border-t border-green-200">
+        <p class="text-xs text-green-700 font-semibold">Time to quote: &lt;10 minutes &nbsp;|&nbsp; Outcome: order locked, client retained</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- B2B Order Form demo -->
+  <div class="card p-6 mb-6">
+    <h2 class="font-bold text-base text-gray-800 mb-1">B2B Order Form — Institutional Portal</h2>
+    <p class="text-xs text-gray-400 mb-5">This is what your client sees when they log in. Sample data, not a real order.</p>
+
+    <div class="grid sm:grid-cols-2 gap-4 mb-5">
+      <div class="form-row">
+        <label>Account Name</label>
+        <input type="text" value="Sunrise Home Health Agency" readonly style="background:#F1F5F9;color:#6B7A90;">
+      </div>
+      <div class="form-row">
+        <label>Payment Terms</label>
+        <input type="text" value="Net-30 (on file)" readonly style="background:#F1F5F9;color:#6B7A90;">
+      </div>
+      <div class="form-row">
+        <label>Product Line</label>
+        <select id="product-line">
+          <option>Cherokee WorkWear Revolution — Scrub Tops</option>
+          <option>Cherokee WorkWear Revolution — Scrub Pants</option>
+          <option>Cherokee Originals — Unisex Cargo Pants</option>
+          <option>Cherokee — Lab Coat 38"</option>
+          <option>Abbott 13-Panel Urine Cup (w/ fentanyl)</option>
+          <option>Healgen 5-Panel Oral Saliva Kit</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Department Color Assignment</label>
+        <select id="dept-color">
+          <option>Navy (General Floor)</option>
+          <option>Ceil Blue (ICU / Critical Care)</option>
+          <option>Wine (Administration)</option>
+          <option>Black (Surgical)</option>
+          <option>Hunter Green (Pediatrics)</option>
+          <option>Pewter (Physical Therapy)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Size grid -->
+    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Size Breakdown (units per size)</p>
+    <div class="grid grid-cols-4 sm:grid-cols-8 gap-2 mb-5">
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">XXS</p>
+        <input type="number" value="2" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FAFBFD;">
+        <p class="text-xs mt-1" style="color:var(--green)">In stock</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">XS</p>
+        <input type="number" value="2" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FAFBFD;">
+        <p class="text-xs mt-1" style="color:var(--green)">In stock</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">S</p>
+        <input type="number" value="4" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FAFBFD;">
+        <p class="text-xs mt-1" style="color:var(--green)">In stock</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">M</p>
+        <input type="number" value="6" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FAFBFD;">
+        <p class="text-xs mt-1" style="color:var(--green)">In stock</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">L</p>
+        <input type="number" value="6" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FAFBFD;">
+        <p class="text-xs mt-1" style="color:var(--green)">In stock</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">XL</p>
+        <input type="number" value="4" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FAFBFD;">
+        <p class="text-xs mt-1" style="color:var(--green)">In stock</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">2XL</p>
+        <input type="number" value="2" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FAFBFD;">
+        <p class="text-xs mt-1" style="color:#F59E0B;">Low: 3 left</p>
+      </div>
+      <div class="text-center">
+        <p class="text-xs text-gray-400 mb-1">3XL</p>
+        <input type="number" value="2" min="0" class="w-full border border-gray-200 rounded-md text-center text-sm py-1.5" style="background:#FEF2F2;border-color:#FECACA;">
+        <p class="text-xs mt-1 text-red-500">Low: 1 left</p>
+      </div>
+    </div>
+
+    <!-- Quote preview -->
+    <div class="rounded-lg border border-gray-200 p-4 mb-5" style="background:#F8FAFD;">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div>
+          <p class="text-xs text-gray-400 font-semibold uppercase tracking-wide">Auto-Generated Quote</p>
+          <p class="text-base font-bold text-gray-800 mt-0.5">28 units · Cherokee Revolution V-Neck Top</p>
+          <p class="text-xs text-gray-500 mt-0.5">Unit price: $52.00 &nbsp;|&nbsp; Subtotal: $1,456.00 &nbsp;|&nbsp; Net-30 terms applied</p>
+        </div>
+        <div class="flex gap-2">
+          <button id="submit-b2b-btn" onclick="submitB2BOrder()" class="text-sm font-bold text-white rounded-lg px-5 py-2 transition-colors" style="background:var(--blue)">
+            Submit Order
+          </button>
+          <button class="text-sm font-semibold text-gray-600 rounded-lg px-4 py-2 border border-gray-300">Save Draft</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="b2b-confirm" class="hidden fade-in rounded-lg p-4 border" style="background:#ECFDF5;border-color:#A7F3D0;">
+      <div class="flex items-center gap-3">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2E9E6B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div>
+          <p class="font-bold text-green-800 text-sm">Order B2-242 created — under 60 seconds.</p>
+          <p class="text-xs text-green-700 mt-0.5">Quote sent to Sunrise Home Health · PO auto-attached · You'll be notified for approval.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Pending quotes -->
+  <div class="card overflow-hidden">
+    <div class="px-5 py-4 border-b border-gray-100">
+      <h3 class="font-bold text-sm text-gray-700">Pending Quote Requests</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Request</th>
+            <th>Submitted</th>
+            <th>Estimated Value</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <p class="font-semibold text-sm">Bayview Regional Hospital</p>
+              <p class="text-xs text-gray-400">200-bed hospital</p>
+            </td>
+            <td class="text-sm text-gray-600">45 nurses · scrubs by department color · staggered delivery</td>
+            <td class="text-xs text-gray-400">Jul 25, 2026</td>
+            <td class="font-semibold">~$5,400</td>
+            <td><span class="pill pill-yellow">Needs Quote</span></td>
+            <td><button class="text-xs font-semibold text-white rounded-md px-3 py-1.5" style="background:var(--blue)">Build Quote</button></td>
+          </tr>
+          <tr>
+            <td>
+              <p class="font-semibold text-sm">Gulf Coast Warehouse Co.</p>
+              <p class="text-xs text-gray-400">Employer · Logistics</p>
+            </td>
+            <td class="text-sm text-gray-600">100 × 13-panel urine cups (w/ fentanyl)</td>
+            <td class="text-xs text-gray-400">Jul 22, 2026</td>
+            <td class="font-semibold">~$890</td>
+            <td><span class="pill pill-yellow">Needs Quote</span></td>
+            <td><button class="text-xs font-semibold text-white rounded-md px-3 py-1.5" style="background:var(--blue)">Build Quote</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TAB 4 — INVENTORY & REPORTS (search)
+═══════════════════════════════════════════════════ -->
+<div id="tab-inventory" class="tab-panel max-w-6xl mx-auto px-4 py-6 hidden">
+
+  <!-- Search bar -->
+  <div class="card p-4 mb-5 flex gap-3 items-center flex-wrap">
+    <input id="inv-search" type="text" placeholder="Search SKUs — e.g. Cherokee, fentanyl, Navy, 2XL…"
+      class="flex-1 min-w-48 border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-blue-400"
+      oninput="filterInventory(this.value)">
+    <select id="inv-cat" onchange="filterInventory(document.getElementById('inv-search').value)" class="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none">
+      <option value="">All categories</option>
+      <option value="Uniforms">Uniforms</option>
+      <option value="Drug Test">Drug Test Kits</option>
+      <option value="Compression">Compression</option>
+      <option value="Equipment">Clinical Equipment</option>
+      <option value="Orthopedic">Orthopedic</option>
+    </select>
+    <select id="inv-status" onchange="filterInventory(document.getElementById('inv-search').value)" class="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-600 outline-none">
+      <option value="">All statuses</option>
+      <option value="ok">In Stock</option>
+      <option value="low">Low Stock</option>
+      <option value="out">Out of Stock</option>
+    </select>
+    <button onclick="filterInventory('')" class="text-xs font-semibold rounded-lg px-4 py-2 border border-gray-300 text-gray-600">Reset</button>
+  </div>
+
+  <!-- Inventory table -->
+  <div class="card overflow-hidden mb-6">
+    <div class="overflow-x-auto">
+      <table>
+        <thead>
+          <tr>
+            <th>SKU / Product</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>On Hand</th>
+            <th>Stock Level</th>
+            <th>Threshold</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="inv-tbody">
+          <!-- Rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+    <div id="inv-empty" class="hidden px-6 py-10 text-center text-sm text-gray-400">No SKUs match your search.</div>
+  </div>
+
+  <!-- Summary metrics -->
+  <div class="grid sm:grid-cols-3 gap-4">
+    <div class="card p-5">
+      <p class="text-xs text-gray-400 uppercase font-semibold tracking-wide mb-2">Category Breakdown</p>
+      <ul class="space-y-2 text-sm">
+        <li class="flex justify-between"><span class="text-gray-600">Uniforms (scrubs + coats)</span><span class="font-semibold">38 SKUs</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">Drug Test Kits</span><span class="font-semibold">12 SKUs</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">Compression (JOBST)</span><span class="font-semibold">8 SKUs</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">Clinical Equipment</span><span class="font-semibold">14 SKUs</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">Orthopedic / DME</span><span class="font-semibold">9 SKUs</span></li>
+      </ul>
+    </div>
+    <div class="card p-5">
+      <p class="text-xs text-gray-400 uppercase font-semibold tracking-wide mb-2">Stock Health</p>
+      <div class="space-y-3">
+        <div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-green-700 font-semibold">In Stock</span><span class="text-gray-400">62 SKUs</span></div>
+          <div class="inv-bar"><div class="inv-bar-fill" style="width:76%;background:var(--green);"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-yellow-700 font-semibold">Low Stock</span><span class="text-gray-400">12 SKUs</span></div>
+          <div class="inv-bar"><div class="inv-bar-fill" style="width:15%;background:#F59E0B;"></div></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1"><span class="text-red-700 font-semibold">Out of Stock</span><span class="text-gray-400">7 SKUs</span></div>
+          <div class="inv-bar"><div class="inv-bar-fill" style="width:9%;background:#EF4444;"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card p-5">
+      <p class="text-xs text-gray-400 uppercase font-semibold tracking-wide mb-2">Top Moving SKUs (30 days)</p>
+      <ul class="space-y-2 text-sm">
+        <li class="flex justify-between"><span class="text-gray-600">Cherokee Revolution V-Neck — Navy L</span><span class="font-semibold text-blue-700">42 units</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">Healgen 5-Panel Oral Saliva · box/25</span><span class="font-semibold text-blue-700">38 units</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">McKesson Specimen Cup · box/100</span><span class="font-semibold text-blue-700">27 units</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">Cherokee Cargo Pants — Black 2XL</span><span class="font-semibold text-blue-700">21 units</span></li>
+        <li class="flex justify-between"><span class="text-gray-600">Abbott 13-Panel Urine Cup · box/50</span><span class="font-semibold text-blue-700">18 units</span></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── CTA FLOAT ── -->
+<button class="cta-float" onclick="openModal('cta')">Like what you see? Let's talk</button>
+
+<!-- ── MODAL ── -->
+<div id="modal-overlay" class="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <div class="flex justify-between items-start mb-4">
+      <div>
+        <h2 class="font-bold text-lg text-gray-800">Ready to have this — for real?</h2>
+        <p class="text-xs text-gray-400 mt-0.5">Built specifically for Vitals Uniformes &amp; Med Supply</p>
+      </div>
+      <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-xl leading-none ml-4">&times;</button>
+    </div>
+    <p class="text-sm text-gray-600 mb-5">What you just saw — the B2B portal, the account history, the live inventory view — is what a custom system for your operation would look like. No more email threads for bulk orders. No more lost institutional clients.</p>
+    <ul class="space-y-2 mb-6 text-sm text-gray-700">
+      <li class="flex gap-2 items-start"><span style="color:var(--green)">✓</span><span>B2B portal with net-terms, quote generation, and PO tracking</span></li>
+      <li class="flex gap-2 items-start"><span style="color:var(--green)">✓</span><span>Institutional account history — every order, every screening event</span></li>
+      <li class="flex gap-2 items-start"><span style="color:var(--green)">✓</span><span>Inventory visibility across store and warehouse</span></li>
+      <li class="flex gap-2 items-start"><span style="color:var(--green)">✓</span><span>Automatic reorder reminders for recurring clients</span></li>
+    </ul>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=crownscrubsmedsu" target="_blank" rel="noopener noreferrer"
+      class="block text-center text-white font-bold text-sm py-3 rounded-xl w-full transition-colors"
+      style="background:var(--blue);">
+      Schedule a conversation
+    </a>
+    <p class="text-center text-xs text-gray-400 mt-3">Pocho.tech · custom systems for businesses that already work</p>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="mt-12 pb-24 px-4 text-center">
+  <p class="text-xs text-gray-400">Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.</p>
+</footer>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+// ── Tab navigation ──────────────────────────────────
+let tabCount = 1; // dashboard is view 1
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.remove('hidden');
+  btn.classList.add('active');
+  tabCount++;
+  checkModalTrigger();
+}
+
+// ── Modal logic ─────────────────────────────────────
+let modalShown = sessionStorage.getItem('csms_modal_shown') === '1';
+
+function checkModalTrigger() {
+  if (!modalShown && tabCount >= 3) {
+    showModal();
+  }
+}
+
+function showModal() {
+  if (modalShown) return;
+  modalShown = true;
+  sessionStorage.setItem('csms_modal_shown', '1');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function openModal(src) {
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+// Timer: show modal at 75s if not already shown
+setTimeout(() => {
+  if (!modalShown) showModal();
+}, 75000);
+
+// ── Approve order interaction ────────────────────────
+function approveOrder(id) {
+  if (id !== 'B2241') return;
+  const statusCell = document.getElementById('status-B2241');
+  const btn = document.getElementById('btn-B2241');
+  statusCell.innerHTML = '<span class="pill pill-green fade-in">Approved</span>';
+  btn.textContent = 'Approved';
+  btn.disabled = true;
+  btn.style.background = '#D1FAE5';
+  btn.style.color = '#065F46';
+  btn.style.cursor = 'default';
+  // Update KPI
+  const kpiOpen = document.getElementById('kpi-open');
+  kpiOpen.textContent = parseInt(kpiOpen.textContent) - 1;
+  // Reveal new row
+  const newRow = document.getElementById('row-B2242');
+  newRow.style.display = '';
+  newRow.classList.add('fade-in');
+  // Show confirmation banner briefly
+  const banner = document.createElement('div');
+  banner.className = 'fixed top-16 left-1/2 -translate-x-1/2 fade-in';
+  banner.style.zIndex = '9100';
+  banner.innerHTML = '<div class="bg-green-700 text-white text-sm font-semibold px-5 py-3 rounded-xl shadow-lg">Order B2-241 approved — confirmation sent to Sunrise Home Health</div>';
+  document.body.appendChild(banner);
+  setTimeout(() => banner.remove(), 3500);
+}
+
+// ── B2B form submit ──────────────────────────────────
+function submitB2BOrder() {
+  const btn = document.getElementById('submit-b2b-btn');
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('b2b-confirm').classList.remove('hidden');
+    btn.style.display = 'none';
+  }, 800);
+}
+
+// ── Inventory data ───────────────────────────────────
+const invData = [
+  { sku: 'CHE-RV-NAV-L',   name: 'Cherokee Revolution V-Neck Scrub Top — Navy, L',   cat: 'Uniforms',    brand: 'Cherokee', qty: 28, max: 40, status: 'ok' },
+  { sku: 'CHE-RV-NAV-2XL', name: 'Cherokee Revolution V-Neck Scrub Top — Navy, 2XL', cat: 'Uniforms',    brand: 'Cherokee', qty: 3,  max: 20, status: 'low' },
+  { sku: 'CHE-RV-NAV-3XL', name: 'Cherokee Revolution V-Neck Scrub Top — Navy, 3XL', cat: 'Uniforms',    brand: 'Cherokee', qty: 1,  max: 15, status: 'low' },
+  { sku: 'CHE-OG-BLK-2XL', name: 'Cherokee Originals Cargo Pants — Black, 2XL',      cat: 'Uniforms',    brand: 'Cherokee', qty: 12, max: 30, status: 'ok'  },
+  { sku: 'CHE-LC38-WHT',   name: 'Cherokee 38" Lab Coat — White',                    cat: 'Uniforms',    brand: 'Cherokee', qty: 0,  max: 20, status: 'out' },
+  { sku: 'CHE-RV-CEIL-M',  name: 'Cherokee Revolution V-Neck Scrub Top — Ceil, M',   cat: 'Uniforms',    brand: 'Cherokee', qty: 18, max: 30, status: 'ok'  },
+  { sku: 'ABB-13PAN-FEN',  name: 'Abbott 13-Panel Urine Cup (w/ fentanyl) — box/50', cat: 'Drug Test',   brand: 'Abbott',   qty: 6,  max: 20, status: 'low' },
+  { sku: 'HLG-5PAN-ORAL',  name: 'Healgen 5-Panel Oral Saliva Kit — box/25',         cat: 'Drug Test',   brand: 'Healgen',  qty: 22, max: 40, status: 'ok'  },
+  { sku: 'MCK-10PAN-URN',  name: 'McKesson Specimen Cup w/ temp strip — box/100',    cat: 'Drug Test',   brand: 'McKesson', qty: 14, max: 30, status: 'ok'  },
+  { sku: 'MCK-12PAN-CRD',  name: 'McKesson 12-Panel Urine Card',                    cat: 'Drug Test',   brand: 'McKesson', qty: 0,  max: 15, status: 'out' },
+  { sku: 'JBS-COMP-M-BG',  name: 'JOBST Compression Stockings 20-30mmHg — M, Beige',cat: 'Compression', brand: 'JOBST',    qty: 9,  max: 25, status: 'ok'  },
+  { sku: 'LIT-CIII-BLUE',  name: 'Littmann Classic III Stethoscope — Caribbean Blue',cat: 'Equipment',   brand: 'Littmann', qty: 4,  max: 12, status: 'low' },
+  { sku: 'MDL-GAIT-60BL',  name: 'Medline Gait Belt 60" — Blue',                    cat: 'Equipment',   brand: 'Medline',  qty: 11, max: 20, status: 'ok'  },
+  { sku: 'ACT-KNEE-M',     name: 'Actimove Knee Support — M',                       cat: 'Orthopedic',  brand: 'Actimove', qty: 7,  max: 20, status: 'ok'  },
+];
+
+function statusPill(s) {
+  if (s === 'ok')  return '<span class="pill pill-green">In Stock</span>';
+  if (s === 'low') return '<span class="pill pill-yellow">Low Stock</span>';
+  return '<span class="pill pill-red">Out of Stock</span>';
+}
+function barColor(s) {
+  if (s === 'ok')  return 'var(--green)';
+  if (s === 'low') return '#F59E0B';
+  return '#EF4444';
+}
+function highlight(text, q) {
+  if (!q) return text;
+  const re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return text.replace(re, '<mark>$1</mark>');
+}
+
+function renderInventory(rows, q) {
+  const tbody = document.getElementById('inv-tbody');
+  const empty = document.getElementById('inv-empty');
+  if (rows.length === 0) {
+    tbody.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+  tbody.innerHTML = rows.map(r => {
+    const pct = r.max > 0 ? Math.round((r.qty / r.max) * 100) : 0;
+    return `<tr>
+      <td>
+        <p class="font-semibold text-sm">${highlight(r.name, q)}</p>
+        <p class="text-xs text-gray-400 font-mono">${highlight(r.sku, q)}</p>
+      </td>
+      <td>${highlight(r.cat, q)}</td>
+      <td>${highlight(r.brand, q)}</td>
+      <td class="font-bold ${r.status === 'out' ? 'text-red-600' : ''}">${r.qty}</td>
+      <td style="min-width:100px;">
+        <div class="inv-bar"><div class="inv-bar-fill" style="width:${pct}%;background:${barColor(r.status)};"></div></div>
+        <p class="text-xs text-gray-400 mt-0.5">${pct}% of ${r.max}</p>
+      </td>
+      <td class="text-xs text-gray-400">${Math.round(r.max * 0.25)} units</td>
+      <td>${statusPill(r.status)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterInventory(q) {
+  const cat = document.getElementById('inv-cat').value;
+  const stat = document.getElementById('inv-status').value;
+  const lower = q.toLowerCase();
+  const rows = invData.filter(r => {
+    const matchText = !q || r.name.toLowerCase().includes(lower) || r.sku.toLowerCase().includes(lower) || r.brand.toLowerCase().includes(lower) || r.cat.toLowerCase().includes(lower);
+    const matchCat  = !cat  || r.cat === cat;
+    const matchStat = !stat || r.status === stat;
+    return matchText && matchCat && matchStat;
+  });
+  renderInventory(rows, q);
+}
+
+// Initial render
+renderInventory(invData, '');
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imprenta Delta — Sistema de Gestión | Demo Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --jp-blue: #4A9EC4;
+      --jp-blue-dark: #357a9a;
+      --jp-blue-light: #e8f4fa;
+      --jp-bg: #F5F5F5;
+      --jp-text: #222222;
+      --jp-gray: #BEBEBE;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--jp-bg);
+      color: var(--jp-text);
+      margin: 0;
+    }
+
+    /* BADGE FIJO */
+    .demo-badge {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      z-index: 9999;
+      background: #f59e0b;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* HEADER */
+    .site-header {
+      background: #fff;
+      border-bottom: 3px solid var(--jp-blue);
+      padding: 14px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .header-brand {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--jp-blue);
+      letter-spacing: -0.02em;
+    }
+    .header-subtitle {
+      font-size: 0.72rem;
+      color: #888;
+      font-style: italic;
+      margin-top: 1px;
+    }
+
+    /* TABS */
+    .tab-bar {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      padding: 12px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #6b7280;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .tab-btn:hover { color: var(--jp-blue); background: var(--jp-blue-light); }
+    .tab-btn.active {
+      color: var(--jp-blue);
+      border-bottom-color: var(--jp-blue);
+      background: var(--jp-blue-light);
+    }
+
+    /* VIEWS */
+    .view { display: none; padding: 24px 20px 100px; max-width: 1100px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    /* CARDS */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+
+    /* STATUS PILLS */
+    .pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+    .pill-cotizando  { background:#fef3c7; color:#92400e; }
+    .pill-produccion { background:#dbeafe; color:#1e40af; }
+    .pill-arte       { background:#ede9fe; color:#5b21b6; }
+    .pill-listo      { background:#dcfce7; color:#166534; }
+    .pill-entregado  { background:#f3f4f6; color:#374151; }
+    .pill-reorden    { background:#fee2e2; color:#991b1b; }
+
+    /* TABLE */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .data-table th {
+      background: var(--jp-blue-light);
+      color: var(--jp-blue-dark);
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .data-table td {
+      padding: 11px 12px;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: middle;
+    }
+    .data-table tr:hover td { background: #f9fafb; }
+
+    /* STAT CARDS */
+    .stat-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      flex: 1;
+      min-width: 140px;
+    }
+    .stat-card .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--jp-blue);
+      line-height: 1;
+    }
+    .stat-card .lbl { font-size: 0.76rem; color: #6b7280; margin-top: 4px; }
+
+    /* DETAIL CARD */
+    .detail-section { margin-bottom: 18px; }
+    .detail-section h4 {
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      margin: 0 0 8px;
+    }
+
+    /* TIMELINE */
+    .timeline { list-style: none; padding: 0; margin: 0; }
+    .timeline li {
+      display: flex;
+      gap: 12px;
+      padding-bottom: 16px;
+      position: relative;
+    }
+    .timeline li:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 28px;
+      width: 2px;
+      bottom: 0;
+      background: #e5e7eb;
+    }
+    .tl-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--jp-blue-light);
+      border: 2px solid var(--jp-blue);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--jp-blue);
+    }
+    .tl-dot.done { background: #dcfce7; border-color: #16a34a; color: #16a34a; }
+
+    /* DOLOR DRAMATIZACION */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) { .before-after { grid-template-columns: 1fr; } }
+
+    .before-card {
+      background: #fff5f5;
+      border: 1.5px solid #fca5a5;
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .after-card {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .ba-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .ba-label.sin { color: #ef4444; }
+    .ba-label.con { color: #16a34a; }
+
+    /* QUOTE SIMULATOR */
+    .quote-form label { font-size: 0.82rem; font-weight: 600; color: #374151; display: block; margin-bottom: 4px; }
+    .quote-form select, .quote-form input {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 7px;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+      background: #fff;
+      color: var(--jp-text);
+      outline: none;
+    }
+    .quote-form select:focus, .quote-form input:focus { border-color: var(--jp-blue); }
+
+    .btn-primary {
+      background: var(--jp-blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 22px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--jp-blue-dark); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--jp-blue);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 8px 16px;
+      border: 1.5px solid var(--jp-blue);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-outline:hover { background: var(--jp-blue-light); }
+
+    /* QUOTE RESULT */
+    .quote-result {
+      display: none;
+      background: var(--jp-blue-light);
+      border: 1.5px solid var(--jp-blue);
+      border-radius: 10px;
+      padding: 18px;
+      margin-top: 14px;
+      animation: fadeIn 0.3s ease;
+    }
+    .quote-result.show { display: block; }
+
+    /* CRM CARDS */
+    .crm-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .crm-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--jp-blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* SEARCH */
+    .search-input {
+      width: 100%;
+      padding: 11px 16px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      background: #fff;
+      margin-bottom: 18px;
+    }
+    .search-input:focus { border-color: var(--jp-blue); }
+
+    /* ALERT BANNER */
+    .alert-banner {
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.83rem;
+      color: #92400e;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* CTA FLOTANTE */
+    .cta-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 8888;
+      background: var(--jp-blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 14px 22px;
+      border-radius: 50px;
+      box-shadow: 0 4px 18px rgba(74,158,196,0.45);
+      border: none;
+      cursor: pointer;
+      transition: all 0.18s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .cta-float:hover {
+      background: var(--jp-blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(74,158,196,0.55);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 14px;
+      padding: 32px 28px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      animation: fadeIn 0.25s ease;
+      text-align: center;
+    }
+    .modal-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .modal-title { font-size: 1.2rem; font-weight: 800; color: var(--jp-text); margin-bottom: 8px; }
+    .modal-sub { font-size: 0.88rem; color: #6b7280; margin-bottom: 22px; line-height: 1.5; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* INTERACCION SIMULADA */
+    .action-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toast {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      z-index: 9997;
+      white-space: nowrap;
+      animation: fadeIn 0.2s ease;
+    }
+    .toast.show { display: block; }
+
+    /* Responsive flex helpers */
+    .flex-stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--jp-text);
+      margin: 0 0 14px;
+    }
+    .section-sub {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin: -10px 0 16px;
+    }
+    .divider { border: none; border-top: 1px solid #e5e7eb; margin: 20px 0; }
+
+    .badge-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      margin-left: 5px;
+    }
+
+    .arte-preview {
+      background: #f3f4f6;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      border: 2px dashed #d1d5db;
+      margin-bottom: 12px;
+    }
+    .arte-preview .arte-label { font-size: 0.8rem; color: #9ca3af; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<!-- BADGE FIJO -->
+<div class="demo-badge">DEMO &middot; DATOS DE MUESTRA</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:16px;">
+    <div>
+      <div class="header-brand">&#9679; Imprenta Delta</div>
+      <div class="header-subtitle">Así se vería su sistema propio &mdash; preparado por Pocho.tech</div>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="tablero" onclick="switchTab('tablero', this)">
+    Tablero de Trabajos
+  </button>
+  <button class="tab-btn" data-tab="detalle" onclick="switchTab('detalle', this)">
+    Ficha de Cliente
+  </button>
+  <button class="tab-btn" data-tab="cotizador" onclick="switchTab('cotizador', this)">
+    Cotizador en Línea
+    <span class="badge-count">!</span>
+  </button>
+  <button class="tab-btn" data-tab="crm" onclick="switchTab('crm', this)">
+    Reórdenes &amp; CRM
+  </button>
+</nav>
+
+<!-- ============================================================
+     VISTA 1: TABLERO DE TRABAJOS (operación diaria)
+     ============================================================ -->
+<section class="view active" id="view-tablero">
+
+  <!-- Stats -->
+  <div class="flex-stats">
+    <div class="stat-card">
+      <div class="num">12</div>
+      <div class="lbl">Trabajos activos</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" style="color:#f59e0b;">3</div>
+      <div class="lbl">Pendientes de arte</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" style="color:#16a34a;">5</div>
+      <div class="lbl">Listos para entrega</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" style="color:#ef4444;">2</div>
+      <div class="lbl">Con seguimiento urgente</div>
+    </div>
+  </div>
+
+  <!-- Alerta -->
+  <div class="alert-banner">
+    <span style="font-size:1.1rem;">&#9888;</span>
+    <span><strong>Restaurante El Patrón</strong> tiene su trabajo de menús listo hace 3 días y no ha pasado a recogerlo. Se enviará un aviso automático hoy.</span>
+  </div>
+
+  <h2 class="section-title">Trabajos del día — 28 de julio 2026</h2>
+
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cliente</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Estado</th>
+          <th>Entrega</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="tablero-body">
+        <tr>
+          <td><strong>JP-2147</strong></td>
+          <td>Constructora Sáenz</td>
+          <td>Polo bordado (logo) — Nike Dri-FIT</td>
+          <td>50 pzas</td>
+          <td><span class="pill pill-produccion">En producción</span></td>
+          <td>30 jul</td>
+          <td><button class="btn-outline" style="font-size:0.75rem;padding:5px 10px;" onclick="avanzarEstado('JP-2147', this)">Marcar listo</button></td>
+        </tr>
+        <tr id="row-JP-2148">
+          <td><strong>JP-2148</strong></td>
+          <td>Restaurante El Patrón</td>
+          <td>Menús offset + laminado (4x colores)</td>
+          <td>200 pzas</td>
+          <td id="status-JP-2148"><span class="pill pill-listo">Listo ✓</span></td>
+          <td>25 jul</td>
+          <td><button class="btn-outline" style="font-size:0.75rem;padding:5px 10px;" onclick="marcarEntregado(this)">Entregar</button></td>
+        </tr>
+        <tr>
+          <td><strong>JP-2149</strong></td>
+          <td>Escuela Bilingüe del Oeste</td>
+          <td>Hoodie screen print full-chest — Jerzees</td>
+          <td>120 pzas</td>
+          <td><span class="pill pill-arte">Aprobación de arte</span></td>
+          <td>3 ago</td>
+          <td><span style="font-size:0.78rem;color:#5b21b6;">Esperando cliente</span></td>
+        </tr>
+        <tr>
+          <td><strong>JP-2150</strong></td>
+          <td>Distribuidora Fuentes</td>
+          <td>Full vehicle wrap — 3M vinyl (van de reparto)</td>
+          <td>1 unidad</td>
+          <td><span class="pill pill-cotizando">Cotizando</span></td>
+          <td>—</td>
+          <td><button class="btn-outline" style="font-size:0.75rem;padding:5px 10px;">Ver cotización</button></td>
+        </tr>
+        <tr>
+          <td><strong>JP-2151</strong></td>
+          <td>Club Deportivo Águilas</td>
+          <td>Caps bordados 3D — Richardson 112</td>
+          <td>30 pzas</td>
+          <td><span class="pill pill-produccion">En producción</span></td>
+          <td>1 ago</td>
+          <td><button class="btn-outline" style="font-size:0.75rem;padding:5px 10px;" onclick="avanzarEstado('JP-2151', this)">Marcar listo</button></td>
+        </tr>
+        <tr>
+          <td><strong>JP-2152</strong></td>
+          <td>Inmobiliaria Torres</td>
+          <td>Yard signs corrugado 18x24 — con estacas</td>
+          <td>40 pzas</td>
+          <td><span class="pill pill-arte">Aprobación de arte</span></td>
+          <td>2 ago</td>
+          <td><span style="font-size:0.78rem;color:#5b21b6;">Esperando cliente</span></td>
+        </tr>
+        <tr>
+          <td><strong>JP-2153</strong></td>
+          <td>Salón Bella Mujer</td>
+          <td>Window graphics — vinilo impreso</td>
+          <td>3 paneles</td>
+          <td><span class="pill pill-listo">Listo ✓</span></td>
+          <td>27 jul</td>
+          <td><button class="btn-outline" style="font-size:0.75rem;padding:5px 10px;" onclick="marcarEntregado(this)">Entregar</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:0.78rem;color:#9ca3af;text-align:right;">Mostrando 7 de 12 trabajos activos &mdash; <span style="color:var(--jp-blue);cursor:pointer;">Ver todos</span></p>
+
+</section>
+
+<!-- ============================================================
+     VISTA 2: FICHA DE CLIENTE con historial
+     ============================================================ -->
+<section class="view" id="view-detalle">
+
+  <!-- Cliente header -->
+  <div class="card" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+    <div style="width:56px;height:56px;border-radius:50%;background:var(--jp-blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:800;flex-shrink:0;">CS</div>
+    <div style="flex:1;">
+      <div style="font-size:1.15rem;font-weight:800;color:var(--jp-text);">Constructora Sáenz</div>
+      <div style="font-size:0.82rem;color:#6b7280;">Carlos Sáenz &mdash; carlos@saenz.com &mdash; (713) 555-0194</div>
+      <div style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="pill pill-produccion">Cliente activo</span>
+        <span style="font-size:0.76rem;color:#6b7280;padding:3px 8px;background:#f3f4f6;border-radius:12px;">Cliente desde 2018</span>
+        <span style="font-size:0.76rem;color:#6b7280;padding:3px 8px;background:#f3f4f6;border-radius:12px;">Uniforme anual</span>
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:1.5rem;font-weight:800;color:var(--jp-blue);">$4,820</div>
+      <div style="font-size:0.76rem;color:#6b7280;">Total histórico</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+
+    <!-- Historial de órdenes -->
+    <div>
+      <div class="card">
+        <h4 class="section-title" style="font-size:0.9rem;">Historial de órdenes</h4>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Producto</th>
+              <th>Qty</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>JP-2147</strong></td>
+              <td>Polos bordados</td>
+              <td>50</td>
+              <td>$680</td>
+            </tr>
+            <tr>
+              <td>JP-2091</td>
+              <td>Polos bordados</td>
+              <td>50</td>
+              <td>$650</td>
+            </tr>
+            <tr>
+              <td>JP-2044</td>
+              <td>Hoodies screen print</td>
+              <td>30</td>
+              <td>$540</td>
+            </tr>
+            <tr>
+              <td>JP-1988</td>
+              <td>Caps bordados</td>
+              <td>25</td>
+              <td>$375</td>
+            </tr>
+            <tr>
+              <td>JP-1902</td>
+              <td>Polos bordados</td>
+              <td>50</td>
+              <td>$620</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;">
+          <button class="btn-primary" style="width:100%;font-size:0.82rem;" onclick="showToast('✅ Orden de reorden JP-2148-R creada para aprobación del cliente')">
+            Reordenar últimos 50 polos con un clic
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline + arte -->
+    <div>
+      <div class="card">
+        <h4 class="section-title" style="font-size:0.9rem;">Trabajo en curso — JP-2147</h4>
+        <ul class="timeline">
+          <li>
+            <div class="tl-dot done">✓</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;">Orden recibida</div>
+              <div style="font-size:0.76rem;color:#9ca3af;">22 jul 2026 · 9:14 am</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot done">✓</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;">Arte aprobado por cliente</div>
+              <div style="font-size:0.76rem;color:#9ca3af;">23 jul 2026 · 11:30 am &mdash; aprobado en portal</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot done">✓</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;">Pago confirmado</div>
+              <div style="font-size:0.76rem;color:#9ca3af;">23 jul 2026 · 12:01 pm</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot" style="background:#dbeafe;border-color:#3b82f6;color:#1e40af;">▶</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;color:#1e40af;">Bordado en proceso</div>
+              <div style="font-size:0.76rem;color:#9ca3af;">Iniciado 28 jul 2026 · En máquina #2</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot" style="background:#f3f4f6;border-color:#d1d5db;color:#9ca3af;">5</div>
+            <div>
+              <div style="font-size:0.84rem;font-weight:700;color:#9ca3af;">Lista para entrega</div>
+              <div style="font-size:0.76rem;color:#d1d5db;">Estimada: 30 jul 2026</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="section-title" style="font-size:0.9rem;">Arte aprobado en portal</h4>
+        <div class="arte-preview">
+          <div style="font-size:2.5rem;">🏗️</div>
+          <div style="font-size:0.85rem;font-weight:700;color:var(--jp-text);margin-top:6px;">Logo Constructora Sáenz v3.ai</div>
+          <div class="arte-label">Aprobado el 23 jul 2026 por Carlos Sáenz — sin llamada, sin email</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <span class="pill pill-listo" style="font-size:0.76rem;">Arte aprobado ✓</span>
+          <span style="font-size:0.76rem;color:#6b7280;padding:3px 8px;background:#f3f4f6;border-radius:12px;">Stitch count: 8,200</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     VISTA 3: COTIZADOR — DRAMA DEL DOLOR PRINCIPAL
+     ============================================================ -->
+<section class="view" id="view-cotizador">
+
+  <!-- Before / After -->
+  <h2 class="section-title">Sin sistema propio, cada trabajo empieza aquí:</h2>
+  <div class="before-after" style="margin-bottom:28px;">
+    <div class="before-card">
+      <div class="ba-label sin">&#128222; Sin sistema</div>
+      <ul style="font-size:0.85rem;color:#374151;margin:0;padding-left:18px;line-height:1.9;">
+        <li>Cliente llama al <strong>713-555-0173</strong></li>
+        <li>Delta anota en papel o email</li>
+        <li>Cotización se envía horas después</li>
+        <li>Arte va por email, aprobación por teléfono</li>
+        <li>Pago: efectivo o transferencia manual</li>
+        <li>Estado del trabajo: el cliente llama a preguntar</li>
+      </ul>
+      <div style="margin-top:14px;padding:10px;background:#fee2e2;border-radius:6px;font-size:0.8rem;color:#991b1b;">
+        <strong>Resultado real:</strong> si el cliente llama a las 6 pm o el sábado, el trabajo va al competidor con portal en línea.
+      </div>
+    </div>
+    <div class="after-card">
+      <div class="ba-label con">&#128187; Con su sistema propio</div>
+      <ul style="font-size:0.85rem;color:#374151;margin:0;padding-left:18px;line-height:1.9;">
+        <li>Cliente cotiza solo, <strong>24/7, desde su celular</strong></li>
+        <li>Cotización estimada en menos de 90 segundos</li>
+        <li>Sube el arte directamente al portal</li>
+        <li>Aprueba la prueba con un clic</li>
+        <li>Pago en línea integrado</li>
+        <li>Estado visible en tiempo real, sin llamadas</li>
+      </ul>
+      <div style="margin-top:14px;padding:10px;background:#dcfce7;border-radius:6px;font-size:0.8rem;color:#166534;">
+        <strong>Resultado:</strong> Delta recibe la orden mientras duerme. El cliente regresa porque el proceso fue fácil.
+      </div>
+    </div>
+  </div>
+
+  <!-- Cotizador simulado -->
+  <h2 class="section-title">Pruebe el cotizador &mdash; así lo vería su cliente</h2>
+  <p class="section-sub">Este es el portal que sus clientes de restaurantes, empresas y escuelas usarían desde su celular, sin tener que llamar.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="quote-form">
+        <label>Tipo de producto</label>
+        <select id="q-tipo" onchange="updateQuote()">
+          <option value="">Seleccione un producto...</option>
+          <option value="polo">Polo bordado (wearable)</option>
+          <option value="hoodie">Hoodie screen print</option>
+          <option value="cap">Cap bordado 3D</option>
+          <option value="wrap">Vehicle wrap completo</option>
+          <option value="banner">Roll-up banner</option>
+          <option value="menu">Menús impresos (offset)</option>
+          <option value="yard">Yard signs</option>
+          <option value="koozie">Koozies de neopreno</option>
+        </select>
+
+        <label>Cantidad de piezas</label>
+        <input type="number" id="q-qty" min="1" value="50" onchange="updateQuote()" placeholder="Ej: 50" />
+
+        <label>¿Incluye bordado personalizado?</label>
+        <select id="q-bordado" onchange="updateQuote()">
+          <option value="si">Sí, con logo bordado</option>
+          <option value="no">No, sin bordado</option>
+        </select>
+
+        <label>¿Tiene arte listo para usar?</label>
+        <select id="q-arte">
+          <option value="si">Sí, tengo archivo .AI / .PDF / .PNG</option>
+          <option value="no">No, necesito diseño incluido</option>
+        </select>
+
+        <div style="border-top:1px solid #f3f4f6;padding-top:14px;margin-top:4px;">
+          <div style="font-size:0.76rem;color:#9ca3af;margin-bottom:10px;">Arte (simulado &mdash; arrastre o seleccione)</div>
+          <div class="arte-preview" style="padding:14px;cursor:pointer;" onclick="showToast('📎 Archivo recibido: logo-empresa.ai — Delta lo revisará antes de confirmar')">
+            <div style="font-size:1.5rem;">&#128206;</div>
+            <div style="font-size:0.8rem;color:#6b7280;margin-top:4px;">Haga clic para subir su archivo</div>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;" onclick="calcularCotizacion()">
+          &#8594; Obtener cotización estimada
+        </button>
+      </div>
+
+      <div class="quote-result" id="quote-result">
+        <div style="font-size:0.8rem;color:var(--jp-blue-dark);font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;">Cotización estimada — Imprenta Delta</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+          <span style="font-size:0.85rem;color:#374151;" id="q-desc-line">Producto seleccionado</span>
+          <span style="font-size:0.85rem;font-weight:700;" id="q-price-line">—</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:14px;">
+          <span style="font-size:0.8rem;color:#9ca3af;">Tiempo estimado de entrega</span>
+          <span style="font-size:0.8rem;font-weight:600;" id="q-days-line">—</span>
+        </div>
+        <div style="background:#fff;border-radius:7px;padding:10px;font-size:0.78rem;color:#374151;border:1px solid #e5e7eb;margin-bottom:12px;">
+          <strong>Nota:</strong> Este es un rango estimado. El precio final depende del arte, colores, y especificaciones. Delta le confirmará en menos de 2 horas hábiles.
+        </div>
+        <button class="btn-primary" style="width:100%;font-size:0.84rem;" onclick="showToast('✅ Solicitud enviada a Imprenta Delta. Recibirá confirmación en su correo.')">
+          Confirmar y enviar solicitud
+        </button>
+      </div>
+    </div>
+
+    <!-- Por qué esto importa -->
+    <div>
+      <div class="card" style="background:var(--jp-blue);color:#fff;">
+        <div style="font-size:0.8rem;font-weight:700;letter-spacing:0.06em;opacity:0.8;margin-bottom:8px;">POR QUÉ ESTO IMPORTA PARA DELTA</div>
+        <div style="font-size:1.05rem;font-weight:800;margin-bottom:12px;line-height:1.4;">"IMPRESION DIGITAL" ya está en su sitio — sus clientes esperan poder hacer todo en línea.</div>
+        <hr style="border-color:rgba(255,255,255,0.2);margin-bottom:12px;" />
+        <div style="font-size:0.84rem;opacity:0.9;line-height:1.6;">
+          Ustedes tienen el producto y la reputación de 30 años. Lo que les falta es el sistema operativo digital que los clientes modernos ya dan por sentado.<br/><br/>
+          Portales como CustomInk y 4imprint ganan clientes no porque sean mejores impresores — sino porque el proceso es más fácil. <strong>Su sistema propio le da esa ventaja sin perder la relación personal.</strong>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:0;">
+        <div style="font-size:0.85rem;font-weight:700;color:var(--jp-text);margin-bottom:12px;">Productos con mayor demanda de cotización en línea:</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:80px;font-size:0.78rem;color:#374151;">Embroidery</div>
+            <div style="flex:1;background:#e5e7eb;border-radius:20px;height:8px;overflow:hidden;">
+              <div style="width:85%;background:var(--jp-blue);height:100%;border-radius:20px;"></div>
+            </div>
+            <div style="font-size:0.76rem;font-weight:700;color:var(--jp-blue);">85%</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:80px;font-size:0.78rem;color:#374151;">Screen print</div>
+            <div style="flex:1;background:#e5e7eb;border-radius:20px;height:8px;overflow:hidden;">
+              <div style="width:72%;background:var(--jp-blue);height:100%;border-radius:20px;"></div>
+            </div>
+            <div style="font-size:0.76rem;font-weight:700;color:var(--jp-blue);">72%</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:80px;font-size:0.78rem;color:#374151;">Signage</div>
+            <div style="flex:1;background:#e5e7eb;border-radius:20px;height:8px;overflow:hidden;">
+              <div style="width:61%;background:var(--jp-blue);height:100%;border-radius:20px;"></div>
+            </div>
+            <div style="font-size:0.76rem;font-weight:700;color:var(--jp-blue);">61%</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:80px;font-size:0.78rem;color:#374151;">Vehicle wrap</div>
+            <div style="flex:1;background:#e5e7eb;border-radius:20px;height:8px;overflow:hidden;">
+              <div style="width:44%;background:var(--jp-blue);height:100%;border-radius:20px;"></div>
+            </div>
+            <div style="font-size:0.76rem;font-weight:700;color:var(--jp-blue);">44%</div>
+          </div>
+        </div>
+        <div style="font-size:0.72rem;color:#9ca3af;margin-top:10px;">% de clientes que prefieren cotizar en línea vs. llamar (datos de industria print 2025)</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     VISTA 4: CRM — REÓRDENES Y BÚSQUEDA
+     ============================================================ -->
+<section class="view" id="view-crm">
+
+  <h2 class="section-title">Clientes con reorden probable este trimestre</h2>
+  <p class="section-sub">30 años de clientes en Houston — su sistema detecta automáticamente quién necesita reordenar.</p>
+
+  <div class="alert-banner" style="background:#faf5ff;border-color:#c4b5fd;color:#5b21b6;">
+    <span style="font-size:1.1rem;">&#9888;</span>
+    <span><strong>Sin CRM:</strong> usted no sabe cuántos de sus 113+ clientes necesitan reordenar uniformes este mes. <strong>Con su sistema:</strong> el sistema los detecta y usted solo aprueba el mensaje.</span>
+  </div>
+
+  <!-- Búsqueda -->
+  <input class="search-input" type="text" placeholder="&#128269;  Buscar cliente, producto, teléfono..." id="searchInput" oninput="filterClients()" />
+
+  <!-- Clientes con reorden -->
+  <div id="clients-list">
+
+    <div class="crm-card" data-name="constructora sáenz uniforme polo bordado">
+      <div class="crm-avatar">CS</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:0.9rem;">Constructora Sáenz</div>
+        <div style="font-size:0.78rem;color:#6b7280;">Último: 50 polos bordados — hace 11 meses</div>
+        <div style="margin-top:4px;"><span class="pill pill-reorden">Reorden probable</span> <span style="font-size:0.74rem;color:#6b7280;margin-left:6px;">Ciclo anual de uniformes</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--jp-blue);">$650–$700</div>
+        <div style="font-size:0.72rem;color:#9ca3af;">valor estimado</div>
+        <button class="btn-primary" style="margin-top:6px;font-size:0.76rem;padding:6px 12px;" onclick="showToast('📱 Recordatorio enviado a Constructora Sáenz por WhatsApp')">Enviar aviso</button>
+      </div>
+    </div>
+
+    <div class="crm-card" data-name="escuela bilingüe uniforme hoodie">
+      <div class="crm-avatar" style="background:#7c3aed;">EB</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:0.9rem;">Escuela Bilingüe del Oeste</div>
+        <div style="font-size:0.78rem;color:#6b7280;">Último: 120 hoodies — hace 9 meses</div>
+        <div style="margin-top:4px;"><span class="pill pill-reorden">Reorden probable</span> <span style="font-size:0.74rem;color:#6b7280;margin-left:6px;">Ciclo escolar agosto</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--jp-blue);">$900–$1,100</div>
+        <div style="font-size:0.72rem;color:#9ca3af;">valor estimado</div>
+        <button class="btn-primary" style="margin-top:6px;font-size:0.76rem;padding:6px 12px;" onclick="showToast('📧 Correo de reorden enviado a Escuela Bilingüe del Oeste')">Enviar aviso</button>
+      </div>
+    </div>
+
+    <div class="crm-card" data-name="distribuidora fuentes vehicle wrap flotilla">
+      <div class="crm-avatar" style="background:#0d9488;">DF</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:0.9rem;">Distribuidora Fuentes</div>
+        <div style="font-size:0.78rem;color:#6b7280;">Último: Full vehicle wrap (1 van) — hace 14 meses</div>
+        <div style="margin-top:4px;"><span class="pill pill-reorden">Reorden probable</span> <span style="font-size:0.74rem;color:#6b7280;margin-left:6px;">Renovación de flotilla</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--jp-blue);">$2,800+</div>
+        <div style="font-size:0.72rem;color:#9ca3af;">valor estimado</div>
+        <button class="btn-primary" style="margin-top:6px;font-size:0.76rem;padding:6px 12px;" onclick="showToast('📱 Recordatorio de renovación de flotilla enviado a Distribuidora Fuentes')">Enviar aviso</button>
+      </div>
+    </div>
+
+    <div class="crm-card" data-name="restaurante el patrón menú offset">
+      <div class="crm-avatar" style="background:#d97706;">EP</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:0.9rem;">Restaurante El Patrón</div>
+        <div style="font-size:0.78rem;color:#6b7280;">Último: 200 menús offset — trabajo actual entregado</div>
+        <div style="margin-top:4px;"><span class="pill pill-produccion">Activo ahora</span> <span style="font-size:0.74rem;color:#6b7280;margin-left:6px;">Campaña Q4 pendiente</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--jp-blue);">$300–$450</div>
+        <div style="font-size:0.72rem;color:#9ca3af;">próxima orden est.</div>
+        <button class="btn-outline" style="margin-top:6px;font-size:0.76rem;padding:6px 12px;" onclick="showToast('📋 Nota de seguimiento guardada para Restaurante El Patrón')">Anotar seguimiento</button>
+      </div>
+    </div>
+
+    <div class="crm-card" data-name="club deportivo águilas caps bordado uniforme">
+      <div class="crm-avatar" style="background:#ef4444;">CA</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;font-size:0.9rem;">Club Deportivo Águilas</div>
+        <div style="font-size:0.78rem;color:#6b7280;">Último: 30 caps bordados — hace 7 meses</div>
+        <div style="margin-top:4px;"><span class="pill" style="background:#fef9c3;color:#713f12;">Seguimiento en 2 meses</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--jp-blue);">$400–$500</div>
+        <div style="font-size:0.72rem;color:#9ca3af;">valor estimado</div>
+        <button class="btn-outline" style="margin-top:6px;font-size:0.76rem;padding:6px 12px;" onclick="showToast('⏰ Recordatorio programado en 60 días para Club Deportivo Águilas')">Programar aviso</button>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Reporte rápido -->
+  <div class="grid-2">
+    <div class="card">
+      <h4 class="section-title" style="font-size:0.9rem;">Resumen del trimestre</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:#6b7280;">Clientes con reorden probable</span>
+          <span style="font-weight:700;color:#ef4444;">8 clientes</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:#6b7280;">Valor estimado recuperable</span>
+          <span style="font-weight:700;color:var(--jp-blue);">$6,200–$8,400</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:#6b7280;">Avisos pendientes de enviar</span>
+          <span style="font-weight:700;color:#f59e0b;">5 clientes</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+          <span style="color:#6b7280;">Clientes sin contacto en 12+ meses</span>
+          <span style="font-weight:700;color:#ef4444;">3 clientes</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h4 class="section-title" style="font-size:0.9rem;">Filtrar por categoría</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <button class="btn-outline" style="text-align:left;font-size:0.82rem;" onclick="showToast('🔍 Mostrando: clientes de bordado con +10 meses sin reorden')">&#129527; Solo bordado / embroidery</button>
+        <button class="btn-outline" style="text-align:left;font-size:0.82rem;" onclick="showToast('🔍 Mostrando: clientes de vehicle wrap con +12 meses')">&#128663; Solo vehicle wraps</button>
+        <button class="btn-outline" style="text-align:left;font-size:0.82rem;" onclick="showToast('🔍 Mostrando: clientes de signage y banners')">&#127932; Solo signage y banners</button>
+        <button class="btn-outline" style="text-align:left;font-size:0.82rem;" onclick="showToast('📋 Reporte exportado como PDF')">&#128196; Exportar reporte PDF</button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA FLOTANTE -->
+<a class="cta-float" onclick="openModal(); return false;" href="#">
+  ¿Le gustó? Hablemos
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <div class="modal-icon">&#127944;</div>
+    <div class="modal-title">Esto puede ser de Imprenta Delta</div>
+    <div class="modal-sub">
+      Un sistema propio construido para su negocio: cotizaciones en línea, portal de aprobación de arte, historial de clientes y alertas automáticas de reorden.<br/><br/>
+      Hablamos, vemos si encaja, y usted decide.
+    </div>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=joviprinting" target="_blank" rel="noopener"
+       style="display:block;background:var(--jp-blue);color:#fff;font-weight:700;font-size:0.95rem;padding:13px 28px;border-radius:8px;text-decoration:none;margin-bottom:10px;"
+       onclick="closeModal()">
+      Agendar una conversación
+    </a>
+    <button onclick="closeModal()" style="background:transparent;border:none;color:#9ca3af;font-size:0.82rem;cursor:pointer;padding:6px;">
+      Quizás después
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#fff;border-top:1px solid #e5e7eb;padding:18px 24px;text-align:center;">
+  <p style="font-size:0.76rem;color:#9ca3af;margin:0;">
+    Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
+  </p>
+</footer>
+
+<script>
+  // ── ESTADO GLOBAL ──────────────────────────────────────────
+  let viewCount = 1; // ya empieza en 1 (vista inicial cuenta)
+  let modalShown = sessionStorage.getItem('jovi_modal_shown') === 'true';
+  let modalTimer = null;
+
+  // ── TABS ───────────────────────────────────────────────────
+  function switchTab(tabId, btn) {
+    // Ocultar todas las vistas
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    document.getElementById('view-' + tabId).classList.add('active');
+    btn.classList.add('active');
+
+    viewCount++;
+    checkModalTrigger();
+  }
+
+  // ── MODAL ──────────────────────────────────────────────────
+  function checkModalTrigger() {
+    if (!modalShown && viewCount >= 3) {
+      triggerModal();
+    }
+  }
+
+  function triggerModal() {
+    if (modalShown) return;
+    modalShown = true;
+    sessionStorage.setItem('jovi_modal_shown', 'true');
+    clearTimeout(modalTimer);
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function openModal() {
+    if (modalShown) {
+      window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=joviprinting', '_blank');
+      return;
+    }
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  // Timer 75 segundos
+  modalTimer = setTimeout(() => {
+    if (!modalShown) triggerModal();
+  }, 75000);
+
+  // ── TABLERO — INTERACCIÓN SIMULADA ─────────────────────────
+  function avanzarEstado(codigo, btn) {
+    const row = btn.closest('tr');
+    const statusCell = row.cells[4];
+    statusCell.innerHTML = '<span class="pill pill-listo">Listo ✓</span>';
+    btn.textContent = 'Entregar';
+    btn.onclick = function() { marcarEntregado(this); };
+    showToast('✅ ' + codigo + ' marcado como listo — se notificó al cliente automáticamente');
+  }
+
+  function marcarEntregado(btn) {
+    const row = btn.closest('tr');
+    const statusCell = row.cells[4];
+    statusCell.innerHTML = '<span class="pill pill-entregado">Entregado</span>';
+    btn.style.display = 'none';
+    showToast('📦 Trabajo marcado como entregado y registrado en historial del cliente');
+  }
+
+  // ── COTIZADOR ─────────────────────────────────────────────
+  const precios = {
+    polo:   { rango: '$10 – $15 por pieza', dias: '5–7 días hábiles' },
+    hoodie: { rango: '$18 – $26 por pieza', dias: '5–8 días hábiles' },
+    cap:    { rango: '$8 – $14 por pieza',  dias: '4–6 días hábiles' },
+    wrap:   { rango: '$1,800 – $3,200 por vehículo', dias: '3–5 días hábiles (cita requerida)' },
+    banner: { rango: '$45 – $90 por pieza', dias: '2–4 días hábiles' },
+    menu:   { rango: '$0.80 – $2.50 por pieza', dias: '3–5 días hábiles' },
+    yard:   { rango: '$4.50 – $9 por pieza', dias: '2–4 días hábiles' },
+    koozie: { rango: '$2 – $4.50 por pieza (mín. 50)', dias: '7–10 días hábiles' },
+  };
+
+  function updateQuote() { /* real-time update hook — no-op hasta calc */ }
+
+  function calcularCotizacion() {
+    const tipo = document.getElementById('q-tipo').value;
+    const qty  = parseInt(document.getElementById('q-qty').value) || 1;
+
+    if (!tipo) {
+      showToast('⚠️ Por favor seleccione un tipo de producto');
+      return;
+    }
+
+    const p = precios[tipo];
+    const nombres = {
+      polo: 'Polos bordados', hoodie: 'Hoodies screen print', cap: 'Caps bordados 3D',
+      wrap: 'Vehicle wrap 3M vinyl', banner: 'Roll-up banners', menu: 'Menús offset',
+      yard: 'Yard signs corrugado', koozie: 'Koozies neopreno'
+    };
+
+    document.getElementById('q-desc-line').textContent = nombres[tipo] + ' ×' + qty;
+    document.getElementById('q-price-line').textContent = p.rango;
+    document.getElementById('q-days-line').textContent = p.dias;
+
+    const result = document.getElementById('quote-result');
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    showToast('💬 Cotización estimada generada — sin llamadas, en segundos');
+  }
+
+  // ── BÚSQUEDA CRM ──────────────────────────────────────────
+  function filterClients() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    document.querySelectorAll('#clients-list .crm-card').forEach(card => {
+      const data = card.getAttribute('data-name') || '';
+      card.style.display = data.includes(q) || q === '' ? 'flex' : 'none';
+    });
+  }
+
+  // ── TOAST ─────────────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

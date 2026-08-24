@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentinel Facility Services — Operations Portal Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy:   #1B2A4A;
+      --orange: #E8831A;
+      --bg:     #F5F5F5;
+      --text:   #2D2D2D;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+    }
+
+    /* ── Header ─────────────────────────────────────── */
+    #site-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 64px;
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+    }
+    #site-header .brand { display: flex; flex-direction: column; }
+    #site-header .brand-name { font-size: 1.15rem; font-weight: 700; letter-spacing: .02em; }
+    #site-header .brand-sub  { font-size: 0.72rem; color: #a8b9d4; margin-top: 1px; }
+    .demo-badge {
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 4px 10px;
+      border-radius: 99px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Tabs ────────────────────────────────────────── */
+    #tab-bar {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    #tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: #a8b9d4;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      padding: 0.7rem 1.2rem;
+      transition: color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover  { color: #fff; }
+    .tab-btn.active { color: #fff; border-bottom-color: var(--orange); }
+
+    /* ── Tab Panels ─────────────────────────────────── */
+    .tab-panel { display: none; padding: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .tab-panel.active { display: block; }
+
+    /* ── Cards / Containers ──────────────────────────── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #6b7a99;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Status Badges ───────────────────────────────── */
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      padding: 2px 9px;
+      border-radius: 99px;
+    }
+    .badge-open      { background: #fff3e0; color: #b45309; }
+    .badge-progress  { background: #e0edff; color: #1d4ed8; }
+    .badge-review    { background: #f3e8ff; color: #7c3aed; }
+    .badge-complete  { background: #dcfce7; color: #15803d; }
+    .badge-overdue   { background: #fee2e2; color: #b91c1c; }
+    .badge-scheduled { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
+    /* ── Trade Tags ──────────────────────────────────── */
+    .trade-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 1px 7px;
+      border-radius: 4px;
+      margin-right: 3px;
+      margin-bottom: 2px;
+      border: 1px solid;
+    }
+    .trade-hood      { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+    .trade-restore   { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+    .trade-roofing   { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+    .trade-paving    { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+    .trade-janitorial{ background: #fdf4ff; color: #86198f; border-color: #f0abfc; }
+    .trade-hvac      { background: #ecfeff; color: #0e7490; border-color: #a5f3fc; }
+
+    /* ── Priority Dot ────────────────────────────────── */
+    .prio { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; }
+    .prio-high   { background: #ef4444; }
+    .prio-med    { background: #f59e0b; }
+    .prio-low    { background: #22c55e; }
+
+    /* ── Table ───────────────────────────────────────── */
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: #6b7a99;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid #f1f3f7;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr.wo-row { cursor: pointer; transition: background .1s; }
+    tr.wo-row:hover { background: #f8faff; }
+    tr.wo-row.flash-new { animation: flashRow .8s ease; }
+    @keyframes flashRow {
+      0%   { background: #fff9e6; }
+      50%  { background: #fef08a; }
+      100% { background: transparent; }
+    }
+
+    /* ── Stat Cards ──────────────────────────────────── */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: .75rem; margin-bottom: 1.25rem; }
+    .stat-card { background: #fff; border-radius: 8px; padding: .9rem 1rem; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
+    .stat-val  { font-size: 1.8rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .stat-lbl  { font-size: 0.68rem; font-weight: 600; color: #6b7a99; margin-top: 4px; text-transform: uppercase; letter-spacing: .04em; }
+    .stat-delta { font-size: 0.72rem; margin-top: 6px; }
+    .delta-up   { color: #16a34a; }
+    .delta-warn { color: #b45309; }
+
+    /* ── Timeline ────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 1.5rem; }
+    .timeline::before {
+      content:''; position:absolute; left:6px; top:4px; bottom:4px;
+      width:2px; background:#e5e7eb; border-radius:2px;
+    }
+    .tl-item { position:relative; margin-bottom:1rem; }
+    .tl-dot {
+      position:absolute; left:-1.5rem; top:2px;
+      width:14px; height:14px; border-radius:50%;
+      border:2px solid #fff; box-shadow:0 0 0 1px #d1d5db;
+      background:#fff;
+    }
+    .tl-dot.done    { background:var(--navy); box-shadow:0 0 0 1px var(--navy); }
+    .tl-dot.active  { background:var(--orange); box-shadow:0 0 0 2px rgba(232,131,26,.3); }
+    .tl-dot.pending { background:#e5e7eb; }
+    .tl-date { font-size:0.68rem; color:#9ca3af; margin-bottom:1px; }
+    .tl-text { font-size:0.82rem; color:var(--text); }
+    .tl-sub  { font-size:0.72rem; color:#6b7a99; margin-top:1px; }
+
+    /* ── Progress Bar ────────────────────────────────── */
+    .progress-track { background:#e5e7eb; border-radius:99px; height:6px; overflow:hidden; }
+    .progress-fill  { height:100%; border-radius:99px; background:var(--navy); transition:width .4s ease; }
+
+    /* ── Photo Grid ──────────────────────────────────── */
+    .photo-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:.75rem; }
+    .photo-thumb {
+      aspect-ratio:4/3; border-radius:6px; overflow:hidden;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.7rem; font-weight:600; color:#fff; text-align:center;
+      position:relative;
+    }
+    .photo-label {
+      position:absolute; bottom:0; left:0; right:0;
+      background:rgba(0,0,0,.55); font-size:0.65rem;
+      padding:3px 6px; color:#fff;
+    }
+
+    /* ── Pain Panel ──────────────────────────────────── */
+    .pain-split { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    @media(max-width:640px) { .pain-split { grid-template-columns:1fr; } }
+    .pain-card {
+      border-radius:10px; padding:1.25rem;
+      box-shadow:0 1px 4px rgba(0,0,0,.08);
+    }
+    .pain-before { background:#fff5f5; border:1px solid #fecaca; }
+    .pain-after  { background:#f0fdf4; border:1px solid #bbf7d0; }
+    .pain-head   { font-size:0.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin-bottom:.75rem; }
+    .pain-head-before { color:#b91c1c; }
+    .pain-head-after  { color:#15803d; }
+    .pain-item { display:flex; gap:.5rem; margin-bottom:.6rem; font-size:0.82rem; }
+
+    /* ── Search / Report ─────────────────────────────── */
+    .search-input {
+      width:100%; border:1px solid #e5e7eb; border-radius:6px;
+      padding:.55rem .85rem; font-size:.85rem; color:var(--text);
+      background:#fff; outline:none; transition:border .15s;
+    }
+    .search-input:focus { border-color: var(--navy); }
+    .filter-chip {
+      display:inline-block; background:#fff; border:1px solid #e5e7eb;
+      border-radius:99px; padding:4px 12px; font-size:.75rem; font-weight:600;
+      cursor:pointer; transition:all .15s;
+    }
+    .filter-chip:hover,.filter-chip.active { background:var(--navy); color:#fff; border-color:var(--navy); }
+
+    /* ── CTA Float ───────────────────────────────────── */
+    #cta-float {
+      position:fixed; bottom:1.5rem; right:1.5rem; z-index:50;
+      background:var(--orange); color:#fff;
+      border:none; border-radius:99px;
+      padding:.75rem 1.4rem;
+      font-size:.85rem; font-weight:700;
+      cursor:pointer;
+      box-shadow:0 4px 16px rgba(232,131,26,.45);
+      transition:transform .15s, box-shadow .15s;
+    }
+    #cta-float:hover { transform:translateY(-2px); box-shadow:0 6px 22px rgba(232,131,26,.55); }
+
+    /* ── Modal ───────────────────────────────────────── */
+    #modal-overlay {
+      display:none; position:fixed; inset:0; z-index:100;
+      background:rgba(27,42,74,.55); backdrop-filter:blur(3px);
+      align-items:center; justify-content:center; padding:1rem;
+    }
+    #modal-overlay.open { display:flex; }
+    #modal-box {
+      background:#fff; border-radius:14px; padding:2rem 2rem 1.75rem;
+      max-width:440px; width:100%;
+      box-shadow:0 20px 60px rgba(27,42,74,.25);
+      text-align:center; animation:modalIn .2s ease;
+    }
+    @keyframes modalIn {
+      from { opacity:0; transform:translateY(12px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    #modal-box h2 { color:var(--navy); font-size:1.25rem; font-weight:800; margin:0 0 .5rem; }
+    #modal-box p  { font-size:.85rem; color:#4b5563; margin:.35rem 0; }
+    .modal-cta {
+      display:block; margin-top:1.25rem;
+      background:var(--orange); color:#fff;
+      border:none; border-radius:99px;
+      padding:.75rem 1.5rem; font-size:.9rem; font-weight:700;
+      cursor:pointer; text-decoration:none; width:100%;
+      transition:opacity .15s;
+    }
+    .modal-cta:hover { opacity:.9; }
+    .modal-skip {
+      margin-top:.65rem; display:block;
+      font-size:.75rem; color:#9ca3af; cursor:pointer;
+      background:none; border:none;
+    }
+    .modal-skip:hover { color:#6b7a99; }
+
+    /* ── Footer ──────────────────────────────────────── */
+    footer {
+      background:var(--navy); color:#a8b9d4;
+      text-align:center; font-size:.72rem;
+      padding:1rem 1.5rem; margin-top:2rem;
+    }
+    footer span { color:#fff; font-weight:600; }
+
+    /* ── Misc Utility ────────────────────────────────── */
+    .divider { border:none; border-top:1px solid #f1f3f7; margin:1rem 0; }
+    .icon-circle {
+      width:36px; height:36px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem; flex-shrink:0;
+    }
+    .btn-primary {
+      background:var(--navy); color:#fff;
+      border:none; border-radius:6px;
+      padding:.5rem 1.1rem; font-size:.8rem; font-weight:700;
+      cursor:pointer; transition:opacity .15s;
+    }
+    .btn-primary:hover { opacity:.85; }
+    .btn-orange {
+      background:var(--orange); color:#fff;
+      border:none; border-radius:6px;
+      padding:.5rem 1.1rem; font-size:.8rem; font-weight:700;
+      cursor:pointer; transition:opacity .15s;
+    }
+    .btn-orange:hover { opacity:.85; }
+    .inline-alert {
+      background:#fff3e0; border:1px solid #fed7aa;
+      border-radius:8px; padding:.75rem 1rem;
+      font-size:.8rem; color:#7c2d12; margin-bottom:.85rem;
+      display:flex; gap:.6rem; align-items:flex-start;
+    }
+
+    @media(max-width:600px){
+      .tab-btn { padding:.6rem .85rem; font-size:.76rem; }
+      .stat-val { font-size:1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ HEADER ════════════ -->
+<header id="site-header">
+  <div class="brand">
+    <span class="brand-name">Sentinel Facility Services</span>
+    <span class="brand-sub">What your own system would look like — prepared by Pocho.tech</span>
+  </div>
+  <span class="demo-badge">DEMO · sample data</span>
+</header>
+
+<!-- ════════════ TABS ════════════ -->
+<nav id="tab-bar" role="tablist">
+  <button class="tab-btn active" data-tab="dispatch"   role="tab">📋 Dispatch Board</button>
+  <button class="tab-btn"        data-tab="detail"     role="tab">🔧 Work Order Detail</button>
+  <button class="tab-btn"        data-tab="portal"     role="tab">⚡ Client Portal</button>
+  <button class="tab-btn"        data-tab="reports"    role="tab">📊 Reports &amp; Search</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TAB 1 — DISPATCH BOARD (daily operations view)
+═══════════════════════════════════════════════════════════════ -->
+<section id="tab-dispatch" class="tab-panel active">
+
+  <!-- Stat Row -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-val" id="stat-open">14</div>
+      <div class="stat-lbl">Open Work Orders</div>
+      <div class="stat-delta delta-warn">3 overdue</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">6</div>
+      <div class="stat-lbl">In Progress Today</div>
+      <div class="stat-delta delta-up">↑ 2 vs yesterday</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">28</div>
+      <div class="stat-lbl">Upcoming (7 days)</div>
+      <div class="stat-delta" style="color:#6b7a99;">Recurring services</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">$47,820</div>
+      <div class="stat-lbl">Unbilled this month</div>
+      <div class="stat-delta delta-warn">12 uninvoiced WOs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="stat-upsell">5</div>
+      <div class="stat-lbl">Upsell Alerts</div>
+      <div class="stat-delta delta-up">Flagged by techs</div>
+    </div>
+  </div>
+
+  <!-- Inline alert: the pain dramatized -->
+  <div class="inline-alert">
+    <span style="font-size:1.1rem;flex-shrink:0;">📞</span>
+    <div>
+      <strong>Before this system:</strong> every one of these work orders started as a phone call to <strong>713-555-0142</strong>.
+      Facility managers at 20+ locations, no way to submit or track requests online — every update required a callback.
+    </div>
+  </div>
+
+  <!-- Action row -->
+  <div style="display:flex;gap:.6rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;">
+    <button class="btn-orange" id="btn-new-wo" onclick="dispatchNewWO()">+ New Work Order</button>
+    <button class="btn-primary" onclick="showTab('reports')">Search WOs</button>
+    <select style="border:1px solid #e5e7eb;border-radius:6px;padding:.45rem .7rem;font-size:.8rem;color:var(--text);background:#fff;cursor:pointer;">
+      <option>All Trades</option>
+      <option>Hood Cleaning</option>
+      <option>Fire &amp; Water Restoration</option>
+      <option>Roofing</option>
+      <option>Paving</option>
+      <option>Janitorial</option>
+    </select>
+    <select style="border:1px solid #e5e7eb;border-radius:6px;padding:.45rem .7rem;font-size:.8rem;color:var(--text);background:#fff;cursor:pointer;">
+      <option>All Status</option>
+      <option>Open</option>
+      <option>In Progress</option>
+      <option>Awaiting Review</option>
+      <option>Complete</option>
+    </select>
+  </div>
+
+  <!-- Work Order Table -->
+  <div class="card" style="padding:0;overflow-x:auto;">
+    <table id="wo-table">
+      <thead>
+        <tr>
+          <th style="width:28px;"></th>
+          <th>WO #</th>
+          <th>Location / Client</th>
+          <th>Trade(s)</th>
+          <th>Status</th>
+          <th>Scheduled</th>
+          <th>Assigned Tech</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="wo-tbody">
+        <!-- Rows injected by JS -->
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TAB 2 — WORK ORDER DETAIL (ficha with history)
+═══════════════════════════════════════════════════════════════ -->
+<section id="tab-detail" class="tab-panel">
+
+  <!-- WO Header -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.75rem;">
+      <div>
+        <div style="font-size:.72rem;color:#6b7a99;margin-bottom:2px;">WORK ORDER</div>
+        <div style="font-size:1.4rem;font-weight:800;color:var(--navy);">WO-2024-0187</div>
+        <div style="font-size:.82rem;color:#4b5563;margin-top:2px;">
+          QSR — Pasadena, TX · Created Jul 14, 2026 · Priority: <strong style="color:#ef4444;">HIGH</strong>
+        </div>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+        <span class="badge badge-progress">In Progress</span>
+        <span class="trade-tag trade-hood">Hood Cleaning</span>
+        <span class="trade-tag trade-restore">Fire &amp; Water Restoration</span>
+      </div>
+    </div>
+    <hr class="divider">
+    <!-- Details grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;font-size:.82rem;">
+      <div>
+        <div class="section-title" style="margin-bottom:2px;">Assigned Technician</div>
+        <div style="font-weight:600;">Roberto M.</div>
+        <div style="color:#6b7a99;">Hood cleaning cert · IICRC</div>
+      </div>
+      <div>
+        <div class="section-title" style="margin-bottom:2px;">Service Frequency</div>
+        <div style="font-weight:600;">Monthly (NFPA 96)</div>
+        <div style="color:#6b7a99;">Next due: Aug 14, 2026</div>
+      </div>
+      <div>
+        <div class="section-title" style="margin-bottom:2px;">Scope</div>
+        <div style="font-weight:600;">Hood clean + emergency restoration</div>
+        <div style="color:#6b7a99;">Charbroiler line · water leak detected</div>
+      </div>
+      <div>
+        <div class="section-title" style="margin-bottom:2px;">Estimate</div>
+        <div style="font-weight:600;">$3,450</div>
+        <div style="color:#6b7a99;">Awaiting adjuster coordination</div>
+      </div>
+    </div>
+    <hr class="divider">
+    <!-- Progress bar -->
+    <div class="section-title">Completion Progress</div>
+    <div style="display:flex;align-items:center;gap:.75rem;">
+      <div class="progress-track" style="flex:1;">
+        <div class="progress-fill" style="width:65%;"></div>
+      </div>
+      <span style="font-size:.78rem;font-weight:700;color:var(--navy);">65%</span>
+    </div>
+    <div style="font-size:.72rem;color:#6b7a99;margin-top:4px;">Hood cleaning complete · Restoration drying phase active</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+
+    <!-- Compliance / NFPA 96 block -->
+    <div class="card">
+      <div class="section-title">Compliance &amp; Certifications</div>
+      <div style="font-size:.82rem;">
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
+          <span>NFPA 96 Service Report</span><span style="color:#15803d;font-weight:700;">✓ Generated</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
+          <span>Grease buildup — before</span><span style="color:#15803d;font-weight:700;">✓ Documented</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
+          <span>Exhaust fan inspection</span><span style="color:#15803d;font-weight:700;">✓ Pass</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
+          <span>Moisture readings — Day 1</span><span style="color:#15803d;font-weight:700;">✓ Logged</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid #f1f3f7;">
+          <span>Moisture readings — Day 2</span><span style="color:#f59e0b;font-weight:700;">⏳ Pending</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:.4rem 0;">
+          <span>Scope report (adjuster)</span><span style="color:#f59e0b;font-weight:700;">⏳ In Review</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo documentation -->
+    <div class="card">
+      <div class="section-title">Photo Documentation</div>
+      <div class="photo-grid">
+        <div class="photo-thumb" style="background:linear-gradient(135deg,#374151,#1f2937);">
+          <span>Hood<br>Before</span>
+          <span class="photo-label">Jul 14 · 08:22 AM</span>
+        </div>
+        <div class="photo-thumb" style="background:linear-gradient(135deg,#1B2A4A,#2d4070);">
+          <span>Hood<br>After</span>
+          <span class="photo-label">Jul 14 · 11:45 AM</span>
+        </div>
+        <div class="photo-thumb" style="background:linear-gradient(135deg,#374151,#4b5563);">
+          <span>Water<br>Damage</span>
+          <span class="photo-label">Jul 14 · 12:10 PM</span>
+        </div>
+        <div class="photo-thumb" style="background:linear-gradient(135deg,#1e3a5f,#1B2A4A);">
+          <span>Drying<br>Setup</span>
+          <span class="photo-label">Jul 15 · 09:00 AM</span>
+        </div>
+      </div>
+      <div style="font-size:.72rem;color:#6b7a99;margin-top:.6rem;">
+        Auto-delivered to facility manager upon job close. No email thread required.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Activity Timeline -->
+  <div class="card">
+    <div class="section-title">Activity &amp; History</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-date">Jul 14, 2026 · 7:55 AM</div>
+        <div class="tl-text"><strong>Work order submitted</strong> — Client portal (facility manager, Pasadena location)</div>
+        <div class="tl-sub">Multi-trade WO created in 90 seconds. No phone call required.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-date">Jul 14, 2026 · 8:10 AM</div>
+        <div class="tl-text"><strong>Dispatched</strong> — Roberto M. assigned, ETA confirmed</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-date">Jul 14, 2026 · 8:22 AM</div>
+        <div class="tl-text"><strong>On-site — Hood cleaning started</strong></div>
+        <div class="tl-sub">Before photos uploaded. Grease buildup documented per NFPA 96.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-date">Jul 14, 2026 · 12:00 PM</div>
+        <div class="tl-text"><strong>Hood cleaning complete</strong> — NFPA 96 service report generated</div>
+        <div class="tl-sub">Tech flagged water intrusion at roofline. Restoration WO auto-added to same job.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-date">Jul 15, 2026 · 9:00 AM</div>
+        <div class="tl-text"><strong>Restoration — Drying equipment deployed</strong></div>
+        <div class="tl-sub">Moisture readings logged: Day 1. Drying log started. Adjuster coordination initiated.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-date">Jul 16, 2026 · — (today)</div>
+        <div class="tl-text"><strong>Drying Day 2 — moisture readings pending</strong></div>
+        <div class="tl-sub">System will auto-remind Roberto at 9:00 AM. Client portal shows live status.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot pending"></div>
+        <div class="tl-date">Est. Jul 18, 2026</div>
+        <div class="tl-text" style="color:#9ca3af;"><strong>Restoration close + invoice generation</strong></div>
+        <div class="tl-sub" style="color:#9ca3af;">Content inventory report + scope report delivered to facility manager automatically.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upsell Flag -->
+  <div class="card" style="border-left:4px solid var(--orange);">
+    <div style="display:flex;gap:.75rem;align-items:flex-start;">
+      <div class="icon-circle" style="background:#fff3e0;color:var(--orange);">🔔</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;color:var(--navy);font-size:.9rem;">Tech-flagged Upsell — Roofing Assessment Needed</div>
+        <div style="font-size:.8rem;color:#4b5563;margin-top:3px;">
+          Roberto noted visible membrane damage at the east parapet during restoration setup.
+          A roofing WO can be dispatched before the next rain event — same single-source provider, no new vendor needed.
+        </div>
+        <div style="margin-top:.75rem;display:flex;gap:.5rem;flex-wrap:wrap;">
+          <button class="btn-orange" style="font-size:.75rem;padding:.35rem .85rem;">Add Roofing WO</button>
+          <button class="btn-primary" style="font-size:.75rem;padding:.35rem .85rem;">Notify Facility Manager</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TAB 3 — CLIENT PORTAL (dramatizes Pain #1 solved)
+═══════════════════════════════════════════════════════════════ -->
+<section id="tab-portal" class="tab-panel">
+
+  <div style="background:var(--navy);color:#fff;border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+    <div style="flex:1;">
+      <div style="font-size:.72rem;color:#a8b9d4;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;">Facility Manager View</div>
+      <div style="font-size:1.1rem;font-weight:700;">Multi-Location Client — Houston &amp; Greater Area</div>
+      <div style="font-size:.78rem;color:#a8b9d4;margin-top:2px;">12 locations enrolled · Single login · All work orders, all trades, all sites</div>
+    </div>
+    <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:.7rem 1rem;text-align:center;">
+      <div style="font-size:1.4rem;font-weight:800;">12</div>
+      <div style="font-size:.68rem;color:#a8b9d4;text-transform:uppercase;letter-spacing:.05em;">Active Sites</div>
+    </div>
+  </div>
+
+  <!-- The before/after pain dramatization -->
+  <div class="card" style="border-top:3px solid var(--orange);">
+    <div class="section-title">The Difference a Portal Makes</div>
+    <div class="pain-split">
+      <div class="pain-card pain-before">
+        <div class="pain-head pain-head-before">⛔ Without a Portal — Today</div>
+        <div class="pain-item">📞 <span>Facility manager calls 713-555-0142 to report a leak at 10 PM</span></div>
+        <div class="pain-item">📬 <span>Leaves a voicemail. Waits for a callback the next morning.</span></div>
+        <div class="pain-item">🗂 <span>No way to track whether the work order was received, assigned, or scheduled</span></div>
+        <div class="pain-item">📸 <span>Before/after photos arrive via email thread — if they arrive at all</span></div>
+        <div class="pain-item">📄 <span>NFPA 96 compliance report has to be requested separately, each time</span></div>
+        <div class="pain-item">🧾 <span>Invoice comes days later, manually, with no connection to the service record</span></div>
+        <div class="pain-item">🤷 <span>Rooftop damage noted by tech? Might get followed up. Might get forgotten.</span></div>
+      </div>
+      <div class="pain-card pain-after">
+        <div class="pain-head pain-head-after">✅ With This Portal — 90 Seconds</div>
+        <div class="pain-item">🌐 <span>Facility manager opens the portal from their phone at 10 PM</span></div>
+        <div class="pain-item">⚡ <span>Multi-trade work order submitted in 90 seconds. Sentinel gets an instant alert.</span></div>
+        <div class="pain-item">📍 <span>Real-time status: Dispatched → On-Site → In Progress → Complete</span></div>
+        <div class="pain-item">📸 <span>Before/after photo documentation delivered automatically at job close</span></div>
+        <div class="pain-item">📋 <span>NFPA 96 &amp; IICRC service reports auto-generated and attached to the record</span></div>
+        <div class="pain-item">🧾 <span>Invoice tied to service record — one click to approve and download</span></div>
+        <div class="pain-item">🔔 <span>Tech flags rooftop damage → alert sent to facility manager before they leave the lot</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Locations summary -->
+  <div class="card">
+    <div class="section-title">My Locations — Open &amp; Upcoming</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Location</th>
+          <th>Next Scheduled Service</th>
+          <th>Open WOs</th>
+          <th>Last Service</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody style="font-size:.82rem;">
+        <tr>
+          <td><strong>Houston — Main St</strong><br><span style="color:#6b7a99;font-size:.72rem;">Houston, TX 77004</span></td>
+          <td>Hood clean — Aug 1</td>
+          <td>0</td>
+          <td>Jul 1, 2026</td>
+          <td><span class="badge badge-complete">All Clear</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pasadena — East Blvd</strong><br><span style="color:#6b7a99;font-size:.72rem;">Pasadena, TX 77506</span></td>
+          <td>Restoration follow-up — Jul 18</td>
+          <td>1</td>
+          <td>Jul 14, 2026</td>
+          <td><span class="badge badge-progress">In Progress</span></td>
+        </tr>
+        <tr>
+          <td><strong>Katy — Grand Pkwy</strong><br><span style="color:#6b7a99;font-size:.72rem;">Katy, TX 77494</span></td>
+          <td>Hood clean — Aug 5</td>
+          <td>0</td>
+          <td>Jul 5, 2026</td>
+          <td><span class="badge badge-complete">All Clear</span></td>
+        </tr>
+        <tr>
+          <td><strong>The Woodlands — Research</strong><br><span style="color:#6b7a99;font-size:.72rem;">The Woodlands, TX 77380</span></td>
+          <td>Deep cleaning — Jul 28</td>
+          <td>0</td>
+          <td>Jun 28, 2026</td>
+          <td><span class="badge badge-scheduled">Scheduled</span></td>
+        </tr>
+        <tr>
+          <td><strong>Baytown — Sjolander Rd</strong><br><span style="color:#6b7a99;font-size:.72rem;">Baytown, TX 77521</span></td>
+          <td>Paving seal coat — Aug 12</td>
+          <td>1</td>
+          <td>Jul 10, 2026</td>
+          <td><span class="badge badge-review">Awaiting Approval</span></td>
+        </tr>
+        <tr>
+          <td><strong>Spring — FM 2920</strong><br><span style="color:#6b7a99;font-size:.72rem;">Spring, TX 77379</span></td>
+          <td>Hood clean — Jul 30</td>
+          <td>0</td>
+          <td>Jun 30, 2026</td>
+          <td><span class="badge badge-complete">All Clear</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:1rem;text-align:center;">
+      <button class="btn-orange" onclick="openCalendly()">Submit a New Work Order for Any Location</button>
+    </div>
+  </div>
+
+  <!-- Recurring schedule -->
+  <div class="card">
+    <div class="section-title">Recurring Service Schedule — Next 30 Days</div>
+    <div style="font-size:.78rem;color:#4b5563;margin-bottom:.75rem;">
+      40 years of never missing a service — now enforced by the system, not by memory.
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.5rem;font-size:.82rem;">
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Jul 28</span>
+        <span class="trade-tag trade-janitorial">Janitorial</span>
+        <span>Deep cleaning — The Woodlands Medical Complex</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Jul 30</span>
+        <span class="trade-tag trade-hood">Hood Clean</span>
+        <span>Monthly NFPA 96 service — Spring FM 2920</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Aug 1</span>
+        <span class="trade-tag trade-hood">Hood Clean</span>
+        <span>Monthly NFPA 96 service — Houston Main St</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Aug 5</span>
+        <span class="trade-tag trade-hood">Hood Clean</span>
+        <span>Monthly NFPA 96 service — Katy Grand Pkwy</span>
+        <span class="badge badge-scheduled" style="margin-left:auto;">Confirmed</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;padding:.55rem .75rem;background:#f8faff;border-radius:6px;">
+        <span style="font-size:.72rem;color:#6b7a99;width:80px;flex-shrink:0;">Aug 12</span>
+        <span class="trade-tag trade-paving">Paving</span>
+        <span>Seal coating — Baytown Sjolander Rd</span>
+        <span class="badge badge-review" style="margin-left:auto;">Pending Approval</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TAB 4 — REPORTS & SEARCH
+═══════════════════════════════════════════════════════════════ -->
+<section id="tab-reports" class="tab-panel">
+
+  <!-- Search Bar -->
+  <div class="card">
+    <div class="section-title">Search Work Orders &amp; Service Records</div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.75rem;">
+      <input type="text" class="search-input" placeholder="Search by location, trade, tech, WO number…" style="max-width:400px;" id="search-input" oninput="filterReport()" />
+    </div>
+    <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
+      <span class="filter-chip active" onclick="setFilter(this,'all')">All</span>
+      <span class="filter-chip" onclick="setFilter(this,'hood')">Hood Cleaning</span>
+      <span class="filter-chip" onclick="setFilter(this,'restore')">Restoration</span>
+      <span class="filter-chip" onclick="setFilter(this,'paving')">Paving</span>
+      <span class="filter-chip" onclick="setFilter(this,'janitorial')">Janitorial</span>
+      <span class="filter-chip" onclick="setFilter(this,'roofing')">Roofing</span>
+    </div>
+  </div>
+
+  <!-- Revenue & Ops summary -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-val">$212,540</div>
+      <div class="stat-lbl">Invoiced YTD</div>
+      <div class="stat-delta delta-up">↑ 18% vs prior year</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">143</div>
+      <div class="stat-lbl">WOs Closed YTD</div>
+      <div class="stat-delta delta-up">avg 3.2 days to close</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">31</div>
+      <div class="stat-lbl">Recurring Clients</div>
+      <div class="stat-delta" style="color:#6b7a99;">Multi-location operators</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">94%</div>
+      <div class="stat-lbl">On-Time Service Rate</div>
+      <div class="stat-delta delta-up">NFPA 96 compliant schedules</div>
+    </div>
+  </div>
+
+  <!-- Trade breakdown -->
+  <div class="card">
+    <div class="section-title">Revenue by Trade — YTD</div>
+    <div style="display:flex;flex-direction:column;gap:.6rem;" id="trade-breakdown">
+      <div data-trade="hood">
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
+          <span style="font-weight:600;">Hood Cleaning <span class="trade-tag trade-hood">NFPA 96</span></span><span style="color:var(--navy);font-weight:700;">$68,200</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:32%;"></div></div>
+      </div>
+      <div data-trade="restore">
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
+          <span style="font-weight:600;">Fire &amp; Water Restoration <span class="trade-tag trade-restore">IICRC</span></span><span style="color:var(--navy);font-weight:700;">$77,400</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:36%;"></div></div>
+      </div>
+      <div data-trade="janitorial">
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
+          <span style="font-weight:600;">Janitorial Services</span><span style="color:var(--navy);font-weight:700;">$34,100</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:16%;"></div></div>
+      </div>
+      <div data-trade="roofing">
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
+          <span style="font-weight:600;">Roofing</span><span style="color:var(--navy);font-weight:700;">$19,840</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:9%;background:#7c3aed;"></div></div>
+      </div>
+      <div data-trade="paving">
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:3px;">
+          <span style="font-weight:600;">Paving &amp; Seal Coating</span><span style="color:var(--navy);font-weight:700;">$13,000</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" style="width:6%;background:#166534;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Searchable WO log -->
+  <div class="card" style="padding:0;overflow-x:auto;">
+    <div style="padding:.85rem 1rem .5rem;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7a99;">
+      Service Record Log
+    </div>
+    <table id="report-table">
+      <thead>
+        <tr>
+          <th>WO #</th>
+          <th>Location</th>
+          <th>Trade</th>
+          <th>Tech</th>
+          <th>Closed</th>
+          <th>Amount</th>
+          <th>Compliance</th>
+        </tr>
+      </thead>
+      <tbody id="report-tbody">
+        <!-- Injected by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Unbilled alert -->
+  <div class="inline-alert" style="margin-top:1rem;">
+    <span style="font-size:1.1rem;flex-shrink:0;">🧾</span>
+    <div>
+      <strong>12 work orders completed but not yet invoiced</strong> — total value: <strong>$47,820</strong>.
+      Manual billing at this scale means cash flow gaps of 15–30 days. A connected invoicing module closes the loop automatically at job completion.
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════ FLOATING CTA ════════════ -->
+<button id="cta-float" onclick="openCalendly()">Like what you see? Let's talk</button>
+
+<!-- ════════════ MODAL ════════════ -->
+<div id="modal-overlay">
+  <div id="modal-box">
+    <div style="font-size:2rem;margin-bottom:.5rem;">🏗️</div>
+    <h2>This is what your ops could look like.</h2>
+    <p>A dispatch board, client portal, and service records — custom-built for Sentinel Facility Services.</p>
+    <p style="color:#6b7a99;font-size:.78rem;margin-top:.5rem;">No phone-tag for work orders. No missed follow-ups. No uninvoiced jobs.</p>
+    <a id="modal-cta-link" href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=protechfacilitys" target="_blank" rel="noopener" class="modal-cta">
+      Schedule a walkthrough
+    </a>
+    <button class="modal-skip" onclick="closeModal()">Maybe later</button>
+  </div>
+</div>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  Mockup with sample data. Built by <span>Pocho.tech</span> — custom systems for businesses that already work.
+</footer>
+
+<!-- ════════════ JAVASCRIPT ════════════ -->
+<script>
+// ── Data ───────────────────────────────────────────────────
+const WO_DATA = [
+  { id:'WO-2026-0187', location:'QSR — Pasadena, TX',          trades:['Hood Cleaning','Restoration'], status:'progress',  date:'Jul 14', tech:'Roberto M.', prio:'high', amount:3450, closed:null },
+  { id:'WO-2026-0188', location:'Industrial — Baytown',         trades:['Janitorial'],                  status:'open',      date:'Jul 15', tech:'Maria G.',   prio:'med',  amount:1200, closed:null },
+  { id:'WO-2026-0186', location:'Retail Strip — Katy',          trades:['Paving'],                      status:'complete',  date:'Jul 10', tech:'Carlos R.',  prio:'low',  amount:4800, closed:'Jul 12' },
+  { id:'WO-2026-0185', location:'QSR — Spring, TX',             trades:['Hood Cleaning'],               status:'complete',  date:'Jul 8',  tech:'Roberto M.', prio:'low',  amount:680,  closed:'Jul 8' },
+  { id:'WO-2026-0184', location:'Medical — The Woodlands',      trades:['Janitorial'],                  status:'scheduled', date:'Jul 28', tech:'TBD',        prio:'low',  amount:920,  closed:null },
+  { id:'WO-2026-0183', location:'QSR — Baytown',                trades:['Hood Cleaning'],               status:'overdue',   date:'Jul 5',  tech:'Unassigned', prio:'high', amount:680,  closed:null },
+  { id:'WO-2026-0182', location:'Hotel — Pasadena',             trades:['Restoration','Roofing'],       status:'review',    date:'Jul 3',  tech:'Maria G.',   prio:'high', amount:9200, closed:null },
+  { id:'WO-2026-0181', location:'QSR — Conroe, TX',             trades:['Hood Cleaning'],               status:'complete',  date:'Jul 1',  tech:'Carlos R.',  prio:'low',  amount:680,  closed:'Jul 1' },
+  { id:'WO-2026-0180', location:'School District — Baytown',    trades:['Janitorial'],                  status:'complete',  date:'Jun 28', tech:'Maria G.',   prio:'med',  amount:2100, closed:'Jun 28' },
+  { id:'WO-2026-0179', location:'QSR — Galveston, TX',          trades:['Hood Cleaning'],               status:'complete',  date:'Jun 25', tech:'Roberto M.', prio:'low',  amount:680,  closed:'Jun 25' },
+  { id:'WO-2026-0178', location:'Warehouse — Baytown Ship',     trades:['Janitorial'],                  status:'complete',  date:'Jun 22', tech:'Carlos R.',  prio:'low',  amount:3400, closed:'Jun 23' },
+  { id:'WO-2026-0177', location:'QSR — League City',            trades:['Hood Cleaning','Roofing'],     status:'complete',  date:'Jun 18', tech:'Roberto M.', prio:'med',  amount:2100, closed:'Jun 20' },
+];
+
+const TRADE_STYLE = {
+  'Hood Cleaning':        'trade-hood',
+  'Restoration':          'trade-restore',
+  'Roofing':              'trade-roofing',
+  'Paving':               'trade-paving',
+  'Janitorial':           'trade-janitorial',
+  'Fire & Water Restoration': 'trade-restore',
+};
+const STATUS_MAP = {
+  open:      { label:'Open',            cls:'badge-open'      },
+  progress:  { label:'In Progress',     cls:'badge-progress'  },
+  review:    { label:'Awaiting Review', cls:'badge-review'    },
+  complete:  { label:'Complete',        cls:'badge-complete'  },
+  overdue:   { label:'Overdue',         cls:'badge-overdue'   },
+  scheduled: { label:'Scheduled',       cls:'badge-scheduled' },
+};
+
+// ── Tab switching ─────────────────────────────────────────
+let viewCount = 1; // start at 1 because initial view counts
+const MODAL_THRESHOLD_VIEWS = 3;
+
+function showTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+
+  // Increment view counter
+  viewCount++;
+  if (!sessionStorage.getItem('modalShown') && viewCount >= MODAL_THRESHOLD_VIEWS) {
+    setTimeout(showModal, 300);
+  }
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => showTab(btn.dataset.tab));
+});
+
+// ── Render WO Table (Dispatch) ────────────────────────────
+function prio(p) {
+  if (p === 'high') return '<div class="prio prio-high"></div>';
+  if (p === 'med')  return '<div class="prio prio-med"></div>';
+  return '<div class="prio prio-low"></div>';
+}
+
+function renderWOTable() {
+  const tbody = document.getElementById('wo-tbody');
+  tbody.innerHTML = WO_DATA.map((wo, i) => {
+    const s = STATUS_MAP[wo.status] || { label: wo.status, cls: 'badge-open' };
+    const trades = wo.trades.map(t => `<span class="trade-tag ${TRADE_STYLE[t] || ''}">${t}</span>`).join('');
+    return `<tr class="wo-row" id="wo-row-${i}" onclick="showTab('detail')">
+      <td style="padding-left:.75rem;">${prio(wo.prio)}</td>
+      <td style="font-size:.78rem;font-weight:700;color:var(--navy);">${wo.id}</td>
+      <td style="font-size:.8rem;">${wo.location}</td>
+      <td>${trades}</td>
+      <td><span class="badge ${s.cls}">${s.label}</span></td>
+      <td style="font-size:.78rem;color:#4b5563;">${wo.date}</td>
+      <td style="font-size:.78rem;">${wo.tech}</td>
+      <td><button class="btn-primary" style="font-size:.7rem;padding:.3rem .7rem;" onclick="event.stopPropagation();showTab('detail')">View</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Report Table ─────────────────────────────────────────
+const REPORT_DATA = [
+  { id:'WO-2026-0186', location:'Retail Strip — Katy',       trade:'paving',     tech:'Carlos R.',  closed:'Jul 12', amount:'$4,800', compliance:'—' },
+  { id:'WO-2026-0185', location:'QSR — Spring, TX',          trade:'hood',       tech:'Roberto M.', closed:'Jul 8',  amount:'$680',   compliance:'NFPA 96 ✓' },
+  { id:'WO-2026-0181', location:'QSR — Conroe, TX',          trade:'hood',       tech:'Carlos R.',  closed:'Jul 1',  amount:'$680',   compliance:'NFPA 96 ✓' },
+  { id:'WO-2026-0180', location:'School District — Baytown', trade:'janitorial', tech:'Maria G.',   closed:'Jun 28', amount:'$2,100', compliance:'Infection Control ✓' },
+  { id:'WO-2026-0179', location:'QSR — Galveston, TX',       trade:'hood',       tech:'Roberto M.', closed:'Jun 25', amount:'$680',   compliance:'NFPA 96 ✓' },
+  { id:'WO-2026-0178', location:'Warehouse — Baytown Ship',  trade:'janitorial', tech:'Carlos R.',  closed:'Jun 23', amount:'$3,400', compliance:'—' },
+  { id:'WO-2026-0177', location:'QSR — League City',         trade:'roofing',    tech:'Roberto M.', closed:'Jun 20', amount:'$2,100', compliance:'NFPA 96 ✓' },
+];
+
+let currentFilter = 'all';
+
+function renderReport(data) {
+  const tbody = document.getElementById('report-tbody');
+  tbody.innerHTML = data.map(r => {
+    const tradeLabel = { hood:'Hood Cleaning', restore:'Restoration', paving:'Paving', janitorial:'Janitorial', roofing:'Roofing' }[r.trade] || r.trade;
+    const tradeCls   = { hood:'trade-hood', restore:'trade-restore', paving:'trade-paving', janitorial:'trade-janitorial', roofing:'trade-roofing' }[r.trade] || '';
+    return `<tr>
+      <td style="font-size:.78rem;font-weight:700;color:var(--navy);">${r.id}</td>
+      <td style="font-size:.8rem;">${r.location}</td>
+      <td><span class="trade-tag ${tradeCls}">${tradeLabel}</span></td>
+      <td style="font-size:.78rem;">${r.tech}</td>
+      <td style="font-size:.78rem;color:#4b5563;">${r.closed}</td>
+      <td style="font-size:.78rem;font-weight:700;">${r.amount}</td>
+      <td style="font-size:.72rem;color:#15803d;">${r.compliance}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterReport() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  let data = REPORT_DATA;
+  if (currentFilter !== 'all') data = data.filter(r => r.trade === currentFilter);
+  if (q) data = data.filter(r =>
+    r.id.toLowerCase().includes(q) ||
+    r.location.toLowerCase().includes(q) ||
+    r.tech.toLowerCase().includes(q) ||
+    r.trade.includes(q)
+  );
+  renderReport(data);
+}
+
+function setFilter(el, val) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = val;
+  filterReport();
+}
+
+// ── Dispatch New WO (simulated interaction) ───────────────
+let woCounter = WO_DATA.length;
+
+function dispatchNewWO() {
+  const btn = document.getElementById('btn-new-wo');
+  btn.disabled = true;
+  btn.textContent = 'Dispatching…';
+  btn.style.opacity = '.6';
+
+  setTimeout(() => {
+    // Insert new row at top
+    const newWO = {
+      id: 'WO-2026-0' + (188 + woCounter),
+      location: 'QSR — Houston, TX',
+      trades: ['Hood Cleaning'],
+      status: 'open',
+      date: 'Jul 26',
+      tech: 'Unassigned',
+      prio: 'med',
+      amount: 680,
+      closed: null,
+    };
+    WO_DATA.unshift(newWO);
+    woCounter++;
+
+    renderWOTable();
+
+    // Update open count
+    const openCount = WO_DATA.filter(w => ['open','overdue','progress','review'].includes(w.status)).length;
+    document.getElementById('stat-open').textContent = openCount;
+
+    // Flash the new row
+    const firstRow = document.querySelector('#wo-tbody tr');
+    if (firstRow) {
+      firstRow.classList.add('flash-new');
+      setTimeout(() => firstRow.classList.remove('flash-new'), 900);
+    }
+
+    btn.disabled = false;
+    btn.textContent = '+ New Work Order';
+    btn.style.opacity = '1';
+
+    // Show a brief inline confirmation
+    const alert = document.createElement('div');
+    alert.style.cssText = 'position:fixed;top:80px;right:20px;z-index:200;background:var(--navy);color:#fff;border-radius:8px;padding:.65rem 1rem;font-size:.82rem;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.2);transition:opacity .4s;';
+    alert.textContent = '✓ Work order dispatched — client portal updated';
+    document.body.appendChild(alert);
+    setTimeout(() => { alert.style.opacity = '0'; setTimeout(() => alert.remove(), 400); }, 2800);
+  }, 900);
+}
+
+// ── Modal logic ───────────────────────────────────────────
+function showModal() {
+  if (sessionStorage.getItem('modalShown')) return;
+  sessionStorage.setItem('modalShown', '1');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function openCalendly() {
+  window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=protechfacilitys', '_blank', 'noopener');
+  showModal(); // open modal too if not shown yet
+}
+
+// Close modal clicking overlay
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// 75s auto-trigger
+setTimeout(() => {
+  if (!sessionStorage.getItem('modalShown')) showModal();
+}, 75000);
+
+// ── Init ──────────────────────────────────────────────────
+renderWOTable();
+renderReport(REPORT_DATA);
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

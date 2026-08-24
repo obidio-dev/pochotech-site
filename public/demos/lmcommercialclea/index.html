@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Commercial Cleaning — Operations System Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blue: #2B7FBB;
+      --green: #4CAF50;
+      --bg: #FFFFFF;
+      --text: #222222;
+      --neutral: #F5F5F5;
+      --blue-dark: #1f5f8a;
+      --blue-light: #e8f4fb;
+      --green-light: #e8f5e9;
+      --red: #d32f2f;
+      --amber: #f57c00;
+      --slate: #546e7a;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f0f4f8; color: var(--text); margin: 0; }
+
+    /* Header */
+    .app-header { background: var(--blue); color: #fff; padding: 12px 20px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .app-header .company { font-size: 1rem; font-weight: 700; letter-spacing: 0.01em; }
+    .app-header .subtitle { font-size: 0.72rem; opacity: 0.82; margin-top: 1px; }
+    .demo-badge { background: #fff; color: var(--blue); font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; padding: 2px 8px; border-radius: 9999px; white-space: nowrap; }
+
+    /* Nav tabs */
+    .nav-tabs { background: #fff; border-bottom: 2px solid #e2e8f0; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab { padding: 12px 18px; font-size: 0.82rem; font-weight: 600; color: var(--slate); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.15s; user-select: none; }
+    .nav-tab:hover { color: var(--blue); background: var(--blue-light); }
+    .nav-tab.active { color: var(--blue); border-bottom-color: var(--blue); background: #fff; }
+    .nav-tab .tab-icon { margin-right: 5px; }
+
+    /* Views */
+    .view { display: none; padding: 20px; max-width: 1100px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    /* Cards */
+    .card { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); padding: 16px; }
+    .card-title { font-size: 0.78rem; font-weight: 700; color: var(--slate); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+
+    /* Status badges */
+    .badge { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px; white-space: nowrap; }
+    .badge-green { background: var(--green-light); color: #2e7d32; }
+    .badge-blue { background: var(--blue-light); color: var(--blue-dark); }
+    .badge-amber { background: #fff3e0; color: var(--amber); }
+    .badge-red { background: #ffebee; color: var(--red); }
+    .badge-gray { background: #eceff1; color: var(--slate); }
+
+    /* Crew row */
+    .crew-row { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #f0f4f8; }
+    .crew-row:last-child { border-bottom: none; }
+    .crew-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; flex-shrink: 0; }
+    .crew-info { flex: 1; min-width: 0; }
+    .crew-name { font-size: 0.85rem; font-weight: 600; }
+    .crew-detail { font-size: 0.72rem; color: var(--slate); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Job row */
+    .job-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f4f8; cursor: pointer; transition: background 0.1s; border-radius: 6px; padding-left: 6px; padding-right: 6px; }
+    .job-row:last-child { border-bottom: none; }
+    .job-row:hover { background: var(--blue-light); }
+    .job-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .job-dot-green { background: var(--green); }
+    .job-dot-amber { background: var(--amber); }
+    .job-dot-red { background: var(--red); }
+    .job-dot-blue { background: var(--blue); }
+    .job-dot-gray { background: #90a4ae; }
+    .job-title { font-size: 0.85rem; font-weight: 600; flex: 1; min-width: 0; }
+    .job-meta { font-size: 0.72rem; color: var(--slate); }
+
+    /* Alert banner */
+    .alert-banner { border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 0.82rem; margin-bottom: 12px; }
+    .alert-red { background: #ffebee; border-left: 4px solid var(--red); color: var(--red); }
+    .alert-amber { background: #fff8e1; border-left: 4px solid var(--amber); color: #6d4c00; }
+    .alert-green { background: var(--green-light); border-left: 4px solid var(--green); color: #1b5e20; }
+    .alert-icon { font-size: 1.1rem; }
+
+    /* Stat box */
+    .stat-box { text-align: center; padding: 16px 10px; }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--blue); line-height: 1; }
+    .stat-label { font-size: 0.72rem; color: var(--slate); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-sub { font-size: 0.7rem; color: #90a4ae; margin-top: 2px; }
+
+    /* Market pill */
+    .market-pill { display: inline-flex; align-items: center; gap: 5px; background: var(--blue-light); border: 1px solid #b3d9f0; border-radius: 6px; padding: 6px 10px; font-size: 0.78rem; font-weight: 600; color: var(--blue-dark); }
+    .market-pill .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* Timeline */
+    .timeline-item { display: flex; gap: 12px; padding-bottom: 16px; position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: 14px; top: 24px; bottom: 0; width: 1px; background: #e2e8f0; }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; margin-top: 2px; }
+    .timeline-content { flex: 1; }
+    .timeline-title { font-size: 0.85rem; font-weight: 600; }
+    .timeline-time { font-size: 0.7rem; color: var(--slate); margin-top: 2px; }
+    .timeline-note { font-size: 0.78rem; color: #546e7a; margin-top: 4px; padding: 6px 8px; background: var(--neutral); border-radius: 5px; }
+
+    /* Checklist */
+    .check-item { display: flex; align-items: center; gap: 9px; padding: 8px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.83rem; }
+    .check-item:last-child { border-bottom: none; }
+    .check-box { width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+    .check-done { background: var(--green); color: #fff; }
+    .check-pending { background: #fff; border: 2px solid #cfd8dc; }
+
+    /* Quote form */
+    .form-label { font-size: 0.78rem; font-weight: 600; color: var(--slate); margin-bottom: 4px; display: block; }
+    .form-input { width: 100%; border: 1.5px solid #cfd8dc; border-radius: 7px; padding: 9px 11px; font-size: 0.85rem; color: var(--text); outline: none; transition: border-color 0.15s; background: #fff; }
+    .form-input:focus { border-color: var(--blue); }
+    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23546e7a' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+
+    /* Quote result */
+    .quote-result { background: linear-gradient(135deg, var(--blue-light), #f0fff4); border: 1.5px solid #b3d9f0; border-radius: 10px; padding: 18px; margin-top: 16px; }
+    .quote-result-title { font-size: 0.78rem; font-weight: 700; color: var(--slate); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .quote-price { font-size: 2rem; font-weight: 800; color: var(--blue); }
+    .quote-line { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 5px 0; border-bottom: 1px solid #e2e8f0; }
+    .quote-line:last-child { border-bottom: none; }
+    .quote-line .label { color: var(--slate); }
+    .quote-line .value { font-weight: 600; }
+
+    /* Search */
+    .search-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+    .search-input { flex: 1; border: 1.5px solid #cfd8dc; border-radius: 7px; padding: 9px 13px; font-size: 0.85rem; outline: none; }
+    .search-input:focus { border-color: var(--blue); }
+    .search-btn { background: var(--blue); color: #fff; border: none; border-radius: 7px; padding: 9px 18px; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+    .search-btn:hover { background: var(--blue-dark); }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .data-table th { background: var(--neutral); color: var(--slate); font-weight: 700; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.06em; padding: 9px 12px; text-align: left; border-bottom: 2px solid #e2e8f0; }
+    .data-table td { padding: 10px 12px; border-bottom: 1px solid #f0f4f8; vertical-align: middle; }
+    .data-table tr:hover td { background: var(--blue-light); }
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* Buttons */
+    .btn-primary { background: var(--blue); color: #fff; border: none; border-radius: 7px; padding: 9px 18px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-green { background: var(--green); color: #fff; border: none; border-radius: 7px; padding: 9px 18px; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+    .btn-ghost { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); border-radius: 7px; padding: 8px 16px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+    .btn-ghost:hover { background: var(--blue-light); }
+
+    /* Floating CTA */
+    #float-cta { position: fixed; bottom: 22px; right: 18px; z-index: 200; }
+    #float-cta button { background: var(--green); color: #fff; border: none; border-radius: 30px; padding: 13px 22px; font-size: 0.88rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 16px rgba(76,175,80,0.45); transition: transform 0.15s, box-shadow 0.15s; letter-spacing: 0.01em; }
+    #float-cta button:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(76,175,80,0.55); }
+
+    /* Modal */
+    #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 300; align-items: center; justify-content: center; padding: 16px; }
+    #modal-overlay.open { display: flex; }
+    #modal-box { background: #fff; border-radius: 14px; padding: 28px 24px; max-width: 400px; width: 100%; box-shadow: 0 12px 40px rgba(0,0,0,0.18); text-align: center; position: relative; animation: pop 0.2s ease; }
+    @keyframes pop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    #modal-close { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #90a4ae; }
+    #modal-close:hover { color: var(--text); }
+    .modal-icon { font-size: 2.5rem; margin-bottom: 10px; }
+    .modal-title { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .modal-body { font-size: 0.85rem; color: #546e7a; margin-bottom: 18px; line-height: 1.5; }
+    .modal-cta { display: block; background: var(--blue); color: #fff; border: none; border-radius: 8px; padding: 13px 20px; font-size: 0.92rem; font-weight: 800; cursor: pointer; width: 100%; text-decoration: none; margin-bottom: 8px; transition: background 0.15s; }
+    .modal-cta:hover { background: var(--blue-dark); }
+    .modal-skip { font-size: 0.75rem; color: #90a4ae; cursor: pointer; }
+    .modal-skip:hover { text-decoration: underline; }
+
+    /* Grid helpers */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 700px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .view { padding: 12px; }
+    }
+    @media (max-width: 480px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* Progress bar */
+    .progress-bar { background: #e2e8f0; border-radius: 9999px; height: 6px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 9999px; transition: width 0.6s ease; }
+
+    /* Pulse animation for alert */
+    .pulse { animation: pulse-anim 2s infinite; }
+    @keyframes pulse-anim { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+    /* Divider */
+    .divider { height: 1px; background: #e2e8f0; margin: 16px 0; }
+
+    /* Section label */
+    .section-label { font-size: 0.72rem; font-weight: 700; color: var(--slate); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+
+    /* Pain callout */
+    .pain-callout { background: linear-gradient(135deg, #fff8e1, #fff3e0); border: 1px solid #ffe082; border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+    .pain-callout .pain-q { font-size: 0.88rem; font-weight: 700; color: #5d4037; margin-bottom: 4px; }
+    .pain-callout .pain-a { font-size: 0.8rem; color: #6d4c00; }
+
+    /* Map visual */
+    .map-container { background: linear-gradient(145deg, #dceefb, #e8f5e9); border-radius: 10px; padding: 16px; position: relative; min-height: 160px; overflow: hidden; }
+    .map-city { position: absolute; display: flex; flex-direction: column; align-items: center; }
+    .map-pin { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+    .map-city-label { font-size: 0.62rem; font-weight: 700; color: var(--blue-dark); margin-top: 2px; white-space: nowrap; }
+
+    /* Shimmer for "updating" effect */
+    .shimmer { animation: shimmer 0.5s ease; }
+    @keyframes shimmer { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+    footer { text-align: center; padding: 24px 16px 80px; font-size: 0.72rem; color: #90a4ae; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+    <div>
+      <div class="company">Aurora Commercial Cleaning &amp; Office Cleaning</div>
+      <div class="subtitle">What your own system would look like — prepared by Pocho.tech</div>
+    </div>
+    <span class="demo-badge">DEMO &middot; sample data</span>
+  </div>
+</header>
+
+<!-- NAV TABS -->
+<nav class="nav-tabs" id="nav-tabs">
+  <div class="nav-tab active" data-view="ops" onclick="switchView('ops',this)">
+    <span class="tab-icon">&#128203;</span>Daily Operations
+  </div>
+  <div class="nav-tab" data-view="client" onclick="switchView('client',this)">
+    <span class="tab-icon">&#127970;</span>Client File
+  </div>
+  <div class="nav-tab" data-view="quote" onclick="switchView('quote',this)">
+    <span class="tab-icon">&#128196;</span>Quote &amp; Intake
+  </div>
+  <div class="nav-tab" data-view="reports" onclick="switchView('reports',this)">
+    <span class="tab-icon">&#128202;</span>Reports &amp; Search
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- VIEW 1: DAILY OPERATIONS (main board)                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="view active" id="view-ops">
+
+  <!-- PAIN CALLOUT -->
+  <div class="pain-callout" style="margin-bottom:14px;">
+    <div class="pain-q">&#x1F4AC; &ldquo;You're running commercial contracts in 7 cities — how are you tracking which crew is where, what got done, and when to invoice?&rdquo;</div>
+    <div class="pain-a">Below is what that answer looks like when it lives in a system instead of your head or a spreadsheet.</div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert-banner alert-red" id="alert-checkin">
+    <span class="alert-icon pulse">&#9888;</span>
+    <div>
+      <strong>Crew C — No check-in at Longview</strong>
+      <span style="font-size:0.75rem;margin-left:6px;opacity:0.8;">8:47 AM &mdash; Lone Star Fitness (Longview) has not been confirmed. Expected 8:00 AM.</span>
+    </div>
+    <button onclick="resolveAlert()" style="margin-left:auto;background:var(--red);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">Mark Resolved</button>
+  </div>
+
+  <!-- STATS ROW -->
+  <div class="grid-4" style="margin-bottom:14px;">
+    <div class="card stat-box">
+      <div class="stat-num" id="stat-complete">12</div>
+      <div class="stat-label">Completed Today</div>
+      <div class="stat-sub">of 15 scheduled</div>
+    </div>
+    <div class="card stat-box">
+      <div class="stat-num" style="color:var(--amber);" id="stat-route">2</div>
+      <div class="stat-label">En Route</div>
+      <div class="stat-sub">active crews moving</div>
+    </div>
+    <div class="card stat-box">
+      <div class="stat-num" style="color:var(--red);" id="stat-issue">1</div>
+      <div class="stat-label">Needs Attention</div>
+      <div class="stat-sub">checkin overdue</div>
+    </div>
+    <div class="card stat-box">
+      <div class="stat-num" style="color:var(--green);">3</div>
+      <div class="stat-label">Active Crews</div>
+      <div class="stat-sub">7 markets covered</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:14px;">
+
+    <!-- CREW STATUS -->
+    <div class="card">
+      <div class="card-title">&#128100; Crew Dispatch — Today, Jul 26</div>
+
+      <div class="crew-row">
+        <div class="crew-avatar" style="background:#1565c0;">A</div>
+        <div class="crew-info">
+          <div class="crew-name">Crew A &mdash; Houston Central</div>
+          <div class="crew-detail">4 members &bull; 6 AM&ndash;2 PM &bull; Houston / Sugar Land</div>
+        </div>
+        <span class="badge badge-green">On Site</span>
+      </div>
+
+      <div class="crew-row">
+        <div class="crew-avatar" style="background:#2B7FBB;">B</div>
+        <div class="crew-info">
+          <div class="crew-name">Crew B &mdash; Katy / Cypress</div>
+          <div class="crew-detail">3 members &bull; 7 AM&ndash;3 PM &bull; Katy / Spring</div>
+        </div>
+        <span class="badge badge-amber">En Route</span>
+      </div>
+
+      <div class="crew-row">
+        <div class="crew-avatar" style="background:var(--red);">C</div>
+        <div class="crew-info">
+          <div class="crew-name">Crew C &mdash; Tyler / Longview</div>
+          <div class="crew-detail">5 members &bull; 8 AM&ndash;4 PM &bull; Tyler / Longview / Canton</div>
+        </div>
+        <span class="badge badge-red">No Check-in</span>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section-label">Markets Active Today</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+        <span class="market-pill"><span class="dot" style="background:var(--green);"></span>Houston</span>
+        <span class="market-pill"><span class="dot" style="background:var(--green);"></span>Katy</span>
+        <span class="market-pill"><span class="dot" style="background:var(--amber);"></span>Tyler</span>
+        <span class="market-pill"><span class="dot" style="background:var(--red);"></span>Longview</span>
+        <span class="market-pill"><span class="dot" style="background:#b0bec5;"></span>Dallas</span>
+        <span class="market-pill"><span class="dot" style="background:#b0bec5;"></span>Austin</span>
+        <span class="market-pill"><span class="dot" style="background:#b0bec5;"></span>San Antonio</span>
+      </div>
+    </div>
+
+    <!-- JOB LIST -->
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>&#128203; Today's Job Board</span>
+        <span style="font-size:0.72rem;color:var(--slate);font-weight:400;">Tap a job to update</span>
+      </div>
+
+      <div id="job-list">
+        <div class="job-row" onclick="markComplete(this,'Greenway Office Park')">
+          <span class="job-dot job-dot-green"></span>
+          <div class="job-title">Greenway Office Park</div>
+          <div class="job-meta">Houston &bull; Crew A</div>
+          <span class="badge badge-green" style="margin-left:4px;">Done</span>
+        </div>
+        <div class="job-row" onclick="markComplete(this,'Katy Medical Center')">
+          <span class="job-dot job-dot-green"></span>
+          <div class="job-title">Katy Medical Center</div>
+          <div class="job-meta">Katy &bull; Crew B</div>
+          <span class="badge badge-green" style="margin-left:4px;">Done</span>
+        </div>
+        <div class="job-row" onclick="markComplete(this,'Pearland ISD Admin')">
+          <span class="job-dot job-dot-amber"></span>
+          <div class="job-title">Pearland ISD Admin Bldg</div>
+          <div class="job-meta">Pearland &bull; Crew A</div>
+          <span class="badge badge-amber" style="margin-left:4px;">En Route</span>
+        </div>
+        <div class="job-row" onclick="markComplete(this,'Lone Star Fitness — Longview')">
+          <span class="job-dot job-dot-red"></span>
+          <div class="job-title">Lone Star Fitness &mdash; Longview</div>
+          <div class="job-meta">Longview &bull; Crew C</div>
+          <span class="badge badge-red" style="margin-left:4px;">No Check-in</span>
+        </div>
+        <div class="job-row" onclick="markComplete(this,'First Community Church Tyler')">
+          <span class="job-dot job-dot-blue"></span>
+          <div class="job-title">First Community Church Tyler</div>
+          <div class="job-meta">Tyler &bull; Crew C</div>
+          <span class="badge badge-blue" style="margin-left:4px;">Scheduled</span>
+        </div>
+        <div class="job-row" onclick="markComplete(this,'SkyTower Corporate Center')">
+          <span class="job-dot job-dot-gray"></span>
+          <div class="job-title">SkyTower Corporate Center</div>
+          <div class="job-meta">Dallas &bull; Crew TBD</div>
+          <span class="badge badge-gray" style="margin-left:4px;">Quote Pending</span>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;text-align:right;">
+        <span style="font-size:0.72rem;color:var(--slate);">&#128161; Tap any job row to mark it <strong>Complete</strong></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BILLING READY -->
+  <div class="card">
+    <div class="card-title">&#128176; Ready to Invoice This Week</div>
+    <div class="grid-3">
+      <div style="padding:10px;border-right:1px solid #f0f4f8;">
+        <div style="font-size:0.82rem;font-weight:700;">Greenway Office Park</div>
+        <div style="font-size:0.72rem;color:var(--slate);">Office &bull; 3&times;/week &bull; Recurring</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--blue);margin-top:4px;">$1,240</div>
+        <span class="badge badge-green" style="margin-top:4px;">Services confirmed</span>
+      </div>
+      <div style="padding:10px;border-right:1px solid #f0f4f8;">
+        <div style="font-size:0.82rem;font-weight:700;">Katy Medical Center</div>
+        <div style="font-size:0.72rem;color:var(--slate);">Medical &bull; Daily &bull; Recurring</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--blue);margin-top:4px;">$2,800</div>
+        <span class="badge badge-green" style="margin-top:4px;">Checklist complete</span>
+      </div>
+      <div style="padding:10px;">
+        <div style="font-size:0.82rem;font-weight:700;">Pearland ISD Admin</div>
+        <div style="font-size:0.72rem;color:var(--slate);">Government &bull; Weekly &bull; Annual contract</div>
+        <div style="font-size:1.1rem;font-weight:800;color:var(--amber);margin-top:4px;">$875</div>
+        <span class="badge badge-amber" style="margin-top:4px;">Pending today's job</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- VIEW 2: CLIENT FILE (detail + history)                 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="view" id="view-client">
+
+  <!-- PAIN CALLOUT -->
+  <div class="pain-callout" style="margin-bottom:14px;">
+    <div class="pain-q">&#x1F4AC; &ldquo;Your medical and institutional clients need audit trails and compliance documentation — a custom system can be the differentiator you sell against larger chains.&rdquo;</div>
+    <div class="pain-a">This is what Katy Medical Center's file looks like: full history, signed checklists, and a contract that renews itself.</div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:14px;">
+
+    <!-- CLIENT CARD -->
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+        <div style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--blue),#1565c0);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;flex-shrink:0;">&#127973;</div>
+        <div>
+          <div style="font-size:1rem;font-weight:800;">Katy Medical Center</div>
+          <div style="font-size:0.75rem;color:var(--slate);margin-top:2px;">Medical Facility &bull; Katy, TX &bull; <span class="badge badge-green">Active Contract</span></div>
+        </div>
+      </div>
+
+      <div class="divider" style="margin:10px 0;"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.8rem;">
+        <div><span style="color:var(--slate);font-weight:600;">Frequency:</span><br>Daily disinfection</div>
+        <div><span style="color:var(--slate);font-weight:600;">Assigned Crew:</span><br>Crew B — Katy/Cypress</div>
+        <div><span style="color:var(--slate);font-weight:600;">Contract Value:</span><br><strong style="color:var(--blue);">$2,800 / mo</strong></div>
+        <div><span style="color:var(--slate);font-weight:600;">Contract Start:</span><br>Jan 15, 2025</div>
+        <div><span style="color:var(--slate);font-weight:600;">Next Renewal:</span><br>Jan 15, 2026</div>
+        <div><span style="color:var(--slate);font-weight:600;">Contact:</span><br>Facilities Manager</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-label">Contract Health</div>
+      <div style="margin-bottom:6px;">
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;"><span>Service completion this month</span><span style="font-weight:700;color:var(--green);">96%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:96%;background:var(--green);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;"><span>Compliance checklist rate</span><span style="font-weight:700;color:var(--blue);">100%</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--blue);"></div></div>
+      </div>
+
+      <div class="divider"></div>
+      <div class="alert-banner alert-green" style="padding:8px 10px;">
+        <span>&#9989;</span>
+        <span style="font-size:0.78rem;">Renewal alert set for <strong>Dec 16, 2025</strong> — 30 days before expiration.</span>
+      </div>
+    </div>
+
+    <!-- COMPLIANCE CHECKLIST -->
+    <div class="card">
+      <div class="card-title">&#9989; Today's Compliance Checklist</div>
+      <div style="font-size:0.75rem;color:var(--slate);margin-bottom:10px;">Medical Facility Protocol &mdash; Signed by Crew B Lead &bull; Jul 26, 2026</div>
+
+      <div class="check-item">
+        <div class="check-box check-done">&#10003;</div>
+        <div>Disinfection of all patient touchpoints (handles, rails, counters)</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box check-done">&#10003;</div>
+        <div>Restrooms sanitized with medical-grade disinfectant (Betco protocol)</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box check-done">&#10003;</div>
+        <div>Waiting area floors mopped — eco-friendly green products used</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box check-done">&#10003;</div>
+        <div>Exam room wipedown — germ-free protocol completed</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box check-done">&#10003;</div>
+        <div>Staff kitchen and break room sanitized</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box check-done">&#10003;</div>
+        <div>Bio-waste area perimeter cleaned and logged</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box check-pending"></div>
+        <div style="color:#90a4ae;">QA inspection by supervisor (Carmen — in-person QC pending)</div>
+      </div>
+
+      <div class="divider"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-primary" style="font-size:0.78rem;padding:7px 14px;">&#128196; Export PDF Report</button>
+        <button class="btn-ghost" style="font-size:0.78rem;padding:6px 14px;">&#128100; Assign QC Visit</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SERVICE HISTORY -->
+  <div class="card">
+    <div class="card-title">&#128336; Service History &mdash; Katy Medical Center</div>
+    <div style="padding-top:6px;">
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--green-light);color:var(--green);">&#10003;</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Daily Disinfection Service Completed</div>
+          <div class="timeline-time">Jul 26, 2026 &mdash; 7:41 AM &bull; Crew B</div>
+          <div class="timeline-note">All 6 checklist items signed. Eco-friendly products used. No issues reported.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--green-light);color:var(--green);">&#10003;</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Monthly Deep Clean + Hard Floor Waxing</div>
+          <div class="timeline-time">Jul 20, 2026 &mdash; 6:30 AM &bull; Crew B (6 hrs)</div>
+          <div class="timeline-note">Tennant scrubber deployed. Floor wax applied to reception and corridors. QA inspected by Carmen.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--blue-light);color:var(--blue);">&#128176;</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Invoice Sent — July 2026</div>
+          <div class="timeline-time">Jul 1, 2026 &bull; Auto-generated from contract</div>
+          <div class="timeline-note">$2,800 — Net 15. Payment received Jul 12.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--green-light);color:var(--green);">&#10003;</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Daily Disinfection Service Completed</div>
+          <div class="timeline-time">Jun 30, 2026 &mdash; 7:55 AM &bull; Crew B</div>
+          <div class="timeline-note">All items verified. Touchless cleaning protocol applied in high-traffic zones.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:#fff3e0;color:var(--amber);">&#9888;</div>
+        <div class="timeline-content">
+          <div class="timeline-title">Late Check-in Flagged &mdash; Resolved</div>
+          <div class="timeline-time">Jun 18, 2026 &mdash; 8:22 AM &bull; Crew B</div>
+          <div class="timeline-note">Check-in delayed 22 min due to traffic. Service completed on time. Alert auto-closed.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- VIEW 3: QUOTE & INTAKE                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="view" id="view-quote">
+
+  <!-- PAIN CALLOUT -->
+  <div class="pain-callout" style="margin-bottom:14px;">
+    <div class="pain-q">&#x1F4AC; &ldquo;Every lead today requires a phone call and an on-site visit. A structured intake + auto-quote system could cut your sales cycle in half.&rdquo;</div>
+    <div class="pain-a">A prospect fills this in online. You get a structured quote — no visit, no phone tag.</div>
+  </div>
+
+  <div class="grid-2">
+
+    <!-- INTAKE FORM -->
+    <div class="card">
+      <div class="card-title">&#128196; New Lead Intake &mdash; Quote Request</div>
+
+      <div style="display:grid;gap:12px;">
+
+        <div>
+          <label class="form-label">Business / Organization Name</label>
+          <input type="text" class="form-input" id="lead-name" placeholder="e.g. SkyTower Corporate Center" value="SkyTower Corporate Center">
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label class="form-label">City / Market</label>
+            <select class="form-input form-select" id="lead-city">
+              <option value="houston">Houston</option>
+              <option value="katy">Katy</option>
+              <option value="dallas" selected>Dallas</option>
+              <option value="tyler">Tyler</option>
+              <option value="longview">Longview</option>
+              <option value="austin">Austin</option>
+              <option value="san-antonio">San Antonio</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Facility Type</label>
+            <select class="form-input form-select" id="lead-type">
+              <option value="office" selected>Commercial Office</option>
+              <option value="medical">Medical / Clinic</option>
+              <option value="school">School / Institution</option>
+              <option value="church">Church</option>
+              <option value="gym">Gym / Fitness</option>
+              <option value="bank">Bank / Financial</option>
+              <option value="government">Government Building</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label class="form-label">Square Footage (approx.)</label>
+            <select class="form-input form-select" id="lead-sqft">
+              <option value="small">Under 2,000 sq ft</option>
+              <option value="medium">2,000–5,000 sq ft</option>
+              <option value="large" selected>5,000–15,000 sq ft</option>
+              <option value="xlarge">15,000+ sq ft</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Cleaning Frequency</label>
+            <select class="form-input form-select" id="lead-freq">
+              <option value="daily">Daily</option>
+              <option value="3x">3&times; per week</option>
+              <option value="weekly" selected>Weekly</option>
+              <option value="biweekly">Bi-weekly</option>
+              <option value="onetime">One-time / Deep Clean</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Special Requirements</label>
+          <select class="form-input form-select" id="lead-special">
+            <option value="none">None</option>
+            <option value="eco">Green / Eco-friendly products only</option>
+            <option value="medical">Medical-grade disinfection protocol</option>
+            <option value="compliance">Compliance documentation required</option>
+            <option value="nochem">No harsh chemicals (sensitive environment)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="form-label">Contact Name &amp; Email</label>
+          <input type="text" class="form-input" placeholder="Name — email@company.com" value="James R. — facilities@skytower.com">
+        </div>
+
+        <button class="btn-primary" onclick="generateQuote()" style="width:100%;padding:11px;">
+          &#9889; Generate Instant Quote Estimate
+        </button>
+      </div>
+    </div>
+
+    <!-- QUOTE RESULT -->
+    <div id="quote-result-panel">
+      <div class="card" style="background:linear-gradient(135deg,#f0f8ff,#f0fff4);border:1px solid #b3d9f0;text-align:center;padding:40px 20px;color:#90a4ae;">
+        <div style="font-size:2.5rem;margin-bottom:12px;">&#128196;</div>
+        <div style="font-size:0.9rem;font-weight:600;margin-bottom:6px;">Quote will appear here</div>
+        <div style="font-size:0.78rem;">Fill in the form and click <strong>Generate Instant Quote</strong></div>
+      </div>
+
+      <!-- PIPELINE -->
+      <div class="card" style="margin-top:14px;">
+        <div class="card-title">&#128203; Quote Pipeline</div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Lead</th><th>Market</th><th>Est. Value</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>SkyTower Corporate</strong><br><span style="font-size:0.7rem;color:var(--slate);">12-floor office</span></td>
+              <td>Dallas</td>
+              <td style="font-weight:700;color:var(--blue);">~$3,200/mo</td>
+              <td><span class="badge badge-amber">Quote Pending</span></td>
+            </tr>
+            <tr>
+              <td><strong>Austin Tech Hub</strong><br><span style="font-size:0.7rem;color:var(--slate);">Co-working, 8,000 sq ft</span></td>
+              <td>Austin</td>
+              <td style="font-weight:700;color:var(--blue);">~$1,800/mo</td>
+              <td><span class="badge badge-blue">Sent</span></td>
+            </tr>
+            <tr>
+              <td><strong>SA Medical Plaza</strong><br><span style="font-size:0.7rem;color:var(--slate);">Clinic, daily protocol</span></td>
+              <td>San Antonio</td>
+              <td style="font-weight:700;color:var(--blue);">~$4,100/mo</td>
+              <td><span class="badge badge-green">Approved</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- VIEW 4: REPORTS & SEARCH                               -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="view" id="view-reports">
+
+  <div class="pain-callout" style="margin-bottom:14px;">
+    <div class="pain-q">&#x1F4AC; &ldquo;In 15 minutes, Carmen can see her entire operation: crews in the field, open quotes, active contracts, and compliance records — all in one screen.&rdquo;</div>
+    <div class="pain-a">Search any client, market, or service. Filter by compliance status. Export for invoicing or QA review.</div>
+  </div>
+
+  <!-- SEARCH BAR -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title">&#128269; Search Clients &amp; Jobs</div>
+    <div class="search-bar">
+      <input type="text" class="search-input" id="search-input" placeholder="Search by client name, city, or service type..." oninput="filterTable()">
+      <select class="form-input form-select" style="width:auto;min-width:140px;" id="filter-status" onchange="filterTable()">
+        <option value="">All Statuses</option>
+        <option value="active">Active</option>
+        <option value="pending">Pending</option>
+        <option value="quote">Quote</option>
+      </select>
+      <button class="search-btn">Search</button>
+    </div>
+  </div>
+
+  <!-- STATS OVERVIEW -->
+  <div class="grid-4" style="margin-bottom:14px;">
+    <div class="card stat-box">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Active Accounts</div>
+      <div class="stat-sub">recurring contracts</div>
+    </div>
+    <div class="card stat-box">
+      <div class="stat-num" style="color:var(--green);">$9,715</div>
+      <div class="stat-label">Monthly Recurring</div>
+      <div class="stat-sub">confirmed contracts</div>
+    </div>
+    <div class="card stat-box">
+      <div class="stat-num" style="color:var(--amber);">3</div>
+      <div class="stat-label">Open Quotes</div>
+      <div class="stat-sub">~$9,100 potential</div>
+    </div>
+    <div class="card stat-box">
+      <div class="stat-num" style="color:var(--blue);">7</div>
+      <div class="stat-label">Markets Covered</div>
+      <div class="stat-sub">3 active crews</div>
+    </div>
+  </div>
+
+  <!-- ACCOUNTS TABLE -->
+  <div class="card">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
+      <span>&#127970; All Commercial Accounts</span>
+      <button class="btn-ghost" style="font-size:0.75rem;padding:5px 12px;">&#8681; Export CSV</button>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="data-table" id="accounts-table">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Market</th>
+            <th>Type</th>
+            <th>Frequency</th>
+            <th>Contract Value</th>
+            <th>Last Service</th>
+            <th>Compliance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="accounts-tbody">
+          <tr data-status="active" data-name="greenway office park" data-city="houston">
+            <td><strong>Greenway Office Park</strong><br><span style="font-size:0.7rem;color:var(--slate);">Houston Galleria area</span></td>
+            <td>Houston</td>
+            <td>Office</td>
+            <td>3&times;/week</td>
+            <td style="font-weight:700;">$1,240/mo</td>
+            <td>Jul 26</td>
+            <td><span class="badge badge-green">OK</span></td>
+            <td><span class="badge badge-green">Active</span></td>
+          </tr>
+          <tr data-status="active" data-name="katy medical center" data-city="katy">
+            <td><strong>Katy Medical Center</strong><br><span style="font-size:0.7rem;color:var(--slate);">Medical protocol required</span></td>
+            <td>Katy</td>
+            <td>Medical</td>
+            <td>Daily</td>
+            <td style="font-weight:700;">$2,800/mo</td>
+            <td>Jul 26</td>
+            <td><span class="badge badge-green">100%</span></td>
+            <td><span class="badge badge-green">Active</span></td>
+          </tr>
+          <tr data-status="active" data-name="first community church tyler" data-city="tyler">
+            <td><strong>First Community Church</strong><br><span style="font-size:0.7rem;color:var(--slate);">Post-Sunday service</span></td>
+            <td>Tyler</td>
+            <td>Church</td>
+            <td>Weekly</td>
+            <td style="font-weight:700;">$560/mo</td>
+            <td>Jul 21</td>
+            <td><span class="badge badge-green">OK</span></td>
+            <td><span class="badge badge-green">Active</span></td>
+          </tr>
+          <tr data-status="active" data-name="lone star fitness" data-city="longview">
+            <td><strong>Lone Star Fitness</strong><br><span style="font-size:0.7rem;color:var(--slate);">Nightly — gym floors</span></td>
+            <td>Longview</td>
+            <td>Gym</td>
+            <td>Daily</td>
+            <td style="font-weight:700;">$1,850/mo</td>
+            <td>Jul 25</td>
+            <td><span class="badge badge-amber">&#9888; Overdue</span></td>
+            <td><span class="badge badge-red">Alert</span></td>
+          </tr>
+          <tr data-status="active" data-name="pearland isd admin" data-city="pearland">
+            <td><strong>Pearland ISD Admin Bldg</strong><br><span style="font-size:0.7rem;color:var(--slate);">Annual government contract</span></td>
+            <td>Pearland</td>
+            <td>Government</td>
+            <td>Weekly</td>
+            <td style="font-weight:700;">$875/mo</td>
+            <td>Jul 19</td>
+            <td><span class="badge badge-green">OK</span></td>
+            <td><span class="badge badge-green">Active</span></td>
+          </tr>
+          <tr data-status="quote" data-name="skytower corporate center" data-city="dallas">
+            <td><strong>SkyTower Corporate Center</strong><br><span style="font-size:0.7rem;color:var(--slate);">12 floors &bull; on-site pending</span></td>
+            <td>Dallas</td>
+            <td>Office</td>
+            <td>3&times;/week</td>
+            <td style="font-weight:700;color:var(--amber);">~$3,200/mo</td>
+            <td>—</td>
+            <td><span class="badge badge-gray">N/A</span></td>
+            <td><span class="badge badge-amber">Quote</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- COMPLIANCE REPORT -->
+  <div class="card" style="margin-top:14px;">
+    <div class="card-title">&#128196; Compliance &amp; QA Summary — July 2026</div>
+    <div class="grid-3">
+      <div style="padding:12px;border-right:1px solid #f0f4f8;">
+        <div style="font-size:0.78rem;font-weight:700;margin-bottom:8px;">Katy Medical Center</div>
+        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Medical protocol checklist — 26/26 days complete</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--green);"></div></div>
+        <div style="font-size:0.72rem;color:var(--green);margin-top:4px;font-weight:700;">100% compliance</div>
+      </div>
+      <div style="padding:12px;border-right:1px solid #f0f4f8;">
+        <div style="font-size:0.78rem;font-weight:700;margin-bottom:8px;">Pearland ISD Admin</div>
+        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Weekly government contract — 4/4 visits confirmed</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--blue);"></div></div>
+        <div style="font-size:0.72rem;color:var(--blue);margin-top:4px;font-weight:700;">On track for renewal</div>
+      </div>
+      <div style="padding:12px;">
+        <div style="font-size:0.78rem;font-weight:700;margin-bottom:8px;">Lone Star Fitness</div>
+        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Daily gym cleaning — 1 missed check-in this month</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:96%;background:var(--amber);"></div></div>
+        <div style="font-size:0.72rem;color:var(--amber);margin-top:4px;font-weight:700;">96% — 1 alert logged</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+</footer>
+
+<!-- FLOATING CTA -->
+<div id="float-cta">
+  <button onclick="forceOpenModal()">
+    &#128172; Like what you see? Let's talk
+  </button>
+</div>
+
+<!-- MODAL -->
+<div id="modal-overlay">
+  <div id="modal-box">
+    <button id="modal-close" onclick="closeModal()">&#10005;</button>
+    <div class="modal-icon">&#127775;</div>
+    <div class="modal-title">This could be your system, Carmen.</div>
+    <div class="modal-body">
+      Imagine seeing every crew, every contract, every compliance record — all in one screen. Built exactly for how Aurora Commercial Cleaning operates across 7 markets.<br><br>
+      <strong>Pocho.tech</strong> builds custom systems for businesses that already work. No templates. No duct tape. Yours.
+    </div>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=lmcommercialclea" target="_blank" rel="noopener" class="modal-cta">
+      &#128197; Book a call — no pitch, just clarity
+    </a>
+    <div class="modal-skip" onclick="closeModal()">I'll explore the demo first</div>
+  </div>
+</div>
+
+<script>
+  // ── State ──────────────────────────────────────────────
+  let viewCount = 1; // start at 1 for initial view
+  let modalShown = false;
+  const MODAL_SHOWN_KEY = 'lm_modal_shown';
+  const CALENDLY_URL = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=lmcommercialclea';
+
+  // ── Modal logic ──────────────────────────────────────
+  function shouldShowModal() {
+    return !sessionStorage.getItem(MODAL_SHOWN_KEY);
+  }
+
+  function forceOpenModal() {
+    document.getElementById('modal-overlay').classList.add('open');
+    sessionStorage.setItem(MODAL_SHOWN_KEY, '1');
+    modalShown = true;
+  }
+
+  function openModal() {
+    if (!shouldShowModal()) return;
+    forceOpenModal();
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function openCalendly() {
+    window.open(CALENDLY_URL, '_blank', 'noopener');
+  }
+
+  // ── 75-second timer ───────────────────────────────────
+  setTimeout(function() {
+    if (shouldShowModal()) openModal();
+  }, 75000);
+
+  // ── Tab switching ─────────────────────────────────────
+  function switchView(id, tabEl) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    tabEl.classList.add('active');
+
+    viewCount++;
+    // Trigger modal on 3rd unique view (already counted initial as 1)
+    if (viewCount >= 3 && shouldShowModal()) {
+      setTimeout(openModal, 400);
+    }
+  }
+
+  // ── Alert resolution ──────────────────────────────────
+  function resolveAlert() {
+    const alert = document.getElementById('alert-checkin');
+    alert.className = 'alert-banner alert-green shimmer';
+    alert.innerHTML = '<span class="alert-icon">&#9989;</span><div><strong>Alert resolved — Crew C check-in confirmed</strong><span style="font-size:0.75rem;margin-left:6px;opacity:0.8;">9:02 AM &mdash; Lone Star Fitness (Longview) service started. 22-min delay logged.</span></div>';
+
+    // Update stats
+    var issueEl = document.getElementById('stat-issue');
+    issueEl.textContent = '0';
+    issueEl.style.color = 'var(--green)';
+    var completeEl = document.getElementById('stat-complete');
+    completeEl.classList.add('shimmer');
+
+    // Update job board
+    var rows = document.querySelectorAll('#job-list .job-row');
+    rows.forEach(function(row) {
+      var title = row.querySelector('.job-title');
+      if (title && title.textContent.indexOf('Lone Star') !== -1) {
+        var dot = row.querySelector('.job-dot');
+        var badge = row.querySelector('.badge');
+        dot.className = 'job-dot job-dot-amber';
+        badge.className = 'badge badge-amber';
+        badge.textContent = 'En Route';
+        row.classList.add('shimmer');
+      }
+    });
+  }
+
+  // ── Mark job complete ──────────────────────────────────
+  function markComplete(row, name) {
+    var badge = row.querySelector('.badge');
+    var dot = row.querySelector('.job-dot');
+    if (badge && badge.textContent === 'Done') return;
+    if (dot) dot.className = 'job-dot job-dot-green';
+    if (badge) {
+      badge.className = 'badge badge-green';
+      badge.textContent = 'Done';
+    }
+    row.classList.add('shimmer');
+
+    // Bump completed count
+    var el = document.getElementById('stat-complete');
+    var n = parseInt(el.textContent) + 1;
+    el.textContent = n;
+    el.classList.add('shimmer');
+    setTimeout(function(){ el.classList.remove('shimmer'); }, 600);
+  }
+
+  // ── Quote generator ────────────────────────────────────
+  function generateQuote() {
+    var name = document.getElementById('lead-name').value || 'Your Facility';
+    var type = document.getElementById('lead-type').value;
+    var sqft = document.getElementById('lead-sqft').value;
+    var freq = document.getElementById('lead-freq').value;
+    var special = document.getElementById('lead-special').value;
+    var city = document.getElementById('lead-city').value;
+
+    // Base price matrix
+    var base = { small: 320, medium: 680, large: 1400, xlarge: 2800 }[sqft] || 1400;
+    var typeMulti = { medical: 1.6, bank: 1.4, school: 1.3, government: 1.3, gym: 1.1, church: 0.85, office: 1.0 }[type] || 1.0;
+    var freqMulti = { daily: 4.2, '3x': 2.8, weekly: 1.0, biweekly: 0.6, onetime: 1.2 }[freq] || 1.0;
+    var specialAdj = { medical: 220, compliance: 150, eco: 80, nochem: 80, none: 0 }[special] || 0;
+    var cityAdj = { dallas: 80, austin: 70, 'san-antonio': 50, houston: 0, katy: 0, tyler: 0, longview: 0 }[city] || 0;
+
+    var monthly = Math.round((base * typeMulti * freqMulti) + specialAdj + cityAdj);
+    var perVisit = Math.round(monthly / (freqMulti >= 4 ? 20 : freqMulti >= 2 ? 12 : freqMulti >= 1 ? 4 : 2));
+    var annual = monthly * 12;
+
+    var typeLabel = { medical:'Medical Facility', bank:'Bank / Financial', school:'School/Institution', government:'Government Bldg', gym:'Gym / Fitness', church:'Church', office:'Commercial Office' }[type] || 'Facility';
+    var freqLabel = { daily:'Daily', '3x':'3× per week', weekly:'Weekly', biweekly:'Bi-weekly', onetime:'One-time' }[freq] || 'Weekly';
+    var specialLabel = { medical:'Medical-grade protocol (+$220)', compliance:'Compliance docs (+$150)', eco:'Green products (+$80)', nochem:'Sensitive env. (+$80)', none:'Standard' }[special] || '';
+
+    var panel = document.getElementById('quote-result-panel');
+    panel.innerHTML = '<div class="quote-result">' +
+      '<div class="quote-result-title">&#9889; Estimated Quote — ' + name + '</div>' +
+      '<div style="display:flex;align-items:flex-end;gap:6px;margin-bottom:14px;">' +
+        '<div class="quote-price">$' + monthly.toLocaleString() + '</div>' +
+        '<div style="font-size:0.82rem;color:var(--slate);padding-bottom:4px;">/month</div>' +
+      '</div>' +
+      '<div class="quote-line"><span class="label">Facility type</span><span class="value">' + typeLabel + '</span></div>' +
+      '<div class="quote-line"><span class="label">Market</span><span class="value">' + city.charAt(0).toUpperCase() + city.slice(1) + '</span></div>' +
+      '<div class="quote-line"><span class="label">Frequency</span><span class="value">' + freqLabel + '</span></div>' +
+      '<div class="quote-line"><span class="label">Special requirements</span><span class="value">' + (specialLabel || 'None') + '</span></div>' +
+      '<div class="quote-line"><span class="label">Est. per visit</span><span class="value">$' + perVisit.toLocaleString() + '</span></div>' +
+      '<div class="quote-line"><span class="label">Annual contract value</span><span class="value" style="color:var(--blue);">$' + annual.toLocaleString() + '</span></div>' +
+      '<div style="margin-top:14px;padding-top:12px;border-top:1px solid #b3d9f0;font-size:0.75rem;color:var(--slate);">&#128161; This estimate is auto-generated from your inputs. A quick discovery call confirms scope and finalizes pricing.</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;margin-top:12px;">' +
+        '<button class="btn-primary" style="flex:1;" onclick="forceOpenModal()">&#128197; Schedule Discovery Call</button>' +
+        '<button class="btn-ghost" style="flex:1;">&#128196; Send as PDF</button>' +
+      '</div>' +
+      '<div class="card" style="margin-top:14px;"><div class="card-title">&#128203; Quote Pipeline</div>' +
+        '<table class="data-table"><thead><tr><th>Lead</th><th>Market</th><th>Est. Value</th><th>Status</th></tr></thead><tbody>' +
+        '<tr><td><strong>' + name + '</strong><br><span style="font-size:0.7rem;color:var(--slate);">' + typeLabel + '</span></td><td>' + city.charAt(0).toUpperCase() + city.slice(1) + '</td><td style="font-weight:700;color:var(--blue);">$' + monthly.toLocaleString() + '/mo</td><td><span class="badge badge-amber">Quote Ready</span></td></tr>' +
+        '<tr><td><strong>Austin Tech Hub</strong><br><span style="font-size:0.7rem;color:var(--slate);">Co-working, 8,000 sq ft</span></td><td>Austin</td><td style="font-weight:700;color:var(--blue);">~$1,800/mo</td><td><span class="badge badge-blue">Sent</span></td></tr>' +
+        '<tr><td><strong>SA Medical Plaza</strong><br><span style="font-size:0.7rem;color:var(--slate);">Clinic, daily protocol</span></td><td>San Antonio</td><td style="font-weight:700;color:var(--blue);">~$4,100/mo</td><td><span class="badge badge-green">Approved</span></td></tr>' +
+        '</tbody></table></div>';
+  }
+
+  // Run quote on load so panel is pre-populated
+  generateQuote();
+
+  // ── Search / filter ────────────────────────────────────
+  function filterTable() {
+    var q = document.getElementById('search-input').value.toLowerCase();
+    var st = document.getElementById('filter-status').value;
+    var rows = document.querySelectorAll('#accounts-tbody tr');
+    rows.forEach(function(row) {
+      var name = (row.dataset.name || '').toLowerCase();
+      var city = (row.dataset.city || '').toLowerCase();
+      var status = (row.dataset.status || '');
+      var matchQ = !q || name.indexOf(q) !== -1 || city.indexOf(q) !== -1;
+      var matchSt = !st || status === st;
+      row.style.display = (matchQ && matchSt) ? '' : 'none';
+    });
+  }
+
+  // ── Modal backdrop click ───────────────────────────────
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

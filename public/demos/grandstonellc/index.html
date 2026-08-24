@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piedra Grande Countertops — Demo Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --gold:    #B8960C;
+      --gold2:   #C9A84C;
+      --dark:    #1C1C1C;
+      --dark2:   #252525;
+      --dark3:   #2E2E2E;
+      --card:    #3A3A3A;
+      --text:    #F5F5F5;
+      --sub:     #BBBBBB;
+      --green:   #4CAF84;
+      --amber:   #D4A017;
+      --red:     #C0392B;
+      --blue:    #5B8DD9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* ── BADGE ── */
+    .demo-badge {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: var(--gold);
+      color: #000;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--dark2);
+      border-bottom: 2px solid var(--gold);
+      padding: 16px 24px;
+    }
+    .site-header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .site-header p {
+      margin: 2px 0 0;
+      font-size: 0.78rem;
+      color: var(--sub);
+    }
+
+    /* ── TABS ── */
+    .tabs-bar {
+      display: flex;
+      gap: 0;
+      background: var(--dark2);
+      border-bottom: 1px solid #444;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 12px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--sub);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: color .2s, border-color .2s;
+    }
+    .tab-btn:hover { color: var(--gold2); }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-icon { margin-right: 6px; }
+
+    /* ── PANEL ── */
+    .tab-panel { display: none; padding: 20px 24px 100px; }
+    .tab-panel.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border-radius: 8px;
+      border: 1px solid #4a4a4a;
+    }
+    .card-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid #4a4a4a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-body { padding: 18px; }
+
+    /* ── STATUS PILLS ── */
+    .pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: .5px;
+    }
+    .pill-medicion   { background: #1a3a5c; color: #7ab3f0; }
+    .pill-fabricacion{ background: #3a2a00; color: #f0b630; }
+    .pill-instalacion{ background: #1a3328; color: #50c878; }
+    .pill-entregado  { background: #2a2a2a; color: #aaa; }
+    .pill-facturado  { background: #1a3a1a; color: #6fcf6f; }
+    .pill-pendiente  { background: #3a1a1a; color: #f07070; }
+
+    /* ── TABLA ── */
+    .gs-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .gs-table th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--gold2);
+      font-size: 0.75rem;
+      letter-spacing: .6px;
+      border-bottom: 1px solid #4a4a4a;
+    }
+    .gs-table td {
+      padding: 11px 12px;
+      border-bottom: 1px solid #3a3a3a;
+      vertical-align: middle;
+    }
+    .gs-table tr:last-child td { border-bottom: none; }
+    .gs-table tr:hover td { background: rgba(184,150,12,.06); }
+
+    /* ── KANBAN ── */
+    .kanban-col {
+      background: var(--dark3);
+      border-radius: 8px;
+      border: 1px solid #444;
+      min-width: 200px;
+    }
+    .kanban-col-header {
+      padding: 10px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: .6px;
+      border-bottom: 1px solid #444;
+    }
+    .kanban-card {
+      margin: 10px;
+      padding: 10px 12px;
+      background: var(--card);
+      border-radius: 6px;
+      border: 1px solid #4a4a4a;
+      font-size: 0.8rem;
+      cursor: default;
+    }
+    .kanban-card .proj-name { font-weight: 600; margin-bottom: 4px; }
+    .kanban-card .proj-meta { color: var(--sub); font-size: 0.74rem; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-track {
+      background: #2a2a2a;
+      border-radius: 4px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      transition: width .6s ease;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #3a3a3a;
+    }
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .tl-gold  { background: var(--gold); }
+    .tl-green { background: var(--green); }
+    .tl-blue  { background: var(--blue); }
+    .tl-sub   { background: #666; }
+
+    /* ── STAT BOX ── */
+    .stat-box {
+      background: var(--card);
+      border: 1px solid #4a4a4a;
+      border-radius: 8px;
+      padding: 16px 20px;
+      text-align: center;
+    }
+    .stat-box .val {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-box .lbl {
+      font-size: 0.75rem;
+      color: var(--sub);
+      margin-top: 4px;
+    }
+
+    /* ── DOLOR PANEL ── */
+    .dolor-banner {
+      background: linear-gradient(135deg, #1a1200, #2a1e00);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .dolor-banner h3 { margin: 0 0 6px; color: var(--gold); font-size: 1rem; }
+    .dolor-banner p  { margin: 0; color: var(--sub); font-size: 0.84rem; line-height: 1.55; }
+
+    /* ── SEARCH ── */
+    .gs-input {
+      background: var(--dark3);
+      border: 1px solid #555;
+      border-radius: 6px;
+      color: var(--text);
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .gs-input:focus { border-color: var(--gold); }
+    .gs-select {
+      background: var(--dark3);
+      border: 1px solid #555;
+      border-radius: 6px;
+      color: var(--text);
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* ── FLOATING CTA ── */
+    .cta-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9000;
+      background: linear-gradient(135deg, var(--gold), #9a7a00);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(184,150,12,.45);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .cta-float:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(184,150,12,.6);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0,0,0,.75);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--dark2);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+      max-width: 420px;
+      width: 90%;
+      padding: 32px 28px;
+      text-align: center;
+      position: relative;
+    }
+    .modal-box h2 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+      color: var(--gold);
+    }
+    .modal-box p {
+      color: var(--sub);
+      font-size: 0.88rem;
+      margin: 0 0 24px;
+      line-height: 1.55;
+    }
+    .modal-btn-primary {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), #9a7a00);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      padding: 13px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .modal-btn-secondary {
+      background: transparent;
+      border: 1px solid #555;
+      color: var(--sub);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.84rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    .modal-btn-secondary:hover { border-color: var(--gold2); color: var(--gold2); }
+
+    /* ── ACTION BUTTON ── */
+    .btn-action {
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-action:hover { background: var(--gold2); }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid #555;
+      color: var(--sub);
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: var(--gold2); color: var(--gold2); }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      z-index: 9500;
+      background: var(--green);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.84rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    #toast.show { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .tab-btn { padding: 10px 12px; font-size: 0.77rem; }
+      .tab-icon { margin-right: 4px; }
+      .site-header h1 { font-size: 1.1rem; }
+      .kanban-col { min-width: 160px; }
+      .cta-float { font-size: 0.82rem; padding: 12px 16px; bottom: 16px; right: 16px; }
+    }
+
+    /* factura highlight */
+    .locked-row td { opacity: .45; }
+    .unlocked-row td { animation: rowFlash .6s ease; }
+    @keyframes rowFlash {
+      0%   { background: rgba(76,175,132,.15); }
+      100% { background: transparent; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BADGE FIJO -->
+<div class="demo-badge">DEMO &middot; datos de muestra</div>
+
+<!-- TOAST -->
+<div id="toast">&#10003; Estado actualizado</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <div>
+      <h1>&#9670; Piedra Grande Countertops</h1>
+      <p>As&iacute; se ver&iacute;a su sistema propio &mdash; preparado por Pocho.tech</p>
+    </div>
+    <div style="font-size:0.75rem;color:var(--sub);text-align:right;">
+      Granito &middot; Cuarzo &middot; Piedra natural<br>
+      <span style="color:var(--gold2);">Houston, TX</span>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="tabs-bar">
+  <button class="tab-btn active" onclick="switchTab('tablero',this)">
+    <span class="tab-icon">&#9783;</span>Tablero de &Oacute;rdenes
+  </button>
+  <button class="tab-btn" onclick="switchTab('ficha',this)">
+    <span class="tab-icon">&#9741;</span>Ficha de Proyecto
+  </button>
+  <button class="tab-btn" onclick="switchTab('facturacion',this)">
+    <span class="tab-icon">&#9654;</span>Facturaci&oacute;n Conectada
+  </button>
+  <button class="tab-btn" onclick="switchTab('busqueda',this)">
+    <span class="tab-icon">&#9740;</span>Reportes
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 1: TABLERO DE ÓRDENES (operación diaria)
+     ═══════════════════════════════════════════════════════ -->
+<section id="tab-tablero" class="tab-panel active">
+  <div style="max-width:1100px;margin:0 auto;">
+
+    <!-- KPIs -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px;">
+      <div class="stat-box">
+        <div class="val" id="kpi-activos">14</div>
+        <div class="lbl">Proyectos activos</div>
+      </div>
+      <div class="stat-box">
+        <div class="val">3</div>
+        <div class="lbl">Mediciones esta semana</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--amber);">2</div>
+        <div class="lbl">En fabricaci&oacute;n</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--green);">4</div>
+        <div class="lbl">Instalaciones programadas</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--sub);">5</div>
+        <div class="lbl">Entregados este mes</div>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+      <span style="font-size:0.8rem;color:var(--sub);">Filtrar por constructor:</span>
+      <button class="btn-action filter-btn" onclick="filterBuilder('todos', event)">Todos</button>
+      <button class="btn-ghost filter-btn" onclick="filterBuilder('Croix', event)">Croix Custom Homes</button>
+      <button class="btn-ghost filter-btn" onclick="filterBuilder('Nalley', event)">Nalley Custom Homes</button>
+      <button class="btn-ghost filter-btn" onclick="filterBuilder('Winfrey', event)">Winfrey Design Build</button>
+      <button class="btn-ghost filter-btn" onclick="filterBuilder('Residencial', event)">Residencial</button>
+    </div>
+
+    <!-- Tablero Kanban -->
+    <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;">
+
+      <!-- Medición -->
+      <div class="kanban-col" style="flex:1;">
+        <div class="kanban-col-header" style="color:#7ab3f0;border-bottom-color:#1a3a5c;">
+          &#9670; MEDICI&Oacute;N
+          <span style="float:right;background:#1a3a5c;color:#7ab3f0;border-radius:10px;padding:1px 7px;font-size:0.75rem;" id="cnt-medicion">3</span>
+        </div>
+        <div id="col-medicion">
+          <div class="kanban-card builder-Croix" data-id="ORD-041">
+            <div class="proj-name">Cocina principal &mdash; ORD-041</div>
+            <div class="proj-meta">Croix Custom Homes &bull; Granito Javea Cream L4</div>
+            <div class="proj-meta" style="margin-top:4px;">Carlos &mdash; Jue 31 jul</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-041','fabricacion')">
+                Marcar en fabricaci&oacute;n &rarr;
+              </button>
+            </div>
+          </div>
+          <div class="kanban-card builder-Nalley" data-id="ORD-038">
+            <div class="proj-name">Ba&ntilde;o master &mdash; ORD-038</div>
+            <div class="proj-meta">Nalley Custom Homes &bull; Cuarzo Caesarstone</div>
+            <div class="proj-meta" style="margin-top:4px;">Carlos &mdash; Vie 1 ago</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-038','fabricacion')">
+                Marcar en fabricaci&oacute;n &rarr;
+              </button>
+            </div>
+          </div>
+          <div class="kanban-card builder-Residencial" data-id="ORD-035">
+            <div class="proj-name">Cocina &mdash; ORD-035</div>
+            <div class="proj-meta">Residencial &bull; Granito Santa Cecilia L1</div>
+            <div class="proj-meta" style="margin-top:4px;">Carlos &mdash; Lun 4 ago</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-035','fabricacion')">
+                Marcar en fabricaci&oacute;n &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fabricación -->
+      <div class="kanban-col" style="flex:1;">
+        <div class="kanban-col-header" style="color:#f0b630;border-bottom-color:#3a2a00;">
+          &#9670; FABRICACI&Oacute;N
+          <span style="float:right;background:#3a2a00;color:#f0b630;border-radius:10px;padding:1px 7px;font-size:0.75rem;" id="cnt-fabricacion">2</span>
+        </div>
+        <div id="col-fabricacion">
+          <div class="kanban-card builder-Winfrey" data-id="ORD-037">
+            <div class="proj-name">Isla de cocina &mdash; ORD-037</div>
+            <div class="proj-meta">Winfrey Design Build &bull; Cuarzo Silestone</div>
+            <div class="proj-meta" style="margin-top:4px;">Xochilt &mdash; listo Mie 30 jul</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-037','instalacion')">
+                Programar instalaci&oacute;n &rarr;
+              </button>
+            </div>
+          </div>
+          <div class="kanban-card builder-Croix" data-id="ORD-033">
+            <div class="proj-name">Vanity ba&ntilde;o &mdash; ORD-033</div>
+            <div class="proj-meta">Croix Custom Homes &bull; M&aacute;rmol White Carrara L5</div>
+            <div class="proj-meta" style="margin-top:4px;">Xochilt &mdash; listo Vie 1 ago</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-033','instalacion')">
+                Programar instalaci&oacute;n &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instalación -->
+      <div class="kanban-col" style="flex:1;">
+        <div class="kanban-col-header" style="color:#50c878;border-bottom-color:#1a3328;">
+          &#9670; INSTALACI&Oacute;N
+          <span style="float:right;background:#1a3328;color:#50c878;border-radius:10px;padding:1px 7px;font-size:0.75rem;" id="cnt-instalacion">4</span>
+        </div>
+        <div id="col-instalacion">
+          <div class="kanban-card builder-Winfrey" data-id="ORD-030">
+            <div class="proj-name">Cocina principal &mdash; ORD-030</div>
+            <div class="proj-meta">Winfrey Design Build &bull; Cuartzita White Macaubus L6</div>
+            <div class="proj-meta" style="margin-top:4px;">Instalaci&oacute;n: Lun 28 jul</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-030','entregado')">
+                Marcar entregado &#10003;
+              </button>
+            </div>
+          </div>
+          <div class="kanban-card builder-Nalley" data-id="ORD-029">
+            <div class="proj-name">Lavander&iacute;a &mdash; ORD-029</div>
+            <div class="proj-meta">Nalley Custom Homes &bull; Granito Black River L5</div>
+            <div class="proj-meta" style="margin-top:4px;">Instalaci&oacute;n: Mar 29 jul</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-029','entregado')">
+                Marcar entregado &#10003;
+              </button>
+            </div>
+          </div>
+          <div class="kanban-card builder-Residencial" data-id="ORD-027">
+            <div class="proj-name">Cocina &mdash; ORD-027</div>
+            <div class="proj-meta">Residencial &bull; Granito Star White L1</div>
+            <div class="proj-meta" style="margin-top:4px;">Instalaci&oacute;n: Mie 30 jul</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-027','entregado')">
+                Marcar entregado &#10003;
+              </button>
+            </div>
+          </div>
+          <div class="kanban-card builder-Croix" data-id="ORD-025">
+            <div class="proj-name">Ba&ntilde;o de visitas &mdash; ORD-025</div>
+            <div class="proj-meta">Croix Custom Homes &bull; Dolomita Cielo L6</div>
+            <div class="proj-meta" style="margin-top:4px;">Instalaci&oacute;n: Jue 31 jul</div>
+            <div style="margin-top:8px;">
+              <button class="btn-action" style="font-size:0.72rem;padding:5px 10px;" onclick="avanzarOrden('ORD-025','entregado')">
+                Marcar entregado &#10003;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entregado -->
+      <div class="kanban-col" style="flex:1;">
+        <div class="kanban-col-header" style="color:#aaa;border-bottom-color:#333;">
+          &#9670; ENTREGADO
+          <span style="float:right;background:#2a2a2a;color:#aaa;border-radius:10px;padding:1px 7px;font-size:0.75rem;" id="cnt-entregado">5</span>
+        </div>
+        <div id="col-entregado">
+          <div class="kanban-card builder-Residencial" data-id="ORD-020">
+            <div class="proj-name">Cocina &mdash; ORD-020</div>
+            <div class="proj-meta">Residencial &bull; Granito Waterfall L4</div>
+            <div class="proj-meta" style="margin-top:4px;color:var(--green);">&#10003; Entregado 22 jul</div>
+          </div>
+          <div class="kanban-card builder-Winfrey" data-id="ORD-018">
+            <div class="proj-name">Oficina &mdash; ORD-018</div>
+            <div class="proj-meta">Winfrey Design Build &bull; Cuarzo Caesarstone</div>
+            <div class="proj-meta" style="margin-top:4px;color:var(--green);">&#10003; Entregado 18 jul</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /kanban -->
+
+    <p style="margin-top:16px;font-size:0.75rem;color:var(--sub);">
+      &#9432; Haga clic en cualquier bot&oacute;n de avance para ver c&oacute;mo el sistema mueve la orden en tiempo real.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 2: FICHA DE PROYECTO CON HISTORIAL
+     ═══════════════════════════════════════════════════════ -->
+<section id="tab-ficha" class="tab-panel">
+  <div style="max-width:900px;margin:0 auto;">
+
+    <!-- Header ficha -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">
+        <div>
+          <span style="color:var(--gold);font-weight:700;font-size:1.05rem;">ORD-037</span>
+          <span style="margin-left:10px;color:var(--sub);font-size:0.85rem;">Isla de cocina &mdash; Winfrey Design Build</span>
+        </div>
+        <span class="pill pill-fabricacion">EN FABRICACI&Oacute;N</span>
+      </div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;font-size:0.85rem;">
+          <div>
+            <div style="color:var(--sub);font-size:0.73rem;letter-spacing:.5px;margin-bottom:4px;">MATERIAL</div>
+            <div style="font-weight:600;">Cuarzo Silestone &mdash; Level 5</div>
+            <div style="color:var(--sub);font-size:0.78rem;">2cm &middot; Edge ogee &middot; Cutout sink</div>
+          </div>
+          <div>
+            <div style="color:var(--sub);font-size:0.73rem;letter-spacing:.5px;margin-bottom:4px;">MEDIDAS APROBADAS</div>
+            <div style="font-weight:600;">48 sq ft &mdash; isla principal</div>
+            <div style="color:var(--sub);font-size:0.78rem;">Carlos &mdash; Medido 22 jul 2026</div>
+          </div>
+          <div>
+            <div style="color:var(--sub);font-size:0.73rem;letter-spacing:.5px;margin-bottom:4px;">COTIZACI&Oacute;N</div>
+            <div style="font-weight:600;color:var(--gold);">$4,320 USD</div>
+            <div style="color:var(--sub);font-size:0.78rem;">50% dep&oacute;sito recibido &middot; 14 jul</div>
+          </div>
+          <div>
+            <div style="color:var(--sub);font-size:0.73rem;letter-spacing:.5px;margin-bottom:4px;">INSTALACI&Oacute;N</div>
+            <div style="font-weight:600;">Mie 30 jul 2026</div>
+            <div style="color:var(--sub);font-size:0.78rem;">Xochilt &mdash; equipo A</div>
+          </div>
+        </div>
+
+        <!-- Progreso visual -->
+        <div style="margin-top:20px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--sub);margin-bottom:6px;">
+            <span>Cotizaci&oacute;n</span><span>Medici&oacute;n</span><span style="color:var(--gold);font-weight:700;">Fabricaci&oacute;n</span><span>Instalaci&oacute;n</span><span>Entregado</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width:60%;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#555;margin-top:3px;">
+            <span>&#10003;</span><span>&#10003;</span><span style="color:var(--gold);">&#9654;</span><span>&mdash;</span><span>&mdash;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historial -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-header">
+        <span style="font-weight:600;font-size:0.88rem;">Historial de actividad</span>
+      </div>
+      <div class="card-body">
+        <div class="timeline-item">
+          <div class="timeline-dot tl-gold"></div>
+          <div>
+            <div style="font-size:0.84rem;font-weight:600;">Fabricaci&oacute;n iniciada</div>
+            <div style="font-size:0.77rem;color:var(--sub);">Xochilt Mej&iacute;a &mdash; 23 jul 2026, 9:14 am</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot tl-green"></div>
+          <div>
+            <div style="font-size:0.84rem;font-weight:600;">Medici&oacute;n aprobada &mdash; 48 sq ft confirmados</div>
+            <div style="font-size:0.77rem;color:var(--sub);">Carlos Del Valle &mdash; 22 jul 2026, 2:30 pm</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot tl-blue"></div>
+          <div>
+            <div style="font-size:0.84rem;font-weight:600;">Dep&oacute;sito 50% recibido &mdash; $2,160</div>
+            <div style="font-size:0.77rem;color:var(--sub);">Sonia Rizo &mdash; 14 jul 2026, 11:00 am</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot tl-blue"></div>
+          <div>
+            <div style="font-size:0.84rem;font-weight:600;">Cotizaci&oacute;n enviada y aprobada</div>
+            <div style="font-size:0.77rem;color:var(--sub);">Aurora Del Valle &mdash; 12 jul 2026, 4:15 pm</div>
+          </div>
+        </div>
+        <div class="timeline-item" style="border-bottom:none;">
+          <div class="timeline-dot tl-sub"></div>
+          <div>
+            <div style="font-size:0.84rem;font-weight:600;">Solicitud recibida de Winfrey Design Build</div>
+            <div style="font-size:0.77rem;color:var(--sub);">Sheila V&aacute;zquez &mdash; 10 jul 2026, 8:50 am</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notas internas -->
+    <div class="card">
+      <div class="card-header">
+        <span style="font-weight:600;font-size:0.88rem;">Notas internas del equipo</span>
+        <span style="font-size:0.75rem;color:var(--sub);">Solo visibles internamente</span>
+      </div>
+      <div class="card-body">
+        <div style="background:var(--dark3);border-radius:6px;padding:12px;font-size:0.83rem;border-left:3px solid var(--gold2);margin-bottom:10px;">
+          <span style="color:var(--gold2);font-weight:600;">Xochilt &mdash; 23 jul:</span>
+          <span style="color:var(--sub);"> Slab reservado en Arizona Tile, recojo el mi&eacute;rcoles 30. El cutout del sink requiere plantilla custom &mdash; avisar al equipo de instalaci&oacute;n.</span>
+        </div>
+        <div style="background:var(--dark3);border-radius:6px;padding:12px;font-size:0.83rem;border-left:3px solid #555;">
+          <span style="color:var(--sub);font-weight:600;">Carlos &mdash; 22 jul:</span>
+          <span style="color:var(--sub);"> Confirm&eacute; con el contratista de Winfrey: acceso a la cocina despu&eacute;s de las 10am. Hay gabinetes nuevos instalados, verificar nivelaci&oacute;n antes de cortar.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 3: FACTURACIÓN CONECTADA (dolor principal cerrado)
+     ═══════════════════════════════════════════════════════ -->
+<section id="tab-facturacion" class="tab-panel">
+  <div style="max-width:1000px;margin:0 auto;">
+
+    <!-- Banner del dolor -->
+    <div class="dolor-banner" style="margin-bottom:20px;">
+      <h3>&#9888; El problema que esto resuelve</h3>
+      <p>
+        Hoy Sonia cierra el mes revisando mensajes de WhatsApp y preguntando a Xochilt cu&aacute;les proyectos fueron instalados.
+        En este sistema, <strong style="color:var(--gold);">solo se puede facturar un proyecto si su estado es &ldquo;Instalado y aprobado&rdquo;</strong>.
+        Las &oacute;rdenes en fabricaci&oacute;n o pendientes quedan bloqueadas autom&aacute;ticamente.
+        Sin llamadas, sin re-trabajo, sin errores en el cierre.
+      </p>
+    </div>
+
+    <!-- Filtro mes -->
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-size:0.82rem;color:var(--sub);">Periodo:</span>
+      <select class="gs-select" id="mes-select">
+        <option>Julio 2026</option>
+        <option>Junio 2026</option>
+      </select>
+      <span style="font-size:0.82rem;color:var(--sub);">Estado:</span>
+      <select class="gs-select" id="estado-select">
+        <option>Todos</option>
+        <option>Listo para facturar</option>
+        <option>Bloqueado</option>
+        <option>Facturado</option>
+      </select>
+    </div>
+
+    <!-- Resumen financiero -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px;">
+      <div class="stat-box">
+        <div class="val" style="color:var(--green);">$18,640</div>
+        <div class="lbl">Listo para facturar</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--sub);">$9,100</div>
+        <div class="lbl">Bloqueado (en proceso)</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--gold);">$34,200</div>
+        <div class="lbl">Ya facturado julio</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--text);">$61,940</div>
+        <div class="lbl">Total mes</div>
+      </div>
+    </div>
+
+    <!-- Tabla de facturación -->
+    <div class="card">
+      <div class="card-header">
+        <span style="font-weight:600;font-size:0.88rem;">&Oacute;rdenes del mes &mdash; Julio 2026</span>
+        <button class="btn-action" style="font-size:0.78rem;padding:6px 14px;">
+          Exportar a QuickBooks
+        </button>
+      </div>
+      <div class="card-body" style="padding:0;overflow-x:auto;">
+        <table class="gs-table" id="tabla-facturacion">
+          <thead>
+            <tr>
+              <th>Orden</th>
+              <th>Cliente</th>
+              <th>Material</th>
+              <th>Estado producci&oacute;n</th>
+              <th>Monto</th>
+              <th>Saldo</th>
+              <th>Facturaci&oacute;n</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="unlocked-row" id="fila-ORD-020">
+              <td><strong>ORD-020</strong></td>
+              <td>Residencial</td>
+              <td>Granito Waterfall L4</td>
+              <td><span class="pill pill-entregado">&#10003; Instalado</span></td>
+              <td>$3,200</td>
+              <td style="color:var(--green);font-weight:700;">$1,600</td>
+              <td><button class="btn-action" style="font-size:0.76rem;padding:5px 10px;" onclick="facturarOrden('ORD-020')">Emitir factura</button></td>
+            </tr>
+            <tr class="unlocked-row" id="fila-ORD-018">
+              <td><strong>ORD-018</strong></td>
+              <td>Winfrey Design Build</td>
+              <td>Cuarzo Caesarstone</td>
+              <td><span class="pill pill-entregado">&#10003; Instalado</span></td>
+              <td>$5,800</td>
+              <td style="color:var(--green);font-weight:700;">$2,900</td>
+              <td><button class="btn-action" style="font-size:0.76rem;padding:5px 10px;" onclick="facturarOrden('ORD-018')">Emitir factura</button></td>
+            </tr>
+            <tr class="unlocked-row" id="fila-ORD-015">
+              <td><strong>ORD-015</strong></td>
+              <td>Croix Custom Homes</td>
+              <td>Cuartzita White Macaubus L6</td>
+              <td><span class="pill pill-entregado">&#10003; Instalado</span></td>
+              <td>$9,640</td>
+              <td style="color:var(--green);font-weight:700;">$4,820</td>
+              <td><button class="btn-action" style="font-size:0.76rem;padding:5px 10px;" onclick="facturarOrden('ORD-015')">Emitir factura</button></td>
+            </tr>
+            <tr class="locked-row" id="fila-ORD-037">
+              <td><strong>ORD-037</strong></td>
+              <td>Winfrey Design Build</td>
+              <td>Cuarzo Silestone L5</td>
+              <td><span class="pill pill-fabricacion">En fabricaci&oacute;n</span></td>
+              <td>$4,320</td>
+              <td style="color:var(--sub);">$2,160</td>
+              <td><span style="font-size:0.78rem;color:#666;">&#128274; Bloqueado</span></td>
+            </tr>
+            <tr class="locked-row" id="fila-ORD-041">
+              <td><strong>ORD-041</strong></td>
+              <td>Croix Custom Homes</td>
+              <td>Granito Javea Cream L4</td>
+              <td><span class="pill pill-medicion">Medici&oacute;n</span></td>
+              <td>$2,780</td>
+              <td style="color:var(--sub);">$1,390</td>
+              <td><span style="font-size:0.78rem;color:#666;">&#128274; Bloqueado</span></td>
+            </tr>
+            <tr style="background:rgba(76,175,132,.05);" id="fila-ORD-010">
+              <td><strong>ORD-010</strong></td>
+              <td>Nalley Custom Homes</td>
+              <td>Granito Black River L5</td>
+              <td><span class="pill pill-entregado" style="background:#1a3a1a;color:#6fcf6f;">&#10003; Facturado</span></td>
+              <td>$6,400</td>
+              <td style="color:var(--sub);">$0</td>
+              <td><span style="font-size:0.78rem;color:var(--green);">&#10003; Enviado 15 jul</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p style="margin-top:14px;font-size:0.75rem;color:var(--sub);">
+      &#9432; Haga clic en &ldquo;Emitir factura&rdquo; para ver c&oacute;mo Sonia procesa un cobro solo cuando la instalaci&oacute;n est&aacute; confirmada.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 4: BÚSQUEDA / REPORTES
+     ═══════════════════════════════════════════════════════ -->
+<section id="tab-busqueda" class="tab-panel">
+  <div style="max-width:1000px;margin:0 auto;">
+
+    <!-- Barra de búsqueda -->
+    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+      <input class="gs-input" style="flex:1;min-width:200px;" id="search-input" placeholder="Buscar por orden, cliente, material..." oninput="buscar()" />
+      <select class="gs-select" id="filter-etapa" onchange="buscar()">
+        <option value="">Todas las etapas</option>
+        <option value="Medición">Medici&oacute;n</option>
+        <option value="Fabricación">Fabricaci&oacute;n</option>
+        <option value="Instalación">Instalaci&oacute;n</option>
+        <option value="Entregado">Entregado</option>
+      </select>
+      <select class="gs-select" id="filter-constructor" onchange="buscar()">
+        <option value="">Todos los constructores</option>
+        <option value="Croix">Croix Custom Homes</option>
+        <option value="Nalley">Nalley Custom Homes</option>
+        <option value="Winfrey">Winfrey Design Build</option>
+        <option value="Residencial">Residencial</option>
+      </select>
+    </div>
+
+    <!-- Métricas de reporte -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px;">
+      <div class="stat-box">
+        <div class="val">18</div>
+        <div class="lbl">Órdenes este mes</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--gold);">$61,940</div>
+        <div class="lbl">Ingresos julio</div>
+      </div>
+      <div class="stat-box">
+        <div class="val" style="color:var(--green);">92%</div>
+        <div class="lbl">Entregas a tiempo</div>
+      </div>
+      <div class="stat-box">
+        <div class="val">8.4d</div>
+        <div class="lbl">Lead time promedio</div>
+      </div>
+    </div>
+
+    <!-- Tabla de resultados -->
+    <div class="card">
+      <div class="card-header">
+        <span style="font-weight:600;font-size:0.88rem;">Resultados</span>
+        <span style="font-size:0.78rem;color:var(--sub);" id="result-count">Mostrando 9 registros</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="gs-table" id="tabla-busqueda">
+          <thead>
+            <tr>
+              <th>Orden</th>
+              <th>Cliente / Constructor</th>
+              <th>Material &mdash; Level</th>
+              <th>Etapa</th>
+              <th>Monto</th>
+              <th>Responsable</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-busqueda">
+            <!-- generado por JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Resumen por constructor -->
+    <div class="card" style="margin-top:16px;">
+      <div class="card-header">
+        <span style="font-weight:600;font-size:0.88rem;">Ingresos por constructor &mdash; Julio 2026</span>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:4px;">
+              <span>Croix Custom Homes</span>
+              <span style="color:var(--gold);font-weight:600;">$22,140 (36%)</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:36%;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:4px;">
+              <span>Winfrey Design Build</span>
+              <span style="color:var(--gold);font-weight:600;">$18,480 (30%)</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:30%;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:4px;">
+              <span>Nalley Custom Homes</span>
+              <span style="color:var(--gold);font-weight:600;">$13,520 (22%)</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:22%;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:4px;">
+              <span>Residencial</span>
+              <span style="color:var(--gold);font-weight:600;">$7,800 (12%)</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:12%;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CTA FLOTANTE
+     ═══════════════════════════════════════════════════════ -->
+<button class="cta-float" onclick="openModalManual()">
+  &#128172; &iquest;Le gust&oacute;? Hablemos
+</button>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL GANADO
+     ═══════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-ganado">
+  <div class="modal-box">
+    <div style="font-size:2rem;margin-bottom:10px;">&#9670;</div>
+    <h2>Este sistema es para Piedra Grande</h2>
+    <p>
+      Xochilt gestiona el tablero. Sonia factura solo lo que est&aacute; instalado.
+      Aurora y Carlos ven cada proyecto de sus constructores en tiempo real.<br><br>
+      <strong style="color:var(--gold);">Convers&eacute;moslo. Sin compromiso.</strong>
+    </p>
+    <button class="modal-btn-primary" onclick="openCalendly()">
+      Agendar conversaci&oacute;n con Erick
+    </button>
+    <button class="modal-btn-secondary" onclick="closeModal()">
+      Lo reviso primero
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<footer style="background:var(--dark2);border-top:1px solid #333;padding:16px 24px;text-align:center;font-size:0.75rem;color:var(--sub);margin-top:40px;">
+  Maqueta con datos de muestra. Construida por Pocho.tech &mdash; sistemas propios para negocios que ya funcionan.
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════════ -->
+<script>
+  /* ── DATOS DEMO ── */
+  const ordenes = [
+    { id:'ORD-041', cliente:'Croix Custom Homes',    constructor:'Croix',      material:'Granito Javea Cream', level:'L4', etapa:'Medición',    monto:'$2,780', resp:'Carlos',  fecha:'31 jul' },
+    { id:'ORD-038', cliente:'Nalley Custom Homes',   constructor:'Nalley',     material:'Cuarzo Caesarstone',  level:'L5', etapa:'Medición',    monto:'$3,150', resp:'Carlos',  fecha:'1 ago'  },
+    { id:'ORD-035', cliente:'Residencial',           constructor:'Residencial',material:'Granito Santa Cecilia',level:'L1',etapa:'Medición',    monto:'$1,840', resp:'Carlos',  fecha:'4 ago'  },
+    { id:'ORD-037', cliente:'Winfrey Design Build',  constructor:'Winfrey',    material:'Cuarzo Silestone',    level:'L5', etapa:'Fabricación', monto:'$4,320', resp:'Xochilt', fecha:'30 jul' },
+    { id:'ORD-033', cliente:'Croix Custom Homes',    constructor:'Croix',      material:'Mármol White Carrara',level:'L5', etapa:'Fabricación', monto:'$6,200', resp:'Xochilt', fecha:'1 ago'  },
+    { id:'ORD-030', cliente:'Winfrey Design Build',  constructor:'Winfrey',    material:'Cuartzita White Macaubus',level:'L6',etapa:'Instalación',monto:'$8,900',resp:'Xochilt',fecha:'28 jul'},
+    { id:'ORD-029', cliente:'Nalley Custom Homes',   constructor:'Nalley',     material:'Granito Black River', level:'L5', etapa:'Instalación', monto:'$3,780', resp:'Xochilt', fecha:'29 jul' },
+    { id:'ORD-027', cliente:'Residencial',           constructor:'Residencial',material:'Granito Star White',  level:'L1', etapa:'Instalación', monto:'$2,160', resp:'Carlos',  fecha:'30 jul' },
+    { id:'ORD-025', cliente:'Croix Custom Homes',    constructor:'Croix',      material:'Dolomita Cielo',      level:'L6', etapa:'Instalación', monto:'$9,740', resp:'Xochilt', fecha:'31 jul' },
+  ];
+
+  /* ── ETAPA → PILL CLASS ── */
+  function pillClass(etapa){
+    const m = { 'Medición':'pill-medicion','Fabricación':'pill-fabricacion','Instalación':'pill-instalacion','Entregado':'pill-entregado' };
+    return m[etapa] || 'pill-entregado';
+  }
+  function etapaShort(e){
+    const m = {'Medición':'Medición','Fabricación':'Fabricación','Instalación':'Instalación','Entregado':'Entregado'};
+    return m[e]||e;
+  }
+
+  /* ── RENDER TABLA BÚSQUEDA ── */
+  function renderBusqueda(data){
+    const tb = document.getElementById('tbody-busqueda');
+    const cnt = document.getElementById('result-count');
+    tb.innerHTML = '';
+    data.forEach(o => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${o.id}</strong></td>
+        <td>${o.cliente}</td>
+        <td>${o.material} &mdash; ${o.level}</td>
+        <td><span class="pill ${pillClass(o.etapa)}">${etapaShort(o.etapa)}</span></td>
+        <td>${o.monto}</td>
+        <td style="color:var(--sub);">${o.resp}</td>
+        <td style="color:var(--sub);font-size:0.8rem;">${o.fecha}</td>
+      `;
+      tb.appendChild(tr);
+    });
+    cnt.textContent = `Mostrando ${data.length} registros`;
+  }
+  renderBusqueda(ordenes);
+
+  /* ── BÚSQUEDA LIVE ── */
+  function buscar(){
+    const q    = document.getElementById('search-input').value.toLowerCase();
+    const etap = document.getElementById('filter-etapa').value;
+    const cons = document.getElementById('filter-constructor').value;
+    const res  = ordenes.filter(o => {
+      const texto = (o.id+o.cliente+o.material+o.level).toLowerCase();
+      const okQ   = !q    || texto.includes(q);
+      const okE   = !etap || o.etapa === etap;
+      const okC   = !cons || o.constructor === cons;
+      return okQ && okE && okC;
+    });
+    renderBusqueda(res);
+  }
+
+  /* ── FILTRO POR CONSTRUCTOR (tablero) ── */
+  function filterBuilder(tag, event){
+    const cards = document.querySelectorAll('.kanban-card');
+    cards.forEach(c => {
+      c.style.display = (tag === 'todos' || c.classList.contains('builder-'+tag)) ? '' : 'none';
+    });
+    /* actualizar botones */
+    document.querySelectorAll('#tab-tablero .filter-btn').forEach(b => {
+      b.classList.remove('btn-action');
+      b.classList.add('btn-ghost');
+    });
+    event.target.classList.remove('btn-ghost');
+    event.target.classList.add('btn-action');
+  }
+
+  /* ── CONTADOR COLUMNAS ── */
+  function updateCounts(){
+    ['medicion','fabricacion','instalacion','entregado'].forEach(col => {
+      const cnt = document.querySelectorAll('#col-'+col+' .kanban-card:not([style*="display: none"])').length;
+      document.getElementById('cnt-'+col).textContent = cnt;
+    });
+  }
+
+  /* ── AVANZAR ORDEN (interacción simulada) ── */
+  function avanzarOrden(id, destino){
+    const card = document.querySelector('[data-id="'+id+'"]');
+    if(!card) return;
+    const origen = card.closest('[id^="col-"]').id.replace('col-','');
+    /* mover tarjeta */
+    const destCol = document.getElementById('col-'+destino);
+    card.style.border = '1px solid var(--gold)';
+    setTimeout(()=>{
+      destCol.prepend(card);
+      card.style.border = '';
+      /* actualizar botón según destino */
+      const btn = card.querySelector('button');
+      if(btn){
+        if(destino==='instalacion'){
+          btn.textContent = 'Marcar entregado ✓';
+          btn.onclick = function(){ avanzarOrden(id,'entregado'); };
+        } else if(destino==='entregado'){
+          btn.remove();
+          /* marcar como verde */
+          const meta = card.querySelector('.proj-meta:last-child');
+          if(meta){ meta.style.color='var(--green)'; meta.textContent='✓ Entregado hoy'; }
+        }
+      }
+      updateCounts();
+      showToast('Estado de '+id+' actualizado');
+      /* actualizar KPI activos */
+      if(destino==='entregado'){
+        const kpi = document.getElementById('kpi-activos');
+        kpi.textContent = parseInt(kpi.textContent) - 1;
+      }
+    }, 350);
+  }
+
+  /* ── FACTURAR ORDEN ── */
+  function facturarOrden(id){
+    const fila = document.getElementById('fila-'+id);
+    if(!fila) return;
+    const btn = fila.querySelector('button');
+    if(btn) btn.disabled = true;
+    setTimeout(()=>{
+      const celda = fila.cells[6];
+      celda.innerHTML = '<span style="font-size:0.78rem;color:var(--green);">✓ Factura emitida hoy</span>';
+      const saldo = fila.cells[5];
+      saldo.innerHTML = '<span style="color:var(--sub);">$0</span>';
+      fila.classList.remove('unlocked-row');
+      fila.style.background = 'rgba(76,175,132,.07)';
+      showToast('Factura de '+id+' emitida');
+    }, 400);
+  }
+
+  /* ── TOAST ── */
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = '✓ '+msg;
+    t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 2800);
+  }
+
+  /* ── TABS ── */
+  let viewCount = 1; /* la vista inicial cuenta como 1 */
+  function switchTab(id, btn){
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    btn.classList.add('active');
+    viewCount++;
+    if(viewCount >= 3 && !sessionStorage.getItem('modalMostrado')){
+      triggerModal();
+    }
+  }
+
+  /* ── CALENDLY ── */
+  const CALENDLY_URL = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=grandstonellc';
+  function openCalendly(){
+    window.open(CALENDLY_URL, '_blank');
+  }
+
+  /* ── MODAL ── */
+  function triggerModal(){
+    if(sessionStorage.getItem('modalMostrado')) return;
+    sessionStorage.setItem('modalMostrado','1');
+    document.getElementById('modal-ganado').classList.add('open');
+  }
+  /* Trigger manual (botón flotante): abre el modal siempre,
+     sin importar si ya fue mostrado antes en la sesión */
+  function openModalManual(){
+    document.getElementById('modal-ganado').classList.add('open');
+  }
+  function closeModal(){
+    document.getElementById('modal-ganado').classList.remove('open');
+  }
+  /* cerrar modal al click fuera */
+  document.getElementById('modal-ganado').addEventListener('click', function(e){
+    if(e.target === this) closeModal();
+  });
+
+  /* ── TIMER 75s → modal ── */
+  setTimeout(()=>{
+    if(!sessionStorage.getItem('modalMostrado')) triggerModal();
+  }, 75000);
+
+</script>
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mesa Larga Events &amp; Catering — Client Memory System</title>
+  <style>
+    /* ─── Reset & Base ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:    #c8a96e;
+      --gold-lt: #dfc28e;
+      --gold-dk: #a8854a;
+      --dark:    #141414;
+      --charcoal:#1e1e1e;
+      --card:    #252525;
+      --border:  #333;
+      --wine:    #7a1f3a;
+      --cream:   #f5f0e8;
+      --muted:   #9e9e9e;
+      --green:   #4caf7d;
+      --radius:  8px;
+      --font-serif: Georgia, 'Times New Roman', serif;
+      --font-sans:  'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--dark);
+      color: var(--cream);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+    a { color: var(--gold); text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; border: none; outline: none; }
+    input, select, textarea { font-family: inherit; }
+
+    /* ─── Demo badge ─────────────────────────────────────────────────── */
+    .demo-badge {
+      position: fixed; top: 12px; right: 12px; z-index: 9999;
+      background: var(--wine); color: #fff;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      padding: 4px 10px; border-radius: 99px;
+      text-transform: uppercase;
+    }
+
+    /* ─── Header ─────────────────────────────────────────────────────── */
+    .site-header {
+      background: var(--charcoal);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px 20px;
+      text-align: center;
+    }
+    .site-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+    .site-header .tagline {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ─── Anchor stat ─────────────────────────────────────────────────  */
+    .anchor-stat {
+      background: linear-gradient(90deg, #1e1a12, #2a2016, #1e1a12);
+      border-top: 1px solid var(--gold-dk);
+      border-bottom: 1px solid var(--gold-dk);
+      padding: 14px 24px;
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center; align-items: center;
+      text-align: center;
+    }
+    .anchor-stat .big-num {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--gold);
+      font-weight: bold;
+      line-height: 1;
+    }
+    .anchor-stat .stat-text {
+      font-size: 0.88rem;
+      color: var(--cream);
+      max-width: 420px;
+      text-align: left;
+    }
+    .anchor-stat .stat-text strong { color: var(--gold-lt); }
+    .anchor-stat .stat-text em {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-style: normal;
+      font-size: 0.78rem;
+    }
+
+    /* ─── Tab nav ────────────────────────────────────────────────────── */
+    .tab-nav {
+      display: flex; overflow-x: auto;
+      background: var(--charcoal);
+      border-bottom: 1px solid var(--border);
+      padding: 0 12px;
+      gap: 4px;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 14px 18px 12px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-bottom: 3px solid transparent;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--gold-lt); }
+    .tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    .tab-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--gold-dk); color: var(--dark);
+      border-radius: 99px; font-size: 0.65rem; font-weight: 800;
+      width: 18px; height: 18px; margin-left: 5px;
+    }
+
+    /* ─── Tab panels ─────────────────────────────────────────────────── */
+    .tab-panel { display: none; padding: 24px 16px; max-width: 960px; margin: 0 auto; }
+    .tab-panel.active { display: block; }
+
+    /* ─── Section headings ───────────────────────────────────────────── */
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 20px;
+    }
+
+    /* ─── Cards / panels ─────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+    .card-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--cream);
+    }
+    .card-sub { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
+
+    /* badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 99px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .badge-gold  { background: #2d2410; color: var(--gold-lt); border: 1px solid var(--gold-dk); }
+    .badge-wine  { background: #2a0f18; color: #e5738f; border: 1px solid var(--wine); }
+    .badge-green { background: #0f2a1a; color: var(--green); border: 1px solid #2a5c3f; }
+    .badge-gray  { background: #1e1e1e; color: var(--muted); border: 1px solid var(--border); }
+    .badge-blue  { background: #0f1e2a; color: #6db8e5; border: 1px solid #2a4f6e; }
+
+    /* metrics row */
+    .metrics-row {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;
+    }
+    .metric-box {
+      background: #1c1c1c;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      text-align: center;
+      min-width: 90px;
+      flex: 1;
+    }
+    .metric-box .val {
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--gold); display: block;
+      font-family: var(--font-serif);
+    }
+    .metric-box .lbl {
+      font-size: 0.68rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    /* ─── Client Book ────────────────────────────────────────────────── */
+    .client-row {
+      display: flex; align-items: center;
+      gap: 14px; cursor: pointer;
+      transition: border-color .15s;
+    }
+    .client-row:hover { border-color: var(--gold-dk); }
+    .client-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dk), var(--wine));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; color: #fff;
+      flex-shrink: 0;
+    }
+    .client-info { flex: 1; min-width: 0; }
+    .client-name { font-weight: 700; font-size: 0.95rem; }
+    .client-type { color: var(--muted); font-size: 0.75rem; }
+    .client-stats {
+      display: flex; gap: 18px; flex-shrink: 0; text-align: right;
+    }
+    .client-stats .cs-val { font-size: 1.1rem; font-weight: 800; color: var(--gold); display: block; }
+    .client-stats .cs-lbl { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .repeat-tag {
+      background: #1c1200; border: 1px solid var(--gold-dk);
+      color: var(--gold); font-size: 0.68rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 99px; letter-spacing: 0.05em;
+    }
+
+    /* filter bar */
+    .filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .filter-chip {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 99px;
+      padding: 4px 13px; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+    }
+    .filter-chip.active, .filter-chip:hover {
+      background: #2a2010; border-color: var(--gold-dk); color: var(--gold);
+    }
+
+    /* ─── Client Record ──────────────────────────────────────────────── */
+    .record-nav {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap;
+    }
+    .record-nav select {
+      background: var(--card); color: var(--cream);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 8px 12px; font-size: 0.85rem; flex: 1;
+    }
+    .record-nav select:focus { outline: 2px solid var(--gold-dk); }
+
+    .record-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 14px; margin-bottom: 14px;
+    }
+    @media (max-width: 580px) { .record-grid { grid-template-columns: 1fr; } }
+
+    .info-block { }
+    .info-block h4 {
+      font-size: 0.72rem; color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 8px; font-weight: 700;
+    }
+    .info-item {
+      display: flex; gap: 8px; font-size: 0.82rem;
+      padding: 5px 0; border-bottom: 1px solid #2a2a2a;
+    }
+    .info-item:last-child { border-bottom: none; }
+    .info-item .il { color: var(--muted); min-width: 100px; flex-shrink: 0; }
+    .info-item .iv { color: var(--cream); }
+    .alert-item {
+      display: flex; gap: 8px; align-items: flex-start;
+      font-size: 0.82rem; padding: 6px 0;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .alert-item:last-child { border-bottom: none; }
+    .alert-icon { font-size: 1rem; flex-shrink: 0; }
+    .alert-text { }
+    .alert-text .at { font-weight: 700; font-size: 0.8rem; }
+    .alert-text .ad { color: var(--muted); font-size: 0.76rem; }
+
+    /* event history timeline */
+    .event-timeline { list-style: none; }
+    .event-timeline li {
+      display: flex; gap: 12px; padding: 10px 0;
+      border-bottom: 1px solid #2a2a2a; font-size: 0.82rem;
+    }
+    .event-timeline li:last-child { border-bottom: none; }
+    .evt-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold); margin-top: 5px; flex-shrink: 0;
+    }
+    .evt-info { flex: 1; }
+    .evt-name { font-weight: 700; color: var(--cream); }
+    .evt-meta { color: var(--muted); font-size: 0.75rem; margin-top: 2px; }
+    .evt-menu { color: var(--gold-lt); font-size: 0.75rem; margin-top: 3px; }
+
+    /* ─── New Proposal ───────────────────────────────────────────────── */
+    .proposal-select {
+      background: var(--card); color: var(--cream);
+      border: 1px solid var(--gold-dk); border-radius: 6px;
+      padding: 10px 14px; font-size: 0.9rem; width: 100%;
+      margin-bottom: 16px;
+    }
+    .proposal-select:focus { outline: 2px solid var(--gold-dk); }
+    .pre-fill-notice {
+      background: #1a1800; border: 1px solid var(--gold-dk);
+      border-radius: 6px; padding: 10px 14px; margin-bottom: 16px;
+      font-size: 0.8rem; color: var(--gold-lt);
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .pre-fill-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .proposal-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-group label {
+      display: block; font-size: 0.72rem; color: var(--gold);
+      letter-spacing: 0.09em; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: #1c1c1c; color: var(--cream);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 9px 12px; font-size: 0.85rem;
+    }
+    .form-group input.prefilled,
+    .form-group select.prefilled,
+    .form-group textarea.prefilled {
+      border-color: var(--gold-dk);
+      background: #1a1600;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: 2px solid var(--gold-dk);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .prefilled-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #2a2010; border: 1px solid var(--gold-dk);
+      color: var(--gold); border-radius: 99px;
+      font-size: 0.65rem; font-weight: 700; padding: 1px 8px;
+      letter-spacing: 0.06em; margin-left: 6px; vertical-align: middle;
+    }
+    .allergen-grid {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .allergen-pill {
+      background: #2a0f18; border: 1px solid var(--wine);
+      color: #e5738f; border-radius: 99px;
+      font-size: 0.72rem; padding: 3px 10px; font-weight: 600;
+    }
+    .menu-item-list { display: flex; flex-direction: column; gap: 6px; }
+    .menu-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #1c1c1c; border: 1px solid var(--border);
+      border-radius: 6px; padding: 7px 12px; font-size: 0.8rem;
+    }
+    .menu-item.gold { border-color: var(--gold-dk); background: #1a1600; }
+    .menu-item-name { color: var(--cream); }
+    .menu-item-cat { color: var(--muted); font-size: 0.7rem; }
+    .menu-add-btn {
+      background: #1c1c1c; border: 1px dashed var(--border);
+      color: var(--muted); border-radius: 6px; padding: 7px 12px;
+      font-size: 0.78rem; width: 100%; text-align: center;
+      margin-top: 4px; cursor: pointer; transition: all .15s;
+    }
+    .menu-add-btn:hover { border-color: var(--gold-dk); color: var(--gold); }
+    .submit-btn {
+      background: var(--gold); color: var(--dark);
+      font-weight: 800; padding: 13px 24px; border-radius: 8px;
+      font-size: 0.95rem; letter-spacing: 0.04em;
+      text-transform: uppercase; transition: background .2s;
+    }
+    .submit-btn:hover { background: var(--gold-lt); }
+
+    /* ─── Certification report ───────────────────────────────────────── */
+    .cert-banner {
+      background: linear-gradient(135deg, #1a1200, #1a0a14);
+      border: 1px solid var(--gold-dk);
+      border-radius: var(--radius); padding: 18px 20px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .cert-seals { display: flex; gap: 10px; }
+    .seal {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.58rem; font-weight: 900; text-align: center;
+      letter-spacing: 0.04em; line-height: 1.2; text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .seal-wbea {
+      background: radial-gradient(circle, #2a2010, #1a1200);
+      border: 2px solid var(--gold);
+      color: var(--gold);
+    }
+    .seal-hub {
+      background: radial-gradient(circle, #0f1a2a, #071020);
+      border: 2px solid #6db8e5;
+      color: #6db8e5;
+    }
+    .cert-text h3 {
+      font-family: var(--font-serif); font-size: 1.1rem; color: var(--gold);
+    }
+    .cert-text p { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .report-controls {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .report-select {
+      background: var(--card); color: var(--cream);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 8px 12px; font-size: 0.82rem; flex: 1;
+    }
+    .gen-btn {
+      background: var(--gold); color: var(--dark);
+      font-weight: 800; padding: 8px 20px; border-radius: 6px;
+      font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase;
+      transition: background .2s; flex-shrink: 0;
+    }
+    .gen-btn:hover { background: var(--gold-lt); }
+    .report-table {
+      width: 100%; border-collapse: collapse; font-size: 0.8rem;
+      margin-bottom: 14px;
+    }
+    .report-table th {
+      background: #1c1c1c; color: var(--gold);
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .report-table td {
+      padding: 9px 12px; border-bottom: 1px solid #222;
+      color: var(--cream); vertical-align: top;
+    }
+    .report-table tr:last-child td { border-bottom: none; }
+    .report-table tr:hover td { background: #1c1c1c; }
+    .report-footer {
+      background: #1a1800; border: 1px solid var(--gold-dk);
+      border-radius: 6px; padding: 14px 16px;
+      font-size: 0.8rem; color: var(--gold-lt);
+    }
+    .report-footer strong { color: var(--gold); }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; border: 1px solid var(--gold-dk);
+      color: var(--gold); border-radius: 6px;
+      padding: 8px 16px; font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      margin-top: 12px; transition: all .15s; cursor: pointer;
+    }
+    .download-btn:hover { background: #2a2010; }
+
+    /* progress bar for report generation animation */
+    .progress-bar-wrap {
+      height: 4px; background: #222; border-radius: 99px;
+      overflow: hidden; margin: 12px 0; display: none;
+    }
+    .progress-bar {
+      height: 100%; background: var(--gold);
+      border-radius: 99px; width: 0;
+      transition: width 1.2s ease;
+    }
+
+    /* ─── Floating CTA ───────────────────────────────────────────────── */
+    .float-cta {
+      position: fixed; bottom: 24px; right: 16px; z-index: 999;
+      background: var(--gold); color: var(--dark);
+      font-weight: 800; font-size: 0.82rem;
+      padding: 13px 18px; border-radius: 99px;
+      box-shadow: 0 4px 20px rgba(200,169,110,.35);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      border: none; transition: background .2s, transform .15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .float-cta:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .float-cta-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--dark); opacity: .5;
+    }
+
+    /* ─── Modal ──────────────────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,.75);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--charcoal);
+      border: 1px solid var(--gold-dk);
+      border-radius: 12px; padding: 32px 28px;
+      max-width: 420px; width: 100%;
+      text-align: center; position: relative;
+      transform: translateY(20px);
+      transition: transform .3s;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 12px; right: 14px;
+      background: transparent; color: var(--muted);
+      font-size: 1.2rem; line-height: 1; padding: 4px;
+    }
+    .modal-close:hover { color: var(--cream); }
+    .modal-seal {
+      font-family: var(--font-serif);
+      font-size: 2rem; color: var(--gold); margin-bottom: 12px;
+    }
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem; color: var(--gold); margin-bottom: 10px;
+    }
+    .modal-body {
+      color: var(--cream); font-size: 0.88rem; line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .modal-cta {
+      display: block; width: 100%;
+      background: var(--gold); color: var(--dark);
+      font-weight: 800; font-size: 0.9rem;
+      padding: 13px; border-radius: 8px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      margin-bottom: 10px; transition: background .2s;
+    }
+    .modal-cta:hover { background: var(--gold-lt); }
+    .modal-dismiss {
+      background: transparent; color: var(--muted);
+      font-size: 0.78rem; padding: 6px;
+      display: block; width: 100%;
+    }
+    .modal-dismiss:hover { color: var(--cream); }
+
+    /* ─── Footer ─────────────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--charcoal); border-top: 1px solid var(--border);
+      text-align: center; padding: 18px 16px;
+      font-size: 0.74rem; color: var(--muted);
+      margin-top: 40px;
+    }
+    .site-footer a { color: var(--gold-lt); }
+
+    /* ─── Utilities ──────────────────────────────────────────────────── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .quirk-pill {
+      background: #1a1c26; border: 1px solid #3a3f5c;
+      color: #a0aad0; border-radius: 99px;
+      font-size: 0.7rem; padding: 3px 10px;
+    }
+    .hidden { display: none !important; }
+    .flash {
+      animation: flashGold .6s ease;
+    }
+    @keyframes flashGold {
+      0%   { background: #2a2010; }
+      50%  { background: #3d3012; }
+      100% { background: #1c1c1c; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Demo badge -->
+<span class="demo-badge">DEMO &middot; sample data</span>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <h1>Mesa Larga Events &amp; Catering</h1>
+  <p class="tagline">What your own system would look like &mdash; prepared by <strong style="color:var(--gold-lt)">Pocho.tech</strong></p>
+</header>
+
+<!-- Anchor stat bar -->
+<div class="anchor-stat">
+  <span class="big-num">53%</span>
+  <div class="stat-text">
+    <strong>of your monthly events are existing clients.</strong>
+    That relationship history is your biggest advantage &mdash;
+    and right now it lives wherever your current tools end.
+    <em>This is what it looks like when it lives in a system instead.</em>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB NAV
+═══════════════════════════════════════════════════════ -->
+<nav class="tab-nav" role="tablist" aria-label="System views">
+  <button class="tab-btn active" data-tab="client-book" role="tab" aria-selected="true">
+    Client Book <span class="tab-num" id="book-count">8</span>
+  </button>
+  <button class="tab-btn" data-tab="client-record" role="tab" aria-selected="false">
+    Client Record
+  </button>
+  <button class="tab-btn" data-tab="new-proposal" role="tab" aria-selected="false">
+    New Proposal
+  </button>
+  <button class="tab-btn" data-tab="cert-report" role="tab" aria-selected="false">
+    Certification Report
+  </button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 1 — CLIENT BOOK
+═══════════════════════════════════════════════════════ -->
+<section class="tab-panel active" id="tab-client-book" role="tabpanel">
+  <h2 class="section-title">Client Book</h2>
+  <p class="section-sub">All accounts — ranked by event history. Click any client to open their full record.</p>
+
+  <!-- Filter chips -->
+  <div class="filter-bar">
+    <button class="filter-chip active" data-filter="all">All Clients</button>
+    <button class="filter-chip" data-filter="corporate">Corporate</button>
+    <button class="filter-chip" data-filter="social">Social</button>
+    <button class="filter-chip" data-filter="repeat">Repeat Only</button>
+  </div>
+
+  <!-- Client rows -->
+  <div id="client-list"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 2 — CLIENT RECORD
+═══════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-client-record" role="tabpanel">
+  <h2 class="section-title">Client Record</h2>
+  <p class="section-sub">Full history for every client: events, menus, dietary flags, venue quirks, billing preferences.</p>
+
+  <div class="record-nav">
+    <select id="record-select" onchange="renderRecord(this.value)">
+      <option value="">— Select a client —</option>
+    </select>
+  </div>
+
+  <div id="record-body">
+    <div class="card" style="text-align:center; color:var(--muted); padding:40px;">
+      Select a client above to view their complete record.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 3 — NEW PROPOSAL
+═══════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-new-proposal" role="tabpanel">
+  <h2 class="section-title">New Proposal</h2>
+  <p class="section-sub">Choose an existing client and watch the proposal build itself from their history.</p>
+
+  <select class="proposal-select" id="proposal-client-select" onchange="renderProposal(this.value)">
+    <option value="">— Select a client to auto-fill from history —</option>
+  </select>
+
+  <div id="proposal-body">
+    <div class="card" style="text-align:center; color:var(--muted); padding:40px;">
+      Select an existing client above to see the proposal pre-filled from their event history.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 4 — CERTIFICATION REPORT
+═══════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-cert-report" role="tabpanel">
+  <h2 class="section-title">Certification Report</h2>
+  <p class="section-sub">WBEA &amp; HUB compliance data assembled automatically from the same records — no re-entry required.</p>
+
+  <div class="cert-banner">
+    <div class="cert-seals">
+      <div class="seal seal-wbea">WBEA<br>Certified</div>
+      <div class="seal seal-hub">HUB<br>Texas</div>
+    </div>
+    <div class="cert-text">
+      <h3>Compliance Report Generator</h3>
+      <p>Pulls directly from event records already in the system. The data you track for operations <em>is</em> the data your certifications require.</p>
+    </div>
+  </div>
+
+  <div class="report-controls">
+    <select class="report-select" id="report-period">
+      <option>Q2 2025 (Apr – Jun)</option>
+      <option>Q1 2025 (Jan – Mar)</option>
+      <option>FY 2024</option>
+    </select>
+    <select class="report-select" id="report-type">
+      <option>WBEA Annual Activity Report</option>
+      <option>HUB Subcontracting Report</option>
+      <option>Combined Summary</option>
+    </select>
+    <button class="gen-btn" onclick="generateReport()">Generate Report</button>
+  </div>
+
+  <div class="progress-bar-wrap" id="report-progress-wrap">
+    <div class="progress-bar" id="report-progress-bar"></div>
+  </div>
+
+  <div id="report-output"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  Mockup with sample data. Built by <strong style="color:var(--gold-lt)">Pocho.tech</strong> &mdash; custom systems for businesses that already work.
+</footer>
+
+<!-- Floating CTA -->
+<button class="float-cta" onclick="openCalendly()">
+  <span class="float-cta-dot"></span>
+  Let's talk
+</button>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div class="modal-seal">&#9830;</div>
+    <h2 class="modal-title" id="modal-title">Picture this with your real data.</h2>
+    <p class="modal-body">
+      If you like it, let's talk &mdash; no obligation, just a conversation about what the system could look like for Mesa Larga.<br><br>
+      If not, no worries. It stays a mockup.
+    </p>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=alacarte" target="_blank" rel="noopener" class="modal-cta" onclick="closeModal()">Schedule a free call</a>
+    <button class="modal-dismiss" onclick="closeModal()">Maybe later</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPT
+═══════════════════════════════════════════════════════ -->
+<script>
+// ──────────────────────────────────────────────────────────
+// DATA
+// ──────────────────────────────────────────────────────────
+const CLIENTS = [
+  {
+    id: "c1",
+    name: "Energy Sector Client",
+    initials: "ES",
+    type: "corporate",
+    subtype: "Board Dinner · Full Service",
+    repeat: true,
+    events: 9,
+    lastEvent: "Jun 2025",
+    hubCategory: "Large Enterprise",
+    billing: "Net-30, single invoice, CFO approval",
+    dietary: [
+      { label: "Nut allergy", detail: "Two attendees — applies to all passed items" },
+      { label: "Kosher option required", detail: "Min. 3 plates per event, labeled separately" },
+      { label: "No shellfish", detail: "Blanket restriction — entire menu" }
+    ],
+    venueQuirks: [
+      "Loading dock access only 7–9 AM and after 6 PM",
+      "On-site AV tech must be briefed 48 hrs before event",
+      "Preferred: Petroleum Club of Houston, private dining floor"
+    ],
+    history: [
+      {
+        name: "Board Dinner — Energy Sector",
+        date: "Jun 12, 2025",
+        style: "Plated Meals",
+        guests: 24,
+        menu: ["Handmade Belgian Chocolate Truffles", "Mediterranean Buffet", "Custom Signature Cocktail Menu"],
+        addons: ["TABC Bartender Package", "Branded Goody Bags"]
+      },
+      {
+        name: "Q4 Board Dinner",
+        date: "Nov 14, 2024",
+        style: "Plated Meals",
+        guests: 22,
+        menu: ["Rio Valley Ruby Red Grapefruit Salad", "Plated Meals", "Custom Signature Cocktail Menu"],
+        addons: ["TABC Bartender Package"]
+      },
+      {
+        name: "Annual Strategy Dinner",
+        date: "Mar 8, 2024",
+        style: "Plated Meals + Cocktail Hour",
+        guests: 28,
+        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "Upscale BBQ & Pig Roast", "Handmade Belgian Chocolate Truffles"],
+        addons: ["Valet Service", "TABC Bartender Package"]
+      }
+    ]
+  },
+  {
+    id: "c2",
+    name: "Law Firm — Downtown Houston",
+    initials: "LF",
+    type: "corporate",
+    subtype: "Corporate Events · Full Service",
+    repeat: true,
+    events: 6,
+    lastEvent: "May 2025",
+    hubCategory: "Professional Services",
+    billing: "Purchase order required, accounts payable contact on file",
+    dietary: [
+      { label: "Vegan options required", detail: "~20% of attendees, clearly labeled" },
+      { label: "Halal option", detail: "2–4 attendees per event" }
+    ],
+    venueQuirks: [
+      "Events always on-site — 40th floor conference center",
+      "No red wine service (carpet policy)",
+      "Setup must be complete before 5 PM partner arrival"
+    ],
+    history: [
+      {
+        name: "Corporate Christmas Party",
+        date: "Dec 18, 2024",
+        style: "Buffet + Action Stations",
+        guests: 85,
+        menu: ["Smoked Brisket Nachos", "Vegan & Vegetarian Menu", "Mexican & Tex-Mex Station", "Handmade Belgian Chocolate Truffles"],
+        addons: ["Branded Goody Bags", "TABC Bartender Package (4-hour)"]
+      },
+      {
+        name: "Associate Appreciation Dinner",
+        date: "Jun 5, 2024",
+        style: "Family Style",
+        guests: 60,
+        menu: ["Mediterranean Buffet", "Vegan & Vegetarian Menu", "Kosher & Halal Menu"],
+        addons: ["Professional Staffing — 4 servers"]
+      }
+    ]
+  },
+  {
+    id: "c3",
+    name: "Luxury Retail Brand",
+    initials: "LR",
+    type: "corporate",
+    subtype: "Brand Activation · 1,500+ guests",
+    repeat: true,
+    events: 4,
+    lastEvent: "Apr 2025",
+    hubCategory: "Retail / Consumer",
+    billing: "Credit card on file, 50% deposit standard",
+    dietary: [
+      { label: "Tree nut allergy — staff", detail: "Event staff catering must exclude tree nuts" },
+      { label: "Gluten-free station required", detail: "Clearly labeled, separate service ware" }
+    ],
+    venueQuirks: [
+      "Brand activation setup requires brand manager approval of table layout",
+      "Social media-safe presentation required — plating reviewed before service",
+      "Preferred action stations: visible cooking, interactive elements"
+    ],
+    history: [
+      {
+        name: "Spring Brand Activation",
+        date: "Apr 22, 2025",
+        style: "Action Stations + Passed Hors d'Oeuvres",
+        guests: 1500,
+        menu: ["Handmade Vietnamese Spring Rolls", "Grazing Stations", "Smoked Brisket Nachos", "Seasonal Spring/Summer Tasting Menu"],
+        addons: ["Decor Design and Installation", "TABC Bartender Package"]
+      },
+      {
+        name: "Holiday Brand Event",
+        date: "Nov 29, 2024",
+        style: "Cocktail Party + Action Stations",
+        guests: 800,
+        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "Handmade Belgian Chocolate Truffles (branded colors)"],
+        addons: ["Branded Goody Bags", "Lighting and A/V", "Valet Service"]
+      }
+    ]
+  },
+  {
+    id: "c4",
+    name: "Professional Sports League — Exec Events",
+    initials: "PS",
+    type: "corporate",
+    subtype: "VIP Corporate · Full Service",
+    repeat: true,
+    events: 5,
+    lastEvent: "Mar 2025",
+    hubCategory: "Sports & Entertainment",
+    billing: "Event-by-event PO, 60-day terms, dual approver",
+    dietary: [
+      { label: "High-protein menu emphasis", detail: "Client preference — all menus" },
+      { label: "No pork", detail: "Blanket restriction, entire menu" },
+      { label: "Multiple severe allergies in VIP group", detail: "Allergy card required for each event" }
+    ],
+    venueQuirks: [
+      "Venue changes event-to-event — site visit required each time",
+      "Event timing fluid — always build 45-min buffer in breakdown schedule",
+      "Media presence likely — no Mesa Larga branding on disposables"
+    ],
+    history: [
+      {
+        name: "VIP Sponsor Reception",
+        date: "Mar 15, 2025",
+        style: "Cocktail Hour + Plated",
+        guests: 45,
+        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "High Tea Service", "Handmade Belgian Chocolate Truffles"],
+        addons: ["TABC Certified Bartenders", "Professional Staffing"]
+      }
+    ]
+  },
+  {
+    id: "c5",
+    name: "Tech Startup — Office Events",
+    initials: "TS",
+    type: "corporate",
+    subtype: "Drop-Off + Occasional Full Service",
+    repeat: false,
+    events: 2,
+    lastEvent: "Feb 2025",
+    hubCategory: "Technology",
+    billing: "Credit card, invoiced per event",
+    dietary: [
+      { label: "Vegan + Vegetarian majority", detail: "~60% of team" },
+      { label: "Multiple nut allergies", detail: "3 confirmed staff members" }
+    ],
+    venueQuirks: [
+      "Freight elevator required for anything over 4 boxes",
+      "Setup window: 7–9 AM only"
+    ],
+    history: [
+      {
+        name: "Product Launch Breakfast",
+        date: "Feb 6, 2025",
+        style: "Breakfast & Brunch Service",
+        guests: 55,
+        menu: ["Breakfast & Brunch Service", "Vegan & Vegetarian Menu"],
+        addons: []
+      }
+    ]
+  },
+  {
+    id: "c6",
+    name: "Non-Profit Gala Committee",
+    initials: "NG",
+    type: "social",
+    subtype: "Social Event · Gala",
+    repeat: true,
+    events: 3,
+    lastEvent: "Oct 2024",
+    hubCategory: "Non-Profit",
+    billing: "Check payment, 30-day net, require W9 on file",
+    dietary: [
+      { label: "Vegetarian section required", detail: "Table-card labeled" },
+      { label: "Diabetic-friendly dessert option", detail: "Board member request, annual" }
+    ],
+    venueQuirks: [
+      "Event at same venue every year — Junior League of Houston",
+      "Decor must be gold-and-white palette",
+      "Silent auction tables must remain accessible during dinner service"
+    ],
+    history: [
+      {
+        name: "Annual Gala",
+        date: "Oct 19, 2024",
+        style: "Plated + Cocktail Hour",
+        guests: 200,
+        menu: ["Rio Valley Ruby Red Grapefruit Salad", "Plated Meals", "Cocktail Hour with Passed Hors d'Oeuvres", "Handmade Belgian Chocolate Truffles"],
+        addons: ["Decor Design and Installation", "Lighting and A/V", "Valet Service"]
+      },
+      {
+        name: "Annual Gala",
+        date: "Oct 21, 2023",
+        style: "Plated + Cocktail Hour",
+        guests: 190,
+        menu: ["Mediterranean Buffet", "Cocktail Hour with Passed Hors d'Oeuvres", "Handmade Belgian Chocolate Truffles"],
+        addons: ["Decor Design and Installation", "Lighting and A/V"]
+      }
+    ]
+  },
+  {
+    id: "c7",
+    name: "Real Estate Developer Group",
+    initials: "RD",
+    type: "corporate",
+    subtype: "Corporate Reception · Full Service",
+    repeat: false,
+    events: 1,
+    lastEvent: "Jan 2025",
+    hubCategory: "Real Estate",
+    billing: "Wire transfer, balance due before event",
+    dietary: [
+      { label: "Shellfish allergy — principal", detail: "No shellfish on any passed item" }
+    ],
+    venueQuirks: [
+      "Model unit event — no kitchen, outdoor catering required",
+      "Guest list TBC until 48 hrs before — final count flexibility needed"
+    ],
+    history: [
+      {
+        name: "Development Preview Reception",
+        date: "Jan 30, 2025",
+        style: "Grazing Stations + Cocktail",
+        guests: 120,
+        menu: ["Grazing Stations", "Handmade Vietnamese Spring Rolls", "Custom Signature Cocktail Menu"],
+        addons: ["TABC Bartender Package", "Rentals (china, glassware, high-tops)"]
+      }
+    ]
+  },
+  {
+    id: "c8",
+    name: "Wedding Reception — Full Package",
+    initials: "WR",
+    type: "social",
+    subtype: "Wedding Reception · Full Service Package",
+    repeat: false,
+    events: 1,
+    lastEvent: "May 2025",
+    hubCategory: "Social — Wedding",
+    billing: "Staged payments: 25% / 50% / 25%",
+    dietary: [
+      { label: "Nut-free entire event", detail: "Guest allergy — no exceptions" },
+      { label: "Gluten-free plated option", detail: "Bride's dietary requirement" },
+      { label: "Halal protein options", detail: "Groom's family (approx. 30 guests)" }
+    ],
+    venueQuirks: [
+      "Venue: The Corinthian Houston",
+      "Ceremony + reception same day — turnover in 45 min",
+      "Bride prefers hidden service doors — no visible staff crossings during ceremony"
+    ],
+    history: [
+      {
+        name: "Wedding Reception — Full Service Package",
+        date: "May 10, 2025",
+        style: "Plated + Cocktail Hour + Buffet",
+        guests: 220,
+        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "Plated Meals", "Wedding Packages", "Handmade Belgian Chocolate Truffles", "Kosher & Halal Menu"],
+        addons: ["Decor Design and Installation", "Lighting and A/V", "Valet Service", "Rentals — full china package"]
+      }
+    ]
+  }
+];
+
+// ──────────────────────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────────────────────
+let currentFilter = "all";
+let viewCount = 1;
+let modalShown = sessionStorage.getItem("alacarte_modal_shown") === "1";
+let modalTimer = null;
+
+// ──────────────────────────────────────────────────────────
+// TAB NAVIGATION
+// ──────────────────────────────────────────────────────────
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.tab;
+    document.querySelectorAll(".tab-btn").forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-selected", "false");
+    });
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    btn.setAttribute("aria-selected", "true");
+    document.getElementById("tab-" + target).classList.add("active");
+
+    viewCount++;
+    if (!modalShown && viewCount >= 3) showModal();
+  });
+});
+
+// ──────────────────────────────────────────────────────────
+// CLIENT BOOK
+// ──────────────────────────────────────────────────────────
+function renderClientBook(filter) {
+  const list = document.getElementById("client-list");
+  const filtered = filter === "all" ? CLIENTS
+    : filter === "repeat" ? CLIENTS.filter(c => c.repeat)
+    : CLIENTS.filter(c => c.type === filter);
+
+  document.getElementById("book-count").textContent = filtered.length;
+  list.innerHTML = filtered.map(c => `
+    <div class="card client-row" onclick="goToRecord('${c.id}')" title="View ${c.name} record">
+      <div class="client-avatar">${c.initials}</div>
+      <div class="client-info">
+        <div class="client-name">
+          ${c.name}
+          ${c.repeat ? '<span class="repeat-tag">REPEAT CLIENT</span>' : ''}
+        </div>
+        <div class="client-type">${c.subtype}</div>
+      </div>
+      <div class="client-stats">
+        <div>
+          <span class="cs-val">${c.events}</span>
+          <span class="cs-lbl">Events</span>
+        </div>
+        <div>
+          <span class="cs-val" style="font-size:.85rem">${c.lastEvent}</span>
+          <span class="cs-lbl">Last Event</span>
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+// Filter chips
+document.querySelectorAll(".filter-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    currentFilter = chip.dataset.filter;
+    renderClientBook(currentFilter);
+  });
+});
+
+// ──────────────────────────────────────────────────────────
+// POPULATE SELECTS
+// ──────────────────────────────────────────────────────────
+function populateSelects() {
+  const recSel = document.getElementById("record-select");
+  const propSel = document.getElementById("proposal-client-select");
+  CLIENTS.forEach(c => {
+    const opt1 = new Option(c.name + (c.repeat ? " ★" : ""), c.id);
+    const opt2 = new Option(c.name + (c.repeat ? " ★" : ""), c.id);
+    recSel.add(opt1);
+    propSel.add(opt2);
+  });
+}
+
+// ──────────────────────────────────────────────────────────
+// GO TO RECORD (from client book click)
+// ──────────────────────────────────────────────────────────
+function goToRecord(id) {
+  // Switch to record tab
+  document.querySelectorAll(".tab-btn").forEach(b => {
+    b.classList.remove("active"); b.setAttribute("aria-selected","false");
+  });
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  const btn = document.querySelector('[data-tab="client-record"]');
+  btn.classList.add("active"); btn.setAttribute("aria-selected","true");
+  document.getElementById("tab-client-record").classList.add("active");
+  // Set select and render
+  const sel = document.getElementById("record-select");
+  sel.value = id;
+  renderRecord(id);
+  viewCount++;
+  if (!modalShown && viewCount >= 3) showModal();
+}
+
+// ──────────────────────────────────────────────────────────
+// CLIENT RECORD
+// ──────────────────────────────────────────────────────────
+function renderRecord(id) {
+  const body = document.getElementById("record-body");
+  if (!id) {
+    body.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:40px;">Select a client above to view their complete record.</div>`;
+    return;
+  }
+  const c = CLIENTS.find(x => x.id === id);
+  if (!c) return;
+
+  body.innerHTML = `
+    <!-- Identity card -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title" style="font-size:1.1rem">${c.name}</div>
+          <div class="card-sub">${c.subtype}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
+          ${c.repeat ? '<span class="badge badge-gold">Repeat Client</span>' : '<span class="badge badge-gray">First-Time</span>'}
+          <span class="badge badge-blue">${c.hubCategory}</span>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric-box"><span class="val">${c.events}</span><span class="lbl">Total Events</span></div>
+        <div class="metric-box"><span class="val" style="font-size:1rem">${c.lastEvent}</span><span class="lbl">Last Event</span></div>
+        <div class="metric-box"><span class="val">${c.dietary.length}</span><span class="lbl">Dietary Flags</span></div>
+        <div class="metric-box"><span class="val">${c.venueQuirks.length}</span><span class="lbl">Venue Notes</span></div>
+      </div>
+    </div>
+
+    <!-- Two-col info -->
+    <div class="record-grid">
+      <!-- Dietary & Restrictions -->
+      <div class="card">
+        <div class="info-block">
+          <h4>&#9888; Dietary &amp; Restrictions</h4>
+          ${c.dietary.map(d => `
+            <div class="alert-item">
+              <span class="alert-icon">&#9888;</span>
+              <div class="alert-text">
+                <div class="at">${d.label}</div>
+                <div class="ad">${d.detail}</div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
+      <!-- Billing -->
+      <div class="card">
+        <div class="info-block">
+          <h4>&#128196; Billing Preferences</h4>
+          <div class="info-item"><span class="il">Terms</span><span class="iv">${c.billing}</span></div>
+          <div class="info-item"><span class="il">HUB Category</span><span class="iv">${c.hubCategory}</span></div>
+          <div class="info-item"><span class="il">Certification</span><span class="iv">Eligible for WBEA + HUB reporting</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Venue quirks -->
+    <div class="card">
+      <div class="info-block">
+        <h4>&#128205; Venue &amp; Logistics Notes</h4>
+        <div class="tag-row" style="margin-top:6px">
+          ${c.venueQuirks.map(q => `<span class="quirk-pill">${q}</span>`).join("")}
+        </div>
+      </div>
+    </div>
+
+    <!-- Event history -->
+    <div class="card">
+      <div class="info-block">
+        <h4>&#128197; Event History</h4>
+        <ul class="event-timeline">
+          ${c.history.map(ev => `
+            <li>
+              <div class="evt-dot"></div>
+              <div class="evt-info">
+                <div class="evt-name">${ev.name}</div>
+                <div class="evt-meta">${ev.date} &middot; ${ev.style} &middot; ${ev.guests} guests</div>
+                <div class="evt-menu">${ev.menu.join(" &middot; ")}</div>
+                ${ev.addons.length ? `<div class="evt-meta" style="margin-top:2px">Add-ons: ${ev.addons.join(", ")}</div>` : ""}
+              </div>
+            </li>
+          `).join("")}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Jump to proposal -->
+    <div style="text-align:right;margin-top:8px">
+      <button onclick="jumpToProposal('${id}')"
+        style="background:var(--gold);color:var(--dark);font-weight:800;padding:10px 20px;border-radius:8px;font-size:0.82rem;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;">
+        Start New Proposal from This Record &rarr;
+      </button>
+    </div>
+  `;
+}
+
+// ──────────────────────────────────────────────────────────
+// NEW PROPOSAL
+// ──────────────────────────────────────────────────────────
+function jumpToProposal(id) {
+  document.querySelectorAll(".tab-btn").forEach(b => {
+    b.classList.remove("active"); b.setAttribute("aria-selected","false");
+  });
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  const btn = document.querySelector('[data-tab="new-proposal"]');
+  btn.classList.add("active"); btn.setAttribute("aria-selected","true");
+  document.getElementById("tab-new-proposal").classList.add("active");
+  const sel = document.getElementById("proposal-client-select");
+  sel.value = id;
+  renderProposal(id);
+  viewCount++;
+  if (!modalShown && viewCount >= 3) showModal();
+}
+
+function renderProposal(id) {
+  const body = document.getElementById("proposal-body");
+  if (!id) {
+    body.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:40px;">Select an existing client above to see the proposal pre-filled from their event history.</div>`;
+    return;
+  }
+  const c = CLIENTS.find(x => x.id === id);
+  if (!c) return;
+
+  // Build suggested menu from last event
+  const last = c.history[0];
+  const suggestedMenu = last ? last.menu.slice(0, 3) : [];
+  const suggestedAddons = last ? last.addons.slice(0, 2) : [];
+
+  const isPrefilled = c.repeat;
+
+  body.innerHTML = `
+    ${isPrefilled ? `
+    <div class="pre-fill-notice">
+      <span class="pre-fill-icon">&#9889;</span>
+      <div>
+        <strong>Pre-filled from history.</strong>
+        Fields highlighted in gold were pulled from ${c.name}'s ${c.events} previous events.
+        Review and adjust as needed — the system does the 80%, you do the 20%.
+      </div>
+    </div>` : ""}
+
+    <form class="proposal-form" onsubmit="return false">
+      <!-- Client info -->
+      <div class="card">
+        <div class="info-block" style="margin-bottom:4px">
+          <h4>Client Information</h4>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Client Name</label>
+            <input type="text" value="${c.name}" class="${isPrefilled ? 'prefilled' : ''}">
+          </div>
+          <div class="form-group">
+            <label>
+              Account Type
+              ${isPrefilled ? '<span class="prefilled-tag">&#9889; from history</span>' : ''}
+            </label>
+            <input type="text" value="${c.subtype}" class="${isPrefilled ? 'prefilled' : ''}">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Billing Terms
+              ${isPrefilled ? '<span class="prefilled-tag">&#9889; from history</span>' : ''}
+            </label>
+            <input type="text" value="${isPrefilled ? c.billing : ''}" placeholder="${isPrefilled ? '' : 'Enter billing terms'}" class="${isPrefilled ? 'prefilled' : ''}">
+          </div>
+          <div class="form-group">
+            <label>HUB / Certification Category
+              ${isPrefilled ? '<span class="prefilled-tag">&#9889; from history</span>' : ''}
+            </label>
+            <input type="text" value="${isPrefilled ? c.hubCategory : ''}" placeholder="${isPrefilled ? '' : 'Enter category'}" class="${isPrefilled ? 'prefilled' : ''}">
+          </div>
+        </div>
+      </div>
+
+      <!-- Event details -->
+      <div class="card">
+        <div class="info-block" style="margin-bottom:8px"><h4>Event Details</h4></div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Event Date</label>
+            <input type="date">
+          </div>
+          <div class="form-group">
+            <label>
+              Expected Guest Count
+              ${isPrefilled && last ? '<span class="prefilled-tag">&#9889; suggested</span>' : ''}
+            </label>
+            <input type="number" value="${isPrefilled && last ? last.guests : ''}" placeholder="Guest count" class="${isPrefilled && last ? 'prefilled' : ''}">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              Service Style
+              ${isPrefilled && last ? '<span class="prefilled-tag">&#9889; from last event</span>' : ''}
+            </label>
+            <select class="${isPrefilled && last ? 'prefilled' : ''}">
+              <option ${isPrefilled && last && last.style.includes("Plated") ? "selected" : ""}>Plated Meals</option>
+              <option ${isPrefilled && last && last.style.includes("Buffet") ? "selected" : ""}>Buffet</option>
+              <option ${isPrefilled && last && last.style.includes("Family") ? "selected" : ""}>Family Style</option>
+              <option ${isPrefilled && last && last.style.includes("Action") ? "selected" : ""}>Action Stations</option>
+              <option ${isPrefilled && last && last.style.includes("Cocktail") ? "selected" : ""}>Cocktail Party</option>
+              <option ${isPrefilled && last && last.style.includes("Grazing") ? "selected" : ""}>Grazing Stations</option>
+              <option ${isPrefilled && last && last.style.includes("Breakfast") ? "selected" : ""}>Breakfast & Brunch</option>
+              <option ${isPrefilled && last && last.style.includes("High Tea") ? "selected" : ""}>High Tea Service</option>
+              <option>Drop-Off Service</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Full-Service Package</label>
+            <select>
+              <option value="full" ${c.repeat ? "selected" : ""}>Full Service (Food + Beverages + Staffing + Rentals)</option>
+              <option value="partial">Partial — Food &amp; Staffing only</option>
+              <option value="dropoff">Drop-Off</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Venue / Location</label>
+          <input type="text" value="${isPrefilled && c.venueQuirks.length ? c.venueQuirks[0].replace(/^Preferred: /,"").replace(/^Event at /,"").replace(/ — .*/,"") : ''}" placeholder="Venue name or address" class="${isPrefilled ? 'prefilled' : ''}">
+        </div>
+      </div>
+
+      <!-- Dietary alerts — auto-populated -->
+      <div class="card">
+        <div class="info-block" style="margin-bottom:8px">
+          <h4>
+            Dietary &amp; Restrictions
+            ${isPrefilled ? '<span class="prefilled-tag">&#9889; flagged automatically</span>' : ''}
+          </h4>
+        </div>
+        ${isPrefilled ? `
+          <div class="allergen-grid">
+            ${c.dietary.map(d => `<span class="allergen-pill">&#9888; ${d.label}</span>`).join("")}
+          </div>
+          <p style="font-size:.74rem;color:var(--muted);margin-top:10px;">
+            Pulled from client record. Confirm with client before finalizing.
+          </p>
+        ` : `
+          <div class="form-group">
+            <label>Notes</label>
+            <textarea rows="3" placeholder="List any dietary restrictions, allergies, or special requirements"></textarea>
+          </div>
+        `}
+      </div>
+
+      <!-- Custom Menu Builder -->
+      <div class="card">
+        <div class="info-block" style="margin-bottom:8px">
+          <h4>
+            Custom Menu
+            ${isPrefilled && suggestedMenu.length ? '<span class="prefilled-tag">&#9889; suggested from history</span>' : ''}
+          </h4>
+        </div>
+        <div class="menu-item-list">
+          ${suggestedMenu.map((item, i) => `
+            <div class="menu-item gold" id="mitem-${i}" onclick="toggleMenuItem(this)">
+              <span class="menu-item-name">&#10003; ${item}</span>
+              <span class="menu-item-cat badge badge-gold">Suggested</span>
+            </div>
+          `).join("")}
+          ${["Upscale BBQ & Pig Roast","High Tea Service","Breakfast & Brunch Service","Mediterranean Buffet"].filter(x => !suggestedMenu.includes(x)).slice(0,2).map(item => `
+            <div class="menu-item" onclick="toggleMenuItem(this)">
+              <span class="menu-item-name">+ ${item}</span>
+              <span class="menu-item-cat badge badge-gray">Add to menu</span>
+            </div>
+          `).join("")}
+        </div>
+        <button class="menu-add-btn" onclick="return false">+ Add another item from catalog</button>
+      </div>
+
+      <!-- Add-ons -->
+      ${suggestedAddons.length ? `
+      <div class="card">
+        <div class="info-block" style="margin-bottom:8px">
+          <h4>Every Last Detail — Add-Ons
+            <span class="prefilled-tag">&#9889; used in previous events</span>
+          </h4>
+        </div>
+        <div class="tag-row">
+          ${suggestedAddons.map(a => `<span class="badge badge-gold" style="font-size:.75rem;padding:4px 10px">${a}</span>`).join("")}
+          <span class="badge badge-gray" style="font-size:.75rem;padding:4px 10px;cursor:pointer">+ Branded Goody Bags</span>
+          <span class="badge badge-gray" style="font-size:.75rem;padding:4px 10px;cursor:pointer">+ Valet Service</span>
+        </div>
+      </div>
+      ` : ""}
+
+      <!-- Venue logistics -->
+      ${isPrefilled && c.venueQuirks.length ? `
+      <div class="card">
+        <div class="info-block" style="margin-bottom:8px">
+          <h4>Venue &amp; Logistics Notes
+            <span class="prefilled-tag">&#9889; from client record</span>
+          </h4>
+        </div>
+        <div class="tag-row">
+          ${c.venueQuirks.map(q => `<span class="quirk-pill">${q}</span>`).join("")}
+        </div>
+      </div>
+      ` : ""}
+
+      <!-- Submit -->
+      <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+        <button class="submit-btn" onclick="flashSubmit(event)">Send to Team &rarr;</button>
+      </div>
+    </form>
+  `;
+}
+
+function toggleMenuItem(el) {
+  const isGold = el.classList.contains("gold");
+  const badge = el.querySelector(".badge");
+  if (isGold) {
+    el.classList.remove("gold");
+    el.querySelector(".menu-item-name").textContent = "+ " + el.querySelector(".menu-item-name").textContent.replace(/^✓ /,"");
+    badge.className = "menu-item-cat badge badge-gray";
+    badge.textContent = "Add to menu";
+  } else {
+    el.classList.add("gold");
+    el.querySelector(".menu-item-name").textContent = "✓ " + el.querySelector(".menu-item-name").textContent.replace(/^\+ /,"");
+    badge.className = "menu-item-cat badge badge-gold";
+    badge.textContent = "Suggested";
+    el.classList.add("flash");
+    setTimeout(() => el.classList.remove("flash"), 700);
+  }
+}
+
+function flashSubmit(e) {
+  e.preventDefault();
+  const btn = e.target;
+  btn.textContent = "Proposal saved ✓";
+  btn.style.background = "var(--green)";
+  setTimeout(() => {
+    btn.textContent = "Send to Team →";
+    btn.style.background = "";
+  }, 2000);
+}
+
+// ──────────────────────────────────────────────────────────
+// CERTIFICATION REPORT
+// ──────────────────────────────────────────────────────────
+const REPORT_DATA = [
+  { client: "Energy Sector Client", category: "Large Enterprise", events: 3, service: "Full-Service Catering", guests: "24–28", staff: 6, certified: "WBEA + HUB" },
+  { client: "Law Firm — Downtown Houston", category: "Professional Services", events: 2, service: "Full-Service Catering", guests: "60–85", staff: 8, certified: "WBEA + HUB" },
+  { client: "Non-Profit Gala Committee", category: "Non-Profit", events: 2, service: "Full-Service Catering", guests: "190–200", staff: 14, certified: "WBEA + HUB" },
+  { client: "Luxury Retail Brand", category: "Retail / Consumer", events: 2, service: "Brand Activation", guests: "800–1500", staff: 35, certified: "WBEA + HUB" },
+  { client: "Professional Sports League", category: "Sports & Entertainment", events: 1, service: "Full-Service VIP", guests: "45", staff: 5, certified: "WBEA + HUB" },
+  { client: "Tech Startup", category: "Technology", events: 1, service: "Drop-Off + Breakfast", guests: "55", staff: 2, certified: "WBEA" },
+  { client: "Real Estate Developer", category: "Real Estate", events: 1, service: "Full-Service Reception", guests: "120", staff: 7, certified: "WBEA + HUB" },
+  { client: "Wedding Reception — Social Client", category: "Social", events: 1, service: "Wedding — Full Package", guests: "220", staff: 18, certified: "WBEA" }
+];
+
+function generateReport() {
+  const output = document.getElementById("report-output");
+  const wrap = document.getElementById("report-progress-wrap");
+  const bar  = document.getElementById("report-progress-bar");
+  const period = document.getElementById("report-period").value;
+  const type   = document.getElementById("report-type").value;
+
+  // Progress animation
+  wrap.style.display = "block";
+  bar.style.width = "0%";
+  output.innerHTML = "";
+  requestAnimationFrame(() => {
+    bar.style.width = "100%";
+  });
+
+  setTimeout(() => {
+    wrap.style.display = "none";
+    bar.style.width = "0%";
+
+    const totalEvents = REPORT_DATA.reduce((s,r) => s + r.events, 0);
+    const totalStaff  = REPORT_DATA.reduce((s,r) => s + r.staff, 0);
+    const hubClients  = REPORT_DATA.filter(r => r.certified.includes("HUB")).length;
+
+    output.innerHTML = `
+      <div class="card" style="margin-bottom:14px">
+        <div class="card-header" style="margin-bottom:12px">
+          <div>
+            <div class="card-title">
+              ${type} — ${period}
+            </div>
+            <div class="card-sub">Generated ${new Date().toLocaleDateString("en-US", {month:"long",day:"numeric",year:"numeric"})} &middot; Sample data</div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <span class="badge badge-gold">WBEA</span>
+            <span class="badge badge-blue">HUB Texas</span>
+          </div>
+        </div>
+        <div class="metrics-row" style="margin-bottom:14px">
+          <div class="metric-box"><span class="val">${totalEvents}</span><span class="lbl">Events</span></div>
+          <div class="metric-box"><span class="val">${REPORT_DATA.length}</span><span class="lbl">Clients</span></div>
+          <div class="metric-box"><span class="val">${hubClients}</span><span class="lbl">HUB Eligible</span></div>
+          <div class="metric-box"><span class="val">${totalStaff}</span><span class="lbl">Staff Hours reported</span></div>
+        </div>
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Client Category</th>
+              <th>Service Type</th>
+              <th>Events</th>
+              <th>Guests</th>
+              <th>Staff</th>
+              <th>Cert.</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${REPORT_DATA.map(r => `
+              <tr>
+                <td>${r.category}</td>
+                <td>${r.service}</td>
+                <td style="text-align:center">${r.events}</td>
+                <td>${r.guests}</td>
+                <td style="text-align:center">${r.staff}</td>
+                <td>${r.certified.includes("HUB")
+                  ? '<span class="badge badge-gold">WBEA+HUB</span>'
+                  : '<span class="badge badge-blue">WBEA</span>'}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="report-footer">
+        <strong>&#9889; Zero re-entry.</strong> Every field in this report was already captured when the events were planned.
+        The certification report is a byproduct of the work, not a separate task.<br><br>
+        In many workflows like yours, this report ends up assembled near the deadline &mdash;
+        with this system, it's ready the moment you need it,
+        with no extra data entry from your planners.
+        <br>
+        <button class="download-btn" onclick="return false">
+          &#8681; Export Report (CSV / PDF)
+        </button>
+      </div>
+    `;
+  }, 1300);
+}
+
+// ──────────────────────────────────────────────────────────
+// MODAL
+// ──────────────────────────────────────────────────────────
+function showModal() {
+  if (modalShown) return;
+  modalShown = true;
+  sessionStorage.setItem("alacarte_modal_shown", "1");
+  document.getElementById("modal-overlay").classList.add("open");
+}
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("open");
+}
+
+// ──────────────────────────────────────────────────────────
+// CALENDLY
+// ──────────────────────────────────────────────────────────
+function openCalendly() {
+  window.open("https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=alacarte", "_blank", "noopener");
+}
+
+// ──────────────────────────────────────────────────────────
+// INIT
+// ──────────────────────────────────────────────────────────
+(function init() {
+  renderClientBook("all");
+  populateSelects();
+
+  // Modal timer — 75 seconds
+  if (!modalShown) {
+    modalTimer = setTimeout(() => {
+      if (!modalShown) showModal();
+    }, 75000);
+  }
+})();
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solano Mármol y Granito — Operations Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary: #1A1A1A;
+      --gold: #C9A84C;
+      --bg: #F8F8F8;
+      --surface: #FFFFFF;
+      --border: #E2E2E2;
+      --muted: #6B7280;
+      --warm: #F5F0E8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+    /* Header */
+    .site-header {
+      background: var(--primary);
+      color: white;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .header-top {
+      padding: 14px 24px 10px;
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+    }
+    .header-brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: white;
+    }
+    .header-sub {
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin-top: 2px;
+    }
+    .demo-badge {
+      background: var(--gold);
+      color: var(--primary);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      white-space: nowrap;
+    }
+
+    /* Tabs */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      background: var(--primary);
+      padding: 0 24px;
+    }
+    .tab-btn {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.55);
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 11px 18px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn:hover { color: rgba(255,255,255,0.85); }
+    .tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* Panels */
+    .tab-panel { display: none; padding: 24px; max-width: 1280px; margin: 0 auto; }
+    .tab-panel.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      margin-bottom: 12px;
+    }
+
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 3px 9px;
+      border-radius: 3px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      text-transform: uppercase;
+    }
+    .badge-new { background: #EFF6FF; color: #1D4ED8; }
+    .badge-quote { background: #FEF9C3; color: #854D0E; }
+    .badge-reserved { background: #F0FDF4; color: #15803D; }
+    .badge-closed { background: #F1F5F9; color: #475569; }
+    .badge-hot { background: #FEF2F2; color: #B91C1C; }
+    .badge-warm { background: #FFF7ED; color: #C2410C; }
+    .badge-cold { background: #F1F5F9; color: #6B7280; }
+    .badge-active { background: #ECFDF5; color: #059669; }
+    .badge-pending { background: #FFF7ED; color: #D97706; }
+    .badge-delivered { background: #F0FDF4; color: #15803D; }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.83rem;
+    }
+    .data-table th {
+      background: #F9FAFB;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+    }
+    .data-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #F1F5F9;
+      color: var(--primary);
+      vertical-align: middle;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #FAFAFA; }
+
+    /* Stat boxes */
+    .stat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--primary);
+    }
+    .stat-label {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.03em;
+    }
+    .stat-delta {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* Location pills */
+    .loc-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--warm);
+      border: 1px solid #E8DCC8;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .loc-pill .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-hou { background: #1D4ED8; }
+    .dot-dal { background: #059669; }
+    .dot-mca { background: #D97706; }
+    .dot-har { background: #7C3AED; }
+
+    /* CTA Button */
+    .cta-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 200;
+      background: var(--gold);
+      color: var(--primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      padding: 14px 22px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.45);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cta-float:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(201,168,76,0.55);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 36px 32px;
+      max-width: 460px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .modal-gold-line {
+      height: 4px;
+      background: var(--gold);
+      border-radius: 2px 2px 0 0;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: transparent;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--primary); }
+    .modal-eyebrow {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .modal-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .modal-body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.88rem;
+      color: #4B5563;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .modal-cta {
+      display: block;
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-cta:hover { background: #2D2D2D; }
+
+    /* Search / filter bar */
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 9px 14px;
+      font-size: 0.85rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: white;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+    .filter-select {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 9px 12px;
+      font-size: 0.82rem;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: white;
+      color: var(--primary);
+      outline: none;
+      cursor: pointer;
+    }
+    .filter-select:focus { border-color: var(--gold); }
+
+    /* Inventory bars */
+    .inv-bar-track {
+      background: #E9ECF0;
+      border-radius: 3px;
+      height: 6px;
+      width: 80px;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .inv-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--gold);
+    }
+
+    /* Lead temperature dot */
+    .temp-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 5px;
+    }
+    .temp-hot { background: #EF4444; }
+    .temp-warm { background: #F97316; }
+    .temp-cold { background: #94A3B8; }
+
+    /* Action button */
+    .action-btn {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+      background: white;
+      cursor: pointer;
+      color: var(--primary);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .action-btn:hover { background: var(--warm); border-color: var(--gold); }
+    .action-btn.primary-btn {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .action-btn.primary-btn:hover { background: #333; }
+
+    /* Timeline */
+    .timeline { list-style: none; padding: 0; margin: 0; }
+    .timeline li {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 18px;
+      position: relative;
+    }
+    .timeline li:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 22px;
+      width: 2px;
+      height: calc(100% - 8px);
+      background: #E2E2E2;
+    }
+    .tl-dot {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+    }
+    .tl-event {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.83rem;
+    }
+    .tl-time {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Flash animation for updated row */
+    @keyframes rowFlash {
+      0% { background: rgba(201,168,76,0.25); }
+      100% { background: transparent; }
+    }
+    .row-flash { animation: rowFlash 1.8s ease-out; }
+
+    /* Pain callout */
+    .pain-callout {
+      background: #FEF2F2;
+      border-left: 4px solid #EF4444;
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+    }
+    .pain-callout.solved {
+      background: #F0FDF4;
+      border-left-color: #22C55E;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px;
+      background: var(--primary);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 20px 24px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 640px) {
+      .tab-panel { padding: 16px; }
+      .cta-float { bottom: 16px; right: 16px; font-size: 0.78rem; padding: 12px 16px; }
+      .modal-box { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-top flex items-start justify-between gap-4">
+    <div>
+      <div class="header-brand">Solano Mármol y Granito</div>
+      <div class="header-sub">What your own system would look like — prepared by Pocho.tech</div>
+    </div>
+    <div class="demo-badge mt-1">DEMO · sample data</div>
+  </div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('dashboard', this)">Daily Operations</button>
+    <button class="tab-btn" onclick="switchTab('project', this)">Project Detail</button>
+    <button class="tab-btn" onclick="switchTab('inventory', this)">Live Inventory</button>
+    <button class="tab-btn" onclick="switchTab('leads', this)">Lead Pipeline</button>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 1 — DAILY OPERATIONS DASHBOARD
+     ══════════════════════════════════════════════════════ -->
+<div id="tab-dashboard" class="tab-panel active">
+
+  <!-- KPI row -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="stat-box">
+      <div class="stat-num">14</div>
+      <div class="stat-label">Active Projects — All Locations</div>
+      <div class="stat-delta text-blue-600">↑ 3 this week</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$218k</div>
+      <div class="stat-label">Open Quote Value</div>
+      <div class="stat-delta" style="color:var(--gold)">7 quotes pending response</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">31</div>
+      <div class="stat-label">Showroom Leads — Last 7 Days</div>
+      <div class="stat-delta text-red-500">12 with no follow-up</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">846</div>
+      <div class="stat-label">Slabs in Live Inventory</div>
+      <div class="stat-delta text-green-600">Across 4 showrooms</div>
+    </div>
+  </div>
+
+  <!-- Pain callout — before/after -->
+  <div class="pain-callout mb-4 sans text-sm">
+    <span class="font-bold text-red-700">Without a unified system:</span>
+    <span class="text-red-800"> A contractor calls Houston asking for 15 slabs of Taj Mahal 3cm. The rep doesn't know Dallas has 11 in stock. The client waits 3 days while internal calls are made.</span>
+  </div>
+  <div class="pain-callout solved mb-6 sans text-sm">
+    <span class="font-bold text-green-700">With your system:</span>
+    <span class="text-green-800"> Search any slab, see stock across all 4 locations in real time. Answer the contractor in under 60 seconds.</span>
+  </div>
+
+  <!-- Orders table + interaction -->
+  <div class="card mb-6">
+    <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+      <div class="card-title mb-0">Open Orders — All Locations</div>
+      <div class="flex gap-2 flex-wrap">
+        <select class="filter-select sans" id="loc-filter" onchange="filterOrders()">
+          <option value="">All Locations</option>
+          <option value="Houston">Houston</option>
+          <option value="Dallas">Dallas</option>
+          <option value="McAllen">McAllen</option>
+          <option value="Harlingen">Harlingen</option>
+        </select>
+        <select class="filter-select sans" id="status-filter" onchange="filterOrders()">
+          <option value="">All Statuses</option>
+          <option value="Quote Sent">Quote Sent</option>
+          <option value="Slabs Reserved">Slabs Reserved</option>
+          <option value="New Inquiry">New Inquiry</option>
+          <option value="Closed Won">Closed Won</option>
+        </select>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table" id="orders-table">
+        <thead>
+          <tr>
+            <th>Order / Project</th>
+            <th>Client</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Slab</th>
+            <th>Qty</th>
+            <th>Value</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="orders-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Notification about interaction -->
+  <div id="action-note" class="hidden card sans text-sm" style="border-left:4px solid var(--gold); background:var(--warm)">
+    <strong>Slabs reserved.</strong> Marcos Reyes — Taj Mahal 3cm (8 slabs) status updated to <span class="badge badge-reserved">Slabs Reserved</span>. The client portal shows the update instantly. No phone call needed.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 2 — PROJECT DETAIL (B2B client portal view)
+     ══════════════════════════════════════════════════════ -->
+<div id="tab-project" class="tab-panel">
+  <div class="mb-4 flex items-center gap-3 flex-wrap">
+    <h2 class="text-xl font-bold" style="font-family:Georgia,serif">Apex Custom Homes — Q3 Contract</h2>
+    <span class="badge badge-active">Active</span>
+    <span class="sans text-sm" style="color:var(--muted)">Builder · B2B Account · 12 active projects</span>
+  </div>
+
+  <div class="pain-callout mb-4 sans text-sm">
+    <span class="font-bold text-red-700">Current reality:</span>
+    <span class="text-red-800"> This builder has 12 active projects. Every status check is a manual phone call to your sales team. That's 12 calls your reps have to handle that aren't closing new business.</span>
+  </div>
+  <div class="pain-callout solved mb-6 sans text-sm">
+    <span class="font-bold text-green-700">With a client portal:</span>
+    <span class="text-green-800"> Apex logs in and sees every project, every reserved slab, every estimated delivery — at 11pm if they want. Zero calls to your team.</span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="stat-box">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Active Projects</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$84,200</div>
+      <div class="stat-label">YTD Purchase Volume</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">97</div>
+      <div class="stat-label">Slabs Purchased — 2026</div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Left: project list -->
+    <div class="md:col-span-2">
+      <div class="card">
+        <div class="card-title">Projects — Current Quarter</div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Material</th>
+              <th>Slabs</th>
+              <th>Location</th>
+              <th>Est. Delivery</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="font-semibold">Cypress Creek Kitchen</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — 3cm countertops</span></td>
+              <td>Calacatta Gold Marble</td>
+              <td>8</td>
+              <td><span class="loc-pill"><span class="dot dot-hou"></span>Houston</span></td>
+              <td class="sans text-sm">Aug 5, 2026</td>
+              <td><span class="badge badge-reserved">Slabs Reserved</span></td>
+            </tr>
+            <tr>
+              <td><span class="font-semibold">Bellaire Master Bath</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — 2cm vanity tops</span></td>
+              <td>Bianco Carrara Marble</td>
+              <td>4</td>
+              <td><span class="loc-pill"><span class="dot dot-hou"></span>Houston</span></td>
+              <td class="sans text-sm">Aug 12, 2026</td>
+              <td><span class="badge badge-active">In Fabrication</span></td>
+            </tr>
+            <tr>
+              <td><span class="font-semibold">Plano Commercial Office</span><br><span class="sans text-xs" style="color:var(--muted)">Dallas TX — reception desk tops</span></td>
+              <td>Absolute Black Granite</td>
+              <td>11</td>
+              <td><span class="loc-pill"><span class="dot dot-dal"></span>Dallas</span></td>
+              <td class="sans text-sm">Aug 18, 2026</td>
+              <td><span class="badge badge-quote">Quote Accepted</span></td>
+            </tr>
+            <tr>
+              <td><span class="font-semibold">Sugar Land Kitchen Remodel</span><br><span class="sans text-xs" style="color:var(--muted)">Houston TX — island + perimeter</span></td>
+              <td>Taj Mahal Quartzite 3cm</td>
+              <td>9</td>
+              <td><span class="loc-pill"><span class="dot dot-hou"></span>Houston</span></td>
+              <td class="sans text-sm">Aug 25, 2026</td>
+              <td><span class="badge badge-pending">Awaiting Fabricator</span></td>
+            </tr>
+            <tr>
+              <td><span class="font-semibold">Mission Hills Master Bath</span><br><span class="sans text-xs" style="color:var(--muted)">McAllen TX — 2cm marble</span></td>
+              <td>Statuario Maximus Marble</td>
+              <td>5</td>
+              <td><span class="loc-pill"><span class="dot dot-mca"></span>McAllen</span></td>
+              <td class="sans text-sm">Sep 3, 2026</td>
+              <td><span class="badge badge-new">Measuring Scheduled</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Right: timeline -->
+    <div>
+      <div class="card">
+        <div class="card-title">Recent Activity</div>
+        <ul class="timeline sans text-sm">
+          <li>
+            <div class="tl-dot" style="background:#ECFDF5;color:#059669;font-size:14px;">✓</div>
+            <div>
+              <div class="tl-event"><strong>8 slabs reserved</strong> — Calacatta Gold, Cypress Creek</div>
+              <div class="tl-time">Jul 28 · 9:14am · Houston</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot" style="background:#EFF6FF;color:#1D4ED8;font-size:14px;">Q</div>
+            <div>
+              <div class="tl-event"><strong>Quote sent</strong> — Plano Commercial, $18,400</div>
+              <div class="tl-time">Jul 25 · 3:41pm · Dallas</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot" style="background:#FFF7ED;color:#D97706;font-size:12px;">!</div>
+            <div>
+              <div class="tl-event"><strong>Delivery confirmed</strong> — Bellaire Bath, in fabrication</div>
+              <div class="tl-time">Jul 23 · 11:05am · Houston</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot" style="background:#F0FDF4;color:#15803D;font-size:14px;">✓</div>
+            <div>
+              <div class="tl-event"><strong>Payment received</strong> — $7,200 deposit, Sugar Land</div>
+              <div class="tl-time">Jul 21 · 2:08pm</div>
+            </div>
+          </li>
+          <li>
+            <div class="tl-dot" style="background:#F1F5F9;color:#475569;font-size:12px;">→</div>
+            <div>
+              <div class="tl-event"><strong>New project opened</strong> — Mission Hills, McAllen</div>
+              <div class="tl-time">Jul 18 · 10:30am</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card mt-4" style="background:var(--warm);border-color:#E8DCC8">
+        <div class="card-title">Purchase History</div>
+        <div class="sans text-sm space-y-2">
+          <div class="flex justify-between"><span style="color:var(--muted)">2025 Total</span><span class="font-semibold">$61,800</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">2026 YTD</span><span class="font-semibold">$84,200</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">Avg. Project Value</span><span class="font-semibold">$7,015</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">Preferred Material</span><span class="font-semibold">Marble / Quartzite</span></div>
+          <div class="flex justify-between"><span style="color:var(--muted)">Locations Used</span><span class="font-semibold">Houston · Dallas · McAllen</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 3 — LIVE INVENTORY (unified search — main pain)
+     ══════════════════════════════════════════════════════ -->
+<div id="tab-inventory" class="tab-panel">
+
+  <div class="mb-5">
+    <h2 class="text-xl font-bold mb-1" style="font-family:Georgia,serif">Live Inventory — All Showrooms</h2>
+    <p class="sans text-sm" style="color:var(--muted)">stoneprofitsweb tells you how many slabs you have. This layer tells you where they are — and which ones your clients are already looking at.</p>
+  </div>
+
+  <div class="pain-callout mb-4 sans text-sm">
+    <span class="font-bold text-red-700">The gap today:</span>
+    <span class="text-red-800"> A contractor walks into Houston asking for 15 slabs of Taj Mahal 3cm. Houston has 4. The rep doesn't know Dallas has 11 more. The client leaves to call another supplier while your team makes internal calls.</span>
+  </div>
+  <div class="pain-callout solved mb-6 sans text-sm">
+    <span class="font-bold text-green-700">What this view gives you:</span>
+    <span class="text-green-800"> One search. Every location. Real-time stock. Reserve slabs in 30 seconds — across any showroom, for any project.</span>
+  </div>
+
+  <div class="card mb-4">
+    <div class="search-bar mb-4">
+      <input class="search-input" id="inv-search" type="text" placeholder="Search by material, type, or thickness… (e.g. Quartzite 3cm)" oninput="filterInventory()" />
+      <select class="filter-select" id="inv-type" onchange="filterInventory()">
+        <option value="">All Types</option>
+        <option value="Natural / Marble">Marble</option>
+        <option value="Natural / Granite">Granite</option>
+        <option value="Natural / Quartzite">Quartzite</option>
+        <option value="Engineered / Quartz">Engineered Quartz</option>
+        <option value="Natural / Dolomite">Dolomite</option>
+      </select>
+      <select class="filter-select" id="inv-thick" onchange="filterInventory()">
+        <option value="">All Thicknesses</option>
+        <option value="2cm">2cm</option>
+        <option value="3cm">3cm</option>
+      </select>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table class="data-table" id="inv-table">
+        <thead>
+          <tr>
+            <th>Slab / Material</th>
+            <th>Type</th>
+            <th>Thick.</th>
+            <th><span class="flex items-center gap-1"><span class="dot dot-hou" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Houston</span></th>
+            <th><span class="flex items-center gap-1"><span class="dot dot-dal" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Dallas</span></th>
+            <th><span class="flex items-center gap-1"><span class="dot dot-mca" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>McAllen</span></th>
+            <th><span class="flex items-center gap-1"><span class="dot dot-har" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span>Harlingen</span></th>
+            <th>Total</th>
+            <th>~Price/sqft</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="inv-body"></tbody>
+      </table>
+    </div>
+    <div id="inv-empty" class="hidden sans text-sm text-center py-10" style="color:var(--muted)">No slabs match your search. Try a different material or thickness.</div>
+  </div>
+
+  <!-- Legend -->
+  <div class="flex gap-4 flex-wrap sans text-xs mt-2" style="color:var(--muted)">
+    <span><span class="inv-bar-fill" style="display:inline-block;width:20px;height:6px;background:var(--gold);border-radius:3px;vertical-align:middle;margin-right:4px"></span>Stock bar = % of max across locations</span>
+    <span>Prices are sample ranges for demo purposes only.</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TAB 4 — LEAD PIPELINE (showroom CRM)
+     ══════════════════════════════════════════════════════ -->
+<div id="tab-leads" class="tab-panel">
+
+  <div class="mb-5">
+    <h2 class="text-xl font-bold mb-1" style="font-family:Georgia,serif">Showroom Lead Pipeline — All Locations</h2>
+    <p class="sans text-sm" style="color:var(--muted)">Every walk-in, every conversation, every follow-up — tracked automatically from the moment they step into your showroom.</p>
+  </div>
+
+  <div class="pain-callout mb-4 sans text-sm">
+    <span class="font-bold text-red-700">This Saturday at Houston:</span>
+    <span class="text-red-800"> 40 people walk through. Monday morning, nobody knows who came in, what they liked, or if they left a number. stoneprofitsweb tells you how many slabs you have — not how many customers you lost this week.</span>
+  </div>
+  <div class="pain-callout solved mb-6 sans text-sm">
+    <span class="font-bold text-green-700">With showroom capture:</span>
+    <span class="text-green-800"> Every visitor is logged via tablet or QR. Interested in Taj Mahal? Tagged automatically. Automatic follow-up goes out within 2 hours. Your team sees the full pipeline without a single spreadsheet.</span>
+  </div>
+
+  <!-- Stats row -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+    <div class="stat-box">
+      <div class="stat-num text-red-600">12</div>
+      <div class="stat-label">Hot Leads — Need Contact Today</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--gold)">19</div>
+      <div class="stat-label">Warm — Follow-up Sequence Active</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num text-slate-400">14</div>
+      <div class="stat-label">Cold — Last contact 7+ days ago</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num text-green-600">6</div>
+      <div class="stat-label">Converted to Quote This Week</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+      <div class="card-title mb-0">Lead Tracker — Last 14 Days</div>
+      <div class="flex gap-2 flex-wrap">
+        <select class="filter-select" id="lead-loc" onchange="filterLeads()">
+          <option value="">All Locations</option>
+          <option value="Houston">Houston</option>
+          <option value="Dallas">Dallas</option>
+          <option value="McAllen">McAllen</option>
+          <option value="Harlingen">Harlingen</option>
+        </select>
+        <select class="filter-select" id="lead-temp" onchange="filterLeads()">
+          <option value="">All Temperatures</option>
+          <option value="Hot">Hot</option>
+          <option value="Warm">Warm</option>
+          <option value="Cold">Cold</option>
+        </select>
+      </div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table" id="leads-table">
+        <thead>
+          <tr>
+            <th>Lead</th>
+            <th>Type</th>
+            <th>Interested In</th>
+            <th>Showroom</th>
+            <th>Visit Date</th>
+            <th>Last Contact</th>
+            <th>Temp.</th>
+            <th>Stage</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="leads-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FLOATING CTA
+     ══════════════════════════════════════════════════════ -->
+<button class="cta-float sans" onclick="openCTA()">Like what you see? Let's talk</button>
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAL
+     ══════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-gold-line"></div>
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-eyebrow">Pocho.tech</div>
+    <div class="modal-title">Ready to see this built for Solano?</div>
+    <div class="modal-body">
+      You already have the volume. Four showrooms, a live inventory system, clients buying in bulk — what's missing is the layer that turns that activity into consistent, trackable revenue.<br><br>
+      Book a conversation with Erick to see exactly what your system would look like, scope, and cost.
+    </div>
+    <button class="modal-cta" onclick="goCTA()">Book a conversation with Erick</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+</footer>
+
+<script>
+// ─── Data ──────────────────────────────────────────────────────────────────
+
+const orders = [
+  { id:'SMG-2026-148', project:'Cinco Ranch Kitchen', client:'Marcos Reyes', type:'Contractor', loc:'Houston', slab:'Taj Mahal Quartzite 3cm', qty:8,  val:'$14,400', status:'New Inquiry',    orig:'New Inquiry' },
+  { id:'SMG-2026-147', project:'Uptown Penthouse Bath', client:'Apex Custom Homes', type:'Builder', loc:'Dallas', slab:'Calacatta Gold Marble 3cm', qty:12, val:'$28,800', status:'Quote Sent',      orig:'Quote Sent' },
+  { id:'SMG-2026-146', project:'Katy Residential Kitchen', client:'Sunrise Builders', type:'Builder', loc:'Houston', slab:'Super White Quartzite 3cm', qty:6,  val:'$10,200', status:'Slabs Reserved', orig:'Slabs Reserved' },
+  { id:'SMG-2026-145', project:'McAllen Dental Office', client:'Grupo Medina', type:'Commercial', loc:'McAllen', slab:'Absolute Black Granite 3cm', qty:14, val:'$18,900', status:'Quote Sent',      orig:'Quote Sent' },
+  { id:'SMG-2026-144', project:'Mission Hills Vanity', client:'Cantu Renovations', type:'Contractor', loc:'Harlingen', slab:'Bianco Carrara Marble 2cm', qty:4,  val:'$5,600', status:'Slabs Reserved', orig:'Slabs Reserved' },
+  { id:'SMG-2026-143', project:'Woodlands Master Bath', client:'Premier Luxury Homes', type:'Builder', loc:'Houston', slab:'Statuario Maximus Marble 3cm', qty:7,  val:'$16,100', status:'Closed Won',    orig:'Closed Won' },
+  { id:'SMG-2026-142', project:'Plano Office Lobby', client:'DFW Contract Group', type:'Commercial', loc:'Dallas', slab:'Silver Clouds Dolomite 3cm', qty:18, val:'$23,400', status:'Quote Sent',      orig:'Quote Sent' },
+  { id:'SMG-2026-141', project:'Laredo Kitchen Remodel', client:'Rodriguez & Sons', type:'Contractor', loc:'McAllen', slab:'Santa Cecilia Granite 3cm', qty:5,  val:'$6,250', status:'Slabs Reserved', orig:'Slabs Reserved' },
+];
+
+const inventory = [
+  { name:'Taj Mahal',            full:'Taj Mahal — Quartzite Slab 3cm',            type:'Natural / Quartzite', thick:'3cm', hou:4,  dal:11, mca:0, har:2,  price:'$85–$120' },
+  { name:'Calacatta Gold',       full:'Calacatta Gold — Marble Slab 3cm',           type:'Natural / Marble',    thick:'3cm', hou:8,  dal:3,  mca:5, har:0,  price:'$90–$130' },
+  { name:'Super White',          full:'Super White — Quartzite Slab 3cm',           type:'Natural / Quartzite', thick:'3cm', hou:14, dal:6,  mca:3, har:1,  price:'$75–$105' },
+  { name:'Bianco Carrara',       full:'Bianco Carrara — Marble Slab 2cm',           type:'Natural / Marble',    thick:'2cm', hou:6,  dal:9,  mca:2, har:4,  price:'$55–$80' },
+  { name:'Santa Cecilia',        full:'Santa Cecilia — Granite Slab 3cm',           type:'Natural / Granite',   thick:'3cm', hou:20, dal:14, mca:8, har:6,  price:'$45–$65' },
+  { name:'Black Galaxy',         full:'Black Galaxy — Granite Slab 3cm',            type:'Natural / Granite',   thick:'3cm', hou:11, dal:7,  mca:5, har:3,  price:'$50–$70' },
+  { name:'Calacatta Miraggio',   full:'Calacatta Miraggio — Engineered Quartz 3cm', type:'Engineered / Quartz', thick:'3cm', hou:18, dal:22, mca:10,har:8,  price:'$60–$85' },
+  { name:'Calacatta Laza',       full:'Calacatta Laza — Engineered Quartz 3cm',     type:'Engineered / Quartz', thick:'3cm', hou:24, dal:18, mca:12,har:5,  price:'$58–$82' },
+  { name:'Silver Clouds',        full:'Silver Clouds — Dolomite Slab 3cm',          type:'Natural / Dolomite',  thick:'3cm', hou:7,  dal:4,  mca:2, har:0,  price:'$70–$95' },
+  { name:'Statuario Maximus',    full:'Statuario Maximus — Marble Slab 3cm',        type:'Natural / Marble',    thick:'3cm', hou:3,  dal:5,  mca:4, har:1,  price:'$95–$135' },
+  { name:'Absolute Black',       full:'Absolute Black — Granite Slab 3cm',          type:'Natural / Granite',   thick:'3cm', hou:16, dal:12, mca:9, har:7,  price:'$48–$68' },
+  { name:'Stormy Night',         full:'Stormy Night — Engineered Quartz 2cm',       type:'Engineered / Quartz', thick:'2cm', hou:10, dal:8,  mca:6, har:4,  price:'$55–$75' },
+  { name:'Perla Venata',         full:'Perla Venata — Quartzite Slab 2cm',          type:'Natural / Quartzite', thick:'2cm', hou:5,  dal:2,  mca:1, har:3,  price:'$80–$110' },
+  { name:'Fusion',               full:'Fusion — Granite Slab 3cm',                  type:'Natural / Granite',   thick:'3cm', hou:9,  dal:11, mca:7, har:2,  price:'$52–$72' },
+  { name:'Sparkling White',      full:'Sparkling White — Engineered Quartz 3cm',    type:'Engineered / Quartz', thick:'3cm', hou:21, dal:15, mca:11,har:6,  price:'$57–$78' },
+];
+
+const leads = [
+  { name:'Jennifer Morales',  type:'Homeowner',   interest:'Calacatta Gold Marble',   loc:'Houston',   visit:'Jul 28',  lastContact:'Today 10am',      temp:'Hot',  stage:'Quote Pending' },
+  { name:'Robert Tran',       type:'Contractor',  interest:'Taj Mahal Quartzite 3cm', loc:'Dallas',    visit:'Jul 27',  lastContact:'Yesterday 3pm',   temp:'Hot',  stage:'Measuring Scheduled' },
+  { name:'Sandra Ochoa',      type:'Homeowner',   interest:'Super White Quartzite',   loc:'McAllen',   visit:'Jul 27',  lastContact:'Auto email sent',  temp:'Warm', stage:'Follow-up Seq. #1' },
+  { name:'Mark Hoffmann',     type:'Builder',     interest:'Engineered Quartz bundle',loc:'Houston',   visit:'Jul 26',  lastContact:'Jul 26 5pm',       temp:'Hot',  stage:'Quote Sent' },
+  { name:'Diana Reyna',       type:'Homeowner',   interest:'Bianco Carrara 2cm',      loc:'Harlingen', visit:'Jul 25',  lastContact:'Auto email sent',  temp:'Warm', stage:'Follow-up Seq. #2' },
+  { name:'Carlos Espinoza',   type:'Contractor',  interest:'Santa Cecilia Granite',   loc:'McAllen',   visit:'Jul 25',  lastContact:'Jul 25 2pm',       temp:'Warm', stage:'Quote Pending' },
+  { name:'Amy Nguyen',        type:'Homeowner',   interest:'Calacatta Laza Quartz',   loc:'Houston',   visit:'Jul 24',  lastContact:'Auto email sent',  temp:'Warm', stage:'Follow-up Seq. #3' },
+  { name:'James Patel',       type:'Builder',     interest:'Absolute Black Granite',  loc:'Dallas',    visit:'Jul 23',  lastContact:'Jul 23 4pm',       temp:'Hot',  stage:'Slabs Reserved' },
+  { name:'Laura Gutierrez',   type:'Homeowner',   interest:'Silver Clouds Dolomite',  loc:'Houston',   visit:'Jul 22',  lastContact:'Jul 22',           temp:'Cold', stage:'No response x2' },
+  { name:'Kevin Brooks',      type:'Contractor',  interest:'Taj Mahal Quartzite 3cm', loc:'Dallas',    visit:'Jul 21',  lastContact:'Jul 21',           temp:'Cold', stage:'No response x1' },
+  { name:'Pamela Rios',       type:'Homeowner',   interest:'Statuario Maximus Marble',loc:'Houston',   visit:'Jul 20',  lastContact:'Jul 19',           temp:'Cold', stage:'No response x3' },
+  { name:'David Kim',         type:'Builder',     interest:'Engineered Quartz bundle',loc:'Houston',   visit:'Jul 19',  lastContact:'Today — reopened', temp:'Hot',  stage:'Demo Requested' },
+];
+
+// ─── Tab switching ─────────────────────────────────────────────────────────
+
+let viewCount = 1;
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+  viewCount++;
+  checkModalTrigger();
+}
+
+// ─── Orders table ──────────────────────────────────────────────────────────
+
+let orderInteracted = false;
+
+function statusBadge(s) {
+  const map = {
+    'New Inquiry':'badge-new','Quote Sent':'badge-quote',
+    'Slabs Reserved':'badge-reserved','Closed Won':'badge-closed',
+    'In Fabrication':'badge-active','Quote Accepted':'badge-quote',
+  };
+  return `<span class="badge ${map[s]||'badge-new'}">${s}</span>`;
+}
+
+function renderOrders(data) {
+  const tbody = document.getElementById('orders-body');
+  tbody.innerHTML = '';
+  data.forEach((o, i) => {
+    const isFirst = i === 0 && !orderInteracted;
+    const actionBtn = (o.orig === 'New Inquiry' && !orderInteracted)
+      ? `<button class="action-btn primary-btn" onclick="reserveSlabs(this)">Reserve Slabs</button>`
+      : `<button class="action-btn" onclick="openTab('project')">View Detail</button>`;
+    tbody.innerHTML += `
+      <tr data-loc="${o.loc}" data-status="${o.status}" id="order-row-${i}">
+        <td>
+          <div class="font-semibold sans text-sm">${o.id}</div>
+          <div class="sans text-xs" style="color:var(--muted)">${o.project}</div>
+        </td>
+        <td>
+          <div class="sans text-sm font-medium">${o.client}</div>
+          <div class="sans text-xs" style="color:var(--muted)">${o.type}</div>
+        </td>
+        <td><span class="sans text-xs px-2 py-1 rounded" style="background:#F1F5F9">${o.type}</span></td>
+        <td><span class="loc-pill"><span class="dot dot-${o.loc.slice(0,3).toLowerCase()}"></span>${o.loc}</span></td>
+        <td class="sans text-sm">${o.slab}</td>
+        <td class="sans text-sm font-medium">${o.qty}</td>
+        <td class="sans text-sm font-semibold">${o.val}</td>
+        <td>${statusBadge(o.status)}</td>
+        <td>${actionBtn}</td>
+      </tr>`;
+  });
+}
+
+function filterOrders() {
+  const loc = document.getElementById('loc-filter').value;
+  const status = document.getElementById('status-filter').value;
+  const filtered = orders.filter(o =>
+    (!loc || o.loc === loc) && (!status || o.status === status)
+  );
+  renderOrders(filtered);
+}
+
+function reserveSlabs(btn) {
+  orderInteracted = true;
+  const row = btn.closest('tr');
+  // Update status
+  orders[0].status = 'Slabs Reserved';
+  btn.textContent = 'Reserved ✓';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+  // Update badge in row
+  const badgeCell = row.querySelector('td:nth-child(8)');
+  badgeCell.innerHTML = statusBadge('Slabs Reserved');
+  // Flash row
+  row.classList.add('row-flash');
+  setTimeout(() => row.classList.remove('row-flash'), 2000);
+  // Show note
+  const note = document.getElementById('action-note');
+  note.classList.remove('hidden');
+  note.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function openTab(tabId) {
+  const btns = document.querySelectorAll('.tab-btn');
+  const tabs = ['dashboard','project','inventory','leads'];
+  const idx = tabs.indexOf(tabId);
+  if (idx >= 0) switchTab(tabId, btns[idx]);
+}
+
+// ─── Inventory table ───────────────────────────────────────────────────────
+
+function bar(val, max) {
+  const pct = Math.round((val / max) * 100);
+  const color = val === 0 ? '#E5E7EB' : val <= 3 ? '#EF4444' : 'var(--gold)';
+  return `<span class="inv-bar-track"><span class="inv-bar-fill" style="width:${pct}%;background:${color}"></span></span> ${val === 0 ? '<span style="color:#94A3B8;font-size:0.7rem">—</span>' : val}`;
+}
+
+function renderInventory(data) {
+  const tbody = document.getElementById('inv-body');
+  const empty = document.getElementById('inv-empty');
+  tbody.innerHTML = '';
+  if (data.length === 0) { empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  data.forEach(item => {
+    const total = item.hou + item.dal + item.mca + item.har;
+    const maxVal = Math.max(item.hou, item.dal, item.mca, item.har, 1);
+    tbody.innerHTML += `
+      <tr>
+        <td>
+          <div class="font-semibold sans text-sm">${item.name}</div>
+          <div class="sans text-xs" style="color:var(--muted)">${item.full}</div>
+        </td>
+        <td><span class="sans text-xs px-2 py-1 rounded" style="background:#F1F5F9">${item.type}</span></td>
+        <td class="sans text-sm font-medium">${item.thick}</td>
+        <td class="sans text-sm">${bar(item.hou, maxVal)}</td>
+        <td class="sans text-sm">${bar(item.dal, maxVal)}</td>
+        <td class="sans text-sm">${bar(item.mca, maxVal)}</td>
+        <td class="sans text-sm">${bar(item.har, maxVal)}</td>
+        <td class="font-bold sans text-sm">${total}</td>
+        <td class="sans text-xs" style="color:var(--muted)">${item.price}/sqft</td>
+        <td><button class="action-btn" onclick="openTab('project')">Reserve</button></td>
+      </tr>`;
+  });
+}
+
+function filterInventory() {
+  const q = document.getElementById('inv-search').value.toLowerCase();
+  const type = document.getElementById('inv-type').value;
+  const thick = document.getElementById('inv-thick').value;
+  const filtered = inventory.filter(i =>
+    (!q || i.full.toLowerCase().includes(q) || i.type.toLowerCase().includes(q)) &&
+    (!type || i.type === type) &&
+    (!thick || i.thick === thick)
+  );
+  renderInventory(filtered);
+}
+
+// ─── Leads table ───────────────────────────────────────────────────────────
+
+function tempBadge(t) {
+  const map = { Hot:'badge-hot', Warm:'badge-warm', Cold:'badge-cold' };
+  const dot = { Hot:'temp-hot', Warm:'temp-warm', Cold:'temp-cold' };
+  return `<span class="badge ${map[t]}"><span class="temp-dot ${dot[t]}"></span>${t}</span>`;
+}
+
+function renderLeads(data) {
+  const tbody = document.getElementById('leads-body');
+  tbody.innerHTML = '';
+  data.forEach(l => {
+    tbody.innerHTML += `
+      <tr data-loc="${l.loc}" data-temp="${l.temp}">
+        <td>
+          <div class="font-semibold sans text-sm">${l.name}</div>
+        </td>
+        <td><span class="sans text-xs px-2 py-1 rounded" style="background:#F1F5F9">${l.type}</span></td>
+        <td class="sans text-sm">${l.interest}</td>
+        <td><span class="loc-pill"><span class="dot dot-${l.loc.slice(0,3).toLowerCase()}"></span>${l.loc}</span></td>
+        <td class="sans text-sm">${l.visit}</td>
+        <td class="sans text-sm">${l.lastContact}</td>
+        <td>${tempBadge(l.temp)}</td>
+        <td class="sans text-sm">${l.stage}</td>
+        <td><button class="action-btn" onclick="openTab('project')">Open</button></td>
+      </tr>`;
+  });
+}
+
+function filterLeads() {
+  const loc = document.getElementById('lead-loc').value;
+  const temp = document.getElementById('lead-temp').value;
+  const filtered = leads.filter(l =>
+    (!loc || l.loc === loc) && (!temp || l.temp === temp)
+  );
+  renderLeads(filtered);
+}
+
+// ─── Modal / CTA ───────────────────────────────────────────────────────────
+
+const CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=tajamsmarbleandg';
+let modalShown = false;
+
+function openCTA() {
+  window.open(CALENDLY, '_blank', 'noopener');
+}
+
+function showModal() {
+  if (modalShown || sessionStorage.getItem('tmg_modal_shown')) return;
+  modalShown = true;
+  sessionStorage.setItem('tmg_modal_shown', '1');
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function closeModalOnOverlay(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+function goCTA() {
+  closeModal();
+  window.open(CALENDLY, '_blank', 'noopener');
+}
+
+function checkModalTrigger() {
+  if (viewCount >= 3) showModal();
+}
+
+// Time-based trigger: 75 seconds
+setTimeout(() => showModal(), 75000);
+
+// ─── Init ──────────────────────────────────────────────────────────────────
+
+renderOrders(orders);
+renderInventory(inventory);
+renderLeads(leads);
+</script>
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terrano Landscape & Maintenance — System Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --green-dark:  #2D5016;
+      --green-mid:   #4A7C2F;
+      --carbon:      #1A1A1A;
+      --earth:       #8B6914;
+      --earth-light: #C49A2A;
+      --bg-page:     #F4F1EC;
+      --bg-card:     #FFFFFF;
+      --text-main:   #1A1A1A;
+      --text-muted:  #6B7280;
+      --border:      #D1C9BB;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg-page);
+      color: var(--text-main);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+    }
+    /* ── DEMO BADGE ── */
+    .demo-badge {
+      position: fixed; top: 12px; right: 12px; z-index: 9999;
+      background: var(--earth); color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      padding: 4px 10px; border-radius: 4px;
+      pointer-events: none; text-transform: uppercase;
+    }
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--green-dark);
+      color: #fff;
+      padding: 14px 20px 10px;
+    }
+    .site-header h1 { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: .02em; }
+    .site-header p  { margin: 2px 0 0; font-size: .72rem; opacity: .75; letter-spacing: .03em; }
+    /* ── TABS ── */
+    .tabs-bar {
+      background: var(--carbon);
+      display: flex; overflow-x: auto;
+      border-bottom: 3px solid var(--green-dark);
+      scrollbar-width: none;
+    }
+    .tabs-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 11px 18px;
+      font-size: .8rem; font-weight: 600;
+      color: #aaa; background: transparent;
+      border: none; border-bottom: 3px solid transparent;
+      cursor: pointer; transition: color .18s, border-color .18s;
+      margin-bottom: -3px; white-space: nowrap;
+    }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active { color: #fff; border-bottom-color: var(--green-mid); }
+    /* ── VIEWS ── */
+    .view { display: none; padding: 18px 16px 100px; max-width: 960px; margin: 0 auto; }
+    .view.active { display: block; }
+    /* ── CARDS ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .card-sm { padding: 12px 14px; }
+    /* ── STATUS PILLS ── */
+    .pill {
+      display: inline-block;
+      font-size: .68rem; font-weight: 700; letter-spacing: .06em;
+      padding: 3px 8px; border-radius: 20px; text-transform: uppercase;
+    }
+    .pill-scheduled  { background:#D1FAE5; color:#065F46; }
+    .pill-inprogress { background:#FEF3C7; color:#92400E; }
+    .pill-done       { background:#E0E7FF; color:#3730A3; }
+    .pill-pending    { background:#FEE2E2; color:#991B1B; }
+    .pill-quote      { background:#F3E8FF; color:#6B21A8; }
+    /* ── SECTION LABELS ── */
+    .section-label {
+      font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin: 20px 0 8px;
+    }
+    /* ── CREW TAG ── */
+    .crew-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--green-dark); color: #fff;
+      font-size: .7rem; font-weight: 600;
+      padding: 3px 8px; border-radius: 4px;
+    }
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 8px; top: 0; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+    .tl-item { position: relative; margin-bottom: 14px; }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -20px; top: 5px;
+      width: 10px; height: 10px;
+      border-radius: 50%; background: var(--green-mid);
+      border: 2px solid #fff; box-shadow: 0 0 0 2px var(--green-mid);
+    }
+    .tl-item.tl-muted::before { background: var(--border); box-shadow: 0 0 0 2px var(--border); }
+    /* ── PAIN PANEL ── */
+    .pain-panel {
+      background: #FFF7ED;
+      border-left: 4px solid var(--earth);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+    .pain-panel h3 { margin: 0 0 4px; font-size: .9rem; color: var(--earth); }
+    .pain-panel p  { margin: 0; font-size: .82rem; color: #78350F; line-height: 1.5; }
+    .resolve-panel {
+      background: #F0FDF4;
+      border-left: 4px solid var(--green-mid);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+    .resolve-panel h3 { margin: 0 0 4px; font-size: .9rem; color: var(--green-dark); }
+    .resolve-panel p  { margin: 0; font-size: .82rem; color: #14532D; line-height: 1.5; }
+    /* ── QUOTE FLOW ── */
+    .flow-step {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 7px; padding: 12px 14px; margin-bottom: 8px;
+    }
+    .flow-num {
+      flex-shrink: 0; width: 28px; height: 28px;
+      border-radius: 50%; background: var(--green-dark); color: #fff;
+      font-size: .78rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* ── SEARCH / REPORT ── */
+    .search-input {
+      width: 100%; padding: 9px 14px;
+      border: 1px solid var(--border); border-radius: 6px;
+      font-size: .85rem; background: #fff; outline: none;
+    }
+    .search-input:focus { border-color: var(--green-mid); box-shadow: 0 0 0 2px rgba(74,124,47,.15); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+    th { background: var(--green-dark); color: #fff; padding: 8px 12px; text-align: left; font-weight: 600; font-size: .72rem; letter-spacing: .05em; }
+    td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9f7f4; }
+    /* ── METRIC BOXES ── */
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .metric-box {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 12px; text-align: center;
+    }
+    .metric-box .val { font-size: 1.5rem; font-weight: 700; color: var(--green-dark); }
+    .metric-box .lbl { font-size: .68rem; color: var(--text-muted); margin-top: 2px; }
+    /* ── ACTION BUTTON ── */
+    .btn-primary {
+      background: var(--green-dark); color: #fff;
+      border: none; border-radius: 6px;
+      padding: 9px 18px; font-size: .82rem; font-weight: 600;
+      cursor: pointer; transition: background .18s;
+    }
+    .btn-primary:hover { background: var(--green-mid); }
+    .btn-ghost {
+      background: transparent; color: var(--green-dark);
+      border: 1.5px solid var(--green-dark);
+      border-radius: 6px; padding: 8px 16px;
+      font-size: .82rem; font-weight: 600; cursor: pointer;
+      transition: background .18s, color .18s;
+    }
+    .btn-ghost:hover { background: var(--green-dark); color: #fff; }
+    /* ── FLOATING CTA ── */
+    .float-cta {
+      position: fixed; bottom: 20px; right: 16px; z-index: 1000;
+      background: var(--green-dark); color: #fff;
+      border: none; border-radius: 28px;
+      padding: 13px 22px; font-size: .85rem; font-weight: 700;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+      cursor: pointer; transition: background .18s, transform .15s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .float-cta:hover { background: var(--green-mid); transform: translateY(-2px); }
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,.55); align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 12px; padding: 32px 28px;
+      max-width: 420px; width: 90%; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      animation: modal-in .22s ease-out;
+    }
+    @keyframes modal-in { from { transform: scale(.93); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-box h2 { margin: 0 0 10px; color: var(--green-dark); font-size: 1.25rem; }
+    .modal-box p  { margin: 0 0 22px; color: #4B5563; font-size: .88rem; line-height: 1.55; }
+    .modal-close  { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #9CA3AF; }
+    .modal-box .modal-cta {
+      display: block; width: 100%;
+      background: var(--green-dark); color: #fff;
+      border: none; border-radius: 8px;
+      padding: 13px; font-size: .95rem; font-weight: 700;
+      cursor: pointer; text-decoration: none; transition: background .18s;
+    }
+    .modal-box .modal-cta:hover { background: var(--green-mid); }
+    .modal-box .modal-dismiss { margin-top: 12px; font-size: .78rem; color: #9CA3AF; cursor: pointer; background: none; border: none; }
+    /* ── JOB ROW (dispatch) ── */
+    .job-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px; border-bottom: 1px solid var(--border);
+      transition: background .12s;
+    }
+    .job-row:last-child { border-bottom: none; }
+    .job-row:hover { background: #f9f7f4; }
+    .job-row .job-info { flex: 1; min-width: 0; }
+    .job-row .job-title { font-size: .85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .job-row .job-sub   { font-size: .72rem; color: var(--text-muted); }
+    /* ── HIGHLIGHT ── */
+    .highlight-new {
+      animation: flash-green 1.4s ease-out;
+    }
+    @keyframes flash-green {
+      0%   { background: #D1FAE5; }
+      100% { background: transparent; }
+    }
+    /* ── FOOTER ── */
+    footer {
+      background: var(--carbon); color: #6B7280;
+      font-size: .72rem; text-align: center;
+      padding: 16px 20px; margin-top: 0;
+    }
+    /* ── RESPONSIVE TWEAKS ── */
+    @media (max-width: 600px) {
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .tab-btn { padding: 10px 12px; font-size: .75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DEMO BADGE -->
+<div class="demo-badge">DEMO &middot; sample data</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <h1>Terrano Landscape & Maintenance</h1>
+  <p>What your own system would look like &mdash; prepared by Pocho.tech</p>
+</header>
+
+<!-- TABS -->
+<nav class="tabs-bar" role="tablist">
+  <button class="tab-btn active" onclick="switchTab('dispatch', this)" role="tab">Daily Dispatch</button>
+  <button class="tab-btn" onclick="switchTab('client', this)" role="tab">Client File</button>
+  <button class="tab-btn" onclick="switchTab('quoting', this)" role="tab">Quote Flow</button>
+  <button class="tab-btn" onclick="switchTab('reports', this)" role="tab">Search &amp; Reports</button>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     VIEW 1 — DAILY DISPATCH (operation board)
+     ════════════════════════════════════════════════ -->
+<section id="view-dispatch" class="view active">
+
+  <div class="section-label">Today &mdash; Tuesday, July 28</div>
+
+  <!-- Metrics row -->
+  <div class="metric-grid">
+    <div class="metric-box"><div class="val" id="m-jobs">7</div><div class="lbl">Jobs scheduled</div></div>
+    <div class="metric-box"><div class="val">2</div><div class="lbl">Crews out</div></div>
+    <div class="metric-box"><div class="val" id="m-done">3</div><div class="lbl">Completed</div></div>
+    <div class="metric-box"><div class="val" id="m-pending">1</div><div class="lbl">New quote requests</div></div>
+  </div>
+
+  <!-- PAIN CALLOUT -->
+  <div class="pain-panel">
+    <h3>&#128276; Without a system: Andrés's phone doesn't stop.</h3>
+    <p>Two crews, six jobs, Tuesday. Crew A calls to confirm the Conroe address. Crew B asks if they're doing trimming or sod first. A client texts asking what time. Andrés's on a ladder in Kingwood. Nothing moves until he answers.</p>
+  </div>
+
+  <!-- Board -->
+  <div class="card" style="padding:0; overflow:hidden;">
+    <div style="background:var(--green-dark);color:#fff;padding:10px 14px;font-size:.78rem;font-weight:700;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;">
+      <span>JOB BOARD</span>
+      <button class="btn-primary" style="padding:5px 12px;font-size:.72rem;" onclick="dispatchNewJob()">+ Dispatch job</button>
+    </div>
+    <div id="job-board">
+      <!-- Crew Alpha -->
+      <div style="background:#f0f4f0;padding:8px 14px;font-size:.72rem;font-weight:700;color:var(--green-dark);letter-spacing:.07em;border-bottom:1px solid var(--border);">
+        &#128663; CREW ALPHA &mdash; Carlos M. / 3-person crew
+      </div>
+      <div class="job-row">
+        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div class="job-info">
+          <div class="job-title">Weekly maintenance &mdash; lawn + hedge trim</div>
+          <div class="job-sub">8:00 AM &middot; The Woodlands &middot; Est. 2.5 hrs</div>
+        </div>
+        <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 10:22 AM</div>
+      </div>
+      <div class="job-row">
+        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div class="job-info">
+          <div class="job-title">Mulch bed refresh &mdash; hardwood mulch</div>
+          <div class="job-sub">11:00 AM &middot; Spring &middot; Est. 1.5 hrs</div>
+        </div>
+        <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 12:44 PM</div>
+      </div>
+      <div class="job-row">
+        <div style="flex-shrink:0"><span class="pill pill-inprogress">In progress</span></div>
+        <div class="job-info">
+          <div class="job-title">Irrigation system install &mdash; Hunter Pro-C controller</div>
+          <div class="job-sub">1:30 PM &middot; Tomball &middot; Est. 4 hrs &middot; <span style="color:var(--earth-light);font-weight:600;">TCEQ LI#21895</span></div>
+        </div>
+        <button class="btn-ghost" style="font-size:.72rem;padding:5px 10px;white-space:nowrap;" onclick="markDone(this)">Mark done</button>
+      </div>
+
+      <!-- Crew Bravo -->
+      <div style="background:#f0f4f0;padding:8px 14px;font-size:.72rem;font-weight:700;color:var(--green-dark);letter-spacing:.07em;border-bottom:1px solid var(--border);border-top:1px solid var(--border);">
+        &#128663; CREW BRAVO &mdash; Tomás R. / 3-person crew
+      </div>
+      <div class="job-row">
+        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div class="job-info">
+          <div class="job-title">Tree trimming &mdash; climber / spotter / hauler</div>
+          <div class="job-sub">7:30 AM &middot; Kingwood &middot; $165/hr &middot; Est. 3 hrs</div>
+        </div>
+        <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 10:51 AM</div>
+      </div>
+      <div class="job-row">
+        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div class="job-info">
+          <div class="job-title">Stump grinding &mdash; haul-off included</div>
+          <div class="job-sub">11:30 AM &middot; Humble &middot; Est. 1 hr</div>
+        </div>
+        <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 12:19 PM</div>
+      </div>
+      <div class="job-row">
+        <div style="flex-shrink:0"><span class="pill pill-scheduled">Scheduled</span></div>
+        <div class="job-info">
+          <div class="job-title">Sod installation &mdash; St. Augustine grass</div>
+          <div class="job-sub">1:00 PM &middot; Conroe &middot; Est. 3.5 hrs</div>
+        </div>
+        <button class="btn-ghost" style="font-size:.72rem;padding:5px 10px;white-space:nowrap;" onclick="markDone(this)">Mark done</button>
+      </div>
+
+      <!-- Dispatched from quote (hidden until triggered) -->
+      <div id="new-job-row" style="display:none;border-top:2px solid var(--green-mid);">
+        <div class="job-row highlight-new" id="new-job-inner">
+          <div style="flex-shrink:0"><span class="pill pill-scheduled">Scheduled</span></div>
+          <div class="job-info">
+            <div class="job-title">Retaining wall &mdash; limestone block &nbsp;<span style="font-size:.68rem;background:#D1FAE5;color:#065F46;padding:2px 6px;border-radius:10px;font-weight:700;">NEW</span></div>
+            <div class="job-sub">Tomorrow 8:00 AM &middot; Montgomery County &middot; Crew Alpha &middot; Auto-notified via SMS</div>
+          </div>
+          <div style="font-size:.72rem;color:#065F46;white-space:nowrap;font-weight:600;">&#9654; Dispatched</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resolve-panel" style="margin-top:8px;">
+    <h3>&#9989; With the system: Andrés approves in one tap.</h3>
+    <p>Crew leads get an SMS with address, job notes, and materials list before they leave the yard. Status updates from the field. No calls to coordinate &mdash; Andrés sees the board from wherever he is.</p>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════
+     VIEW 2 — CLIENT FILE (detail + history)
+     ════════════════════════════════════════════════ -->
+<section id="view-client" class="view">
+
+  <div class="section-label">Client File</div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div style="font-size:1.05rem;font-weight:700;">Henderson Property &mdash; HOA Common Area</div>
+        <div style="font-size:.78rem;color:var(--text-muted);margin-top:2px;">The Woodlands, TX &middot; Montgomery County</div>
+        <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span class="pill pill-scheduled">Bi-weekly maintenance</span>
+          <span class="pill pill-done">Active since Mar 2023</span>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:1.15rem;font-weight:700;color:var(--green-dark);">$680 / mo</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">avg monthly billing</div>
+      </div>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:12px 0;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;font-size:.8rem;">
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Contact</div><div>Jim Henderson</div></div>
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Next visit</div><div style="font-weight:600;color:var(--green-dark);">Wed Aug 6, 2026</div></div>
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Crew assigned</div><div>Alpha &mdash; Carlos M.</div></div>
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Open invoice</div><div style="color:var(--earth);font-weight:600;">$680.00 &mdash; due Aug 1</div></div>
+    </div>
+  </div>
+
+  <!-- PAIN callout -->
+  <div class="pain-panel">
+    <h3>&#128222; Without a portal: Jim calls every two weeks.</h3>
+    <p>"When are you guys coming?" &mdash; 125 Google reviews worth of loyal clients like Jim are calling or texting to confirm visits that are already on the schedule. Every call is time your team isn't spending on jobs.</p>
+  </div>
+
+  <!-- Service history -->
+  <div class="section-label">Visit &amp; Service History</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div class="timeline" style="padding:16px 16px 16px 36px;">
+      <div class="tl-item">
+        <div style="font-size:.82rem;font-weight:600;">Bi-weekly maintenance &mdash; lawn + hedge trim</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">Jul 16, 2026 &middot; Crew Alpha &middot; 2.5 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $340</span></div>
+        <div style="font-size:.75rem;margin-top:4px;color:#374151;">All zones covered. Noted irrigation head on Zone 3 needs adjustment &mdash; flagged for next visit.</div>
+      </div>
+      <div class="tl-item">
+        <div style="font-size:.82rem;font-weight:600;">Seasonal fertilization program &mdash; summer application</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">Jul 2, 2026 &middot; Crew Alpha &middot; 1 hr &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $180</span></div>
+      </div>
+      <div class="tl-item">
+        <div style="font-size:.82rem;font-weight:600;">Bi-weekly maintenance &mdash; lawn + hedge trim</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">Jun 18, 2026 &middot; Crew Alpha &middot; 2.5 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $340</span></div>
+      </div>
+      <div class="tl-item">
+        <div style="font-size:.82rem;font-weight:600;">Rainbird ESP-TM2 zone expansion &mdash; 2 zones added</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">Jun 4, 2026 &middot; Crew Alpha &middot; 3 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $750</span></div>
+        <div style="font-size:.75rem;margin-top:4px;color:#374151;">TCEQ LI#21895. All zones tested and certified at completion.</div>
+      </div>
+      <div class="tl-item">
+        <div style="font-size:.82rem;font-weight:600;">Seasonal flower rotation &mdash; spring install</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">Apr 10, 2026 &middot; Crew Bravo &middot; 2 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $420</span></div>
+      </div>
+      <div class="tl-item tl-muted">
+        <div style="font-size:.82rem;font-weight:600;color:var(--text-muted);">Bi-weekly maintenance &mdash; lawn + hedge trim</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">Mar 26, 2026 &middot; Crew Alpha &middot; 2.5 hrs &middot; Invoice paid $340</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resolve-panel" style="margin-top:8px;">
+    <h3>&#9989; Jim logs in, sees everything. Calls drop to zero.</h3>
+    <p>Next visit date, last visit notes, open invoice &mdash; all in one page. Jim doesn't call. Your team doesn't stop to answer. The client feels taken care of without a single extra conversation.</p>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════
+     VIEW 3 — QUOTE FLOW (main pain dramatized)
+     ════════════════════════════════════════════════ -->
+<section id="view-quoting" class="view">
+
+  <div class="section-label">Quote &amp; Lead Flow</div>
+
+  <!-- Pain scenario -->
+  <div class="pain-panel">
+    <h3>&#128336; Friday 7:02 PM &mdash; a lead just filled in the form.</h3>
+    <p>Client wants a patio installation + landscape design consultation in Magnolia. Andrés is in Conroe finishing a tree job. By Monday morning, three more requests have piled up. One prospect already called a competitor.</p>
+  </div>
+
+  <!-- Flow steps -->
+  <div class="section-label">What happens instead</div>
+
+  <div class="flow-step">
+    <div class="flow-num">1</div>
+    <div>
+      <div style="font-weight:600;font-size:.85rem;">Lead submits request online</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Selects service type &middot; describes project &middot; picks a preferred window. No phone tag to capture basic info.</div>
+    </div>
+  </div>
+
+  <!-- Simulated lead card -->
+  <div class="card card-sm" style="border-left:3px solid var(--earth);margin-left:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+      <div>
+        <span class="pill pill-quote" style="margin-right:6px;">New lead</span>
+        <span style="font-size:.82rem;font-weight:600;">R. Caldwell &mdash; Magnolia, TX</span>
+      </div>
+      <div style="font-size:.72rem;color:var(--text-muted);">Received Fri 7:02 PM</div>
+    </div>
+    <div style="font-size:.78rem;color:#374151;margin-top:6px;line-height:1.5;">
+      <strong>Service:</strong> Patio installation (concrete pavers) + landscape design consultation &mdash; 3D visualization<br>
+      <strong>Property:</strong> ~4,500 sq ft residential, Magnolia TX<br>
+      <strong>Window:</strong> Next 2&ndash;3 weeks<br>
+      <strong>Notes:</strong> "Interested in an outdoor living space with a fire pit. Saw your work in the neighborhood."
+    </div>
+  </div>
+
+  <div class="flow-step" style="margin-top:4px;">
+    <div class="flow-num">2</div>
+    <div>
+      <div style="font-weight:600;font-size:.85rem;">System classifies &amp; routes automatically</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Hardscape + design request &rarr; flagged for Andrés review. Estimate range pre-filled from past similar jobs.</div>
+    </div>
+  </div>
+
+  <div class="flow-step">
+    <div class="flow-num">3</div>
+    <div>
+      <div style="font-weight:600;font-size:.85rem;">Draft proposal generated</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Line items, scope, and timeline pre-populated. Andrés reviews, edits if needed, hits send. Total time: 4 minutes.</div>
+    </div>
+  </div>
+
+  <!-- Draft proposal preview -->
+  <div class="card card-sm" style="border-left:3px solid var(--green-mid);margin-left:16px;">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.07em;color:var(--text-muted);margin-bottom:8px;">DRAFT PROPOSAL &mdash; Caldwell Outdoor Living Project</div>
+    <table style="font-size:.78rem;">
+      <tr><th>Item</th><th>Qty</th><th>Est. Price</th></tr>
+      <tr><td>Landscape design consultation &mdash; 3D visualization</td><td>1</td><td>$350</td></tr>
+      <tr><td>Patio installation &mdash; concrete pavers (approx. 600 sq ft)</td><td>1</td><td>$5,800</td></tr>
+      <tr><td>Fire pit &mdash; natural gas, flagstone surround</td><td>1</td><td>$2,200</td></tr>
+      <tr><td>Landscape lighting install (6 fixtures)</td><td>1</td><td>$900</td></tr>
+      <tr style="font-weight:700;"><td colspan="2">Total estimate</td><td style="color:var(--green-dark);">$9,250</td></tr>
+    </table>
+    <div style="font-size:.72rem;color:var(--text-muted);margin-top:8px;">Timeline: most installations completed within 2 days or less &middot; Quality work and a blue-collar work ethic</div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn-primary" style="font-size:.75rem;padding:7px 14px;" onclick="approveQuote(this)">&#10003; Approve &amp; Send</button>
+      <button class="btn-ghost" style="font-size:.75rem;padding:6px 12px;">Edit</button>
+    </div>
+  </div>
+
+  <div class="flow-step" style="margin-top:4px;" id="flow-step-4">
+    <div class="flow-num">4</div>
+    <div>
+      <div style="font-weight:600;font-size:.85rem;">Client receives proposal &mdash; job gets dispatched</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Once accepted, the job auto-populates the dispatch board and the crew lead gets an SMS with all details.</div>
+    </div>
+  </div>
+
+  <div id="dispatch-confirm" style="display:none;" class="resolve-panel">
+    <h3>&#9989; Quote sent. Job on the board. Crew notified.</h3>
+    <p>Caldwell gets the proposal within minutes of submitting the request. When they accept, Crew Alpha gets an SMS: "Retaining wall &mdash; Caldwell &mdash; 8 AM tomorrow, Montgomery County." Switch to <strong>Daily Dispatch</strong> to see it on the board.</p>
+  </div>
+
+  <div class="resolve-panel" style="margin-top:8px;" id="quote-resolve-base">
+    <h3>&#9989; No more Monday morning pileups.</h3>
+    <p>Every lead that comes in &mdash; whether from your site, HomeAdvisor, or a neighbor referral &mdash; is captured, classified, and gets a draft proposal before Andrés has to look at it. Fair prices, sent fast. Attention to detail that is second to none &mdash; starting from the first message.</p>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════
+     VIEW 4 — SEARCH & REPORTS
+     ════════════════════════════════════════════════ -->
+<section id="view-reports" class="view">
+
+  <div class="section-label">Search &amp; Reports</div>
+
+  <!-- Metrics summary -->
+  <div class="metric-grid">
+    <div class="metric-box"><div class="val">$41,200</div><div class="lbl">Revenue &mdash; July</div></div>
+    <div class="metric-box"><div class="val">38</div><div class="lbl">Jobs completed</div></div>
+    <div class="metric-box"><div class="val">14</div><div class="lbl">Active maintenance clients</div></div>
+    <div class="metric-box"><div class="val">$1,080</div><div class="lbl">Avg job value</div></div>
+  </div>
+
+  <!-- Search bar -->
+  <div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;">
+    <input class="search-input" id="search-box" placeholder="Search jobs, clients, crew, service type..." oninput="filterTable()" style="flex:1;min-width:200px;">
+    <select id="filter-status" onchange="filterTable()" style="padding:9px 12px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;background:#fff;cursor:pointer;">
+      <option value="">All statuses</option>
+      <option value="Completed">Completed</option>
+      <option value="In progress">In progress</option>
+      <option value="Scheduled">Scheduled</option>
+      <option value="Quote sent">Quote sent</option>
+    </select>
+  </div>
+
+  <!-- Table -->
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Service</th>
+            <th>Location</th>
+            <th>Crew</th>
+            <th>Status</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody id="report-table">
+          <tr data-status="Completed">
+            <td>Henderson HOA</td>
+            <td>Bi-weekly maintenance &mdash; lawn + hedge trim</td>
+            <td>The Woodlands</td>
+            <td>Alpha</td>
+            <td><span class="pill pill-done">Completed</span></td>
+            <td>$340</td>
+          </tr>
+          <tr data-status="Completed">
+            <td>M. Reyes</td>
+            <td>Irrigation &mdash; Hunter Pro-C install</td>
+            <td>Conroe</td>
+            <td>Alpha</td>
+            <td><span class="pill pill-done">Completed</span></td>
+            <td>$2,100</td>
+          </tr>
+          <tr data-status="Completed">
+            <td>S. Patterson</td>
+            <td>Tree trimming &mdash; 3-person crew ($165/hr)</td>
+            <td>Kingwood</td>
+            <td>Bravo</td>
+            <td><span class="pill pill-done">Completed</span></td>
+            <td>$495</td>
+          </tr>
+          <tr data-status="In progress">
+            <td>T. &amp; C. Nguyen</td>
+            <td>Irrigation &mdash; Hunter Pro-C controller</td>
+            <td>Tomball</td>
+            <td>Alpha</td>
+            <td><span class="pill pill-inprogress">In progress</span></td>
+            <td>$1,850</td>
+          </tr>
+          <tr data-status="Scheduled">
+            <td>D. Marsh</td>
+            <td>Sod installation &mdash; St. Augustine grass</td>
+            <td>Conroe</td>
+            <td>Bravo</td>
+            <td><span class="pill pill-scheduled">Scheduled</span></td>
+            <td>$1,400</td>
+          </tr>
+          <tr data-status="Quote sent">
+            <td>R. Caldwell</td>
+            <td>Patio + fire pit + landscape design</td>
+            <td>Magnolia</td>
+            <td>TBD</td>
+            <td><span class="pill pill-quote">Quote sent</span></td>
+            <td>$9,250</td>
+          </tr>
+          <tr data-status="Completed">
+            <td>Pinecrest HOA</td>
+            <td>HOA common area maintenance contract</td>
+            <td>Montgomery County</td>
+            <td>Bravo</td>
+            <td><span class="pill pill-done">Completed</span></td>
+            <td>$1,200</td>
+          </tr>
+          <tr data-status="Completed">
+            <td>A. Okafor</td>
+            <td>Retaining wall &mdash; limestone block</td>
+            <td>Willis</td>
+            <td>Alpha</td>
+            <td><span class="pill pill-done">Completed</span></td>
+            <td>$3,600</td>
+          </tr>
+          <tr data-status="Completed">
+            <td>B. &amp; L. Ferreira</td>
+            <td>Seasonal flower rotation &mdash; spring install</td>
+            <td>Spring</td>
+            <td>Bravo</td>
+            <td><span class="pill pill-done">Completed</span></td>
+            <td>$420</td>
+          </tr>
+          <tr data-status="Scheduled">
+            <td>W. Kowalski</td>
+            <td>Drip irrigation &mdash; raised beds (Rainbird ESP-TM2)</td>
+            <td>Humble</td>
+            <td>Alpha</td>
+            <td><span class="pill pill-scheduled">Scheduled</span></td>
+            <td>$680</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Revenue by service -->
+  <div class="section-label">Revenue by service type &mdash; July</div>
+  <div class="card">
+    <div id="chart-bars">
+      <!-- Rendered via JS -->
+    </div>
+  </div>
+
+  <div class="resolve-panel" style="margin-top:8px;">
+    <h3>&#9989; Every job, client, and dollar &mdash; searchable in seconds.</h3>
+    <p>Which crew generates more revenue per hour? Which service has the most repeat clients? Which zone in Greater Houston has the most maintenance contracts? Answers that used to live only in Andrés's head &mdash; now in a report.</p>
+  </div>
+
+</section>
+
+<!-- ── FLOATING CTA ── -->
+<button class="float-cta" onclick="openCalendly()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 11 19.79 19.79 0 01.77 2.38 2 2 0 012.76.2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.03a16 16 0 006.07 6.07l1.9-1.9a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+  Like what you see? Let's talk
+</button>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" style="position:relative;">
+    <button class="modal-close" onclick="closeModal()">&#215;</button>
+    <div style="font-size:2rem;margin-bottom:12px;">&#127807;</div>
+    <h2>This is what Terrano could run on.</h2>
+    <p>Dispatch, quoting, client history &mdash; all in one place. Built around how your crews actually work, not a generic tool that requires 40 hours of setup.<br><br>Andrés, let's show you what it looks like with your real jobs and your real clients.</p>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=earthworkslandsc" target="_blank" rel="noopener noreferrer" class="modal-cta">Book a conversation with Erick</a>
+    <button class="modal-dismiss" onclick="closeModal()">Maybe later</button>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+</footer>
+
+<script>
+  /* ── TAB SWITCHING ── */
+  let viewCount = 1;
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('view-' + id).classList.add('active');
+    btn.classList.add('active');
+    viewCount++;
+    checkModalTrigger();
+  }
+
+  /* ── MODAL LOGIC ── */
+  const CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=earthworkslandsc';
+  let modalShown = sessionStorage.getItem('ew_modal_shown') === '1';
+  let timerFired = false;
+
+  function openModal() {
+    if (modalShown) return;
+    modalShown = true;
+    sessionStorage.setItem('ew_modal_shown', '1');
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function openCalendly() {
+    window.open(CALENDLY, '_blank', 'noopener,noreferrer');
+  }
+
+  function checkModalTrigger() {
+    if (!modalShown && viewCount >= 3) openModal();
+  }
+
+  // 75-second timer trigger
+  if (!modalShown) {
+    setTimeout(function() {
+      if (!modalShown) { timerFired = true; openModal(); }
+    }, 75000);
+  }
+
+  // Close on overlay click
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  /* ── DISPATCH: MARK DONE ── */
+  function markDone(btn) {
+    var row = btn.closest('.job-row');
+    var pill = row.querySelector('.pill');
+    pill.className = 'pill pill-done';
+    pill.textContent = 'Done';
+    var now = new Date();
+    var h = now.getHours(); var ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    var t = h.toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ' ' + ampm;
+    var doneLabel = document.createElement('div');
+    doneLabel.style.cssText = 'font-size:.72rem;color:var(--text-muted);white-space:nowrap;';
+    doneLabel.textContent = '✓ ' + t;
+    btn.replaceWith(doneLabel);
+    // update counter
+    var done = document.querySelectorAll('.pill-done').length;
+    document.getElementById('m-done').textContent = done;
+  }
+
+  /* ── DISPATCH: ADD NEW JOB (from quote flow) ── */
+  function dispatchNewJob() {
+    var row = document.getElementById('new-job-row');
+    if (row.style.display === 'none') {
+      row.style.display = 'block';
+      document.getElementById('m-jobs').textContent = '8';
+      // re-trigger animation
+      var inner = document.getElementById('new-job-inner');
+      inner.classList.remove('highlight-new');
+      void inner.offsetWidth;
+      inner.classList.add('highlight-new');
+    }
+  }
+
+  /* ── QUOTE FLOW: APPROVE ── */
+  function approveQuote(btn) {
+    btn.textContent = '✓ Sent!';
+    btn.disabled = true;
+    btn.style.background = 'var(--green-mid)';
+    document.getElementById('dispatch-confirm').style.display = 'block';
+    document.getElementById('quote-resolve-base').style.display = 'none';
+    // also populate the dispatch board
+    dispatchNewJob();
+  }
+
+  /* ── SEARCH / FILTER TABLE ── */
+  function filterTable() {
+    var q = document.getElementById('search-box').value.toLowerCase();
+    var st = document.getElementById('filter-status').value;
+    var rows = document.querySelectorAll('#report-table tr');
+    rows.forEach(function(row) {
+      var text = row.textContent.toLowerCase();
+      var status = row.getAttribute('data-status') || '';
+      var matchQ = !q || text.indexOf(q) > -1;
+      var matchS = !st || status === st;
+      row.style.display = (matchQ && matchS) ? '' : 'none';
+    });
+  }
+
+  /* ── BAR CHART (pure HTML) ── */
+  (function buildChart() {
+    var data = [
+      { label: 'Maintenance contracts', val: 14280, color: '#2D5016' },
+      { label: 'Hardscape / installs',  val: 12400, color: '#4A7C2F' },
+      { label: 'Irrigation',            val: 8600,  color: '#8B6914' },
+      { label: 'Tree / stump work',     val: 3960,  color: '#C49A2A' },
+      { label: 'One-time cleanup',      val: 1960,  color: '#9CA3AF' },
+    ];
+    var max = Math.max.apply(null, data.map(function(d){ return d.val; }));
+    var html = '';
+    data.forEach(function(d) {
+      var pct = (d.val / max * 100).toFixed(1);
+      html += '<div style="margin-bottom:12px;">' +
+        '<div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:4px;">' +
+          '<span>' + d.label + '</span>' +
+          '<span style="font-weight:600;color:var(--green-dark);">$' + d.val.toLocaleString() + '</span>' +
+        '</div>' +
+        '<div style="background:var(--border);border-radius:4px;height:10px;">' +
+          '<div style="width:' + pct + '%;background:' + d.color + ';height:100%;border-radius:4px;transition:width .6s ease-out;"></div>' +
+        '</div>' +
+      '</div>';
+    });
+    document.getElementById('chart-bars').innerHTML = html;
+  })();
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesa Verde Produce — Demo Operativa | Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --green:  #2E7D32;
+      --green-d:#1B5E20;
+      --green-l:#E8F5E9;
+      --amber:  #F5A623;
+      --amber-l:#FFF8E7;
+      --gray-d: #333333;
+      --gray-m: #6B7280;
+      --black:  #1A1A1A;
+    }
+
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background:#F7F8FA; color:var(--gray-d); margin:0; }
+
+    /* ── BADGE DEMO ── */
+    #demo-badge {
+      position:fixed; top:12px; right:12px; z-index:9999;
+      background:var(--amber); color:#1A1A1A;
+      font-size:11px; font-weight:700; letter-spacing:.06em;
+      padding:4px 10px; border-radius:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,.18);
+      pointer-events:none;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background:var(--green); color:#fff;
+      padding:18px 24px 14px;
+      border-bottom:3px solid var(--green-d);
+    }
+    header .brand { font-size:20px; font-weight:700; letter-spacing:-.3px; }
+    header .sub   { font-size:12px; opacity:.82; margin-top:2px; }
+
+    /* ── TABS ── */
+    #tabs-bar {
+      background:#fff;
+      border-bottom:2px solid #E5E7EB;
+      display:flex; gap:0;
+      overflow-x:auto; -webkit-overflow-scrolling:touch;
+      position:sticky; top:0; z-index:100;
+    }
+    .tab-btn {
+      flex-shrink:0;
+      padding:13px 20px;
+      font-size:13px; font-weight:600;
+      color:var(--gray-m); border:none; background:none; cursor:pointer;
+      border-bottom:3px solid transparent; margin-bottom:-2px;
+      transition:color .15s, border-color .15s;
+      white-space:nowrap;
+    }
+    .tab-btn:hover   { color:var(--green); }
+    .tab-btn.active  { color:var(--green); border-bottom-color:var(--green); }
+
+    /* ── VIEWS ── */
+    .view { display:none; padding:20px 16px 100px; max-width:1100px; margin:0 auto; }
+    .view.active { display:block; }
+
+    /* ── CARDS ── */
+    .card {
+      background:#fff; border-radius:10px;
+      border:1px solid #E5E7EB;
+      box-shadow:0 1px 4px rgba(0,0,0,.05);
+      padding:18px;
+    }
+    .card + .card { margin-top:14px; }
+
+    /* ── STATUS BADGES ── */
+    .badge {
+      display:inline-block; font-size:11px; font-weight:700;
+      padding:3px 8px; border-radius:12px; letter-spacing:.03em;
+    }
+    .badge-green  { background:#E8F5E9; color:#2E7D32; }
+    .badge-amber  { background:#FFF3CD; color:#B45309; }
+    .badge-red    { background:#FEE2E2; color:#B91C1C; }
+    .badge-blue   { background:#EFF6FF; color:#1D4ED8; }
+    .badge-gray   { background:#F3F4F6; color:#4B5563; }
+
+    /* ── ROUTE ROW ── */
+    .route-row {
+      display:grid; grid-template-columns:70px 1fr auto auto auto;
+      align-items:center; gap:12px;
+      padding:14px 18px;
+      border-bottom:1px solid #F3F4F6;
+      transition:background .12s;
+    }
+    .route-row:last-child { border-bottom:none; }
+    .route-row:hover { background:#F9FAF9; }
+
+    /* ── ALERT BAR ── */
+    .alert-bar {
+      display:flex; align-items:flex-start; gap:12px;
+      border-radius:8px; padding:14px 16px; margin-bottom:12px;
+    }
+    .alert-bar.red  { background:#FEF2F2; border:1px solid #FECACA; }
+    .alert-bar.amber{ background:#FFFBEB; border:1px solid #FCD34D; }
+    .alert-bar.green{ background:#F0FDF4; border:1px solid #86EFAC; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bg { background:#E5E7EB; border-radius:99px; height:8px; overflow:hidden; }
+    .progress-fill { height:8px; border-radius:99px; transition:width .6s ease; }
+
+    /* ── TABLE ── */
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th { background:#F9FAFB; font-size:11px; font-weight:700; text-transform:uppercase;
+         letter-spacing:.05em; color:var(--gray-m); padding:10px 14px; text-align:left;
+         border-bottom:2px solid #E5E7EB; }
+    td { padding:12px 14px; border-bottom:1px solid #F3F4F6; vertical-align:middle; }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:#F9FAF9; }
+
+    /* ── SEARCH ── */
+    .search-input {
+      width:100%; border:1.5px solid #D1D5DB; border-radius:8px;
+      padding:10px 14px; font-size:14px; outline:none;
+      transition:border-color .15s;
+    }
+    .search-input:focus { border-color:var(--green); }
+
+    select.filter-sel {
+      border:1.5px solid #D1D5DB; border-radius:8px;
+      padding:9px 12px; font-size:13px; background:#fff; outline:none;
+      cursor:pointer;
+    }
+    select.filter-sel:focus { border-color:var(--green); }
+
+    /* ── STAT TILE ── */
+    .stat-tile {
+      background:#fff; border:1px solid #E5E7EB; border-radius:10px;
+      padding:18px 20px; text-align:center;
+    }
+    .stat-tile .num { font-size:32px; font-weight:800; color:var(--green); line-height:1; }
+    .stat-tile .lbl { font-size:12px; color:var(--gray-m); margin-top:4px; }
+
+    /* ── CTA FLOTANTE ── */
+    #fab {
+      position:fixed; bottom:24px; right:20px; z-index:9000;
+      background:var(--green); color:#fff;
+      border:none; border-radius:32px; cursor:pointer;
+      padding:14px 22px; font-size:14px; font-weight:700;
+      box-shadow:0 4px 16px rgba(46,125,50,.45);
+      transition:background .15s, transform .1s;
+    }
+    #fab:hover { background:var(--green-d); transform:translateY(-2px); }
+
+    /* ── MODAL ── */
+    #modal-overlay {
+      display:none; position:fixed; inset:0; z-index:9500;
+      background:rgba(0,0,0,.45); align-items:center; justify-content:center;
+    }
+    #modal-overlay.open { display:flex; }
+    #modal-box {
+      background:#fff; border-radius:14px; max-width:440px; width:calc(100% - 32px);
+      padding:32px 28px; text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,.22);
+      animation:popIn .22s ease;
+    }
+    @keyframes popIn {
+      from { opacity:0; transform:scale(.9); }
+      to   { opacity:1; transform:scale(1);  }
+    }
+    #modal-box h2 { font-size:20px; font-weight:800; color:var(--green-d); margin:0 0 10px; }
+    #modal-box p  { font-size:14px; color:var(--gray-m); margin:0 0 22px; line-height:1.6; }
+    .btn-cta {
+      display:block; width:100%; padding:14px;
+      background:var(--green); color:#fff; text-decoration:none;
+      border-radius:8px; font-size:15px; font-weight:700;
+      transition:background .15s;
+    }
+    .btn-cta:hover { background:var(--green-d); }
+    .btn-close {
+      margin-top:14px; background:none; border:none; cursor:pointer;
+      font-size:13px; color:var(--gray-m); text-decoration:underline;
+    }
+
+    /* ── DETAIL PANEL ── */
+    #detail-panel {
+      display:none; position:fixed; inset:0; z-index:8000;
+      background:rgba(0,0,0,.35); align-items:flex-start; justify-content:flex-end;
+    }
+    #detail-panel.open { display:flex; }
+    #detail-inner {
+      width:min(480px,100vw); height:100vh; overflow-y:auto;
+      background:#fff;
+      box-shadow:-6px 0 30px rgba(0,0,0,.12);
+      padding:24px 22px 80px;
+      animation:slideIn .22s ease;
+    }
+    @keyframes slideIn {
+      from { transform:translateX(100%); }
+      to   { transform:translateX(0); }
+    }
+    .close-panel { background:none; border:none; cursor:pointer; font-size:22px; color:var(--gray-m); float:right; }
+
+    /* ── TIMELINE ── */
+    .timeline { list-style:none; margin:0; padding:0; }
+    .timeline li {
+      display:grid; grid-template-columns:14px 1fr; gap:12px;
+      padding-bottom:16px; position:relative;
+    }
+    .timeline li:not(:last-child)::before {
+      content:''; position:absolute; left:5px; top:14px;
+      width:2px; bottom:0; background:#E5E7EB;
+    }
+    .timeline-dot {
+      width:14px; height:14px; border-radius:50%;
+      flex-shrink:0; margin-top:2px;
+    }
+
+    /* ── RESPONSIVO ── */
+    @media(max-width:640px){
+      .route-row { grid-template-columns:60px 1fr auto; }
+      .route-row .col-window, .route-row .col-camion { display:none; }
+      .stat-tile .num { font-size:24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BADGE FIJO -->
+<div id="demo-badge">DEMO · datos de muestra</div>
+
+<!-- HEADER -->
+<header>
+  <div class="brand">Mesa Verde Produce</div>
+  <div class="sub">Así se vería su sistema propio — preparado por Pocho.tech</div>
+</header>
+
+<!-- TABS -->
+<nav id="tabs-bar" role="tablist">
+  <button class="tab-btn active" data-tab="tablero"    onclick="switchTab('tablero',this)">📋 Tablero de hoy</button>
+  <button class="tab-btn"        data-tab="detalle"    onclick="switchTab('detalle',this)">📦 Orden #48822</button>
+  <button class="tab-btn"        data-tab="merma"      onclick="switchTab('merma',this)">⚠️ Control de merma</button>
+  <button class="tab-btn"        data-tab="cobranza"   onclick="switchTab('cobranza',this)">💵 Cuentas por cobrar</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 1 — TABLERO DE HOY (operación diaria)
+═══════════════════════════════════════════════════════════ -->
+<section id="view-tablero" class="view active">
+
+  <!-- KPIs -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px;">
+    <div class="stat-tile">
+      <div class="num" id="kpi-ordenes">43</div>
+      <div class="lbl">Órdenes hoy</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num" id="kpi-rutas">12</div>
+      <div class="lbl">Rutas activas</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num" style="color:#B91C1C;" id="kpi-pendientes">3</div>
+      <div class="lbl">Sin confirmar entrega</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num" style="color:#B45309;">2</div>
+      <div class="lbl">Credit memos abiertos</div>
+    </div>
+  </div>
+
+  <!-- Alertas -->
+  <div class="alert-bar red">
+    <span style="font-size:20px;">🚨</span>
+    <div>
+      <strong>Ruta DFW-07 — 3 paradas sin confirmar entrega</strong>
+      <div style="font-size:12px;color:#991B1B;margin-top:3px;">Conductor sin respuesta desde las 6:14 a.m. · Clientes: La Parrilla Steakhouse, Rosita's Cantina, Marriott Marquis DFW</div>
+    </div>
+  </div>
+  <div class="alert-bar amber">
+    <span style="font-size:20px;">⚠️</span>
+    <div>
+      <strong>Merma inminente — Avocados Hass, Lote IN-2024-0891, Zona 3</strong>
+      <div style="font-size:12px;color:#92400E;margin-top:3px;">14 unidades con best-by venciendo mañana · Ver control de merma para reasignar</div>
+    </div>
+  </div>
+  <div class="alert-bar amber">
+    <span style="font-size:20px;">📄</span>
+    <div>
+      <strong>Credit memo CM-0341 pendiente de aprobación</strong>
+      <div style="font-size:12px;color:#92400E;margin-top:3px;">Shortage 2 cases Roma Tomatoes — La Parrilla Steakhouse · $87.50 en disputa</div>
+    </div>
+  </div>
+
+  <!-- Rutas del día -->
+  <div class="card" style="padding:0;margin-top:4px;">
+    <div style="padding:14px 18px;border-bottom:1px solid #F3F4F6;display:flex;justify-content:space-between;align-items:center;">
+      <strong style="font-size:14px;">Rutas del día — Houston &amp; DFW</strong>
+      <span style="font-size:12px;color:var(--gray-m);">Sábado 26-jul · 6 días/semana</span>
+    </div>
+
+    <!-- cabecera tabla rutas -->
+    <div class="route-row" style="background:#F9FAFB;padding:8px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-m);">
+      <div>Ruta</div>
+      <div>Conductor</div>
+      <div class="col-window">Ventana</div>
+      <div class="col-camion">Camión</div>
+      <div>Estado</div>
+    </div>
+
+    <div id="rutas-list">
+      <!-- filas generadas por JS -->
+    </div>
+  </div>
+
+  <p style="font-size:12px;color:var(--gray-m);text-align:center;margin-top:16px;">
+    Haga clic en cualquier fila para ver el detalle de la ruta y sus órdenes.
+  </p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 2 — FICHA DE DETALLE (Orden #48822)
+═══════════════════════════════════════════════════════════ -->
+<section id="view-detalle" class="view">
+
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+    <button onclick="switchTab('tablero',document.querySelector('[data-tab=tablero]'))"
+      style="background:none;border:none;cursor:pointer;font-size:13px;color:var(--green);font-weight:600;">← Volver al tablero</button>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px;">
+      <div>
+        <div style="font-size:11px;color:var(--gray-m);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Standing Order</div>
+        <h2 style="margin:0;font-size:20px;">#48822 — Marriott Marquis Houston</h2>
+        <div style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="badge badge-green">Entregada ✓</span>
+          <span class="badge badge-blue">Net 30</span>
+          <span class="badge badge-gray">Ruta HOU-03</span>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:22px;font-weight:800;color:var(--green);">$1,847.20</div>
+        <div style="font-size:12px;color:var(--gray-m);">Vence: 25-ago-2026</div>
+      </div>
+    </div>
+
+    <hr style="margin:16px 0;border:none;border-top:1px solid #E5E7EB;">
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;font-size:13px;">
+      <div><div style="font-size:11px;color:var(--gray-m);">Ventana de entrega</div><strong>4:30 – 5:30 a.m.</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Entregada a las</div><strong>4:58 a.m.</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Conductor</div><strong>M. Reyes — #HOU-03</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Receiving dock</div><strong>Dock B — Cocina principal</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Sales rep</div><strong>A. Torres</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Frecuencia</div><strong>Standing order semanal</strong></div>
+    </div>
+  </div>
+
+  <!-- Items de la orden -->
+  <div class="card" style="padding:0;margin-top:14px;">
+    <div style="padding:14px 18px;border-bottom:1px solid #F3F4F6;">
+      <strong style="font-size:14px;">Líneas de orden — 18 ítems</strong>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Ítem</th>
+            <th>Zona</th>
+            <th>Lote</th>
+            <th>Grade</th>
+            <th>Cant.</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Roma Tomatoes</strong><div style="font-size:11px;color:var(--gray-m);">25 lb case</div></td>
+            <td>Zona 4</td><td>IN-0882</td><td>Fancy</td>
+            <td>12 cases</td><td>$28.50</td><td>$342.00</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Iceberg Lettuce</strong><div style="font-size:11px;color:var(--gray-m);">24 ct case</div></td>
+            <td>Zona 2</td><td>IN-0879</td><td>#1</td>
+            <td>8 cases</td><td>$31.00</td><td>$248.00</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Avocados Hass</strong><div style="font-size:11px;color:var(--gray-m);">48 ct case, #1</div></td>
+            <td>Zona 3</td><td>IN-0891</td><td>#1</td>
+            <td>6 cases</td><td>$62.00</td><td>$372.00</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Yellow Onions</strong><div style="font-size:11px;color:var(--gray-m);">50 lb bag</div></td>
+            <td>Zona 1</td><td>IN-0876</td><td>#1</td>
+            <td>4 bags</td><td>$22.00</td><td>$88.00</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Limes</strong><div style="font-size:11px;color:var(--gray-m);">200 ct case</div></td>
+            <td>Zona 4</td><td>IN-0884</td><td>Fancy</td>
+            <td>5 cases</td><td>$38.50</td><td>$192.50</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Organic Baby Spinach</strong><div style="font-size:11px;color:var(--gray-m);">4 lb bag</div></td>
+            <td>Zona 2</td><td>IN-0887</td><td>Organic</td>
+            <td>10 bags</td><td>$14.20</td><td>$142.00</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Pre-cut Stir Fry Mix</strong><div style="font-size:11px;color:var(--gray-m);">4/5 lb case</div></td>
+            <td>Zona 5</td><td>IN-0890</td><td>Specialty</td>
+            <td>4 cases</td><td>$45.00</td><td>$180.00</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>Strawberries</strong><div style="font-size:11px;color:var(--gray-m);">8/1 lb flat</div></td>
+            <td>Zona 2</td><td>IN-0889</td><td>#1</td>
+            <td>6 flats</td><td>$32.50</td><td>$195.00</td>
+            <td><span class="badge badge-green">OK</span></td>
+          </tr>
+          <tr style="font-weight:700;background:#F9FAFB;">
+            <td colspan="6" style="text-align:right;padding-right:16px;">Total factura</td>
+            <td>$1,847.20</td><td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Historial de la cuenta -->
+  <div class="card" style="margin-top:14px;">
+    <strong style="font-size:14px;">Historial de cuenta — Marriott Marquis Houston</strong>
+    <ul class="timeline" style="margin-top:16px;">
+      <li>
+        <div class="timeline-dot" style="background:#2E7D32;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;">Orden #48822 entregada — $1,847.20</div>
+          <div style="font-size:12px;color:var(--gray-m);">Hoy 4:58 a.m. · M. Reyes · Dock B</div>
+        </div>
+      </li>
+      <li>
+        <div class="timeline-dot" style="background:#2E7D32;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;">Pago recibido — Orden #48801 · $1,793.00</div>
+          <div style="font-size:12px;color:var(--gray-m);">19-jul-2026 · ACH · Ref. 88401</div>
+        </div>
+      </li>
+      <li>
+        <div class="timeline-dot" style="background:#F5A623;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;">Credit memo CM-0338 aplicado — −$62.00</div>
+          <div style="font-size:12px;color:var(--gray-m);">15-jul-2026 · Short: 1 case Russet Potatoes · Descontado de #48801</div>
+        </div>
+      </li>
+      <li>
+        <div class="timeline-dot" style="background:#2E7D32;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;">Orden #48793 entregada — $1,920.50</div>
+          <div style="font-size:12px;color:var(--gray-m);">12-jul-2026 · 5:02 a.m. · M. Reyes · Dock B</div>
+        </div>
+      </li>
+      <li>
+        <div class="timeline-dot" style="background:#1D4ED8;"></div>
+        <div>
+          <div style="font-size:13px;font-weight:600;">Standing order renovado — nuevo ciclo semanal</div>
+          <div style="font-size:12px;color:var(--gray-m);">30-jun-2026 · A. Torres · 18 ítems confirmados</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 3 — CONTROL DE MERMA (dolor principal)
+═══════════════════════════════════════════════════════════ -->
+<section id="view-merma" class="view">
+
+  <div class="card" style="background:var(--green);color:#fff;border:none;margin-bottom:18px;">
+    <div style="font-size:13px;font-weight:600;opacity:.8;margin-bottom:4px;">Control de inventario perecedero — 8 zonas de temperatura</div>
+    <div style="font-size:22px;font-weight:800;">Alertas de caducidad y rotación FIFO</div>
+    <div style="font-size:13px;opacity:.85;margin-top:6px;">
+      Sin este sistema, el control de merma depende del criterio de cada persona en bodega — y cuando alguien se va, el proceso se va con ellos.
+    </div>
+  </div>
+
+  <!-- Alertas críticas -->
+  <div class="alert-bar red" style="margin-bottom:10px;">
+    <span style="font-size:22px;">🔴</span>
+    <div style="flex:1;">
+      <strong>CRÍTICO — Avocados Hass, Lote IN-2024-0891, Zona 3</strong>
+      <div style="font-size:12px;color:#991B1B;margin-top:3px;">14 unidades · Best-by: mañana 27-jul · Acción requerida hoy</div>
+      <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button onclick="resolverMerma()" id="btn-reasignar"
+          style="background:#B91C1C;color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;">
+          Reasignar a orden urgente
+        </button>
+        <button style="background:#fff;color:#991B1B;border:1px solid #FECACA;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;">
+          Marcar como shrinkage
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="merma-confirmado" style="display:none;" class="alert-bar green">
+    <span style="font-size:22px;">✅</span>
+    <div>
+      <strong>14 unidades reasignadas — Orden #48829, El Rancho Grande · $98.00 recuperados</strong>
+      <div style="font-size:12px;color:#166534;margin-top:3px;">Conductor notificado · Ruta HOU-07 · Entrega antes de las 11 a.m.</div>
+    </div>
+  </div>
+
+  <div class="alert-bar amber" style="margin-bottom:10px;">
+    <span style="font-size:22px;">🟡</span>
+    <div>
+      <strong>Strawberries — Lote IN-2024-0889, Zona 2</strong>
+      <div style="font-size:12px;color:#92400E;margin-top:3px;">6 flats · Best-by: 28-jul · Rotar a frente de picking FIFO</div>
+    </div>
+  </div>
+
+  <div class="alert-bar amber">
+    <span style="font-size:22px;">🟡</span>
+    <div>
+      <strong>Cilantro — Lote IN-2024-0892, Zona 2</strong>
+      <div style="font-size:12px;color:#92400E;margin-top:3px;">3 cases · Best-by: 29-jul · Monitor activo</div>
+    </div>
+  </div>
+
+  <!-- Inventario por zona -->
+  <div class="card" style="padding:0;margin-top:18px;">
+    <div style="padding:14px 18px;border-bottom:1px solid #F3F4F6;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <strong style="font-size:14px;">Inventario activo por zona de temperatura</strong>
+      <span style="font-size:12px;color:var(--gray-m);">Certificación HACCP · Cold chain verificada</span>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Zona</th>
+            <th>Ambiente</th>
+            <th>Temp.</th>
+            <th>SKUs activos</th>
+            <th>Lotes</th>
+            <th>Alertas</th>
+            <th>% capacidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Zona 1</strong></td>
+            <td>Dry / Raíces</td>
+            <td>65–70 °F</td>
+            <td>Papas, Cebollas, Pecans, Beans</td>
+            <td>18</td>
+            <td><span class="badge badge-green">OK</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div class="progress-bg" style="flex:1;"><div class="progress-fill" style="width:62%;background:#2E7D32;"></div></div>
+                <span style="font-size:12px;white-space:nowrap;">62%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Zona 2</strong></td>
+            <td>Refrigerado / Hojas</td>
+            <td>34–38 °F</td>
+            <td>Lechuga, Espinaca, Cilantro, Fresas</td>
+            <td>24</td>
+            <td><span class="badge badge-amber">2 alertas</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div class="progress-bg" style="flex:1;"><div class="progress-fill" style="width:78%;background:#F5A623;"></div></div>
+                <span style="font-size:12px;white-space:nowrap;">78%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Zona 3</strong></td>
+            <td>Maduro / Tropical</td>
+            <td>55–60 °F</td>
+            <td>Aguacates, Mangos, Jalapeños</td>
+            <td>11</td>
+            <td><span class="badge badge-red">1 crítica</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div class="progress-bg" style="flex:1;"><div class="progress-fill" style="width:45%;background:#2E7D32;"></div></div>
+                <span style="font-size:12px;white-space:nowrap;">45%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Zona 4</strong></td>
+            <td>Tomates / Cítricos</td>
+            <td>55–60 °F</td>
+            <td>Roma Tomatoes, Limes</td>
+            <td>16</td>
+            <td><span class="badge badge-green">OK</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div class="progress-bg" style="flex:1;"><div class="progress-fill" style="width:55%;background:#2E7D32;"></div></div>
+                <span style="font-size:12px;white-space:nowrap;">55%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Zona 5</strong></td>
+            <td>Cut Produce / Pre-cut</td>
+            <td>33–36 °F</td>
+            <td>Stir Fry Mix, Mixed case pre-cut</td>
+            <td>7</td>
+            <td><span class="badge badge-green">OK</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div class="progress-bg" style="flex:1;"><div class="progress-fill" style="width:38%;background:#2E7D32;"></div></div>
+                <span style="font-size:12px;white-space:nowrap;">38%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Zonas 6-8</strong></td>
+            <td>Congelado / Especialidad</td>
+            <td>0–28 °F</td>
+            <td>Specialty items, Organics</td>
+            <td>14</td>
+            <td><span class="badge badge-green">OK</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <div class="progress-bg" style="flex:1;"><div class="progress-fill" style="width:30%;background:#2E7D32;"></div></div>
+                <span style="font-size:12px;white-space:nowrap;">30%</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Reporte de shrinkage -->
+  <div class="card" style="margin-top:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+      <strong style="font-size:14px;">Shrinkage del mes — julio 2026</strong>
+      <button style="background:var(--green-l);color:var(--green);border:1px solid #A5D6A7;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;">
+        Exportar reporte
+      </button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">
+      <div style="text-align:center;padding:14px;background:#F9FAFB;border-radius:8px;">
+        <div style="font-size:24px;font-weight:800;color:#B91C1C;">$1,240</div>
+        <div style="font-size:12px;color:var(--gray-m);">Merma total julio</div>
+      </div>
+      <div style="text-align:center;padding:14px;background:#F9FAFB;border-radius:8px;">
+        <div style="font-size:24px;font-weight:800;color:#B45309;">$680</div>
+        <div style="font-size:12px;color:var(--gray-m);">Produce tropical</div>
+      </div>
+      <div style="text-align:center;padding:14px;background:#F9FAFB;border-radius:8px;">
+        <div style="font-size:24px;font-weight:800;color:#B45309;">$380</div>
+        <div style="font-size:12px;color:var(--gray-m);">Hojas y berries</div>
+      </div>
+      <div style="text-align:center;padding:14px;background:#F9FAFB;border-radius:8px;">
+        <div style="font-size:24px;font-weight:800;color:var(--green);">$180</div>
+        <div style="font-size:12px;color:var(--gray-m);">Otras categorías</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:#FFF8E7;border-radius:8px;border:1px solid #FCD34D;font-size:13px;color:#92400E;">
+      <strong>Sin este sistema:</strong> ese número de $1,240 no existe en un reporte — alguien tiene que buscarlo en papeles, facturas internas y hojas de bodega. La pregunta es cuánto tarda en armarse.
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     VISTA 4 — CUENTAS POR COBRAR (búsqueda/reporte)
+═══════════════════════════════════════════════════════════ -->
+<section id="view-cobranza" class="view">
+
+  <!-- Barra de búsqueda y filtros -->
+  <div class="card" style="margin-bottom:16px;">
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+      <input type="text" id="search-ar" class="search-input" style="flex:1;min-width:180px;"
+        placeholder="Buscar cuenta o factura…" oninput="filtrarAR()">
+      <select class="filter-sel" id="filtro-estado" onchange="filtrarAR()">
+        <option value="">Todos los estados</option>
+        <option value="vencida">Vencida</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="pagada">Pagada</option>
+      </select>
+      <select class="filter-sel" id="filtro-plaza" onchange="filtrarAR()">
+        <option value="">Houston &amp; DFW</option>
+        <option value="HOU">Houston</option>
+        <option value="DFW">Dallas-Fort Worth</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- KPIs A/R -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px;">
+    <div class="stat-tile">
+      <div class="num">$48,320</div>
+      <div class="lbl">A/R total abierto</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num" style="color:#B91C1C;">$12,740</div>
+      <div class="lbl">Vencido +30 días</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num" style="color:#B45309;">2</div>
+      <div class="lbl">Credit memos abiertos</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num">38</div>
+      <div class="lbl">Cuentas activas</div>
+    </div>
+  </div>
+
+  <!-- Tabla A/R -->
+  <div class="card" style="padding:0;">
+    <div style="padding:14px 18px;border-bottom:1px solid #F3F4F6;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <strong style="font-size:14px;">Facturas abiertas</strong>
+      <button style="background:var(--green-l);color:var(--green);border:1px solid #A5D6A7;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;">
+        Exportar A/R aging
+      </button>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Cuenta</th>
+            <th>Plaza</th>
+            <th>Factura</th>
+            <th>Monto</th>
+            <th>Emisión</th>
+            <th>Vence</th>
+            <th>Días</th>
+            <th>Estado</th>
+            <th>Nota</th>
+          </tr>
+        </thead>
+        <tbody id="ar-table-body">
+          <!-- generado por JS -->
+        </tbody>
+      </table>
+    </div>
+    <div id="ar-empty" style="display:none;padding:30px;text-align:center;color:var(--gray-m);font-size:14px;">
+      No se encontraron resultados para esa búsqueda.
+    </div>
+  </div>
+
+  <div style="margin-top:16px;padding:14px 16px;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;font-size:13px;color:#1D4ED8;">
+    <strong>¿Cuántos restaurantes tienen facturas vencidas más de 30 días hoy?</strong> Con este sistema, ese número aparece en segundos. Sin él, alguien tiene que llamar o revisar hojas de cálculo.
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PANEL LATERAL — DETALLE DE RUTA
+═══════════════════════════════════════════════════════════ -->
+<div id="detail-panel" onclick="cerrarPanel(event)">
+  <div id="detail-inner">
+    <button class="close-panel" onclick="cerrarPanel({target:document.getElementById('detail-panel')})">×</button>
+    <div id="panel-content"></div>
+  </div>
+</div>
+
+<!-- CTA FLOTANTE -->
+<button id="fab" onclick="mostrarModal()">¿Le gustó? Hablemos</button>
+
+<!-- MODAL GANADO -->
+<div id="modal-overlay">
+  <div id="modal-box">
+    <div style="font-size:40px;margin-bottom:10px;">📦</div>
+    <h2>¿Está listo para el siguiente paso?</h2>
+    <p>
+      Esta maqueta muestra solo una parte de lo que un sistema propio puede hacer para Mesa Verde Produce<br><br>
+      La primera conversación es sin compromiso — y sin hablar de tecnología hasta que entendamos exactamente qué duele más.
+    </p>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=chefsproduceco"
+       target="_blank" rel="noopener" class="btn-cta">
+      Agendar conversación
+    </a>
+    <button class="btn-close" onclick="cerrarModal()">Ahora no, gracias</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--black);color:#9CA3AF;text-align:center;padding:18px 16px;font-size:12px;line-height:1.7;">
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+// ── DATOS DE RUTAS ────────────────────────────────────────
+const rutas = [
+  { id:'HOU-01', conductor:'R. Bravo',   ventana:'3:30–4:30 a.m.', camion:'#T-08', estado:'entregada',  plaza:'HOU', paradas:6,  entregadas:6  },
+  { id:'HOU-02', conductor:'F. Mendez',  ventana:'4:00–5:00 a.m.', camion:'#T-14', estado:'entregada',  plaza:'HOU', paradas:5,  entregadas:5  },
+  { id:'HOU-03', conductor:'M. Reyes',   ventana:'4:30–5:30 a.m.', camion:'#T-22', estado:'entregada',  plaza:'HOU', paradas:4,  entregadas:4  },
+  { id:'HOU-04', conductor:'J. Salgado', ventana:'5:00–6:00 a.m.', camion:'#T-31', estado:'en-ruta',    plaza:'HOU', paradas:7,  entregadas:4  },
+  { id:'HOU-05', conductor:'C. Vega',    ventana:'5:30–6:30 a.m.', camion:'#T-05', estado:'en-ruta',    plaza:'HOU', paradas:5,  entregadas:2  },
+  { id:'HOU-06', conductor:'L. Noriega', ventana:'6:00–7:00 a.m.', camion:'#T-17', estado:'en-ruta',    plaza:'HOU', paradas:6,  entregadas:5  },
+  { id:'HOU-07', conductor:'A. Campos',  ventana:'6:30–8:00 a.m.', camion:'#T-09', estado:'en-ruta',    plaza:'HOU', paradas:3,  entregadas:1  },
+  { id:'DFW-01', conductor:'P. Reina',   ventana:'4:00–5:30 a.m.', camion:'#T-38', estado:'entregada',  plaza:'DFW', paradas:5,  entregadas:5  },
+  { id:'DFW-04', conductor:'E. Garza',   ventana:'4:30–6:00 a.m.', camion:'#T-41', estado:'entregada',  plaza:'DFW', paradas:4,  entregadas:4  },
+  { id:'DFW-05', conductor:'H. Rios',    ventana:'5:00–6:30 a.m.', camion:'#T-35', estado:'en-ruta',    plaza:'DFW', paradas:6,  entregadas:3  },
+  { id:'DFW-06', conductor:'N. Blanco',  ventana:'5:30–7:00 a.m.', camion:'#T-42', estado:'en-ruta',    plaza:'DFW', paradas:4,  entregadas:2  },
+  { id:'DFW-07', conductor:'—',          ventana:'5:00–6:00 a.m.', camion:'#T-44', estado:'sin-señal',  plaza:'DFW', paradas:3,  entregadas:0  },
+];
+
+const estadoMap = {
+  'entregada' : { label:'Entregada ✓',     cls:'badge-green' },
+  'en-ruta'   : { label:'En ruta',          cls:'badge-blue'  },
+  'sin-señal' : { label:'Sin señal ⚠️',     cls:'badge-red'   },
+};
+
+function renderRutas() {
+  const list = document.getElementById('rutas-list');
+  list.innerHTML = rutas.map(r => {
+    const st = estadoMap[r.estado];
+    const pct = r.paradas ? Math.round((r.entregadas/r.paradas)*100) : 0;
+    return `
+      <div class="route-row" style="cursor:pointer;" onclick="abrirRuta('${r.id}')">
+        <div><strong>${r.id}</strong><div style="font-size:11px;color:var(--gray-m);">${r.plaza}</div></div>
+        <div>${r.conductor}<div style="font-size:11px;color:var(--gray-m);">${r.entregadas}/${r.paradas} paradas</div></div>
+        <div class="col-window" style="font-size:12px;color:var(--gray-m);">${r.ventana}</div>
+        <div class="col-camion" style="font-size:12px;color:var(--gray-m);">${r.camion}</div>
+        <div><span class="badge ${st.cls}">${st.label}</span></div>
+      </div>`;
+  }).join('');
+}
+
+// ── DATOS A/R ────────────────────────────────────────────
+const arData = [
+  { cuenta:'La Parrilla Steakhouse',  plaza:'HOU', factura:'INV-48821', monto:347.50,  emision:'19-jul',  vence:'02-ago',  dias:0,  estado:'pendiente', nota:'Credit memo CM-0341 abierto (-$87.50)' },
+  { cuenta:'Marriott Marquis Houston',plaza:'HOU', factura:'INV-48822', monto:1847.20, emision:'26-jul',  vence:'25-ago',  dias:0,  estado:'pendiente', nota:'Net 30 · standing order' },
+  { cuenta:'Rosita\'s Cantina',       plaza:'HOU', factura:'INV-48680', monto:520.00,  emision:'25-jun',  vence:'25-jul',  dias:1,  estado:'vencida',   nota:'Net 30 · 1 día de atraso' },
+  { cuenta:'El Rancho Grande',        plaza:'HOU', factura:'INV-48440', monto:890.00,  emision:'01-jun',  vence:'01-jul',  dias:25, estado:'vencida',   nota:'2° aviso enviado 15-jul' },
+  { cuenta:'Hotel Zaza Houston',      plaza:'HOU', factura:'INV-48550', monto:2140.00, emision:'15-jun',  vence:'15-jul',  dias:11, estado:'vencida',   nota:'Net 30 · en revisión' },
+  { cuenta:'Taqueria Los Compadres',  plaza:'HOU', factura:'INV-48730', monto:185.00,  emision:'05-jul',  vence:'12-jul',  dias:14, estado:'vencida',   nota:'Net 7 · llamada pendiente' },
+  { cuenta:'DFW Convention Center',   plaza:'DFW', factura:'INV-48790', monto:3200.00, emision:'12-jul',  vence:'11-ago',  dias:0,  estado:'pendiente', nota:'Net 30 · catering semanal' },
+  { cuenta:'Marriott Marquis DFW',    plaza:'DFW', factura:'INV-48651', monto:1520.00, emision:'28-jun',  vence:'28-jul',  dias:2,  estado:'vencida',   nota:'Net 30 · 2 días de atraso' },
+  { cuenta:'Casa Blanca Tex-Mex',     plaza:'DFW', factura:'INV-48310', monto:430.00,  emision:'15-may',  vence:'15-jun',  dias:41, estado:'vencida',   nota:'Net 30 · 3er aviso — gestión legal' },
+  { cuenta:'Hilton Anatole DFW',      plaza:'DFW', factura:'INV-48810', monto:2780.00, emision:'20-jul',  vence:'19-ago',  dias:0,  estado:'pendiente', nota:'Net 30 · standing order' },
+];
+
+function estadoARBadge(e, dias) {
+  if (e==='pagada')   return '<span class="badge badge-green">Pagada ✓</span>';
+  if (e==='vencida')  return dias > 30
+    ? '<span class="badge badge-red">Vencida +30d</span>'
+    : '<span class="badge badge-red">Vencida</span>';
+  return '<span class="badge badge-blue">Pendiente</span>';
+}
+
+function renderAR(data) {
+  const body = document.getElementById('ar-table-body');
+  const empty = document.getElementById('ar-empty');
+  if (!data.length) { body.innerHTML=''; empty.style.display='block'; return; }
+  empty.style.display='none';
+  body.innerHTML = data.map(r => `
+    <tr>
+      <td><strong>${r.cuenta}</strong></td>
+      <td>${r.plaza}</td>
+      <td style="font-size:12px;color:var(--gray-m);">${r.factura}</td>
+      <td><strong>$${r.monto.toLocaleString('en-US',{minimumFractionDigits:2})}</strong></td>
+      <td style="font-size:12px;">${r.emision}</td>
+      <td style="font-size:12px;">${r.vence}</td>
+      <td style="font-size:12px;${r.dias>0?'color:#B91C1C;font-weight:700;':''}">${r.dias>0?'+'+r.dias+' d':'—'}</td>
+      <td>${estadoARBadge(r.estado,r.dias)}</td>
+      <td style="font-size:11px;color:var(--gray-m);max-width:160px;">${r.nota}</td>
+    </tr>`).join('');
+}
+
+function filtrarAR() {
+  const q      = document.getElementById('search-ar').value.toLowerCase();
+  const estado = document.getElementById('filtro-estado').value;
+  const plaza  = document.getElementById('filtro-plaza').value;
+  const res = arData.filter(r => {
+    const matchQ = !q || r.cuenta.toLowerCase().includes(q) || r.factura.toLowerCase().includes(q);
+    const matchE = !estado || r.estado === estado;
+    const matchP = !plaza  || r.plaza  === plaza;
+    return matchQ && matchE && matchP;
+  });
+  renderAR(res);
+}
+
+// ── PANEL LATERAL DE RUTA ────────────────────────────────
+const rutaDetalle = {
+  'DFW-07': {
+    conductor: '— (sin respuesta desde 6:14 a.m.)',
+    camion: '#T-44', ventana: '5:00–6:00 a.m.', plaza:'DFW',
+    paradas: [
+      { nombre:'La Parrilla Steakhouse DFW', estado:'pendiente', hora:'5:10 a.m. estimado', orden:'#48838' },
+      { nombre:"Rosita's Cantina DFW",       estado:'pendiente', hora:'5:35 a.m. estimado', orden:'#48840' },
+      { nombre:'Marriott Marquis DFW',       estado:'pendiente', hora:'5:55 a.m. estimado', orden:'#48822-DFW' },
+    ],
+    alerta:'Conductor sin confirmar entrega. Sin este sistema, el dispatcher llama al celular y espera. Con este sistema: notificación automática, último GPS registrado, y escalación al supervisor si no hay respuesta en 10 minutos.'
+  }
+};
+
+function abrirRuta(id) {
+  const d = rutaDetalle[id];
+  const ruta = rutas.find(r=>r.id===id);
+  const st = estadoMap[ruta.estado];
+  let html = `
+    <h3 style="margin:0 0 4px;font-size:18px;">Ruta ${id}</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+      <span class="badge ${st.cls}">${st.label}</span>
+      <span class="badge badge-gray">${ruta.plaza}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;margin-bottom:16px;">
+      <div><div style="font-size:11px;color:var(--gray-m);">Conductor</div><strong>${ruta.conductor}</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Camión</div><strong>${ruta.camion}</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Ventana</div><strong>${ruta.ventana}</strong></div>
+      <div><div style="font-size:11px;color:var(--gray-m);">Paradas</div><strong>${ruta.entregadas}/${ruta.paradas}</strong></div>
+    </div>`;
+
+  if (d) {
+    html += `<div class="alert-bar red" style="margin-bottom:14px;"><span style="font-size:18px;">🚨</span><div style="font-size:13px;color:#991B1B;">${d.alerta}</div></div>`;
+    html += `<strong style="font-size:13px;">Paradas de la ruta:</strong><ul style="margin:10px 0 0;padding:0;list-style:none;">`;
+    d.paradas.forEach(p => {
+      html += `<li style="padding:10px 0;border-bottom:1px solid #F3F4F6;">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div><strong style="font-size:13px;">${p.nombre}</strong><div style="font-size:11px;color:var(--gray-m);">${p.orden} · ${p.hora}</div></div>
+          <span class="badge badge-amber">Sin confirmar</span>
+        </div></li>`;
+    });
+    html += '</ul>';
+  } else {
+    // Ruta normal entregada
+    html += `<div class="alert-bar green"><span style="font-size:18px;">✅</span><div style="font-size:13px;color:#166534;">Todas las paradas confirmadas. Manifesto del conductor firmado digitalmente.</div></div>`;
+    html += `<p style="font-size:13px;color:var(--gray-m);margin-top:14px;">Haga clic en la ruta DFW-07 para ver el caso de conductor sin respuesta.</p>`;
+  }
+
+  document.getElementById('panel-content').innerHTML = html;
+  document.getElementById('detail-panel').classList.add('open');
+  contarVista();
+}
+
+function cerrarPanel(e) {
+  if (e.target === document.getElementById('detail-panel')) {
+    document.getElementById('detail-panel').classList.remove('open');
+  }
+}
+
+// ── TABS ─────────────────────────────────────────────────
+let vistaCount = 1; // la vista inicial ya cuenta
+function switchTab(tab, btn) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+tab).classList.add('active');
+  btn.classList.add('active');
+  vistaCount++;
+  contarVista();
+}
+
+// ── MODAL ─────────────────────────────────────────────────
+let modalMostrado = sessionStorage.getItem('cpc_modal') === '1';
+let timerModal;
+
+function contarVista() {
+  if (!modalMostrado && vistaCount >= 3) mostrarModal();
+}
+
+function abrirModal() {
+  window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=chefsproduceco','_blank','noopener');
+}
+
+function mostrarModal() {
+  if (modalMostrado) return;
+  modalMostrado = true;
+  sessionStorage.setItem('cpc_modal','1');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function cerrarModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+document.getElementById('modal-overlay').addEventListener('click', function(e){
+  if (e.target === this) cerrarModal();
+});
+
+// Timer 75 segundos
+timerModal = setTimeout(function(){
+  if (!modalMostrado) mostrarModal();
+}, 75000);
+
+// ── MERMA — INTERACCIÓN SIMULADA ──────────────────────────
+function resolverMerma() {
+  document.getElementById('btn-reasignar').disabled = true;
+  document.getElementById('btn-reasignar').textContent = '✓ Reasignado';
+  document.getElementById('btn-reasignar').style.background = '#166534';
+  document.getElementById('merma-confirmado').style.display = 'flex';
+  // actualizar KPI
+  document.getElementById('kpi-ordenes').textContent = '44';
+  // scroll suave al confirmado
+  document.getElementById('merma-confirmado').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ── INIT ─────────────────────────────────────────────────
+renderRutas();
+renderAR(arData);
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

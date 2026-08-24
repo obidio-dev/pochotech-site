@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valle Alto Produce — Sistema de Operaciones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            verde: { DEFAULT: '#4CAF50', oscuro: '#388E3C', claro: '#C8E6C9', palido: '#F1F8E9' },
+            naranja: { DEFAULT: '#FF7043', claro: '#FFE0D8', palido: '#FFF3EF' },
+            gris: { texto: '#212121', medio: '#616161', suave: '#9E9E9E', fondo: '#F5F5F5', borde: '#E0E0E0' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    body { background-color: #F5F5F5; color: #212121; }
+
+    /* Badge demo fijo */
+    #badge-demo {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #FF7043;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      pointer-events: none;
+    }
+
+    /* CTA flotante */
+    #cta-flotante {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 9998;
+    }
+
+    /* Tabs */
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: 8px 8px 0 0;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 2px solid transparent;
+      border-bottom: none;
+      color: #616161;
+      background: #EEEEEE;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: #ffffff;
+      color: #388E3C;
+      border-color: #E0E0E0;
+      border-bottom-color: #ffffff;
+      z-index: 2;
+    }
+    .tab-btn:not(.active):hover { background: #E8F5E9; color: #388E3C; }
+
+    /* Panel tabs */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Estado badges */
+    .badge-estado {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+    .estado-pendiente { background: #FFF9C4; color: #F57F17; }
+    .estado-confirmado { background: #C8E6C9; color: #1B5E20; }
+    .estado-en-ruta { background: #BBDEFB; color: #0D47A1; }
+    .estado-entregado { background: #F3E5F5; color: #6A1B9A; }
+    .estado-atrasado { background: #FFCDD2; color: #B71C1C; }
+
+    /* Filas de tabla hover */
+    .fila-pedido { cursor: pointer; transition: background 0.12s; }
+    .fila-pedido:hover { background: #F1F8E9; }
+    .fila-pedido.seleccionada { background: #E8F5E9; border-left: 3px solid #4CAF50; }
+
+    /* Modal overlay */
+    #modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    #modal-overlay.visible { opacity: 1; pointer-events: all; }
+    #modal-box {
+      background: white;
+      border-radius: 16px;
+      max-width: 440px;
+      width: 100%;
+      padding: 32px 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    #modal-overlay.visible #modal-box { transform: translateY(0); }
+
+    /* Animacion pulso verde */
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(76,175,80,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(76,175,80,0); }
+    }
+    .pulse-green { animation: pulse-green 2s infinite; }
+
+    /* Animacion notificacion */
+    @keyframes slideIn {
+      from { transform: translateX(110%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(110%); opacity: 0; }
+    }
+    .notif-slide-in { animation: slideIn 0.35s ease-out forwards; }
+    .notif-slide-out { animation: slideOut 0.35s ease-in forwards; }
+
+    /* Scrollbar suave */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #F5F5F5; }
+    ::-webkit-scrollbar-thumb { background: #BDBDBD; border-radius: 3px; }
+
+    /* Ruta mapa visual */
+    .ruta-linea { position: relative; }
+    .ruta-linea::before {
+      content: '';
+      position: absolute;
+      left: 19px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #4CAF50, #FF7043);
+    }
+    .ruta-punto {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Grafico de barras simple */
+    .barra {
+      transition: height 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* Responsive ajustes */
+    @media (max-width: 640px) {
+      .tab-btn { padding: 8px 12px; font-size: 11px; }
+      #badge-demo { font-size: 9px; padding: 3px 8px; top: 8px; right: 8px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Badge demo fijo -->
+  <div id="badge-demo">DEMO &middot; datos de muestra</div>
+
+  <!-- Header -->
+  <header class="bg-verde-oscuro text-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-start justify-between flex-wrap gap-3">
+        <div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-verde-oscuro" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-xl font-bold leading-tight">Valle Alto Produce</h1>
+              <p class="text-verde-claro text-xs font-medium">Houston · Louisiana · Mississippi</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white bg-opacity-15 rounded-xl px-4 py-2 border border-white border-opacity-25">
+          <p class="text-xs text-verde-claro font-medium uppercase tracking-wide">Preparado por</p>
+          <p class="text-sm font-bold">Pocho.tech</p>
+          <p class="text-xs text-verde-claro">Así se vería su sistema propio</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="max-w-6xl mx-auto px-4 py-6">
+
+    <!-- Tabs de navegacion -->
+    <div class="flex gap-1 flex-wrap" role="tablist">
+      <button class="tab-btn active" onclick="cambiarTab('operaciones', this)" role="tab" aria-selected="true">
+        <span class="hidden sm:inline">&#128230; </span>Operaciones del dia
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('pedido', this)" role="tab" aria-selected="false">
+        <span class="hidden sm:inline">&#128196; </span>Ficha de pedido
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('rutas', this)" role="tab" aria-selected="false">
+        <span class="hidden sm:inline">&#128667; </span>Rutas y despacho
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('clientes', this)" role="tab" aria-selected="false">
+        <span class="hidden sm:inline">&#128202; </span>Clientes y reportes
+      </button>
+    </div>
+
+    <!-- Borde superior del panel -->
+    <div class="bg-white rounded-b-2xl rounded-tr-2xl shadow-sm border border-gray-200 border-t-0 -mt-px">
+
+      <!-- ============================================================ -->
+      <!-- TAB 1: OPERACIONES DEL DIA -->
+      <!-- ============================================================ -->
+      <div id="panel-operaciones" class="tab-panel active p-4 sm:p-6">
+
+        <!-- Banner de situacion actual (dramatiza el dolor) -->
+        <div class="bg-naranja-palido border border-naranja rounded-xl p-4 mb-6 flex gap-3">
+          <div class="text-2xl flex-shrink-0">&#9888;&#65039;</div>
+          <div>
+            <p class="font-bold text-naranja text-sm">Sin este sistema: un pedido llega a Gmail el domingo a las 9 PM.</p>
+            <p class="text-xs text-gris-medio mt-1">Se mezcla con correos personales. Nadie lo ve hasta el lunes. El restaurante ya llamo a otro proveedor.</p>
+            <p class="text-xs font-semibold text-verde-oscuro mt-2">&#10003; Con su sistema: confirmación automática al cliente, alerta a usted, pedido listo para el despacho de las 7 AM.</p>
+          </div>
+        </div>
+
+        <!-- Resumen del dia -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div class="bg-verde-palido rounded-xl p-3 border border-verde-claro">
+            <p class="text-xs text-gris-medio uppercase tracking-wide font-semibold">Pedidos hoy</p>
+            <p class="text-3xl font-bold text-verde-oscuro mt-1">12</p>
+            <p class="text-xs text-verde-oscuro mt-1">&#8593; 3 vs. ayer</p>
+          </div>
+          <div class="bg-blue-50 rounded-xl p-3 border border-blue-200">
+            <p class="text-xs text-gris-medio uppercase tracking-wide font-semibold">En ruta</p>
+            <p class="text-3xl font-bold text-blue-700 mt-1">4</p>
+            <p class="text-xs text-blue-700 mt-1">2 Houston · 2 Louisiana</p>
+          </div>
+          <div class="bg-yellow-50 rounded-xl p-3 border border-yellow-200">
+            <p class="text-xs text-gris-medio uppercase tracking-wide font-semibold">Pendientes</p>
+            <p class="text-3xl font-bold text-yellow-700 mt-1">3</p>
+            <p class="text-xs text-yellow-700 mt-1">Confirmar antes de las 5 PM</p>
+          </div>
+          <div class="bg-red-50 rounded-xl p-3 border border-red-200">
+            <p class="text-xs text-gris-medio uppercase tracking-wide font-semibold">Requieren atención</p>
+            <p class="text-3xl font-bold text-red-600 mt-1">1</p>
+            <p class="text-xs text-red-600 mt-1">Stock bajo: Broccoli 20LB</p>
+          </div>
+        </div>
+
+        <!-- Tabla de pedidos del dia -->
+        <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+          <h2 class="text-base font-bold text-gris-texto">Pedidos de hoy — Sábado 26 Jul</h2>
+          <div class="flex gap-2">
+            <span class="text-xs bg-verde-claro text-verde-oscuro px-3 py-1 rounded-full font-semibold cursor-default">Lun-Sab 7 AM – 3 PM</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-gris-borde">
+          <table class="w-full text-sm min-w-[600px]">
+            <thead>
+              <tr class="bg-gris-fondo text-gris-medio text-xs uppercase tracking-wide">
+                <th class="text-left px-4 py-3 font-semibold"># Pedido</th>
+                <th class="text-left px-4 py-3 font-semibold">Cliente</th>
+                <th class="text-left px-4 py-3 font-semibold">Zona</th>
+                <th class="text-left px-4 py-3 font-semibold">Items</th>
+                <th class="text-left px-4 py-3 font-semibold">Estado</th>
+                <th class="text-left px-4 py-3 font-semibold">Hora</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-pedidos">
+              <tr class="fila-pedido border-t border-gris-borde" onclick="verPedido('MP-2607-001', this)">
+                <td class="px-4 py-3 font-mono font-bold text-verde-oscuro">MP-2607-001</td>
+                <td class="px-4 py-3 font-semibold">Taqueria El Rancho</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3">Ajo Pelado, Cebolla 50LB, Avocado 48ct</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-entregado">Entregado</span></td>
+                <td class="px-4 py-3 text-gris-medio">7:14 AM</td>
+              </tr>
+              <tr class="fila-pedido border-t border-gris-borde" onclick="verPedido('MP-2607-002', this)">
+                <td class="px-4 py-3 font-mono font-bold text-verde-oscuro">MP-2607-002</td>
+                <td class="px-4 py-3 font-semibold">Supermercado La Cosecha</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3">Banana Dominico x4, Tortillas maiz, Takis Fuego 24-pk</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-en-ruta">En ruta</span></td>
+                <td class="px-4 py-3 text-gris-medio">8:30 AM</td>
+              </tr>
+              <tr class="fila-pedido border-t border-gris-borde" onclick="verPedido('MP-2607-003', this)">
+                <td class="px-4 py-3 font-mono font-bold text-verde-oscuro">MP-2607-003</td>
+                <td class="px-4 py-3 font-semibold">Carnitas del Valle</td>
+                <td class="px-4 py-3 text-gris-medio">Baton Rouge, LA</td>
+                <td class="px-4 py-3">Habanero Rojo 10LB, Ajo Suelto 30LB, Apio 30CT</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-en-ruta">En ruta</span></td>
+                <td class="px-4 py-3 text-gris-medio">6:45 AM</td>
+              </tr>
+              <tr class="fila-pedido border-t border-gris-borde" onclick="verPedido('MP-2607-004', this)" id="fila-accion-demo">
+                <td class="px-4 py-3 font-mono font-bold text-verde-oscuro">MP-2607-004</td>
+                <td class="px-4 py-3 font-semibold">El Mercado de Rosa</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3">Broccoli 20LB, Carrot Jumbo 50LB, Calabaza 35LB</td>
+                <td class="px-4 py-3"><span id="estado-rosa" class="badge-estado estado-pendiente">Pendiente</span></td>
+                <td class="px-4 py-3 text-gris-medio">9:02 AM</td>
+              </tr>
+              <tr class="fila-pedido border-t border-gris-borde" onclick="verPedido('MP-2607-005', this)">
+                <td class="px-4 py-3 font-mono font-bold text-verde-oscuro">MP-2607-005</td>
+                <td class="px-4 py-3 font-semibold">Tortilleria San Pedro</td>
+                <td class="px-4 py-3 text-gris-medio">Biloxi, MS</td>
+                <td class="px-4 py-3">Tortillas maiz x6 cajas, Ancho Chile 25LB, Hoja de Platano</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-confirmado">Confirmado</span></td>
+                <td class="px-4 py-3 text-gris-medio">7:58 AM</td>
+              </tr>
+              <tr class="fila-pedido border-t border-gris-borde" onclick="verPedido('MP-2607-006', this)">
+                <td class="px-4 py-3 font-mono font-bold text-verde-oscuro">MP-2607-006</td>
+                <td class="px-4 py-3 font-semibold">Abarrotes El Primo</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3">Zambos Spicy x3, Boca Deli Gustitos, Boca Deli Frijolitos</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-pendiente">Pendiente</span></td>
+                <td class="px-4 py-3 text-gris-medio">10:15 AM</td>
+              </tr>
+              <tr class="fila-pedido border-t border-gris-borde" onclick="verPedido('MP-2607-007', this)">
+                <td class="px-4 py-3 font-mono font-bold text-verde-oscuro">MP-2607-007</td>
+                <td class="px-4 py-3 font-semibold">Rest. La Frontera</td>
+                <td class="px-4 py-3 text-gris-medio">New Orleans, LA</td>
+                <td class="px-4 py-3">Avocado 48ct x2, White Onion 50LB, Carrot 50LB</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-atrasado">Requiere atención</span></td>
+                <td class="px-4 py-3 text-gris-medio">11:30 AM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Accion simulada destacada -->
+        <div class="mt-5 bg-verde-palido border-2 border-verde rounded-xl p-4">
+          <p class="text-sm font-bold text-verde-oscuro mb-2">&#9654; Interacción de muestra: confirme el pedido MP-2607-004</p>
+          <p class="text-xs text-gris-medio mb-3">El cliente "El Mercado de Rosa" está en estado Pendiente. Haga clic en el botón para ver cómo el sistema confirma el pedido, notifica al cliente y actualiza el tablero.</p>
+          <button
+            id="btn-confirmar"
+            onclick="confirmarPedido()"
+            class="bg-verde text-white font-bold text-sm px-5 py-2 rounded-lg hover:bg-verde-oscuro transition-colors pulse-green"
+          >
+            Confirmar pedido MP-2607-004
+          </button>
+          <span id="label-confirmado" class="hidden ml-3 text-verde-oscuro font-semibold text-sm">&#10003; Pedido confirmado y cliente notificado</span>
+        </div>
+
+      </div><!-- /panel-operaciones -->
+
+
+      <!-- ============================================================ -->
+      <!-- TAB 2: FICHA DE PEDIDO -->
+      <!-- ============================================================ -->
+      <div id="panel-pedido" class="tab-panel p-4 sm:p-6">
+
+        <!-- Selector de pedido con buscador -->
+        <div class="flex items-center gap-3 mb-5 flex-wrap">
+          <label class="text-sm font-semibold text-gris-texto">Ver pedido:</label>
+          <select id="selector-pedido" onchange="cargarFicha(this.value)" class="text-sm border border-gris-borde rounded-lg px-3 py-2 bg-white focus:outline-none focus:border-verde">
+            <option value="MP-2607-001">MP-2607-001 — Taqueria El Rancho</option>
+            <option value="MP-2607-002">MP-2607-002 — Supermercado La Cosecha</option>
+            <option value="MP-2607-003">MP-2607-003 — Carnitas del Valle</option>
+            <option value="MP-2607-004">MP-2607-004 — El Mercado de Rosa</option>
+            <option value="MP-2607-005">MP-2607-005 — Tortilleria San Pedro</option>
+            <option value="MP-2607-007">MP-2607-007 — Rest. La Frontera (atención)</option>
+          </select>
+        </div>
+
+        <!-- Ficha del pedido -->
+        <div id="contenido-ficha" class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+          <!-- Columna izq: datos del pedido -->
+          <div class="lg:col-span-2 space-y-4">
+
+            <div class="bg-white rounded-xl border border-gris-borde p-5">
+              <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
+                <div>
+                  <p class="text-xs text-gris-medio uppercase tracking-wide font-semibold">Número de orden</p>
+                  <p id="ficha-id" class="text-2xl font-bold font-mono text-verde-oscuro">MP-2607-001</p>
+                </div>
+                <span id="ficha-estado" class="badge-estado estado-entregado">Entregado</span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm mb-4">
+                <div>
+                  <p class="text-xs text-gris-medio font-semibold uppercase">Cliente</p>
+                  <p id="ficha-cliente" class="font-bold mt-1">Taqueria El Rancho</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gris-medio font-semibold uppercase">Zona de entrega</p>
+                  <p id="ficha-zona" class="font-medium mt-1">Houston, TX</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gris-medio font-semibold uppercase">Canal de pedido</p>
+                  <p id="ficha-canal" class="font-medium mt-1">&#127881; Sistema web</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gris-medio font-semibold uppercase">Fecha de pedido</p>
+                  <p id="ficha-fecha" class="font-medium mt-1">Sab 26 Jul, 7:14 AM</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gris-medio font-semibold uppercase">Entrega solicitada</p>
+                  <p id="ficha-entrega" class="font-medium mt-1">Sab 26 Jul, mañana</p>
+                </div>
+                <div>
+                  <p class="text-xs text-gris-medio font-semibold uppercase">Ruta asignada</p>
+                  <p id="ficha-ruta" class="font-medium mt-1">Ruta Houston-Norte</p>
+                </div>
+              </div>
+
+              <!-- Líneas de pedido -->
+              <p class="text-xs text-gris-medio uppercase tracking-wide font-semibold mb-2">Líneas del pedido</p>
+              <div id="ficha-items" class="space-y-2">
+                <div class="flex justify-between items-center py-2 border-b border-gris-borde text-sm">
+                  <span>Ajo Pelado — 1 Box</span>
+                  <span class="font-semibold text-gris-texto">1 caja</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-gris-borde text-sm">
+                  <span>White Onion / Cebolla Blanca — 50LBS</span>
+                  <span class="font-semibold text-gris-texto">2 bolsas</span>
+                </div>
+                <div class="flex justify-between items-center py-2 text-sm">
+                  <span>Avocado — caja 48ct</span>
+                  <span class="font-semibold text-gris-texto">1 caja</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Historial de actividad -->
+            <div class="bg-white rounded-xl border border-gris-borde p-5">
+              <p class="text-sm font-bold text-gris-texto mb-4">Historial de actividad</p>
+              <div id="ficha-historial" class="space-y-3">
+                <div class="flex gap-3 text-sm">
+                  <div class="w-5 h-5 rounded-full bg-verde flex-shrink-0 flex items-center justify-center mt-0.5">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold">Pedido entregado</p>
+                    <p class="text-xs text-gris-medio">Sab 26 Jul — 8:47 AM · Firmado por cliente</p>
+                  </div>
+                </div>
+                <div class="flex gap-3 text-sm">
+                  <div class="w-5 h-5 rounded-full bg-blue-500 flex-shrink-0 flex items-center justify-center mt-0.5">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3z"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold">Salio en ruta</p>
+                    <p class="text-xs text-gris-medio">Sab 26 Jul — 7:14 AM · Ruta Houston-Norte</p>
+                  </div>
+                </div>
+                <div class="flex gap-3 text-sm">
+                  <div class="w-5 h-5 rounded-full bg-verde flex-shrink-0 flex items-center justify-center mt-0.5">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold">Pedido confirmado por el sistema</p>
+                    <p class="text-xs text-gris-medio">Sab 26 Jul — 5:48 AM · Confirmación automática enviada al cliente</p>
+                  </div>
+                </div>
+                <div class="flex gap-3 text-sm">
+                  <div class="w-5 h-5 rounded-full bg-yellow-400 flex-shrink-0 flex items-center justify-center mt-0.5">
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v7a1 1 0 002 0V3a1 1 0 00-1-1zM5.05 5.05a1 1 0 011.414 0L8 6.586a1 1 0 01-1.414 1.414L5.05 6.464a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                  </div>
+                  <div>
+                    <p class="font-semibold">Pedido recibido via sistema</p>
+                    <p class="text-xs text-gris-medio">Vie 25 Jul — 11:22 PM · Canal: sistema web</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna der: historial del cliente -->
+          <div class="space-y-4">
+            <div class="bg-white rounded-xl border border-gris-borde p-5">
+              <p class="text-sm font-bold text-gris-texto mb-3">Historial del cliente</p>
+              <div id="ficha-cliente-hist" class="space-y-2">
+                <div class="flex justify-between text-xs text-gris-medio border-b border-gris-borde pb-2">
+                  <span class="font-semibold">ORDEN</span>
+                  <span class="font-semibold">FECHA</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                  <span class="font-mono text-verde-oscuro font-bold">MP-2607-001</span>
+                  <span class="text-gris-medio">Hoy</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                  <span class="font-mono text-gris-medio">MP-2519-008</span>
+                  <span class="text-gris-medio">19 Jul</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                  <span class="font-mono text-gris-medio">MP-2412-014</span>
+                  <span class="text-gris-medio">12 Jul</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                  <span class="font-mono text-gris-medio">MP-2405-021</span>
+                  <span class="text-gris-medio">5 Jul</span>
+                </div>
+                <div class="flex justify-between text-sm py-1">
+                  <span class="font-mono text-gris-medio">MP-2328-033</span>
+                  <span class="text-gris-medio">28 Jun</span>
+                </div>
+              </div>
+              <div class="mt-3 pt-3 border-t border-gris-borde">
+                <p class="text-xs text-gris-medio">Ciclo promedio de recompra</p>
+                <p class="text-lg font-bold text-verde-oscuro">7 días</p>
+                <p class="text-xs text-gris-medio mt-1">Cliente activo — 20 órdenes en 5 meses</p>
+              </div>
+            </div>
+
+            <div class="bg-verde-palido rounded-xl border border-verde-claro p-4">
+              <p class="text-xs font-bold text-verde-oscuro uppercase tracking-wide mb-2">&#128276; Alerta del sistema</p>
+              <p class="text-xs text-gris-medio">Este cliente fue detectado por el agente a las 11:22 PM del viernes. Sin sistema, el pedido habria esperado hasta el lunes.</p>
+              <p class="text-xs font-semibold text-verde-oscuro mt-2">Respuesta automática enviada en &lt;2 minutos.</p>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gris-borde p-4">
+              <p class="text-xs font-bold text-gris-medio uppercase tracking-wide mb-2">Nota interna</p>
+              <p class="text-xs text-gris-medio italic">"Prefiere entrega antes de las 9 AM. Pide ajo pelado cada semana sin excepcion. Cliente fiel desde 2022."</p>
+              <p class="text-xs text-gris-medio mt-2 not-italic">— Jose M., 14 ene 2026</p>
+            </div>
+          </div>
+
+        </div><!-- /grid -->
+      </div><!-- /panel-pedido -->
+
+
+      <!-- ============================================================ -->
+      <!-- TAB 3: RUTAS Y DESPACHO (dramatiza dolor principal) -->
+      <!-- ============================================================ -->
+      <div id="panel-rutas" class="tab-panel p-4 sm:p-6">
+
+        <!-- Banner dramatizacion del dolor -->
+        <div class="bg-naranja-palido border border-naranja rounded-xl p-4 mb-6">
+          <div class="flex gap-3">
+            <div class="text-2xl flex-shrink-0">&#128222;</div>
+            <div>
+              <p class="font-bold text-naranja text-sm">Hoy, sin sistema: 40 minutos de llamadas para coordinar estas 3 rutas.</p>
+              <p class="text-xs text-gris-medio mt-1">Houston a Louisiana a Mississippi — cada pedido coordinado por telefono y WhatsApp. Sin registro, sin tracking, sin orden de carga.</p>
+              <p class="text-xs font-bold text-verde-oscuro mt-2">&#9660; El agente genera este plan la noche anterior en 2 minutos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan de rutas semanal -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+          <!-- Ruta Houston -->
+          <div class="bg-white rounded-xl border border-gris-borde p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded-full bg-verde-claro flex items-center justify-center">
+                <span class="text-verde-oscuro font-bold text-sm">H</span>
+              </div>
+              <div>
+                <p class="font-bold text-sm">Ruta Houston</p>
+                <p class="text-xs text-gris-medio">Lun, Mie, Sab · Sal 6:30 AM</p>
+              </div>
+            </div>
+            <div class="ruta-linea space-y-0 pl-10">
+              <div class="ruta-punto pb-4">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-verde flex items-center justify-center text-white text-xs font-bold">1</div>
+                <p class="font-semibold text-sm">Taqueria El Rancho</p>
+                <p class="text-xs text-gris-medio">Houston Norte · ✓ Entregado 8:47 AM</p>
+                <p class="text-xs text-gris-medio mt-1">Ajo Pelado, Cebolla 50LB, Avocado</p>
+              </div>
+              <div class="ruta-punto pb-4">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-verde flex items-center justify-center text-white text-xs font-bold">2</div>
+                <p class="font-semibold text-sm">Supermercado La Cosecha</p>
+                <p class="text-xs text-blue-600">Houston Centro · En ruta</p>
+                <p class="text-xs text-gris-medio mt-1">Banana Dominico, Tortillas, Takis</p>
+              </div>
+              <div class="ruta-punto pb-4">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-white text-xs font-bold">3</div>
+                <p class="font-semibold text-sm" id="parada-rosa-ruta">El Mercado de Rosa</p>
+                <p id="estado-rosa-ruta" class="text-xs text-yellow-600">Houston Sur · Pendiente confirmación</p>
+                <p class="text-xs text-gris-medio mt-1">Broccoli, Carrot, Calabaza</p>
+              </div>
+              <div class="ruta-punto">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-gris-borde flex items-center justify-center text-gris-medio text-xs font-bold">4</div>
+                <p class="font-semibold text-sm text-gris-medio">Abarrotes El Primo</p>
+                <p class="text-xs text-gris-medio">Houston Este · Pendiente</p>
+                <p class="text-xs text-gris-medio mt-1">Zambos, Boca Deli Gustitos, Frijolitos</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gris-borde text-xs text-gris-medio">
+              <div class="flex justify-between">
+                <span>Paradas</span><span class="font-bold text-gris-texto">4</span>
+              </div>
+              <div class="flex justify-between mt-1">
+                <span>Distancia estimada</span><span class="font-bold text-gris-texto">38 mi</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ruta Louisiana -->
+          <div class="bg-white rounded-xl border border-gris-borde p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                <span class="text-blue-700 font-bold text-sm">L</span>
+              </div>
+              <div>
+                <p class="font-bold text-sm">Ruta Louisiana</p>
+                <p class="text-xs text-gris-medio">Mar, Jue · Sal 5:30 AM</p>
+              </div>
+            </div>
+            <div class="ruta-linea space-y-0 pl-10">
+              <div class="ruta-punto pb-4">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">1</div>
+                <p class="font-semibold text-sm">Carnitas del Valle</p>
+                <p class="text-xs text-blue-600">Baton Rouge · En ruta</p>
+                <p class="text-xs text-gris-medio mt-1">Habanero, Ajo Suelto, Apio 30CT</p>
+              </div>
+              <div class="ruta-punto pb-4">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-red-400 flex items-center justify-center text-white text-xs font-bold">2</div>
+                <p class="font-semibold text-sm">Rest. La Frontera</p>
+                <p class="text-xs text-red-500">New Orleans · Requiere atención</p>
+                <p class="text-xs text-gris-medio mt-1">Avocado x2, White Onion, Carrot</p>
+                <div class="mt-1 bg-red-50 rounded px-2 py-1 text-xs text-red-600 font-semibold">
+                  &#9888; Sin confirmar — llamar antes de las 2 PM
+                </div>
+              </div>
+              <div class="ruta-punto">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-gris-borde flex items-center justify-center text-gris-medio text-xs font-bold">+</div>
+                <p class="text-xs text-gris-medio italic">Capacidad disponible para pedido adicional en esta ruta</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gris-borde text-xs text-gris-medio">
+              <div class="flex justify-between">
+                <span>Paradas</span><span class="font-bold text-gris-texto">2</span>
+              </div>
+              <div class="flex justify-between mt-1">
+                <span>Distancia estimada</span><span class="font-bold text-gris-texto">310 mi</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ruta Mississippi -->
+          <div class="bg-white rounded-xl border border-gris-borde p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                <span class="text-purple-700 font-bold text-sm">M</span>
+              </div>
+              <div>
+                <p class="font-bold text-sm">Ruta Mississippi</p>
+                <p class="text-xs text-gris-medio">Vie · Sal 4:00 AM</p>
+              </div>
+            </div>
+            <div class="ruta-linea space-y-0 pl-10">
+              <div class="ruta-punto pb-4">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs font-bold">1</div>
+                <p class="font-semibold text-sm">Tortilleria San Pedro</p>
+                <p class="text-xs text-purple-600">Biloxi · Confirmado</p>
+                <p class="text-xs text-gris-medio mt-1">Tortillas x6, Ancho Chile, Hoja Platano</p>
+              </div>
+              <div class="ruta-punto">
+                <div class="absolute left-0 w-8 h-8 rounded-full bg-gris-borde flex items-center justify-center text-gris-medio text-xs font-bold">+</div>
+                <p class="text-xs text-gris-medio italic">1 parada disponible en esta ruta · 180 mi desde Biloxi</p>
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gris-borde text-xs text-gris-medio">
+              <div class="flex justify-between">
+                <span>Paradas</span><span class="font-bold text-gris-texto">1</span>
+              </div>
+              <div class="flex justify-between mt-1">
+                <span>Distancia estimada</span><span class="font-bold text-gris-texto">520 mi</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /rutas grid -->
+
+        <!-- Comparacion con/sin sistema -->
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+            <p class="text-sm font-bold text-red-700 mb-3">&#128222; Sin su sistema (hoy)</p>
+            <ul class="space-y-2 text-xs text-red-600">
+              <li class="flex gap-2"><span>&#10008;</span>40 min de llamadas para coordinar 3 rutas</li>
+              <li class="flex gap-2"><span>&#10008;</span>Pedido de Louisiana coordinado por WhatsApp — sin registro</li>
+              <li class="flex gap-2"><span>&#10008;</span>Lista de carga escrita a mano la mañana de la entrega</li>
+              <li class="flex gap-2"><span>&#10008;</span>Sin tracking: el cliente llama para saber si ya va el pedido</li>
+              <li class="flex gap-2"><span>&#10008;</span>El conocimiento de la ruta óptima está en la cabeza de Jose</li>
+            </ul>
+          </div>
+          <div class="bg-verde-palido border border-verde-claro rounded-xl p-4">
+            <p class="text-sm font-bold text-verde-oscuro mb-3">&#10003; Con su sistema propio</p>
+            <ul class="space-y-2 text-xs text-verde-oscuro">
+              <li class="flex gap-2"><span>&#10003;</span>Plan de ruta generado la noche anterior en 2 minutos</li>
+              <li class="flex gap-2"><span>&#10003;</span>Pedidos de los 3 estados en un solo tablero — con estados en tiempo real</li>
+              <li class="flex gap-2"><span>&#10003;</span>Lista de carga automática según la ruta del día</li>
+              <li class="flex gap-2"><span>&#10003;</span>Cliente recibe notificación cuando su pedido sale en ruta</li>
+              <li class="flex gap-2"><span>&#10003;</span>La lógica de rutas queda en el sistema, no en la memoria de nadie</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /panel-rutas -->
+
+
+      <!-- ============================================================ -->
+      <!-- TAB 4: CLIENTES Y REPORTES -->
+      <!-- ============================================================ -->
+      <div id="panel-clientes" class="tab-panel p-4 sm:p-6">
+
+        <!-- Buscador de clientes -->
+        <div class="flex gap-3 mb-5 flex-wrap items-center">
+          <div class="relative flex-1 min-w-[200px]">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gris-suave" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input
+              type="text"
+              id="buscador"
+              placeholder="Buscar cliente, ciudad o producto..."
+              class="w-full pl-9 pr-4 py-2 text-sm border border-gris-borde rounded-lg focus:outline-none focus:border-verde bg-white"
+              oninput="filtrarClientes(this.value)"
+            />
+          </div>
+          <select class="text-sm border border-gris-borde rounded-lg px-3 py-2 bg-white focus:outline-none focus:border-verde">
+            <option>Todos los estados</option>
+            <option>Texas</option>
+            <option>Louisiana</option>
+            <option>Mississippi</option>
+          </select>
+        </div>
+
+        <!-- Alerta CRM: cliente sin recompra -->
+        <div class="bg-yellow-50 border border-yellow-300 rounded-xl p-4 mb-5 flex gap-3 items-start">
+          <div class="text-xl flex-shrink-0">&#128276;</div>
+          <div class="flex-1">
+            <p class="font-bold text-yellow-800 text-sm">El agente detectó: "Taqueria Los Amigos" no ha pedido en 12 días.</p>
+            <p class="text-xs text-yellow-700 mt-1">Su ciclo habitual es cada 7 días. Última orden: Vie 18 Jul. Productos frecuentes: Avocado 48ct, Carrot 50LB.</p>
+            <div class="mt-2 bg-white rounded-lg border border-yellow-200 p-3 text-xs text-gris-medio italic">
+              "Buenas tardes, le escribo desde Valle Alto Produce. Notamos que no hemos recibido su pedido esta semana — queremos asegurarnos de que todo esté bien y ver si necesita su surtido de aguacate y zanahoria. Aquí estamos para servirle."
+            </div>
+            <p class="text-xs text-verde-oscuro font-semibold mt-2">&#10003; Mensaje generado por el agente, listo para enviar por WhatsApp — usted solo aprueba.</p>
+          </div>
+        </div>
+
+        <!-- Tabla de clientes -->
+        <div class="overflow-x-auto rounded-xl border border-gris-borde mb-6">
+          <table class="w-full text-sm min-w-[580px]">
+            <thead>
+              <tr class="bg-gris-fondo text-gris-medio text-xs uppercase tracking-wide">
+                <th class="text-left px-4 py-3 font-semibold">Cliente</th>
+                <th class="text-left px-4 py-3 font-semibold">Estado</th>
+                <th class="text-left px-4 py-3 font-semibold">Último pedido</th>
+                <th class="text-left px-4 py-3 font-semibold">Ciclo (días)</th>
+                <th class="text-left px-4 py-3 font-semibold">Órdenes / 90 días</th>
+                <th class="text-left px-4 py-3 font-semibold">Estado CRM</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-clientes">
+              <tr class="border-t border-gris-borde hover:bg-verde-palido transition-colors">
+                <td class="px-4 py-3 font-semibold">Taqueria El Rancho</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3">Hoy</td>
+                <td class="px-4 py-3">7</td>
+                <td class="px-4 py-3">12</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-confirmado">Activo</span></td>
+              </tr>
+              <tr class="border-t border-gris-borde hover:bg-verde-palido transition-colors">
+                <td class="px-4 py-3 font-semibold">Supermercado La Cosecha</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3">Hoy</td>
+                <td class="px-4 py-3">5</td>
+                <td class="px-4 py-3">18</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-confirmado">Activo</span></td>
+              </tr>
+              <tr class="border-t border-gris-borde hover:bg-verde-palido transition-colors">
+                <td class="px-4 py-3 font-semibold">Carnitas del Valle</td>
+                <td class="px-4 py-3 text-gris-medio">Baton Rouge, LA</td>
+                <td class="px-4 py-3">Hoy</td>
+                <td class="px-4 py-3">10</td>
+                <td class="px-4 py-3">9</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-confirmado">Activo</span></td>
+              </tr>
+              <tr class="border-t border-gris-borde hover:bg-verde-palido transition-colors" data-busqueda="taqueria los amigos houston">
+                <td class="px-4 py-3 font-semibold">Taqueria Los Amigos</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3 text-red-600 font-semibold">Vie 18 Jul</td>
+                <td class="px-4 py-3">7</td>
+                <td class="px-4 py-3">10</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-atrasado">Sin recompra</span></td>
+              </tr>
+              <tr class="border-t border-gris-borde hover:bg-verde-palido transition-colors">
+                <td class="px-4 py-3 font-semibold">Tortilleria San Pedro</td>
+                <td class="px-4 py-3 text-gris-medio">Biloxi, MS</td>
+                <td class="px-4 py-3">Hoy</td>
+                <td class="px-4 py-3">14</td>
+                <td class="px-4 py-3">6</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-confirmado">Activo</span></td>
+              </tr>
+              <tr class="border-t border-gris-borde hover:bg-verde-palido transition-colors">
+                <td class="px-4 py-3 font-semibold">Rest. La Frontera</td>
+                <td class="px-4 py-3 text-gris-medio">New Orleans, LA</td>
+                <td class="px-4 py-3">Jue 24 Jul</td>
+                <td class="px-4 py-3">7</td>
+                <td class="px-4 py-3">11</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-pendiente">En seguimiento</span></td>
+              </tr>
+              <tr class="border-t border-gris-borde hover:bg-verde-palido transition-colors">
+                <td class="px-4 py-3 font-semibold">El Mercado de Rosa</td>
+                <td class="px-4 py-3 text-gris-medio">Houston, TX</td>
+                <td class="px-4 py-3">Hoy</td>
+                <td class="px-4 py-3">7</td>
+                <td class="px-4 py-3">13</td>
+                <td class="px-4 py-3"><span class="badge-estado estado-confirmado">Activo</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Grafico de volumenes por estado -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div class="bg-white rounded-xl border border-gris-borde p-5">
+            <p class="text-sm font-bold text-gris-texto mb-4">Pedidos por estado — últimos 30 días</p>
+            <div class="flex items-end gap-4 h-32">
+              <div class="flex flex-col items-center gap-2 flex-1">
+                <div class="w-full bg-verde rounded-t-lg barra" style="height: 90%"></div>
+                <p class="text-xs text-gris-medio font-semibold">TX</p>
+                <p class="text-sm font-bold text-verde-oscuro">68%</p>
+              </div>
+              <div class="flex flex-col items-center gap-2 flex-1">
+                <div class="w-full bg-blue-400 rounded-t-lg barra" style="height: 55%"></div>
+                <p class="text-xs text-gris-medio font-semibold">LA</p>
+                <p class="text-sm font-bold text-blue-600">24%</p>
+              </div>
+              <div class="flex flex-col items-center gap-2 flex-1">
+                <div class="w-full bg-purple-400 rounded-t-lg barra" style="height: 18%"></div>
+                <p class="text-xs text-gris-medio font-semibold">MS</p>
+                <p class="text-sm font-bold text-purple-600">8%</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gris-borde p-5">
+            <p class="text-sm font-bold text-gris-texto mb-4">Top categorias — cajas despachadas</p>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-semibold">Verduras frescas</span>
+                  <span class="text-gris-medio">42%</span>
+                </div>
+                <div class="h-2 bg-gris-borde rounded-full"><div class="h-2 bg-verde rounded-full" style="width:42%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-semibold">Frutas</span>
+                  <span class="text-gris-medio">28%</span>
+                </div>
+                <div class="h-2 bg-gris-borde rounded-full"><div class="h-2 bg-naranja rounded-full" style="width:28%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-semibold">Snacks y botanas</span>
+                  <span class="text-gris-medio">18%</span>
+                </div>
+                <div class="h-2 bg-gris-borde rounded-full"><div class="h-2 bg-yellow-400 rounded-full" style="width:18%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-semibold">Tortilla Products</span>
+                  <span class="text-gris-medio">12%</span>
+                </div>
+                <div class="h-2 bg-gris-borde rounded-full"><div class="h-2 bg-purple-400 rounded-full" style="width:12%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /panel-clientes -->
+
+    </div><!-- /panel container -->
+
+    <!-- Footer -->
+    <footer class="mt-8 text-center text-xs text-gris-suave pb-24 sm:pb-16">
+      <p>Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.</p>
+    </footer>
+
+  </main><!-- /main -->
+
+  <!-- CTA flotante -->
+  <div id="cta-flotante">
+    <button
+      onclick="abrirCalendly()"
+      class="flex items-center gap-2 bg-verde-oscuro text-white font-bold text-sm px-5 py-3 rounded-full shadow-xl hover:bg-verde transition-colors"
+      style="box-shadow: 0 4px 20px rgba(56,142,60,0.45);"
+    >
+      <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 6V3z"/></svg>
+      ¿Le gust&oacute;? Hablemos
+    </button>
+  </div>
+
+  <!-- Modal ganado -->
+  <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div id="modal-box">
+      <div class="text-center mb-5">
+        <div class="w-16 h-16 bg-verde-claro rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg class="w-8 h-8 text-verde-oscuro" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        </div>
+        <h2 id="modal-titulo" class="text-xl font-bold text-gris-texto">Esto puede ser suyo.</h2>
+        <p class="text-gris-medio text-sm mt-2">Valle Alto Produce tiene 20 años de experiencia y la reputación ganada. Lo que falta es el sistema que hace crecer esa operación sin que todo dependa de usted.</p>
+      </div>
+      <div class="bg-verde-palido rounded-xl p-4 mb-5 space-y-2">
+        <p class="text-sm font-semibold text-verde-oscuro">En una sola llamada, le mostramos:</p>
+        <ul class="text-sm text-gris-texto space-y-1">
+          <li class="flex gap-2"><span class="text-verde">&#10003;</span>Cómo se vería este tablero con sus clientes reales de Houston</li>
+          <li class="flex gap-2"><span class="text-verde">&#10003;</span>Cómo el agente maneja sus pedidos de Louisiana automáticamente</li>
+          <li class="flex gap-2"><span class="text-verde">&#10003;</span>Cuánto cuesta y cuánto tarda implementarlo</li>
+        </ul>
+      </div>
+      <button
+        onclick="abrirCalendly()"
+        class="w-full bg-verde-oscuro text-white font-bold py-3 rounded-xl text-sm hover:bg-verde transition-colors mb-3"
+      >
+        Agendar mi llamada gratuita
+      </button>
+      <button
+        onclick="cerrarModal()"
+        class="w-full text-gris-medio text-sm py-2 hover:text-gris-texto transition-colors"
+      >
+        Seguir viendo la demo
+      </button>
+    </div>
+  </div>
+
+  <!-- Notificacion toast -->
+  <div id="toast" class="fixed bottom-28 right-4 z-50 hidden max-w-xs">
+    <div class="bg-verde-oscuro text-white rounded-xl px-4 py-3 shadow-xl text-sm">
+      <p id="toast-texto" class="font-semibold"></p>
+      <p id="toast-sub" class="text-xs text-verde-claro mt-1"></p>
+    </div>
+  </div>
+
+  <script>
+    // ─── Estado global ───────────────────────────────────────────────
+    let vistaActual = 1;         // La vista inicial cuenta como la primera
+    const UMBRAL_VISTAS = 3;     // Mostrar modal a partir de la 3a vista (0-indexed: ya inicio en 1)
+    const UMBRAL_TIEMPO = 75;    // segundos
+    let modalMostrado = sessionStorage.getItem('modalMostrado') === 'true';
+    let timerModal;
+
+    // ─── Tabs de navegacion ──────────────────────────────────────────
+    function cambiarTab(nombre, btn) {
+      // Ocultar todos los paneles
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+
+      // Activar el panel y el boton seleccionado
+      document.getElementById('panel-' + nombre).classList.add('active');
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      // Contar vista
+      vistaActual++;
+      if (!modalMostrado && vistaActual >= UMBRAL_VISTAS) {
+        mostrarModal();
+      }
+    }
+
+    // ─── Ver pedido desde tabla ──────────────────────────────────────
+    function verPedido(id, fila) {
+      // Ir al tab de ficha
+      const btnFicha = document.querySelectorAll('.tab-btn')[1];
+      cambiarTab('pedido', btnFicha);
+      // Seleccionar en el selector
+      const sel = document.getElementById('selector-pedido');
+      if (sel) {
+        for (let opt of sel.options) {
+          if (opt.value === id) { sel.value = id; break; }
+        }
+        cargarFicha(id);
+      }
+    }
+
+    // ─── Datos de fichas ─────────────────────────────────────────────
+    const FICHAS = {
+      'MP-2607-001': {
+        id: 'MP-2607-001',
+        cliente: 'Taqueria El Rancho',
+        zona: 'Houston, TX',
+        canal: '&#127881; Sistema web',
+        fecha: 'Sab 26 Jul, 7:14 AM',
+        entrega: 'Sab 26 Jul, mañana',
+        ruta: 'Ruta Houston-Norte',
+        estadoClass: 'estado-entregado',
+        estadoLabel: 'Entregado',
+        items: [
+          ['Ajo Pelado — 1 Box', '1 caja'],
+          ['White Onion / Cebolla Blanca — 50LBS', '2 bolsas'],
+          ['Avocado — caja 48ct', '1 caja']
+        ],
+        historial: [
+          {color:'bg-verde', icon:'check', texto:'Pedido entregado', sub:'Sab 26 Jul — 8:47 AM · Firmado por cliente'},
+          {color:'bg-blue-500', icon:'truck', texto:'Salió en ruta', sub:'Sab 26 Jul — 7:14 AM · Ruta Houston-Norte'},
+          {color:'bg-verde', icon:'check', texto:'Pedido confirmado por el sistema', sub:'Sab 26 Jul — 5:48 AM · Confirmación automática enviada al cliente'},
+          {color:'bg-yellow-400', icon:'dot', texto:'Pedido recibido vía sistema', sub:'Vie 25 Jul — 11:22 PM · Canal: sistema web'}
+        ],
+        ciclo: '7 días',
+        ordenes90: '20 órdenes en 5 meses',
+        nota: '"Prefiere entrega antes de las 9 AM. Pide ajo pelado cada semana sin excepcion."',
+        histCliente: [['MP-2607-001','Hoy'],['MP-2519-008','19 Jul'],['MP-2412-014','12 Jul'],['MP-2405-021','5 Jul'],['MP-2328-033','28 Jun']]
+      },
+      'MP-2607-002': {
+        id: 'MP-2607-002',
+        cliente: 'Supermercado La Cosecha',
+        zona: 'Houston, TX',
+        canal: '&#127881; Sistema web',
+        fecha: 'Sab 26 Jul, 8:30 AM',
+        entrega: 'Sab 26 Jul, tarde',
+        ruta: 'Ruta Houston-Centro',
+        estadoClass: 'estado-en-ruta',
+        estadoLabel: 'En ruta',
+        items: [
+          ['Banana Dominico — caja', '4 cajas'],
+          ['Tortillas de maiz — mayorista', '2 cajas'],
+          ['Takis Fuego — 24-pack', '1 caja']
+        ],
+        historial: [
+          {color:'bg-blue-500', icon:'truck', texto:'Salió en ruta', sub:'Sab 26 Jul — 8:30 AM · Ruta Houston-Centro'},
+          {color:'bg-verde', icon:'check', texto:'Pedido confirmado por el sistema', sub:'Sab 26 Jul — 6:00 AM · Confirmación enviada al cliente'},
+          {color:'bg-yellow-400', icon:'dot', texto:'Pedido recibido vía sistema', sub:'Vie 25 Jul — 10:45 PM · Canal: sistema web'}
+        ],
+        ciclo: '5 días',
+        ordenes90: '18 órdenes en 3 meses',
+        nota: '"Siempre pide banana en cantidad. Acepta entregas hasta las 4 PM."',
+        histCliente: [['MP-2607-002','Hoy'],['MP-2521-006','21 Jul'],['MP-2516-011','16 Jul'],['MP-2511-019','11 Jul']]
+      },
+      'MP-2607-003': {
+        id: 'MP-2607-003',
+        cliente: 'Carnitas del Valle',
+        zona: 'Baton Rouge, LA',
+        canal: '&#127881; Sistema web',
+        fecha: 'Sab 26 Jul, 6:45 AM',
+        entrega: 'Sab 26 Jul, mañana',
+        ruta: 'Ruta Louisiana',
+        estadoClass: 'estado-en-ruta',
+        estadoLabel: 'En ruta',
+        items: [
+          ['Habanero Rojo — 10LB', '3 cajas'],
+          ['Ajo Suelto — 30LB', '1 bolsa'],
+          ['Apio / Celery — 30CT', '2 cajas']
+        ],
+        historial: [
+          {color:'bg-blue-500', icon:'truck', texto:'Salió en ruta a Louisiana', sub:'Sab 26 Jul — 5:30 AM · Sal desde Houston'},
+          {color:'bg-verde', icon:'check', texto:'Pedido confirmado', sub:'Sab 26 Jul — 4:00 AM · Notificación enviada'},
+          {color:'bg-yellow-400', icon:'dot', texto:'Pedido recibido', sub:'Jue 24 Jul — 2:00 PM · Canal: sistema web'}
+        ],
+        ciclo: '10 días',
+        ordenes90: '9 órdenes en 3 meses',
+        nota: '"Ruta Louisiana — se coordina con 2 semanas de anticipacion."',
+        histCliente: [['MP-2607-003','Hoy'],['MP-2516-007','16 Jul'],['MP-2506-012','6 Jul'],['MP-2526-018','26 Jun']]
+      },
+      'MP-2607-004': {
+        id: 'MP-2607-004',
+        cliente: 'El Mercado de Rosa',
+        zona: 'Houston, TX',
+        canal: '&#127881; Sistema web',
+        fecha: 'Sab 26 Jul, 9:02 AM',
+        entrega: 'Sab 26 Jul, mañana',
+        ruta: 'Ruta Houston-Sur',
+        estadoClass: 'estado-pendiente',
+        estadoLabel: 'Pendiente',
+        items: [
+          ['Broccoli — 20LB', '2 cajas'],
+          ['Carrot Jumbo — 50LB', '1 bolsa'],
+          ['Calabaza Amarilla — 35LB', '1 caja']
+        ],
+        historial: [
+          {color:'bg-yellow-400', icon:'dot', texto:'Pendiente de confirmación', sub:'Sab 26 Jul — 9:02 AM · En espera de aprobación'},
+          {color:'bg-yellow-400', icon:'dot', texto:'Pedido recibido vía sistema', sub:'Sab 26 Jul — 9:02 AM · Canal: sistema web'}
+        ],
+        ciclo: '7 días',
+        ordenes90: '13 órdenes',
+        nota: '"Compra verduras frescas todas las semanas. Prefiere pedidos los sábados."',
+        histCliente: [['MP-2607-004','Hoy (pend.)'],['MP-2519-009','19 Jul'],['MP-2512-015','12 Jul'],['MP-2505-022','5 Jul']]
+      },
+      'MP-2607-005': {
+        id: 'MP-2607-005',
+        cliente: 'Tortilleria San Pedro',
+        zona: 'Biloxi, MS',
+        canal: '&#127881; Sistema web',
+        fecha: 'Sab 26 Jul, 7:58 AM',
+        entrega: 'Sab 26 Jul, tarde',
+        ruta: 'Ruta Mississippi',
+        estadoClass: 'estado-confirmado',
+        estadoLabel: 'Confirmado',
+        items: [
+          ['Tortillas de maiz — caja mayorista', '6 cajas'],
+          ['Ancho Chile Pepper — 25LBS', '1 bolsa'],
+          ['Hoja de Platano / Banana Leaf', '2 paquetes']
+        ],
+        historial: [
+          {color:'bg-verde', icon:'check', texto:'Pedido confirmado — ruta Mississippi', sub:'Sab 26 Jul — 8:15 AM · Notificación enviada al cliente'},
+          {color:'bg-yellow-400', icon:'dot', texto:'Pedido recibido vía sistema', sub:'Vie 25 Jul — 3:30 PM · Canal: sistema web'}
+        ],
+        ciclo: '14 días',
+        ordenes90: '6 órdenes',
+        nota: '"Unico cliente activo en Mississippi. Siempre pide tortillas de maiz en volumen."',
+        histCliente: [['MP-2607-005','Hoy'],['MP-2512-016','12 Jul'],['MP-2528-024','28 Jun'],['MP-2514-030','14 Jun']]
+      },
+      'MP-2607-007': {
+        id: 'MP-2607-007',
+        cliente: 'Rest. La Frontera',
+        zona: 'New Orleans, LA',
+        canal: '&#127881; Sistema web',
+        fecha: 'Sab 26 Jul, 11:30 AM',
+        entrega: 'Sab 26 Jul, tarde',
+        ruta: 'Ruta Louisiana',
+        estadoClass: 'estado-atrasado',
+        estadoLabel: 'Requiere atención',
+        items: [
+          ['Avocado — caja 48ct', '2 cajas'],
+          ['White Onion — 50LB', '1 bolsa'],
+          ['Carrot Jumbo — 50LB', '1 bolsa']
+        ],
+        historial: [
+          {color:'bg-red-400', icon:'dot', texto:'&#9888; Sin confirmar — requiere contacto', sub:'Sab 26 Jul — 11:30 AM · Intentar antes de las 2 PM'},
+          {color:'bg-yellow-400', icon:'dot', texto:'Pedido recibido vía sistema', sub:'Sab 26 Jul — 11:30 AM · Canal: sistema web'}
+        ],
+        ciclo: '7 días',
+        ordenes90: '11 órdenes',
+        nota: '"Pedido de volumen. Requiere confirmación de disponibilidad antes de salir en ruta."',
+        histCliente: [['MP-2607-007','Hoy (pend.)'],['MP-2519-010','19 Jul'],['MP-2512-017','12 Jul'],['MP-2505-023','5 Jul']]
+      }
+    };
+
+    function cargarFicha(id) {
+      const d = FICHAS[id];
+      if (!d) return;
+      document.getElementById('ficha-id').textContent = d.id;
+      document.getElementById('ficha-cliente').textContent = d.cliente;
+      document.getElementById('ficha-zona').textContent = d.zona;
+      document.getElementById('ficha-canal').innerHTML = d.canal;
+      document.getElementById('ficha-fecha').textContent = d.fecha;
+      document.getElementById('ficha-entrega').textContent = d.entrega;
+      document.getElementById('ficha-ruta').textContent = d.ruta;
+
+      const estadoEl = document.getElementById('ficha-estado');
+      estadoEl.className = 'badge-estado ' + d.estadoClass;
+      estadoEl.textContent = d.estadoLabel;
+
+      // Items
+      const itemsEl = document.getElementById('ficha-items');
+      itemsEl.innerHTML = d.items.map((it, i) =>
+        `<div class="flex justify-between items-center py-2 ${i < d.items.length-1 ? 'border-b border-gris-borde' : ''} text-sm">
+          <span>${it[0]}</span>
+          <span class="font-semibold text-gris-texto">${it[1]}</span>
+        </div>`
+      ).join('');
+
+      // Historial
+      const histEl = document.getElementById('ficha-historial');
+      histEl.innerHTML = d.historial.map(h =>
+        `<div class="flex gap-3 text-sm">
+          <div class="w-5 h-5 rounded-full ${h.color} flex-shrink-0 flex items-center justify-center mt-0.5">
+            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"><circle cx="10" cy="10" r="4"/></svg>
+          </div>
+          <div>
+            <p class="font-semibold">${h.texto}</p>
+            <p class="text-xs text-gris-medio">${h.sub}</p>
+          </div>
+        </div>`
+      ).join('');
+
+      // Historial cliente
+      const hcEl = document.getElementById('ficha-cliente-hist');
+      hcEl.innerHTML = `<div class="flex justify-between text-xs text-gris-medio border-b border-gris-borde pb-2">
+          <span class="font-semibold">ORDEN</span><span class="font-semibold">FECHA</span></div>` +
+        d.histCliente.map((r, i) =>
+          `<div class="flex justify-between text-sm py-1">
+            <span class="font-mono ${i===0?'text-verde-oscuro font-bold':'text-gris-medio'}">${r[0]}</span>
+            <span class="text-gris-medio">${r[1]}</span>
+          </div>`
+        ).join('');
+
+      // Datos adicionales
+      const cicloEl = document.querySelector('#contenido-ficha .text-lg.font-bold.text-verde-oscuro');
+      if (cicloEl) cicloEl.textContent = d.ciclo;
+      const ordenesEl = document.querySelector('#contenido-ficha .text-xs.text-gris-medio.mt-1');
+      if (ordenesEl) ordenesEl.textContent = 'Cliente activo — ' + d.ordenes90;
+    }
+
+    // ─── Interaccion simulada: confirmar pedido ──────────────────────
+    let pedidoConfirmado = false;
+    function confirmarPedido() {
+      if (pedidoConfirmado) return;
+      pedidoConfirmado = true;
+
+      // Actualizar el badge en la tabla
+      const estadoEl = document.getElementById('estado-rosa');
+      if (estadoEl) {
+        estadoEl.className = 'badge-estado estado-confirmado';
+        estadoEl.textContent = 'Confirmado';
+      }
+
+      // Actualizar en la ruta
+      const estadoRutaEl = document.getElementById('estado-rosa-ruta');
+      if (estadoRutaEl) {
+        estadoRutaEl.className = 'text-xs text-verde-oscuro';
+        estadoRutaEl.textContent = 'Houston Sur · Confirmado';
+      }
+      const puntaRosa = document.getElementById('parada-rosa-ruta');
+      if (puntaRosa && puntaRosa.parentElement) {
+        const circulo = puntaRosa.parentElement.querySelector('.absolute');
+        if (circulo) {
+          circulo.className = 'absolute left-0 w-8 h-8 rounded-full bg-verde flex items-center justify-center text-white text-xs font-bold';
+        }
+      }
+
+      // Actualizar el boton y mostrar confirmacion
+      const btn = document.getElementById('btn-confirmar');
+      btn.disabled = true;
+      btn.className = 'bg-gris-borde text-gris-medio font-bold text-sm px-5 py-2 rounded-lg cursor-not-allowed';
+      btn.textContent = 'Pedido confirmado';
+      document.getElementById('label-confirmado').classList.remove('hidden');
+
+      // Toast / notificacion
+      mostrarToast(
+        'Confirmación enviada a El Mercado de Rosa',
+        'El sistema notificó al cliente y actualizó el tablero — 7:15 AM · Domingo'
+      );
+    }
+
+    // ─── Toast de notificacion ───────────────────────────────────────
+    function mostrarToast(texto, sub) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-texto').textContent = texto;
+      document.getElementById('toast-sub').textContent = sub;
+      toast.classList.remove('hidden');
+      toast.classList.add('notif-slide-in');
+      setTimeout(() => {
+        toast.classList.remove('notif-slide-in');
+        toast.classList.add('notif-slide-out');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('notif-slide-out');
+        }, 380);
+      }, 4000);
+    }
+
+    // ─── Buscador de clientes ────────────────────────────────────────
+    function filtrarClientes(query) {
+      const filas = document.querySelectorAll('#tabla-clientes tr');
+      const q = query.toLowerCase().trim();
+      filas.forEach(fila => {
+        const texto = fila.textContent.toLowerCase();
+        fila.style.display = (!q || texto.includes(q)) ? '' : 'none';
+      });
+    }
+
+    // ─── Modal ganado ────────────────────────────────────────────────
+    function mostrarModal() {
+      if (modalMostrado) return;
+      modalMostrado = true;
+      sessionStorage.setItem('modalMostrado', 'true');
+      clearTimeout(timerModal);
+      const overlay = document.getElementById('modal-overlay');
+      overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal() {
+      const overlay = document.getElementById('modal-overlay');
+      overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    // Cerrar modal con click fuera del box
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) cerrarModal();
+    });
+
+    // Cerrar con ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') cerrarModal();
+    });
+
+    // ─── Calendly ────────────────────────────────────────────────────
+    function abrirCalendly() {
+      window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=mestanzaproducel', '_blank', 'noopener');
+      cerrarModal();
+    }
+
+    // ─── Timer 75s para modal ────────────────────────────────────────
+    if (!modalMostrado) {
+      timerModal = setTimeout(mostrarModal, 75000);
+    }
+
+    // ─── Inicializar ficha con primer pedido ─────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarFicha('MP-2607-001');
+    });
+  </script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

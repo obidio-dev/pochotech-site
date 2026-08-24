@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Northline Metal Stamping — Sistema Propio · Demo Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --amber:  #F5A623;
+      --amber2: #E8960E;
+      --dark:   #2C2C2C;
+      --red:    #D94F1E;
+      --bg:     #F5F5F5;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--dark); margin: 0; }
+
+    /* ── BADGE DEMO ── */
+    .demo-badge {
+      background: var(--red); color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      padding: 4px 10px; border-radius: 4px; white-space: nowrap;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--dark);
+      padding: 18px 24px 14px;
+      position: sticky; top: 0; z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+    header h1 { color: var(--amber); font-size: clamp(1.1rem, 3vw, 1.6rem); font-weight: 800; margin: 0; letter-spacing: .03em; }
+    header p  { color: #ccc; font-size: .78rem; margin: 2px 0 0; }
+
+    /* ── TABS ── */
+    nav.tabs { background: #fff; border-bottom: 2px solid #e0e0e0; overflow-x: auto; }
+    nav.tabs button {
+      background: none; border: none; cursor: pointer;
+      padding: 13px 20px; font-size: .85rem; font-weight: 600;
+      color: #777; white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -2px;
+      transition: color .15s, border-color .15s;
+    }
+    nav.tabs button.active { color: var(--dark); border-bottom-color: var(--amber); }
+    nav.tabs button:hover:not(.active) { color: var(--dark); }
+
+    /* ── MAIN ── */
+    main { padding: 20px 16px 120px; max-width: 1120px; margin: 0 auto; }
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ── CARDS ── */
+    .card { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+
+    /* ── RFQ CLOCK ── */
+    .clock-ring {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px; border-radius: 50%; border: 4px solid;
+      font-size: .8rem; font-weight: 700; flex-shrink: 0;
+    }
+    .clock-green  { border-color: #22c55e; color: #22c55e; background: #f0fdf4; }
+    .clock-yellow { border-color: #eab308; color: #ca8a04; background: #fefce8; }
+    .clock-red    { border-color: #ef4444; color: #dc2626; background: #fef2f2; }
+
+    .badge-src {
+      font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px;
+      background: #e5e7eb; color: #374151;
+    }
+    .badge-src.form   { background: #dbeafe; color: #1d4ed8; }
+    .badge-src.email  { background: #ede9fe; color: #6d28d9; }
+    .badge-src.phone  { background: #dcfce7; color: #15803d; }
+    .badge-src.urgent { background: #fee2e2; color: #b91c1c; }
+
+    /* ── KANBAN ── */
+    .kanban-wrap { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+    .kanban-col {
+      min-width: 180px; flex: 1; background: #f3f4f6; border-radius: 8px;
+      padding: 10px 8px 12px;
+    }
+    .kanban-col h3 { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #6b7280; margin: 0 0 10px; }
+    .kanban-card {
+      background: #fff; border-radius: 7px; padding: 10px 11px 9px;
+      margin-bottom: 8px; border-left: 4px solid var(--amber);
+      box-shadow: 0 1px 3px rgba(0,0,0,.08); cursor: pointer;
+      transition: box-shadow .15s, transform .1s;
+    }
+    .kanban-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,.14); transform: translateY(-1px); }
+    .kanban-card.highlighted { border-left-color: var(--red); background: #fff8f6; }
+    .kanban-card .job-num { font-size: .7rem; color: #9ca3af; font-weight: 600; }
+    .kanban-card .job-title { font-size: .8rem; font-weight: 600; color: var(--dark); margin: 3px 0; line-height: 1.3; }
+    .kanban-card .mat-tag {
+      display: inline-block; font-size: .68rem; font-weight: 700; padding: 1px 6px;
+      border-radius: 3px; margin-top: 4px;
+    }
+    .mat-steel   { background: #e5e7eb; color: #374151; }
+    .mat-inconel { background: #fde68a; color: #92400e; }
+    .mat-alum    { background: #bfdbfe; color: #1e40af; }
+    .mat-ss      { background: #d1fae5; color: #065f46; }
+    .mat-tool    { background: #ede9fe; color: #5b21b6; }
+
+    .drag-zone { border: 2px dashed #d1d5db; border-radius: 7px; min-height: 40px; }
+
+    /* ── TRAVELER ── */
+    .progress-bar { height: 10px; border-radius: 99px; background: #e5e7eb; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--amber), var(--red)); transition: width .4s; }
+
+    table.traveler { width: 100%; border-collapse: collapse; font-size: .84rem; }
+    table.traveler th { text-align: left; color: #6b7280; font-weight: 600; font-size: .75rem; padding: 6px 10px; border-bottom: 1px solid #e5e7eb; }
+    table.traveler td { padding: 8px 10px; border-bottom: 1px solid #f3f4f6; }
+    table.traveler tr:last-child td { border-bottom: none; }
+    .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+    .dot-done    { background: #22c55e; }
+    .dot-active  { background: var(--amber); }
+    .dot-pending { background: #d1d5db; }
+
+    /* ── ARCHIVO CALIDAD ── */
+    input.search-box {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db; border-radius: 7px;
+      font-size: .9rem; outline: none; transition: border-color .15s;
+    }
+    input.search-box:focus { border-color: var(--amber); }
+    .qr-row { display: grid; grid-template-columns: 100px 1fr 110px 90px 90px; gap: 8px; align-items: center; padding: 10px 14px; border-bottom: 1px solid #f3f4f6; font-size: .83rem; }
+    .qr-row:last-child { border-bottom: none; }
+    .qr-row:hover { background: #fafafa; }
+    .qr-row .status-pass { color: #16a34a; font-weight: 700; }
+    .qr-row .status-cond { color: #ca8a04; font-weight: 700; }
+    .qr-row .btn-sm {
+      padding: 4px 10px; border: 1.5px solid var(--amber); color: var(--amber);
+      border-radius: 5px; font-size: .75rem; font-weight: 600; background: none; cursor: pointer;
+      transition: background .12s, color .12s;
+    }
+    .qr-row .btn-sm:hover { background: var(--amber); color: #fff; }
+
+    /* ── CTA FLOTANTE ── */
+    .cta-float {
+      position: fixed; bottom: 24px; right: 20px; z-index: 100;
+      background: var(--red); color: #fff;
+      padding: 14px 20px; border-radius: 30px;
+      font-weight: 700; font-size: .9rem;
+      box-shadow: 0 4px 18px rgba(217,79,30,.45);
+      text-decoration: none; display: flex; align-items: center; gap: 8px;
+      transition: transform .12s, box-shadow .12s;
+    }
+    .cta-float:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(217,79,30,.55); }
+
+    /* ── MODAL ── */
+    .modal-bg {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.55); align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal-box {
+      background: #fff; border-radius: 14px; max-width: 420px; width: 100%;
+      padding: 32px 28px 24px; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      animation: popIn .2s ease-out;
+    }
+    @keyframes popIn { from { transform: scale(.88); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-box h2 { font-size: 1.2rem; font-weight: 800; color: var(--dark); margin: 0 0 10px; }
+    .modal-box p  { font-size: .9rem; color: #555; margin: 0 0 22px; line-height: 1.55; }
+    .modal-cta {
+      display: block; background: var(--red); color: #fff;
+      text-decoration: none; padding: 13px 22px; border-radius: 8px;
+      font-weight: 700; font-size: .92rem; margin-bottom: 12px;
+      transition: background .12s;
+    }
+    .modal-cta:hover { background: #b83d14; }
+    .modal-close-btn {
+      background: none; border: none; color: #9ca3af; font-size: .82rem;
+      cursor: pointer; text-decoration: underline;
+    }
+
+    /* ── UTIL ── */
+    .section-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin: 0 0 14px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fff; border: 1.5px solid #e5e7eb; border-radius: 20px;
+      padding: 4px 12px; font-size: .78rem; font-weight: 600; color: #374151;
+    }
+    .amber-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); display: inline-block; }
+    .btn-primary {
+      background: var(--amber); color: var(--dark); border: none; cursor: pointer;
+      padding: 10px 18px; border-radius: 7px; font-weight: 700; font-size: .88rem;
+      transition: background .12s;
+    }
+    .btn-primary:hover { background: var(--amber2); }
+    .btn-danger {
+      background: var(--red); color: #fff; border: none; cursor: pointer;
+      padding: 9px 16px; border-radius: 7px; font-weight: 700; font-size: .85rem;
+      transition: opacity .12s;
+    }
+    .btn-danger:hover { opacity: .88; }
+
+    @media (max-width: 640px) {
+      .qr-row { grid-template-columns: 80px 1fr 80px; }
+      .qr-row .hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header>
+  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+    <div>
+      <h1>Northline Metal Stamping</h1>
+      <p>Así se vería su sistema propio — preparado por Pocho.tech</p>
+    </div>
+    <span class="demo-badge" style="margin-top:4px;">DEMO &middot; datos de muestra</span>
+  </div>
+</header>
+
+<!-- ═══════════════════ TABS ═══════════════════ -->
+<nav class="tabs" id="mainTabs">
+  <button class="active" data-tab="rfq" onclick="switchTab('rfq', this)">📥 RFQs entrantes</button>
+  <button data-tab="kanban" onclick="switchTab('kanban', this)">🔧 Tablero de trabajos</button>
+  <button data-tab="traveler" onclick="switchTab('traveler', this)">📋 Ficha de trabajo</button>
+  <button data-tab="quality" onclick="switchTab('quality', this)">✅ Archivo de calidad</button>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<main>
+
+  <!-- ═══ VISTA 1 · RFQs ENTRANTES ═══ -->
+  <div id="tab-rfq" class="view active">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:18px;">
+      <div>
+        <p class="section-title" style="margin:0">Solicitudes de cotización — semana en curso</p>
+        <p style="font-size:.8rem; color:#6b7280; margin:4px 0 0;">El reloj muestra el tiempo transcurrido desde que llegó cada solicitud. Meta: responder en menos de 24 h.</p>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <span class="chip"><span style="background:#22c55e;" class="amber-dot"></span> &lt; 12 h</span>
+        <span class="chip"><span style="background:#eab308;" class="amber-dot"></span> 12–20 h</span>
+        <span class="chip"><span style="background:#ef4444;" class="amber-dot"></span> &gt; 20 h</span>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px;" id="rfqList">
+
+      <!-- RFQ 1 -->
+      <div class="card" style="padding:16px 18px; display:flex; align-items:flex-start; gap:16px;">
+        <div class="clock-ring clock-red">22h</div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+            <span style="font-weight:700; font-size:.95rem;">RFQ-0091 — Valve housing, Oil &amp; Gas</span>
+            <span class="badge-src urgent">URGENTE</span>
+            <span class="badge-src form">Formulario web</span>
+          </div>
+          <p style="margin:0 0 6px; font-size:.84rem; color:#374151;">Fitting de alta presión para equipo de perforación — tolerancia ±0.001 in, material: acero inoxidable 316. Cantidad: 25 piezas.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <span style="font-size:.78rem; color:#9ca3af;">Recibido: viernes 3:04 pm</span>
+            <span style="font-size:.78rem; color:#dc2626; font-weight:600;">⚠ Sin respuesta aún</span>
+          </div>
+        </div>
+        <button class="btn-primary" style="white-space:nowrap; flex-shrink:0;">Abrir &amp; cotizar</button>
+      </div>
+
+      <!-- RFQ 2 -->
+      <div class="card" style="padding:16px 18px; display:flex; align-items:flex-start; gap:16px;">
+        <div class="clock-ring clock-yellow">16h</div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+            <span style="font-weight:700; font-size:.95rem;">RFQ-0090 — Bracket aeroespacial (ground equipment)</span>
+            <span class="badge-src email">Email</span>
+          </div>
+          <p style="margin:0 0 6px; font-size:.84rem; color:#374151;">Bracket de soporte para sistema de ground equipment — aluminio 6061-T6, multi-axis milling, compound angles. Cantidad: 10 piezas.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <span style="font-size:.78rem; color:#9ca3af;">Recibido: sábado 8:12 am</span>
+          </div>
+        </div>
+        <button class="btn-primary" style="white-space:nowrap; flex-shrink:0;">Abrir &amp; cotizar</button>
+      </div>
+
+      <!-- RFQ 3 -->
+      <div class="card" style="padding:16px 18px; display:flex; align-items:flex-start; gap:16px;">
+        <div class="clock-ring clock-yellow">14h</div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+            <span style="font-weight:700; font-size:.95rem;">RFQ-0089 — Enclosure metálico, procesamiento de gas</span>
+            <span class="badge-src email">Email</span>
+          </div>
+          <p style="margin:0 0 6px; font-size:.84rem; color:#374151;">Enclosure para equipo petroquímico — laser cutting + MIG welding, acero 11-gauge. Dimensiones: 24 × 18 × 12 in. Cantidad: 4 unidades.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <span style="font-size:.78rem; color:#9ca3af;">Recibido: sábado 10:30 am</span>
+          </div>
+        </div>
+        <button class="btn-primary" style="white-space:nowrap; flex-shrink:0;">Abrir &amp; cotizar</button>
+      </div>
+
+      <!-- RFQ 4 -->
+      <div class="card" style="padding:16px 18px; display:flex; align-items:flex-start; gap:16px;">
+        <div class="clock-ring clock-green">4h</div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+            <span style="font-weight:700; font-size:.95rem;">RFQ-0088 — Disco de fricción, Fine Blanking</span>
+            <span class="badge-src form">Formulario web</span>
+          </div>
+          <p style="margin:0 0 6px; font-size:.84rem; color:#374151;">Disco de fricción de alta precisión — fine blanking, acero 1060, tight tolerances. Volumen: 500 piezas/corrida. Requiere certificado de material.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <span style="font-size:.78rem; color:#9ca3af;">Recibido: hoy 9:17 am</span>
+            <span style="font-size:.78rem; color:#16a34a; font-weight:600;">✓ En revisión</span>
+          </div>
+        </div>
+        <button class="btn-primary" style="white-space:nowrap; flex-shrink:0;">Abrir &amp; cotizar</button>
+      </div>
+
+      <!-- RFQ 5 -->
+      <div class="card" style="padding:16px 18px; display:flex; align-items:flex-start; gap:16px;">
+        <div class="clock-ring clock-green">2h</div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+            <span style="font-weight:700; font-size:.95rem;">RFQ-0087 — Repuesto urgente, eje para diagnóstico médico</span>
+            <span class="badge-src phone">Teléfono</span>
+          </div>
+          <p style="margin:0 0 6px; font-size:.84rem; color:#374151;">Componente de sistema de diagnóstico médico — CNC Turning, aluminio anodizado, superficie de alta precisión. Entrega: 5 días hábiles.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <span style="font-size:.78rem; color:#9ca3af;">Recibido: hoy 11:45 am</span>
+            <span style="font-size:.78rem; color:#16a34a; font-weight:600;">✓ Cotizando</span>
+          </div>
+        </div>
+        <button class="btn-primary" style="white-space:nowrap; flex-shrink:0;">Abrir &amp; cotizar</button>
+      </div>
+
+    </div>
+
+    <!-- Métricas resumen -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin-top:24px;">
+      <div class="card" style="padding:16px 14px; text-align:center;">
+        <p style="font-size:2rem; font-weight:800; color:var(--amber); margin:0;">83%</p>
+        <p style="font-size:.75rem; color:#6b7280; margin:4px 0 0; line-height:1.3;">cotizados en &lt; 24 h<br><em>esta semana · muestra</em></p>
+      </div>
+      <div class="card" style="padding:16px 14px; text-align:center;">
+        <p style="font-size:2rem; font-weight:800; color:var(--dark); margin:0;">5</p>
+        <p style="font-size:.75rem; color:#6b7280; margin:4px 0 0;">RFQs activos</p>
+      </div>
+      <div class="card" style="padding:16px 14px; text-align:center;">
+        <p style="font-size:2rem; font-weight:800; color:#dc2626; margin:0;">1</p>
+        <p style="font-size:.75rem; color:#6b7280; margin:4px 0 0;">requiere atención inmediata</p>
+      </div>
+      <div class="card" style="padding:16px 14px; text-align:center;">
+        <p style="font-size:2rem; font-weight:800; color:#16a34a; margin:0;">12h</p>
+        <p style="font-size:.75rem; color:#6b7280; margin:4px 0 0;">tiempo promedio de respuesta · muestra</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ VISTA 2 · TABLERO DE TRABAJOS (KANBAN) ═══ -->
+  <div id="tab-kanban" class="view">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+      <div>
+        <p class="section-title" style="margin:0;">Tablero de trabajos en curso</p>
+        <p style="font-size:.8rem; color:#6b7280; margin:4px 0 0;">Haga clic en un trabajo para ver su ficha. Interacción simulada: mueva el trabajo destacado a la siguiente etapa.</p>
+      </div>
+      <button class="btn-danger" id="btnMoveJob" onclick="moveJobDemo()">Mover JOB-084 → Inspección</button>
+    </div>
+
+    <div class="kanban-wrap" id="kanbanBoard">
+
+      <!-- COL: COTIZADO -->
+      <div class="kanban-col" id="col-cotizado">
+        <h3>Cotizado</h3>
+        <div class="kanban-card" onclick="openTraveler('JOB-086')">
+          <div class="job-num">JOB-086</div>
+          <div class="job-title">Compound die stamping — bracket estructural vehicular</div>
+          <span class="mat-tag mat-steel">Acero 1010</span>
+        </div>
+        <div class="kanban-card" onclick="openTraveler('JOB-085')">
+          <div class="job-num">JOB-085</div>
+          <div class="job-title">Tool &amp; Die: diseño de molde para bracket automotriz</div>
+          <span class="mat-tag mat-tool">Tool &amp; Die</span>
+        </div>
+      </div>
+
+      <!-- COL: PROGRAMADO -->
+      <div class="kanban-col" id="col-programado">
+        <h3>Programado</h3>
+        <div class="kanban-card" onclick="openTraveler('JOB-083')">
+          <div class="job-num">JOB-083</div>
+          <div class="job-title">Deep draw stamping — carcasa de bomba de aceite</div>
+          <span class="mat-tag mat-steel">Acero 1018</span>
+        </div>
+        <div class="kanban-card" onclick="openTraveler('JOB-082')">
+          <div class="job-num">JOB-082</div>
+          <div class="job-title">TIG welding — unión de acero inoxidable para equipo de alimentos</div>
+          <span class="mat-tag mat-ss">Acero inox.</span>
+        </div>
+      </div>
+
+      <!-- COL: EN MÁQUINA -->
+      <div class="kanban-col" id="col-maquina">
+        <h3>En máquina</h3>
+        <div class="kanban-card highlighted" id="card-job084" onclick="openTraveler('JOB-084')">
+          <div class="job-num">JOB-084 ← este</div>
+          <div class="job-title">Wire EDM — slot de tolerancia crítica en acero de herramienta</div>
+          <span class="mat-tag mat-tool">Acero herramienta</span>
+        </div>
+        <div class="kanban-card" onclick="openTraveler('JOB-081')">
+          <div class="job-num">JOB-081</div>
+          <div class="job-title">Progressive die stamping — conector de riel de tren</div>
+          <span class="mat-tag mat-steel">Acero 1020</span>
+        </div>
+        <div class="kanban-card" onclick="openTraveler('JOB-080')">
+          <div class="job-num">JOB-080</div>
+          <div class="job-title">CNC Turning (Doosan Puma) — eje de aluminio para laboratorio</div>
+          <span class="mat-tag mat-alum">Aluminio 6061</span>
+        </div>
+      </div>
+
+      <!-- COL: INSPECCIÓN -->
+      <div class="kanban-col" id="col-inspeccion">
+        <h3>Inspección</h3>
+        <div class="kanban-card" onclick="openTraveler('JOB-079')">
+          <div class="job-num">JOB-079</div>
+          <div class="job-title">Multi-axis milling — bloque de acero con compound angles</div>
+          <span class="mat-tag mat-steel">Acero 4140</span>
+        </div>
+        <div class="kanban-card" onclick="openTraveler('JOB-078')">
+          <div class="job-num">JOB-078</div>
+          <div class="job-title">Laser cutting — plancha de acero 3mm, perfil irregular</div>
+          <span class="mat-tag mat-steel">Acero A36</span>
+        </div>
+      </div>
+
+      <!-- COL: DESPACHADO -->
+      <div class="kanban-col" id="col-despachado">
+        <h3>Despachado</h3>
+        <div class="kanban-card" onclick="openTraveler('JOB-077')">
+          <div class="job-num">JOB-077</div>
+          <div class="job-title">Fine blanking — disco de fricción de alta precisión</div>
+          <span class="mat-tag mat-steel">Acero 1060</span>
+        </div>
+        <div class="kanban-card" onclick="openTraveler('JOB-076')">
+          <div class="job-num">JOB-076</div>
+          <div class="job-title">MIG welding — ensamble de estructura metálica para construcción</div>
+          <span class="mat-tag mat-steel">Acero A500</span>
+        </div>
+        <div class="kanban-card" onclick="openTraveler('JOB-075')">
+          <div class="job-num">JOB-075</div>
+          <div class="job-title">Inconel — componente para sistema de diagnóstico médico</div>
+          <span class="mat-tag mat-inconel">Inconel 625</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Toast de confirmación -->
+    <div id="moveToast" style="display:none; background:#1e3a1e; color:#86efac; border-radius:8px; padding:12px 18px; margin-top:16px; font-size:.85rem; font-weight:600;">
+      ✓ JOB-084 movido a <strong>Inspección</strong> — Traveler actualizado automáticamente.
+    </div>
+  </div>
+
+  <!-- ═══ VISTA 3 · FICHA DE TRABAJO (TRAVELER) ═══ -->
+  <div id="tab-traveler" class="view">
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+      <div>
+        <p class="section-title" style="margin:0;" id="travelerTitle">JOB-084 — Wire EDM, slot de tolerancia crítica</p>
+        <p style="font-size:.8rem; color:#6b7280; margin:4px 0 0;">Traveler digital · cada operación queda registrada; el conocimiento del proceso no se va con quien lo ejecutó.</p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn-primary" onclick="switchTab('kanban', document.querySelector('[data-tab=kanban]'))">← Volver al tablero</button>
+      </div>
+    </div>
+
+    <!-- Info general -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-bottom:18px;">
+      <div class="card" style="padding:14px 16px;">
+        <p style="font-size:.72rem; color:#9ca3af; font-weight:600; margin:0 0 3px; text-transform:uppercase;">Trabajo</p>
+        <p style="font-size:.95rem; font-weight:700; color:var(--dark); margin:0;" id="travelerJobNum">JOB-084</p>
+      </div>
+      <div class="card" style="padding:14px 16px;">
+        <p style="font-size:.72rem; color:#9ca3af; font-weight:600; margin:0 0 3px; text-transform:uppercase;">Material</p>
+        <p style="font-size:.95rem; font-weight:700; margin:0;">Acero herramienta D2</p>
+      </div>
+      <div class="card" style="padding:14px 16px;">
+        <p style="font-size:.72rem; color:#9ca3af; font-weight:600; margin:0 0 3px; text-transform:uppercase;">Servicio</p>
+        <p style="font-size:.95rem; font-weight:700; margin:0;">Wire EDM</p>
+      </div>
+      <div class="card" style="padding:14px 16px;">
+        <p style="font-size:.72rem; color:#9ca3af; font-weight:600; margin:0 0 3px; text-transform:uppercase;">Cantidad</p>
+        <p style="font-size:.95rem; font-weight:700; margin:0;">12 piezas</p>
+      </div>
+      <div class="card" style="padding:14px 16px;">
+        <p style="font-size:.72rem; color:#9ca3af; font-weight:600; margin:0 0 3px; text-transform:uppercase;">Entrega pactada</p>
+        <p style="font-size:.95rem; font-weight:700; margin:0;">28 jul 2026</p>
+      </div>
+      <div class="card" style="padding:14px 16px;">
+        <p style="font-size:.72rem; color:#9ca3af; font-weight:600; margin:0 0 3px; text-transform:uppercase;">Estado</p>
+        <p style="font-size:.95rem; font-weight:700; color:var(--amber); margin:0;" id="travelerStatus">En máquina</p>
+      </div>
+    </div>
+
+    <!-- Horas cotizadas vs. acumuladas -->
+    <div class="card" style="padding:16px 18px; margin-bottom:16px;">
+      <p style="font-size:.85rem; font-weight:700; margin:0 0 12px;">Horas acumuladas vs. cotizadas</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px;">
+        <div>
+          <p style="font-size:.7rem; color:#6b7280; margin:0 0 2px; font-weight:600;">COTIZADAS</p>
+          <p style="font-size:1.5rem; font-weight:800; margin:0; color:var(--dark);">18.0 h</p>
+        </div>
+        <div>
+          <p style="font-size:.7rem; color:#6b7280; margin:0 0 2px; font-weight:600;">ACUMULADAS</p>
+          <p style="font-size:1.5rem; font-weight:800; margin:0; color:var(--amber);">11.5 h</p>
+        </div>
+        <div>
+          <p style="font-size:.7rem; color:#6b7280; margin:0 0 2px; font-weight:600;">RESTANTES</p>
+          <p style="font-size:1.5rem; font-weight:800; margin:0; color:#16a34a;">6.5 h</p>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 63.9%;"></div>
+      </div>
+      <p style="font-size:.72rem; color:#9ca3af; margin:6px 0 0;">64% del presupuesto de horas consumido</p>
+    </div>
+
+    <!-- Material -->
+    <div class="card" style="padding:16px 18px; margin-bottom:16px;">
+      <p style="font-size:.85rem; font-weight:700; margin:0 0 10px;">Material — seguimiento de consumo</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px;">
+        <div style="background:#f9fafb; border-radius:7px; padding:10px 12px;">
+          <p style="font-size:.7rem; color:#6b7280; font-weight:600; margin:0 0 2px;">Material</p>
+          <p style="font-size:.88rem; font-weight:700; margin:0;">Acero herramienta D2</p>
+        </div>
+        <div style="background:#f9fafb; border-radius:7px; padding:10px 12px;">
+          <p style="font-size:.7rem; color:#6b7280; font-weight:600; margin:0 0 2px;">Cotizado</p>
+          <p style="font-size:.88rem; font-weight:700; margin:0;">4.2 lbs</p>
+        </div>
+        <div style="background:#f9fafb; border-radius:7px; padding:10px 12px;">
+          <p style="font-size:.7rem; color:#6b7280; font-weight:600; margin:0 0 2px;">Utilizado</p>
+          <p style="font-size:.88rem; font-weight:700; margin:0; color:var(--amber);">2.8 lbs</p>
+        </div>
+        <div style="background:#f9fafb; border-radius:7px; padding:10px 12px;">
+          <p style="font-size:.7rem; color:#6b7280; font-weight:600; margin:0 0 2px;">Tolerancia</p>
+          <p style="font-size:.88rem; font-weight:700; margin:0;">±0.0005 in</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Log de operaciones -->
+    <div class="card" style="padding:16px 18px;">
+      <p style="font-size:.85rem; font-weight:700; margin:0 0 12px;">Registro de operaciones</p>
+      <table class="traveler">
+        <thead>
+          <tr>
+            <th>Operación</th>
+            <th>Máquina / Proceso</th>
+            <th>Responsable</th>
+            <th>Horas</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Setup inicial e inspección de material</td>
+            <td>—</td>
+            <td>Op. #1</td>
+            <td>1.5 h</td>
+            <td><span class="status-dot dot-done"></span>Completada</td>
+          </tr>
+          <tr>
+            <td>Programación CAM del slot principal</td>
+            <td>Mastercam</td>
+            <td>Op. #2</td>
+            <td>2.0 h</td>
+            <td><span class="status-dot dot-done"></span>Completada</td>
+          </tr>
+          <tr>
+            <td>Wire EDM — pase 1 (desbaste)</td>
+            <td>Wire EDM Fanuc</td>
+            <td>Op. #1</td>
+            <td>4.0 h</td>
+            <td><span class="status-dot dot-done"></span>Completada</td>
+          </tr>
+          <tr>
+            <td>Wire EDM — pase 2 (acabado fino)</td>
+            <td>Wire EDM Fanuc</td>
+            <td>Op. #1</td>
+            <td>4.0 h</td>
+            <td><span class="status-dot dot-active"></span><strong>En proceso</strong></td>
+          </tr>
+          <tr>
+            <td>Inspección dimensional de primera pieza</td>
+            <td>CMM / calibre</td>
+            <td>—</td>
+            <td>1.5 h</td>
+            <td><span class="status-dot dot-pending"></span>Pendiente</td>
+          </tr>
+          <tr>
+            <td>Desbarbado y limpieza superficial</td>
+            <td>Finishing</td>
+            <td>—</td>
+            <td>2.5 h</td>
+            <td><span class="status-dot dot-pending"></span>Pendiente</td>
+          </tr>
+          <tr>
+            <td>Inspección final y empaque</td>
+            <td>—</td>
+            <td>—</td>
+            <td>2.5 h</td>
+            <td><span class="status-dot dot-pending"></span>Pendiente</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ VISTA 4 · ARCHIVO DE CALIDAD ═══ -->
+  <div id="tab-quality" class="view">
+    <div style="margin-bottom:18px;">
+      <p class="section-title" style="margin:0 0 6px;">Archivo de calidad — Inspection Reports</p>
+      <p style="font-size:.8rem; color:#6b7280; margin:0 0 14px;">Búsqueda por número de trabajo, tipo de servicio o mes. Cada reporte archivado en segundos, no en gavetas.</p>
+      <input type="text" class="search-box" id="qualitySearch" placeholder="Buscar: Wire EDM, stamping, jul 2026, JOB-078…" oninput="filterQuality()" />
+    </div>
+
+    <div class="card" style="overflow:hidden;">
+      <!-- Header de tabla -->
+      <div class="qr-row" style="background:#f9fafb; font-weight:700; font-size:.75rem; color:#6b7280; text-transform:uppercase; padding:8px 14px;">
+        <div>Trabajo</div>
+        <div>Descripción</div>
+        <div class="hide-mobile">Servicio</div>
+        <div class="hide-mobile">Fecha</div>
+        <div>Resultado</div>
+      </div>
+
+      <div id="qualityRows">
+
+        <div class="qr-row quality-row" data-search="job-079 multi-axis milling bloque acero compound angles jul 2026">
+          <div style="font-weight:700; color:var(--dark);">JOB-079</div>
+          <div style="font-size:.82rem; line-height:1.3;">Multi-axis milling — bloque de acero con compound angles</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">CNC Milling</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">18 jul 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-078 laser cutting plancha acero 3mm perfil irregular jul 2026">
+          <div style="font-weight:700; color:var(--dark);">JOB-078</div>
+          <div style="font-size:.82rem; line-height:1.3;">Laser cutting — plancha de acero 3mm, perfil irregular</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">Laser Cutting</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">15 jul 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-077 fine blanking disco friccion alta precision jul 2026 stamping">
+          <div style="font-weight:700; color:var(--dark);">JOB-077</div>
+          <div style="font-size:.82rem; line-height:1.3;">Fine blanking — disco de fricción de alta precisión</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">Metal Stamping</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">12 jul 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-076 mig welding ensamble estructura metalica construccion jul 2026 welding">
+          <div style="font-weight:700; color:var(--dark);">JOB-076</div>
+          <div style="font-size:.82rem; line-height:1.3;">MIG welding — ensamble de estructura metálica para construcción</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">MIG Welding</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">10 jul 2026</div>
+          <div><span class="status-cond">COND.</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-075 inconel componente diagnostico medico precision jun 2026">
+          <div style="font-weight:700; color:var(--dark);">JOB-075</div>
+          <div style="font-size:.82rem; line-height:1.3;">Inconel — componente para sistema de diagnóstico médico</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">CNC Machining</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">28 jun 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-074 deep draw stamping carcasa bomba aceite jun 2026">
+          <div style="font-weight:700; color:var(--dark);">JOB-074</div>
+          <div style="font-size:.82rem; line-height:1.3;">Deep draw stamping — carcasa de bomba de aceite</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">Metal Stamping</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">22 jun 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-073 progressive die stamping conector riel tren jun 2026">
+          <div style="font-weight:700; color:var(--dark);">JOB-073</div>
+          <div style="font-size:.82rem; line-height:1.3;">Progressive die stamping — conector de riel de tren</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">Metal Stamping</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">18 jun 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-072 tig welding acero inoxidable equipo alimentos jun 2026 welding">
+          <div style="font-weight:700; color:var(--dark);">JOB-072</div>
+          <div style="font-size:.82rem; line-height:1.3;">TIG welding — unión de acero inoxidable para equipo de alimentos</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">TIG Welding</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">14 jun 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-071 cnc turning doosan puma eje aluminio laboratorio jun 2026">
+          <div style="font-weight:700; color:var(--dark);">JOB-071</div>
+          <div style="font-size:.82rem; line-height:1.3;">CNC Turning (Doosan Puma) — eje de aluminio para laboratorio</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">CNC Turning</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">9 jun 2026</div>
+          <div><span class="status-pass">PASA</span></div>
+        </div>
+
+        <div class="qr-row quality-row" data-search="job-070 wire edm slot herramienta may 2026 edm">
+          <div style="font-weight:700; color:var(--dark);">JOB-070</div>
+          <div style="font-size:.82rem; line-height:1.3;">Wire EDM — slot en bloque de acero herramienta (primer corrida)</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">Wire EDM</div>
+          <div class="hide-mobile" style="font-size:.78rem; color:#6b7280;">27 may 2026</div>
+          <div><span class="status-cond">COND.</span></div>
+        </div>
+
+      </div>
+
+      <!-- No results -->
+      <div id="qualityNoResults" style="display:none; padding:24px; text-align:center; color:#9ca3af; font-size:.88rem;">
+        Sin resultados para esa búsqueda.
+      </div>
+    </div>
+
+    <p style="font-size:.75rem; color:#9ca3af; margin-top:12px;">COND. = aprobado con condición / re-inspección requerida · Datos de muestra ilustrativos.</p>
+  </div>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer style="background:#fff; border-top:1px solid #e5e7eb; padding:16px 24px; text-align:center; font-size:.78rem; color:#9ca3af;">
+  Maqueta con datos de muestra. Construida por <strong style="color:var(--dark);">Pocho.tech</strong> — sistemas propios para negocios que ya funcionan.
+</footer>
+
+<!-- ═══════════════════ CTA FLOTANTE ═══════════════════ -->
+<a class="cta-float" href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=vico" target="_blank" rel="noopener">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+  ¿Le gustó? Hablemos
+</a>
+
+<!-- ═══════════════════ MODAL ═══════════════════ -->
+<div class="modal-bg" id="engageModal" role="dialog" aria-modal="true" aria-label="Invitación a conversar">
+  <div class="modal-box">
+    <div style="font-size:2rem; margin-bottom:8px;">🏭</div>
+    <h2>¿Se imagina esto con sus datos reales?</h2>
+    <p>Si le gustó, hablemos. Y si no, no pasa nada — ningún compromiso, solo una conversación.</p>
+    <a class="modal-cta" href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=vico" target="_blank" rel="noopener">Agendemos una llamada</a>
+    <button class="modal-close-btn" onclick="closeModal()">No por ahora, gracias</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ JS ═══════════════════ -->
+<script>
+  // ── Tab switching ──────────────────────────────────
+  let viewsVisited = new Set(['rfq']);
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    if (btn) btn.classList.add('active');
+    viewsVisited.add(id);
+    checkEngageCondition();
+  }
+
+  // ── Traveler open from kanban ──────────────────────
+  const JOB_TITLES = {
+    'JOB-086': 'Compound die stamping — bracket estructural vehicular',
+    'JOB-085': 'Tool & Die: diseño de molde para bracket automotriz',
+    'JOB-084': 'Wire EDM — slot de tolerancia crítica en acero de herramienta',
+    'JOB-083': 'Deep draw stamping — carcasa de bomba de aceite',
+    'JOB-082': 'TIG welding — unión de acero inoxidable para equipo de alimentos',
+    'JOB-081': 'Progressive die stamping — conector de riel de tren',
+    'JOB-080': 'CNC Turning (Doosan Puma) — eje de aluminio para laboratorio',
+    'JOB-079': 'Multi-axis milling — bloque de acero con compound angles',
+    'JOB-078': 'Laser cutting — plancha de acero 3mm, perfil irregular',
+    'JOB-077': 'Fine blanking — disco de fricción de alta precisión',
+    'JOB-076': 'MIG welding — ensamble de estructura metálica para construcción',
+    'JOB-075': 'Inconel — componente para sistema de diagnóstico médico',
+  };
+
+  function openTraveler(jobNum) {
+    document.getElementById('travelerJobNum').textContent = jobNum;
+    const desc = JOB_TITLES[jobNum] || 'Ficha de trabajo — datos de muestra';
+    document.getElementById('travelerTitle').textContent = jobNum + ' — ' + desc;
+    switchTab('traveler', document.querySelector('[data-tab="traveler"]'));
+  }
+
+  // ── Kanban move interaction ────────────────────────
+  let jobMoved = false;
+
+  function moveJobDemo() {
+    if (jobMoved) return;
+    jobMoved = true;
+
+    const card = document.getElementById('card-job084');
+    const colMaquina = document.getElementById('col-maquina');
+    const colInspeccion = document.getElementById('col-inspeccion');
+
+    if (!card || !colInspeccion) return;
+
+    // Animate removal
+    card.style.transition = 'opacity .25s, transform .25s';
+    card.style.opacity = '0';
+    card.style.transform = 'scale(.92)';
+
+    setTimeout(() => {
+      colMaquina.removeChild(card);
+      card.style.opacity = '0';
+      card.style.transform = 'scale(.88)';
+      card.querySelector('.job-num').textContent = 'JOB-084';
+      card.querySelector('.job-title').textContent = 'Wire EDM — slot de tolerancia crítica en acero de herramienta';
+      colInspeccion.insertBefore(card, colInspeccion.querySelector('.kanban-card'));
+
+      // Animate entry
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          card.style.transition = 'opacity .3s, transform .3s';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+        });
+      });
+
+      // Show toast
+      const toast = document.getElementById('moveToast');
+      toast.style.display = 'block';
+
+      // Update traveler status
+      document.getElementById('travelerStatus').textContent = 'Inspección';
+
+      // Disable button
+      const btn = document.getElementById('btnMoveJob');
+      btn.textContent = '✓ JOB-084 → Inspección';
+      btn.style.background = '#16a34a';
+      btn.style.cursor = 'default';
+    }, 280);
+  }
+
+  // ── Quality search ─────────────────────────────────
+  function filterQuality() {
+    const q = document.getElementById('qualitySearch').value.toLowerCase().trim();
+    const rows = document.querySelectorAll('.quality-row');
+    let found = 0;
+    rows.forEach(r => {
+      const matches = !q || r.dataset.search.includes(q);
+      r.style.display = matches ? '' : 'none';
+      if (matches) found++;
+    });
+    document.getElementById('qualityNoResults').style.display = found === 0 ? 'block' : 'none';
+  }
+
+  // ── Modal logic ────────────────────────────────────
+  const MODAL_KEY = 'vico_demo_modal_shown';
+  let modalShown = !!sessionStorage.getItem(MODAL_KEY);
+  let startTime = Date.now();
+
+  function showModal() {
+    if (modalShown) return;
+    modalShown = true;
+    sessionStorage.setItem(MODAL_KEY, '1');
+    document.getElementById('engageModal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('engageModal').classList.remove('open');
+  }
+
+  // Trigger: 75s timer
+  setTimeout(() => { if (!modalShown) showModal(); }, 75000);
+
+  // Trigger: 3rd unique view
+  function checkEngageCondition() {
+    if (!modalShown && viewsVisited.size >= 3) {
+      setTimeout(showModal, 600);
+    }
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('engageModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

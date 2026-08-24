@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Printworks Direct — Client Portal Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy: #1A3E6C;
+      --navy-light: #234d84;
+      --navy-dark: #122b4d;
+      --text: #1A1A1A;
+      --muted: #555555;
+      --border: #d1d9e0;
+      --bg: #f5f7fa;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; }
+
+    /* HEADER */
+    .site-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 14px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 3px solid var(--navy-light);
+    }
+    .site-header h1 { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.02em; margin: 0; }
+    .site-header p { font-size: 0.72rem; color: #a8c0dc; margin: 2px 0 0; }
+    .demo-badge {
+      background: #e8b000;
+      color: #1a1a1a;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    /* TABS */
+    .tab-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 13px 20px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      border: none;
+      border-bottom: 3px solid transparent;
+      background: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 600; }
+
+    /* PANELS */
+    .panel { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
+    .panel.active { display: block; }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+
+    /* STATUS BADGES */
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .badge-proof  { background: #fef3c7; color: #92400e; }
+    .badge-prod   { background: #dbeafe; color: #1e3a8a; }
+    .badge-ready  { background: #d1fae5; color: #065f46; }
+    .badge-quote  { background: #f3e8ff; color: #6b21a8; }
+    .badge-new    { background: #ffe4e6; color: #9f1239; }
+    .badge-done   { background: #e5e7eb; color: #374151; }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #f9fafb;
+    }
+    td { padding: 11px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr.highlight-row td { background: #f0f9ff; }
+    tr:hover td { background: #f8f9fb; }
+    .order-link { color: var(--navy); font-weight: 600; cursor: pointer; text-decoration: none; }
+    .order-link:hover { text-decoration: underline; }
+
+    /* STAT TILES */
+    .stat-tile {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+    .stat-num { font-size: 2rem; font-weight: 700; color: var(--navy); line-height: 1; }
+    .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    .stat-delta { font-size: 0.72rem; margin-top: 6px; }
+    .delta-up { color: #059669; }
+    .delta-down { color: #dc2626; }
+
+    /* PAIN VIEW */
+    .pain-card {
+      border-left: 4px solid var(--navy);
+      background: #fff;
+      padding: 20px 24px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+    }
+    .pain-before {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-size: 0.83rem;
+    }
+    .pain-after {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-size: 0.83rem;
+    }
+    .vs-arrow {
+      text-align: center;
+      font-size: 1.4rem;
+      color: var(--muted);
+      margin: 8px 0;
+    }
+
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .tl-item { position: relative; margin-bottom: 18px; }
+    .tl-dot {
+      position: absolute;
+      left: -22px;
+      top: 4px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--navy);
+    }
+    .tl-dot.done { background: #059669; box-shadow: 0 0 0 2px #059669; }
+    .tl-dot.pending { background: #9ca3af; box-shadow: 0 0 0 2px #9ca3af; }
+    .tl-dot.active { background: #e8b000; box-shadow: 0 0 0 2px #e8b000; }
+    .tl-time { font-size: 0.7rem; color: var(--muted); }
+    .tl-text { font-size: 0.83rem; font-weight: 500; }
+    .tl-sub { font-size: 0.75rem; color: var(--muted); }
+
+    /* PROOF APPROVAL BUTTON */
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--navy-light); }
+    .btn-primary:disabled { background: #9ca3af; cursor: default; }
+    .btn-outline {
+      background: #fff;
+      color: var(--navy);
+      border: 1.5px solid var(--navy);
+      border-radius: 6px;
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-outline:hover { background: #eef3fa; }
+    .btn-danger {
+      background: #fff;
+      color: #dc2626;
+      border: 1.5px solid #dc2626;
+      border-radius: 6px;
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* SEARCH */
+    .search-input {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 14px;
+      font-size: 0.85rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input:focus { border-color: var(--navy); }
+    .select-filter {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 0.83rem;
+      outline: none;
+      background: #fff;
+      cursor: pointer;
+    }
+    .select-filter:focus { border-color: var(--navy); }
+
+    /* CTA FLOAT */
+    .cta-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 22px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(26,62,108,0.35);
+      transition: background 0.15s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-float:hover { background: var(--navy-light); transform: translateY(-2px); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none; border: none;
+      font-size: 1.3rem; cursor: pointer;
+      color: var(--muted);
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      right: 24px;
+      background: #065f46;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 150;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* APPROVAL ANIMATION */
+    #approval-zone { transition: all 0.3s; }
+    #approval-zone.approved {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    /* DETAIL SECTION */
+    .detail-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+    .detail-value { font-size: 0.9rem; margin-top: 2px; }
+
+    /* PAIN COUNTER */
+    .email-counter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #dc2626;
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar-bg { background: #e5e7eb; border-radius: 4px; height: 8px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 4px; background: var(--navy); transition: width 0.6s ease; }
+
+    /* REPORT CHART BARS */
+    .chart-bar-wrap { display: flex; align-items: flex-end; gap: 10px; height: 90px; }
+    .chart-bar { flex: 1; background: var(--navy); border-radius: 4px 4px 0 0; opacity: 0.75; transition: opacity 0.15s; cursor: pointer; }
+    .chart-bar:hover { opacity: 1; }
+    .chart-label { font-size: 0.65rem; color: var(--muted); text-align: center; margin-top: 4px; }
+
+    @media (max-width: 640px) {
+      .panel { padding: 16px; }
+      .stat-num { font-size: 1.5rem; }
+      .cta-float { bottom: 16px; right: 16px; padding: 12px 16px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+    <div>
+      <h1>Printworks Direct</h1>
+      <p>What your own system would look like — prepared by Pocho.tech</p>
+    </div>
+    <span class="demo-badge">DEMO &middot; sample data</span>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="tab-bar" role="tablist">
+  <button class="tab-btn active" data-tab="dashboard" role="tab" onclick="switchTab('dashboard', this)">
+    &#9783; Operations Dashboard
+  </button>
+  <button class="tab-btn" data-tab="detail" role="tab" onclick="switchTab('detail', this)">
+    &#128196; Order Detail
+  </button>
+  <button class="tab-btn" data-tab="pain" role="tab" onclick="switchTab('pain', this)">
+    &#9889; Before &amp; After
+  </button>
+  <button class="tab-btn" data-tab="reports" role="tab" onclick="switchTab('reports', this)">
+    &#128202; Reports &amp; Search
+  </button>
+</nav>
+
+<!-- =================== PANEL 1: DASHBOARD =================== -->
+<div id="tab-dashboard" class="panel active">
+
+  <!-- Stat tiles -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;">
+    <div class="stat-tile">
+      <div class="stat-num">23</div>
+      <div class="stat-label">Active Orders</div>
+      <div class="stat-delta delta-up">&#9650; 4 this week</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num" id="stat-proof">5</div>
+      <div class="stat-label">Awaiting Proof Approval</div>
+      <div class="stat-delta delta-down">&#9660; Needs action</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">3</div>
+      <div class="stat-label">New Quotes Submitted</div>
+      <div class="stat-delta delta-up">After-hours requests</div>
+    </div>
+    <div class="stat-tile">
+      <div class="stat-num">97%</div>
+      <div class="stat-label">On-Time Delivery (30d)</div>
+      <div class="stat-delta delta-up">&#9650; vs last month</div>
+    </div>
+  </div>
+
+  <!-- Quote requests alert -->
+  <div style="background:#fff8ed;border:1px solid #fcd34d;border-radius:8px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px;">
+    <span style="font-size:1.2rem;">&#9888;</span>
+    <div>
+      <div style="font-size:0.83rem;font-weight:600;">3 quote requests arrived after 5pm yesterday.</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:2px;">With the portal, these come in automatically — no missed leads, no Monday morning backlog.</div>
+    </div>
+    <button class="btn-primary" style="margin-left:auto;font-size:0.75rem;padding:7px 14px;white-space:nowrap;" onclick="switchTab('dashboard',null);alert('Quotes reviewed — clients notified automatically.')">Review Quotes</button>
+  </div>
+
+  <!-- Orders Table -->
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <span class="card-title" style="margin:0;">All Active Orders</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <select class="select-filter" id="filter-status" onchange="filterOrders()">
+          <option value="">All Statuses</option>
+          <option value="Awaiting Proof">Awaiting Proof</option>
+          <option value="In Production">In Production</option>
+          <option value="Ready for Pickup">Ready for Pickup</option>
+          <option value="Quote Requested">Quote Requested</option>
+        </select>
+        <select class="select-filter" id="filter-service" onchange="filterOrders()">
+          <option value="">All Services</option>
+          <option value="Digital Printing">Digital Printing</option>
+          <option value="Large Format">Large Format</option>
+          <option value="Laser Engraving">Laser Engraving</option>
+          <option value="Branded Merch">Branded Merch</option>
+        </select>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table id="orders-table">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Client</th>
+            <th>Product</th>
+            <th>Service Line</th>
+            <th>Qty</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="orders-body">
+          <!-- Rows injected by JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- =================== PANEL 2: ORDER DETAIL =================== -->
+<div id="tab-detail" class="panel">
+
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:2px;">Order #PWD-2024-0187</div>
+      <h2 style="margin:0;font-size:1.2rem;font-weight:700;">Pocket Folders — Corporate Kit</h2>
+    </div>
+    <span class="badge badge-proof" style="font-size:0.78rem;padding:5px 12px;">Awaiting Proof Approval</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+
+    <!-- Left: Order info -->
+    <div class="card">
+      <div class="card-title">Order Details</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <div class="detail-label">Client</div>
+          <div class="detail-value" style="font-weight:600;">Greenway Building Partners</div>
+        </div>
+        <div>
+          <div class="detail-label">Contact</div>
+          <div class="detail-value">Marcus Hill</div>
+        </div>
+        <div>
+          <div class="detail-label">Product</div>
+          <div class="detail-value">Pocket Folders w/ card slot</div>
+        </div>
+        <div>
+          <div class="detail-label">Quantity</div>
+          <div class="detail-value">500 units</div>
+        </div>
+        <div>
+          <div class="detail-label">Service Line</div>
+          <div class="detail-value">Digital Printing</div>
+        </div>
+        <div>
+          <div class="detail-label">Finishing</div>
+          <div class="detail-value">Soft-touch laminate, spot UV</div>
+        </div>
+        <div>
+          <div class="detail-label">Substrates</div>
+          <div class="detail-value">14pt gloss coated</div>
+        </div>
+        <div>
+          <div class="detail-label">Turnaround</div>
+          <div class="detail-value">5 business days</div>
+        </div>
+        <div>
+          <div class="detail-label">Order Date</div>
+          <div class="detail-value">Jul 22, 2026</div>
+        </div>
+        <div>
+          <div class="detail-label">Due Date</div>
+          <div class="detail-value" style="color:#dc2626;font-weight:600;">Jul 29, 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Proof approval -->
+    <div class="card">
+      <div class="card-title">Proof Approval</div>
+      <div id="approval-zone">
+        <div style="background:#f9fafb;border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:1.5rem;">&#128196;</span>
+          <div>
+            <div style="font-size:0.83rem;font-weight:600;">Proof v2 — GBP_PocketFolder_Proof2.pdf</div>
+            <div style="font-size:0.72rem;color:var(--muted);">Uploaded Jul 24, 2026 by PWD Production</div>
+          </div>
+        </div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-bottom:14px;">Client reviews this link — no email thread needed. One click to approve or request changes.</div>
+        <div id="approval-buttons" style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn-primary" id="btn-approve" onclick="approveProof()">&#10003; Approve Proof</button>
+          <button class="btn-danger" onclick="requestChanges()">Request Changes</button>
+        </div>
+        <div id="approval-msg" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity Timeline -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">Order History</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-time">Jul 22, 2026 &mdash; 3:41 PM</div>
+        <div class="tl-text">Order submitted via client portal</div>
+        <div class="tl-sub">Print-ready artwork uploaded — GBP_Folder_Artwork_v1.pdf (8.4 MB)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-time">Jul 22, 2026 &mdash; 5:02 PM</div>
+        <div class="tl-text">Artwork reviewed by PWD Production</div>
+        <div class="tl-sub">Minor bleed adjustment noted. Proof v1 sent to client.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-time">Jul 23, 2026 &mdash; 10:15 AM</div>
+        <div class="tl-text">Client requested color correction on logo</div>
+        <div class="tl-sub">Changed through portal — no email needed</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <div class="tl-time">Jul 24, 2026 &mdash; 2:30 PM</div>
+        <div class="tl-text" style="font-weight:700;">Proof v2 uploaded — awaiting client approval &#9650;</div>
+        <div class="tl-sub">Client notified automatically by portal</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot pending"></div>
+        <div class="tl-time" style="color:#9ca3af;">Pending</div>
+        <div class="tl-text" style="color:#9ca3af;">Approved &#8594; Production starts</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot pending"></div>
+        <div class="tl-time" style="color:#9ca3af;">Jul 29, 2026</div>
+        <div class="tl-text" style="color:#9ca3af;">Ready for pickup / delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Files -->
+  <div class="card">
+    <div class="card-title">Files &amp; Attachments</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#f9fafb;border-radius:6px;border:1px solid var(--border);">
+        <span style="font-size:1.2rem;">&#128196;</span>
+        <div style="flex:1;">
+          <div style="font-size:0.83rem;font-weight:500;">GBP_Folder_Artwork_v1.pdf</div>
+          <div style="font-size:0.72rem;color:var(--muted);">Client upload &mdash; Jul 22 &mdash; 8.4 MB</div>
+        </div>
+        <span class="badge badge-done">Original</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#f9fafb;border-radius:6px;border:1px solid var(--border);">
+        <span style="font-size:1.2rem;">&#128196;</span>
+        <div style="flex:1;">
+          <div style="font-size:0.83rem;font-weight:500;">GBP_PocketFolder_Proof2.pdf</div>
+          <div style="font-size:0.72rem;color:var(--muted);">PWD upload &mdash; Jul 24 &mdash; 5.1 MB</div>
+        </div>
+        <span class="badge badge-proof">Proof v2</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =================== PANEL 3: BEFORE & AFTER =================== -->
+<div id="tab-pain" class="panel">
+
+  <div style="margin-bottom:22px;">
+    <h2 style="margin:0 0 6px;font-size:1.15rem;font-weight:700;">What changes when every order goes through the portal</h2>
+    <p style="margin:0;font-size:0.85rem;color:var(--muted);">Real workflows, reframed. The production stays identical — only the coordination overhead disappears.</p>
+  </div>
+
+  <!-- Pain 1 -->
+  <div class="pain-card">
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">01 &mdash; Quote Requests After Hours</div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;">
+      <div class="pain-before">
+        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Today</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">Client needs 500 pocket folders for Monday. It's 6pm Friday. They call <span style="font-weight:600;">713-555-0168</span> — no answer. They email info@printworksdirect.com. Nobody sees it until Monday morning.</p>
+        <div class="email-counter" style="margin-top:10px;">
+          <span>&#9993;</span> <span>Lead lost.</span>
+        </div>
+      </div>
+      <div class="vs-arrow">&#8594;</div>
+      <div class="pain-after">
+        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; With the portal</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">Client fills out the quote form online at 6pm — product, quantity, delivery date, file upload. PWD receives a structured request at 8am Monday. Grace reviews it in 2 minutes.</p>
+        <div style="margin-top:10px;font-size:0.82rem;font-weight:600;color:#065f46;">Zero missed leads. Automatic after-hours intake.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pain 2: Email Thread Counter (the live interaction) -->
+  <div class="pain-card">
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">02 &mdash; The Proof Approval Email Chain</div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start;">
+      <div class="pain-before">
+        <div style="font-weight:600;color:#9f1239;margin-bottom:8px;">&#10007; Today — one recurring order</div>
+        <div id="email-steps" style="display:flex;flex-direction:column;gap:6px;font-size:0.78rem;"></div>
+        <div style="margin-top:12px;display:flex;align-items:center;gap:10px;">
+          <button class="btn-outline" id="btn-add-email" onclick="addEmailStep()" style="font-size:0.75rem;padding:6px 12px;">+ Send next email</button>
+          <div style="font-size:0.85rem;color:#dc2626;font-weight:700;">Total: <span id="email-count">0</span> emails</div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:6px;">Press to simulate a typical order cycle.</div>
+      </div>
+      <div class="vs-arrow" style="margin-top:40px;">&#8594;</div>
+      <div class="pain-after">
+        <div style="font-weight:600;color:#065f46;margin-bottom:8px;">&#10003; With the portal</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:0.78rem;">
+          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">1</span> Client uploads artwork &amp; submits order</div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">2</span> PWD uploads proof — client gets portal notification</div>
+          <div style="display:flex;gap:8px;align-items:center;"><span style="background:#d1fae5;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;flex-shrink:0;">3</span> Client clicks "Approve" — production starts automatically</div>
+        </div>
+        <div style="margin-top:12px;background:#d1fae5;border-radius:6px;padding:10px;font-size:0.82rem;">
+          <strong>3 actions. 0 emails.</strong><br/>
+          <span style="font-size:0.75rem;color:#065f46;">For 50 recurring orders/month = 450 fewer emails handled by Grace.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pain 3 -->
+  <div class="pain-card">
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:10px;">03 &mdash; Institutional Client Reporting</div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;">
+      <div class="pain-before">
+        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Today</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">A procurement officer from a government account needs the complete order history from the past 12 months for their annual audit. Grace spends half a day digging through email threads, spreadsheets, and memory.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#9f1239;">&#8987; 4–6 hours to compile. Error-prone.</div>
+      </div>
+      <div class="vs-arrow">&#8594;</div>
+      <div class="pain-after">
+        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; With the portal</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">Every order is logged automatically — product, quantity, proof version, approval date, delivery date. The client can export their own history in 30 seconds. Grace never touches it.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#065f46;">&#9679; One click. Auditable. No dependency on anyone's memory.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pain 4 -->
+  <div class="pain-card" style="border-left-color:#e8b000;">
+    <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#92400e;margin-bottom:10px;">04 &mdash; Four Service Lines, One Conversation</div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;">
+      <div class="pain-before">
+        <div style="font-weight:600;color:#9f1239;margin-bottom:6px;">&#10007; Today</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">A construction company needs folders (digital printing), site signage (large format), and engraved name plates (laser engraving) for a project kickoff. That's three separate conversations with three separate coordinators — and the client has to chase each one.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#9f1239;">3 service lines = 3 disconnected threads.</div>
+      </div>
+      <div class="vs-arrow">&#8594;</div>
+      <div class="pain-after">
+        <div style="font-weight:600;color:#065f46;margin-bottom:6px;">&#10003; With the portal</div>
+        <p style="margin:0 0 6px;font-size:0.82rem;">One order. Multiple line items — digital printing, large format, laser engraving. Each routed internally to the right team. Client sees one status page. One delivery date. One conversation.</p>
+        <div style="margin-top:8px;font-size:0.82rem;font-weight:600;color:#065f46;">&#9650; Higher order value, lower coordination cost.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- =================== PANEL 4: REPORTS & SEARCH =================== -->
+<div id="tab-reports" class="panel">
+
+  <!-- Search bar -->
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-title">Order Search</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+      <input type="text" class="search-input" id="search-field" placeholder="Search by client, product, or order #..." style="flex:1;min-width:180px;" oninput="doSearch()" />
+      <select class="select-filter" id="search-service" onchange="doSearch()">
+        <option value="">All Services</option>
+        <option value="Digital Printing">Digital Printing</option>
+        <option value="Large Format">Large Format</option>
+        <option value="Laser Engraving">Laser Engraving</option>
+        <option value="Branded Merch">Branded Merch</option>
+      </select>
+      <select class="select-filter" id="search-year" onchange="doSearch()">
+        <option value="">All Years</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Client</th>
+            <th>Product</th>
+            <th>Service</th>
+            <th>Qty</th>
+            <th>Delivered</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="search-results">
+          <!-- Injected by JS -->
+        </tbody>
+      </table>
+    </div>
+    <div id="search-count" style="font-size:0.75rem;color:var(--muted);margin-top:10px;"></div>
+  </div>
+
+  <!-- Volume by service chart -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+    <div class="card">
+      <div class="card-title">Orders by Service Line — Last 90 Days</div>
+      <div class="chart-bar-wrap" id="service-chart"></div>
+      <div id="service-labels" style="display:flex;gap:10px;margin-top:4px;"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Repeat Client Rate</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Institutional / Government</span><strong>64%</strong></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:64%;background:#1A3E6C;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Corporate</span><strong>51%</strong></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:51%;background:#234d84;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Education / Schools</span><strong>79%</strong></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:79%;background:#1A3E6C;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:4px;"><span>Construction / Industrial</span><strong>43%</strong></div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:43%;background:#3a6ea8;"></div></div>
+        </div>
+      </div>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:14px;">Every repeat order is logged automatically. Renewals don't slip through the cracks.</div>
+    </div>
+  </div>
+
+  <!-- Export panel -->
+  <div class="card" style="background:linear-gradient(135deg,#f0f5fb,#fff);">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <div style="font-size:1.8rem;">&#128194;</div>
+      <div style="flex:1;">
+        <div style="font-weight:700;margin-bottom:4px;">Client Procurement Report — 12 months</div>
+        <div style="font-size:0.8rem;color:var(--muted);">Institutional clients can pull their own order history for audits, budget reports, or contract renewals — without involving Grace or anyone on the PWD team.</div>
+      </div>
+      <button class="btn-primary" onclick="showToast('Report exported — ready for download.')">&#8595; Export CSV</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING CTA -->
+<button class="cta-float" onclick="openCalendly()">
+  <span>&#128172;</span> Like what you see? Let's talk
+</button>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="cta-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div style="font-size:2rem;margin-bottom:12px;">&#128200;</div>
+    <h3 style="margin:0 0 10px;font-size:1.15rem;font-weight:700;color:var(--navy);">Printworks Direct deserves a system built for how it actually works.</h3>
+    <p style="font-size:0.85rem;color:var(--muted);margin:0 0 16px;">38 years of production expertise — running on phone calls and email threads. This portal closes the gap: online quotes, proof approvals, order tracking, and institutional reporting — all in one place.</p>
+    <ul style="font-size:0.83rem;margin:0 0 20px;padding-left:18px;color:var(--text);line-height:1.7;">
+      <li>No more after-hours leads falling through the cracks</li>
+      <li>No more 10-email chains per order</li>
+      <li>No more manual report assembly for institutional clients</li>
+    </ul>
+    <button class="btn-primary" style="width:100%;padding:14px;font-size:0.95rem;" onclick="openCalendly()">Book a conversation with Erick</button>
+    <div style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:10px;">Custom-built for your operation. No generic software.</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<footer style="text-align:center;padding:24px;font-size:0.75rem;color:var(--muted);border-top:1px solid var(--border);margin-top:32px;background:#fff;">
+  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+</footer>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const ORDERS = [
+  { id:'PWD-2026-0204', client:'Westside Medical Group', product:'Carbonless Forms (3-part)', service:'Digital Printing', qty:1000, due:'Aug 1, 2026', status:'In Production', year:2026 },
+  { id:'PWD-2026-0203', client:'Greenway Building Partners', product:'Pocket Folders w/ card slot', service:'Digital Printing', qty:500, due:'Jul 29, 2026', status:'Awaiting Proof', year:2026 },
+  { id:'PWD-2026-0202', client:'Houston Energy Expo', product:'Event Banners & Displays', service:'Large Format', qty:12, due:'Jul 31, 2026', status:'In Production', year:2026 },
+  { id:'PWD-2026-0201', client:'River Oaks Automotive', product:'Fleet Decals', service:'Large Format', qty:48, due:'Aug 3, 2026', status:'Awaiting Proof', year:2026 },
+  { id:'PWD-2026-0200', client:'Lakewood Church Admin', product:'Notepads — Custom Logo', service:'Digital Printing', qty:200, due:'Aug 5, 2026', status:'Ready for Pickup', year:2026 },
+  { id:'PWD-2026-0199', client:'Memorial Hermann Foundation', product:'Name Plates (laser engraved)', service:'Laser Engraving', qty:30, due:'Jul 30, 2026', status:'Awaiting Proof', year:2026 },
+  { id:'PWD-2026-0198', client:'SolarTech Houston', product:'Branded Merchandise Kit', service:'Branded Merch', qty:150, due:'Aug 8, 2026', status:'Quote Requested', year:2026 },
+  { id:'PWD-2026-0197', client:'Conroe ISD Procurement', product:'Brochures — Back to School', service:'Digital Printing', qty:2500, due:'Aug 2, 2026', status:'In Production', year:2026 },
+  { id:'PWD-2026-0196', client:'Fort Bend Engineering', product:'Industrial Tags (metal)', service:'Laser Engraving', qty:200, due:'Aug 6, 2026', status:'Quote Requested', year:2026 },
+  { id:'PWD-2026-0195', client:'The Woodlands Conference Ctr', product:'Table Throws & Trade Show Displays', service:'Large Format', qty:6, due:'Aug 10, 2026', status:'Awaiting Proof', year:2026 },
+  { id:'PWD-2026-0194', client:'Greenway Building Partners', product:'Corporate Gifts — Engraved Trophies', service:'Laser Engraving', qty:15, due:'Jul 25, 2026', status:'Ready for Pickup', year:2026 },
+  { id:'PWD-2026-0193', client:'Champions Real Estate', product:'Postcards (5x7) — New Listings', service:'Digital Printing', qty:5000, due:'Jul 27, 2026', status:'Ready for Pickup', year:2026 },
+  // Historical
+  { id:'PWD-2025-0412', client:'Conroe ISD Procurement', product:'Pocket Folders — Staff Training', service:'Digital Printing', qty:800, due:'Nov 15, 2025', status:'Delivered', year:2025 },
+  { id:'PWD-2025-0389', client:'Fort Bend Engineering', product:'Weatherproof Labels', service:'Digital Printing', qty:1000, due:'Oct 3, 2025', status:'Delivered', year:2025 },
+  { id:'PWD-2025-0360', client:'Westside Medical Group', product:'Carbonless Forms (2-part)', service:'Digital Printing', qty:2000, due:'Sep 12, 2025', status:'Delivered', year:2025 },
+  { id:'PWD-2024-0187', client:'Greenway Building Partners', product:'Annual Report Booklets', service:'Digital Printing', qty:300, due:'Dec 10, 2024', status:'Delivered', year:2024 },
+];
+
+const STATUS_BADGE = {
+  'Awaiting Proof': 'badge-proof',
+  'In Production': 'badge-prod',
+  'Ready for Pickup': 'badge-ready',
+  'Quote Requested': 'badge-quote',
+  'New': 'badge-new',
+  'Delivered': 'badge-done',
+};
+
+// ============================================================
+// TABS
+// ============================================================
+let tabCount = 1; // dashboard counts as first view
+let modalShown = sessionStorage.getItem('osp_modal_shown') === '1';
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else document.querySelector('[data-tab="' + name + '"]').classList.add('active');
+
+  tabCount++;
+  if (!modalShown && tabCount >= 3) {
+    setTimeout(() => { triggerModal(); }, 300);
+  }
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function triggerModal() {
+  if (modalShown) return;
+  modalShown = true;
+  sessionStorage.setItem('osp_modal_shown', '1');
+  document.getElementById('cta-modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('cta-modal').classList.remove('open');
+}
+function openCalendly() {
+  closeModal();
+  window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=onesourceprintin', '_blank');
+}
+
+// Auto-trigger at 75s if modal not yet shown
+setTimeout(() => {
+  if (!modalShown) triggerModal();
+}, 75000);
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ============================================================
+// DASHBOARD TABLE
+// ============================================================
+function statusBadge(status) {
+  const cls = STATUS_BADGE[status] || 'badge-done';
+  return `<span class="badge ${cls}">${status}</span>`;
+}
+
+function renderOrders(data) {
+  const tbody = document.getElementById('orders-body');
+  if (!data.length) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">No orders match the selected filters.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map((o, i) => `
+    <tr class="${i % 2 === 0 ? '' : ''}">
+      <td><a class="order-link" onclick="switchTab('detail', null); return false;" href="#">${o.id}</a></td>
+      <td style="font-size:0.82rem;">${o.client}</td>
+      <td style="font-size:0.82rem;">${o.product}</td>
+      <td><span style="font-size:0.75rem;color:var(--muted);">${o.service}</span></td>
+      <td style="font-size:0.82rem;">${o.qty.toLocaleString()}</td>
+      <td style="font-size:0.82rem;">${o.due}</td>
+      <td>${statusBadge(o.status)}</td>
+      <td>
+        ${o.status === 'Awaiting Proof'
+          ? `<button class="btn-primary" style="font-size:0.72rem;padding:5px 11px;" onclick="quickApprove(this, '${o.id}')">Approve Proof</button>`
+          : o.status === 'Quote Requested'
+          ? `<button class="btn-outline" style="font-size:0.72rem;padding:5px 11px;" onclick="sendQuote(this, '${o.id}')">Send Quote</button>`
+          : `<button class="btn-outline" style="font-size:0.72rem;padding:5px 11px;" onclick="switchTab('detail', null)">View</button>`
+        }
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterOrders() {
+  const statusFilter = document.getElementById('filter-status').value;
+  const serviceFilter = document.getElementById('filter-service').value;
+  const active = ORDERS.filter(o => {
+    const inStatus = !statusFilter || o.status === statusFilter;
+    const inService = !serviceFilter || o.service === serviceFilter;
+    return inStatus && inService && o.year === 2026;
+  });
+  renderOrders(active);
+}
+
+// ============================================================
+// QUICK APPROVE (the simulated interaction on dashboard)
+// ============================================================
+function quickApprove(btn, orderId) {
+  btn.disabled = true;
+  btn.textContent = 'Approving…';
+  setTimeout(() => {
+    btn.innerHTML = '&#10003; Approved';
+    btn.style.background = '#059669';
+    const row = btn.closest('tr');
+    const statusCell = row.querySelector('td:nth-child(7)');
+    statusCell.innerHTML = statusBadge('In Production');
+    const countEl = document.getElementById('stat-proof');
+    const current = parseInt(countEl.textContent);
+    if (current > 0) countEl.textContent = current - 1;
+    showToast('Proof approved — order moved to production.');
+  }, 900);
+}
+
+function sendQuote(btn, orderId) {
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  setTimeout(() => {
+    btn.innerHTML = '&#10003; Quote Sent';
+    btn.style.color = '#059669';
+    btn.style.borderColor = '#059669';
+    showToast('Quote sent to client — no email needed.');
+  }, 800);
+}
+
+// ============================================================
+// ORDER DETAIL — PROOF APPROVAL
+// ============================================================
+function approveProof() {
+  const zone = document.getElementById('approval-zone');
+  const buttons = document.getElementById('approval-buttons');
+  const msg = document.getElementById('approval-msg');
+  buttons.innerHTML = '<div style="font-size:0.85rem;color:var(--muted);">Processing…</div>';
+  setTimeout(() => {
+    zone.classList.add('approved');
+    buttons.style.display = 'none';
+    msg.style.display = 'block';
+    msg.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+        <span style="font-size:1.5rem;">&#10003;</span>
+        <div>
+          <div style="font-weight:700;color:#065f46;">Proof approved by Marcus Hill</div>
+          <div style="font-size:0.78rem;color:var(--muted);">Jul 28, 2026 — 9:14 AM &middot; Production notified automatically</div>
+        </div>
+      </div>
+    `;
+    showToast('Proof approved — production team notified.');
+    // Update the badge at top
+    document.querySelector('#tab-detail .badge').className = 'badge badge-prod';
+    document.querySelector('#tab-detail .badge').textContent = 'In Production';
+  }, 800);
+}
+
+function requestChanges() {
+  showToast('Change request sent to production team.');
+}
+
+// ============================================================
+// EMAIL CHAIN SIMULATOR (Pain view)
+// ============================================================
+const EMAIL_STEPS = [
+  { from:'Client', msg:'Hi Grace, can we get a quote for 500 pocket folders?', ico:'&#128100;' },
+  { from:'PWD', msg:'Hi! Sure, what size and quantity? Can you send the artwork?', ico:'&#127970;' },
+  { from:'Client', msg:'Attached. 9x12 with card slot, 500 units, full bleed.', ico:'&#128100;' },
+  { from:'PWD', msg:'Got it. Bleed needs to be 0.125". Can you resend with correct bleed?', ico:'&#127970;' },
+  { from:'Client', msg:'Resending — here is the corrected file.', ico:'&#128100;' },
+  { from:'PWD', msg:'Thanks! Here is proof v1 for your approval. (PDF attached)', ico:'&#127970;' },
+  { from:'Client', msg:'Logo color looks off — can you match the PMS 286?', ico:'&#128100;' },
+  { from:'PWD', msg:'Corrected. Proof v2 attached — please review.', ico:'&#127970;' },
+  { from:'Client', msg:'Approved! When will it be ready?', ico:'&#128100;' },
+  { from:'PWD', msg:'5 business days from today. We will call when ready.', ico:'&#127970;' },
+];
+let emailIdx = 0;
+
+function addEmailStep() {
+  if (emailIdx >= EMAIL_STEPS.length) {
+    document.getElementById('btn-add-email').textContent = 'Done — 10 emails for one order.';
+    document.getElementById('btn-add-email').disabled = true;
+    return;
+  }
+  const step = EMAIL_STEPS[emailIdx];
+  const container = document.getElementById('email-steps');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:6px;align-items:flex-start;animation:fadeIn 0.3s;';
+  div.innerHTML = `
+    <span style="font-size:0.9rem;">${step.ico}</span>
+    <div style="background:${step.from==='Client'?'#fff':'#eef3fa'};border:1px solid #e5e7eb;border-radius:4px;padding:5px 8px;flex:1;">
+      <strong style="font-size:0.7rem;color:var(--muted);">${step.from}</strong>
+      <div>${step.msg}</div>
+    </div>
+  `;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  emailIdx++;
+  document.getElementById('email-count').textContent = emailIdx;
+  if (emailIdx >= EMAIL_STEPS.length) {
+    document.getElementById('btn-add-email').textContent = 'Done — 10 emails for one order.';
+    document.getElementById('btn-add-email').disabled = true;
+  }
+}
+
+// ============================================================
+// REPORTS — SEARCH
+// ============================================================
+function doSearch() {
+  const q = document.getElementById('search-field').value.toLowerCase();
+  const svc = document.getElementById('search-service').value;
+  const yr = document.getElementById('search-year').value;
+  const results = ORDERS.filter(o => {
+    const matchQ = !q || o.id.toLowerCase().includes(q) || o.client.toLowerCase().includes(q) || o.product.toLowerCase().includes(q);
+    const matchSvc = !svc || o.service === svc;
+    const matchYr = !yr || o.year === parseInt(yr);
+    return matchQ && matchSvc && matchYr;
+  });
+  const tbody = document.getElementById('search-results');
+  tbody.innerHTML = results.map(o => `
+    <tr>
+      <td style="font-size:0.8rem;font-weight:600;color:var(--navy);">${o.id}</td>
+      <td style="font-size:0.8rem;">${o.client}</td>
+      <td style="font-size:0.8rem;">${o.product}</td>
+      <td style="font-size:0.75rem;color:var(--muted);">${o.service}</td>
+      <td style="font-size:0.8rem;">${o.qty.toLocaleString()}</td>
+      <td style="font-size:0.8rem;">${o.due}</td>
+      <td>${statusBadge(o.status)}</td>
+    </tr>
+  `).join('');
+  document.getElementById('search-count').textContent = `${results.length} order${results.length !== 1 ? 's' : ''} found`;
+}
+
+// ============================================================
+// SERVICE CHART
+// ============================================================
+function renderChart() {
+  const services = [
+    { label: 'Digital', value: 47, pct: 47 },
+    { label: 'Lg. Format', value: 24, pct: 24 },
+    { label: 'Laser Engr.', value: 18, pct: 18 },
+    { label: 'Branded', value: 11, pct: 11 },
+  ];
+  const max = Math.max(...services.map(s => s.pct));
+  const chart = document.getElementById('service-chart');
+  const labels = document.getElementById('service-labels');
+  chart.innerHTML = services.map(s => {
+    const h = Math.round((s.pct / max) * 80);
+    return `<div class="chart-bar" style="height:${h}px;" title="${s.label}: ${s.value} orders"></div>`;
+  }).join('');
+  labels.innerHTML = services.map(s =>
+    `<div class="chart-label" style="flex:1;">${s.label}<br/><strong>${s.value}</strong></div>`
+  ).join('');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+(function init() {
+  // Render active orders (2026 only)
+  renderOrders(ORDERS.filter(o => o.year === 2026));
+  // Render search with all orders
+  doSearch();
+  // Chart
+  renderChart();
+  // Close modal on overlay click
+  document.getElementById('cta-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+})();
+</script>
+
+<style>
+@keyframes fadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:none; } }
+</style>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

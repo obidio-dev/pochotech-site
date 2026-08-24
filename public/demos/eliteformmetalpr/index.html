@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ironline Metal Products — Demo del Sistema</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy: #1A3A6B;
+      --gold: #C8A84B;
+      --dark: #2C2C2C;
+      --white: #FFFFFF;
+      --light: #F4F4F4;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      margin: 0;
+    }
+
+    /* BADGE FIJO */
+    .demo-badge {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      background: var(--gold);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      z-index: 9999;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      pointer-events: none;
+    }
+
+    /* HEADER */
+    .site-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 18px 24px 14px;
+    }
+    .site-header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin: 0 0 2px;
+    }
+    .site-header .subtitle {
+      font-size: 0.78rem;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      margin: 0;
+    }
+
+    /* NAV TABS */
+    .tab-nav {
+      background: #fff;
+      border-bottom: 2px solid #e5e7eb;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 13px 20px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: #6b7280;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--navy); }
+    .tab-btn.active {
+      color: var(--navy);
+      border-bottom-color: var(--gold);
+    }
+
+    /* VIEWS */
+    .view { display: none; padding: 20px 16px 100px; max-width: 1100px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+
+    /* STATUS CHIPS */
+    .chip {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .chip-blueprint { background: #e0e7ff; color: #3730a3; }
+    .chip-fab       { background: #fef9c3; color: #92400e; }
+    .chip-qc        { background: #fce7f3; color: #9d174d; }
+    .chip-grouped   { background: #d1fae5; color: #065f46; }
+    .chip-delivered { background: #e5e7eb; color: #374151; }
+    .chip-alert     { background: #fee2e2; color: #991b1b; }
+
+    /* FACILITY BADGE */
+    .facility-h { background: #dbeafe; color: #1e40af; font-size: 0.68rem; font-weight: 700; padding: 1px 7px; border-radius: 4px; }
+    .facility-p { background: #ede9fe; color: #4c1d95; font-size: 0.68rem; font-weight: 700; padding: 1px 7px; border-radius: 4px; }
+
+    /* JOBS TABLE */
+    .jobs-table { width: 100%; border-collapse: collapse; }
+    .jobs-table th {
+      text-align: left;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #9ca3af;
+      padding: 8px 10px;
+      border-bottom: 2px solid #f3f4f6;
+    }
+    .jobs-table td {
+      padding: 11px 10px;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 0.83rem;
+      vertical-align: middle;
+    }
+    .jobs-table tr:hover td { background: #fafafa; }
+    .jobs-table .job-id { font-weight: 700; color: var(--navy); font-family: monospace; font-size: 0.82rem; }
+    .jobs-table .job-desc { color: var(--dark); }
+    .jobs-table .days-ago { color: #6b7280; font-size: 0.78rem; }
+    .days-warning { color: #b45309; font-weight: 700; }
+    .days-alert   { color: #dc2626; font-weight: 700; }
+
+    /* KPI ROW */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .kpi-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .kpi-value { font-size: 1.9rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .kpi-label { font-size: 0.72rem; color: #6b7280; margin-top: 4px; }
+    .kpi-alert .kpi-value { color: #dc2626; }
+    .kpi-gold .kpi-value  { color: #92400e; }
+
+    /* ACTION BUTTON */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-gold { background: var(--gold); color: #fff; }
+    .btn-gold:hover { opacity: 0.88; }
+    .btn-ghost { background: #f3f4f6; color: var(--dark); }
+    .btn-ghost:hover { background: #e5e7eb; }
+    .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+    .btn-danger:hover { background: #fee2e2; }
+
+    /* DETAIL VIEW */
+    .detail-section { margin-bottom: 20px; }
+    .detail-section h3 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #9ca3af; margin-bottom: 10px; border-bottom: 1px solid #f3f4f6; padding-bottom: 6px; }
+    .detail-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px dashed #f3f4f6; font-size: 0.83rem; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label { color: #6b7280; flex-shrink: 0; width: 48%; }
+    .detail-value { font-weight: 600; color: var(--dark); text-align: right; }
+
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 20px; }
+    .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
+    .tl-event { position: relative; margin-bottom: 14px; }
+    .tl-dot { position: absolute; left: -17px; top: 3px; width: 10px; height: 10px; border-radius: 50%; background: var(--navy); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--navy); }
+    .tl-dot.gold { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+    .tl-dot.red  { background: #dc2626; box-shadow: 0 0 0 2px #dc2626; }
+    .tl-date { font-size: 0.72rem; color: #9ca3af; }
+    .tl-text { font-size: 0.82rem; color: var(--dark); margin-top: 1px; }
+    .tl-auto { font-size: 0.72rem; color: var(--gold); font-weight: 600; }
+
+    /* SEARCH */
+    .search-input {
+      width: 100%;
+      border: 1.5px solid #d1d5db;
+      border-radius: 6px;
+      padding: 9px 14px;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input:focus { border-color: var(--navy); }
+
+    /* PAIN VIEW */
+    .pain-before { background: #fff5f5; border: 1.5px solid #fca5a5; border-radius: 8px; padding: 16px; }
+    .pain-after  { background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; padding: 16px; }
+    .pain-label  { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .pain-label-before { color: #dc2626; }
+    .pain-label-after  { color: #16a34a; }
+    .pain-item { font-size: 0.82rem; padding: 5px 0; display: flex; gap: 8px; align-items: flex-start; }
+
+    /* NOTIFICATION TOAST */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 8000;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast .gold { color: var(--gold); }
+
+    /* CTA FLOTANTE */
+    .cta-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--gold);
+      color: #fff;
+      padding: 13px 20px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 18px rgba(200,168,75,0.45);
+      z-index: 8000;
+      transition: opacity 0.15s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cta-float:hover { opacity: 0.9; }
+    .cta-float:active { transform: scale(0.97); }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 24px 24px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      transform: translateY(24px);
+      transition: transform 0.25s;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-accent { width: 48px; height: 4px; background: var(--gold); border-radius: 2px; margin-bottom: 16px; }
+    .modal-title { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; line-height: 1.25; }
+    .modal-body  { font-size: 0.85rem; color: #4b5563; line-height: 1.55; margin-bottom: 20px; }
+    .modal-close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 1.2rem; color: #9ca3af; cursor: pointer; }
+    .modal-box { position: relative; }
+
+    /* QUOTE FORM */
+    .form-group { margin-bottom: 12px; }
+    .form-label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #6b7280; margin-bottom: 4px; }
+    .form-control {
+      width: 100%;
+      border: 1.5px solid #d1d5db;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-control:focus { border-color: var(--navy); }
+    select.form-control { background: #fff; }
+
+    /* PROGRESS BAR */
+    .stage-bar { display: flex; gap: 0; margin-bottom: 20px; border-radius: 6px; overflow: hidden; }
+    .stage-seg {
+      flex: 1;
+      padding: 8px 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.6);
+      background: #e5e7eb;
+      color: #9ca3af;
+    }
+    .stage-seg.done { background: var(--navy); color: rgba(255,255,255,0.9); }
+    .stage-seg.current { background: var(--gold); color: #fff; }
+
+    /* RESPONSIVE HELPERS */
+    .hide-sm { display: table-cell; }
+    @media (max-width: 600px) {
+      .hide-sm { display: none; }
+      .tab-btn { padding: 12px 14px; font-size: 0.78rem; }
+      .kpi-value { font-size: 1.5rem; }
+    }
+
+    /* SEARCH HIGHLIGHT */
+    .highlight { background: #fef9c3; border-radius: 2px; }
+
+    /* INLINE ALERT */
+    .alert-box {
+      background: #fff7ed;
+      border: 1.5px solid #fed7aa;
+      border-left: 4px solid #f97316;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: #9a3412;
+      margin-bottom: 14px;
+    }
+    .alert-box strong { color: #7c2d12; }
+
+    /* QUOTE SUCCESS STATE */
+    .quote-success {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .quote-success .check-circle {
+      width: 56px; height: 56px;
+      background: #d1fae5;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+      font-size: 1.6rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- BADGE FIJO -->
+<div class="demo-badge">DEMO &middot; datos de muestra</div>
+
+<!-- HEADER -->
+<div class="site-header">
+  <h1>Ironline Metal Products</h1>
+  <p class="subtitle">As&iacute; se ver&iacute;a su sistema propio &mdash; preparado por Pocho.tech</p>
+</div>
+
+<!-- NAV TABS -->
+<div class="tab-nav" role="tablist">
+  <button class="tab-btn active" data-tab="tablero" role="tab">&#9632; Tablero de Jobs</button>
+  <button class="tab-btn" data-tab="detalle" role="tab">&#9654; Ficha de Job</button>
+  <button class="tab-btn" data-tab="cotizacion" role="tab">&#9998; Nueva Cotizaci&oacute;n</button>
+  <button class="tab-btn" data-tab="reportes" role="tab">&#128269; B&uacute;squeda y Reportes</button>
+</div>
+
+<!-- ===================================================
+     VISTA 1: TABLERO DE JOBS
+     =================================================== -->
+<div class="view active" id="view-tablero">
+
+  <div class="kpi-grid" style="margin-top:16px;">
+    <div class="kpi-card">
+      <div class="kpi-value">9</div>
+      <div class="kpi-label">Jobs activos</div>
+    </div>
+    <div class="kpi-card kpi-alert">
+      <div class="kpi-value" id="kpi-alert-count">1</div>
+      <div class="kpi-label">Sin actualizaci&oacute;n &gt;5 d&iacute;as</div>
+    </div>
+    <div class="kpi-card kpi-gold">
+      <div class="kpi-value">3</div>
+      <div class="kpi-label">Entregas esta semana</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">2</div>
+      <div class="kpi-label">Blueprints pendientes</div>
+    </div>
+  </div>
+
+  <div id="alert-banner" class="alert-box">
+    <strong>&#9888; Alerta de lead time:</strong> El job <strong>#EF-0847</strong> lleva <strong>7 d&iacute;as sin actualizaci&oacute;n</strong> en Fabricaci&oacute;n. Riesgo de entrega fuera de plazo.
+    <button class="btn btn-danger" style="margin-top:8px;font-size:0.75rem;padding:4px 10px;" onclick="resolveAlert()">Marcar como revisado</button>
+  </div>
+
+  <div class="card" style="padding:0; overflow:hidden;">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid #f3f4f6;">
+      <span style="font-weight:700; font-size:0.9rem; color:var(--navy);">Jobs Activos — Ambas Instalaciones</span>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span class="facility-h">Hollister Rd</span>
+        <span class="facility-p">Packard St</span>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="jobs-table" id="jobs-table">
+        <thead>
+          <tr>
+            <th>Job #</th>
+            <th>Cliente / Proyecto</th>
+            <th class="hide-sm">Producto</th>
+            <th class="hide-sm">Material</th>
+            <th>Etapa</th>
+            <th>Instalaci&oacute;n</th>
+            <th class="hide-sm">&Uacute;lt. mov.</th>
+            <th>Acci&oacute;n</th>
+          </tr>
+        </thead>
+        <tbody id="jobs-tbody">
+          <!-- generado por JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p style="font-size:0.75rem; color:#9ca3af; text-align:center; margin-top:8px;">
+    Haga clic en <strong>"Ver ficha"</strong> para abrir el historial completo de un job.
+  </p>
+</div>
+
+<!-- ===================================================
+     VISTA 2: FICHA DE JOB (detalle)
+     =================================================== -->
+<div class="view" id="view-detalle">
+
+  <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+    <button class="btn btn-ghost" onclick="switchTab('tablero')" style="font-size:0.78rem; padding:6px 12px;">&#8592; Volver al tablero</button>
+    <span id="detail-job-id" style="font-family:monospace; font-weight:800; font-size:1rem; color:var(--navy);">#EF-0839</span>
+    <span id="detail-status-chip" class="chip chip-fab">Fabricaci&oacute;n</span>
+    <span id="detail-facility-chip" class="facility-h">Hollister Rd</span>
+  </div>
+
+  <!-- Barra de progreso de etapas -->
+  <div class="stage-bar" id="stage-bar">
+    <div class="stage-seg done">Blueprint</div>
+    <div class="stage-seg current">Fabricaci&oacute;n</div>
+    <div class="stage-seg">QC</div>
+    <div class="stage-seg">Agrupado</div>
+    <div class="stage-seg">Entregado</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;" class="detail-grid">
+
+    <div>
+      <div class="card">
+        <div class="detail-section">
+          <h3>Especificaciones del Job</h3>
+          <div class="detail-row"><span class="detail-label">Tipo de trabajo</span><span class="detail-value" id="d-tipo">Mass production</span></div>
+          <div class="detail-row"><span class="detail-label">Producto</span><span class="detail-value" id="d-producto">Rectangular duct 24x12x48"</span></div>
+          <div class="detail-row"><span class="detail-label">Material</span><span class="detail-value" id="d-material">G90 galvanized 26GA</span></div>
+          <div class="detail-row"><span class="detail-label">Cantidad</span><span class="detail-value" id="d-qty">40 piezas</span></div>
+          <div class="detail-row"><span class="detail-label">Aislamiento</span><span class="detail-value" id="d-insulated">Non-insulated</span></div>
+          <div class="detail-row"><span class="detail-label">SMANCA code</span><span class="detail-value" id="d-smanca">Conforme</span></div>
+          <div class="detail-row"><span class="detail-label">Scope</span><span class="detail-value" id="d-scope">Blueprint aprobado</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="detail-section">
+          <h3>Cliente y Entrega</h3>
+          <div class="detail-row"><span class="detail-label">Cliente</span><span class="detail-value" id="d-cliente">Contractor A</span></div>
+          <div class="detail-row"><span class="detail-label">Proyecto</span><span class="detail-value" id="d-proyecto">Houston Medical Center</span></div>
+          <div class="detail-row"><span class="detail-label">Fecha de pedido</span><span class="detail-value" id="d-pedido">12 jul 2026</span></div>
+          <div class="detail-row"><span class="detail-label">Entrega prometida</span><span class="detail-value" id="d-entrega">28 jul 2026</span></div>
+          <div class="detail-row"><span class="detail-label">On-time status</span><span class="detail-value" style="color:#16a34a;" id="d-ontime">En plazo &#10003;</span></div>
+          <div class="detail-row"><span class="detail-label">Instalaci&oacute;n</span><span class="detail-value" id="d-facility">Hollister Rd · 4065</span></div>
+          <div class="detail-row"><span class="detail-label">Fabricator asignado</span><span class="detail-value" id="d-fabricator">Juan M.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="detail-section">
+          <h3>Historial de Actividad</h3>
+          <div class="timeline" id="detail-timeline">
+            <!-- generado por JS -->
+          </div>
+        </div>
+        <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="btn-advance-stage" onclick="advanceStage()">
+            &#8594; Avanzar a QC
+          </button>
+          <button class="btn btn-ghost" onclick="addNote()">+ Nota</button>
+        </div>
+      </div>
+
+      <div class="card" style="background:#f0fdf4; border:1.5px solid #86efac;">
+        <div class="card-title" style="color:#166534;">Notificaci&oacute;n autom&aacute;tica al cliente</div>
+        <p style="font-size:0.82rem; color:#15803d; margin:0 0 10px;">
+          Cuando el job avance a <strong>QC</strong>, el sistema env&iacute;a autom&aacute;ticamente un aviso al cliente con el estimado de entrega. Sin llamadas manuales.
+        </p>
+        <div style="background:#fff; border-radius:6px; padding:10px 12px; font-size:0.78rem; color:#374151; border:1px solid #bbf7d0;">
+          <strong>Vista previa del mensaje:</strong><br/>
+          <em>"Su pedido #EF-0839 (40 ducts 24x12x48") ingres&oacute; a Control de Calidad. Entrega estimada: 28 jul 2026. &mdash; Ironline Metal Products"</em>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <style>
+    @media (max-width: 640px) {
+      .detail-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</div>
+
+<!-- ===================================================
+     VISTA 3: COTIZACION (dolor principal)
+     =================================================== -->
+<div class="view" id="view-cotizacion">
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;" class="pain-grid">
+    <div class="pain-before">
+      <div class="pain-label pain-label-before">Sin sistema &mdash; flujo manual hoy</div>
+      <div class="pain-item"><span>&#10005;</span><span>Cliente llama o escribe al inbox corporativo con su pedido</span></div>
+      <div class="pain-item"><span>&#10005;</span><span>El equipo de gesti&oacute;n o el fabricator senior reconstruyen las specs del job anterior desde memoria o archivos locales</span></div>
+      <div class="pain-item"><span>&#10005;</span><span>El equipo reconstruye las especificaciones manualmente y emite una cotizaci&oacute;n sin proceso estandarizado ni trazabilidad</span></div>
+      <div class="pain-item"><span>&#10005;</span><span>El cliente espera d&iacute;as para recibir un n&uacute;mero</span></div>
+      <div class="pain-item"><span>&#10005;</span><span>Si el cliente pregunta por su cotizaci&oacute;n, alguien tiene que recordarla</span></div>
+      <div class="pain-item"><span>&#10005;</span><span>La aprobaci&oacute;n es verbal &mdash; sin rastro escrito</span></div>
+    </div>
+    <div class="pain-after">
+      <div class="pain-label pain-label-after">Con su sistema &mdash; concepto a cotizaci&oacute;n en minutos</div>
+      <div class="pain-item"><span>&#10003;</span><span>Formulario de specs estandarizado &mdash; mismo proceso cada vez</span></div>
+      <div class="pain-item"><span>&#10003;</span><span>El sistema calcula con sus materiales y calibres reales</span></div>
+      <div class="pain-item"><span>&#10003;</span><span>Cotizaci&oacute;n formal generada autom&aacute;ticamente</span></div>
+      <div class="pain-item"><span>&#10003;</span><span>El cliente la recibe en minutos y aprueba con un clic</span></div>
+      <div class="pain-item"><span>&#10003;</span><span>Al aprobar, el job abre solo en el tablero de Hollister o Packard</span></div>
+      <div class="pain-item"><span>&#10003;</span><span>Historial completo, trazable, sin depender de la memoria de nadie</span></div>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 640px) { .pain-grid { grid-template-columns: 1fr !important; } }
+  </style>
+
+  <div class="card" id="quote-form-card">
+    <div style="font-weight:700; font-size:0.95rem; color:var(--navy); margin-bottom:14px;">
+      &#9998; Nueva Cotizaci&oacute;n de Custom Fabrication
+    </div>
+
+    <div id="quote-form-body">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;" class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Cliente / Proyecto</label>
+          <input type="text" class="form-control" id="q-cliente" placeholder="Ej. Commercial Client &mdash; Proyecto Retail Houston" value="" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tipo de trabajo</label>
+          <select class="form-control" id="q-tipo">
+            <option>Punch list item</option>
+            <option selected>Mass production</option>
+            <option>Blueprint estimating</option>
+            <option>Custom parts &mdash; one-off</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Producto</label>
+          <select class="form-control" id="q-producto">
+            <option>Rectangular duct</option>
+            <option>Elbow 90&deg;</option>
+            <option>Transition piece</option>
+            <option>Plenum box</option>
+            <option>Exhaust hood</option>
+            <option>Fire damper sleeve</option>
+            <option>Register boot</option>
+            <option>Round spiral duct</option>
+            <option>Grease duct</option>
+            <option>Roof curb custom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dimensiones</label>
+          <input type="text" class="form-control" id="q-dims" placeholder='Ej. 24x12x48"' value='24x12x48"' />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Material</label>
+          <select class="form-control" id="q-material">
+            <option selected>G90 galvanized steel</option>
+            <option>Black iron</option>
+            <option>Stainless steel</option>
+            <option>Aluminum</option>
+            <option>Paint grip</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Calibre (GA)</label>
+          <select class="form-control" id="q-ga">
+            <option>14GA</option>
+            <option>16GA</option>
+            <option>20GA</option>
+            <option>22GA</option>
+            <option>24GA</option>
+            <option selected>26GA</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cantidad</label>
+          <input type="number" class="form-control" id="q-qty" value="40" min="1" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Aislamiento</label>
+          <select class="form-control" id="q-ins">
+            <option selected>Non-insulated</option>
+            <option>Insulated &mdash; 1"</option>
+            <option>Insulated &mdash; 2"</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instalaci&oacute;n de producci&oacute;n</label>
+          <select class="form-control" id="q-facility">
+            <option>Hollister Rd &mdash; 4065</option>
+            <option>Packard St &mdash; 14105</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lead time solicitado</label>
+          <input type="text" class="form-control" id="q-lead" placeholder="Ej. 10 d&iacute;as h&aacute;biles" value="10 d&iacute;as h&aacute;biles" />
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:4px;">
+        <label class="form-label">Notas adicionales / project scope</label>
+        <textarea class="form-control" rows="2" placeholder="Specs adicionales, referencias de blueprint, condiciones de entrega..."></textarea>
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="generateQuote()" style="padding:10px 20px;">
+          &#9654; Generar cotizaci&oacute;n
+        </button>
+        <button class="btn btn-ghost" onclick="clearForm()">Limpiar</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="quote-success" id="quote-success">
+      <div class="check-circle">&#10003;</div>
+      <div style="font-size:1.05rem; font-weight:800; color:var(--navy); margin-bottom:6px;">Cotizaci&oacute;n #EF-Q-2026-047 generada</div>
+      <div style="font-size:0.83rem; color:#4b5563; margin-bottom:16px;">
+        La cotizaci&oacute;n fue enviada al cliente. En cuanto apruebe, el job abre autom&aacute;ticamente en el tablero de <strong>Hollister Rd</strong>.
+      </div>
+      <div style="background:var(--light); border-radius:8px; padding:14px; text-align:left; font-size:0.8rem; color:var(--dark); margin-bottom:16px;" id="quote-preview">
+        <!-- generado por JS -->
+      </div>
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="approveQuote()">&#10003; Simular aprobaci&oacute;n del cliente</button>
+        <button class="btn btn-ghost" onclick="resetQuote()">Nueva cotizaci&oacute;n</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr !important; } }
+  </style>
+</div>
+
+<!-- ===================================================
+     VISTA 4: BUSQUEDA Y REPORTES
+     =================================================== -->
+<div class="view" id="view-reportes">
+
+  <div class="card" style="margin-top:16px;">
+    <div style="font-weight:700; font-size:0.9rem; color:var(--navy); margin-bottom:10px;">&#128269; Buscar jobs por cliente, producto, material o etapa</div>
+    <input type="text" class="search-input" id="search-input" placeholder='Ej. "Contractor A", "26GA", "QC", "Packard"...' oninput="filterJobs()" />
+    <div style="font-size:0.73rem; color:#9ca3af; margin-top:6px;" id="search-count">Mostrando todos los jobs</div>
+  </div>
+
+  <div class="card" style="padding:0; overflow:hidden;">
+    <div style="padding:12px 16px; border-bottom:1px solid #f3f4f6; font-weight:700; font-size:0.85rem; color:var(--navy);">Resultados de b&uacute;squeda</div>
+    <div style="overflow-x:auto;">
+      <table class="jobs-table">
+        <thead>
+          <tr>
+            <th>Job #</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Material / GA</th>
+            <th>Etapa</th>
+            <th>Instalaci&oacute;n</th>
+            <th>&Uacute;lt. mov.</th>
+          </tr>
+        </thead>
+        <tbody id="search-tbody">
+          <!-- generado por JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:4px;">
+    <div class="card">
+      <div class="card-title">Resumen semanal</div>
+      <div class="detail-row"><span class="detail-label">Jobs activos</span><span class="detail-value">9</span></div>
+      <div class="detail-row"><span class="detail-label">Entregas esta semana</span><span class="detail-value" style="color:#16a34a;">3</span></div>
+      <div class="detail-row"><span class="detail-label">En riesgo de lead time</span><span class="detail-value" style="color:#dc2626;" id="risk-count">1</span></div>
+      <div class="detail-row"><span class="detail-label">Blueprints pendientes</span><span class="detail-value" style="color:#92400e;">2</span></div>
+      <div class="detail-row"><span class="detail-label">Promedio d&iacute;as en fab.</span><span class="detail-value">4.2 d&iacute;as</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Jobs por instalaci&oacute;n</div>
+      <div class="detail-row"><span class="detail-label">Hollister Rd</span><span class="detail-value"><span class="facility-h">5 jobs</span></span></div>
+      <div class="detail-row"><span class="detail-label">Packard St</span><span class="detail-value"><span class="facility-p">4 jobs</span></span></div>
+      <div class="detail-row" style="margin-top:8px;"><span class="detail-label">Capacidad Hollister</span><span class="detail-value">72%</span></div>
+      <div class="detail-row"><span class="detail-label">Capacidad Packard</span><span class="detail-value">58%</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Materiales en producci&oacute;n</div>
+      <div class="detail-row"><span class="detail-label">G90 galvanized</span><span class="detail-value">6 jobs</span></div>
+      <div class="detail-row"><span class="detail-label">Black iron</span><span class="detail-value">1 job</span></div>
+      <div class="detail-row"><span class="detail-label">Stainless steel</span><span class="detail-value">1 job</span></div>
+      <div class="detail-row"><span class="detail-label">Aluminum</span><span class="detail-value">1 job</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:4px; background:#fffbeb; border:1.5px solid #fde68a;">
+    <div class="card-title" style="color:#92400e;">Fragmento del tablero sin sistema digital visible &mdash; realidad actual</div>
+    <p style="font-size:0.82rem; color:#92400e; margin:0;">
+      Con un flujo manual, esta vista no existe. Para saber cu&aacute;ntos jobs hay activos en Packard St en este momento, alguien tiene que llamar o reconstruir el estado desde cero. <strong>Con su sistema, este panel se actualiza cada vez que un fabricator mueve un job &mdash; desde su tel&eacute;fono, en planta.</strong>
+    </p>
+  </div>
+
+</div>
+
+<!-- ===================================================
+     CTA FLOTANTE
+     =================================================== -->
+<button class="cta-float" onclick="openModal()">
+  <span>&#128197;</span> &iquest;Le gust&oacute;? Hablemos
+</button>
+
+<!-- ===================================================
+     MODAL GANADO
+     =================================================== -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
+    <div class="modal-accent"></div>
+    <div class="modal-title">Lo que acaba de ver puede ser suyo en semanas, no meses.</div>
+    <div class="modal-body">
+      Desde 2011, Ironline creci&oacute; de 5,000 a 30,000 pies cuadrados. El sistema que funcion&oacute; al principio ya no escala a dos instalaciones y m&uacute;ltiples fabricators.<br/><br/>
+      En una llamada le mostramos c&oacute;mo se ver&iacute;a su tablero real &mdash; con sus jobs, sus clientes y su vocabulario HVAC &mdash; construido a su medida.
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn btn-gold" style="padding:12px 20px; font-size:0.9rem;" onclick="goCalendly()">
+        &#128197; Agendar llamada
+      </button>
+      <button class="btn btn-ghost" onclick="closeModal()">Seguir viendo la demo</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast-msg"></div>
+
+<!-- FOOTER -->
+<footer style="background:#fff; border-top:1px solid #e5e7eb; padding:14px 20px; text-align:center; font-size:0.73rem; color:#9ca3af; margin-top:20px;">
+  Maqueta con datos de muestra. Construida por Pocho.tech &mdash; sistemas propios para negocios que ya funcionan.
+</footer>
+
+<!-- ===================================================
+     JAVASCRIPT
+     =================================================== -->
+<script>
+// -------------------------------------------------------
+// DATOS DE MUESTRA
+// -------------------------------------------------------
+const JOBS = [
+  { id: 'EF-0839', cliente: 'Contractor A', proyecto: 'Houston Medical Center', producto: 'Rectangular duct 24x12x48"', material: 'G90 galvanized 26GA', tipo: 'Mass production', qty: '40 pzas', insulated: 'Non-insulated', smanca: 'Conforme', scope: 'Blueprint aprobado', etapa: 'fab', facility: 'H', dias: 2, pedido: '12 jul 2026', entrega: '28 jul 2026', ontime: true, fabricator: 'Juan M.', timeline: [
+    { fecha: '12 jul', texto: 'Job abierto — blueprint recibido del cliente', tipo: 'normal' },
+    { fecha: '14 jul', texto: 'Blueprint aprobado — ingresa a Fabricación', tipo: 'gold' },
+    { fecha: '14 jul', texto: 'Notificación automática enviada al cliente', tipo: 'auto' },
+    { fecha: '22 jul', texto: 'Juan M. confirma: 28 de 40 piezas completadas', tipo: 'normal' },
+  ]},
+  { id: 'EF-0840', cliente: 'Commercial Client', proyecto: 'Retail Chain Houston', producto: 'Register boot 10x6"', material: 'Paint grip 26GA', tipo: 'Mass production', qty: '200 pzas', insulated: 'Non-insulated', smanca: 'Conforme', scope: 'Blueprint aprobado', etapa: 'qc', facility: 'H', dias: 1, pedido: '10 jul 2026', entrega: '25 jul 2026', ontime: true, fabricator: 'Pedro R.', timeline: [
+    { fecha: '10 jul', texto: 'Job abierto — cotización aprobada por cliente', tipo: 'normal' },
+    { fecha: '12 jul', texto: 'Fabricación iniciada — Pedro R. asignado', tipo: 'gold' },
+    { fecha: '21 jul', texto: 'Producción completada (200/200)', tipo: 'normal' },
+    { fecha: '24 jul', texto: 'Ingresó a Control de Calidad', tipo: 'gold' },
+    { fecha: '24 jul', texto: 'Aviso automático al cliente: "Su pedido está en QC"', tipo: 'auto' },
+  ]},
+  { id: 'EF-0841', cliente: 'Project Houston Logistics', proyecto: 'Warehouse HVAC Install', producto: 'Round spiral duct 8" x 10ft', material: 'G90 galvanized 26GA', tipo: 'Punch list item', qty: '15 pzas', insulated: 'Non-insulated', smanca: 'Conforme', scope: 'Blueprint aprobado', etapa: 'grouped', facility: 'H', dias: 0, pedido: '8 jul 2026', entrega: '26 jul 2026', ontime: true, fabricator: 'Carlos V.', timeline: [
+    { fecha: '8 jul', texto: 'Job abierto — punch list item', tipo: 'normal' },
+    { fecha: '10 jul', texto: 'Fabricación completada en 2 días', tipo: 'gold' },
+    { fecha: '18 jul', texto: 'QC aprobado', tipo: 'normal' },
+    { fecha: '23 jul', texto: 'Agrupado con EF-0843 para entrega conjunta', tipo: 'gold' },
+  ]},
+  { id: 'EF-0842', cliente: 'Commercial Client', proyecto: 'Restaurant Chain Expansion', producto: 'Grease duct 14x14x60"', material: 'Black iron 14GA', tipo: 'Custom parts', qty: '8 pzas', insulated: 'Non-insulated', smanca: 'Conforme', scope: 'Blueprint recibido', etapa: 'blueprint', facility: 'P', dias: 3, pedido: '18 jul 2026', entrega: '1 ago 2026', ontime: true, fabricator: 'Sin asignar', timeline: [
+    { fecha: '18 jul', texto: 'Blueprint recibido del cliente', tipo: 'normal' },
+    { fecha: '20 jul', texto: 'Revisado por equipo — specs SMANCA verificadas', tipo: 'normal' },
+    { fecha: '22 jul', texto: 'Cotización enviada al cliente — esperando aprobación', tipo: 'gold' },
+  ]},
+  { id: 'EF-0843', cliente: 'Project Houston Logistics', proyecto: 'Warehouse HVAC Install', producto: 'Elbow 90° 16x10"', material: 'G90 galvanized 24GA', tipo: 'Punch list item', qty: '12 pzas', insulated: 'Non-insulated', smanca: 'Conforme', scope: 'Blueprint aprobado', etapa: 'grouped', facility: 'H', dias: 0, pedido: '8 jul 2026', entrega: '26 jul 2026', ontime: true, fabricator: 'Juan M.', timeline: [
+    { fecha: '8 jul', texto: 'Job abierto junto a EF-0841', tipo: 'normal' },
+    { fecha: '14 jul', texto: 'Fabricación completada', tipo: 'gold' },
+    { fecha: '19 jul', texto: 'QC aprobado', tipo: 'normal' },
+    { fecha: '23 jul', texto: 'Agrupado con EF-0841 para entrega conjunta', tipo: 'gold' },
+  ]},
+  { id: 'EF-0844', cliente: 'Contractor B', proyecto: 'Office Tower HVAC', producto: 'Plenum box 36x24x18"', material: 'G90 galvanized 22GA', tipo: 'Custom parts', qty: '6 pzas', insulated: 'Insulated', smanca: 'Conforme', scope: 'Blueprint aprobado', etapa: 'fab', facility: 'P', dias: 4, pedido: '15 jul 2026', entrega: '30 jul 2026', ontime: true, fabricator: 'Miguel A.', timeline: [
+    { fecha: '15 jul', texto: 'Job abierto — cotización aprobada', tipo: 'normal' },
+    { fecha: '17 jul', texto: 'Blueprint finalizado — Miguel A. asignado', tipo: 'gold' },
+    { fecha: '20 jul', texto: 'Fabricación 3 de 6 piezas completadas', tipo: 'normal' },
+  ]},
+  { id: 'EF-0845', cliente: 'Commercial Client', proyecto: 'Healthcare Facility TX', producto: 'Fire damper sleeve 12x8"', material: 'Black iron 16GA', tipo: 'Custom parts', qty: '20 pzas', insulated: 'Non-insulated', smanca: 'Conforme', scope: 'Blueprint aprobado', etapa: 'delivered', facility: 'P', dias: 0, pedido: '1 jul 2026', entrega: '20 jul 2026', ontime: true, fabricator: 'Pedro R.', timeline: [
+    { fecha: '1 jul', texto: 'Job abierto', tipo: 'normal' },
+    { fecha: '10 jul', texto: 'Fabricación completada', tipo: 'gold' },
+    { fecha: '14 jul', texto: 'QC aprobado', tipo: 'normal' },
+    { fecha: '18 jul', texto: 'Agrupado para entrega', tipo: 'normal' },
+    { fecha: '20 jul', texto: 'Entregado on-time ✔', tipo: 'gold' },
+    { fecha: '20 jul', texto: 'Confirmación de recepción enviada al cliente', tipo: 'auto' },
+  ]},
+  { id: 'EF-0846', cliente: 'Contractor C', proyecto: 'Industrial HVAC Retrofit', producto: 'Volume damper 18x12"', material: 'Galvanized 24GA', tipo: 'Blueprint estimating', qty: '30 pzas', insulated: 'Insulated', smanca: 'Conforme', scope: 'Blueprint pendiente cliente', etapa: 'blueprint', facility: 'P', dias: 5, pedido: '14 jul 2026', entrega: '3 ago 2026', ontime: true, fabricator: 'Sin asignar', timeline: [
+    { fecha: '14 jul', texto: 'Solicitud recibida — inicio blueprint estimating', tipo: 'normal' },
+    { fecha: '16 jul', texto: 'Cotización enviada al cliente', tipo: 'gold' },
+    { fecha: '18 jul', texto: 'Cliente solicitó ajuste de specs', tipo: 'normal' },
+    { fecha: '21 jul', texto: 'Cotización revisada enviada — esperando aprobación', tipo: 'gold' },
+  ]},
+  { id: 'EF-0847', cliente: 'Contractor D', proyecto: 'Retail Expansion Phase 2', producto: 'Transition 24x12 to 16x10', material: 'G90 galvanized 26GA', tipo: 'Mass production', qty: '25 pzas', insulated: 'Non-insulated', smanca: 'Conforme', scope: 'Blueprint aprobado', etapa: 'fab', facility: 'H', dias: 7, pedido: '11 jul 2026', entrega: '27 jul 2026', ontime: false, fabricator: 'Carlos V.', timeline: [
+    { fecha: '11 jul', texto: 'Job abierto — blueprint aprobado', tipo: 'normal' },
+    { fecha: '13 jul', texto: 'Fabricación iniciada', tipo: 'gold' },
+    { fecha: '18 jul', texto: 'Carlos V.: 10 de 25 piezas listas', tipo: 'normal' },
+    { fecha: '18 jul', texto: '⚠️ Sin actualización desde hace 7 días — alerta generada', tipo: 'alert' },
+  ]},
+];
+
+const STAGE_LABELS = {
+  blueprint: 'Blueprint',
+  fab: 'Fabricación',
+  qc: 'QC',
+  grouped: 'Agrupado',
+  delivered: 'Entregado',
+};
+
+const STAGE_CHIPS = {
+  blueprint: 'chip-blueprint',
+  fab: 'chip-fab',
+  qc: 'chip-qc',
+  grouped: 'chip-grouped',
+  delivered: 'chip-delivered',
+};
+
+// -------------------------------------------------------
+// RENDER TABLERO
+// -------------------------------------------------------
+let currentDetailJob = null;
+let alertResolved = false;
+
+function daysLabel(dias, alert) {
+  if (alert) return `<span class="days-alert">${dias} días &#9888;</span>`;
+  if (dias >= 4) return `<span class="days-warning">${dias} días</span>`;
+  if (dias === 0) return `<span class="days-ago">Hoy</span>`;
+  return `<span class="days-ago">${dias} d${dias === 1 ? 'ía' : 'ías'}</span>`;
+}
+
+function facilityBadge(f) {
+  return f === 'H'
+    ? '<span class="facility-h">Hollister</span>'
+    : '<span class="facility-p">Packard</span>';
+}
+
+function renderTablero() {
+  const tbody = document.getElementById('jobs-tbody');
+  tbody.innerHTML = '';
+  const activeJobs = JOBS.filter(j => j.etapa !== 'delivered');
+  activeJobs.forEach(job => {
+    const isAlert = job.id === 'EF-0847' && !alertResolved;
+    const chipClass = isAlert ? 'chip-alert' : STAGE_CHIPS[job.etapa];
+    const chipLabel = isAlert ? 'Alerta' : STAGE_LABELS[job.etapa];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="job-id">#${job.id}</span></td>
+      <td><div class="job-desc">${job.cliente}</div><div style="font-size:0.73rem;color:#9ca3af;">${job.proyecto}</div></td>
+      <td class="hide-sm" style="max-width:180px;font-size:0.8rem;">${job.producto}</td>
+      <td class="hide-sm" style="font-size:0.78rem;color:#6b7280;">${job.material}</td>
+      <td><span class="chip ${chipClass}">${chipLabel}</span></td>
+      <td>${facilityBadge(job.facility)}</td>
+      <td class="hide-sm">${daysLabel(job.dias, isAlert)}</td>
+      <td><button class="btn btn-ghost" style="font-size:0.73rem;padding:4px 10px;" onclick="openDetail('${job.id}')">Ver ficha</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// -------------------------------------------------------
+// RENDER SEARCH
+// -------------------------------------------------------
+function renderSearch(filter) {
+  const tbody = document.getElementById('search-tbody');
+  tbody.innerHTML = '';
+  const q = (filter || '').toLowerCase().trim();
+  const filtered = JOBS.filter(j => {
+    if (!q) return true;
+    return (j.id + j.cliente + j.proyecto + j.producto + j.material + STAGE_LABELS[j.etapa] + (j.facility === 'H' ? 'hollister' : 'packard')).toLowerCase().includes(q);
+  });
+
+  document.getElementById('search-count').textContent =
+    q ? `${filtered.length} resultado${filtered.length !== 1 ? 's' : ''} para "${filter}"` : `Mostrando todos los ${JOBS.length} jobs`;
+
+  filtered.forEach(job => {
+    const isAlert = job.id === 'EF-0847' && !alertResolved;
+    const chipClass = isAlert ? 'chip-alert' : STAGE_CHIPS[job.etapa];
+    const chipLabel = isAlert ? 'Alerta' : STAGE_LABELS[job.etapa];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="job-id">#${job.id}</span></td>
+      <td>${job.cliente}<div style="font-size:0.72rem;color:#9ca3af;">${job.proyecto}</div></td>
+      <td style="font-size:0.8rem;">${job.producto}</td>
+      <td style="font-size:0.78rem;color:#6b7280;">${job.material}</td>
+      <td><span class="chip ${chipClass}">${chipLabel}</span></td>
+      <td>${facilityBadge(job.facility)}</td>
+      <td style="font-size:0.78rem;color:#6b7280;">${daysLabel(job.dias, isAlert)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function filterJobs() {
+  const q = document.getElementById('search-input').value;
+  renderSearch(q);
+}
+
+// -------------------------------------------------------
+// RENDER DETAIL
+// -------------------------------------------------------
+const STAGE_ORDER = ['blueprint', 'fab', 'qc', 'grouped', 'delivered'];
+
+function openDetail(jobId) {
+  const job = JOBS.find(j => j.id === jobId);
+  if (!job) return;
+  currentDetailJob = job;
+
+  document.getElementById('detail-job-id').textContent = '#' + job.id;
+
+  const sc = document.getElementById('detail-status-chip');
+  sc.className = 'chip ' + STAGE_CHIPS[job.etapa];
+  sc.textContent = STAGE_LABELS[job.etapa];
+
+  const fc = document.getElementById('detail-facility-chip');
+  fc.className = job.facility === 'H' ? 'facility-h' : 'facility-p';
+  fc.textContent = job.facility === 'H' ? 'Hollister Rd' : 'Packard St';
+
+  // Stage bar
+  renderStageBar(job.etapa);
+
+  // Fields
+  document.getElementById('d-tipo').textContent = job.tipo;
+  document.getElementById('d-producto').textContent = job.producto;
+  document.getElementById('d-material').textContent = job.material;
+  document.getElementById('d-qty').textContent = job.qty;
+  document.getElementById('d-insulated').textContent = job.insulated;
+  document.getElementById('d-smanca').textContent = job.smanca;
+  document.getElementById('d-scope').textContent = job.scope;
+  document.getElementById('d-cliente').textContent = job.cliente;
+  document.getElementById('d-proyecto').textContent = job.proyecto;
+  document.getElementById('d-pedido').textContent = job.pedido;
+  document.getElementById('d-entrega').textContent = job.entrega;
+  document.getElementById('d-ontime').innerHTML = job.ontime ? '<span style="color:#16a34a;">En plazo ✓</span>' : '<span style="color:#dc2626;">⚠️ Riesgo de atraso</span>';
+  document.getElementById('d-facility').textContent = job.facility === 'H' ? 'Hollister Rd · 4065' : 'Packard St · 14105';
+  document.getElementById('d-fabricator').textContent = job.fabricator;
+
+  // Timeline
+  renderTimeline(job.timeline);
+
+  // Advance button
+  const nextIdx = STAGE_ORDER.indexOf(job.etapa) + 1;
+  const btn = document.getElementById('btn-advance-stage');
+  if (nextIdx < STAGE_ORDER.length) {
+    btn.textContent = '→ Avanzar a ' + STAGE_LABELS[STAGE_ORDER[nextIdx]];
+    btn.style.display = '';
+  } else {
+    btn.style.display = 'none';
+  }
+
+  switchTab('detalle');
+}
+
+function renderStageBar(currentStage) {
+  const bar = document.getElementById('stage-bar');
+  bar.innerHTML = '';
+  const stages = ['blueprint', 'fab', 'qc', 'grouped', 'delivered'];
+  const labels = ['Blueprint', 'Fabricación', 'QC', 'Agrupado', 'Entregado'];
+  const currentIdx = stages.indexOf(currentStage);
+  stages.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'stage-seg' + (i < currentIdx ? ' done' : i === currentIdx ? ' current' : '');
+    div.textContent = labels[i];
+    bar.appendChild(div);
+  });
+}
+
+function renderTimeline(events) {
+  const tl = document.getElementById('detail-timeline');
+  tl.innerHTML = '';
+  events.forEach(ev => {
+    const div = document.createElement('div');
+    div.className = 'tl-event';
+    const dotClass = ev.tipo === 'gold' ? 'gold' : ev.tipo === 'alert' ? 'red' : ev.tipo === 'auto' ? 'gold' : '';
+    const autoTag = ev.tipo === 'auto' ? '<div class="tl-auto">⚡ Enviado automáticamente por el sistema</div>' : '';
+    div.innerHTML = `<div class="tl-dot ${dotClass}"></div>
+      <div class="tl-date">${ev.fecha}</div>
+      <div class="tl-text">${ev.texto}</div>
+      ${autoTag}`;
+    tl.appendChild(div);
+  });
+}
+
+// -------------------------------------------------------
+// INTERACCION: AVANZAR ETAPA
+// -------------------------------------------------------
+function advanceStage() {
+  if (!currentDetailJob) return;
+  const idx = STAGE_ORDER.indexOf(currentDetailJob.etapa);
+  if (idx >= STAGE_ORDER.length - 1) return;
+
+  const nextStage = STAGE_ORDER[idx + 1];
+  currentDetailJob.etapa = nextStage;
+
+  // Add to timeline
+  const today = '26 jul';
+  const newEvent = { fecha: today, texto: `Avanzado a ${STAGE_LABELS[nextStage]} por el equipo de gestión`, tipo: 'gold' };
+  currentDetailJob.timeline.push(newEvent);
+
+  if (nextStage === 'qc') {
+    currentDetailJob.timeline.push({ fecha: today, texto: 'Notificación enviada al cliente: "Su pedido está en Control de Calidad"', tipo: 'auto' });
+  } else if (nextStage === 'delivered') {
+    currentDetailJob.timeline.push({ fecha: today, texto: 'Confirmación de entrega enviada al cliente — on-time ✔', tipo: 'auto' });
+  }
+
+  // If was alert job, clear alert
+  if (currentDetailJob.id === 'EF-0847') {
+    alertResolved = true;
+    currentDetailJob.dias = 0;
+    document.getElementById('alert-banner').style.display = 'none';
+    document.getElementById('kpi-alert-count').textContent = '0';
+    document.getElementById('risk-count').textContent = '0';
+  }
+
+  openDetail(currentDetailJob.id);
+  showToast('✓ Job <span class="gold">#' + currentDetailJob.id + '</span> avanzado a ' + STAGE_LABELS[nextStage]);
+  renderTablero();
+}
+
+function addNote() {
+  if (!currentDetailJob) return;
+  const note = { fecha: '26 jul', texto: 'Nota agregada: fabricator confirmó especificaciones con el equipo de gestión', tipo: 'normal' };
+  currentDetailJob.timeline.push(note);
+  renderTimeline(currentDetailJob.timeline);
+  showToast('Nota guardada en el historial');
+}
+
+// -------------------------------------------------------
+// ALERTA
+// -------------------------------------------------------
+function resolveAlert() {
+  alertResolved = true;
+  document.getElementById('alert-banner').style.display = 'none';
+  document.getElementById('kpi-alert-count').textContent = '0';
+  document.getElementById('risk-count').textContent = '0';
+  const job = JOBS.find(j => j.id === 'EF-0847');
+  if (job) {
+    job.timeline.push({ fecha: '26 jul', texto: 'Alerta revisada — equipo de gestión notificado', tipo: 'gold' });
+  }
+  renderTablero();
+  showToast('Alerta marcada como revisada. Equipo notificado.');
+}
+
+// -------------------------------------------------------
+// COTIZACION
+// -------------------------------------------------------
+function generateQuote() {
+  const cliente = document.getElementById('q-cliente').value.trim() || 'Commercial Client';
+  const tipo = document.getElementById('q-tipo').value;
+  const producto = document.getElementById('q-producto').value;
+  const dims = document.getElementById('q-dims').value;
+  const material = document.getElementById('q-material').value;
+  const ga = document.getElementById('q-ga').value;
+  const qty = document.getElementById('q-qty').value;
+  const ins = document.getElementById('q-ins').value;
+  const facility = document.getElementById('q-facility').value;
+  const lead = document.getElementById('q-lead').value;
+
+  document.getElementById('quote-form-body').style.display = 'none';
+  document.getElementById('quote-success').style.display = 'block';
+
+  const preview = document.getElementById('quote-preview');
+  preview.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;">
+      <tr><td style="color:#6b7280;padding:4px 0;width:50%;">Cotización #</td><td style="font-weight:700;">EF-Q-2026-047</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Cliente</td><td style="font-weight:600;">${cliente}</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Tipo</td><td>${tipo}</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Producto</td><td>${producto} ${dims}</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Material / GA</td><td>${material} · ${ga}</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Cantidad</td><td>${qty} piezas</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Aislamiento</td><td>${ins}</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Instalación</td><td>${facility}</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Lead time</td><td>${lead}</td></tr>
+      <tr><td style="color:#6b7280;padding:4px 0;">Estado</td><td><span style="color:#16a34a;font-weight:700;">Enviada al cliente — pendiente aprobación</span></td></tr>
+    </table>
+  `;
+}
+
+function approveQuote() {
+  // Add to jobs list
+  const newJob = {
+    id: 'EF-0850', cliente: document.getElementById('q-cliente').value.trim() || 'Commercial Client',
+    proyecto: 'Nuevo proyecto', producto: document.getElementById('q-producto').value + ' ' + document.getElementById('q-dims').value,
+    material: document.getElementById('q-material').value + ' ' + document.getElementById('q-ga').value,
+    tipo: document.getElementById('q-tipo').value, qty: document.getElementById('q-qty').value + ' pzas',
+    insulated: document.getElementById('q-ins').value, smanca: 'Conforme', scope: 'Cotización aprobada',
+    etapa: 'blueprint', facility: document.getElementById('q-facility').value.includes('Hollister') ? 'H' : 'P',
+    dias: 0, pedido: '26 jul 2026', entrega: 'Por definir', ontime: true, fabricator: 'Sin asignar',
+    timeline: [
+      { fecha: '26 jul', texto: 'Cotización aprobada por el cliente', tipo: 'gold' },
+      { fecha: '26 jul', texto: 'Job #EF-0850 abierto automáticamente en el tablero', tipo: 'auto' },
+    ]
+  };
+  JOBS.push(newJob);
+  renderTablero();
+  renderSearch('');
+  showToast('✓ Job <span class="gold">#EF-0850</span> abierto en el tablero — Blueprint');
+  setTimeout(() => switchTab('tablero'), 1200);
+}
+
+function resetQuote() {
+  document.getElementById('quote-form-body').style.display = '';
+  document.getElementById('quote-success').style.display = 'none';
+}
+
+function clearForm() {
+  document.getElementById('q-cliente').value = '';
+  document.getElementById('q-dims').value = '';
+  document.getElementById('q-qty').value = '1';
+}
+
+// -------------------------------------------------------
+// TAB NAVIGATION
+// -------------------------------------------------------
+let viewCount = 1; // empieza en 1 por la vista inicial
+
+function switchTab(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
+  const btn = document.querySelector(`[data-tab="${tabId}"]`);
+  if (btn) btn.classList.add('active');
+  const view = document.getElementById('view-' + tabId);
+  if (view) view.classList.add('active');
+
+  // Contar vistas distintas para trigger del modal
+  if (tabId !== 'tablero' || viewCount === 1) {
+    viewCount++;
+    checkModalTrigger();
+  }
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
+
+// -------------------------------------------------------
+// MODAL GANADO
+// -------------------------------------------------------
+const CALENDLY_URL = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=eliteformmetalpr';
+let modalShown = false;
+
+function checkModalTrigger() {
+  if (modalShown) return;
+  if (sessionStorage.getItem('ef_modal_shown')) { modalShown = true; return; }
+  if (viewCount >= 3) openModal();
+}
+
+function openModal() {
+  if (modalShown) {
+    window.open(CALENDLY_URL, '_blank', 'noopener');
+    return;
+  }
+  document.getElementById('modal-overlay').classList.add('open');
+  sessionStorage.setItem('ef_modal_shown', '1');
+  modalShown = true;
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function goCalendly() {
+  window.open(CALENDLY_URL, '_blank', 'noopener');
+  closeModal();
+}
+
+// Timer: 75 segundos
+setTimeout(() => {
+  if (!modalShown && !sessionStorage.getItem('ef_modal_shown')) openModal();
+}, 75000);
+
+// Click fuera del modal
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// -------------------------------------------------------
+// TOAST
+// -------------------------------------------------------
+let toastTimer = null;
+function showToast(html) {
+  const t = document.getElementById('toast-msg');
+  t.innerHTML = html;
+  t.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// -------------------------------------------------------
+// INIT
+// -------------------------------------------------------
+renderTablero();
+renderSearch('');
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

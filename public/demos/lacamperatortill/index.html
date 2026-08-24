@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tortillería La Vega — Portal B2B | Demo Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#E8591A',
+              yellow: '#F5C518',
+              terra:  '#8B3A0F',
+              dark:   '#1A1A1A',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ---- tipografía base ---- */
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #F7F4F0; color: #1A1A1A; }
+
+    /* ---- badge demo ---- */
+    .demo-badge {
+      position: fixed; top: 12px; right: 12px; z-index: 999;
+      background: #F5C518; color: #1A1A1A;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      padding: 4px 10px; border-radius: 99px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+    }
+
+    /* ---- tabs ---- */
+    .tab-btn {
+      padding: 10px 18px; font-size: 14px; font-weight: 600;
+      border-radius: 8px 8px 0 0; cursor: pointer;
+      transition: background .15s, color .15s;
+      border: none; background: transparent; color: #6B5F58;
+    }
+    .tab-btn.active {
+      background: #fff; color: #E8591A; border-bottom: 2px solid #E8591A;
+    }
+    .tab-btn:hover:not(.active) { background: rgba(232,89,26,.07); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ---- badges de estado ---- */
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      padding: 2px 8px; border-radius: 99px; letter-spacing: .04em;
+    }
+    .badge-pendiente  { background: #FEF3C7; color: #92400E; }
+    .badge-confirmado { background: #D1FAE5; color: #065F46; }
+    .badge-enviado    { background: #DBEAFE; color: #1E40AF; }
+    .badge-entregado  { background: #E0E7FF; color: #3730A3; }
+    .badge-revision   { background: #FFE4E6; color: #9F1239; }
+
+    /* ---- card de orden ---- */
+    .order-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 120px 90px 90px 100px;
+      gap: 10px; align-items: center;
+      padding: 14px 18px; border-bottom: 1px solid #EDE8E3;
+      transition: background .12s;
+    }
+    .order-row:hover { background: #FFF7F4; cursor: pointer; }
+    @media(max-width:768px){
+      .order-row { grid-template-columns: 1fr 1fr; gap:6px; }
+    }
+
+    /* ---- panel de detalle ---- */
+    #detail-panel {
+      display: none; position: fixed; top: 0; right: 0;
+      width: min(480px, 100vw); height: 100vh;
+      background: #fff; border-left: 2px solid #EDE8E3;
+      overflow-y: auto; z-index: 500;
+      box-shadow: -4px 0 24px rgba(0,0,0,.12);
+      padding: 28px 24px;
+    }
+
+    /* ---- modal ganado ---- */
+    #modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(26,26,26,.55); z-index: 800;
+      align-items: center; justify-content: center;
+    }
+    #modal-overlay.show { display: flex; }
+    #modal-box {
+      background: #fff; border-radius: 16px;
+      padding: 36px 32px; max-width: 440px; width: 94%;
+      box-shadow: 0 8px 40px rgba(0,0,0,.22);
+      text-align: center; position: relative;
+    }
+
+    /* ---- CTA flotante ---- */
+    #cta-float {
+      position: fixed; bottom: 24px; right: 20px; z-index: 700;
+      background: #E8591A; color: #fff;
+      font-size: 15px; font-weight: 700;
+      padding: 14px 22px; border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(232,89,26,.45);
+      cursor: pointer; border: none;
+      transition: transform .15s, box-shadow .15s;
+    }
+    #cta-float:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(232,89,26,.55); }
+
+    /* ---- drama section ---- */
+    .pain-block {
+      border-left: 4px solid #E8591A;
+      background: #fff; border-radius: 0 12px 12px 0;
+      padding: 20px 20px 20px 22px; margin-bottom: 16px;
+    }
+
+    /* ---- timeline historial ---- */
+    .timeline-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #E8591A; flex-shrink: 0; margin-top: 4px;
+    }
+    .timeline-line {
+      width: 2px; background: #EDE8E3; flex-shrink: 0;
+      margin: 0 5px; min-height: 32px;
+    }
+
+    /* ---- tabla reporte ---- */
+    .report-table th {
+      background: #F5C518; color: #1A1A1A;
+      padding: 10px 14px; text-align: left; font-size: 13px;
+    }
+    .report-table td {
+      padding: 10px 14px; font-size: 13px;
+      border-bottom: 1px solid #EDE8E3;
+    }
+    .report-table tr:hover td { background: #FFF7F4; }
+
+    /* ---- animacion fade ---- */
+    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+    .fade-in { animation: fadeIn .25s ease; }
+
+    /* ---- scroll suave ---- */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+
+<!-- BADGE FIJO -->
+<span class="demo-badge">DEMO · datos de muestra</span>
+
+<!-- ======================================================
+     HEADER
+====================================================== -->
+<header style="background:#8B3A0F;" class="text-white">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>
+      <h1 class="text-xl font-bold tracking-wide" style="letter-spacing:.04em;">
+        TORTILLERÍA LA VEGA
+      </h1>
+      <p class="text-sm mt-0.5" style="color:#F5C518; font-style:italic;">
+        Así se vería su sistema propio — preparado por Pocho.tech
+      </p>
+    </div>
+    <div class="text-right text-sm opacity-80">
+      Portal B2B · Pedidos Comerciales
+    </div>
+  </div>
+</header>
+
+<!-- ======================================================
+     BARRA DE TABS
+====================================================== -->
+<div class="max-w-6xl mx-auto px-4 mt-4">
+  <div class="flex gap-1 border-b border-gray-200 overflow-x-auto">
+    <button class="tab-btn active" onclick="switchTab('tablero',this)">
+      📋 Tablero de Pedidos
+    </button>
+    <button class="tab-btn" onclick="switchTab('detalle',this)">
+      📄 Detalle de Orden
+    </button>
+    <button class="tab-btn" onclick="switchTab('drama',this)">
+      ⚡ Antes vs. Ahora
+    </button>
+    <button class="tab-btn" onclick="switchTab('reporte',this)">
+      📊 Búsqueda y Reporte
+    </button>
+  </div>
+</div>
+
+<!-- ======================================================
+     PANEL 1 — TABLERO DE PEDIDOS (vista operación diaria)
+====================================================== -->
+<div id="tab-tablero" class="tab-panel active max-w-6xl mx-auto px-4 py-6 fade-in">
+
+  <!-- Métricas rápidas -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+      <p class="text-xs text-gray-500 uppercase tracking-wide">Pedidos esta semana</p>
+      <p class="text-3xl font-bold mt-1" style="color:#E8591A;">34</p>
+    </div>
+    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+      <p class="text-xs text-gray-500 uppercase tracking-wide">Pendientes de confirmar</p>
+      <p class="text-3xl font-bold mt-1 text-amber-600">8</p>
+    </div>
+    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+      <p class="text-xs text-gray-500 uppercase tracking-wide">En camino hoy</p>
+      <p class="text-3xl font-bold mt-1 text-blue-600">5</p>
+    </div>
+    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+      <p class="text-xs text-gray-500 uppercase tracking-wide">Entregados este mes</p>
+      <p class="text-3xl font-bold mt-1 text-indigo-600">127</p>
+    </div>
+  </div>
+
+  <!-- Alerta accionable (simulación) -->
+  <div id="alert-box" class="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3">
+    <span class="text-amber-500 text-xl">⚠️</span>
+    <div class="flex-1">
+      <p class="font-semibold text-amber-800 text-sm">2 pedidos llevan más de 4 horas sin confirmación</p>
+      <p class="text-xs text-amber-700 mt-0.5">ORD-2071 (Restaurante El Patrón) y ORD-2068 (Distribuidora Ríos) esperan su aprobación.</p>
+    </div>
+    <button onclick="confirmarAlerta()" class="text-xs font-bold px-3 py-1.5 rounded-lg text-white flex-shrink-0" style="background:#E8591A;">
+      Confirmar ORD-2071
+    </button>
+  </div>
+
+  <!-- Tabla de órdenes -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+    <!-- Encabezado de tabla -->
+    <div class="order-row" style="background:#F7F4F0; font-size:12px; font-weight:700; color:#6B5F58; text-transform:uppercase; letter-spacing:.05em;">
+      <span>Nro. Orden</span>
+      <span>Cliente</span>
+      <span>Producto principal</span>
+      <span>Cajas</span>
+      <span>Estado</span>
+      <span>Entrega est.</span>
+    </div>
+
+    <!-- Filas -->
+    <div id="order-2071" class="order-row" onclick="abrirDetalle('2071')">
+      <span class="font-mono font-bold text-sm">ORD-2071</span>
+      <span>
+        <p class="font-semibold text-sm">Restaurante El Patrón</p>
+        <p class="text-xs text-gray-400">Houston, TX · Restaurante</p>
+      </span>
+      <span class="text-sm">Restaurant Corn Tortillas (200-ct case)</span>
+      <span class="text-sm font-semibold">12</span>
+      <span><span id="badge-2071" class="badge badge-pendiente">Pendiente</span></span>
+      <span class="text-sm text-gray-500">Lun 28 jul</span>
+    </div>
+
+    <div class="order-row" onclick="abrirDetalle('2070')">
+      <span class="font-mono font-bold text-sm">ORD-2070</span>
+      <span>
+        <p class="font-semibold text-sm">Tacos y Más LLC</p>
+        <p class="text-xs text-gray-400">Dallas, TX · Restaurante</p>
+      </span>
+      <span class="text-sm">Flour Tortilla - Restaurant Pack (144-ct case)</span>
+      <span class="text-sm font-semibold">8</span>
+      <span><span class="badge badge-confirmado">Confirmado</span></span>
+      <span class="text-sm text-gray-500">Lun 28 jul</span>
+    </div>
+
+    <div class="order-row" onclick="abrirDetalle('2069')">
+      <span class="font-mono font-bold text-sm">ORD-2069</span>
+      <span>
+        <p class="font-semibold text-sm">Distribuidora Hernández</p>
+        <p class="text-xs text-gray-400">San Antonio, TX · Distribuidor</p>
+      </span>
+      <span class="text-sm">White Corn Mini Taco Tortillas (100-ct bag)</span>
+      <span class="text-sm font-semibold">24</span>
+      <span><span class="badge badge-enviado">En camino</span></span>
+      <span class="text-sm text-gray-500">Hoy, 2:00 pm</span>
+    </div>
+
+    <div class="order-row" onclick="abrirDetalle('2068')">
+      <span class="font-mono font-bold text-sm">ORD-2068</span>
+      <span>
+        <p class="font-semibold text-sm">Distribuidora Ríos</p>
+        <p class="text-xs text-gray-400">Austin, TX · Distribuidor</p>
+      </span>
+      <span class="text-sm">Fajita Flour Tortillas (30-ct bag)</span>
+      <span class="text-sm font-semibold">40</span>
+      <span><span class="badge badge-pendiente">Pendiente</span></span>
+      <span class="text-sm text-gray-500">Mar 29 jul</span>
+    </div>
+
+    <div class="order-row" onclick="abrirDetalle('2067')">
+      <span class="font-mono font-bold text-sm">ORD-2067</span>
+      <span>
+        <p class="font-semibold text-sm">La Mesa Grande Rest.</p>
+        <p class="text-xs text-gray-400">Houston, TX · Restaurante</p>
+      </span>
+      <span class="text-sm">Yellow Corn Table Tortillas (50-ct bag)</span>
+      <span class="text-sm font-semibold">18</span>
+      <span><span class="badge badge-entregado">Entregado</span></span>
+      <span class="text-sm text-gray-500">Vie 25 jul ✓</span>
+    </div>
+
+    <div class="order-row" onclick="abrirDetalle('2066')">
+      <span class="font-mono font-bold text-sm">ORD-2066</span>
+      <span>
+        <p class="font-semibold text-sm">Cocina Auténtica Inc.</p>
+        <p class="text-xs text-gray-400">Houston, TX · Restaurante</p>
+      </span>
+      <span class="text-sm">Mini Taco Corn Tortillas - Case Pack (10×100-ct)</span>
+      <span class="text-sm font-semibold">6</span>
+      <span><span class="badge badge-revision">En revisión</span></span>
+      <span class="text-sm text-gray-500">Jue 31 jul</span>
+    </div>
+
+    <div class="order-row" onclick="abrirDetalle('2065')">
+      <span class="font-mono font-bold text-sm">ORD-2065</span>
+      <span>
+        <p class="font-semibold text-sm">Supermercado El Rancho</p>
+        <p class="text-xs text-gray-400">Laredo, TX · Distribuidor</p>
+      </span>
+      <span class="text-sm">8" Burrito Tortillas (20-ct bag)</span>
+      <span class="text-sm font-semibold">30</span>
+      <span><span class="badge badge-entregado">Entregado</span></span>
+      <span class="text-sm text-gray-500">Jue 24 jul ✓</span>
+    </div>
+
+    <div class="order-row" onclick="abrirDetalle('2064')">
+      <span class="font-mono font-bold text-sm">ORD-2064</span>
+      <span>
+        <p class="font-semibold text-sm">Taqueria San Marcos</p>
+        <p class="text-xs text-gray-400">Corpus Christi, TX · Restaurante</p>
+      </span>
+      <span class="text-sm">White Corn Taco Tortillas (30-ct bag)</span>
+      <span class="text-sm font-semibold">15</span>
+      <span><span class="badge badge-confirmado">Confirmado</span></span>
+      <span class="text-sm text-gray-500">Mar 29 jul</span>
+    </div>
+  </div>
+
+  <p class="text-xs text-gray-400 mt-3 text-right">Mostrando 8 de 34 pedidos de la semana · Haga clic en cualquier fila para ver el detalle</p>
+</div>
+
+
+<!-- ======================================================
+     PANEL 2 — DETALLE DE ORDEN + HISTORIAL
+====================================================== -->
+<div id="tab-detalle" class="tab-panel max-w-6xl mx-auto px-4 py-6 fade-in">
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Lista lateral rápida -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 lg:col-span-1 h-fit">
+      <h3 class="font-bold text-sm text-gray-500 uppercase tracking-wide mb-3">Órdenes recientes</h3>
+      <ul class="space-y-2">
+        <li onclick="mostrarFichaDetalle('2071')" id="ficha-li-2071"
+            class="cursor-pointer px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
+            style="background:#FFF0EB; color:#E8591A;">
+          ORD-2071 · El Patrón <span class="badge badge-pendiente ml-1">Pendiente</span>
+        </li>
+        <li onclick="mostrarFichaDetalle('2070')" id="ficha-li-2070"
+            class="cursor-pointer px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+          ORD-2070 · Tacos y Más <span class="badge badge-confirmado ml-1">Confirmado</span>
+        </li>
+        <li onclick="mostrarFichaDetalle('2069')" id="ficha-li-2069"
+            class="cursor-pointer px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+          ORD-2069 · Dist. Hernández <span class="badge badge-enviado ml-1">En camino</span>
+        </li>
+        <li onclick="mostrarFichaDetalle('2068')" id="ficha-li-2068"
+            class="cursor-pointer px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+          ORD-2068 · Dist. Ríos <span class="badge badge-pendiente ml-1">Pendiente</span>
+        </li>
+        <li onclick="mostrarFichaDetalle('2067')" id="ficha-li-2067"
+            class="cursor-pointer px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+          ORD-2067 · La Mesa Grande <span class="badge badge-entregado ml-1">Entregado</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Ficha de detalle -->
+    <div id="ficha-detalle" class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 lg:col-span-2">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <h2 class="text-xl font-bold" style="color:#8B3A0F;">ORD-2071</h2>
+          <p id="ficha-fecha" class="text-sm text-gray-500 mt-0.5">Creado: dom 27 jul 2026 · 9:14 pm · vía Portal B2B</p>
+        </div>
+        <span id="ficha-badge" class="badge badge-pendiente text-sm">Pendiente</span>
+      </div>
+
+      <!-- Datos del cliente -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+        <div class="rounded-xl p-4" style="background:#F7F4F0;">
+          <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-2">Cliente</p>
+          <p class="font-semibold">Restaurante El Patrón</p>
+          <p class="text-sm text-gray-500">Houston, TX</p>
+          <p class="text-sm text-gray-500">Tipo: Restaurante · Cliente desde 2022</p>
+          <p class="text-sm text-gray-500">Contacto: Chef Morales</p>
+        </div>
+        <div class="rounded-xl p-4" style="background:#F7F4F0;">
+          <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-2">Logística</p>
+          <p class="text-sm">📍 Entrega: 4521 Navigation Blvd, Houston</p>
+          <p class="text-sm mt-1">📅 Entrega estimada: lun 28 jul, antes de mediodía</p>
+          <p class="text-sm mt-1">🚚 Ruta: Houston Sur · Chofer asignado</p>
+        </div>
+      </div>
+
+      <!-- Productos de la orden -->
+      <div class="mb-5">
+        <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-2">Productos solicitados</p>
+        <table class="w-full text-sm border border-gray-100 rounded-lg overflow-hidden">
+          <thead>
+            <tr style="background:#F5C518;">
+              <th class="text-left px-4 py-2 font-bold text-xs">Producto</th>
+              <th class="text-right px-4 py-2 font-bold text-xs">Unidades</th>
+              <th class="text-right px-4 py-2 font-bold text-xs">Cajas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-gray-100">
+              <td class="px-4 py-2">Restaurant Corn Tortillas (200-ct case)</td>
+              <td class="px-4 py-2 text-right">2,400 und.</td>
+              <td class="px-4 py-2 text-right font-semibold">12</td>
+            </tr>
+            <tr class="border-t border-gray-100" style="background:#FAFAFA;">
+              <td class="px-4 py-2">Totopos - Food Service Bag (2 lb)</td>
+              <td class="px-4 py-2 text-right">24 bolsas</td>
+              <td class="px-4 py-2 text-right font-semibold">2</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-xs text-gray-400 mt-1">Nota del cliente: "Para evento de quince, preferible entrega antes de las 10am."</p>
+      </div>
+
+      <!-- Historial / timeline -->
+      <div>
+        <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-3">Historial de la orden</p>
+        <div class="space-y-0">
+
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="pb-4">
+              <p class="text-sm font-semibold">Orden creada por el cliente</p>
+              <p class="text-xs text-gray-400">Dom 27 jul · 9:14 pm · Portal B2B</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="timeline-dot" style="background:#D97706;"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="pb-4">
+              <p class="text-sm font-semibold text-amber-700">⏳ Esperando confirmación del equipo</p>
+              <p class="text-xs text-gray-400">Dom 27 jul · 9:15 pm · Alerta enviada al operador</p>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <div class="flex flex-col items-center">
+              <div class="timeline-dot" style="background:#D1D5DB;"></div>
+            </div>
+            <div class="pb-4">
+              <p class="text-sm text-gray-400">Confirmación de disponibilidad de inventario</p>
+              <p class="text-xs text-gray-300">Pendiente</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acción -->
+      <div class="mt-4 flex gap-3 flex-wrap">
+        <button onclick="confirmarOrdenDetalle()" id="btn-confirmar-detalle"
+          class="px-5 py-2.5 rounded-xl text-white font-bold text-sm transition-all"
+          style="background:#E8591A;">
+          ✓ Confirmar orden
+        </button>
+        <button class="px-5 py-2.5 rounded-xl font-bold text-sm border border-gray-200 text-gray-600 hover:bg-gray-50 transition-all">
+          Imprimir orden
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ======================================================
+     PANEL 3 — ANTES VS. AHORA (drama del dolor)
+====================================================== -->
+<div id="tab-drama" class="tab-panel max-w-6xl mx-auto px-4 py-6 fade-in">
+
+  <div class="text-center mb-8">
+    <h2 class="text-2xl font-bold" style="color:#8B3A0F;">22 años de orgullo. Un sistema a la altura.</h2>
+    <p class="text-gray-500 mt-2 max-w-xl mx-auto text-sm">
+      Lo que hoy cuesta tiempo, errores y clientes perdidos — esto es lo que cambia con un sistema propio.
+    </p>
+  </div>
+
+  <!-- Dolor 1: Sin portal B2B -->
+  <div class="mb-8">
+    <h3 class="font-bold text-base mb-3 flex items-center gap-2" style="color:#E8591A;">
+      <span class="text-xl">📞</span> Pedido B2B: cómo es hoy vs. cómo sería
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="pain-block" style="border-color:#EF4444; background:#FFF5F5;">
+        <p class="text-xs font-bold uppercase tracking-wide text-red-500 mb-2">HOY — Sin portal B2B</p>
+        <p class="text-sm text-gray-700 mb-3">
+          Un chef en Dallas ve la línea de restaurante a las 9pm del domingo y quiere hacer un pedido para la semana.
+          Abre el sitio, encuentra un formulario con opciones de <strong>"Question / Comment / Product Availability"</strong>.
+        </p>
+        <p class="text-sm font-semibold text-red-700">
+          No puede hacer el pedido. Cierra la página. Llama al competidor que sí tiene portal. <span class="text-red-500">Usted pierde esa venta.</span>
+        </p>
+      </div>
+      <div class="pain-block" style="border-color:#10B981; background:#F0FDF4;">
+        <p class="text-xs font-bold uppercase tracking-wide text-emerald-600 mb-2">CON SU SISTEMA — Portal B2B propio</p>
+        <p class="text-sm text-gray-700 mb-3">
+          El mismo chef entra al portal a las 9pm. Selecciona <strong>Restaurant Corn Tortillas (200-ct case)</strong>,
+          indica cantidad, deja nota de entrega. El sistema registra la orden y envía confirmación automática.
+        </p>
+        <p class="text-sm font-semibold text-emerald-700">
+          La venta queda registrada. Usted la revisa el lunes por la mañana. El cliente ya recibió su número de orden.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dolor 2: Sin tracking -->
+  <div class="mb-8">
+    <h3 class="font-bold text-base mb-3 flex items-center gap-2" style="color:#E8591A;">
+      <span class="text-xl">📋</span> Seguimiento de pedidos: el costo invisible
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="pain-block" style="border-color:#EF4444; background:#FFF5F5;">
+        <p class="text-xs font-bold uppercase tracking-wide text-red-500 mb-2">HOY — Proceso manual</p>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>📞 El restaurante llama para hacer el pedido</li>
+          <li>📝 Alguien toma nota a mano o en Excel</li>
+          <li>📞 Si hay error, el chef llama de nuevo</li>
+          <li>🤷 No hay número de orden ni confirmación escrita</li>
+          <li>🔄 Cada pedido es una conversación nueva desde cero</li>
+        </ul>
+        <p class="text-sm font-semibold text-red-700 mt-3">
+          Ese costo de coordinación es invisible — hasta que se suma.
+        </p>
+      </div>
+      <div class="pain-block" style="border-color:#10B981; background:#F0FDF4;">
+        <p class="text-xs font-bold uppercase tracking-wide text-emerald-600 mb-2">CON SU SISTEMA — Trazabilidad completa</p>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>🖥️ El cliente hace el pedido desde el portal</li>
+          <li>✅ Se genera ORD-XXXX con confirmación automática</li>
+          <li>📦 El equipo ve el estado en tiempo real</li>
+          <li>🚚 El cliente consulta su entrega sin llamar</li>
+          <li>📊 Usted tiene historial completo por cliente</li>
+        </ul>
+        <p class="text-sm font-semibold text-emerald-700 mt-3">
+          Menos llamadas. Menos errores. Más ventas.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dolor 3: Presencia desconectada -->
+  <div class="mb-8">
+    <h3 class="font-bold text-base mb-3 flex items-center gap-2" style="color:#E8591A;">
+      <span class="text-xl">🌐</span> Su historia y su sistema: por fin conectados
+    </h3>
+    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+        <div>
+          <p class="text-4xl font-bold" style="color:#E8591A;">22</p>
+          <p class="text-sm text-gray-500 mt-1">años en el mercado con distribución nacional</p>
+        </div>
+        <div>
+          <p class="text-4xl font-bold" style="color:#F5C518;">20+</p>
+          <p class="text-sm text-gray-500 mt-1">productos en línea de restaurante y retail</p>
+        </div>
+        <div>
+          <p class="text-4xl font-bold" style="color:#8B3A0F;">$0</p>
+          <p class="text-sm text-gray-500 mt-1">en ventas B2B online capturadas hoy — eso cambia</p>
+        </div>
+      </div>
+      <div class="mt-6 pt-5 border-t border-gray-100">
+        <p class="text-sm text-center text-gray-600 max-w-2xl mx-auto">
+          El sitio vende la historia perfecta: <strong>22 años, orgullo hispano, distribución nacional.</strong>
+          Pero cuando el distribuidor quiere actuar, el único camino es un formulario de contacto genérico.
+          <strong style="color:#E8591A;">La historia y el sistema no están conectados.</strong> Eso es lo que construimos juntos.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ======================================================
+     PANEL 4 — BÚSQUEDA Y REPORTE
+====================================================== -->
+<div id="tab-reporte" class="tab-panel max-w-6xl mx-auto px-4 py-6 fade-in">
+
+  <!-- Barra de búsqueda / filtros -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">
+    <h3 class="font-bold text-sm text-gray-600 uppercase tracking-wide mb-4">Búsqueda de pedidos</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div>
+        <label class="text-xs text-gray-500 font-semibold block mb-1">Cliente / Empresa</label>
+        <input type="text" placeholder="Buscar cliente..." oninput="filtrarTabla()"
+          id="filtro-cliente"
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:border-transparent"
+          style="--tw-ring-color:#E8591A;" />
+      </div>
+      <div>
+        <label class="text-xs text-gray-500 font-semibold block mb-1">Estado</label>
+        <select oninput="filtrarTabla()" id="filtro-estado"
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none">
+          <option value="">Todos</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Confirmado">Confirmado</option>
+          <option value="En camino">En camino</option>
+          <option value="Entregado">Entregado</option>
+          <option value="En revisión">En revisión</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-gray-500 font-semibold block mb-1">Tipo de cliente</label>
+        <select id="filtro-tipo" oninput="filtrarTabla()"
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none">
+          <option value="">Todos</option>
+          <option value="Restaurante">Restaurante</option>
+          <option value="Distribuidor">Distribuidor</option>
+        </select>
+      </div>
+      <div>
+        <label class="text-xs text-gray-500 font-semibold block mb-1">Fecha de entrega</label>
+        <input type="date"
+          class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumen rápido por estado -->
+  <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+    <div class="bg-amber-50 rounded-xl p-3 text-center border border-amber-100">
+      <p class="text-2xl font-bold text-amber-700">8</p>
+      <p class="text-xs text-amber-600 mt-0.5">Pendientes</p>
+    </div>
+    <div class="bg-emerald-50 rounded-xl p-3 text-center border border-emerald-100">
+      <p class="text-2xl font-bold text-emerald-700">11</p>
+      <p class="text-xs text-emerald-600 mt-0.5">Confirmados</p>
+    </div>
+    <div class="bg-blue-50 rounded-xl p-3 text-center border border-blue-100">
+      <p class="text-2xl font-bold text-blue-700">5</p>
+      <p class="text-xs text-blue-600 mt-0.5">En camino</p>
+    </div>
+    <div class="bg-indigo-50 rounded-xl p-3 text-center border border-indigo-100">
+      <p class="text-2xl font-bold text-indigo-700">127</p>
+      <p class="text-xs text-indigo-600 mt-0.5">Entregados</p>
+    </div>
+    <div class="bg-rose-50 rounded-xl p-3 text-center border border-rose-100">
+      <p class="text-2xl font-bold text-rose-700">2</p>
+      <p class="text-xs text-rose-600 mt-0.5">En revisión</p>
+    </div>
+  </div>
+
+  <!-- Tabla de resultados filtrable -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+    <table class="w-full report-table" id="tabla-reporte">
+      <thead>
+        <tr>
+          <th>Orden</th>
+          <th>Cliente</th>
+          <th>Ciudad</th>
+          <th>Tipo</th>
+          <th>Producto</th>
+          <th>Cajas</th>
+          <th>Estado</th>
+          <th>Entrega</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-reporte">
+        <tr data-cliente="Restaurante El Patrón" data-estado="Pendiente" data-tipo="Restaurante">
+          <td class="font-mono font-bold">ORD-2071</td>
+          <td class="font-semibold">Restaurante El Patrón</td>
+          <td>Houston, TX</td>
+          <td>Restaurante</td>
+          <td>Restaurant Corn Tortillas</td>
+          <td class="text-right font-semibold">12</td>
+          <td><span class="badge badge-pendiente">Pendiente</span></td>
+          <td class="text-sm">28 jul</td>
+        </tr>
+        <tr data-cliente="Tacos y Más LLC" data-estado="Confirmado" data-tipo="Restaurante">
+          <td class="font-mono font-bold">ORD-2070</td>
+          <td class="font-semibold">Tacos y Más LLC</td>
+          <td>Dallas, TX</td>
+          <td>Restaurante</td>
+          <td>Flour Tortilla Restaurant Pack</td>
+          <td class="text-right font-semibold">8</td>
+          <td><span class="badge badge-confirmado">Confirmado</span></td>
+          <td class="text-sm">28 jul</td>
+        </tr>
+        <tr data-cliente="Distribuidora Hernández" data-estado="En camino" data-tipo="Distribuidor">
+          <td class="font-mono font-bold">ORD-2069</td>
+          <td class="font-semibold">Distribuidora Hernández</td>
+          <td>San Antonio, TX</td>
+          <td>Distribuidor</td>
+          <td>White Corn Mini Taco Tortillas</td>
+          <td class="text-right font-semibold">24</td>
+          <td><span class="badge badge-enviado">En camino</span></td>
+          <td class="text-sm">Hoy 2pm</td>
+        </tr>
+        <tr data-cliente="Distribuidora Ríos" data-estado="Pendiente" data-tipo="Distribuidor">
+          <td class="font-mono font-bold">ORD-2068</td>
+          <td class="font-semibold">Distribuidora Ríos</td>
+          <td>Austin, TX</td>
+          <td>Distribuidor</td>
+          <td>Fajita Flour Tortillas</td>
+          <td class="text-right font-semibold">40</td>
+          <td><span class="badge badge-pendiente">Pendiente</span></td>
+          <td class="text-sm">29 jul</td>
+        </tr>
+        <tr data-cliente="La Mesa Grande" data-estado="Entregado" data-tipo="Restaurante">
+          <td class="font-mono font-bold">ORD-2067</td>
+          <td class="font-semibold">La Mesa Grande Rest.</td>
+          <td>Houston, TX</td>
+          <td>Restaurante</td>
+          <td>Yellow Corn Table Tortillas</td>
+          <td class="text-right font-semibold">18</td>
+          <td><span class="badge badge-entregado">Entregado</span></td>
+          <td class="text-sm">25 jul ✓</td>
+        </tr>
+        <tr data-cliente="Cocina Auténtica" data-estado="En revisión" data-tipo="Restaurante">
+          <td class="font-mono font-bold">ORD-2066</td>
+          <td class="font-semibold">Cocina Auténtica Inc.</td>
+          <td>Houston, TX</td>
+          <td>Restaurante</td>
+          <td>Mini Taco Corn Tortillas Case</td>
+          <td class="text-right font-semibold">6</td>
+          <td><span class="badge badge-revision">En revisión</span></td>
+          <td class="text-sm">31 jul</td>
+        </tr>
+        <tr data-cliente="Supermercado El Rancho" data-estado="Entregado" data-tipo="Distribuidor">
+          <td class="font-mono font-bold">ORD-2065</td>
+          <td class="font-semibold">Supermercado El Rancho</td>
+          <td>Laredo, TX</td>
+          <td>Distribuidor</td>
+          <td>8" Burrito Tortillas</td>
+          <td class="text-right font-semibold">30</td>
+          <td><span class="badge badge-entregado">Entregado</span></td>
+          <td class="text-sm">24 jul ✓</td>
+        </tr>
+        <tr data-cliente="Taqueria San Marcos" data-estado="Confirmado" data-tipo="Restaurante">
+          <td class="font-mono font-bold">ORD-2064</td>
+          <td class="font-semibold">Taqueria San Marcos</td>
+          <td>Corpus Christi, TX</td>
+          <td>Restaurante</td>
+          <td>White Corn Taco Tortillas</td>
+          <td class="text-right font-semibold">15</td>
+          <td><span class="badge badge-confirmado">Confirmado</span></td>
+          <td class="text-sm">29 jul</td>
+        </tr>
+      </tbody>
+    </table>
+    <p id="sin-resultados" class="hidden text-center py-8 text-gray-400 text-sm">
+      No se encontraron pedidos con ese criterio.
+    </p>
+  </div>
+
+  <!-- Exportar (simulado) -->
+  <div class="flex justify-end mt-4 gap-3">
+    <button onclick="simularExport()" class="text-sm font-semibold px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors">
+      ⬇ Exportar a Excel (muestra)
+    </button>
+  </div>
+  <div id="export-msg" class="hidden text-xs text-emerald-600 text-right mt-1 font-semibold">
+    ✓ En su sistema real, esto descargaría el reporte completo.
+  </div>
+
+</div>
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer class="mt-16 py-6" style="background:#1A1A1A; color:#9CA3AF;">
+  <div class="max-w-6xl mx-auto px-4 text-center text-xs">
+    Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
+  </div>
+</footer>
+
+<!-- ======================================================
+     CTA FLOTANTE
+====================================================== -->
+<button id="cta-float" onclick="abrirCalendly()">
+  ¿Le gustó? Hablemos
+</button>
+
+<!-- ======================================================
+     MODAL GANADO
+====================================================== -->
+<div id="modal-overlay">
+  <div id="modal-box">
+    <button onclick="cerrarModal()"
+      style="position:absolute;top:14px;right:16px;font-size:20px;color:#9CA3AF;background:none;border:none;cursor:pointer;">✕</button>
+
+    <div style="font-size:48px;">🌽</div>
+    <h2 class="text-xl font-bold mt-3" style="color:#8B3A0F;">
+      22 años de orgullo merecen un sistema a la altura.
+    </h2>
+    <p class="text-sm text-gray-500 mt-3 mb-5">
+      Lo que acaba de ver — el portal de pedidos, el tablero, el historial — puede ser suyo.
+      Construido para La Vega, con el mismo cuidado con que hacen sus tortillas.
+    </p>
+    <button onclick="abrirCalendly()"
+      class="w-full py-3 rounded-xl text-white font-bold text-base transition-all hover:opacity-90"
+      style="background:#E8591A;">
+      Agendemos una conversación
+    </button>
+    <p class="text-xs text-gray-400 mt-3">Sin compromiso. Usted habla, nosotros escuchamos.</p>
+  </div>
+</div>
+
+<!-- ======================================================
+     PANEL LATERAL DE DETALLE (desde tablero)
+====================================================== -->
+<div id="detail-panel">
+  <div class="flex items-center justify-between mb-5">
+    <h2 class="text-lg font-bold" style="color:#8B3A0F;">Detalle rápido</h2>
+    <button onclick="cerrarPanel()" class="text-gray-400 hover:text-gray-600 text-xl font-bold bg-none border-none cursor-pointer">✕</button>
+  </div>
+  <div id="detail-panel-content"></div>
+</div>
+
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+<script>
+  /* ---- Estado de la app ---- */
+  const CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=lacamperatortill';
+  let viewCount = 1; // la vista inicial cuenta como 1
+  let modalMostrado = sessionStorage.getItem('modal_lacampera') === '1';
+
+  /* ---- TABS ---- */
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+    cerrarPanel();
+
+    viewCount++;
+    if (!modalMostrado && viewCount >= 3) {
+      dispararModal();
+    }
+  }
+
+  /* ---- Modal ---- */
+  function dispararModal() {
+    if (modalMostrado) return;
+    modalMostrado = true;
+    sessionStorage.setItem('modal_lacampera', '1');
+    document.getElementById('modal-overlay').classList.add('show');
+  }
+  function cerrarModal() {
+    document.getElementById('modal-overlay').classList.remove('show');
+  }
+
+  /* Timer 75s */
+  if (!modalMostrado) {
+    setTimeout(() => {
+      if (!modalMostrado) dispararModal();
+    }, 75000);
+  }
+
+  /* Cierra modal al hacer clic fuera */
+  document.getElementById('modal-overlay').addEventListener('click', function(e){
+    if (e.target === this) cerrarModal();
+  });
+
+  /* ---- Calendly ---- */
+  function abrirCalendly() {
+    cerrarModal();
+    window.open(CALENDLY, '_blank', 'noopener');
+  }
+
+  /* ---- INTERACCIÓN PRINCIPAL: Confirmar alerta ---- */
+  function confirmarAlerta() {
+    const alerta = document.getElementById('alert-box');
+    const badge = document.getElementById('badge-2071');
+
+    // Actualizar badge en tablero
+    badge.className = 'badge badge-confirmado';
+    badge.textContent = 'Confirmado';
+
+    // Reemplazar alerta por mensaje de éxito
+    alerta.style.background = '#ECFDF5';
+    alerta.style.borderColor = '#A7F3D0';
+    alerta.innerHTML = `
+      <span class="text-emerald-500 text-xl">✅</span>
+      <div class="flex-1">
+        <p class="font-semibold text-emerald-800 text-sm">ORD-2071 confirmado — cliente notificado automáticamente</p>
+        <p class="text-xs text-emerald-700 mt-0.5">Chef Morales de Restaurante El Patrón recibió confirmación. Entrega programada: lun 28 jul, antes de mediodía.</p>
+      </div>
+    `;
+  }
+
+  /* ---- Confirmar desde ficha de detalle ---- */
+  function confirmarOrdenDetalle() {
+    const btn = document.getElementById('btn-confirmar-detalle');
+    const badge = document.getElementById('ficha-badge');
+    btn.textContent = '✓ Orden confirmada';
+    btn.style.background = '#10B981';
+    btn.disabled = true;
+    badge.className = 'badge badge-confirmado text-sm';
+    badge.textContent = 'Confirmado';
+    // también actualizar en tablero si está visible
+    const badgeTablero = document.getElementById('badge-2071');
+    if (badgeTablero) {
+      badgeTablero.className = 'badge badge-confirmado';
+      badgeTablero.textContent = 'Confirmado';
+    }
+  }
+
+  /* ---- Panel lateral desde tablero ---- */
+  const detallesMap = {
+    '2071': {
+      nombre: 'Restaurante El Patrón',
+      ciudad: 'Houston, TX',
+      tipo: 'Restaurante',
+      estado: 'Pendiente',
+      producto: 'Restaurant Corn Tortillas (200-ct case) × 12 cajas<br>Totopos Food Service Bag × 2 cajas',
+      entrega: 'Lun 28 jul — antes de mediodía',
+      nota: 'Para evento de quince, preferible antes de las 10am.'
+    },
+    '2070': {
+      nombre: 'Tacos y Más LLC',
+      ciudad: 'Dallas, TX',
+      tipo: 'Restaurante',
+      estado: 'Confirmado',
+      producto: 'Flour Tortilla Restaurant Pack (144-ct case) × 8 cajas',
+      entrega: 'Lun 28 jul',
+      nota: '—'
+    },
+    '2069': {
+      nombre: 'Distribuidora Hernández',
+      ciudad: 'San Antonio, TX',
+      tipo: 'Distribuidor',
+      estado: 'En camino',
+      producto: 'White Corn Mini Taco Tortillas (100-ct bag) × 24 cajas',
+      entrega: 'Hoy, 2:00 pm',
+      nota: 'Dejar en bodega trasera, no recepción.'
+    },
+    '2068': {
+      nombre: 'Distribuidora Ríos',
+      ciudad: 'Austin, TX',
+      tipo: 'Distribuidor',
+      estado: 'Pendiente',
+      producto: 'Fajita Flour Tortillas (30-ct bag) × 40 cajas',
+      entrega: 'Mar 29 jul',
+      nota: '—'
+    },
+    '2067': {
+      nombre: 'La Mesa Grande Rest.',
+      ciudad: 'Houston, TX',
+      tipo: 'Restaurante',
+      estado: 'Entregado',
+      producto: 'Yellow Corn Table Tortillas (50-ct bag) × 18 cajas',
+      entrega: 'Vie 25 jul ✓',
+      nota: '—'
+    },
+    '2066': {
+      nombre: 'Cocina Auténtica Inc.',
+      ciudad: 'Houston, TX',
+      tipo: 'Restaurante',
+      estado: 'En revisión',
+      producto: 'Mini Taco Corn Tortillas Case Pack (10×100-ct) × 6 cajas',
+      entrega: 'Jue 31 jul',
+      nota: 'Verificar disponibilidad de masa antes de confirmar.'
+    },
+    '2065': {
+      nombre: 'Supermercado El Rancho',
+      ciudad: 'Laredo, TX',
+      tipo: 'Distribuidor',
+      estado: 'Entregado',
+      producto: '8" Burrito Tortillas (20-ct bag) × 30 cajas',
+      entrega: 'Jue 24 jul ✓',
+      nota: '—'
+    },
+    '2064': {
+      nombre: 'Taqueria San Marcos',
+      ciudad: 'Corpus Christi, TX',
+      tipo: 'Restaurante',
+      estado: 'Confirmado',
+      producto: 'White Corn Taco Tortillas (30-ct bag) × 15 cajas',
+      entrega: 'Mar 29 jul',
+      nota: '—'
+    }
+  };
+
+  const badgeClass = {
+    'Pendiente': 'badge-pendiente',
+    'Confirmado': 'badge-confirmado',
+    'En camino': 'badge-enviado',
+    'Entregado': 'badge-entregado',
+    'En revisión': 'badge-revision'
+  };
+
+  function abrirDetalle(id) {
+    const d = detallesMap[id];
+    if (!d) return;
+    document.getElementById('detail-panel-content').innerHTML = `
+      <div class="mb-4">
+        <p class="text-xs text-gray-400 uppercase tracking-wide">Orden</p>
+        <p class="text-2xl font-bold font-mono" style="color:#E8591A;">ORD-${id}</p>
+      </div>
+      <div class="rounded-xl p-4 mb-4" style="background:#F7F4F0;">
+        <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1">Cliente</p>
+        <p class="font-semibold">${d.nombre}</p>
+        <p class="text-sm text-gray-500">${d.ciudad} · ${d.tipo}</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1">Estado actual</p>
+        <span class="badge ${badgeClass[d.estado] || ''}">${d.estado}</span>
+      </div>
+      <div class="mb-4">
+        <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1">Productos</p>
+        <p class="text-sm">${d.producto}</p>
+      </div>
+      <div class="mb-4">
+        <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1">Entrega estimada</p>
+        <p class="text-sm">${d.entrega}</p>
+      </div>
+      <div class="mb-5">
+        <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1">Nota del cliente</p>
+        <p class="text-sm italic text-gray-600">${d.nota}</p>
+      </div>
+      <button onclick="switchTab('detalle', document.querySelectorAll('.tab-btn')[1]); mostrarFichaDetalle('${id}')"
+        class="w-full py-2.5 rounded-xl text-white font-bold text-sm"
+        style="background:#E8591A;">
+        Ver ficha completa →
+      </button>
+    `;
+    document.getElementById('detail-panel').style.display = 'block';
+  }
+
+  function cerrarPanel() {
+    document.getElementById('detail-panel').style.display = 'none';
+  }
+
+  /* ---- Ficha de detalle (tab 2) ---- */
+  const fichaData = {
+    '2071': { cliente: 'Restaurante El Patrón', ciudad: 'Houston, TX', tipo: 'Restaurante', badge: 'Pendiente', fecha: 'dom 27 jul 2026 · 9:14 pm', notas: 'Para evento de quince, preferible antes de las 10am.', estado_badge: 'badge-pendiente' },
+    '2070': { cliente: 'Tacos y Más LLC', ciudad: 'Dallas, TX', tipo: 'Restaurante', badge: 'Confirmado', fecha: 'sáb 26 jul 2026 · 11:32 am', notas: '—', estado_badge: 'badge-confirmado' },
+    '2069': { cliente: 'Distribuidora Hernández', ciudad: 'San Antonio, TX', tipo: 'Distribuidor', badge: 'En camino', fecha: 'vie 25 jul 2026 · 3:05 pm', notas: 'Dejar en bodega trasera.', estado_badge: 'badge-enviado' },
+    '2068': { cliente: 'Distribuidora Ríos', ciudad: 'Austin, TX', tipo: 'Distribuidor', badge: 'Pendiente', fecha: 'dom 27 jul 2026 · 10:00 pm', notas: '—', estado_badge: 'badge-pendiente' },
+    '2067': { cliente: 'La Mesa Grande Rest.', ciudad: 'Houston, TX', tipo: 'Restaurante', badge: 'Entregado', fecha: 'mié 23 jul 2026 · 9:00 am', notas: '—', estado_badge: 'badge-entregado' },
+  };
+
+  let fichaActual = '2071';
+
+  function mostrarFichaDetalle(id) {
+    fichaActual = id;
+    // actualizar resaltado sidebar
+    document.querySelectorAll('[id^="ficha-li-"]').forEach(el => {
+      el.style.background = '';
+      el.style.color = '';
+    });
+    const li = document.getElementById('ficha-li-' + id);
+    if (li) { li.style.background = '#FFF0EB'; li.style.color = '#E8591A'; }
+
+    const d = fichaData[id];
+    if (!d) return;
+
+    const fc = document.getElementById('ficha-detalle');
+    fc.querySelector('h2').textContent = 'ORD-' + id;
+    document.getElementById('ficha-fecha').textContent = 'Creado: ' + d.fecha + ' · vía Portal B2B';
+
+    const badgeEl = document.getElementById('ficha-badge');
+    badgeEl.className = 'badge ' + d.estado_badge + ' text-sm';
+    badgeEl.textContent = d.badge;
+
+    // actualizar datos del cliente en la grilla
+    const grids = fc.querySelectorAll('.rounded-xl.p-4');
+    grids[0].innerHTML = `
+      <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-2">Cliente</p>
+      <p class="font-semibold">${d.cliente}</p>
+      <p class="text-sm text-gray-500">${d.ciudad}</p>
+      <p class="text-sm text-gray-500">Tipo: ${d.tipo} · Cliente desde 2022</p>
+    `;
+
+    // nota
+    const notaEl = fc.querySelector('p.text-xs.text-gray-400.mt-1');
+    if (notaEl) notaEl.textContent = 'Nota del cliente: "' + d.notas + '"';
+
+    // estado del botón
+    const btn = document.getElementById('btn-confirmar-detalle');
+    if (d.badge === 'Entregado' || d.badge === 'Confirmado' || d.badge === 'En camino') {
+      btn.textContent = '✓ ' + d.badge;
+      btn.style.background = '#10B981';
+      btn.disabled = true;
+    } else {
+      btn.textContent = '✓ Confirmar orden';
+      btn.style.background = '#E8591A';
+      btn.disabled = false;
+    }
+  }
+
+  /* ---- Filtrar tabla de reporte ---- */
+  function filtrarTabla() {
+    const cliente = document.getElementById('filtro-cliente').value.toLowerCase();
+    const estado = document.getElementById('filtro-estado').value;
+    const tipo = document.getElementById('filtro-tipo').value;
+    const filas = document.querySelectorAll('#tbody-reporte tr');
+    let visibles = 0;
+
+    filas.forEach(fila => {
+      const nombreCliente = (fila.dataset.cliente || '').toLowerCase();
+      const estadoFila = fila.dataset.estado || '';
+      const tipoFila = fila.dataset.tipo || '';
+      const matchCliente = nombreCliente.includes(cliente);
+      const matchEstado = !estado || estadoFila === estado;
+      const matchTipo = !tipo || tipoFila === tipo;
+      if (matchCliente && matchEstado && matchTipo) {
+        fila.style.display = '';
+        visibles++;
+      } else {
+        fila.style.display = 'none';
+      }
+    });
+
+    document.getElementById('sin-resultados').classList.toggle('hidden', visibles > 0);
+  }
+
+  /* ---- Simular export ---- */
+  function simularExport() {
+    document.getElementById('export-msg').classList.remove('hidden');
+    setTimeout(() => document.getElementById('export-msg').classList.add('hidden'), 3500);
+  }
+
+  /* ---- Init ---- */
+  mostrarFichaDetalle('2071');
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

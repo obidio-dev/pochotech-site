@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azteca Imports — Demo del Sistema</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --terracota: #B5513A;
+      --terracota-dark: #8C3D2A;
+      --terracota-light: #D4724F;
+      --crema: #F5EDD8;
+      --fondo: #FAF7F2;
+      --azul: #1B4FA0;
+      --text: #1A1A1A;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--fondo);
+      color: var(--text);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      min-height: 100vh;
+    }
+    /* Header */
+    .site-header {
+      background: var(--terracota);
+      color: white;
+      padding: 1.25rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .demo-badge {
+      display: inline-block;
+      background: #fff3cd;
+      color: #856404;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid #ffc107;
+      font-family: 'Arial', sans-serif;
+      vertical-align: middle;
+    }
+    /* Navigation tabs */
+    .nav-tabs {
+      background: white;
+      border-bottom: 2px solid #e5e0d8;
+      padding: 0 1rem;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 0.85rem 1.1rem;
+      font-size: 0.82rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      color: #6b5e55;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .tab-btn:hover { color: var(--terracota); }
+    .tab-btn.active {
+      color: var(--terracota);
+      border-bottom-color: var(--terracota);
+    }
+    .tab-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.3rem;
+      height: 1.3rem;
+      background: var(--terracota);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 700;
+      margin-right: 0.4rem;
+    }
+    /* Main content */
+    .content-area {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 6rem;
+    }
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e5e0d8;
+      padding: 1.25rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .lote-card {
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e5e0d8;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .lote-card:hover {
+      box-shadow: 0 4px 16px rgba(181,81,58,0.15);
+      transform: translateY(-2px);
+    }
+    /* Photo placeholder */
+    .photo-placeholder {
+      width: 100%;
+      height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-family: 'Arial', sans-serif;
+      color: #9e8e84;
+      gap: 0.4rem;
+    }
+    .ph-saltillo { background: linear-gradient(135deg, #c4744a 0%, #a05530 50%, #d4844a 100%); }
+    .ph-talavera { background: linear-gradient(135deg, #e8e4f0 0%, #c8d4e8 50%, #ddd8f0 100%); }
+    .ph-hex { background: linear-gradient(135deg, #b86840 0%, #c87840 50%, #a05828 100%); }
+    .ph-picket { background: linear-gradient(135deg, #c06838 0%, #d07848 50%, #b05828 100%); }
+    /* Tone chips */
+    .tono-oscuro { background: #7a3a1e; }
+    .tono-medio { background: #b5513a; }
+    .tono-claro { background: #d4845a; }
+    .tono-chip {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 2px solid rgba(255,255,255,0.5);
+      vertical-align: middle;
+    }
+    /* Status badges */
+    .badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.18rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .badge-disponible { background: #d4edda; color: #155724; }
+    .badge-parcial { background: #fff3cd; color: #856404; }
+    .badge-agotado { background: #f8d7da; color: #721c24; }
+    .badge-contratista { background: #cce5ff; color: #004085; }
+    .badge-particular { background: #e2d9f3; color: #4a1875; }
+    /* Section headings */
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--terracota);
+      font-family: 'Arial', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    /* Floating CTA */
+    .floating-cta {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      background: var(--terracota);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(181,81,58,0.5);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .floating-cta:hover {
+      background: var(--terracota-dark);
+      transform: translateY(-2px);
+    }
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-box {
+      background: white;
+      border-radius: 12px;
+      max-width: 420px;
+      width: 100%;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #aaa;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    .modal-close:hover { color: #555; }
+    /* Precio table */
+    .precio-toggle {
+      display: flex;
+      border: 1.5px solid var(--terracota);
+      border-radius: 6px;
+      overflow: hidden;
+      width: fit-content;
+    }
+    .precio-toggle button {
+      padding: 0.55rem 1.25rem;
+      font-size: 0.8rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .precio-toggle button.active-contratista {
+      background: var(--azul);
+      color: white;
+    }
+    .precio-toggle button.active-particular {
+      background: #6f42c1;
+      color: white;
+    }
+    .precio-toggle button:not(.active-contratista):not(.active-particular) {
+      background: white;
+      color: #666;
+    }
+    /* Timeline */
+    .timeline-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--terracota);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .timeline-line {
+      width: 2px;
+      background: #e5e0d8;
+      flex: 1;
+      margin: 4px auto;
+    }
+    /* Stock bar */
+    .stock-bar-bg {
+      background: #f0ece8;
+      border-radius: 999px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .stock-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--terracota);
+      transition: width 0.6s ease;
+    }
+    /* Live indicator */
+    .live-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+      animation: pulse-green 2s infinite;
+    }
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.3); }
+    }
+    /* Assign button */
+    .btn-primary {
+      background: var(--terracota);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--terracota-dark); }
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: default;
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--terracota);
+      border: 1.5px solid var(--terracota);
+      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: var(--crema); }
+    /* Footer */
+    .site-footer {
+      background: #2a1f1a;
+      color: #c4a99a;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.78rem;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.7;
+    }
+    .site-footer a { color: #e8c4b0; text-decoration: none; }
+    /* Hidden sections */
+    .vista { display: none; }
+    .vista.active { display: block; }
+    /* Responsive grid */
+    .grid-lotes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 480px) {
+      .grid-lotes { grid-template-columns: 1fr 1fr; }
+      .floating-cta span.label { display: none; }
+      .floating-cta { padding: 0.85rem 1rem; }
+    }
+    /* Highlight flash */
+    @keyframes flash-green {
+      0% { background: #d4edda; }
+      100% { background: white; }
+    }
+    .flash-update { animation: flash-green 1.2s ease-out; }
+    /* Assign form */
+    .assign-select {
+      border: 1.5px solid #d0c8c0;
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      width: 100%;
+      background: white;
+      color: var(--text);
+    }
+    .assign-select:focus {
+      outline: none;
+      border-color: var(--terracota);
+    }
+    .input-qty {
+      border: 1.5px solid #d0c8c0;
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      width: 100%;
+      background: white;
+    }
+    .input-qty:focus {
+      outline: none;
+      border-color: var(--terracota);
+    }
+    /* info callout */
+    .callout {
+      border-left: 3px solid var(--terracota);
+      background: #fdf6f2;
+      border-radius: 0 6px 6px 0;
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+      font-family: 'Arial', sans-serif;
+      color: #5a3c30;
+      line-height: 1.6;
+    }
+    .callout-blue {
+      border-left-color: var(--azul);
+      background: #f0f4ff;
+      color: #1a3060;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <div>
+      <h1 class="text-xl sm:text-2xl font-bold tracking-wide" style="font-family:'Georgia',serif;letter-spacing:0.03em;">
+        Azteca Imports
+      </h1>
+      <p class="text-xs sm:text-sm opacity-80 mt-0.5" style="font-family:'Arial',sans-serif;">
+        Así se vería su sistema propio — preparado por <strong>Pocho.tech</strong>
+      </p>
+    </div>
+    <div class="flex-shrink-0">
+      <span class="demo-badge">&#9654; DEMO · datos de muestra</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== NAV TABS ===== -->
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="showVista(1)" id="tab-1">
+    <span class="tab-number">1</span>Lotes en Bodega
+  </button>
+  <button class="tab-btn" onclick="showVista(2)" id="tab-2">
+    <span class="tab-number">2</span>Ficha de Lote
+  </button>
+  <button class="tab-btn" onclick="showVista(3)" id="tab-3">
+    <span class="tab-number">3</span>Precios
+  </button>
+  <button class="tab-btn" onclick="showVista(4)" id="tab-4">
+    <span class="tab-number">4</span>Mostrador + Web
+  </button>
+</nav>
+
+<!-- ===== CONTENT AREA ===== -->
+<main class="content-area">
+
+  <!-- ============================================================
+       VISTA 1: LOTES EN BODEGA
+  ============================================================ -->
+  <div class="vista active" id="vista-1">
+    <!-- Filtros + resumen -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+      <div>
+        <h2 class="section-title">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Inventario por Lote
+        </h2>
+        <p class="text-xs text-gray-400" style="font-family:'Arial',sans-serif; margin-top:-0.5rem;">
+          Datos de muestra — Northside Houston Warehouse
+        </p>
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <select id="filtro-linea" onchange="filtrarLotes()" class="assign-select" style="width:auto;font-size:0.78rem;padding:0.4rem 0.65rem;">
+          <option value="">Todas las líneas</option>
+          <option value="saltillo">Saltillo</option>
+          <option value="talavera">Talavera</option>
+          <option value="terrazzo">Terrazzo</option>
+        </select>
+        <select id="filtro-estado" onchange="filtrarLotes()" class="assign-select" style="width:auto;font-size:0.78rem;padding:0.4rem 0.65rem;">
+          <option value="">Todos los estados</option>
+          <option value="disponible">Disponible</option>
+          <option value="parcial">Parcialmente asignado</option>
+          <option value="agotado">Agotado</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Callout diagnóstico -->
+    <div class="callout mb-5">
+      <strong>¿Por qué ver el inventario por lote?</strong> El tono del Saltillo varía naturalmente entre lotes de importación. Con esta vista, usted puede asignar el lote correcto a cada pedido antes de que el material salga de la bodega — y documentar qué tono fue al proyecto del cliente.
+    </div>
+
+    <!-- Grid de lotes -->
+    <div class="grid-lotes" id="grid-lotes">
+      <!-- Generado por JS -->
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VISTA 2: FICHA DE LOTE
+  ============================================================ -->
+  <div class="vista" id="vista-2">
+    <h2 class="section-title">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M9 12h6M9 16h6M7 4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2M9 4a2 2 0 012-2h2a2 2 0 012 2v0a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      Ficha del Lote
+    </h2>
+
+    <div class="grid gap-4" style="grid-template-columns: 1fr; max-width: 720px;">
+
+      <!-- Encabezado del lote -->
+      <div class="card">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="photo-placeholder ph-saltillo rounded-lg flex-shrink-0" style="width:100%;max-width:180px;height:160px;border-radius:8px;">
+            <svg width="36" height="36" fill="rgba(255,255,255,0.4)" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 20M6 8h.01M2 6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+            <span style="color:rgba(255,255,255,0.7);font-family:'Arial',sans-serif;">Foto de bodega</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-start justify-between flex-wrap gap-2">
+              <div>
+                <p class="text-xs text-gray-400 font-mono mb-0.5" style="font-family:'Arial',sans-serif;">#TX-2024-0087</p>
+                <h3 class="text-lg font-bold" style="font-family:'Georgia',serif;">Saltillo 12×12 — Unsealed/Raw</h3>
+                <p class="text-sm text-gray-500 mt-0.5" style="font-family:'Arial',sans-serif;">Terracota Oscuro · Lote de importación mayo 2024</p>
+              </div>
+              <span class="badge badge-parcial">Parcialmente asignado</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mt-4" style="font-family:'Arial',sans-serif;font-size:0.82rem;">
+              <div>
+                <p class="text-gray-400 text-xs uppercase tracking-wide">Línea</p>
+                <p class="font-semibold">Saltillo Tile</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-xs uppercase tracking-wide">Tono registrado</p>
+                <p class="font-semibold flex items-center gap-1.5">
+                  <span class="tono-chip tono-oscuro"></span> Terracota Oscuro
+                </p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-xs uppercase tracking-wide">Ubicación en bodega</p>
+                <p class="font-semibold">Sector B · Estante 4</p>
+              </div>
+              <div>
+                <p class="text-gray-400 text-xs uppercase tracking-wide">Pies cuadrados disponibles</p>
+                <p class="font-semibold" id="ficha-sf">842 sq ft</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Nota de variación de tono -->
+        <div class="callout mt-4">
+          <strong>Nota de tono (registrada al recibir el lote):</strong> Lote presenta tono más oscuro que el lote #TX-2024-0086. Se recomienda no mezclar en el mismo piso. Margen recomendado para este lote: 18%. Firmado: BC Jr., 14-may-2024.
+        </div>
+      </div>
+
+      <!-- Asignar a pedido — INTERACCIÓN SIMULADA -->
+      <div class="card" id="asignar-card">
+        <h3 class="font-bold text-sm mb-3 uppercase tracking-wide" style="font-family:'Arial',sans-serif;color:var(--terracota);">
+          ✦ Asignar este lote a un pedido
+        </h3>
+        <div class="grid gap-3">
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block" style="font-family:'Arial',sans-serif;">Seleccionar pedido</label>
+            <select id="pedido-select" class="assign-select">
+              <option value="">— Seleccione un pedido —</option>
+              <option value="OS-2024-0415">OS-2024-0415 · Patio Exterior · Contratista</option>
+              <option value="OS-2024-0416">OS-2024-0416 · Kitchen Floor · Particular</option>
+              <option value="OS-2024-0417">OS-2024-0417 · Outdoor Stairs · Contratista</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block" style="font-family:'Arial',sans-serif;">Cantidad a asignar (sq ft)</label>
+            <input type="number" id="qty-input" class="input-qty" placeholder="ej: 280" min="1" max="842" />
+          </div>
+          <button class="btn-primary" onclick="asignarLote()" id="btn-asignar">Asignar y descontar del inventario</button>
+          <div id="asignar-resultado" style="display:none;"></div>
+        </div>
+      </div>
+
+      <!-- Historial de este lote -->
+      <div class="card">
+        <h3 class="font-bold text-sm mb-4 uppercase tracking-wide" style="font-family:'Arial',sans-serif;color:var(--terracota);">
+          Historial del lote
+        </h3>
+        <div id="historial-lote">
+          <!-- Ítems generados por JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VISTA 3: PRECIOS
+  ============================================================ -->
+  <div class="vista" id="vista-3">
+    <h2 class="section-title">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M7 7h.01M3 21l1.9-1.9a2 2 0 011.4-.6h13.3a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14l2 2z"/><path d="M9 7h6M9 11h4"/></svg>
+      Listas de Precios
+    </h2>
+
+    <div class="callout callout-blue mb-5">
+      <strong>¿Cómo funciona esto hoy?</strong> Usted maneja dos listas de precios — Contratista y Particular — que probablemente se aplican según quién atiende al cliente ese día. Con el sistema, el tipo de cliente queda registrado y el precio correcto se aplica solo, siempre.
+    </div>
+
+    <!-- Selector de tipo de cliente -->
+    <div class="card mb-4">
+      <p class="text-sm font-semibold mb-3" style="font-family:'Arial',sans-serif;">Seleccione el tipo de cliente para ver la lista que corresponde:</p>
+      <div class="precio-toggle" id="precio-toggle">
+        <button onclick="setPrecioTipo('contratista')" id="btn-contratista" class="active-contratista">
+          🔧 Contratista / Contractor
+        </button>
+        <button onclick="setPrecioTipo('particular')" id="btn-particular">
+          🏠 Homeowner / Particular
+        </button>
+      </div>
+      <div id="precio-label" class="mt-3 text-sm" style="font-family:'Arial',sans-serif;"></div>
+    </div>
+
+    <!-- Tabla de precios -->
+    <div class="card overflow-x-auto">
+      <table id="tabla-precios" style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:0.84rem;">
+        <thead>
+          <tr style="background:var(--crema);">
+            <th style="text-align:left;padding:0.75rem 0.9rem;border-bottom:2px solid #e5e0d8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:#6b5e55;">Producto</th>
+            <th style="text-align:left;padding:0.75rem 0.9rem;border-bottom:2px solid #e5e0d8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:#6b5e55;">Formato</th>
+            <th style="text-align:right;padding:0.75rem 0.9rem;border-bottom:2px solid #e5e0d8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:#6b5e55;" id="col-precio-header">Precio / pieza</th>
+            <th style="text-align:center;padding:0.75rem 0.9rem;border-bottom:2px solid #e5e0d8;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:#6b5e55;">Stock en bodega</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-precios">
+          <!-- Generado por JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-xs text-gray-400 mt-3" style="font-family:'Arial',sans-serif;">
+      * Precios de muestra. Los precios reales de lista Particular y descuento Contratista los define usted en el sistema.
+    </p>
+  </div>
+
+  <!-- ============================================================
+       VISTA 4: MOSTRADOR + WEB
+  ============================================================ -->
+  <div class="vista" id="vista-4">
+    <h2 class="section-title">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+      Mostrador + Web: Un solo inventario
+    </h2>
+
+    <div class="callout mb-5">
+      <strong>El dolor que resuelve esta vista:</strong> Hoy la tienda en línea muestra precios pero no existencias por lote. Un cliente puede pedir un tono específico online, pero nadie puede confirmar si ese lote sigue disponible sin caminar la bodega. Con el sistema, tanto el mostrador como la web ven el mismo número en tiempo real.
+    </div>
+
+    <!-- Indicadores en vivo -->
+    <div class="grid gap-4 mb-6" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr));">
+      <div class="card text-center">
+        <div class="flex items-center justify-center gap-2 mb-2">
+          <span class="live-dot"></span>
+          <span class="text-xs font-bold uppercase tracking-wide text-green-600" style="font-family:'Arial',sans-serif;">En vivo</span>
+        </div>
+        <p class="text-xs text-gray-400 mb-1" style="font-family:'Arial',sans-serif;">Pedidos recibidos hoy</p>
+        <p class="text-3xl font-bold" style="font-family:'Georgia',serif;color:var(--terracota);" id="stat-pedidos">7</p>
+        <p class="text-xs text-gray-400 mt-1" style="font-family:'Arial',sans-serif;">3 showroom · 4 web</p>
+      </div>
+      <div class="card text-center">
+        <div class="flex items-center justify-center gap-2 mb-2">
+          <span class="live-dot"></span>
+          <span class="text-xs font-bold uppercase tracking-wide text-green-600" style="font-family:'Arial',sans-serif;">En vivo</span>
+        </div>
+        <p class="text-xs text-gray-400 mb-1" style="font-family:'Arial',sans-serif;">Saltillo 12×12 disponible</p>
+        <p class="text-3xl font-bold" style="font-family:'Georgia',serif;color:var(--terracota);" id="stat-stock-12">842 sq ft</p>
+        <p class="text-xs text-gray-400 mt-1" style="font-family:'Arial',sans-serif;">Lote TX-2024-0087</p>
+      </div>
+      <div class="card text-center">
+        <div class="flex items-center justify-center gap-2 mb-2">
+          <span class="live-dot"></span>
+          <span class="text-xs font-bold uppercase tracking-wide text-green-600" style="font-family:'Arial',sans-serif;">En vivo</span>
+        </div>
+        <p class="text-xs text-gray-400 mb-1" style="font-family:'Arial',sans-serif;">Talavera Classic disponible</p>
+        <p class="text-3xl font-bold" style="font-family:'Georgia',serif;color:var(--azul);" id="stat-talavera">1,240 pzs</p>
+        <p class="text-xs text-gray-400 mt-1" style="font-family:'Arial',sans-serif;">SKUs 24033 · 24127 · 24183</p>
+      </div>
+    </div>
+
+    <!-- Escenario: cliente llama reclamando tono -->
+    <div class="card mb-4">
+      <h3 class="font-bold text-sm mb-1 uppercase tracking-wide" style="font-family:'Arial',sans-serif;color:var(--terracota);">
+        Escenario: un cliente llama reclamando variación de tono
+      </h3>
+      <p class="text-xs text-gray-500 mb-4" style="font-family:'Arial',sans-serif;">Sin sistema vs. con el sistema — la misma llamada, dos resultados distintos.</p>
+
+      <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(240px,1fr));">
+        <div style="background:#fff5f5;border:1.5px solid #f5c6cb;border-radius:8px;padding:1rem;">
+          <p class="text-xs font-bold uppercase tracking-wide mb-2" style="font-family:'Arial',sans-serif;color:#721c24;">Sin trazabilidad (hoy)</p>
+          <ul style="font-family:'Arial',sans-serif;font-size:0.82rem;color:#5a1e1e;line-height:1.8;list-style:none;padding:0;">
+            <li>❌ &nbsp;"¿De qué lote vino su pedido?" — nadie sabe</li>
+            <li>❌ &nbsp;Se revisan facturas de papel o correos viejos</li>
+            <li>❌ &nbsp;No hay foto del material enviado</li>
+            <li>❌ &nbsp;El cliente ya instaló — el reclamo se complica</li>
+            <li>❌ &nbsp;El margen extra del 15-25% queda sin justificar</li>
+          </ul>
+        </div>
+        <div style="background:#f0fff4;border:1.5px solid #b2dfdb;border-radius:8px;padding:1rem;">
+          <p class="text-xs font-bold uppercase tracking-wide mb-2" style="font-family:'Arial',sans-serif;color:#155724;">Con el sistema</p>
+          <ul style="font-family:'Arial',sans-serif;font-size:0.82rem;color:#1a3d28;line-height:1.8;list-style:none;padding:0;">
+            <li>✅ &nbsp;Pedido linkado al lote #TX-2024-0087 al instante</li>
+            <li>✅ &nbsp;Foto del lote y nota de tono registradas al recibirlo</li>
+            <li>✅ &nbsp;Tono "Terracota Oscuro" — documentado antes de salir</li>
+            <li>✅ &nbsp;El margen recomendado fue 18%, cliente lo aprobó</li>
+            <li>✅ &nbsp;Cuarta generación hereda el historial completo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flujo mostrador vs web -->
+    <div class="card">
+      <h3 class="font-bold text-sm mb-4 uppercase tracking-wide" style="font-family:'Arial',sans-serif;color:var(--terracota);">
+        Mostrador y web: el mismo número, siempre
+      </h3>
+      <div class="grid gap-3" style="grid-template-columns: repeat(auto-fit, minmax(200px,1fr));">
+        <div style="border:1.5px solid #e5e0d8;border-radius:8px;padding:1rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.4rem;">🏪</div>
+          <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1" style="font-family:'Arial',sans-serif;">Showroom Houston</p>
+          <p class="text-sm" style="font-family:'Arial',sans-serif;">Alexandria ve el mismo stock que aparece online. Al vender en mostrador, el sistema descuenta al instante.</p>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--terracota);">⇄</div>
+        <div style="border:1.5px dashed #B5513A;border-radius:8px;padding:1rem;text-align:center;background:#fdf6f2;">
+          <div style="font-size:2rem;margin-bottom:0.4rem;">🗄️</div>
+          <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1" style="font-family:'Arial',sans-serif;">Inventario Central</p>
+          <p class="text-sm font-bold" style="font-family:'Arial',sans-serif;color:var(--terracota);">Saltillo 12×12: <span id="central-sf">842 sq ft</span></p>
+          <p class="text-xs text-gray-400 mt-1" style="font-family:'Arial',sans-serif;">Fuente única de verdad</p>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--terracota);">⇄</div>
+        <div style="border:1.5px solid #e5e0d8;border-radius:8px;padding:1rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:0.4rem;">🌐</div>
+          <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-1" style="font-family:'Arial',sans-serif;">Tienda en línea</p>
+          <p class="text-sm" style="font-family:'Arial',sans-serif;">El cliente online ve existencias reales por lote y tono — antes de hacer su estimado.</p>
+        </div>
+      </div>
+
+      <!-- Demo sincronía -->
+      <div class="mt-5 pt-4" style="border-top:1px solid #f0ece8;">
+        <p class="text-sm font-semibold mb-3" style="font-family:'Arial',sans-serif;">Simule una venta en mostrador:</p>
+        <div class="flex flex-wrap gap-2 items-center">
+          <button class="btn-secondary" onclick="simularVentaMostrador(50)">Vender 50 sq ft en mostrador</button>
+          <button class="btn-secondary" onclick="simularVentaMostrador(120)">Vender 120 sq ft</button>
+          <button class="btn-secondary" onclick="resetearStock()">Restablecer stock</button>
+        </div>
+        <p class="text-xs text-gray-400 mt-2" style="font-family:'Arial',sans-serif;">Observe cómo ambos canales se actualizan al mismo tiempo.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== FLOATING CTA ===== -->
+<a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=pyramid"
+   target="_blank" rel="noopener noreferrer"
+   class="floating-cta" id="floating-cta">
+  <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+  <span class="label">¿Le gustó? Hablemos</span>
+</a>
+
+<!-- ===== MODAL GANADO ===== -->
+<div class="modal-overlay" id="modal-overlay" style="display:none;" onclick="cerrarModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="cerrarModal()" aria-label="Cerrar">×</button>
+    <div style="font-size:2.2rem;margin-bottom:0.75rem;">🏺</div>
+    <h3 style="font-family:'Georgia',serif;font-size:1.2rem;font-weight:700;margin-bottom:0.75rem;color:var(--terracota);">
+      ¿Se imagina esto con sus datos reales?
+    </h3>
+    <p style="font-family:'Arial',sans-serif;font-size:0.9rem;color:#5a4a42;line-height:1.7;margin-bottom:1.25rem;">
+      Si le gustó, hablemos. Y si no, no pasa nada.
+    </p>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=pyramid"
+       target="_blank" rel="noopener noreferrer"
+       class="btn-primary"
+       style="display:block;text-align:center;text-decoration:none;margin-bottom:0.75rem;"
+       onclick="cerrarModal()">
+      Agendar una conversación
+    </a>
+    <button onclick="cerrarModal()" style="font-family:'Arial',sans-serif;font-size:0.78rem;color:#aaa;background:none;border:none;cursor:pointer;">
+      No, gracias — solo estoy mirando
+    </button>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <p>Maqueta con datos de muestra.</p>
+  <p>Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.</p>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ============================================================
+// DATOS DE MUESTRA
+// ============================================================
+const LOTES_INICIAL = [
+  {
+    id: 'TX-2024-0087',
+    linea: 'saltillo',
+    nombre: 'Saltillo 12×12 — Unsealed/Raw',
+    formato: '12" × 12"',
+    tono: 'Terracota Oscuro',
+    tonoClass: 'tono-oscuro',
+    ubicacion: 'Sector B · Estante 4',
+    sfTotal: 1200,
+    sfDisponible: 842,
+    sfAsignado: 358,
+    estado: 'parcial',
+    precioParticular: 3.15,
+    precioContratista: 2.52,
+    foto: 'ph-saltillo',
+    pedidos: [
+      { os: 'OS-2024-0413', desc: 'Patio exterior Saltillo 16×16', sf: 280, fecha: '18-jun-2024', tipo: 'Contratista' },
+      { os: 'OS-2024-0411', desc: 'Kitchen Floor · renovación', sf: 78, fecha: '03-jun-2024', tipo: 'Particular' },
+    ]
+  },
+  {
+    id: 'TX-2024-0088',
+    linea: 'saltillo',
+    nombre: 'Saltillo 12×12 — Unsealed/Raw',
+    formato: '12" × 12"',
+    tono: 'Terracota Claro',
+    tonoClass: 'tono-claro',
+    ubicacion: 'Sector B · Estante 5',
+    sfTotal: 900,
+    sfDisponible: 900,
+    sfAsignado: 0,
+    estado: 'disponible',
+    precioParticular: 3.15,
+    precioContratista: 2.52,
+    foto: 'ph-saltillo',
+    pedidos: []
+  },
+  {
+    id: 'TX-2024-0091',
+    linea: 'saltillo',
+    nombre: 'Saltillo 16×16 — Unsealed/Raw',
+    formato: '16" × 16"',
+    tono: 'Terracota Medio',
+    tonoClass: 'tono-medio',
+    ubicacion: 'Sector A · Estante 2',
+    sfTotal: 600,
+    sfDisponible: 600,
+    sfAsignado: 0,
+    estado: 'disponible',
+    precioParticular: 8.50,
+    precioContratista: 6.80,
+    foto: 'ph-saltillo',
+    pedidos: []
+  },
+  {
+    id: 'TX-2024-0092',
+    linea: 'saltillo',
+    nombre: 'Saltillo 12" Hex — Unsealed/Raw',
+    formato: '12" Hexagonal',
+    tono: 'Terracota Medio',
+    tonoClass: 'tono-medio',
+    ubicacion: 'Sector C · Estante 1',
+    sfTotal: 480,
+    sfDisponible: 0,
+    sfAsignado: 480,
+    estado: 'agotado',
+    precioParticular: 3.27,
+    precioContratista: 2.62,
+    foto: 'ph-hex',
+    pedidos: [
+      { os: 'OS-2024-0409', desc: 'Bathroom Shower Walls', sf: 480, fecha: '22-may-2024', tipo: 'Particular' }
+    ]
+  },
+  {
+    id: 'TX-2024-0083',
+    linea: 'saltillo',
+    nombre: 'Picket Saltillo 4×12 — Unsealed/Raw',
+    formato: '4" × 12" Picket',
+    tono: 'Terracota Claro',
+    tonoClass: 'tono-claro',
+    ubicacion: 'Sector D · Estante 3',
+    sfTotal: 320,
+    sfDisponible: 195,
+    sfAsignado: 125,
+    estado: 'parcial',
+    precioParticular: 2.36,
+    precioContratista: 1.89,
+    foto: 'ph-picket',
+    pedidos: [
+      { os: 'OS-2024-0410', desc: 'Accent Wall · foyer', sf: 125, fecha: '28-may-2024', tipo: 'Contratista' }
+    ]
+  },
+  {
+    id: 'TLV-2024-0044',
+    linea: 'talavera',
+    nombre: 'Talavera Classic — SKU 24033',
+    formato: '4.25" × 4.25"',
+    tono: 'Azul/Blanco',
+    tonoClass: 'tono-oscuro',
+    ubicacion: 'Showroom · Vitrina A',
+    sfTotal: 0,
+    sfDisponible: 580,
+    sfAsignado: 0,
+    estado: 'disponible',
+    precioParticular: 2.40,
+    precioContratista: 1.92,
+    foto: 'ph-talavera',
+    pedidos: []
+  },
+  {
+    id: 'TLV-2024-0045',
+    linea: 'talavera',
+    nombre: 'Talavera Classic — SKU 24127',
+    formato: '4.25" × 4.25"',
+    tono: 'Verde/Crema',
+    tonoClass: 'tono-claro',
+    ubicacion: 'Showroom · Vitrina B',
+    sfTotal: 0,
+    sfDisponible: 420,
+    sfAsignado: 0,
+    estado: 'disponible',
+    precioParticular: 2.40,
+    precioContratista: 1.92,
+    foto: 'ph-talavera',
+    pedidos: []
+  },
+  {
+    id: 'TRZ-2024-0010',
+    linea: 'terrazzo',
+    nombre: 'Terrazzo Tile — Original Import',
+    formato: '12" × 12"',
+    tono: 'Mármol Gris',
+    tonoClass: 'tono-oscuro',
+    ubicacion: 'Sector E · Estante 1',
+    sfTotal: 240,
+    sfDisponible: 240,
+    sfAsignado: 0,
+    estado: 'disponible',
+    precioParticular: 6.50,
+    precioContratista: 5.20,
+    foto: 'ph-saltillo',
+    pedidos: []
+  },
+];
+
+// Estado mutable (copia de trabajo)
+let lotes = JSON.parse(JSON.stringify(LOTES_INICIAL));
+let precioTipo = 'contratista';
+let vistasVisitadas = new Set([1]);
+let modalMostrado = sessionStorage.getItem('pyramid_modal_shown') === 'true';
+let timerModal = null;
+
+// ============================================================
+// NAVEGACIÓN POR TABS
+// ============================================================
+function showVista(n) {
+  document.querySelectorAll('.vista').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('vista-' + n).classList.add('active');
+  document.getElementById('tab-' + n).classList.add('active');
+  vistasVisitadas.add(n);
+  if (vistasVisitadas.size >= 3 && !modalMostrado) {
+    mostrarModal();
+  }
+  if (n === 3) renderTablaPrecios();
+  if (n === 4) sincronizarVista4();
+}
+
+// ============================================================
+// VISTA 1: LOTES EN BODEGA
+// ============================================================
+function filtrarLotes() {
+  const filtroLinea = document.getElementById('filtro-linea').value;
+  const filtroEstado = document.getElementById('filtro-estado').value;
+  let filtrados = lotes;
+  if (filtroLinea) filtrados = filtrados.filter(l => l.linea === filtroLinea);
+  if (filtroEstado) filtrados = filtrados.filter(l => l.estado === filtroEstado);
+  renderGridLotes(filtrados);
+}
+
+function renderGridLotes(lista) {
+  const grid = document.getElementById('grid-lotes');
+  if (!lista) lista = lotes;
+  grid.innerHTML = lista.map(l => `
+    <div class="lote-card" onclick="irFichaLote('${l.id}')">
+      <div class="photo-placeholder ${l.foto}">
+        <svg width="28" height="28" fill="rgba(255,255,255,0.35)" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 20M6 8h.01M2 6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+        <span style="color:rgba(255,255,255,0.65);font-family:'Arial',sans-serif;font-size:0.65rem;">Foto de bodega</span>
+      </div>
+      <div style="padding:0.9rem;">
+        <p style="font-size:0.65rem;font-family:'Arial',sans-serif;color:#aaa;font-weight:600;letter-spacing:0.08em;margin-bottom:0.25rem;">${l.id}</p>
+        <p style="font-size:0.88rem;font-weight:700;font-family:'Georgia',serif;margin-bottom:0.3rem;line-height:1.3;">${l.nombre}</p>
+        <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.6rem;">
+          <span class="tono-chip ${l.tonoClass}"></span>
+          <span style="font-size:0.75rem;font-family:'Arial',sans-serif;color:#6b5e55;">${l.tono}</span>
+        </div>
+        <p style="font-size:0.75rem;font-family:'Arial',sans-serif;color:#888;margin-bottom:0.5rem;">📍 ${l.ubicacion}</p>
+        <div style="margin-bottom:0.6rem;">
+          <div style="display:flex;justify-content:space-between;font-size:0.72rem;font-family:'Arial',sans-serif;margin-bottom:0.25rem;">
+            <span style="color:#6b5e55;">Disponible</span>
+            <span style="font-weight:700;color:var(--terracota);">${l.sfDisponible.toLocaleString()} sq ft</span>
+          </div>
+          <div class="stock-bar-bg">
+            <div class="stock-bar-fill" style="width:${l.sfTotal > 0 ? Math.round((l.sfDisponible/l.sfTotal)*100) : (l.sfDisponible > 0 ? 100 : 0)}%"></div>
+          </div>
+        </div>
+        <span class="badge badge-${l.estado === 'disponible' ? 'disponible' : l.estado === 'parcial' ? 'parcial' : 'agotado'}">
+          ${l.estado === 'disponible' ? 'Disponible' : l.estado === 'parcial' ? 'Parcialmente asignado' : 'Agotado'}
+        </span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function irFichaLote(id) {
+  showVista(2);
+  // En la demo, la ficha siempre muestra el lote TX-2024-0087
+  // Pero actualizamos el stock disponible según el estado real
+  actualizarFicha();
+}
+
+// ============================================================
+// VISTA 2: FICHA + ASIGNACIÓN (INTERACCIÓN SIMULADA)
+// ============================================================
+function actualizarFicha() {
+  const lote = lotes.find(l => l.id === 'TX-2024-0087');
+  const sfEl = document.getElementById('ficha-sf');
+  if (sfEl && lote) {
+    sfEl.textContent = lote.sfDisponible.toLocaleString() + ' sq ft';
+  }
+  // Historial
+  renderHistorial(lote);
+}
+
+function renderHistorial(lote) {
+  const container = document.getElementById('historial-lote');
+  if (!container || !lote) return;
+  const eventos = [
+    { fecha: '14-may-2024', tipo: 'Recepción', desc: 'Lote recibido de proveedor México. Tono registrado: Terracota Oscuro. Foto tomada por BC Jr.', icon: '📦' },
+    { fecha: '15-may-2024', tipo: 'Control de calidad', desc: 'Nota: tono más oscuro que lote TX-2024-0086. No mezclar en mismo piso. Margen recomendado: 18%.', icon: '🔍' },
+    ...lote.pedidos.map(p => ({
+      fecha: p.fecha,
+      tipo: 'Asignación a pedido',
+      desc: `${p.sf} sq ft asignados a ${p.os} — ${p.desc} (${p.tipo})`,
+      icon: '📋'
+    })),
+    { fecha: 'Hoy', tipo: 'Stock actual', desc: `${lote.sfDisponible.toLocaleString()} sq ft disponibles de ${lote.sfTotal.toLocaleString()} sq ft originales.`, icon: '📊' }
+  ];
+  container.innerHTML = eventos.map((e, i) => `
+    <div style="display:flex;gap:0.75rem;${i < eventos.length - 1 ? '' : ''}margin-bottom:${i < eventos.length - 1 ? '0' : '0'}">
+      <div style="display:flex;flex-direction:column;align-items:center;width:28px;flex-shrink:0;">
+        <div style="width:28px;height:28px;border-radius:50%;background:var(--crema);border:2px solid var(--terracota);display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0;">${e.icon}</div>
+        ${i < eventos.length - 1 ? '<div style="width:2px;flex:1;background:#e5e0d8;margin:4px 0;min-height:20px;"></div>' : ''}
+      </div>
+      <div style="padding-bottom:${i < eventos.length - 1 ? '1rem' : '0'};flex:1;">
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;margin-bottom:0.2rem;">
+          <span style="font-size:0.72rem;font-family:'Arial',sans-serif;color:#aaa;">${e.fecha}</span>
+          <span style="font-size:0.7rem;font-family:'Arial',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--terracota);">${e.tipo}</span>
+        </div>
+        <p style="font-size:0.82rem;font-family:'Arial',sans-serif;color:#5a4a42;line-height:1.5;">${e.desc}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function asignarLote() {
+  const pedidoSelect = document.getElementById('pedido-select');
+  const qtyInput = document.getElementById('qty-input');
+  const resultado = document.getElementById('asignar-resultado');
+  const pedido = pedidoSelect.value;
+  const qty = parseInt(qtyInput.value, 10);
+  const lote = lotes.find(l => l.id === 'TX-2024-0087');
+
+  if (!pedido) { mostrarResultado(resultado, 'error', 'Seleccione un pedido antes de asignar.'); return; }
+  if (!qty || qty <= 0) { mostrarResultado(resultado, 'error', 'Ingrese una cantidad válida.'); return; }
+  if (qty > lote.sfDisponible) {
+    mostrarResultado(resultado, 'error', `Solo quedan ${lote.sfDisponible} sq ft disponibles en este lote.`);
+    return;
+  }
+
+  // Descontar
+  lote.sfDisponible -= qty;
+  lote.sfAsignado += qty;
+  if (lote.sfDisponible === 0) lote.estado = 'agotado';
+  else lote.estado = 'parcial';
+
+  const now = new Date();
+  const fechaStr = now.getDate() + '-' + ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][now.getMonth()] + '-' + now.getFullYear();
+  lote.pedidos.push({ os: pedido, desc: pedidoSelect.options[pedidoSelect.selectedIndex].text.split('·')[1]?.trim() || pedido, sf: qty, fecha: fechaStr, tipo: 'Asignado' });
+
+  actualizarFicha();
+  sincronizarVista4();
+  renderGridLotes();
+
+  const sfEl = document.getElementById('ficha-sf');
+  if (sfEl) {
+    sfEl.classList.remove('flash-update');
+    void sfEl.offsetWidth;
+    sfEl.classList.add('flash-update');
+  }
+
+  mostrarResultado(resultado, 'ok', `✅ ${qty} sq ft asignados a ${pedido}. Stock actualizado: ${lote.sfDisponible.toLocaleString()} sq ft disponibles. El cambio se refleja en mostrador y web al instante.`);
+  qtyInput.value = '';
+  pedidoSelect.value = '';
+}
+
+function mostrarResultado(el, tipo, msg) {
+  el.style.display = 'block';
+  el.style.cssText = `display:block;padding:0.75rem;border-radius:6px;font-family:'Arial',sans-serif;font-size:0.83rem;line-height:1.5;${tipo === 'ok' ? 'background:#d4edda;color:#155724;border:1px solid #b2dfdb;' : 'background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;'}`;
+  el.textContent = msg;
+}
+
+// ============================================================
+// VISTA 3: PRECIOS
+// ============================================================
+function setPrecioTipo(tipo) {
+  precioTipo = tipo;
+  const btnC = document.getElementById('btn-contratista');
+  const btnP = document.getElementById('btn-particular');
+  btnC.className = tipo === 'contratista' ? 'active-contratista' : '';
+  btnP.className = tipo === 'particular' ? 'active-particular' : '';
+  renderTablaPrecios();
+  const label = document.getElementById('precio-label');
+  if (tipo === 'contratista') {
+    label.innerHTML = '<span class="badge badge-contratista">Contratista / Contractor</span> — Se aplica descuento sobre precio base. El sistema detecta el tipo de cliente y aplica la lista correcta automáticamente.';
+  } else {
+    label.innerHTML = '<span class="badge badge-particular">Homeowner / Particular</span> — Precio base de catálogo. Se muestra también en la tienda en línea.';
+  }
+}
+
+function renderTablaPrecios() {
+  const tbody = document.getElementById('tbody-precios');
+  const header = document.getElementById('col-precio-header');
+  if (!tbody) return;
+  if (header) {
+    header.textContent = precioTipo === 'contratista' ? 'Precio Contratista / pieza' : 'Precio Particular / pieza';
+    header.style.color = precioTipo === 'contratista' ? '#004085' : '#4a1875';
+  }
+  const items = lotes.map(l => {
+    const precio = precioTipo === 'contratista' ? l.precioContratista : l.precioParticular;
+    const pct = l.sfTotal > 0 ? Math.round((l.sfDisponible / l.sfTotal) * 100) : (l.sfDisponible > 0 ? 100 : 0);
+    return `
+      <tr style="border-bottom:1px solid #f0ece8;">
+        <td style="padding:0.7rem 0.9rem;vertical-align:middle;">
+          <div style="font-weight:600;font-size:0.84rem;">${l.nombre}</div>
+          <div style="font-size:0.72rem;color:#aaa;margin-top:0.15rem;">${l.id}</div>
+        </td>
+        <td style="padding:0.7rem 0.9rem;vertical-align:middle;font-size:0.82rem;color:#6b5e55;">${l.formato}</td>
+        <td style="padding:0.7rem 0.9rem;vertical-align:middle;text-align:right;">
+          <span style="font-size:1.05rem;font-weight:700;color:${precioTipo === 'contratista' ? 'var(--azul)' : '#6f42c1'};">
+            $${precio.toFixed(2)}
+          </span>
+        </td>
+        <td style="padding:0.7rem 0.9rem;vertical-align:middle;text-align:center;">
+          <div class="stock-bar-bg" style="max-width:100px;margin:0 auto 0.25rem;">
+            <div class="stock-bar-fill" style="width:${pct}%;background:${l.estado === 'agotado' ? '#dc3545' : 'var(--terracota)'}"></div>
+          </div>
+          <span style="font-size:0.72rem;font-family:'Arial',sans-serif;color:#888;">${l.sfDisponible.toLocaleString()} sq ft</span>
+        </td>
+      </tr>
+    `;
+  }).join('');
+  tbody.innerHTML = items;
+}
+
+// ============================================================
+// VISTA 4: SINCRONÍA
+// ============================================================
+function sincronizarVista4() {
+  const lote = lotes.find(l => l.id === 'TX-2024-0087');
+  if (!lote) return;
+  const sfStr = lote.sfDisponible.toLocaleString() + ' sq ft';
+  const el1 = document.getElementById('stat-stock-12');
+  const el2 = document.getElementById('central-sf');
+  if (el1) { el1.textContent = sfStr; el1.classList.remove('flash-update'); void el1.offsetWidth; el1.classList.add('flash-update'); }
+  if (el2) { el2.textContent = sfStr; el2.classList.remove('flash-update'); void el2.offsetWidth; el2.classList.add('flash-update'); }
+}
+
+let stockBaseVista4 = 842;
+function simularVentaMostrador(sf) {
+  const lote = lotes.find(l => l.id === 'TX-2024-0087');
+  if (!lote || lote.sfDisponible <= 0) return;
+  const real = Math.min(sf, lote.sfDisponible);
+  lote.sfDisponible -= real;
+  lote.sfAsignado += real;
+  if (lote.sfDisponible === 0) lote.estado = 'agotado';
+  else lote.estado = 'parcial';
+  sincronizarVista4();
+  actualizarFicha();
+  renderGridLotes();
+  const statPedidos = document.getElementById('stat-pedidos');
+  if (statPedidos) {
+    const n = parseInt(statPedidos.textContent) + 1;
+    statPedidos.textContent = n;
+    statPedidos.classList.remove('flash-update'); void statPedidos.offsetWidth; statPedidos.classList.add('flash-update');
+  }
+}
+
+function resetearStock() {
+  lotes = JSON.parse(JSON.stringify(LOTES_INICIAL));
+  sincronizarVista4();
+  actualizarFicha();
+  renderGridLotes();
+  const statPedidos = document.getElementById('stat-pedidos');
+  if (statPedidos) statPedidos.textContent = '7';
+}
+
+// ============================================================
+// MODAL GANADO
+// ============================================================
+function mostrarModal() {
+  if (modalMostrado) return;
+  modalMostrado = true;
+  sessionStorage.setItem('pyramid_modal_shown', 'true');
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+
+function cerrarModal(event) {
+  if (event && event.target !== document.getElementById('modal-overlay')) return;
+  document.getElementById('modal-overlay').style.display = 'none';
+}
+
+// Timer 75 segundos
+timerModal = setTimeout(() => {
+  if (!modalMostrado) mostrarModal();
+}, 75000);
+
+// ============================================================
+// INICIALIZACIÓN
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderGridLotes();
+  renderHistorial(lotes.find(l => l.id === 'TX-2024-0087'));
+  setPrecioTipo('contratista');
+  sincronizarVista4();
+});
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,219 @@
+---
+import Base from '../../layouts/Base.astro';
+import { graph, breadcrumbs } from '../../lib/schema';
+import { CALENDLY } from '../../data/site';
+import { CATEGORIAS, demosDe, DEMOS } from '../../data/demos';
+
+const jsonLd = graph(
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Demos', path: '/demos' },
+  ])
+);
+
+const total = DEMOS.length;
+---
+<Base
+  lang="es"
+  title="Demos: 27 sistemas que puede probar ahora mismo | pocho.tech"
+  description="Veintisiete prototipos funcionales de sistemas de gestión a la medida, agrupados por rubro. Abra el que se parezca a su operación y recórralo completo. Sin registro."
+  path="/demos"
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Demos</p>
+      <h1>{total} sistemas que puede probar ahora mismo.</h1>
+      <p class="lead">
+        Cada uno es un prototipo funcional, no una captura de pantalla ni un video. Se abre en el navegador,
+        se recorre completo y responde como respondería el sistema real. Busque el rubro más parecido al suyo
+        y ábralo: en dos minutos va a entender exactamente qué le estoy proponiendo.
+      </p>
+      <p class="nota">
+        Las empresas y los datos son ficticios. Los prototipos están construidos sobre operaciones reales,
+        pero ninguna marca aquí nombrada existe.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-alt como">
+    <div class="wrap">
+      <h2>Cómo leer estas demos</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Empiece por el rubro, no por la marca</h3>
+          <p>
+            Los sistemas se parecen entre negocios que se parecen. Si distribuye alimentos, la demo de una
+            empacadora le va a resultar más útil que la de su competencia directa.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Recorra los cuatro módulos</h3>
+          <p>
+            Casi todas tienen la misma estructura: el tablero del día, la ficha del cliente o del trabajo,
+            el módulo que resuelve el atasco propio del rubro, y búsqueda con reportes.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Nada de esto es una plantilla</h3>
+          <p>
+            Cada prototipo se construyó mirando una operación concreta. El suyo se vería distinto, porque
+            su operación es distinta. Eso es exactamente el punto.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {CATEGORIAS.map((cat) => (
+    <section class="categoria" id={cat.clave}>
+      <div class="wrap">
+        <h2>{cat.nombre}</h2>
+        <p class="cat-desc">{cat.descripcion}</p>
+        <ul class="demo-grid">
+          {demosDe(cat.clave).map((d) => (
+            <li class="demo-card">
+              <a class="demo-link" href={`/demos/${d.slug}`}>
+                <h3>{d.nombre}</h3>
+                <p class="rubro">{d.rubro}</p>
+                <p class="resumen">{d.resumen}</p>
+                <ul class="modulos">
+                  {d.modulos.map((m) => <li>{m}</li>)}
+                </ul>
+                <span class="abrir">Abrir la demo</span>
+              </a>
+              {d.idioma === 'en' && <span class="tag-idioma">Interfaz en inglés</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="cierre">
+    <div class="wrap">
+      <h2>¿Vio uno que se parece a su operación?</h2>
+      <p class="lead">
+        Esa demo tardó unas horas. El sistema real tarda meses y se construye sobre su operación, no sobre
+        la de otro. La primera conversación es de una hora y sale de ahí con una respuesta concreta:
+        qué se automatiza primero, en cuánto tiempo y a qué costo.
+      </p>
+      <a class="btn btn-primary" href={CALENDLY} target="_blank" rel="noopener">Agendar una llamada</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-block: var(--space-section) clamp(40px, 6vw, 64px); }
+  .lead {
+    font-size: 1.15rem;
+    color: var(--c-text-mute);
+    max-width: 64ch;
+    margin-top: 18px;
+  }
+  .nota {
+    margin-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--c-text-dim);
+    max-width: 60ch;
+  }
+
+  .como { padding-block: clamp(48px, 7vw, 80px); }
+  .como .card h3 { font-size: 1.05rem; margin-bottom: 10px; }
+  .como .card p { color: var(--c-text-mute); font-size: 0.95rem; margin: 0; }
+
+  .categoria { padding-block: clamp(48px, 7vw, 80px) 0; }
+  .categoria h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+  .cat-desc {
+    color: var(--c-text-mute);
+    max-width: 68ch;
+    margin-top: 12px;
+  }
+
+  .demo-grid {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .demo-card { position: relative; display: flex; }
+
+  .demo-link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 24px 24px 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+  .demo-link:hover {
+    border-color: var(--c-text);
+    transform: translateY(-2px);
+  }
+  .demo-link h3 { font-size: 1.1rem; margin: 0; }
+  .rubro {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--c-text-dim);
+    margin: 8px 0 0;
+    line-height: 1.45;
+  }
+  .resumen {
+    font-size: 0.94rem;
+    color: var(--c-text-mute);
+    margin: 14px 0 0;
+  }
+
+  .modulos {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .modulos li {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--c-text-mute);
+    border: 1px solid var(--c-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    background: var(--c-surface-alt);
+  }
+
+  .abrir {
+    margin-top: auto;
+    padding-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--c-red);
+  }
+  .demo-link:hover .abrir { text-decoration: underline; }
+
+  .tag-idioma {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--c-text-dim);
+    background: var(--c-surface-alt);
+    border: 1px solid var(--c-border);
+    border-radius: 3px;
+    padding: 3px 6px;
+    pointer-events: none;
+  }
+
+  .cierre { padding-block: clamp(56px, 8vw, 96px); }
+  .cierre .btn { margin-top: 26px; }
+</style>

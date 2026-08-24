@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carnes del Norte — Demo Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --rojo: #8B0000;
+      --rojo-acento: #CC2200;
+      --oscuro: #1A1A1A;
+    }
+    * { box-sizing: border-box; }
+    body { background: #f5f5f5; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+    /* ---- HEADER ---- */
+    .site-header {
+      background: var(--rojo);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,.4);
+    }
+    .site-header .brand { font-size: 1.25rem; font-weight: 700; letter-spacing: .5px; }
+    .site-header .subtitle { font-size: .72rem; opacity: .85; margin-top: 2px; }
+    .demo-badge {
+      background: #CC2200;
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,.3);
+    }
+
+    /* ---- TABS ---- */
+    .tabs-bar {
+      background: var(--oscuro);
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 12px 22px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.55);
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color .2s, border-color .2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+    .tab-btn:hover { color: rgba(255,255,255,.9); }
+    .tab-btn.active { color: #fff; border-bottom-color: #CC2200; }
+
+    /* ---- VIEWS ---- */
+    .view { display: none; padding: 20px; max-width: 1100px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    /* ---- CARDS ---- */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card-header {
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    /* ---- STATUS PILLS ---- */
+    .pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+    }
+    .pill-verde  { background: #d1fae5; color: #065f46; }
+    .pill-amarillo { background: #fef3c7; color: #92400e; }
+    .pill-rojo   { background: #fee2e2; color: #991b1b; }
+    .pill-gris   { background: #f3f4f6; color: #374151; }
+    .pill-azul   { background: #dbeafe; color: #1e40af; }
+
+    /* ---- TABLA ---- */
+    table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+    th { text-align: left; padding: 10px 12px; font-size: .7rem; text-transform: uppercase; letter-spacing: .8px; color: #6b7280; border-bottom: 2px solid #e5e7eb; }
+    td { padding: 11px 12px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+
+    /* ---- STAT BOXES ---- */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 20px; }
+    .stat-box { background: #fff; border-radius: 8px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+    .stat-box .num { font-size: 1.8rem; font-weight: 700; color: var(--rojo); line-height: 1; }
+    .stat-box .lbl { font-size: .73rem; color: #6b7280; margin-top: 5px; }
+    .stat-box .sub { font-size: .7rem; color: #9ca3af; margin-top: 2px; }
+
+    /* ---- ALERTA ---- */
+    .alerta { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 8px; margin-bottom: 12px; font-size: .83rem; }
+    .alerta-roja   { background: #fef2f2; border-left: 4px solid #CC2200; }
+    .alerta-amarilla { background: #fffbeb; border-left: 4px solid #f59e0b; }
+    .alerta-verde  { background: #f0fdf4; border-left: 4px solid #16a34a; }
+    .alerta-icon   { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .alerta-texto .titulo { font-weight: 700; margin-bottom: 2px; }
+    .alerta-texto .detalle { color: #555; font-size: .78rem; }
+
+    /* ---- FICHA CLIENTE ---- */
+    .ficha-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media(max-width:640px){ .ficha-grid { grid-template-columns: 1fr; } }
+    .info-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #f3f4f6; font-size: .83rem; }
+    .info-row .etiq { color: #6b7280; }
+    .info-row .val { font-weight: 600; text-align: right; }
+
+    /* ---- BARRA DE PROGRESO ---- */
+    .progress-bar { height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+    .progress-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+
+    /* ---- BOTON CTA FLOTANTE ---- */
+    .fab {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      background: var(--rojo-acento);
+      color: #fff;
+      font-weight: 700;
+      font-size: .85rem;
+      padding: 14px 22px;
+      border-radius: 50px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.3);
+      cursor: pointer;
+      border: none;
+      z-index: 999;
+      transition: transform .15s, box-shadow .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .fab:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.35); }
+
+    /* ---- MODAL ---- */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.65);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 440px;
+      width: 100%;
+      padding: 36px 32px 28px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+    .modal-box .close-btn {
+      position: absolute; top: 14px; right: 18px;
+      font-size: 1.3rem; color: #aaa; cursor: pointer; background: none; border: none;
+    }
+    .modal-box .close-btn:hover { color: #333; }
+    .modal-title { font-size: 1.3rem; font-weight: 700; color: var(--rojo); margin-bottom: 10px; }
+    .modal-body  { font-size: .88rem; color: #444; line-height: 1.6; margin-bottom: 22px; }
+    .modal-cta {
+      display: block;
+      background: var(--rojo-acento);
+      color: #fff;
+      font-weight: 700;
+      padding: 14px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: .92rem;
+      transition: background .2s;
+    }
+    .modal-cta:hover { background: #a91c00; }
+    .modal-nota { font-size: .72rem; color: #aaa; margin-top: 12px; }
+
+    /* ---- SEARCH BAR ---- */
+    .search-bar { width: 100%; padding: 10px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: .88rem; outline: none; }
+    .search-bar:focus { border-color: var(--rojo); box-shadow: 0 0 0 3px rgba(139,0,0,.1); }
+
+    /* ---- SECCION TITULO ---- */
+    .section-title { font-size: 1rem; font-weight: 700; color: var(--oscuro); margin-bottom: 14px; }
+
+    /* ---- CONFIRM TOAST ---- */
+    .toast {
+      position: fixed; top: 80px; right: 20px;
+      background: #065f46; color: #fff;
+      padding: 12px 20px; border-radius: 8px;
+      font-size: .82rem; font-weight: 600;
+      box-shadow: 0 4px 14px rgba(0,0,0,.3);
+      z-index: 800;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .toast.show { opacity: 1; }
+
+    /* ---- COMPARACION (dolor dramatizado) ---- */
+    .versus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media(max-width:600px){ .versus-grid { grid-template-columns: 1fr; } }
+    .versus-card { border-radius: 10px; padding: 20px; }
+    .versus-card.antes { background: #fff5f5; border: 1.5px solid #fca5a5; }
+    .versus-card.despues { background: #f0fdf4; border: 1.5px solid #86efac; }
+    .versus-card .v-title { font-size: .85rem; font-weight: 700; margin-bottom: 14px; }
+    .versus-card .v-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: .82rem; color: #374151; }
+    .v-icon { flex-shrink: 0; font-size: 1rem; }
+    .timeline-item { display: flex; gap: 14px; margin-bottom: 14px; }
+    .tl-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--rojo); flex-shrink: 0; margin-top: 4px; }
+    .tl-line { width: 2px; background: #e5e7eb; flex: 1; margin: 0 5px; }
+    .tl-content { flex: 1; font-size: .82rem; }
+    .tl-fecha { font-size: .7rem; color: #9ca3af; margin-top: 2px; }
+
+    /* ---- FOOTER ---- */
+    footer { text-align: center; padding: 24px 20px 80px; font-size: .75rem; color: #9ca3af; }
+
+    /* ---- BOTONES ACCION ---- */
+    .btn { padding: 7px 14px; border-radius: 6px; font-size: .78rem; font-weight: 600; cursor: pointer; border: none; transition: opacity .15s; }
+    .btn:hover { opacity: .85; }
+    .btn-primary { background: var(--rojo); color: #fff; }
+    .btn-outline { background: transparent; border: 1.5px solid var(--rojo); color: var(--rojo); }
+    .btn-verde   { background: #16a34a; color: #fff; }
+    .btn-sm      { padding: 5px 10px; font-size: .73rem; }
+
+    /* ---- SELECTS inline ---- */
+    .sel-estado { padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 5px; font-size: .75rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div>
+    <div class="brand">&#127822; Carnes del Norte</div>
+    <div class="subtitle">Así se vería su sistema propio — preparado por Pocho.tech</div>
+  </div>
+  <span class="demo-badge">DEMO &middot; DATOS DE MUESTRA</span>
+</header>
+
+<!-- TABS -->
+<nav class="tabs-bar" role="tablist">
+  <button class="tab-btn active" onclick="showView('tablero', this)" role="tab">Tablero de Pedidos</button>
+  <button class="tab-btn" onclick="showView('ficha', this)" role="tab">Ficha de Cliente</button>
+  <button class="tab-btn" onclick="showView('inventario', this)" role="tab">Inventario &amp; Alertas</button>
+  <button class="tab-btn" onclick="showView('busqueda', this)" role="tab">Búsqueda &amp; Reportes</button>
+</nav>
+
+<!-- ============================================================
+     VISTA 1 — TABLERO DE PEDIDOS (operación diaria)
+     ============================================================ -->
+<section id="view-tablero" class="view active">
+
+  <!-- Stats rápidos -->
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="num">14</div>
+      <div class="lbl">Pedidos hoy</div>
+      <div class="sub">Lun 28 Jul · 9:15 AM</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">3</div>
+      <div class="lbl">En preparación</div>
+      <div class="sub">Cuarto frío activo</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" style="color:#CC2200">2</div>
+      <div class="lbl">Pendientes de confirmar</div>
+      <div class="sub">Requieren atención</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" style="color:#065f46">9</div>
+      <div class="lbl">Listos / Entregados</div>
+      <div class="sub">Hoy</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">$18,420</div>
+      <div class="lbl">Facturado esta semana</div>
+      <div class="sub">+12% vs semana pasada</div>
+    </div>
+  </div>
+
+  <!-- Alerta activa -->
+  <div class="alerta alerta-amarilla">
+    <span class="alerta-icon">&#9888;&#65039;</span>
+    <div class="alerta-texto">
+      <div class="titulo">Taquería El Farolito — pedido sin confirmar hace 2 horas</div>
+      <div class="detalle">48 lb Ribeye Choice USDA (Swift) + 30 lb Costillas Spare Ribs (Seaboard) · $1,240 estimado</div>
+    </div>
+  </div>
+
+  <!-- Tabla de pedidos -->
+  <div class="card">
+    <div class="card-header">Pedidos del día — 28 Jul 2026</div>
+    <div style="overflow-x:auto;">
+      <table id="tabla-pedidos">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Cliente</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th>Canal</th>
+            <th>Estado</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="pedido-001">
+            <td><b>#PED-001</b></td>
+            <td>Taquería El Farolito</td>
+            <td>Ribeye 48 lb · Spare Ribs 30 lb</td>
+            <td>$1,240</td>
+            <td><span class="pill pill-azul">Portal B2B</span></td>
+            <td><span class="pill pill-amarillo" id="estado-001">Sin confirmar</span></td>
+            <td><button class="btn btn-verde btn-sm" onclick="confirmarPedido('001')">Confirmar</button></td>
+          </tr>
+          <tr id="pedido-002">
+            <td><b>#PED-002</b></td>
+            <td>Mariscos La Palapa</td>
+            <td>Camarón 41/50 IQF 20 lb · Tilapia 15 lb</td>
+            <td>$620</td>
+            <td><span class="pill pill-amarillo">WhatsApp</span></td>
+            <td><span class="pill pill-rojo" id="estado-002">Sin confirmar</span></td>
+            <td><button class="btn btn-verde btn-sm" onclick="confirmarPedido('002')">Confirmar</button></td>
+          </tr>
+          <tr>
+            <td><b>#PED-003</b></td>
+            <td>El Rincón Norteño</td>
+            <td>Pollo entero 40 lb · Pechuga boneless 20 lb</td>
+            <td>$480</td>
+            <td><span class="pill pill-azul">Portal B2B</span></td>
+            <td><span class="pill pill-gris">En preparación</span></td>
+            <td><button class="btn btn-outline btn-sm">Ver detalle</button></td>
+          </tr>
+          <tr>
+            <td><b>#PED-004</b></td>
+            <td>Birriería Don Ramón</td>
+            <td>Lomo de cerdo boneless 20 lb · Chorizo Mex. 10 lb</td>
+            <td>$395</td>
+            <td><span class="pill pill-azul">Portal B2B</span></td>
+            <td><span class="pill pill-gris">En preparación</span></td>
+            <td><button class="btn btn-outline btn-sm">Ver detalle</button></td>
+          </tr>
+          <tr>
+            <td><b>#PED-005</b></td>
+            <td>Carnitas El Gallo</td>
+            <td>Lomo cerdo 40 lb · Sazón Don Pedro x12</td>
+            <td>$510</td>
+            <td><span class="pill pill-azul">Portal B2B</span></td>
+            <td><span class="pill pill-gris">Listo para entrega</span></td>
+            <td><button class="btn btn-outline btn-sm">Ver detalle</button></td>
+          </tr>
+          <tr>
+            <td><b>#PED-006</b></td>
+            <td>Restaurante Casa Blanca</td>
+            <td>Ribeye 60 lb · Film wrap 18" x3</td>
+            <td>$1,090</td>
+            <td><span class="pill pill-azul">Portal B2B</span></td>
+            <td><span class="pill pill-verde">Entregado</span></td>
+            <td><button class="btn btn-outline btn-sm">Ver detalle</button></td>
+          </tr>
+          <tr>
+            <td><b>#PED-007</b></td>
+            <td>La Paloma Grill</td>
+            <td>Spare ribs 30 lb · Foil pans half x2 pack</td>
+            <td>$345</td>
+            <td><span class="pill pill-amarillo">Teléfono</span></td>
+            <td><span class="pill pill-verde">Entregado</span></td>
+            <td><button class="btn btn-outline btn-sm">Ver detalle</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <button class="btn btn-primary" onclick="abrirModal()">+ Nuevo pedido</button>
+      <span style="font-size:.75rem;color:#9ca3af;">7 de 14 pedidos mostrados · hoy 28-Jul</span>
+    </div>
+  </div>
+
+  <!-- Nota de dolor antes -->
+  <div style="background:#fff8f8;border:1px dashed #fca5a5;border-radius:8px;padding:16px;font-size:.8rem;color:#7f1d1d;display:flex;gap:12px;align-items:flex-start;">
+    <span style="font-size:1.3rem;">&#128222;</span>
+    <div>
+      <b>Sin este sistema:</b> #PED-001 y #PED-002 llegarían por WhatsApp o teléfono — sin registro, sin historial, sin confirmación automática. "Accurate ordering and prompt delivery" empieza aquí.
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     VISTA 2 — FICHA DE CLIENTE (historial + crédito + CRM)
+     ============================================================ -->
+<section id="view-ficha" class="view">
+
+  <!-- Selector de cliente -->
+  <div class="card" style="margin-bottom:14px;">
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <div style="font-size:.82rem;color:#6b7280;white-space:nowrap;">Cuenta activa:</div>
+      <select class="sel-estado" style="font-size:.85rem;padding:7px 12px;flex:1;max-width:280px;" onchange="cambiarCliente(this.value)">
+        <option value="farolito">Taquería El Farolito</option>
+        <option value="palapa">Mariscos La Palapa</option>
+        <option value="norteno">El Rincón Norteño</option>
+        <option value="ramon">Birriería Don Ramón</option>
+      </select>
+      <span id="ficha-badge-credito" class="pill pill-verde">Crédito al día</span>
+    </div>
+  </div>
+
+  <div class="ficha-grid">
+    <!-- Columna izquierda -->
+    <div>
+      <!-- Datos del cliente -->
+      <div class="card">
+        <div class="card-header">Datos de la cuenta</div>
+        <div id="ficha-datos">
+          <div class="info-row"><span class="etiq">Razón social</span><span class="val">Taquería El Farolito LLC</span></div>
+          <div class="info-row"><span class="etiq">Contacto</span><span class="val">Luis Sánchez</span></div>
+          <div class="info-row"><span class="etiq">Teléfono</span><span class="val">713-xxx-xxxx</span></div>
+          <div class="info-row"><span class="etiq">Dirección entrega</span><span class="val">Houston, TX 77012</span></div>
+          <div class="info-row"><span class="etiq">Categoría</span><span class="val">Restaurante — Wholesale</span></div>
+          <div class="info-row"><span class="etiq">Cliente desde</span><span class="val">Ene 2019 · 7 años</span></div>
+          <div class="info-row"><span class="etiq">Días de crédito</span><span class="val">30 días</span></div>
+          <div class="info-row"><span class="etiq">Límite de crédito</span><span class="val">$3,500</span></div>
+        </div>
+      </div>
+
+      <!-- Saldo y cobranza -->
+      <div class="card">
+        <div class="card-header">Saldo &amp; Cobranza</div>
+        <div id="ficha-saldo">
+          <div class="info-row"><span class="etiq">Saldo actual</span><span class="val" style="color:#065f46;font-size:1rem;">$0.00</span></div>
+          <div class="info-row"><span class="etiq">Facturas vencidas</span><span class="val">Ninguna</span></div>
+          <div class="info-row"><span class="etiq">Días promedio de pago</span><span class="val">22 días</span></div>
+          <div class="info-row"><span class="etiq">Última factura</span><span class="val">$1,140 · 22-Jul-26</span></div>
+          <div class="info-row"><span class="etiq">Estado</span><span class="val"><span class="pill pill-verde">Al día</span></span></div>
+        </div>
+        <div style="margin-top:14px;">
+          <div style="font-size:.75rem;color:#6b7280;margin-bottom:6px;">Uso de línea de crédito (0 de $3,500)</div>
+          <div class="progress-bar"><div class="progress-fill" style="width:0%;background:#16a34a;"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna derecha -->
+    <div>
+      <!-- Historial de compras -->
+      <div class="card">
+        <div class="card-header">Historial de pedidos — últimos 90 días</div>
+        <table id="ficha-historial">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Productos</th>
+              <th>Total</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>28-Jul</td><td>Ribeye 48 lb · Spare Ribs 30 lb</td><td>$1,240</td><td><span class="pill pill-amarillo">Pendiente</span></td></tr>
+            <tr><td>22-Jul</td><td>Ribeye 60 lb · Pechuga 20 lb · Film wrap</td><td>$1,140</td><td><span class="pill pill-verde">Pagado</span></td></tr>
+            <tr><td>15-Jul</td><td>Pollo entero 80 lb · Sazón Don Pedro x6</td><td>$890</td><td><span class="pill pill-verde">Pagado</span></td></tr>
+            <tr><td>08-Jul</td><td>Spare Ribs 60 lb · Chorizo Mex 20 lb</td><td>$780</td><td><span class="pill pill-verde">Pagado</span></td></tr>
+            <tr><td>01-Jul</td><td>Ribeye 48 lb · Lomo cerdo 20 lb</td><td>$1,050</td><td><span class="pill pill-verde">Pagado</span></td></tr>
+            <tr><td>24-Jun</td><td>Pechuga boneless 40 lb · Film wrap x2</td><td>$620</td><td><span class="pill pill-verde">Pagado</span></td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;padding:12px;background:#f9fafb;border-radius:6px;display:flex;gap:24px;flex-wrap:wrap;">
+          <div style="font-size:.8rem;"><span style="color:#6b7280;">Compras 90 días:</span> <b>$5,720</b></div>
+          <div style="font-size:.8rem;"><span style="color:#6b7280;">Promedio/pedido:</span> <b>$953</b></div>
+          <div style="font-size:.8rem;"><span style="color:#6b7280;">Frecuencia:</span> <b>1.7×/semana</b></div>
+        </div>
+      </div>
+
+      <!-- Nota CRM -->
+      <div class="alerta alerta-verde">
+        <span class="alerta-icon">&#10003;</span>
+        <div class="alerta-texto">
+          <div class="titulo">Cliente de alto valor — 7 años de relación</div>
+          <div class="detalle">Ribeye y Spare Ribs son sus productos fijos. Recibe pedido los martes y viernes. Candidato para descuento por volumen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nota de dolor -->
+  <div style="background:#fff8f8;border:1px dashed #fca5a5;border-radius:8px;padding:16px;font-size:.8rem;color:#7f1d1d;display:flex;gap:12px;align-items:flex-start;margin-top:4px;">
+    <span style="font-size:1.3rem;">&#128203;</span>
+    <div>
+      <b>Sin este sistema:</b> 26 años de relaciones comerciales manejadas de memoria o en papel. Este historial — quién compra qué, con qué frecuencia, qué crédito tiene — hoy vive en la cabeza de Milton o en un cuaderno.
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     VISTA 3 — INVENTARIO & ALERTAS (dolor principal dramatizado)
+     ============================================================ -->
+<section id="view-inventario" class="view">
+
+  <!-- Estadísticas de inventario -->
+  <div class="stat-grid">
+    <div class="stat-box">
+      <div class="num" style="color:#CC2200">4</div>
+      <div class="lbl">Productos en alerta</div>
+      <div class="sub">Vencen en &lt; 72 h</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">$2,840</div>
+      <div class="lbl">Valor en riesgo</div>
+      <div class="sub">Merma potencial</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" style="color:#065f46">$890</div>
+      <div class="lbl">Merma evitada esta semana</div>
+      <div class="sub">Por rotación FIFO activa</div>
+    </div>
+    <div class="stat-box">
+      <div class="num">47</div>
+      <div class="lbl">Productos en stock</div>
+      <div class="sub">Cuarto frío + bodega</div>
+    </div>
+  </div>
+
+  <!-- Alertas críticas de vencimiento -->
+  <div class="section-title">&#128994; Alertas de perecederos</div>
+
+  <div class="alerta alerta-roja">
+    <span class="alerta-icon">&#128721;</span>
+    <div class="alerta-texto">
+      <div class="titulo">Ribeye Choice USDA (Swift) — Lote #R-0726 · Vence HOY 28-Jul</div>
+      <div class="detalle">Stock: 24 lb · Cuarto frío 1 · Valor: $480 · Acción: Asignar a pedido activo o transferir</div>
+    </div>
+  </div>
+
+  <div class="alerta alerta-roja">
+    <span class="alerta-icon">&#128721;</span>
+    <div class="alerta-texto">
+      <div class="titulo">Camarón Mediano 41/50 IQF — Lote #C-0724 · Vence 29-Jul</div>
+      <div class="detalle">Stock: 10 lb · Cuarto frío 2 · Valor: $160 · Acción: Reubicar a zona de rotación urgente</div>
+    </div>
+  </div>
+
+  <div class="alerta alerta-amarilla">
+    <span class="alerta-icon">&#9888;&#65039;</span>
+    <div class="alerta-texto">
+      <div class="titulo">Pollo Entero Fresco (VIBA) — Lote #P-0725 · Vence 30-Jul (48 h)</div>
+      <div class="detalle">Stock: 80 lb (2 cajas) · Cuarto frío 1 · Valor: $960 · Acción: Priorizar en pedidos de hoy</div>
+    </div>
+  </div>
+
+  <div class="alerta alerta-amarilla">
+    <span class="alerta-icon">&#9888;&#65039;</span>
+    <div class="alerta-texto">
+      <div class="titulo">Filete de Tilapia IQF — Lote #T-0725 · Vence 31-Jul</div>
+      <div class="detalle">Stock: 30 lb (3 cajas) · Cuarto frío 2 · Valor: $390 · Acción: Incluir en oferta especial de mariscos</div>
+    </div>
+  </div>
+
+  <!-- Tabla de inventario -->
+  <div class="card" style="margin-top:20px;">
+    <div class="card-header">Inventario general — top productos</div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Marca</th>
+            <th>Stock</th>
+            <th>Vence</th>
+            <th>Rotación</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ribeye Choice USDA</td>
+            <td>Swift</td>
+            <td>24 lb</td>
+            <td style="color:#CC2200;font-weight:700;">28-Jul ⚠</td>
+            <td>
+              <div style="font-size:.72rem;color:#6b7280;">FIFO</div>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:95%;background:#CC2200;"></div></div>
+            </td>
+            <td><span class="pill pill-rojo">Crítico</span></td>
+          </tr>
+          <tr>
+            <td>Camarón 41/50 IQF</td>
+            <td>—</td>
+            <td>10 lb</td>
+            <td style="color:#CC2200;font-weight:700;">29-Jul ⚠</td>
+            <td>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:90%;background:#f59e0b;"></div></div>
+            </td>
+            <td><span class="pill pill-rojo">Crítico</span></td>
+          </tr>
+          <tr>
+            <td>Pollo Entero Fresco</td>
+            <td>VIBA</td>
+            <td>80 lb (2 cj)</td>
+            <td style="color:#f59e0b;font-weight:600;">30-Jul</td>
+            <td>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:80%;background:#f59e0b;"></div></div>
+            </td>
+            <td><span class="pill pill-amarillo">Alerta</span></td>
+          </tr>
+          <tr>
+            <td>Pechuga Boneless</td>
+            <td>FUD</td>
+            <td>80 lb (2 cj)</td>
+            <td>04-Ago</td>
+            <td>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:45%;background:#16a34a;"></div></div>
+            </td>
+            <td><span class="pill pill-verde">OK</span></td>
+          </tr>
+          <tr>
+            <td>Costillas Spare Ribs</td>
+            <td>Seaboard</td>
+            <td>60 lb (2 cj)</td>
+            <td>06-Ago</td>
+            <td>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:35%;background:#16a34a;"></div></div>
+            </td>
+            <td><span class="pill pill-verde">OK</span></td>
+          </tr>
+          <tr>
+            <td>Lomo Cerdo Boneless</td>
+            <td>GUSI</td>
+            <td>40 lb (2 cj)</td>
+            <td>08-Ago</td>
+            <td>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:25%;background:#16a34a;"></div></div>
+            </td>
+            <td><span class="pill pill-verde">OK</span></td>
+          </tr>
+          <tr>
+            <td>Sazón Don Pedro</td>
+            <td>Don Pedro</td>
+            <td>48 bolsas</td>
+            <td>Dec 2026</td>
+            <td>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:15%;background:#16a34a;"></div></div>
+            </td>
+            <td><span class="pill pill-verde">OK</span></td>
+          </tr>
+          <tr>
+            <td>Queso Fresco Don Pedro</td>
+            <td>Don Pedro</td>
+            <td>10 blocks</td>
+            <td>15-Ago</td>
+            <td>
+              <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:30%;background:#16a34a;"></div></div>
+            </td>
+            <td><span class="pill pill-verde">OK</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Versus dramatización -->
+  <div class="section-title" style="margin-top:24px;">El costo real de no tener control</div>
+  <div class="versus-grid">
+    <div class="versus-card antes">
+      <div class="v-title" style="color:#991b1b;">&#10060; Sin sistema — hoy</div>
+      <div class="v-item"><span class="v-icon">&#128222;</span><span>Vencimientos se descubren cuando se abren las cajas</span></div>
+      <div class="v-item"><span class="v-icon">&#128222;</span><span>Rotación FIFO se hace "de memoria" o no se hace</span></div>
+      <div class="v-item"><span class="v-icon">&#128222;</span><span>Merma no se registra — se absorbe sin saberlo</span></div>
+      <div class="v-item"><span class="v-icon">&#128222;</span><span>"Offering only the best meat products" sin saber qué hay en el cuarto frío</span></div>
+      <div style="margin-top:14px;padding:10px;background:#fee2e2;border-radius:6px;font-size:.8rem;font-weight:700;color:#991b1b;">Merma estimada sin control: $800–$1,200/mes</div>
+    </div>
+    <div class="versus-card despues">
+      <div class="v-title" style="color:#065f46;">&#10004; Con su sistema</div>
+      <div class="v-item"><span class="v-icon">&#9989;</span><span>Alertas automáticas 72 h antes del vencimiento</span></div>
+      <div class="v-item"><span class="v-icon">&#9989;</span><span>Rotación FIFO aplicada en cada pedido que sale</span></div>
+      <div class="v-item"><span class="v-icon">&#9989;</span><span>Merma registrada, tendencia visible, decisión posible</span></div>
+      <div class="v-item"><span class="v-icon">&#9989;</span><span>"Fresh product" garantizado — porque hay datos que lo respaldan</span></div>
+      <div style="margin-top:14px;padding:10px;background:#d1fae5;border-radius:6px;font-size:.8rem;font-weight:700;color:#065f46;">Merma evitada esta semana: $890 · ya activo</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     VISTA 4 — BÚSQUEDA & REPORTES
+     ============================================================ -->
+<section id="view-busqueda" class="view">
+
+  <!-- Barra de búsqueda -->
+  <div class="card">
+    <div class="card-header">Búsqueda de pedidos, clientes y productos</div>
+    <input type="text" class="search-bar" id="buscador" placeholder="Buscar: cliente, producto, número de pedido, fecha..." oninput="filtrarResultados(this.value)" />
+    <div style="margin-top:10px;font-size:.75rem;color:#9ca3af;">Pruebe con: "Farolito", "ribeye", "PED-003", "spare ribs", "palapa"</div>
+  </div>
+
+  <!-- Resultados -->
+  <div id="resultados-busqueda"></div>
+
+  <!-- Resumen de reportes -->
+  <div class="card" style="margin-top:8px;">
+    <div class="card-header">Resumen del mes — Julio 2026</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px;">
+      <div style="text-align:center;padding:12px;background:#f9fafb;border-radius:8px;">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--rojo);">$74,280</div>
+        <div style="font-size:.72rem;color:#6b7280;margin-top:4px;">Ventas totales</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:#f9fafb;border-radius:8px;">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--rojo);">312</div>
+        <div style="font-size:.72rem;color:#6b7280;margin-top:4px;">Pedidos procesados</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:#f9fafb;border-radius:8px;">
+        <div style="font-size:1.4rem;font-weight:700;color:var(--rojo);">48</div>
+        <div style="font-size:.72rem;color:#6b7280;margin-top:4px;">Cuentas activas</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:#f9fafb;border-radius:8px;">
+        <div style="font-size:1.4rem;font-weight:700;color:#065f46;">$238</div>
+        <div style="font-size:.72rem;color:#6b7280;margin-top:4px;">Ticket promedio</div>
+      </div>
+    </div>
+
+    <!-- Top productos -->
+    <div class="card-header" style="margin-top:8px;">Top productos por volumen — Jul 2026</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px;"><span><b>Ribeye Choice USDA</b> (Swift)</span><span style="color:#6b7280;">1,840 lb</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:95%;background:var(--rojo);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px;"><span><b>Pollo Entero Fresco</b> (VIBA)</span><span style="color:#6b7280;">2,240 lb</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:78%;background:var(--rojo);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px;"><span><b>Costillas Spare Ribs</b> (Seaboard)</span><span style="color:#6b7280;">1,200 lb</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:62%;background:var(--rojo);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px;"><span><b>Pechuga Boneless</b> (FUD)</span><span style="color:#6b7280;">980 lb</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:50%;background:var(--rojo);"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px;"><span><b>Lomo Cerdo Boneless</b> (GUSI)</span><span style="color:#6b7280;">640 lb</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:33%;background:var(--rojo);"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top clientes -->
+  <div class="card">
+    <div class="card-header">Top cuentas wholesale — Jul 2026</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cliente</th>
+          <th>Pedidos</th>
+          <th>Total comprado</th>
+          <th>Estado crédito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Taquería El Farolito</td><td>31</td><td>$7,420</td><td><span class="pill pill-verde">Al día</span></td></tr>
+        <tr><td>2</td><td>Restaurante Casa Blanca</td><td>28</td><td>$6,840</td><td><span class="pill pill-verde">Al día</span></td></tr>
+        <tr><td>3</td><td>El Rincón Norteño</td><td>24</td><td>$5,290</td><td><span class="pill pill-verde">Al día</span></td></tr>
+        <tr><td>4</td><td>Carnitas El Gallo</td><td>22</td><td>$4,980</td><td><span class="pill pill-amarillo">Pago pendiente 8d</span></td></tr>
+        <tr><td>5</td><td>Birriería Don Ramón</td><td>19</td><td>$4,310</td><td><span class="pill pill-verde">Al día</span></td></tr>
+        <tr><td>6</td><td>Mariscos La Palapa</td><td>17</td><td>$3,780</td><td><span class="pill pill-rojo">Vencido 45 días</span></td></tr>
+        <tr><td>7</td><td>La Paloma Grill</td><td>15</td><td>$3,120</td><td><span class="pill pill-verde">Al día</span></td></tr>
+      </tbody>
+    </table>
+    <div class="alerta alerta-roja" style="margin-top:14px;">
+      <span class="alerta-icon">&#128204;</span>
+      <div class="alerta-texto">
+        <div class="titulo">Mariscos La Palapa — cuenta vencida 45 días · $680 en cartera</div>
+        <div class="detalle">Último pedido activo por $620. Se recomienda pausar crédito hasta regularización. 17 pedidos con historial positivo previo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
+</footer>
+
+<!-- ============================================================
+     CTA FLOTANTE
+     ============================================================ -->
+<button class="fab" onclick="abrirModal()">¿Le gustó? Hablemos</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast">&#10003; Pedido confirmado y notificado</div>
+
+<!-- ============================================================
+     MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+  <div class="modal-box">
+    <button class="close-btn" onclick="cerrarModal()" aria-label="Cerrar">&times;</button>
+    <div style="font-size:2.5rem;margin-bottom:12px;">&#127822;</div>
+    <div class="modal-title" id="modal-titulo">Carnes del Norte merece un sistema propio</div>
+    <div class="modal-body">
+      26 años construyendo relaciones en Navigation Blvd. Lo que construyeron es sólido.<br/><br/>
+      Esta es la siguiente capa: pedidos sin pérdida, inventario sin merma, clientes sin olvido.<br/><br/>
+      <b>Conversemos sin compromiso.</b> Le mostramos exactamente qué se puede construir para su operación.
+    </div>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=meatplanetinc" target="_blank" rel="noopener noreferrer" class="modal-cta">Agendar conversación con Erick</a>
+    <div class="modal-nota">Sin costo. Sin compromisos. Solo una conversación.</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+  // ---------- TABS ----------
+  var viewCount = 1; // vista inicial ya cuenta como 1
+  function showView(id, btn) {
+    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.getElementById('view-' + id).classList.add('active');
+    btn.classList.add('active');
+    viewCount++;
+    checkModalTrigger();
+  }
+
+  // ---------- MODAL ----------
+  var modalShown = sessionStorage.getItem('mpi_modal_shown') === '1';
+  function abrirModal() {
+    document.getElementById('modal').classList.add('open');
+    sessionStorage.setItem('mpi_modal_shown', '1');
+    modalShown = true;
+  }
+  function cerrarModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+  document.getElementById('modal').addEventListener('click', function(e){
+    if (e.target === this) cerrarModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') cerrarModal();
+  });
+
+  function checkModalTrigger() {
+    if (!modalShown && viewCount >= 3) {
+      abrirModal();
+    }
+  }
+
+  // Timer 75 segundos
+  if (!modalShown) {
+    setTimeout(function(){
+      if (!modalShown) abrirModal();
+    }, 75000);
+  }
+
+  // ---------- CONFIRMAR PEDIDO (interacción simulada) ----------
+  function confirmarPedido(id) {
+    var pill = document.getElementById('estado-' + id);
+    var row  = document.getElementById('pedido-' + id);
+    var btn  = row ? row.querySelector('button') : null;
+    if (!pill) return;
+
+    pill.textContent = 'Confirmado';
+    pill.className = 'pill pill-verde';
+
+    if (btn) {
+      btn.textContent = 'Ver detalle';
+      btn.className = 'btn btn-outline btn-sm';
+      btn.onclick = null;
+    }
+
+    var toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 3000);
+
+    // Actualizar stat box
+    var statBoxes = document.querySelectorAll('.stat-box .num');
+    // Pendientes baja de 2
+    var pendBox = statBoxes[2];
+    if (pendBox) {
+      var cur = parseInt(pendBox.textContent, 10);
+      if (!isNaN(cur) && cur > 0) pendBox.textContent = cur - 1;
+    }
+  }
+
+  // ---------- BUSQUEDA ----------
+  var dataBusqueda = [
+    { ref:'PED-001', cliente:'Taquería El Farolito', productos:'Ribeye Choice USDA 48 lb · Spare Ribs 30 lb', total:'$1,240', fecha:'28-Jul', estado:'Sin confirmar', estadoClass:'pill-amarillo' },
+    { ref:'PED-002', cliente:'Mariscos La Palapa',   productos:'Camarón 41/50 IQF 20 lb · Tilapia 15 lb',   total:'$620',   fecha:'28-Jul', estado:'Sin confirmar', estadoClass:'pill-rojo' },
+    { ref:'PED-003', cliente:'El Rincón Norteño',    productos:'Pollo entero 40 lb · Pechuga boneless 20 lb', total:'$480',  fecha:'28-Jul', estado:'En preparación', estadoClass:'pill-gris' },
+    { ref:'PED-004', cliente:'Birriería Don Ramón',  productos:'Lomo cerdo 20 lb · Chorizo Mex. 10 lb',      total:'$395',   fecha:'28-Jul', estado:'En preparación', estadoClass:'pill-gris' },
+    { ref:'PED-005', cliente:'Carnitas El Gallo',    productos:'Lomo cerdo 40 lb · Sazón Don Pedro x12',     total:'$510',   fecha:'28-Jul', estado:'Listo',         estadoClass:'pill-gris' },
+    { ref:'PED-006', cliente:'Restaurante Casa Blanca', productos:'Ribeye 60 lb · Film wrap 18" x3',         total:'$1,090', fecha:'28-Jul', estado:'Entregado',     estadoClass:'pill-verde' },
+    { ref:'PED-007', cliente:'La Paloma Grill',      productos:'Spare ribs 30 lb · Foil pans x2',            total:'$345',   fecha:'28-Jul', estado:'Entregado',     estadoClass:'pill-verde' },
+    { ref:'PED-021', cliente:'Taquería El Farolito', productos:'Ribeye 60 lb · Pechuga 20 lb',               total:'$1,140', fecha:'22-Jul', estado:'Entregado',     estadoClass:'pill-verde' },
+    { ref:'PED-018', cliente:'El Rincón Norteño',    productos:'Pollo entero 80 lb',                          total:'$720',   fecha:'21-Jul', estado:'Entregado',     estadoClass:'pill-verde' },
+    { ref:'PED-015', cliente:'Mariscos La Palapa',   productos:'Camarón 41/50 25 lb · Tilapia 20 lb',        total:'$680',   fecha:'18-Jul', estado:'Vencido-45d',   estadoClass:'pill-rojo' },
+  ];
+
+  function filtrarResultados(q) {
+    var contenedor = document.getElementById('resultados-busqueda');
+    q = q.trim().toLowerCase();
+    if (!q) { contenedor.innerHTML = ''; return; }
+
+    var matches = dataBusqueda.filter(function(d){
+      return (d.ref + d.cliente + d.productos + d.total + d.fecha + d.estado).toLowerCase().indexOf(q) !== -1;
+    });
+
+    if (matches.length === 0) {
+      contenedor.innerHTML = '<div class="card" style="color:#6b7280;font-size:.85rem;text-align:center;padding:24px;">Sin resultados para "' + escHtml(q) + '"</div>';
+      return;
+    }
+
+    var filas = matches.map(function(d){
+      return '<tr>' +
+        '<td><b>#' + escHtml(d.ref) + '</b></td>' +
+        '<td>' + escHtml(d.cliente) + '</td>' +
+        '<td>' + escHtml(d.productos) + '</td>' +
+        '<td>' + escHtml(d.total) + '</td>' +
+        '<td>' + escHtml(d.fecha) + '</td>' +
+        '<td><span class="pill ' + d.estadoClass + '">' + escHtml(d.estado) + '</span></td>' +
+        '</tr>';
+    }).join('');
+
+    contenedor.innerHTML = '<div class="card"><div class="card-header">' + matches.length + ' resultado(s)</div>' +
+      '<div style="overflow-x:auto;"><table><thead><tr><th>Ref.</th><th>Cliente</th><th>Productos</th><th>Total</th><th>Fecha</th><th>Estado</th></tr></thead><tbody>' +
+      filas + '</tbody></table></div></div>';
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ---------- CAMBIAR CLIENTE EN FICHA ----------
+  var fichaData = {
+    farolito: {
+      datos: [
+        ['Razón social','Taquería El Farolito LLC'],
+        ['Contacto','Luis Sánchez'],
+        ['Teléfono','713-xxx-xxxx'],
+        ['Dirección entrega','Houston, TX 77012'],
+        ['Categoría','Restaurante — Wholesale'],
+        ['Cliente desde','Ene 2019 · 7 años'],
+        ['Días de crédito','30 días'],
+        ['Límite de crédito','$3,500'],
+      ],
+      saldo: { val:'$0.00', color:'#065f46', vencidas:'Ninguna', promedio:'22 días', ultima:'$1,140 · 22-Jul-26', estado:'Al día', estadoClass:'pill-verde', uso:0, limite:3500 },
+      badge: { texto:'Crédito al día', clase:'pill pill-verde' },
+      hist: [
+        ['28-Jul','Ribeye 48 lb · Spare Ribs 30 lb','$1,240','Pendiente','pill-amarillo'],
+        ['22-Jul','Ribeye 60 lb · Pechuga 20 lb · Film wrap','$1,140','Pagado','pill-verde'],
+        ['15-Jul','Pollo entero 80 lb · Sazón Don Pedro x6','$890','Pagado','pill-verde'],
+        ['08-Jul','Spare Ribs 60 lb · Chorizo Mex 20 lb','$780','Pagado','pill-verde'],
+        ['01-Jul','Ribeye 48 lb · Lomo cerdo 20 lb','$1,050','Pagado','pill-verde'],
+        ['24-Jun','Pechuga boneless 40 lb · Film wrap x2','$620','Pagado','pill-verde'],
+      ],
+      stats: ['$5,720','$953','1.7×/semana'],
+    },
+    palapa: {
+      datos: [
+        ['Razón social','Mariscos La Palapa LLC'],
+        ['Contacto','Rosa Mendoza'],
+        ['Teléfono','832-xxx-xxxx'],
+        ['Dirección entrega','Houston, TX 77023'],
+        ['Categoría','Marisquería — Wholesale'],
+        ['Cliente desde','Mar 2021 · 5 años'],
+        ['Días de crédito','30 días'],
+        ['Límite de crédito','$2,500'],
+      ],
+      saldo: { val:'$680', color:'#CC2200', vencidas:'1 factura (45 días)', promedio:'52 días', ultima:'$680 · 13-Jun-26', estado:'Vencido 45 días', estadoClass:'pill-rojo', uso:680, limite:2500 },
+      badge: { texto:'Crédito vencido', clase:'pill pill-rojo' },
+      hist: [
+        ['28-Jul','Camarón 41/50 20 lb · Tilapia 15 lb','$620','Pendiente','pill-rojo'],
+        ['18-Jul','Camarón 41/50 25 lb · Tilapia 20 lb','$680','Vencido-45d','pill-rojo'],
+        ['08-Jul','Tilapia 30 lb · Film wrap x1','$340','Pagado','pill-verde'],
+        ['28-Jun','Camarón 41/50 20 lb','$320','Pagado','pill-verde'],
+        ['18-Jun','Tilapia 30 lb · Foil pans x2','$380','Pagado','pill-verde'],
+      ],
+      stats: ['$2,340','$468','1.1×/semana'],
+    },
+    norteno: {
+      datos: [
+        ['Razón social','El Rincón Norteño Inc.'],
+        ['Contacto','Carlos Torres'],
+        ['Teléfono','713-xxx-xxxx'],
+        ['Dirección entrega','Houston, TX 77016'],
+        ['Categoría','Restaurante — Wholesale'],
+        ['Cliente desde','Jul 2020 · 6 años'],
+        ['Días de crédito','30 días'],
+        ['Límite de crédito','$3,000'],
+      ],
+      saldo: { val:'$0.00', color:'#065f46', vencidas:'Ninguna', promedio:'18 días', ultima:'$720 · 21-Jul-26', estado:'Al día', estadoClass:'pill-verde', uso:0, limite:3000 },
+      badge: { texto:'Crédito al día', clase:'pill pill-verde' },
+      hist: [
+        ['28-Jul','Pollo entero 40 lb · Pechuga boneless 20 lb','$480','En preparación','pill-gris'],
+        ['21-Jul','Pollo entero 80 lb','$720','Pagado','pill-verde'],
+        ['14-Jul','Pechuga 40 lb · Sazón Don Pedro x4','$490','Pagado','pill-verde'],
+        ['07-Jul','Pollo entero 80 lb · Film wrap x2','$740','Pagado','pill-verde'],
+        ['30-Jun','Pechuga boneless 60 lb','$600','Pagado','pill-verde'],
+      ],
+      stats: ['$3,030','$606','1.4×/semana'],
+    },
+    ramon: {
+      datos: [
+        ['Razón social','Birriería Don Ramón LLC'],
+        ['Contacto','Ramón Gutiérrez'],
+        ['Teléfono','832-xxx-xxxx'],
+        ['Dirección entrega','Houston, TX 77011'],
+        ['Categoría','Restaurante — Wholesale'],
+        ['Cliente desde','Sep 2022 · 4 años'],
+        ['Días de crédito','30 días'],
+        ['Límite de crédito','$2,000'],
+      ],
+      saldo: { val:'$0.00', color:'#065f46', vencidas:'Ninguna', promedio:'26 días', ultima:'$395 · 25-Jul-26', estado:'Al día', estadoClass:'pill-verde', uso:0, limite:2000 },
+      badge: { texto:'Crédito al día', clase:'pill pill-verde' },
+      hist: [
+        ['28-Jul','Lomo cerdo 20 lb · Chorizo Mex. 10 lb','$395','En preparación','pill-gris'],
+        ['25-Jul','Lomo cerdo 20 lb · Queso fresco Don Pedro x2','$370','Pagado','pill-verde'],
+        ['18-Jul','Chorizo Mex. 20 lb · Spare ribs 15 lb','$320','Pagado','pill-verde'],
+        ['11-Jul','Lomo cerdo 40 lb','$440','Pagado','pill-verde'],
+        ['04-Jul','Chorizo Mex. 10 lb · Film wrap x1','$160','Pagado','pill-verde'],
+      ],
+      stats: ['$1,685','$337','1.2×/semana'],
+    },
+  };
+
+  function cambiarCliente(key) {
+    var d = fichaData[key];
+    if (!d) return;
+
+    // Badge de crédito
+    var badge = document.getElementById('ficha-badge-credito');
+    badge.textContent = d.badge.texto;
+    badge.className = d.badge.clase;
+
+    // Datos
+    var datosEl = document.getElementById('ficha-datos');
+    datosEl.innerHTML = d.datos.map(function(r){
+      return '<div class="info-row"><span class="etiq">' + escHtml(r[0]) + '</span><span class="val">' + escHtml(r[1]) + '</span></div>';
+    }).join('');
+
+    // Saldo
+    var s = d.saldo;
+    var pct = Math.min(100, Math.round((parseFloat(s.uso)||0) / s.limite * 100));
+    var barColor = pct > 80 ? '#CC2200' : pct > 50 ? '#f59e0b' : '#16a34a';
+    document.getElementById('ficha-saldo').innerHTML =
+      '<div class="info-row"><span class="etiq">Saldo actual</span><span class="val" style="color:'+s.color+';font-size:1rem;">'+escHtml(s.val)+'</span></div>' +
+      '<div class="info-row"><span class="etiq">Facturas vencidas</span><span class="val">'+escHtml(s.vencidas)+'</span></div>' +
+      '<div class="info-row"><span class="etiq">Días promedio de pago</span><span class="val">'+escHtml(s.promedio)+'</span></div>' +
+      '<div class="info-row"><span class="etiq">Última factura</span><span class="val">'+escHtml(s.ultima)+'</span></div>' +
+      '<div class="info-row"><span class="etiq">Estado</span><span class="val"><span class="pill '+s.estadoClass+'">'+escHtml(s.estado)+'</span></span></div>' +
+      '<div style="margin-top:14px;"><div style="font-size:.75rem;color:#6b7280;margin-bottom:6px;">Uso de línea de crédito ('+escHtml(String(s.uso>0?'$'+s.uso:'0'))+' de $'+s.limite+')</div>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%;background:'+barColor+';"></div></div></div>';
+
+    // Historial
+    var histTbody = document.querySelector('#ficha-historial tbody');
+    histTbody.innerHTML = d.hist.map(function(r){
+      return '<tr><td>'+escHtml(r[0])+'</td><td>'+escHtml(r[1])+'</td><td>'+escHtml(r[2])+'</td><td><span class="pill '+r[4]+'">'+escHtml(r[3])+'</span></td></tr>';
+    }).join('');
+
+    // Stats
+    var statsDiv = document.querySelector('#ficha-historial').closest('.card').querySelector('div[style*="background:#f9fafb"]');
+    if (statsDiv) {
+      statsDiv.innerHTML =
+        '<div style="font-size:.8rem;"><span style="color:#6b7280;">Compras 90 días:</span> <b>'+escHtml(d.stats[0])+'</b></div>' +
+        '<div style="font-size:.8rem;"><span style="color:#6b7280;">Promedio/pedido:</span> <b>'+escHtml(d.stats[1])+'</b></div>' +
+        '<div style="font-size:.8rem;"><span style="color:#6b7280;">Frecuencia:</span> <b>'+escHtml(d.stats[2])+'</b></div>';
+    }
+  }
+</script>
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

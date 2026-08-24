@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horno Real — Wholesale Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy:   #1C2331;
+      --gold:   #C9A84C;
+      --cream:  #FAF7F2;
+      --teal:   #2A7F7F;
+      --dark:   #2C2C2C;
+      --red:    #C0392B;
+      --orange: #D4831A;
+    }
+    * { font-family: 'Georgia', 'Times New Roman', serif; box-sizing: border-box; }
+    body { background: var(--cream); color: var(--dark); }
+    .sans { font-family: ui-sans-serif, system-ui, sans-serif; }
+
+    /* NAV */
+    .demo-nav { background: var(--navy); }
+    .demo-badge {
+      background: var(--gold);
+      color: var(--navy);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .tab-btn {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 10px 18px;
+      color: #9ca3af;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+      cursor: pointer;
+      background: none;
+      border-top: none; border-left: none; border-right: none;
+      white-space: nowrap;
+    }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-btn:hover:not(.active) { color: #e5e7eb; }
+
+    /* CARDS */
+    .card { background: white; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+    .stat-card { background: white; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); padding: 20px 24px; }
+
+    /* STATUS BADGES */
+    .badge {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 2px 10px; border-radius: 999px; display: inline-block;
+    }
+    .badge-ok      { background: #d1fae5; color: #065f46; }
+    .badge-risk    { background: #fef3c7; color: #92400e; }
+    .badge-churn   { background: #fee2e2; color: #991b1b; }
+    .badge-new     { background: #dbeafe; color: #1e40af; }
+    .badge-pending { background: #f3e8ff; color: #6b21a8; }
+    .badge-ar      { background: #ffe4e6; color: #9f1239; }
+
+    /* SIMULATED ACTION */
+    .action-flash {
+      animation: flashIn 0.5s ease-out;
+    }
+    @keyframes flashIn {
+      0%   { background: #fef9c3; }
+      100% { background: white; }
+    }
+
+    /* MODAL */
+    #modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 999;
+      align-items: center; justify-content: center;
+    }
+    #modal-overlay.open { display: flex; }
+    #modal-box {
+      background: white;
+      border-radius: 14px;
+      padding: 36px 40px;
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    }
+    #modal-box .gold-line { width: 48px; height: 3px; background: var(--gold); margin-bottom: 20px; }
+
+    /* FLOATING BUTTON */
+    #fab {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 900;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 14px 22px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.45);
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    #fab:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(201,168,76,0.55); }
+
+    /* VIEW */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ROUTE */
+    .stop-row { border-left: 3px solid #e5e7eb; padding-left: 14px; position: relative; }
+    .stop-row::before {
+      content: '';
+      position: absolute;
+      left: -7px; top: 12px;
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 2px solid #9ca3af;
+    }
+    .stop-row.delivered::before { background: var(--teal); border-color: var(--teal); }
+    .stop-row.current::before   { background: var(--gold); border-color: var(--gold); }
+
+    /* PIPELINE */
+    .pipeline-col { min-width: 200px; flex: 1; }
+    .pipeline-card {
+      background: white;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-left: 3px solid transparent;
+    }
+    .pipeline-card.lead { border-left-color: var(--teal); }
+    .pipeline-card.muestra { border-left-color: var(--gold); }
+    .pipeline-card.propuesta { border-left-color: #8b5cf6; }
+    .pipeline-card.ganado { border-left-color: #10b981; }
+
+    /* ALERT PANEL */
+    .alert-panel {
+      border-left: 4px solid var(--red);
+      background: #fff5f5;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+    }
+    .alert-panel.resolved {
+      border-left-color: var(--teal);
+      background: #f0fdfa;
+    }
+
+    /* TABLE */
+    table { width: 100%; border-collapse: collapse; }
+    th { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: #6b7280; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    td { padding: 11px 14px; border-bottom: 1px solid #f3f4f6; font-size: 0.88rem; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafaf8; }
+
+    /* SEARCH */
+    .search-input {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.9rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      padding: 10px 16px;
+      width: 100%;
+      max-width: 420px;
+      outline: none;
+      background: white;
+    }
+    .search-input:focus { border-color: var(--gold); }
+
+    /* SCROLLABLE */
+    .scroll-x { overflow-x: auto; }
+
+    /* DETAIL CARD */
+    .hist-item { padding: 10px 0; border-bottom: 1px solid #f0ede8; }
+    .hist-item:last-child { border-bottom: none; }
+
+    /* KPI PILL */
+    .kpi-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      background: var(--navy); color: var(--cream);
+      border-radius: 6px; padding: 6px 14px;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-32">
+
+<!-- ===== HEADER ===== -->
+<header class="demo-nav sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div>
+        <div class="text-white font-bold text-lg leading-tight">Horno Real</div>
+        <div class="text-gray-400 sans text-xs leading-tight">What your own system would look like — prepared by Pocho.tech</div>
+      </div>
+    </div>
+    <span class="demo-badge flex-shrink-0">DEMO · sample data</span>
+  </div>
+  <!-- TABS -->
+  <div class="max-w-6xl mx-auto px-4 scroll-x">
+    <div class="flex gap-1" id="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('operacion', this)">Today's Operations</button>
+      <button class="tab-btn" onclick="switchTab('cuenta', this)">Account Profile</button>
+      <button class="tab-btn" onclick="switchTab('churn', this)">At-Risk Accounts</button>
+      <button class="tab-btn" onclick="switchTab('busqueda', this)">Search &amp; Reports</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="max-w-6xl mx-auto px-4 py-6">
+
+  <!-- ============================================================ -->
+  <!-- VIEW 1: TODAY'S OPERATIONS                                    -->
+  <!-- ============================================================ -->
+  <div id="view-operacion" class="view active">
+    <!-- KPIs -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="stat-card">
+        <div class="sans text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Orders today</div>
+        <div class="text-3xl font-bold" style="color:var(--navy)">38</div>
+        <div class="sans text-xs text-gray-400 mt-1">from 450+ active accounts</div>
+      </div>
+      <div class="stat-card">
+        <div class="sans text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">Delivered</div>
+        <div class="text-3xl font-bold" style="color:var(--teal)" id="kpi-entregados">14</div>
+        <div class="sans text-xs text-gray-400 mt-1">Tuesday route in progress</div>
+      </div>
+      <div class="stat-card border-l-4" style="border-color:var(--orange)">
+        <div class="sans text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">No order this week</div>
+        <div class="text-3xl font-bold" style="color:var(--orange)">23</div>
+        <div class="sans text-xs text-gray-400 mt-1">Need follow-up</div>
+      </div>
+      <div class="stat-card border-l-4" style="border-color:var(--red)">
+        <div class="sans text-xs text-gray-500 font-semibold uppercase tracking-wide mb-1">At-risk accounts</div>
+        <div class="text-3xl font-bold" style="color:var(--red)">5</div>
+        <div class="sans text-xs text-gray-400 mt-1">30+ days without ordering</div>
+      </div>
+    </div>
+
+    <!-- Today's Orders + Route -->
+    <div class="grid md:grid-cols-5 gap-6">
+
+      <!-- Orders -->
+      <div class="md:col-span-3 card overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+          <h2 class="font-bold text-base" style="color:var(--navy)">Active orders — Tuesday, July 29</h2>
+          <span class="badge badge-new sans">38 in queue</span>
+        </div>
+        <div class="scroll-x">
+          <table>
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>Type</th>
+                <th>Items</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="pedidos-tbody">
+              <tr>
+                <td class="font-semibold">Montrose Tap House</td>
+                <td><span class="badge badge-ok sans">Brewery</span></td>
+                <td class="sans text-sm text-gray-600">Sourdough ×12 · Croissant ×24</td>
+                <td><span class="badge badge-ok sans">Delivered</span></td>
+                <td></td>
+              </tr>
+              <tr id="row-heights" class="cursor-pointer" onclick="marcarEntregado(this)">
+                <td class="font-semibold">Heights Boutique Hotel</td>
+                <td><span class="badge badge-risk sans">Hotel</span></td>
+                <td class="sans text-sm text-gray-600">Multigrain ×8 · Scone ×18</td>
+                <td><span class="badge badge-risk sans" id="estado-heights">On route</span></td>
+                <td><button class="sans text-xs px-3 py-1 rounded font-semibold text-white" style="background:var(--teal)" onclick="marcarEntregado(document.getElementById('row-heights'));event.stopPropagation()">&#10003; Confirm</button></td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Downtown Steakhouse</td>
+                <td><span class="badge badge-ok sans">Restaurant</span></td>
+                <td class="sans text-sm text-gray-600">Country loaf ×6 · Focaccia ×4</td>
+                <td><span class="badge badge-ok sans">Delivered</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Midtown Craft Bar</td>
+                <td><span class="badge badge-new sans">Bar/Rest.</span></td>
+                <td class="sans text-sm text-gray-600">Kouign-amann ×30 · Croissant ×20</td>
+                <td><span class="badge badge-pending sans">Preparing</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Montrose Mexican Rest. <span class="text-xs text-gray-400">(new)</span></td>
+                <td><span class="badge badge-new sans">Restaurant</span></td>
+                <td class="sans text-sm text-gray-600">Sample: assorted artisan bread</td>
+                <td><span class="badge badge-new sans">Sample</span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="font-semibold">Energy Corridor Steakhouse</td>
+                <td><span class="badge badge-pending sans">Prospect</span></td>
+                <td class="sans text-sm text-gray-600">Requested quote — agent replied</td>
+                <td><span class="badge badge-pending sans">Pipeline</span></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="px-5 py-3 bg-gray-50 sans text-xs text-gray-400 border-t border-gray-100">
+          Showing 6 of 38 active orders · Sorted by delivery time
+        </div>
+      </div>
+
+      <!-- Today's Route -->
+      <div class="md:col-span-2 card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-bold text-base" style="color:var(--navy)">Tuesday route</h2>
+          <span class="badge sans" style="background:#1C2331;color:#C9A84C;">23 stops</span>
+        </div>
+        <div class="sans text-xs text-gray-500 mb-4 flex gap-3">
+          <span>Driver: <strong>Carlos R.</strong></span>
+          <span>·</span>
+          <span id="hora-ruta">4:12 a.m.</span>
+        </div>
+        <div class="space-y-4">
+          <div class="stop-row delivered">
+            <div class="sans text-sm font-semibold text-gray-700">Montrose Tap House</div>
+            <div class="sans text-xs text-gray-400">Sourdough ×12 · Croissant ×24 · &#10003; Delivered 3:55 a.m.</div>
+          </div>
+          <div class="stop-row delivered">
+            <div class="sans text-sm font-semibold text-gray-700">Downtown Steakhouse</div>
+            <div class="sans text-xs text-gray-400">Country loaf ×6 · Focaccia ×4 · &#10003; Delivered 4:08 a.m.</div>
+          </div>
+          <div class="stop-row current" id="stop-heights">
+            <div class="sans text-sm font-semibold" style="color:var(--gold)" id="stop-heights-title">&#8594; Heights Boutique Hotel <span class="text-gray-400 font-normal">(next)</span></div>
+            <div class="sans text-xs text-gray-500" id="stop-heights-detail">Multigrain ×8 · Scone ×18 · Note: side entrance</div>
+          </div>
+          <div class="stop-row">
+            <div class="sans text-sm font-semibold text-gray-600">Heights Coffee Co.</div>
+            <div class="sans text-xs text-gray-400">Croissant ×40 · Almond croissant ×20</div>
+          </div>
+          <div class="stop-row">
+            <div class="sans text-sm font-semibold text-gray-600">Midtown Craft Bar</div>
+            <div class="sans text-xs text-gray-400">Kouign-amann ×30 · Croissant ×20</div>
+          </div>
+          <div class="stop-row">
+            <div class="sans text-sm text-gray-400 italic">+ 18 more stops on optimized route</div>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-gray-100">
+          <div class="alert-panel rounded-lg">
+            <div class="sans text-xs font-bold text-red-700 mb-1">URGENT ORDER</div>
+            <div class="sans text-xs text-gray-700">Midtown Craft Bar: +40 extra croissants for corporate event tomorrow. Agent already adjusted production and route.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New accounts pipeline -->
+    <div class="card p-5 mt-6">
+      <h2 class="font-bold text-base mb-4" style="color:var(--navy)">New account pipeline</h2>
+      <div class="flex gap-4 scroll-x pb-2">
+        <div class="pipeline-col">
+          <div class="sans text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Inbound / New</div>
+          <div class="pipeline-card lead">
+            <div class="sans text-sm font-bold">Energy Corridor Steakhouse</div>
+            <div class="sans text-xs text-gray-500 mt-1">Email 10 p.m. — sourdough + focaccia quote</div>
+            <div class="sans text-xs mt-2" style="color:var(--teal)">Agent replied · Prospect created</div>
+          </div>
+          <div class="pipeline-card lead">
+            <div class="sans text-sm font-bold">Hotel Galleria Norte</div>
+            <div class="sans text-xs text-gray-500 mt-1">Web form — multigrain for breakfast service</div>
+            <div class="sans text-xs mt-2 text-gray-400">Pending qualification</div>
+          </div>
+        </div>
+        <div class="pipeline-col">
+          <div class="sans text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Sample sent</div>
+          <div class="pipeline-card muestra">
+            <div class="sans text-sm font-bold">Montrose Mexican Rest.</div>
+            <div class="sans text-xs text-gray-500 mt-1">Sample: assorted artisan bread · Delivered today</div>
+            <div class="sans text-xs mt-2" style="color:var(--gold)">Follow-up: Wednesday</div>
+          </div>
+        </div>
+        <div class="pipeline-col">
+          <div class="sans text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Proposal sent</div>
+          <div class="pipeline-card propuesta">
+            <div class="sans text-sm font-bold">Midtown Wine Bar</div>
+            <div class="sans text-xs text-gray-500 mt-1">Weekly pastry program — USD 380/wk.</div>
+            <div class="sans text-xs mt-2 text-purple-600">Awaiting response · 3 days</div>
+          </div>
+        </div>
+        <div class="pipeline-col">
+          <div class="sans text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Won</div>
+          <div class="pipeline-card ganado">
+            <div class="sans text-sm font-bold">Brunch Co. River Oaks</div>
+            <div class="sans text-xs text-gray-500 mt-1">Bread program + pastry · Start: Monday</div>
+            <div class="sans text-xs mt-2 text-emerald-600">&#10003; Account created in bakery.software</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- VIEW 2: ACCOUNT PROFILE                                       -->
+  <!-- ============================================================ -->
+  <div id="view-cuenta" class="view">
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Left panel: identity -->
+      <div class="card p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h2 class="text-xl font-bold" style="color:var(--navy)">Heights Boutique Hotel</h2>
+            <div class="sans text-sm text-gray-500 mt-1">Houston Heights · Hotel</div>
+          </div>
+          <span class="badge badge-risk sans">At risk</span>
+        </div>
+        <div class="gold-divider" style="width:40px;height:2px;background:var(--gold);margin-bottom:16px"></div>
+        <div class="space-y-3 sans text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-500">Program</span>
+            <span class="font-semibold">Bread + Pastry</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Frequency</span>
+            <span class="font-semibold">Daily (Mon–Fri)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Avg. ticket</span>
+            <span class="font-semibold">USD 290/week</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Contact</span>
+            <span class="font-semibold">Chef Diego M.</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Account since</span>
+            <span class="font-semibold">March 2024</span>
+          </div>
+          <div class="flex justify-between border-t border-gray-100 pt-3 mt-3">
+            <span class="text-gray-500">Last order</span>
+            <span class="font-bold" style="color:var(--orange)">18 days ago</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Pending AR</span>
+            <span class="font-bold" style="color:var(--red)">USD 580 (47 days)</span>
+          </div>
+        </div>
+
+        <!-- Agent-generated alert -->
+        <div class="alert-panel mt-5">
+          <div class="sans text-xs font-bold mb-1" style="color:var(--red)">GENERATED ALERT</div>
+          <div class="sans text-xs text-gray-700 mb-3">"Heights Boutique has gone 18 days without ordering. Active history. Churn risk."</div>
+          <div class="sans text-xs font-semibold text-gray-600 mb-2">Draft ready to approve:</div>
+          <div class="bg-white rounded p-3 text-xs text-gray-700 italic border border-gray-200">
+            "Chef Diego, it's been a while since we've seen you on the delivery schedule. Is there anything on our end that needs attention? We're here for whatever you need."
+          </div>
+          <button class="mt-3 w-full sans text-xs font-bold py-2 rounded text-white transition-colors" style="background:var(--teal)" onclick="aprobarMensaje(this)">
+            &#10003; Approve &amp; send
+          </button>
+        </div>
+      </div>
+
+      <!-- Right panel: history -->
+      <div class="md:col-span-2 card p-6">
+        <h3 class="font-bold text-base mb-4" style="color:var(--navy)">Account history</h3>
+
+        <!-- Simplified activity chart -->
+        <div class="mb-5">
+          <div class="sans text-xs text-gray-500 mb-2 font-semibold">Orders per week — last 3 months</div>
+          <div class="flex items-end gap-1" style="height:60px">
+            <div class="flex-1 rounded-t" style="height:85%;background:var(--teal);opacity:0.7" title="wk. 1"></div>
+            <div class="flex-1 rounded-t" style="height:100%;background:var(--teal);opacity:0.7" title="wk. 2"></div>
+            <div class="flex-1 rounded-t" style="height:90%;background:var(--teal);opacity:0.7" title="wk. 3"></div>
+            <div class="flex-1 rounded-t" style="height:95%;background:var(--teal);opacity:0.7" title="wk. 4"></div>
+            <div class="flex-1 rounded-t" style="height:80%;background:var(--teal);opacity:0.7" title="wk. 5"></div>
+            <div class="flex-1 rounded-t" style="height:100%;background:var(--teal);opacity:0.7" title="wk. 6"></div>
+            <div class="flex-1 rounded-t" style="height:90%;background:var(--teal);opacity:0.7" title="wk. 7"></div>
+            <div class="flex-1 rounded-t" style="height:85%;background:var(--teal);opacity:0.7" title="wk. 8"></div>
+            <div class="flex-1 rounded-t" style="height:70%;background:var(--teal);opacity:0.7" title="wk. 9"></div>
+            <div class="flex-1 rounded-t" style="height:60%;background:var(--gold);opacity:0.8" title="wk. 10 - drop"></div>
+            <div class="flex-1 rounded-t" style="height:20%;background:var(--orange)" title="wk. 11 - severe drop"></div>
+            <div class="flex-1 rounded-t" style="height:4%;background:var(--red)" title="wk. 12 - no order"></div>
+          </div>
+          <div class="sans text-xs text-gray-400 mt-1 flex justify-between"><span>May</span><span>Jun</span><span class="font-semibold" style="color:var(--red)">Jul &#8595;</span></div>
+        </div>
+
+        <!-- Event history -->
+        <div>
+          <div class="hist-item">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="sans text-sm font-semibold text-gray-700">Regular order — week of Jun 30</div>
+                <div class="sans text-xs text-gray-400 mt-0.5">Multigrain ×8 · Scone ×18 · Danish ×12 · Bacon sausage ×6</div>
+              </div>
+              <span class="badge badge-ok sans flex-shrink-0 ml-3">Delivered</span>
+            </div>
+          </div>
+          <div class="hist-item">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="sans text-sm font-semibold text-gray-700">Special request — custom rosemary focaccia</div>
+                <div class="sans text-xs text-gray-400 mt-0.5">Hotel corporate event · ×20 pieces · Required 48h notice</div>
+              </div>
+              <span class="badge badge-ok sans flex-shrink-0 ml-3">Delivered</span>
+            </div>
+          </div>
+          <div class="hist-item">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="sans text-sm font-semibold" style="color:var(--orange)">Par level reduction — week of Jul 7</div>
+                <div class="sans text-xs text-gray-400 mt-0.5">From 18 scones/day to 10 — Chef Diego mentioned "slow season"</div>
+              </div>
+              <span class="badge badge-risk sans flex-shrink-0 ml-3">Change</span>
+            </div>
+          </div>
+          <div class="hist-item">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="sans text-sm font-semibold text-gray-700">Partial order — week of Jul 14</div>
+                <div class="sans text-xs text-gray-400 mt-0.5">Multigrain ×4 only · No pastry this week</div>
+              </div>
+              <span class="badge badge-risk sans flex-shrink-0 ml-3">Partial</span>
+            </div>
+          </div>
+          <div class="hist-item">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="sans text-sm font-semibold" style="color:var(--red)">No order — weeks of Jul 15–29 (18 days)</div>
+                <div class="sans text-xs text-gray-400 mt-0.5">No requests on record · Pending AR USD 580</div>
+              </div>
+              <span class="badge badge-churn sans flex-shrink-0 ml-3">Inactive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="mt-4 p-4 rounded-lg sans text-sm" style="background:#f8f7f4;border:1px solid #e9e4da">
+          <div class="font-semibold text-gray-700 mb-1">Team notes</div>
+          <div class="text-gray-600 text-xs leading-relaxed">Chef Diego mentioned in July that the hotel is in its slow season. Opportunity: resume bread program in August when Houston's convention season picks up. Good moment to pitch custom menu items for their new weekend brunch.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- VIEW 3: AT-RISK ACCOUNTS (CORE PAIN POINT)                   -->
+  <!-- ============================================================ -->
+  <div id="view-churn" class="view">
+    <!-- Banner -->
+    <div class="rounded-xl p-6 mb-6 text-white" style="background:var(--navy)">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="sans text-xs font-bold tracking-widest mb-1" style="color:var(--gold)">VISIBILITY THAT BAKERY.SOFTWARE DOESN'T HAVE</div>
+          <h2 class="text-xl font-bold mb-1">Accounts at churn risk this week</h2>
+          <p class="sans text-sm text-gray-300 max-w-xl">Without this system, these accounts would leave quietly. With it, each one has a re-engagement draft ready to approve from your phone — before it's too late.</p>
+        </div>
+        <div class="flex gap-4 flex-shrink-0">
+          <div class="text-center">
+            <div class="text-3xl font-bold" style="color:var(--gold)">5</div>
+            <div class="sans text-xs text-gray-400">Accounts 30+ days</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white">USD 4,200</div>
+            <div class="sans text-xs text-gray-400">Monthly revenue at risk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk table -->
+    <div class="card overflow-hidden mb-6">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="font-bold text-base" style="color:var(--navy)">Inactive account radar</h3>
+      </div>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr>
+              <th>Account</th>
+              <th>Type</th>
+              <th>Days without ordering</th>
+              <th>Monthly ticket</th>
+              <th>Pending AR</th>
+              <th>Status</th>
+              <th>Agent action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-semibold">Heights Boutique Hotel</td>
+              <td><span class="badge badge-risk sans">Hotel</span></td>
+              <td class="sans font-bold" style="color:var(--red)">18 days</td>
+              <td class="sans">USD 1,160</td>
+              <td class="sans font-semibold" style="color:var(--red)">USD 580</td>
+              <td><span class="badge badge-churn sans">High risk</span></td>
+              <td><button class="sans text-xs px-3 py-1 rounded font-semibold text-white" style="background:var(--teal)" onclick="abrirReengagement('Heights Boutique Hotel', this)">View draft</button></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Coffee Shop Katy Road</td>
+              <td><span class="badge badge-new sans">Cafe</span></td>
+              <td class="sans font-bold" style="color:var(--red)">42 days</td>
+              <td class="sans">USD 680</td>
+              <td class="sans text-gray-400">—</td>
+              <td><span class="badge badge-churn sans">Critical</span></td>
+              <td><button class="sans text-xs px-3 py-1 rounded font-semibold text-white" style="background:var(--teal)" onclick="abrirReengagement('Coffee Shop Katy Road', this)">View draft</button></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Brunch Spot Montrose</td>
+              <td><span class="badge badge-ok sans">Restaurant</span></td>
+              <td class="sans font-bold" style="color:var(--orange)">31 days</td>
+              <td class="sans">USD 890</td>
+              <td class="sans font-semibold" style="color:var(--orange)">USD 445</td>
+              <td><span class="badge badge-risk sans">Medium risk</span></td>
+              <td><button class="sans text-xs px-3 py-1 rounded font-semibold text-white" style="background:var(--teal)" onclick="abrirReengagement('Brunch Spot Montrose', this)">View draft</button></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Hotel Galleria Norte</td>
+              <td><span class="badge badge-risk sans">Hotel</span></td>
+              <td class="sans font-bold" style="color:var(--orange)">35 days</td>
+              <td class="sans">USD 950</td>
+              <td class="sans text-gray-400">—</td>
+              <td><span class="badge badge-risk sans">Medium risk</span></td>
+              <td><button class="sans text-xs px-3 py-1 rounded font-semibold text-white" style="background:var(--teal)" onclick="abrirReengagement('Hotel Galleria Norte', this)">View draft</button></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Riverside Cafe Houston</td>
+              <td><span class="badge badge-new sans">Cafe</span></td>
+              <td class="sans font-bold" style="color:var(--orange)">28 days</td>
+              <td class="sans">USD 520</td>
+              <td class="sans font-semibold" style="color:var(--orange)">USD 260</td>
+              <td><span class="badge badge-risk sans">Medium risk</span></td>
+              <td><button class="sans text-xs px-3 py-1 rounded font-semibold text-white" style="background:var(--teal)" onclick="abrirReengagement('Riverside Cafe Houston', this)">View draft</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Re-engagement panel -->
+    <div id="reengagement-panel" class="card p-6" style="display:none">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-base" style="color:var(--navy)">Agent-generated draft</h3>
+        <span class="badge badge-pending sans" id="cuenta-re">Heights Boutique Hotel</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <div class="sans text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Re-engagement message</div>
+          <div class="bg-gray-50 rounded-lg p-4 sans text-sm text-gray-700 leading-relaxed border border-gray-200" id="msg-reengagement">
+            "Hey Chef Diego, it's been a while since we've seen you on the delivery schedule. We want to make sure everything is good on our end. Is there anything we can adjust in the par levels or the program for the season? We're here for whatever you need."
+          </div>
+          <div class="flex gap-3 mt-4">
+            <button class="flex-1 sans text-sm font-bold py-2 rounded text-white transition-colors" style="background:var(--teal)" onclick="confirmarReengagement(this)">
+              &#10003; Approve &amp; send
+            </button>
+            <button class="flex-1 sans text-sm font-semibold py-2 rounded border border-gray-300 text-gray-600" onclick="document.getElementById('reengagement-panel').style.display='none'">
+              Edit
+            </button>
+          </div>
+        </div>
+        <div>
+          <div class="sans text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Agent context</div>
+          <div class="space-y-2 sans text-xs text-gray-600">
+            <div class="flex gap-2"><span style="color:var(--teal)">&#9656;</span> Last purchase: week of Jun 30 — USD 290</div>
+            <div class="flex gap-2"><span style="color:var(--teal)">&#9656;</span> Pattern: gradual decline since Jul 7</div>
+            <div class="flex gap-2"><span style="color:var(--teal)">&#9656;</span> Previous note: "summer slow season"</div>
+            <div class="flex gap-2"><span style="color:var(--orange)">&#9656;</span> Pending AR: USD 580 (47 days) — include in follow-up</div>
+            <div class="flex gap-2"><span style="color:var(--teal)">&#9656;</span> Opportunity: Houston convention season (August)</div>
+            <div class="flex gap-2"><span style="color:var(--teal)">&#9656;</span> Suggested timing: tomorrow before 8 a.m.</div>
+          </div>
+          <div class="mt-4 p-3 rounded-lg sans text-xs" style="background:#f0fdfa;border:1px solid #99f6e4;color:#065f46">
+            <strong>Without this system:</strong> this account would have walked out the door without anyone noticing. The agent detected the drop-off pattern 3 weeks before it became irreversible.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accounts receivable -->
+    <div class="card p-5 mt-6">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-bold text-base" style="color:var(--navy)">Overdue accounts receivable</h3>
+        <span class="badge badge-ar sans">3 accounts · 45+ days</span>
+      </div>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Account</th><th>Amount</th><th>Days overdue</th><th>Last contact</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-semibold">Heights Boutique Hotel</td>
+              <td class="sans font-bold" style="color:var(--red)">USD 580</td>
+              <td class="sans">47 days</td>
+              <td class="sans text-gray-500">No record</td>
+              <td><span class="badge badge-churn sans">Urgent</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Brunch Spot Montrose</td>
+              <td class="sans font-bold" style="color:var(--red)">USD 445</td>
+              <td class="sans">38 days</td>
+              <td class="sans text-gray-500">No record</td>
+              <td><span class="badge badge-churn sans">Urgent</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Riverside Cafe Houston</td>
+              <td class="sans font-bold" style="color:var(--orange)">USD 260</td>
+              <td class="sans">45 days</td>
+              <td class="sans text-gray-500">No record</td>
+              <td><span class="badge badge-risk sans">Attention</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 sans text-xs text-gray-500 italic">
+        bakery.software records the order. This system records the relationship. Without a CRM layer, these invoices only show up when someone goes looking — or when the customer is already gone.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- VIEW 4: SEARCH AND REPORTS                                    -->
+  <!-- ============================================================ -->
+  <div id="view-busqueda" class="view">
+    <!-- Search -->
+    <div class="card p-5 mb-6">
+      <h2 class="font-bold text-base mb-3" style="color:var(--navy)">Search account or order</h2>
+      <div class="flex gap-3 flex-wrap">
+        <input type="text" class="search-input" placeholder="Account name, product, delivery zone…" id="search-input" oninput="filtrarCuentas()" />
+        <select class="search-input" style="max-width:180px" onchange="filtrarCuentas()" id="filter-tipo">
+          <option value="">All types</option>
+          <option value="Hotel">Hotel</option>
+          <option value="Cafe">Cafe</option>
+          <option value="Restaurant">Restaurant</option>
+          <option value="Bar">Bar / Brewery</option>
+        </select>
+        <select class="search-input" style="max-width:180px" onchange="filtrarCuentas()" id="filter-estado">
+          <option value="">All statuses</option>
+          <option value="Active">Active</option>
+          <option value="At risk">At risk</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card overflow-hidden mb-6">
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+        <h3 class="font-bold text-base" style="color:var(--navy)">Account directory</h3>
+        <span class="badge badge-new sans" id="count-label">450+ accounts</span>
+      </div>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Account</th><th>Type</th><th>Area</th><th>Program</th><th>Last order</th><th>Status</th></tr>
+          </thead>
+          <tbody id="cuentas-tbody">
+            <tr>
+              <td class="font-semibold">Montrose Tap House</td>
+              <td><span class="badge badge-ok sans">Bar</span></td>
+              <td class="sans text-sm text-gray-500">Heights</td>
+              <td class="sans text-sm">Daily bread + Charcuterie</td>
+              <td class="sans text-sm">Today</td>
+              <td><span class="badge badge-ok sans">Active</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Midtown Craft Bar</td>
+              <td><span class="badge badge-ok sans">Bar</span></td>
+              <td class="sans text-sm text-gray-500">Montrose</td>
+              <td class="sans text-sm">Pastry + Viennoiserie</td>
+              <td class="sans text-sm">Today</td>
+              <td><span class="badge badge-ok sans">Active</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Downtown Steakhouse</td>
+              <td><span class="badge badge-ok sans">Restaurant</span></td>
+              <td class="sans text-sm text-gray-500">Downtown</td>
+              <td class="sans text-sm">Artisan bread + Focaccia</td>
+              <td class="sans text-sm">Today</td>
+              <td><span class="badge badge-ok sans">Active</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Heights Coffee Co.</td>
+              <td><span class="badge badge-new sans">Cafe</span></td>
+              <td class="sans text-sm text-gray-500">Midtown</td>
+              <td class="sans text-sm">Croissant + daily pastry</td>
+              <td class="sans text-sm">Yesterday</td>
+              <td><span class="badge badge-ok sans">Active</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Heights Boutique Hotel</td>
+              <td><span class="badge badge-risk sans">Hotel</span></td>
+              <td class="sans text-sm text-gray-500">Heights</td>
+              <td class="sans text-sm">Bread + Pastry</td>
+              <td class="sans text-sm" style="color:var(--red)">18 days ago</td>
+              <td><span class="badge badge-churn sans">At risk</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Coffee Shop Katy Road</td>
+              <td><span class="badge badge-new sans">Cafe</span></td>
+              <td class="sans text-sm text-gray-500">Katy</td>
+              <td class="sans text-sm">Croissant + Scone</td>
+              <td class="sans text-sm" style="color:var(--red)">42 days ago</td>
+              <td><span class="badge badge-churn sans">Inactive</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Midtown Wine Bar</td>
+              <td><span class="badge badge-ok sans">Bar</span></td>
+              <td class="sans text-sm text-gray-500">Midtown</td>
+              <td class="sans text-sm">Weekly pastry</td>
+              <td class="sans text-sm">5 days ago</td>
+              <td><span class="badge badge-ok sans">Active</span></td>
+            </tr>
+            <tr>
+              <td class="font-semibold">Hotel Galleria Norte</td>
+              <td><span class="badge badge-risk sans">Hotel</span></td>
+              <td class="sans text-sm text-gray-500">Galleria</td>
+              <td class="sans text-sm">Bread + Breakfast pastry</td>
+              <td class="sans text-sm" style="color:var(--orange)">35 days ago</td>
+              <td><span class="badge badge-risk sans">At risk</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="px-5 py-3 bg-gray-50 sans text-xs text-gray-400 border-t border-gray-100">
+        Showing representative sample · System manages 450+ accounts
+      </div>
+    </div>
+
+    <!-- Quick reports -->
+    <div class="grid md:grid-cols-3 gap-5">
+      <div class="card p-5">
+        <div class="sans text-xs font-bold uppercase tracking-wide mb-2" style="color:var(--teal)">Activity report</div>
+        <h4 class="font-bold text-sm mb-3" style="color:var(--navy)">Active accounts this week</h4>
+        <div class="space-y-2 sans text-sm">
+          <div class="flex justify-between"><span class="text-gray-500">Restaurants</span><span class="font-semibold">127</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Coffee shops</span><span class="font-semibold">189</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Hotels</span><span class="font-semibold">43</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Bars / Breweries</span><span class="font-semibold">68</span></div>
+          <div class="flex justify-between border-t border-gray-100 pt-2 mt-2"><span class="font-semibold">Total active</span><span class="font-bold" style="color:var(--teal)">427</span></div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <div class="sans text-xs font-bold uppercase tracking-wide mb-2" style="color:var(--orange)">Risk report</div>
+        <h4 class="font-bold text-sm mb-3" style="color:var(--navy)">No order this week</h4>
+        <div class="space-y-2 sans text-sm">
+          <div class="flex justify-between"><span class="text-gray-500">7–14 days</span><span class="font-semibold">11</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">15–30 days</span><span class="font-semibold" style="color:var(--orange)">7</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">30+ days</span><span class="font-bold" style="color:var(--red)">5</span></div>
+          <div class="flex justify-between border-t border-gray-100 pt-2 mt-2"><span class="font-semibold">Total being monitored</span><span class="font-bold" style="color:var(--orange)">23</span></div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <div class="sans text-xs font-bold uppercase tracking-wide mb-2" style="color:var(--gold)">Product report</div>
+        <h4 class="font-bold text-sm mb-3" style="color:var(--navy)">Top sellers this week</h4>
+        <div class="space-y-2 sans text-sm">
+          <div class="flex justify-between"><span class="text-gray-500">Butter croissant</span><span class="font-semibold">1,240 u.</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Sourdough boule</span><span class="font-semibold">890 u.</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Blueberry scone</span><span class="font-semibold">640 u.</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Kouign-amann</span><span class="font-semibold">410 u.</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Bacon sausage link</span><span class="font-semibold">280 u.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="mt-12 py-6 border-t border-gray-200">
+  <div class="max-w-6xl mx-auto px-4 sans text-xs text-gray-400 text-center">
+    Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+  </div>
+</footer>
+
+<!-- ===== FLOATING BUTTON ===== -->
+<button id="fab" onclick="abrirCalendly()">
+  Like what you see? Let's talk
+</button>
+
+<!-- ===== MODAL ===== -->
+<div id="modal-overlay" onclick="cerrarModal(event)">
+  <div id="modal-box">
+    <div class="gold-line"></div>
+    <div class="sans text-xs font-bold tracking-widest mb-1" style="color:var(--gold)">POCHO.TECH</div>
+    <h2 class="text-xl font-bold mb-2" style="color:var(--navy);font-family:Georgia,serif">Did this resonate with you?</h2>
+    <p class="sans text-sm text-gray-600 leading-relaxed mb-5">
+      This is just the mockup. The real system would work while you're in the bakery at 3 a.m. — catching at-risk accounts, optimizing routes, and capturing prospects without you lifting a finger.
+    </p>
+    <p class="sans text-sm text-gray-600 mb-6">
+      Let's talk, no strings attached. Tell us what part of the system felt most useful.
+    </p>
+    <button class="w-full py-3 rounded-lg font-bold sans text-sm text-white mb-3 transition-colors hover:opacity-90" style="background:var(--navy)" onclick="abrirCalendly()">
+      Schedule a conversation
+    </button>
+    <button class="w-full py-2 rounded-lg sans text-sm text-gray-500 border border-gray-200 hover:bg-gray-50" onclick="cerrarModal()">
+      I'll check back later
+    </button>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  const CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=cakeandbacon';
+
+  // ---- TABS ----
+  let viewCount = 1; // Starts at 1 for the initial view (operacion)
+  let modalMostrado = sessionStorage.getItem('modalMostrado') === 'true';
+
+  function switchTab(viewName, btn) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('view-' + viewName).classList.add('active');
+    btn.classList.add('active');
+
+    if (!modalMostrado) {
+      viewCount++;
+      if (viewCount >= 3) {
+        setTimeout(abrirModal, 400);
+      }
+    }
+  }
+
+  // ---- MODAL ----
+  function abrirModal() {
+    if (modalMostrado) return;
+    document.getElementById('modal-overlay').classList.add('open');
+    modalMostrado = true;
+    sessionStorage.setItem('modalMostrado', 'true');
+  }
+
+  function cerrarModal(e) {
+    if (!e || e.target === document.getElementById('modal-overlay')) {
+      document.getElementById('modal-overlay').classList.remove('open');
+    }
+  }
+
+  function abrirCalendly() {
+    document.getElementById('modal-overlay').classList.remove('open');
+    window.open(CALENDLY, '_blank', 'noopener');
+  }
+
+  // Timer 75 seconds
+  if (!modalMostrado) {
+    setTimeout(() => {
+      if (!modalMostrado) abrirModal();
+    }, 75000);
+  }
+
+  // ---- SIMULATED ACTION: confirm delivery ----
+  let entregaConfirmada = false;
+  function marcarEntregado(row) {
+    if (entregaConfirmada) return;
+    entregaConfirmada = true;
+
+    const estadoBadge = document.getElementById('estado-heights');
+    if (estadoBadge) {
+      estadoBadge.textContent = 'Delivered';
+      estadoBadge.className = 'badge badge-ok sans';
+    }
+
+    // Remove confirm button
+    const btn = row.querySelector('button');
+    if (btn) btn.parentElement.innerHTML = '';
+
+    // Visual flash
+    row.classList.add('action-flash');
+    setTimeout(() => row.classList.remove('action-flash'), 700);
+
+    // Update KPI
+    const kpi = document.getElementById('kpi-entregados');
+    if (kpi) {
+      kpi.textContent = parseInt(kpi.textContent) + 1;
+    }
+
+    // Update route stop via direct DOM manipulation
+    const stopRow = document.getElementById('stop-heights');
+    if (stopRow) {
+      stopRow.classList.remove('current');
+      stopRow.classList.add('delivered');
+
+      const titleEl = document.getElementById('stop-heights-title');
+      if (titleEl) {
+        titleEl.style.color = '';
+        titleEl.textContent = 'Heights Boutique Hotel';
+      }
+
+      const detailEl = document.getElementById('stop-heights-detail');
+      if (detailEl) {
+        const now = new Date();
+        const hh = String(now.getHours()).padStart(2, '0');
+        const mm = String(now.getMinutes()).padStart(2, '0');
+        detailEl.textContent = 'Multigrain ×8 · Scone ×18 · ✓ Delivered ' + hh + ':' + mm + ' a.m.';
+      }
+    }
+
+    // Toast
+    mostrarToast('✓ Heights Boutique Hotel marked as delivered');
+  }
+
+  // ---- APPROVE MESSAGE (account profile) ----
+  function aprobarMensaje(btn) {
+    btn.textContent = '✓ Message sent';
+    btn.style.background = '#065f46';
+    btn.disabled = true;
+    const panel = btn.closest('.alert-panel');
+    if (panel) panel.classList.add('resolved');
+    mostrarToast('Message sent to Chef Diego — Heights Boutique Hotel');
+  }
+
+  // ---- RE-ENGAGEMENT ----
+  const mensajes = {
+    'Heights Boutique Hotel': "Hey Chef Diego, it's been a while since we've seen you on the delivery schedule. We want to make sure everything is good on our end. Is there anything we can adjust in the par levels or the program for the season? We're here for whatever you need.",
+    'Coffee Shop Katy Road': "Hi there, we noticed it's been several weeks since your last order. We want to know if anything wasn't working well with the service or if there's anything we can adjust to make it more convenient for you. Count on us.",
+    'Brunch Spot Montrose': "Hi, it's been about a month since your last order. We hope everything is going well. If you're adjusting your menu or program for the new season, we'd love to put together a custom proposal for you.",
+    'Hotel Galleria Norte': "Hi, it's been over 30 days since your last order. We want to make sure you're happy with the service. Could we have a quick conversation about how to tailor the program for the upcoming season?",
+    'Riverside Cafe Houston': "Hi, we noticed it's been almost a month since your last order. Is there anything we can improve on delivery or product selection? We're here for whatever you need.",
+  };
+
+  function abrirReengagement(cuenta, btn) {
+    const panel = document.getElementById('reengagement-panel');
+    document.getElementById('cuenta-re').textContent = cuenta;
+    document.getElementById('msg-reengagement').textContent = '"' + (mensajes[cuenta] || 'Re-engagement message generated by the agent.') + '"';
+
+    // Reset button
+    const approveBtn = panel.querySelector('button');
+    if (approveBtn) {
+      approveBtn.textContent = '✓ Approve & send';
+      approveBtn.style.background = 'var(--teal)';
+      approveBtn.disabled = false;
+      approveBtn.onclick = () => confirmarReengagement(approveBtn);
+    }
+
+    panel.style.display = 'block';
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+
+  function confirmarReengagement(btn) {
+    btn.textContent = '✓ Message sent';
+    btn.style.background = '#065f46';
+    btn.disabled = true;
+    const cuenta = document.getElementById('cuenta-re').textContent;
+    mostrarToast('Re-engagement message sent — ' + cuenta);
+  }
+
+  // ---- SEARCH / FILTER ----
+  const cuentasData = [
+    { nombre: 'Montrose Tap House',     tipo: 'Bar',        zona: 'Heights',  programa: 'Daily bread + Charcuterie',  ultimo: 'Today',        estado: 'Active' },
+    { nombre: 'Midtown Craft Bar',      tipo: 'Bar',        zona: 'Montrose', programa: 'Pastry + Viennoiserie',       ultimo: 'Today',        estado: 'Active' },
+    { nombre: 'Downtown Steakhouse',    tipo: 'Restaurant', zona: 'Downtown', programa: 'Artisan bread + Focaccia',    ultimo: 'Today',        estado: 'Active' },
+    { nombre: 'Heights Coffee Co.',     tipo: 'Cafe',       zona: 'Midtown',  programa: 'Croissant + daily pastry',    ultimo: 'Yesterday',    estado: 'Active' },
+    { nombre: 'Heights Boutique Hotel', tipo: 'Hotel',      zona: 'Heights',  programa: 'Bread + Pastry',              ultimo: '18 days ago',  estado: 'At risk' },
+    { nombre: 'Coffee Shop Katy Road',  tipo: 'Cafe',       zona: 'Katy',     programa: 'Croissant + Scone',           ultimo: '42 days ago',  estado: 'Inactive' },
+    { nombre: 'Midtown Wine Bar',       tipo: 'Bar',        zona: 'Midtown',  programa: 'Weekly pastry',               ultimo: '5 days ago',   estado: 'Active' },
+    { nombre: 'Hotel Galleria Norte',   tipo: 'Hotel',      zona: 'Galleria', programa: 'Bread + Breakfast pastry',    ultimo: '35 days ago',  estado: 'At risk' },
+  ];
+
+  const estadoClase = { 'Active': 'badge-ok', 'At risk': 'badge-risk', 'Inactive': 'badge-churn' };
+  const tipoClase   = { 'Bar': 'badge-ok', 'Restaurant': 'badge-ok', 'Cafe': 'badge-new', 'Hotel': 'badge-risk' };
+
+  function filtrarCuentas() {
+    const q      = document.getElementById('search-input').value.toLowerCase();
+    const tipo   = document.getElementById('filter-tipo').value;
+    const estado = document.getElementById('filter-estado').value;
+    const tbody  = document.getElementById('cuentas-tbody');
+
+    const filtradas = cuentasData.filter(c => {
+      const matchQ      = !q      || c.nombre.toLowerCase().includes(q) || c.programa.toLowerCase().includes(q) || c.zona.toLowerCase().includes(q);
+      const matchTipo   = !tipo   || c.tipo === tipo || (tipo === 'Bar' && c.tipo === 'Bar');
+      const matchEstado = !estado || c.estado === estado;
+      return matchQ && matchTipo && matchEstado;
+    });
+
+    tbody.innerHTML = filtradas.map(c => {
+      const ultimoColor = c.estado === 'Inactive' ? 'style="color:var(--red)"' : c.estado === 'At risk' ? 'style="color:var(--orange)"' : '';
+      return `<tr>
+        <td class="font-semibold">${c.nombre}</td>
+        <td><span class="badge ${tipoClase[c.tipo] || 'badge-new'} sans">${c.tipo}</span></td>
+        <td class="sans text-sm text-gray-500">${c.zona}</td>
+        <td class="sans text-sm">${c.programa}</td>
+        <td class="sans text-sm" ${ultimoColor}>${c.ultimo}</td>
+        <td><span class="badge ${estadoClase[c.estado] || 'badge-new'} sans">${c.estado}</span></td>
+      </tr>`;
+    }).join('') || '<tr><td colspan="6" class="sans text-center text-gray-400 py-6">No accounts found matching that search.</td></tr>';
+
+    document.getElementById('count-label').textContent = filtradas.length + ' accounts';
+  }
+
+  // ---- TOAST ----
+  function mostrarToast(msg) {
+    const t = document.createElement('div');
+    t.className = 'sans';
+    t.style.cssText = `
+      position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
+      background:var(--navy); color:white; padding:12px 20px;
+      border-radius:8px; font-size:0.8rem; font-weight:600;
+      z-index:1000; box-shadow:0 4px 16px rgba(0,0,0,0.2);
+      max-width:90vw; text-align:center;
+      animation: fadeInOut 3s ease forwards;
+    `;
+    t.textContent = msg;
+    document.body.appendChild(t);
+
+    const style = document.createElement('style');
+    style.textContent = `@keyframes fadeInOut { 0%{opacity:0;transform:translateX(-50%) translateY(10px)} 15%{opacity:1;transform:translateX(-50%) translateY(0)} 75%{opacity:1} 100%{opacity:0;transform:translateX(-50%) translateY(-6px)} }`;
+    document.head.appendChild(style);
+
+    setTimeout(() => { t.remove(); style.remove(); }, 3000);
+  }
+</script>
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

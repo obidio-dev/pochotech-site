@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sterling Granite Works — Operations Demo | Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --charcoal: #3A3A3A;
+      --beige: #C8B89A;
+      --ivory: #F7F4F0;
+      --brown: #6B5B45;
+      --brown-light: #8B7355;
+      --stone-gray: #7A7A7A;
+      --cream: #FAF8F5;
+      --red-alert: #C0392B;
+      --green-ok: #27AE60;
+      --amber: #E67E22;
+      --blue-info: #2980B9;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ───── DEMO BADGE ───── */
+    .demo-badge {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: var(--brown);
+      color: #fff;
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    /* ───── HEADER ───── */
+    .site-header {
+      background: var(--charcoal);
+      color: #fff;
+      padding: 18px 24px 14px;
+      border-bottom: 3px solid var(--beige);
+    }
+    .site-header .biz-name {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--beige);
+      margin: 0 0 2px;
+    }
+    .site-header .sub {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      color: #aaa;
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
+    /* ───── NAV TABS ───── */
+    .tab-bar {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab-btn {
+      padding: 14px 22px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--stone-gray);
+      border: none;
+      border-bottom: 3px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .tab-btn:hover { color: var(--brown); }
+    .tab-btn.active {
+      color: var(--brown);
+      border-bottom-color: var(--brown);
+    }
+
+    /* ───── PANELS ───── */
+    .panel { display: none; padding: 24px 16px 100px; max-width: 960px; margin: 0 auto; }
+    .panel.active { display: block; }
+
+    /* ───── SECTION HEADINGS ───── */
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin: 0 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--beige);
+      letter-spacing: 0.02em;
+    }
+
+    /* ───── STAT CARDS ───── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid #e5e0d8;
+      border-radius: 6px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1;
+    }
+    .stat-card .label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      color: var(--stone-gray);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-card.alert .num { color: var(--red-alert); }
+    .stat-card.ok .num { color: var(--green-ok); }
+
+    /* ───── JOB CARDS (BOARD) ───── */
+    .board-cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .board-col-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 4px 4px 0 0;
+      margin-bottom: 0;
+    }
+    .board-col-label.new { background: var(--blue-info); }
+    .board-col-label.template { background: var(--amber); }
+    .board-col-label.fab { background: var(--brown-light); }
+    .board-col-label.install { background: var(--green-ok); }
+
+    .board-col {
+      background: #f1ede7;
+      border-radius: 0 0 6px 6px;
+      padding: 10px;
+      min-height: 160px;
+    }
+
+    .job-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+      border-left: 4px solid var(--beige);
+    }
+    .job-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .job-card.commercial { border-left-color: var(--brown); }
+    .job-card.urgent { border-left-color: var(--red-alert); }
+    .job-card .job-id {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--stone-gray);
+      font-weight: 600;
+    }
+    .job-card .job-name {
+      font-weight: 700;
+      color: var(--charcoal);
+      margin: 2px 0;
+    }
+    .job-card .job-meta {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      color: var(--stone-gray);
+    }
+    .job-card .job-tag {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 0.65rem;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--ivory);
+      color: var(--brown);
+      border: 1px solid var(--beige);
+      margin-top: 4px;
+      margin-right: 3px;
+    }
+    .job-card .job-tag.comm {
+      background: #eaf0f8;
+      color: var(--blue-info);
+      border-color: #aac4e0;
+    }
+
+    /* HIGHLIGHT: newly moved card */
+    .job-card.just-moved {
+      animation: highlight-move 2s ease;
+    }
+    @keyframes highlight-move {
+      0% { background: #d4edda; border-color: var(--green-ok); }
+      100% { background: #fff; border-color: #ddd; }
+    }
+
+    /* ───── JOB LIST TABLE ───── */
+    .job-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+    }
+    .job-table th {
+      background: var(--charcoal);
+      color: #fff;
+      padding: 10px 12px;
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .job-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #eee;
+      vertical-align: middle;
+    }
+    .job-table tr:last-child td { border-bottom: none; }
+    .job-table tr:hover td { background: #faf8f5; cursor: pointer; }
+
+    /* ───── BADGES / STATUS ───── */
+    .badge {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge.new { background: #dbeafe; color: #1e40af; }
+    .badge.template { background: #fef3c7; color: #92400e; }
+    .badge.fab { background: #ede9e3; color: var(--brown); }
+    .badge.install { background: #dcfce7; color: #166534; }
+    .badge.done { background: #e5e7eb; color: #374151; }
+    .badge.overdue { background: #fee2e2; color: #991b1b; }
+    .badge.comm { background: #dbeafe; color: #1e3a8a; }
+    .badge.residential { background: #f3f0ec; color: var(--stone-gray); }
+
+    /* ───── DETAIL PANEL ───── */
+    .detail-header {
+      background: var(--charcoal);
+      color: #fff;
+      border-radius: 8px 8px 0 0;
+      padding: 16px 20px;
+    }
+    .detail-header .dh-id {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--beige);
+    }
+    .detail-header .dh-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 4px 0 2px;
+      color: #fff;
+    }
+    .detail-header .dh-meta {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+    .detail-body {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      padding: 18px 20px;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 24px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 600px) { .detail-grid { grid-template-columns: 1fr; } }
+    .detail-field label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--stone-gray);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .detail-field .val {
+      font-size: 0.88rem;
+      color: var(--charcoal);
+      font-weight: 600;
+    }
+
+    /* Timeline */
+    .timeline { list-style: none; padding: 0; margin: 0; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--beige);
+    }
+    .timeline li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .tl-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--beige);
+      border: 3px solid var(--brown);
+      flex-shrink: 0;
+      margin-top: 1px;
+      position: relative;
+      z-index: 1;
+    }
+    .tl-dot.done { background: var(--green-ok); border-color: #1a7a42; }
+    .tl-dot.active { background: var(--brown); border-color: var(--charcoal); }
+    .tl-dot.upcoming { background: #e5e7eb; border-color: #9ca3af; }
+    .tl-content { flex: 1; }
+    .tl-content .tl-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--charcoal);
+    }
+    .tl-content .tl-sub {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      color: var(--stone-gray);
+    }
+    .tl-content .tl-date {
+      font-family: monospace;
+      font-size: 0.72rem;
+      color: var(--brown);
+    }
+
+    /* ───── PAIN / CAPTURE VIEW ───── */
+    .pain-section {
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .pain-section.red {
+      background: #fff5f5;
+      border: 1.5px solid #fca5a5;
+    }
+    .pain-section.green {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+    }
+    .pain-section.amber {
+      background: #fffbeb;
+      border: 1.5px solid #fcd34d;
+    }
+    .pain-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pain-icon {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .pain-icon.x { background: var(--red-alert); }
+    .pain-icon.chk { background: var(--green-ok); }
+    .pain-icon.warn { background: var(--amber); }
+
+    .quote-box {
+      background: var(--charcoal);
+      color: #e5e0d8;
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      font-style: italic;
+      border-left: 4px solid var(--beige);
+      margin: 10px 0 8px;
+      line-height: 1.6;
+    }
+    .quote-source {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.68rem;
+      color: var(--stone-gray);
+      margin-top: 6px;
+    }
+
+    /* Lead capture simulator */
+    .estimator-frame {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 18px;
+      margin-top: 12px;
+    }
+    .estimator-frame h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin: 0 0 12px;
+      border-bottom: 1px solid var(--beige);
+      padding-bottom: 8px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .form-field label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--stone-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-field input, .form-field select {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-size: 0.82rem;
+      font-family: 'Arial', sans-serif;
+      background: #fafafa;
+      color: var(--charcoal);
+    }
+    .form-field input:focus, .form-field select:focus {
+      outline: none;
+      border-color: var(--brown);
+      background: #fff;
+    }
+
+    /* ───── SEARCH / REPORT VIEW ───── */
+    .search-bar-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 180px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 9px 12px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.84rem;
+      color: var(--charcoal);
+    }
+    .search-input:focus { outline: none; border-color: var(--brown); }
+    .filter-select {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 9px 12px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      background: #fff;
+      color: var(--charcoal);
+      cursor: pointer;
+    }
+    .search-btn {
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 9px 18px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .search-btn:hover { background: var(--charcoal); }
+
+    .report-card {
+      background: #fff;
+      border: 1px solid #e0dbd4;
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+    }
+    .report-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.09); }
+    .rc-left .rc-id {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--stone-gray);
+    }
+    .rc-left .rc-name {
+      font-weight: 700;
+      font-size: 0.86rem;
+      color: var(--charcoal);
+      margin: 2px 0;
+    }
+    .rc-left .rc-meta {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.73rem;
+      color: var(--stone-gray);
+    }
+    .rc-right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .rc-right .rc-amount {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brown);
+    }
+    .rc-right .rc-days {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.71rem;
+      color: var(--stone-gray);
+      margin-top: 2px;
+    }
+
+    /* ───── CTA BUTTON (FLOATING) ───── */
+    .cta-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 8000;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 22px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(107,91,69,0.45);
+      transition: background 0.15s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+    .cta-float:hover { background: var(--charcoal); transform: translateY(-2px); }
+    .cta-float:active { transform: translateY(0); }
+
+    /* ───── MODAL ───── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-box {
+      background: #fff;
+      border-radius: 10px;
+      max-width: 460px;
+      width: 100%;
+      padding: 28px 28px 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--stone-gray);
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--charcoal); }
+    .modal-box h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin: 0 0 10px;
+      line-height: 1.3;
+    }
+    .modal-box p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.84rem;
+      color: var(--stone-gray);
+      margin: 0 0 18px;
+      line-height: 1.6;
+    }
+    .modal-cta-btn {
+      display: block;
+      width: 100%;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 14px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      letter-spacing: 0.02em;
+      transition: background 0.15s;
+    }
+    .modal-cta-btn:hover { background: var(--charcoal); }
+    .modal-footnote {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.68rem;
+      color: #bbb;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* ───── FOOTER ───── */
+    footer {
+      background: var(--charcoal);
+      color: #888;
+      text-align: center;
+      padding: 16px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.72rem;
+      line-height: 1.6;
+    }
+
+    /* ───── INTERACTIVE MOVE BUTTON ───── */
+    .action-btn {
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .action-btn:hover { background: var(--charcoal); }
+    .action-btn:disabled { background: var(--green-ok); cursor: default; }
+
+    /* Inline feedback */
+    .feedback-toast {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-radius: 5px;
+      padding: 8px 12px;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      color: #166534;
+      margin-top: 12px;
+    }
+    .feedback-toast.show { display: flex; }
+
+    /* Utility */
+    .hidden { display: none !important; }
+    .mt-4 { margin-top: 16px; }
+    .mt-2 { margin-top: 8px; }
+    .mb-4 { margin-bottom: 16px; }
+    .text-sm { font-size: 0.82rem; }
+    .text-xs { font-size: 0.72rem; }
+    .font-sans { font-family: 'Arial', sans-serif; }
+
+    @media (max-width: 480px) {
+      .tab-btn { padding: 12px 14px; font-size: 0.72rem; }
+      .panel { padding: 16px 12px 100px; }
+      .site-header { padding: 14px 16px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DEMO BADGE -->
+<div class="demo-badge">DEMO &middot; sample data</div>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <p class="biz-name">Sterling Granite Works</p>
+  <p class="sub">What your own system would look like &mdash; prepared by Pocho.tech</p>
+</header>
+
+<!-- NAV TABS -->
+<nav class="tab-bar" role="tablist">
+  <button class="tab-btn active" onclick="showTab('board', this)" role="tab" aria-selected="true">Daily Board</button>
+  <button class="tab-btn" onclick="showTab('detail', this)" role="tab" aria-selected="false">Job Detail</button>
+  <button class="tab-btn" onclick="showTab('capture', this)" role="tab" aria-selected="false">Lead Capture</button>
+  <button class="tab-btn" onclick="showTab('reports', this)" role="tab" aria-selected="false">Search &amp; Reports</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB 1: DAILY BOARD -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="tab-board" class="panel active">
+  <h2 class="section-title">Operations — Week of Jul 28, 2026</h2>
+
+  <!-- Stat row -->
+  <div class="stat-row">
+    <div class="stat-card ok">
+      <div class="num">14</div>
+      <div class="label">Active Jobs</div>
+    </div>
+    <div class="stat-card alert">
+      <div class="num">2</div>
+      <div class="label">Overdue</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">3</div>
+      <div class="label">Installs This Week</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">5</div>
+      <div class="label">New Leads (7 days)</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">$0</div>
+      <div class="label font-sans text-xs" style="color:#c0392b;font-weight:700;">Leads without forms</div>
+    </div>
+  </div>
+
+  <!-- Interactive action: Move a job -->
+  <div style="background:#fff8f0;border:1px solid #f0d5b0;border-radius:6px;padding:14px 16px;margin-bottom:20px;">
+    <p class="font-sans text-sm" style="margin:0 0 10px;font-weight:600;color:var(--brown);">
+      &#9654; Try it: Mark <em>J-1024 Waterfall Island</em> as ready for installation
+    </p>
+    <button class="action-btn" id="move-btn" onclick="moveJobToInstall()">Mark Fab Complete &rarr; Ready to Install</button>
+    <div class="feedback-toast" id="move-feedback">
+      <span style="font-size:1rem;">&#10003;</span>
+      <span><strong>J-1024</strong> moved to <strong>Ready to Install</strong>. Customer auto-notified: <em>"Your countertop is ready — we'll call to schedule installation."</em></span>
+    </div>
+  </div>
+
+  <!-- Board columns -->
+  <div class="board-cols">
+
+    <!-- NEW / QUOTE -->
+    <div>
+      <div class="board-col-label new">New / Quote</div>
+      <div class="board-col">
+        <div class="job-card" onclick="goDetail('J-1029')">
+          <div class="job-id">J-1029</div>
+          <div class="job-name">Kitchen — Calacatta Quartz</div>
+          <div class="job-meta">Web form lead &middot; 38 sq ft</div>
+          <span class="job-tag">Quote pending</span>
+        </div>
+        <div class="job-card" onclick="goDetail('J-1030')">
+          <div class="job-id">J-1030</div>
+          <div class="job-name">Vanity — Giallo Ornamental</div>
+          <div class="job-meta">Phone lead &middot; undermount cutout</div>
+          <span class="job-tag">Quote pending</span>
+        </div>
+        <div class="job-card commercial" onclick="goDetail('J-1031')">
+          <div class="job-id">J-1031</div>
+          <div class="job-name">Commercial Bid — Office Break Room</div>
+          <div class="job-meta">GC: Apex Construction &middot; 80 sq ft</div>
+          <span class="job-tag comm">Commercial</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEMPLATE SCHEDULED -->
+    <div>
+      <div class="board-col-label template">Template Scheduled</div>
+      <div class="board-col">
+        <div class="job-card" onclick="goDetail('J-1026')">
+          <div class="job-id">J-1026</div>
+          <div class="job-name">Bar Top — Bianco Romano</div>
+          <div class="job-meta">Template: Jul 30 &middot; Ogee edge</div>
+          <span class="job-tag">Res.</span>
+        </div>
+        <div class="job-card commercial" onclick="goDetail('J-1027')">
+          <div class="job-id">J-1027</div>
+          <div class="job-name">Apt. Complex — 12 Vanities</div>
+          <div class="job-meta">GC: Rivera Group &middot; Template: Jul 31</div>
+          <span class="job-tag comm">Commercial</span>
+          <span class="job-tag">Multi-unit</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IN FABRICATION -->
+    <div>
+      <div class="board-col-label fab">In Fabrication</div>
+      <div class="board-col">
+        <div class="job-card urgent" id="card-1024" onclick="goDetail('J-1024')">
+          <div class="job-id">J-1024</div>
+          <div class="job-name">Waterfall Island — Negro Absoluto</div>
+          <div class="job-meta">64 sq ft &middot; Waterfall edge</div>
+          <span class="job-tag" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5;">Urgent</span>
+        </div>
+        <div class="job-card" onclick="goDetail('J-1025')">
+          <div class="job-id">J-1025</div>
+          <div class="job-name">Kitchen — Absolute Black</div>
+          <div class="job-meta">45 sq ft &middot; Bullnose edge</div>
+          <span class="job-tag">Res.</span>
+        </div>
+        <div class="job-card commercial" onclick="goDetail('J-1028')">
+          <div class="job-id">J-1028</div>
+          <div class="job-name">Remnant Island — Carrara White</div>
+          <div class="job-meta">Remnant piece &middot; 18 sq ft</div>
+          <span class="job-tag">Res.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- READY TO INSTALL -->
+    <div>
+      <div class="board-col-label install">Ready to Install</div>
+      <div class="board-col" id="install-col">
+        <div class="job-card" onclick="goDetail('J-1022')">
+          <div class="job-id">J-1022</div>
+          <div class="job-name">Vanity — Marble Carrara</div>
+          <div class="job-meta">22 sq ft &middot; Install: Aug 1</div>
+          <span class="job-tag">Res.</span>
+        </div>
+        <div class="job-card" onclick="goDetail('J-1023')">
+          <div class="job-id">J-1023</div>
+          <div class="job-name">Kitchen Replacement — Seam Repair</div>
+          <div class="job-meta">Existing seam fracture &middot; Install: Jul 30</div>
+          <span class="job-tag" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5;">Overdue</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /board-cols -->
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB 2: JOB DETAIL -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="tab-detail" class="panel">
+  <h2 class="section-title">Job Detail &amp; History</h2>
+
+  <!-- Job selector (simulated browse) -->
+  <div style="background:#fff;border:1px solid #ddd;border-radius:6px;padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+    <span class="font-sans text-xs" style="color:var(--stone-gray);font-weight:600;">VIEWING JOB:</span>
+    <select id="job-selector" onchange="renderDetail(this.value)" class="filter-select" style="padding:6px 10px;font-size:0.8rem;">
+      <option value="J-1024">J-1024 — Waterfall Island · Negro Absoluto (Urgent)</option>
+      <option value="J-1027">J-1027 — Commercial: 12 Vanities · Rivera Group</option>
+      <option value="J-1023">J-1023 — Kitchen Replacement · Seam Repair (Overdue)</option>
+      <option value="J-1025">J-1025 — Kitchen · Absolute Black · Bullnose</option>
+      <option value="J-1026">J-1026 — Bar Top · Bianco Romano · Ogee Edge</option>
+    </select>
+  </div>
+
+  <!-- Detail card -->
+  <div id="detail-card"><!-- rendered by JS --></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB 3: LEAD CAPTURE (Pain View) -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="tab-capture" class="panel">
+  <h2 class="section-title">Lead Capture &amp; Pain Points</h2>
+
+  <!-- Pain 1: No form -->
+  <div class="pain-section red">
+    <p class="pain-title">
+      <span class="pain-icon x">✕</span>
+      Today: 257 reviews, zero quote form
+    </p>
+    <div class="quote-box">
+      "You have 257 reviews and no quote form — every customer who visits your site and doesn't call is gone forever. A simple estimator would capture those."
+    </div>
+    <p class="quote-source font-sans">Source: site observation &mdash; single CTA is "Give us a call today"</p>
+    <div class="font-sans text-sm" style="color:#7f1d1d;margin-top:8px;">
+      Visitors who browse at 9pm, on Sunday, or before they&rsquo;re ready to call: <strong>zero way to follow up</strong>.
+    </div>
+  </div>
+
+  <!-- Pain 2: No CRM / sbcglobal -->
+  <div class="pain-section amber">
+    <p class="pain-title">
+      <span class="pain-icon warn">!</span>
+      Today: quotes and follow-ups managed ad hoc
+    </p>
+    <div class="quote-box">
+      "Your email is still @sbcglobal.net — for a business doing custom granite jobs at this volume, that means no shared inbox, no job history, no professional domain. We fix that as part of the system."
+    </div>
+    <p class="quote-source font-sans">Source: site + Maps listing email address</p>
+    <div class="font-sans text-sm" style="color:#78350f;margin-top:8px;">
+      Every quote, confirmation, and date change lives in one inbox with no structure. When a client asks <em>"when is my countertop ready?"</em> the answer requires a call to the shop.
+    </div>
+  </div>
+
+  <!-- Pain 3: Commercial bids -->
+  <div class="pain-section amber">
+    <p class="pain-title">
+      <span class="pain-icon warn">!</span>
+      Today: commercial bids tracked in memory
+    </p>
+    <div class="quote-box">
+      "You show up on ConstructConnect for commercial bids — but without a project management tool, tracking multiple concurrent contractor jobs relies entirely on memory. One missed deadline costs more than the software."
+    </div>
+    <p class="quote-source font-sans">Source: ConstructConnect listing observed in search</p>
+  </div>
+
+  <!-- WITH SYSTEM -->
+  <div class="pain-section green" style="margin-top:24px;">
+    <p class="pain-title">
+      <span class="pain-icon chk">✓</span>
+      With your system: leads captured 24/7
+    </p>
+    <p class="font-sans text-sm" style="color:#14532d;margin-bottom:12px;">
+      Every visit that would have been silent becomes a lead with a name, project type, and square footage estimate — automatically logged and queued for follow-up.
+    </p>
+
+    <!-- Estimator mock -->
+    <div class="estimator-frame">
+      <h3>Quick Estimate Request — Sterling Granite Works</h3>
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name</label>
+          <input type="text" placeholder="e.g. Sarah" id="est-name">
+        </div>
+        <div class="form-field">
+          <label>Phone or Email</label>
+          <input type="text" placeholder="Your contact info" id="est-contact">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Project Type</label>
+          <select id="est-type">
+            <option value="">Select type...</option>
+            <option>Kitchen countertop</option>
+            <option>Bathroom vanity</option>
+            <option>Bar top</option>
+            <option>Outdoor kitchen</option>
+            <option>Commercial project</option>
+            <option>Other / not sure</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Approx. Square Footage</label>
+          <select id="est-sqft">
+            <option value="">Select range...</option>
+            <option>Under 20 sq ft</option>
+            <option>20–40 sq ft</option>
+            <option>40–60 sq ft</option>
+            <option>60–80 sq ft</option>
+            <option>80+ sq ft / commercial</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Material preference</label>
+          <select id="est-mat">
+            <option value="">Not sure / open to options</option>
+            <option>Granite</option>
+            <option>Quartz</option>
+            <option>Marble</option>
+            <option>Natural stone (other)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Timeline</label>
+          <select id="est-timeline">
+            <option value="">Select timeline...</option>
+            <option>ASAP (urgent)</option>
+            <option>Within 2 weeks</option>
+            <option>1–2 months</option>
+            <option>Planning ahead (3+ months)</option>
+          </select>
+        </div>
+      </div>
+      <button class="action-btn" style="width:100%;padding:10px;" onclick="simulateSubmit()">Request My Estimate &rarr;</button>
+      <div class="feedback-toast" id="est-feedback">
+        <span style="font-size:1rem;">&#10003;</span>
+        <span>Lead captured and added to your queue as <strong>J-1032 (New)</strong>. Auto-reply sent to client. You'll be notified within the hour.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Third pain: Commercial tracking panel -->
+  <div class="pain-section green" style="margin-top:16px;">
+    <p class="pain-title">
+      <span class="pain-icon chk">✓</span>
+      Commercial bids: every milestone tracked
+    </p>
+    <p class="font-sans text-sm" style="color:#14532d;margin-bottom:12px;">
+      A contractor job has 4–5 handoffs. Here is what that looks like with the system versus without it.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div style="background:#fff5f5;border:1px solid #fca5a5;border-radius:6px;padding:12px;">
+        <p class="font-sans text-xs" style="font-weight:700;color:#991b1b;margin:0 0 8px;text-transform:uppercase;">Without System</p>
+        <ul class="font-sans text-sm" style="margin:0;padding-left:16px;color:#7f1d1d;line-height:1.8;">
+          <li>Bid stored in email or paper</li>
+          <li>Template date in owner's calendar</li>
+          <li>Fabrication status in owner's head</li>
+          <li>GC calls to check status &rarr; interrupts shop</li>
+          <li>One missed install = GC doesn't call back</li>
+        </ul>
+      </div>
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:6px;padding:12px;">
+        <p class="font-sans text-xs" style="font-weight:700;color:#166534;margin:0 0 8px;text-transform:uppercase;">With System</p>
+        <ul class="font-sans text-sm" style="margin:0;padding-left:16px;color:#14532d;line-height:1.8;">
+          <li>Bid linked to job card on board</li>
+          <li>Template auto-scheduled &amp; confirmed</li>
+          <li>Fab status visible at a glance</li>
+          <li>GC gets update automatically</li>
+          <li>Every milestone documented for next bid</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB 4: SEARCH & REPORTS -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="tab-reports" class="panel">
+  <h2 class="section-title">Search &amp; Reports</h2>
+
+  <div class="search-bar-row">
+    <input type="text" class="search-input" id="search-input" placeholder="Search by client, material, job ID..." oninput="filterReports()">
+    <select class="filter-select" id="filter-status" onchange="filterReports()">
+      <option value="">All Statuses</option>
+      <option value="new">New / Quote</option>
+      <option value="template">Template Scheduled</option>
+      <option value="fab">In Fabrication</option>
+      <option value="install">Ready to Install</option>
+      <option value="done">Completed</option>
+    </select>
+    <select class="filter-select" id="filter-type" onchange="filterReports()">
+      <option value="">All Types</option>
+      <option value="commercial">Commercial</option>
+      <option value="residential">Residential</option>
+    </select>
+  </div>
+
+  <!-- Summary stats -->
+  <div style="background:#fff;border:1px solid #e0dbd4;border-radius:6px;padding:14px 16px;margin-bottom:16px;display:flex;gap:24px;flex-wrap:wrap;">
+    <div>
+      <div class="font-sans text-xs" style="color:var(--stone-gray);text-transform:uppercase;letter-spacing:0.06em;">Showing</div>
+      <div style="font-size:1.1rem;font-weight:700;color:var(--brown);" id="result-count">10 jobs</div>
+    </div>
+    <div>
+      <div class="font-sans text-xs" style="color:var(--stone-gray);text-transform:uppercase;letter-spacing:0.06em;">Est. Revenue</div>
+      <div style="font-size:1.1rem;font-weight:700;color:var(--green-ok);" id="result-revenue">$34,200</div>
+    </div>
+    <div>
+      <div class="font-sans text-xs" style="color:var(--stone-gray);text-transform:uppercase;letter-spacing:0.06em;">Avg. Lead Time</div>
+      <div style="font-size:1.1rem;font-weight:700;color:var(--charcoal);">8.4 days</div>
+    </div>
+    <div>
+      <div class="font-sans text-xs" style="color:var(--stone-gray);text-transform:uppercase;letter-spacing:0.06em;">Commercial Share</div>
+      <div style="font-size:1.1rem;font-weight:700;color:var(--blue-info);">30%</div>
+    </div>
+  </div>
+
+  <!-- Report list -->
+  <div id="report-list"><!-- rendered by JS --></div>
+
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- FLOATING CTA -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<button class="cta-float" onclick="openCalendly()" aria-label="Schedule a call with Pocho.tech">
+  Like what you see? Let&rsquo;s talk
+</button>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- MODAL -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <h2 id="modal-title">This is what a system built for Sterling Granite Works could look like.</h2>
+    <p>Leads captured automatically. Every job tracked through fabrication and install. Commercial bids with milestone visibility. All in one place — no spreadsheets, no inbox archaeology, no calls to the shop to check status.</p>
+    <button class="modal-cta-btn" onclick="openCalendly()">Let&rsquo;s talk about building yours</button>
+    <p class="modal-footnote">No pressure. No time commitment attached.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────
+const JOBS = [
+  {
+    id: 'J-1024', name: 'Waterfall Island — Negro Absoluto',
+    client: 'Household (anonymous lead)', type: 'residential',
+    status: 'fab', statusLabel: 'In Fabrication',
+    material: 'Granite – Negro Absoluto', edge: 'Waterfall edge',
+    sqft: 64, est: '$6,400', lead: 'Web form', urgent: true,
+    template: 'Jul 23, 2026', fabStart: 'Jul 25, 2026', fabDue: 'Jul 28, 2026',
+    installDate: 'Aug 1, 2026',
+    notes: 'Modern kitchen island. Client approved waterfall edge with mitered corners. 3cm slab selected from yard.',
+    history: [
+      { date: 'Jul 20', event: 'Lead submitted via web form', type: 'done' },
+      { date: 'Jul 21', event: 'Quote sent — $6,400 incl. install', type: 'done' },
+      { date: 'Jul 22', event: 'Deposit received. Job confirmed.', type: 'done' },
+      { date: 'Jul 23', event: 'Template appointment completed', type: 'done' },
+      { date: 'Jul 25', event: 'Fabrication started', type: 'active' },
+      { date: 'Aug 1',  event: 'Installation scheduled', type: 'upcoming' },
+    ]
+  },
+  {
+    id: 'J-1027', name: 'Commercial Bid — 12 Vanities',
+    client: 'Rivera Group (GC)', type: 'commercial',
+    status: 'template', statusLabel: 'Template Scheduled',
+    material: 'Granite – Giallo Ornamental', edge: 'Eased edge',
+    sqft: 120, est: '$9,600', lead: 'ConstructConnect',
+    template: 'Jul 31, 2026', fabStart: 'Aug 3, 2026', fabDue: 'Aug 12, 2026',
+    installDate: 'Aug 14, 2026',
+    notes: 'Apartment complex project. 12 bathroom vanities, identical spec. GC requires all units installed same day. Coordinate with Rivera site super.',
+    history: [
+      { date: 'Jul 10', event: 'Bid submitted via ConstructConnect', type: 'done' },
+      { date: 'Jul 17', event: 'GC awarded bid — $9,600 approved', type: 'done' },
+      { date: 'Jul 28', event: 'Contract signed. Template scheduled Jul 31.', type: 'done' },
+      { date: 'Jul 31', event: 'Template appointment (pending)', type: 'active' },
+      { date: 'Aug 3',  event: 'Fabrication begins', type: 'upcoming' },
+      { date: 'Aug 14', event: 'Full installation — all 12 units', type: 'upcoming' },
+    ]
+  },
+  {
+    id: 'J-1023', name: 'Kitchen Replacement — Seam Repair',
+    client: 'Returning client (anonymous)', type: 'residential',
+    status: 'install', statusLabel: 'Ready to Install',
+    material: 'Granite – Absolute Black (match existing)', edge: 'Bullnose (existing profile)',
+    sqft: 32, est: '$2,800', lead: 'Phone call', urgent: false,
+    template: 'Jul 18, 2026', fabStart: 'Jul 22, 2026', fabDue: 'Jul 27, 2026',
+    installDate: 'Jul 30, 2026 (OVERDUE)',
+    notes: 'Hairline fracture at sink seam. Fabricated replacement section to match existing. Install delayed one day — reschedule pending client confirmation.',
+    history: [
+      { date: 'Jul 15', event: 'Client called — seam fracture reported', type: 'done' },
+      { date: 'Jul 16', event: 'Site visit & assessment completed', type: 'done' },
+      { date: 'Jul 18', event: 'Template & color match confirmed', type: 'done' },
+      { date: 'Jul 22', event: 'Fabrication started', type: 'done' },
+      { date: 'Jul 27', event: 'Slab polished & ready', type: 'done' },
+      { date: 'Jul 30', event: 'Install scheduled — awaiting reschedule', type: 'active' },
+    ]
+  },
+  {
+    id: 'J-1025', name: 'Kitchen — Absolute Black',
+    client: 'New client (web lead)', type: 'residential',
+    status: 'fab', statusLabel: 'In Fabrication',
+    material: 'Granite – Absolute Black', edge: 'Bullnose edge',
+    sqft: 45, est: '$3,800', lead: 'Web form',
+    template: 'Jul 24, 2026', fabStart: 'Jul 26, 2026', fabDue: 'Aug 1, 2026',
+    installDate: 'Aug 5, 2026',
+    notes: 'Standard kitchen countertop. Undermount sink cutout included. Client requested honed finish on cooktop section.',
+    history: [
+      { date: 'Jul 20', event: 'Lead captured — web estimator form', type: 'done' },
+      { date: 'Jul 21', event: 'Quote sent — $3,800', type: 'done' },
+      { date: 'Jul 23', event: 'Deposit paid. Job confirmed.', type: 'done' },
+      { date: 'Jul 24', event: 'Template completed', type: 'done' },
+      { date: 'Jul 26', event: 'Fabrication in progress', type: 'active' },
+      { date: 'Aug 5',  event: 'Installation', type: 'upcoming' },
+    ]
+  },
+  {
+    id: 'J-1026', name: 'Bar Top — Bianco Romano',
+    client: 'Referral client', type: 'residential',
+    status: 'template', statusLabel: 'Template Scheduled',
+    material: 'Granite – Bianco Romano', edge: 'Ogee edge',
+    sqft: 28, est: '$2,350', lead: 'Referral',
+    template: 'Jul 30, 2026', fabStart: 'Aug 1, 2026', fabDue: 'Aug 8, 2026',
+    installDate: 'Aug 10, 2026',
+    notes: 'Home bar top with decorative ogee edge. Client wants seam hidden behind bar rail. Confirm seam placement on template day.',
+    history: [
+      { date: 'Jul 22', event: 'Referral call — quote requested', type: 'done' },
+      { date: 'Jul 24', event: 'Quote approved — $2,350', type: 'done' },
+      { date: 'Jul 25', event: 'Deposit received', type: 'done' },
+      { date: 'Jul 30', event: 'Template appointment (scheduled)', type: 'active' },
+      { date: 'Aug 1',  event: 'Fabrication begins', type: 'upcoming' },
+      { date: 'Aug 10', event: 'Installation', type: 'upcoming' },
+    ]
+  },
+  {
+    id: 'J-1029', name: 'Kitchen — Calacatta Quartz (Silestone)',
+    client: 'New web lead', type: 'residential',
+    status: 'new', statusLabel: 'New / Quote',
+    material: 'Quartz – Silestone Calacatta Gold', edge: 'Eased edge (TBD)',
+    sqft: 38, est: '$3,200 (est.)', lead: 'Web form',
+    template: 'TBD', fabStart: 'TBD', fabDue: 'TBD',
+    installDate: 'TBD',
+    notes: 'Submitted via web estimator at 10:42pm. Modern kitchen remodel. Requested quote before scheduling template.',
+    history: [
+      { date: 'Jul 28', event: 'Lead submitted — web form (10:42pm)', type: 'done' },
+      { date: 'Jul 28', event: 'Auto-reply sent to client', type: 'done' },
+      { date: 'Jul 29', event: 'Quote call scheduled', type: 'active' },
+    ]
+  },
+  {
+    id: 'J-1030', name: 'Vanity — Giallo Ornamental',
+    client: 'Phone lead', type: 'residential',
+    status: 'new', statusLabel: 'New / Quote',
+    material: 'Granite – Giallo Ornamental', edge: 'TBD',
+    sqft: 18, est: '$1,600 (est.)', lead: 'Phone call',
+    template: 'TBD', fabStart: 'TBD', fabDue: 'TBD',
+    installDate: 'TBD',
+    notes: 'Called July 28. Wants undermount sink cutout. Gave measurements over phone. Quote pending.',
+    history: [
+      { date: 'Jul 28', event: 'Phone inquiry — measurements noted', type: 'done' },
+      { date: 'Jul 29', event: 'Quote to be sent', type: 'active' },
+    ]
+  },
+  {
+    id: 'J-1031', name: 'Commercial Bid — Office Break Room',
+    client: 'Apex Construction (GC)', type: 'commercial',
+    status: 'new', statusLabel: 'New / Quote',
+    material: 'Granite – TBD per spec', edge: 'Eased edge',
+    sqft: 80, est: '$5,600 (est.)', lead: 'ConstructConnect',
+    template: 'TBD', fabStart: 'TBD', fabDue: 'TBD',
+    installDate: 'TBD',
+    notes: 'Break room countertop for office building in Houston Energy Corridor. GC requests bid by Aug 5.',
+    history: [
+      { date: 'Jul 27', event: 'Bid request received via ConstructConnect', type: 'done' },
+      { date: 'Aug 5',  event: 'Bid submission deadline', type: 'upcoming' },
+    ]
+  },
+  {
+    id: 'J-1022', name: 'Vanity — Marble Carrara',
+    client: 'Residential client', type: 'residential',
+    status: 'install', statusLabel: 'Ready to Install',
+    material: 'Marble – Carrara White', edge: 'Bullnose edge',
+    sqft: 22, est: '$2,200', lead: 'Walk-in',
+    template: 'Jul 19, 2026', fabStart: 'Jul 22, 2026', fabDue: 'Jul 28, 2026',
+    installDate: 'Aug 1, 2026',
+    notes: 'Master bath vanity. Client selected Carrara White in showroom. Polish finish. Ready for install Aug 1.',
+    history: [
+      { date: 'Jul 15', event: 'Walk-in client — slab selected in yard', type: 'done' },
+      { date: 'Jul 19', event: 'Template completed', type: 'done' },
+      { date: 'Jul 22', event: 'Fabrication started', type: 'done' },
+      { date: 'Jul 28', event: 'Polished & ready for install', type: 'done' },
+      { date: 'Aug 1',  event: 'Installation scheduled', type: 'active' },
+    ]
+  },
+  {
+    id: 'J-1028', name: 'Remnant Island — Carrara White',
+    client: 'Referral client', type: 'residential',
+    status: 'fab', statusLabel: 'In Fabrication',
+    material: 'Marble – Carrara White (remnant piece)', edge: 'Eased edge',
+    sqft: 18, est: '$1,100', lead: 'Referral',
+    template: 'Jul 25, 2026', fabStart: 'Jul 27, 2026', fabDue: 'Aug 2, 2026',
+    installDate: 'Aug 4, 2026',
+    notes: 'Small kitchen island from remnant stock. Confirmed piece available in yard. Straightforward cut — no seam needed.',
+    history: [
+      { date: 'Jul 23', event: 'Referral — remnant island requested', type: 'done' },
+      { date: 'Jul 24', event: 'Remnant confirmed available in yard', type: 'done' },
+      { date: 'Jul 25', event: 'Template completed', type: 'done' },
+      { date: 'Jul 27', event: 'Fabrication started', type: 'active' },
+      { date: 'Aug 4',  event: 'Installation', type: 'upcoming' },
+    ]
+  },
+];
+
+// ── TAB NAVIGATION ────────────────────────────────────────────────────────
+let viewCount = 1; // start at 1 (board is view 1)
+let modalShown = sessionStorage.getItem('gm_modal_shown') === '1';
+let modalTimer;
+
+function showTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+
+  // Count unique views (each tab switch = +1 if not already shown modal)
+  if (!modalShown) {
+    viewCount++;
+    if (viewCount >= 3) triggerModal();
+  }
+}
+
+// ── MODAL LOGIC ───────────────────────────────────────────────────────────
+// Timer: fire at 75s if modal not yet shown
+if (!modalShown) {
+  modalTimer = setTimeout(triggerModal, 75000);
+}
+
+function triggerModal() {
+  if (modalShown) return;
+  clearTimeout(modalTimer);
+  modalShown = true;
+  sessionStorage.setItem('gm_modal_shown', '1');
+  document.getElementById('modal').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.add('hidden');
+}
+
+function openCalendly() {
+  closeModal();
+  window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=granitemaster', '_blank', 'noopener');
+}
+
+// Close modal on overlay click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ── BOARD: INTERACTIVE MOVE ───────────────────────────────────────────────
+function moveJobToInstall() {
+  const btn = document.getElementById('move-btn');
+  const card = document.getElementById('card-1024');
+  const installCol = document.getElementById('install-col');
+  const feedback = document.getElementById('move-feedback');
+
+  if (!card) return;
+
+  // Build new card
+  const newCard = document.createElement('div');
+  newCard.className = 'job-card just-moved';
+  newCard.innerHTML = `
+    <div class="job-id">J-1024</div>
+    <div class="job-name">Waterfall Island — Negro Absoluto</div>
+    <div class="job-meta">64 sq ft &middot; Waterfall edge</div>
+    <span class="job-tag" style="background:#dcfce7;color:#166534;border-color:#86efac;">Ready to Install</span>
+  `;
+  newCard.onclick = () => goDetail('J-1024');
+
+  // Remove from fab col
+  card.remove();
+
+  // Add to install col
+  installCol.prepend(newCard);
+
+  // Update button
+  btn.disabled = true;
+  btn.textContent = '✓ Moved to Ready to Install';
+
+  // Show feedback
+  feedback.classList.add('show');
+}
+
+// ── DETAIL VIEW ───────────────────────────────────────────────────────────
+function goDetail(jobId) {
+  showTab('detail', document.querySelectorAll('.tab-btn')[1]);
+  document.getElementById('job-selector').value = jobId;
+  renderDetail(jobId);
+}
+
+function renderDetail(jobId) {
+  const job = JOBS.find(j => j.id === jobId);
+  if (!job) return;
+
+  const statusBadge = statusBadgeHTML(job.status, job.urgent);
+  const typeBadge = `<span class="badge ${job.type}">${job.type === 'commercial' ? 'Commercial' : 'Residential'}</span>`;
+
+  const timelineHTML = job.history.map(h => `
+    <li>
+      <div class="tl-dot ${h.type}"></div>
+      <div class="tl-content">
+        <div class="tl-title">${h.event}</div>
+        <div class="tl-date">${h.date}</div>
+      </div>
+    </li>
+  `).join('');
+
+  document.getElementById('detail-card').innerHTML = `
+    <div class="detail-header">
+      <div class="dh-id">${job.id} &middot; ${typeBadge} ${statusBadge}</div>
+      <div class="dh-name">${job.name}</div>
+      <div class="dh-meta">${job.client} &middot; Lead source: ${job.lead}</div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-grid">
+        <div class="detail-field"><label>Material</label><div class="val">${job.material}</div></div>
+        <div class="detail-field"><label>Edge Profile</label><div class="val">${job.edge}</div></div>
+        <div class="detail-field"><label>Square Footage</label><div class="val">${job.sqft} sq ft</div></div>
+        <div class="detail-field"><label>Estimated Value</label><div class="val">${job.est}</div></div>
+        <div class="detail-field"><label>Template Date</label><div class="val">${job.template}</div></div>
+        <div class="detail-field"><label>Fab Start → Due</label><div class="val">${job.fabStart} → ${job.fabDue}</div></div>
+        <div class="detail-field"><label>Installation</label><div class="val">${job.installDate}</div></div>
+        <div class="detail-field"><label>Status</label><div class="val">${job.statusLabel}</div></div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <div class="font-sans text-xs" style="color:var(--stone-gray);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Notes</div>
+        <div class="font-sans text-sm" style="color:var(--charcoal);line-height:1.6;">${job.notes}</div>
+      </div>
+      <div>
+        <div class="font-sans text-xs" style="color:var(--stone-gray);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;">Job History</div>
+        <ul class="timeline">${timelineHTML}</ul>
+      </div>
+    </div>
+  `;
+}
+
+function statusBadgeHTML(status, urgent) {
+  if (urgent) return '<span class="badge overdue">Urgent</span>';
+  const map = { new:'new', template:'template', fab:'fab', install:'install', done:'done' };
+  const labels = { new:'New / Quote', template:'Template Scheduled', fab:'In Fabrication', install:'Ready to Install', done:'Completed' };
+  return `<span class="badge ${map[status] || ''}">${labels[status] || status}</span>`;
+}
+
+// Initialize detail on load
+renderDetail('J-1024');
+
+// ── LEAD CAPTURE: FORM SUBMIT ─────────────────────────────────────────────
+function simulateSubmit() {
+  const name = document.getElementById('est-name').value.trim();
+  const contact = document.getElementById('est-contact').value.trim();
+  if (!name || !contact) {
+    alert('Please enter your name and contact info to simulate lead capture.');
+    return;
+  }
+  document.getElementById('est-feedback').classList.add('show');
+  document.querySelector('.estimator-frame button').disabled = true;
+  document.querySelector('.estimator-frame button').textContent = '✓ Estimate Requested';
+}
+
+// ── SEARCH & REPORTS ──────────────────────────────────────────────────────
+function renderReports(jobs) {
+  const list = document.getElementById('report-list');
+  if (!jobs.length) {
+    list.innerHTML = '<div class="font-sans text-sm" style="padding:20px;color:var(--stone-gray);text-align:center;">No jobs match your filters.</div>';
+    document.getElementById('result-count').textContent = '0 jobs';
+    document.getElementById('result-revenue').textContent = '$0';
+    return;
+  }
+
+  const totalEst = jobs.reduce((acc, j) => {
+    const num = parseInt(j.est.replace(/[^0-9]/g, '')) || 0;
+    return acc + num;
+  }, 0);
+  document.getElementById('result-count').textContent = jobs.length + ' job' + (jobs.length !== 1 ? 's' : '');
+  document.getElementById('result-revenue').textContent = '$' + totalEst.toLocaleString();
+
+  list.innerHTML = jobs.map(j => {
+    const daysAgo = j.history.length ? j.history[0].date : '—';
+    return `
+      <div class="report-card" onclick="goDetail('${j.id}')">
+        <div class="rc-left">
+          <div class="rc-id">${j.id} &middot; ${j.type === 'commercial' ? '&#x1F3E2; Commercial' : 'Residential'}</div>
+          <div class="rc-name">${j.name}</div>
+          <div class="rc-meta">${j.material} &middot; ${j.sqft} sq ft &middot; Lead: ${j.lead} &middot; ${statusBadgeHTML(j.status, j.urgent)}</div>
+        </div>
+        <div class="rc-right">
+          <div class="rc-amount">${j.est}</div>
+          <div class="rc-days">Since ${daysAgo}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterReports() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const status = document.getElementById('filter-status').value;
+  const type = document.getElementById('filter-type').value;
+
+  const filtered = JOBS.filter(j => {
+    const matchQ = !q || j.name.toLowerCase().includes(q) || j.id.toLowerCase().includes(q) ||
+                   j.material.toLowerCase().includes(q) || j.client.toLowerCase().includes(q);
+    const matchStatus = !status || j.status === status;
+    const matchType = !type || j.type === type;
+    return matchQ && matchStatus && matchType;
+  });
+  renderReports(filtered);
+}
+
+// Initialize reports
+renderReports(JOBS);
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

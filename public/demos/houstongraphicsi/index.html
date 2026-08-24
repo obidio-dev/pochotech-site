@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Westpark Signs & Graphics — Operations System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --gold: #F5A800;
+      --dark: #1A1A1A;
+      --gray-mid: #555555;
+      --gray-light: #F5F5F5;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--gray-light); color: var(--dark); margin: 0; }
+
+    /* HEADER */
+    .site-header { background: var(--dark); color: #fff; padding: 0; }
+    .header-inner { max-width: 1200px; margin: 0 auto; padding: 18px 24px 14px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .header-left h1 { font-size: 1.25rem; font-weight: 700; margin: 0; color: var(--gold); letter-spacing: .02em; }
+    .header-left p { font-size: 0.7rem; color: #aaa; margin: 3px 0 0; font-style: italic; }
+    .demo-badge { background: var(--gold); color: var(--dark); font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 4px; letter-spacing: .1em; white-space: nowrap; align-self: flex-start; margin-top: 2px; }
+
+    /* TABS */
+    .tab-bar { background: #232323; border-bottom: 2px solid var(--gold); }
+    .tab-inner { max-width: 1200px; margin: 0 auto; display: flex; overflow-x: auto; padding: 0 24px; gap: 2px; }
+    .tab-btn { background: none; border: none; color: #aaa; font-size: 0.82rem; font-weight: 600; padding: 12px 18px; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; transition: all .2s; }
+    .tab-btn:hover { color: #fff; }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* LAYOUT */
+    .page-body { max-width: 1200px; margin: 0 auto; padding: 28px 24px 120px; }
+
+    /* CARDS */
+    .card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.08); padding: 20px 22px; margin-bottom: 16px; }
+    .card-sm { padding: 14px 18px; }
+
+    /* STATUS BADGES */
+    .badge { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; letter-spacing: .04em; white-space: nowrap; }
+    .badge-design    { background: #E8F0FE; color: #1967D2; }
+    .badge-permit    { background: #FFF3CD; color: #856404; }
+    .badge-fab       { background: #FDE8FF; color: #6B21A8; }
+    .badge-install   { background: #D1FAE5; color: #065F46; }
+    .badge-complete  { background: #F0F0F0; color: #444; }
+    .badge-quote     { background: #FEF3C7; color: #92400E; }
+    .badge-delivered { background: #DCFCE7; color: #166534; }
+    .badge-proposal  { background: #E0F2FE; color: #075985; }
+
+    /* TRAFFIC LIGHT */
+    .tl { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .tl-green  { background: #22C55E; }
+    .tl-yellow { background: #EAB308; }
+    .tl-red    { background: #EF4444; }
+
+    /* PROJECT ROW */
+    .proj-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid #F0F0F0; transition: background .15s; }
+    .proj-row:last-child { border-bottom: none; }
+    .proj-row:hover { background: #fafafa; border-radius: 6px; }
+    .proj-row .proj-name { font-weight: 600; font-size: 0.88rem; flex: 1; min-width: 0; }
+    .proj-row .proj-client { font-size: 0.78rem; color: var(--gray-mid); }
+    .proj-row .proj-type { font-size: 0.75rem; color: #888; }
+    .proj-meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* KANBAN */
+    .kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 900px) { .kanban { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .kanban { grid-template-columns: 1fr; } }
+    .kanban-col { background: #F8F8F8; border-radius: 8px; padding: 14px 12px; min-height: 320px; }
+    .kanban-col-header { font-size: 0.75rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid; }
+    .col-design    .kanban-col-header { border-color: #1967D2; color: #1967D2; }
+    .col-permit    .kanban-col-header { border-color: #D97706; color: #D97706; }
+    .col-fab       .kanban-col-header { border-color: #7C3AED; color: #7C3AED; }
+    .col-install   .kanban-col-header { border-color: #059669; color: #059669; }
+    .kanban-card { background: #fff; border-radius: 6px; padding: 11px 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.07); cursor: pointer; transition: box-shadow .15s, transform .15s; }
+    .kanban-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,.12); transform: translateY(-1px); }
+    .kanban-card .kc-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+    .kanban-card .kc-client { font-size: 0.72rem; color: var(--gray-mid); margin-bottom: 6px; }
+    .kanban-card .kc-meta { display: flex; align-items: center; justify-content: space-between; }
+    .kanban-card .kc-due { font-size: 0.68rem; color: #888; }
+    .kanban-card.highlight-anim { animation: kc-pop .6s ease; }
+    @keyframes kc-pop { 0%,100% { box-shadow: 0 1px 3px rgba(0,0,0,.07); } 40% { box-shadow: 0 0 0 3px var(--gold), 0 4px 12px rgba(0,0,0,.15); } }
+
+    /* DETAIL / CLIENT PROFILE */
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 700px) { .detail-grid { grid-template-columns: 1fr; } }
+    .history-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .history-table th { text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--gray-mid); padding: 8px 10px; border-bottom: 2px solid #eee; }
+    .history-table td { padding: 9px 10px; border-bottom: 1px solid #F0F0F0; }
+    .history-table tr:last-child td { border-bottom: none; }
+    .history-table tr:hover td { background: #fafafa; }
+    .stat-box { background: var(--gray-light); border-radius: 8px; padding: 16px 18px; text-align: center; }
+    .stat-box .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--dark); line-height: 1; }
+    .stat-box .stat-label { font-size: 0.72rem; color: var(--gray-mid); margin-top: 4px; }
+
+    /* QUOTE BUILDER */
+    .quote-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 650px) { .quote-form { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label { font-size: 0.75rem; font-weight: 700; color: var(--gray-mid); text-transform: uppercase; letter-spacing: .04em; }
+    .form-group select, .form-group input { border: 1.5px solid #DDD; border-radius: 6px; padding: 9px 12px; font-size: 0.88rem; color: var(--dark); background: #fff; outline: none; transition: border-color .2s; }
+    .form-group select:focus, .form-group input:focus { border-color: var(--gold); }
+    .btn-gold { background: var(--gold); color: var(--dark); font-weight: 800; font-size: 0.88rem; border: none; border-radius: 7px; padding: 11px 24px; cursor: pointer; transition: opacity .15s, transform .1s; letter-spacing: .02em; }
+    .btn-gold:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-gold:active { transform: translateY(0); }
+    .quote-result { background: #FFFDF0; border: 2px solid var(--gold); border-radius: 8px; padding: 18px 20px; margin-top: 20px; display: none; }
+    .quote-result.visible { display: block; animation: fadeUp .35s ease; }
+    .quote-line { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed #E0D8B0; font-size: 0.85rem; }
+    .quote-line:last-child { border-bottom: none; font-weight: 800; font-size: 0.95rem; }
+    .quote-line .ql-label { color: var(--gray-mid); }
+
+    /* SEARCH / REPORTS */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; align-items: center; }
+    .filter-bar input, .filter-bar select { border: 1.5px solid #DDD; border-radius: 6px; padding: 8px 12px; font-size: 0.83rem; outline: none; transition: border-color .2s; }
+    .filter-bar input:focus, .filter-bar select:focus { border-color: var(--gold); }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .report-table th { text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #fff; background: var(--dark); padding: 10px 12px; }
+    .report-table td { padding: 10px 12px; border-bottom: 1px solid #EEE; }
+    .report-table tr:nth-child(even) td { background: #FAFAFA; }
+    .report-table tr:hover td { background: #FFF9E8; }
+    .report-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 22px; }
+    @media (max-width: 700px) { .report-summary { grid-template-columns: repeat(2,1fr); } }
+
+    /* PAIN SECTION */
+    .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    @media (max-width: 720px) { .pain-grid { grid-template-columns: 1fr; } }
+    .pain-card { border-radius: 10px; padding: 22px 22px; }
+    .pain-card.before { background: #FEF2F2; border: 1.5px solid #FECACA; }
+    .pain-card.after  { background: #F0FDF4; border: 1.5px solid #BBF7D0; }
+    .pain-card h3 { font-size: 0.75rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; margin: 0 0 12px; }
+    .pain-card.before h3 { color: #B91C1C; }
+    .pain-card.after h3  { color: #065F46; }
+    .pain-item { display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.84rem; line-height: 1.45; }
+    .pain-icon { flex-shrink: 0; margin-top: 1px; }
+    .pipeline-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 14px 0; }
+    .pipeline-seg { display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; color: #fff; letter-spacing: .04em; transition: flex .5s ease; }
+    .seg-design  { background: #1967D2; flex: 3; }
+    .seg-permit  { background: #D97706; flex: 4; }
+    .seg-fab     { background: #7C3AED; flex: 5; }
+    .seg-install { background: #059669; flex: 2; }
+
+    /* FLOATING CTA */
+    .floating-cta { position: fixed; bottom: 28px; right: 28px; z-index: 200; }
+    .floating-cta button { background: var(--gold); color: var(--dark); font-weight: 800; font-size: 0.88rem; border: none; border-radius: 50px; padding: 14px 22px; cursor: pointer; box-shadow: 0 4px 20px rgba(245,168,0,.45); white-space: nowrap; transition: transform .15s, box-shadow .15s; }
+    .floating-cta button:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(245,168,0,.55); }
+    @media (max-width: 480px) { .floating-cta { bottom: 18px; right: 14px; } .floating-cta button { font-size: 0.8rem; padding: 12px 16px; } }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box { background: #fff; border-radius: 12px; padding: 36px 32px; max-width: 480px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.25); transform: translateY(20px); transition: transform .25s; text-align: center; }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-box h2 { font-size: 1.35rem; font-weight: 800; margin: 0 0 8px; color: var(--dark); }
+    .modal-box p { font-size: 0.88rem; color: var(--gray-mid); line-height: 1.55; margin: 0 0 24px; }
+    .modal-close { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #888; line-height: 1; }
+    .modal-box { position: relative; }
+    .btn-modal-cta { background: var(--gold); color: var(--dark); font-weight: 800; font-size: 1rem; border: none; border-radius: 8px; padding: 14px 28px; cursor: pointer; width: 100%; margin-bottom: 10px; transition: opacity .15s; }
+    .btn-modal-cta:hover { opacity: .88; }
+    .btn-modal-dismiss { background: none; border: none; color: var(--gray-mid); font-size: 0.8rem; cursor: pointer; text-decoration: underline; }
+
+    /* MISC */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .section-title { font-size: 1rem; font-weight: 800; margin: 0 0 18px; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+    .section-title span.accent { color: var(--gold); }
+    .chip { display: inline-block; background: #f0f0f0; color: #444; font-size: 0.68rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-right: 4px; }
+    .notification-toast { position: fixed; bottom: 90px; right: 28px; background: #1A1A1A; color: #fff; border-left: 4px solid var(--gold); padding: 12px 18px; border-radius: 8px; font-size: 0.82rem; max-width: 280px; z-index: 300; box-shadow: 0 4px 16px rgba(0,0,0,.25); transform: translateX(120%); transition: transform .35s cubic-bezier(.4,0,.2,1); }
+    .notification-toast.show { transform: translateX(0); }
+    .progress-bar { height: 5px; background: #EEE; border-radius: 3px; overflow: hidden; margin-top: 8px; }
+    .progress-bar-inner { height: 100%; background: var(--gold); border-radius: 3px; transition: width .4s ease; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-left">
+      <h1>Westpark Signs & Graphics</h1>
+      <p>What your own system would look like — prepared by Pocho.tech</p>
+    </div>
+    <div class="demo-badge">DEMO &middot; sample data</div>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="tab-bar" role="navigation" aria-label="Main navigation">
+  <div class="tab-inner">
+    <button class="tab-btn active" data-tab="board" onclick="switchTab('board',this)">Project Board</button>
+    <button class="tab-btn" data-tab="client" onclick="switchTab('client',this)">Client Profile</button>
+    <button class="tab-btn" data-tab="pain" onclick="switchTab('pain',this)">Why This Matters</button>
+    <button class="tab-btn" data-tab="reports" onclick="switchTab('reports',this)">Search &amp; Reports</button>
+  </div>
+</nav>
+
+<!-- ============================================================ -->
+<!-- TAB 1: PROJECT BOARD (daily ops — kanban + list) -->
+<!-- ============================================================ -->
+<div class="tab-content active" id="tab-board">
+  <div class="page-body">
+
+    <!-- Alert bar -->
+    <div class="card card-sm" style="background:#FFF9E8; border-left:4px solid var(--gold); margin-bottom:20px;">
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <span style="font-size:0.8rem;"><strong style="color:#92400E;">2 projects need attention today:</strong>&nbsp; Katy Ranch Crossing HOA permit stalled 14 days &nbsp;|&nbsp; Heights Beer Garden permit expires in 3 days</span>
+        <span class="tl tl-red" style="margin-left:auto;"></span>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+      <h2 class="section-title" style="margin:0;">Active Projects <span class="accent">— Pipeline View</span></h2>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn-gold" style="font-size:0.78rem; padding:8px 14px;" onclick="simulateStageUpdate()">Move Westchase Dental → Install</button>
+        <span style="font-size:0.72rem; color:#888; align-self:center;">&larr; try this</span>
+      </div>
+    </div>
+
+    <!-- Kanban -->
+    <div class="kanban" id="kanban-board">
+
+      <div class="kanban-col col-design">
+        <div class="kanban-col-header">Design</div>
+        <div class="kanban-card" onclick="openClientTab('Apex Plumbing & Drain')">
+          <div class="kc-title">Vehicle Wrap — Cargo Van</div>
+          <div class="kc-client">Apex Plumbing &amp; Drain</div>
+          <div class="kc-meta">
+            <span class="kc-due">Due Aug 5</span>
+            <span class="tl tl-yellow"></span>
+          </div>
+        </div>
+        <div class="kanban-card" onclick="openClientTab('Greenway Plaza Medical Bldg')">
+          <div class="kc-title">ADA / Braille Signs</div>
+          <div class="kc-client">Greenway Plaza Medical Bldg</div>
+          <div class="kc-meta">
+            <span class="kc-due">Due Aug 12</span>
+            <span class="tl tl-green"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kanban-col col-permit">
+        <div class="kanban-col-header">Permitting (TSCL)</div>
+        <div class="kanban-card" onclick="openClientTab('Katy Ranch Crossing HOA')" style="border-left:3px solid #EF4444;">
+          <div class="kc-title">Monument Sign</div>
+          <div class="kc-client">Katy Ranch Crossing HOA</div>
+          <div class="kc-meta">
+            <span class="kc-due" style="color:#EF4444;">Stalled 14 days</span>
+            <span class="tl tl-red"></span>
+          </div>
+        </div>
+        <div class="kanban-card" onclick="openClientTab('Meyerland Auto Spa')" style="border-left:3px solid #EAB308;">
+          <div class="kc-title">Exterior Pole Sign (LED)</div>
+          <div class="kc-client">Meyerland Auto Spa</div>
+          <div class="kc-meta">
+            <span class="kc-due" style="color:#D97706;">Expires in 3 days</span>
+            <span class="tl tl-yellow"></span>
+          </div>
+        </div>
+        <div class="kanban-card" onclick="openClientTab('Heights Beer Garden')">
+          <div class="kc-title">Roof Sign (illuminated)</div>
+          <div class="kc-client">Heights Beer Garden</div>
+          <div class="kc-meta">
+            <span class="kc-due">Aug 20</span>
+            <span class="tl tl-yellow"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kanban-col col-fab">
+        <div class="kanban-col-header">Fabrication</div>
+        <div class="kanban-card" id="kc-westchase" onclick="openClientTab('Westchase Dental Group')">
+          <div class="kc-title">Channel Letters (LED)</div>
+          <div class="kc-client">Westchase Dental Group</div>
+          <div class="kc-meta">
+            <span class="kc-due">Due Aug 2</span>
+            <span class="tl tl-green"></span>
+          </div>
+          <div class="progress-bar" style="margin-top:8px;"><div class="progress-bar-inner" id="fab-progress" style="width:72%;"></div></div>
+          <div style="font-size:0.67rem; color:#888; margin-top:3px;">72% complete</div>
+        </div>
+        <div class="kanban-card" onclick="openClientTab('Gulf Coast HVAC Services')">
+          <div class="kc-title">Fleet Rebranding — 12 vehicles</div>
+          <div class="kc-client">Gulf Coast HVAC Services</div>
+          <div class="kc-meta">
+            <span class="kc-due">Due Aug 18</span>
+            <span class="tl tl-green"></span>
+          </div>
+          <div class="progress-bar" style="margin-top:8px;"><div class="progress-bar-inner" style="width:40%;"></div></div>
+          <div style="font-size:0.67rem; color:#888; margin-top:3px;">4 of 12 vehicles done</div>
+        </div>
+        <div class="kanban-card" onclick="openClientTab('610 Loop Mixed-Use Dev.')">
+          <div class="kc-title">Construction Hoarding</div>
+          <div class="kc-client">610 Loop Mixed-Use Dev.</div>
+          <div class="kc-meta">
+            <span class="kc-due">Due Sep 1</span>
+            <span class="tl tl-green"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kanban-col col-install">
+        <div class="kanban-col-header">Installation</div>
+        <div id="kc-install-target" style="min-height:60px; border:2px dashed #D1FAE5; border-radius:6px; margin-bottom:10px; display:flex; align-items:center; justify-content:center; font-size:0.72rem; color:#888;">
+          Move Westchase here &rarr;
+        </div>
+      </div>
+
+    </div>
+
+    <!-- List below -->
+    <div class="card" style="margin-top:24px;">
+      <h3 class="section-title" style="font-size:0.88rem; margin-bottom:14px;">All Active Projects</h3>
+      <div id="projects-list">
+        <!-- Rows injected by JS -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 2: CLIENT PROFILE (detail + history) -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-client">
+  <div class="page-body">
+
+    <!-- Client selector -->
+    <div class="card card-sm" style="margin-bottom:18px; display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
+      <label style="font-size:0.78rem; font-weight:700; color:var(--gray-mid);">VIEWING CLIENT:</label>
+      <select id="client-select" onchange="loadClientProfile(this.value)" style="border:1.5px solid #DDD; border-radius:6px; padding:7px 12px; font-size:0.85rem; outline:none; flex:1; min-width:200px;">
+        <option value="lone-star">Lone Star Property Mgmt (Corporate)</option>
+        <option value="gulf-coast">Gulf Coast HVAC Services (Fleet)</option>
+        <option value="meridian">Meridian Title Company</option>
+        <option value="northside">Northside ISD — Aldine</option>
+      </select>
+    </div>
+
+    <div id="client-profile-area">
+      <!-- Injected by JS -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 3: WHY THIS MATTERS (pain dramatization + smart quote) -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-pain">
+  <div class="page-body">
+
+    <div class="card" style="background: var(--dark); color:#fff; margin-bottom:20px; padding:28px 28px;">
+      <div style="font-size:0.72rem; font-weight:700; letter-spacing:.08em; color:var(--gold); margin-bottom:8px; text-transform:uppercase;">The real cost of manual operations</div>
+      <h2 style="font-size:1.2rem; font-weight:800; margin:0 0 10px; line-height:1.35;">40 years serving Houston businesses — that volume of multi-stage projects (design, permit, fabrication, install) deserves something better than email and spreadsheets to make sure nothing falls through.</h2>
+      <p style="font-size:0.85rem; color:#ccc; margin:0; line-height:1.6;">Channel letters, vehicle wraps, monument signs, fleet rebranding — each one has specs that live somewhere. Here's what the difference looks like.</p>
+    </div>
+
+    <!-- Before / After -->
+    <div class="pain-grid">
+      <div class="pain-card before">
+        <h3>Without a system</h3>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Quote for channel letters built from memory or Excel — recalculated every time a client requests a change</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Project status lives in text threads — "Hey, where are my signs?" requires a manual check</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>TSCL permit deadlines tracked on a calendar note — no automatic alert when a permit is stalling</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Corporate and fleet clients have no single place to see their order history or reorder easily</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Upsell opportunities (LED upgrade, fleet expansion, wayfinding add-on) missed because there's no trigger</span></div>
+      </div>
+      <div class="pain-card after">
+        <h3>With your own system</h3>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Smart quote builder: pick sign type, dimensions, material, permit requirement — draft ready in 60 seconds, Michelle approves with one click</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Four-stage pipeline (Design → Permit → Fabrication → Install) visible at a glance — clients get automatic status updates</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Permit expiry alerts fire automatically — no permit dies silently because it fell through the cracks</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Every corporate and fleet client has a full order history — reorders and upsells surface without outbound calls</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Pipeline visibility by stage, client type, and revenue — Michelle sees what's closing this month without counting tabs</span></div>
+      </div>
+    </div>
+
+    <!-- Pipeline visualization -->
+    <div class="card">
+      <h3 class="section-title">Your Active Pipeline Right Now</h3>
+      <p style="font-size:0.82rem; color:var(--gray-mid); margin:-10px 0 14px;">Every active project, organized by stage — not by who remembered to send a status email.</p>
+      <div class="pipeline-bar">
+        <div class="pipeline-seg seg-design">Design (2)</div>
+        <div class="pipeline-seg seg-permit">Permit (3)</div>
+        <div class="pipeline-seg seg-fab">Fabrication (3)</div>
+        <div class="pipeline-seg seg-install">Install (1)</div>
+      </div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;">
+        <span style="font-size:0.72rem;"><span style="background:#1967D2; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Design</span>
+        <span style="font-size:0.72rem;"><span style="background:#D97706; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Permitting (TSCL)</span>
+        <span style="font-size:0.72rem;"><span style="background:#7C3AED; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Fabrication</span>
+        <span style="font-size:0.72rem;"><span style="background:#059669; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Installation</span>
+      </div>
+    </div>
+
+    <!-- Smart Quote Builder -->
+    <div class="card" style="margin-top:20px;">
+      <h3 class="section-title">Smart Quote Builder <span style="font-size:0.72rem; font-weight:400; color:#888; margin-left:8px;">— sample interaction</span></h3>
+      <p style="font-size:0.82rem; color:var(--gray-mid); margin:-10px 0 20px; line-height:1.55;">An automated quoting tool for channel letters and vehicle wraps could close projects faster and give Michelle real pipeline visibility — without adding more overhead. Try it:</p>
+
+      <div class="quote-form">
+        <div class="form-group">
+          <label>Sign Type</label>
+          <select id="q-type" onchange="updateQuoteFields()">
+            <option value="">Select…</option>
+            <option value="channel">Channel Letters (LED illuminated)</option>
+            <option value="vehicle">Vehicle Wrap (full wrap)</option>
+            <option value="monument">Monument Sign</option>
+            <option value="fleet">Fleet Rebranding (per vehicle)</option>
+            <option value="lobby">Lobby Signage (3D letters)</option>
+            <option value="led-board">LED Message Board</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Client / Company</label>
+          <input id="q-client" type="text" placeholder="Company name…" />
+        </div>
+        <div class="form-group">
+          <label>Dimensions / Size</label>
+          <select id="q-size">
+            <option value="">Select…</option>
+            <option value="sm">Small (under 20 sq ft)</option>
+            <option value="md">Medium (20–60 sq ft)</option>
+            <option value="lg">Large (60–150 sq ft)</option>
+            <option value="xl">Extra Large (150+ sq ft)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Material / Finish</label>
+          <select id="q-material">
+            <option value="">Select…</option>
+            <option value="alum-led">Aluminum + LED</option>
+            <option value="acrylic">Acrylic face</option>
+            <option value="vinyl-3m">3M Vinyl (vehicle grade)</option>
+            <option value="dimensional">Dimensional / routed HDU</option>
+            <option value="brick-dim">Brick + dimensional letters</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Permit Required?</label>
+          <select id="q-permit">
+            <option value="yes">Yes — TSCL filing needed</option>
+            <option value="no">No permit needed</option>
+            <option value="unknown">To be determined</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Estimated Completion</label>
+          <input id="q-date" type="date" />
+        </div>
+      </div>
+
+      <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+        <button class="btn-gold" onclick="generateQuote()">Generate Quote Draft</button>
+        <span style="font-size:0.75rem; color:#888;">Michelle reviews &amp; approves in one click</span>
+      </div>
+
+      <div class="quote-result" id="quote-result">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+          <div>
+            <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:var(--gray-mid); text-transform:uppercase;">Draft Quote</div>
+            <div id="qr-title" style="font-size:1rem; font-weight:800; margin-top:3px;"></div>
+          </div>
+          <div id="qr-status" style="font-size:0.72rem; background:#FEF3C7; color:#92400E; font-weight:700; padding:5px 12px; border-radius:20px; letter-spacing:.04em;">PENDING MICHELLE'S APPROVAL</div>
+        </div>
+        <div id="qr-lines"></div>
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn-gold" onclick="approveQuote()" style="font-size:0.82rem; padding:9px 18px;">Approve &amp; Send to Client</button>
+          <button onclick="document.getElementById('quote-result').classList.remove('visible')" style="font-size:0.82rem; padding:9px 18px; background:none; border:1.5px solid #DDD; border-radius:7px; cursor:pointer; font-weight:600;">Request Revision</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 4: SEARCH & REPORTS -->
+<!-- ============================================================ -->
+<div class="tab-content" id="tab-reports">
+  <div class="page-body">
+
+    <div class="report-summary" id="report-summary-boxes">
+      <!-- Injected by JS -->
+    </div>
+
+    <div class="card">
+      <h3 class="section-title" style="margin-bottom:14px;">Project Search &amp; Export</h3>
+      <div class="filter-bar">
+        <input type="text" id="search-q" placeholder="Search client, sign type, status…" style="flex:1; min-width:180px;" oninput="filterTable()" />
+        <select id="filter-stage" onchange="filterTable()">
+          <option value="">All stages</option>
+          <option value="design">Design</option>
+          <option value="permit">Permitting</option>
+          <option value="fabrication">Fabrication</option>
+          <option value="installation">Installation</option>
+          <option value="complete">Completed</option>
+          <option value="quote">Quote sent</option>
+        </select>
+        <select id="filter-type" onchange="filterTable()">
+          <option value="">All sign types</option>
+          <option value="channel">Channel Letters</option>
+          <option value="vehicle">Vehicle / Fleet</option>
+          <option value="monument">Monument / Pole</option>
+          <option value="interior">Interior / Lobby</option>
+          <option value="other">Other</option>
+        </select>
+        <button class="btn-gold" style="font-size:0.78rem; padding:8px 14px;" onclick="showToast('Export ready — sample data only in this demo')">Export CSV</button>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="report-table" id="report-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Client</th>
+              <th>Sign Type</th>
+              <th>Stage</th>
+              <th>Due Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="report-tbody">
+          </tbody>
+        </table>
+      </div>
+      <div id="no-results" style="display:none; text-align:center; padding:32px; color:var(--gray-mid); font-size:0.85rem;">No projects match your filters.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FLOATING CTA -->
+<div class="floating-cta">
+  <button onclick="openCalendly()">Like what you see? Let's talk</button>
+</div>
+
+<!-- TOAST -->
+<div class="notification-toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div style="font-size:2rem; margin-bottom:10px;">&#9733;</div>
+    <h2>This could be yours</h2>
+    <p>A system built around how Westpark Signs & Graphics actually works — channel letters, fleet rebranding, TSCL permitting, all of it. No generic software. No learning curve. Just a cleaner way to run what you already do well.</p>
+    <button class="btn-modal-cta" onclick="openCalendly()">Schedule a conversation with Erick</button>
+    <br />
+    <button class="btn-modal-dismiss" onclick="closeModal()">I'll keep looking around</button>
+  </div>
+</div>
+
+<footer style="background:var(--dark); color:#888; font-size:0.72rem; text-align:center; padding:18px 24px; margin-top:0;">
+  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+</footer>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=houstongraphicsi';
+
+const PROJECTS = [
+  { id:1,  client:'Westchase Dental Group',       type:'Channel Letters (LED)',          stage:'Fabrication',  stageKey:'fabrication', due:'Aug 2, 2026',  tl:'green',  typeKey:'channel',  amount:'$8,400' },
+  { id:2,  client:'Katy Ranch Crossing HOA',      type:'Monument Sign',                 stage:'Permitting',   stageKey:'permit',       due:'Aug 15, 2026', tl:'red',    typeKey:'monument', amount:'$12,200' },
+  { id:3,  client:'Gulf Coast HVAC Services',     type:'Fleet Rebranding (12 vehicles)',stage:'Fabrication',  stageKey:'fabrication', due:'Aug 18, 2026', tl:'green',  typeKey:'vehicle',  amount:'$31,500' },
+  { id:4,  client:'Apex Plumbing & Drain',        type:'Vehicle Wrap (cargo van)',       stage:'Design',       stageKey:'design',       due:'Aug 5, 2026',  tl:'yellow', typeKey:'vehicle',  amount:'$2,800' },
+  { id:5,  client:'Meridian Title Company',       type:'Lobby Signage (3D + wall)',      stage:'Completed',    stageKey:'complete',     due:'Jul 10, 2026', tl:'green',  typeKey:'interior', amount:'$5,600' },
+  { id:6,  client:'BioTex Medical Supplies',      type:'Trade Show Booth (10x10)',       stage:'Quote Sent',   stageKey:'quote',        due:'Aug 25, 2026', tl:'yellow', typeKey:'other',    amount:'$3,900' },
+  { id:7,  client:'Meyerland Auto Spa',           type:'Exterior Pole Sign (LED)',       stage:'Permitting',   stageKey:'permit',       due:'Aug 20, 2026', tl:'yellow', typeKey:'monument', amount:'$7,100' },
+  { id:8,  client:'La Michoacana Ice Cream #4',   type:'Window Graphics (vinyl)',        stage:'Completed',    stageKey:'complete',     due:'Jul 5, 2026',  tl:'green',  typeKey:'other',    amount:'$1,200' },
+  { id:9,  client:'610 Loop Mixed-Use Dev.',      type:'Construction Hoarding',          stage:'Fabrication',  stageKey:'fabrication', due:'Sep 1, 2026',  tl:'green',  typeKey:'other',    amount:'$18,000' },
+  { id:10, client:'Lone Star Property Mgmt',      type:'Corporate Rebranding (wayfinding)',stage:'Proposal Sent',stageKey:'quote',     due:'Aug 30, 2026', tl:'yellow', typeKey:'interior', amount:'$24,500' },
+  { id:11, client:'Greenway Plaza Medical Bldg',  type:'ADA / Braille Signs',            stage:'Design',       stageKey:'design',       due:'Aug 12, 2026', tl:'green',  typeKey:'interior', amount:'$3,300' },
+  { id:12, client:'Crosspoint Church Houston',    type:'A-Frame + Banner Package',       stage:'Completed',    stageKey:'complete',     due:'Jun 20, 2026', tl:'green',  typeKey:'other',    amount:'$980' },
+  { id:13, client:'Heights Beer Garden',          type:'Roof Sign (illuminated)',        stage:'Permitting',   stageKey:'permit',       due:'Aug 20, 2026', tl:'yellow', typeKey:'monument', amount:'$9,800' },
+  { id:14, client:'HX Energy Conference 2026',    type:'Large Format Digital Print',     stage:'Delivered',    stageKey:'complete',     due:'Jul 18, 2026', tl:'green',  typeKey:'other',    amount:'$4,200' },
+  { id:15, client:'Northside ISD — Aldine',       type:'LED Message Board',              stage:'Quote in Process',stageKey:'quote',    due:'Sep 15, 2026', tl:'yellow', typeKey:'monument', amount:'$28,000' },
+];
+
+const CLIENT_PROFILES = {
+  'lone-star': {
+    name: 'Lone Star Property Mgmt',
+    type: 'Corporate Account',
+    since: '2019',
+    contact: 'David Reyes, Facilities Director',
+    totalJobs: 8,
+    totalValue: '$87,400',
+    activeProjects: 1,
+    tags: ['Wayfinding','Monument signs','Property management','Corporate rebranding'],
+    history: [
+      { date:'Jul 2026', job:'Corporate rebranding — wayfinding + exterior', stage:'Proposal Sent', value:'$24,500' },
+      { date:'Mar 2026', job:'Monument sign — 3 properties (Katy)', stage:'Completed', value:'$18,200' },
+      { date:'Nov 2025', job:'Suite ADA signage — Greenway office', stage:'Completed', value:'$4,100' },
+      { date:'Jun 2025', job:'Property ID signs — 5 locations', stage:'Completed', value:'$12,800' },
+      { date:'Jan 2025', job:'Lobby 3D letters — main office', stage:'Completed', value:'$5,600' },
+      { date:'Aug 2024', job:'Window graphics — retail strip (8 units)', stage:'Completed', value:'$9,200' },
+    ],
+    note: 'High-value repeat client. Fleet of 24 managed properties — each property cycle (new tenant / rebranding) triggers a sign order. Last upsell: ADA suite signage. Next opportunity: 3 properties due for exterior refresh Q4 2026.'
+  },
+  'gulf-coast': {
+    name: 'Gulf Coast HVAC Services',
+    type: 'Fleet Account',
+    since: '2022',
+    contact: 'Sandra Martinez, Operations Manager',
+    totalJobs: 5,
+    totalValue: '$51,300',
+    activeProjects: 1,
+    tags: ['Fleet rebranding','Vehicle wraps','Vehicle graphics','Commercial fleet'],
+    history: [
+      { date:'Jul 2026', job:'Fleet rebranding — 12 vehicles (in progress)', stage:'Fabrication', value:'$31,500' },
+      { date:'Sep 2025', job:'Vehicle wraps — 4 cargo vans (full wrap)', stage:'Completed', value:'$9,200' },
+      { date:'Feb 2025', job:'Fleet graphics — 6 pickup trucks (partial)', stage:'Completed', value:'$6,400' },
+      { date:'Jul 2024', job:'Vehicle graphics refresh — 3 vans', stage:'Completed', value:'$3,100' },
+      { date:'Jan 2024', job:'Logo decal package — initial fleet', stage:'Completed', value:'$1,100' },
+    ],
+    note: 'Consistent fleet client — rebranding every 12–18 months as fleet grows. Currently 12 vehicles in production. Fleet total expected to reach 20 units by end of 2027. Upsell opportunity: magnetic door panel sets for part-time vehicles.'
+  },
+  'meridian': {
+    name: 'Meridian Title Company',
+    type: 'Corporate Account',
+    since: '2023',
+    contact: 'Karen Liu, Office Manager',
+    totalJobs: 3,
+    totalValue: '$14,800',
+    activeProjects: 0,
+    tags: ['Lobby signage','ADA compliance','3D letters','Interior signage'],
+    history: [
+      { date:'Jul 2026', job:'Lobby signage — 3D letters + wall graphic', stage:'Completed', value:'$5,600' },
+      { date:'Oct 2025', job:'ADA suite signs — full office build-out', stage:'Completed', value:'$4,100' },
+      { date:'Mar 2024', job:'Window graphics — storefront branding', stage:'Completed', value:'$2,800' },
+    ],
+    note: 'Opened second location in The Woodlands (Sep 2026). Likely needs identical lobby signage package. Proactive outreach recommended — estimated value $5,600.'
+  },
+  'northside': {
+    name: 'Northside ISD — Aldine',
+    type: 'Institutional Account',
+    since: '2025',
+    contact: 'Robert Chen, Facilities Coordinator',
+    totalJobs: 2,
+    totalValue: '$31,200',
+    activeProjects: 1,
+    tags: ['LED signs','Electronic message board','ADA compliance','Institutional'],
+    history: [
+      { date:'Jul 2026', job:'LED message board — Aldine campus (quote in process)', stage:'Quote in Process', value:'$28,000' },
+      { date:'Nov 2025', job:'ADA / Braille signage — 3 buildings', stage:'Completed', value:'$3,200' },
+    ],
+    note: 'ISD district has 12 campuses. If LED message board closes, potential for 3–4 more campus orders at similar value. Procurement cycle: August–September for new fiscal year.'
+  }
+};
+
+// ============================================================
+// TAB NAVIGATION
+// ============================================================
+let tabVisitCount = 1; // tab-board counted as visit 1
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+  tabVisitCount++;
+  checkModalTrigger();
+}
+
+// ============================================================
+// MODAL LOGIC
+// ============================================================
+let modalShown = sessionStorage.getItem('hgsi_modal_shown') === 'true';
+let modalTimer = null;
+
+function checkModalTrigger() {
+  if (!modalShown && tabVisitCount >= 3) showModal();
+}
+
+function startModalTimer() {
+  if (modalShown) return;
+  modalTimer = setTimeout(() => {
+    if (!modalShown) showModal();
+  }, 75000);
+}
+
+function showModal() {
+  if (modalShown) return;
+  modalShown = true;
+  sessionStorage.setItem('hgsi_modal_shown', 'true');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function closeModalOnOverlay(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function openCalendly() {
+  window.open(CALENDLY, '_blank', 'noopener');
+}
+
+// ============================================================
+// PROJECT LIST (Tab 1)
+// ============================================================
+function badgeClass(stageKey) {
+  const map = { design:'badge-design', permit:'badge-permit', fabrication:'badge-fab', installation:'badge-install', complete:'badge-complete', quote:'badge-quote', delivered:'badge-delivered', proposal:'badge-proposal' };
+  return map[stageKey] || 'badge-quote';
+}
+
+function renderProjectList() {
+  const container = document.getElementById('projects-list');
+  const active = PROJECTS.filter(p => !['complete','delivered'].includes(p.stageKey));
+  container.innerHTML = active.map(p => `
+    <div class="proj-row">
+      <span class="tl tl-${p.tl}" style="flex-shrink:0;"></span>
+      <div style="flex:1; min-width:0;">
+        <div class="proj-name">${p.client}</div>
+        <div class="proj-type">${p.type}</div>
+      </div>
+      <div class="proj-meta">
+        <span class="badge ${badgeClass(p.stageKey)}">${p.stage}</span>
+        <span style="font-size:0.75rem; color:#888; min-width:70px; text-align:right;">${p.due}</span>
+        <span style="font-size:0.78rem; font-weight:700; color:var(--dark); min-width:58px; text-align:right;">${p.amount}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// SIMULATED INTERACTION — Move Westchase to Install
+// ============================================================
+let westchaseInstalled = false;
+function simulateStageUpdate() {
+  if (westchaseInstalled) {
+    showToast('Westchase Dental Group is already in Installation.');
+    return;
+  }
+  westchaseInstalled = true;
+  const kc = document.getElementById('kc-westchase');
+  const target = document.getElementById('kc-install-target');
+
+  // Animate source card
+  kc.classList.add('highlight-anim');
+
+  setTimeout(() => {
+    // Move card visually
+    const newCard = document.createElement('div');
+    newCard.className = 'kanban-card highlight-anim';
+    newCard.innerHTML = `
+      <div class="kc-title">Channel Letters (LED)</div>
+      <div class="kc-client">Westchase Dental Group</div>
+      <div class="kc-meta">
+        <span class="kc-due" style="color:#059669; font-weight:700;">Scheduled Aug 4</span>
+        <span class="tl tl-green"></span>
+      </div>
+      <div style="font-size:0.7rem; color:#059669; margin-top:6px; font-weight:600;">&#10003; Ready for installation crew</div>
+    `;
+    target.innerHTML = '';
+    target.appendChild(newCard);
+
+    // Remove from fab col
+    kc.style.opacity = '0.3';
+    kc.style.pointerEvents = 'none';
+    const progressEl = document.getElementById('fab-progress');
+    if (progressEl) progressEl.style.width = '100%';
+
+    // Update list
+    const proj = PROJECTS.find(p => p.client === 'Westchase Dental Group');
+    if (proj) { proj.stage = 'Installation'; proj.stageKey = 'installation'; proj.tl = 'green'; }
+    renderProjectList();
+
+    showToast('&#10003; Westchase Dental Group moved to Installation. Client notification sent automatically.');
+  }, 300);
+}
+
+// ============================================================
+// CLIENT PROFILE (Tab 2)
+// ============================================================
+function loadClientProfile(key) {
+  const p = CLIENT_PROFILES[key];
+  if (!p) return;
+  const area = document.getElementById('client-profile-area');
+  const upsellNote = p.note;
+  area.innerHTML = `
+    <div class="detail-grid" style="margin-bottom:18px;">
+      <div class="card">
+        <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:var(--gold); margin-bottom:6px; text-transform:uppercase;">${p.type}</div>
+        <div style="font-size:1.2rem; font-weight:800; margin-bottom:12px;">${p.name}</div>
+        <div style="font-size:0.82rem; color:var(--gray-mid); margin-bottom:5px;"><strong>Contact:</strong> ${p.contact}</div>
+        <div style="font-size:0.82rem; color:var(--gray-mid); margin-bottom:12px;"><strong>Client since:</strong> ${p.since}</div>
+        <div style="display:flex; flex-wrap:wrap; gap:5px;">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div class="stat-box"><div class="stat-num">${p.totalJobs}</div><div class="stat-label">Total Projects</div></div>
+        <div class="stat-box"><div class="stat-num">${p.totalValue}</div><div class="stat-label">Total Revenue</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:${p.activeProjects>0?'var(--gold)':'#aaa'};">${p.activeProjects}</div><div class="stat-label">Active Projects</div></div>
+        <div class="stat-box"><div class="stat-num" style="font-size:1.2rem; color:#059669;">&#9650;</div><div class="stat-label">Upsell Flagged</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px;">
+      <h3 class="section-title" style="font-size:0.88rem; margin-bottom:14px;">Full Project History</h3>
+      <div style="overflow-x:auto;">
+        <table class="history-table">
+          <thead><tr><th>Date</th><th>Job</th><th>Stage</th><th>Value</th></tr></thead>
+          <tbody>
+            ${p.history.map(h=>`
+              <tr>
+                <td style="white-space:nowrap; color:var(--gray-mid);">${h.date}</td>
+                <td>${h.job}</td>
+                <td><span class="badge ${h.stage==='Completed'||h.stage==='Delivered'?'badge-complete':'badge-quote'}">${h.stage}</span></td>
+                <td style="font-weight:700;">${h.value}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="background:#FFFDF0; border:1.5px solid var(--gold);">
+      <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:#92400E; margin-bottom:6px; text-transform:uppercase;">Intelligence Note</div>
+      <div style="font-size:0.85rem; line-height:1.6; color:var(--dark);">${upsellNote}</div>
+    </div>
+  `;
+}
+
+function openClientTab(clientName) {
+  // Map partial name to a tab key
+  const map = { 'Lone Star Property Mgmt':'lone-star', 'Gulf Coast HVAC Services':'gulf-coast', 'Meridian Title Company':'meridian', 'Northside ISD — Aldine':'northside' };
+  const key = Object.keys(map).find(k => clientName.includes(k.split(' ')[0])) || null;
+  const btn = document.querySelector('[data-tab="client"]');
+  switchTab('client', btn);
+  if (key) {
+    document.getElementById('client-select').value = map[key] || 'lone-star';
+    loadClientProfile(map[key] || 'lone-star');
+  } else {
+    loadClientProfile('lone-star');
+  }
+}
+
+// ============================================================
+// QUOTE BUILDER (Tab 3)
+// ============================================================
+const QUOTE_CONFIGS = {
+  channel: { base: 6800,  items: [['Channel letter fabrication (aluminum housing, LED module)','included'],['Raceway / wireway attachment system','$650'],['Electrical wiring & transformer','$420'],['TSCL permit filing','$380'],['Professional installation','$850']] },
+  vehicle: { base: 2400,  items: [['3M vinyl material (full wrap grade)','included'],['Design & template setup','$350'],['Color management & proofing','$120'],['Surface prep & application','$480'],['Lamination (UV protective)','$180']] },
+  monument: { base:10500, items: [['Monument base (brick & block)','included'],['Dimensional aluminum letters','$1,200'],['Internal LED illumination','$980'],['TSCL permit filing','$380'],['Site installation & footing','$1,400']] },
+  fleet:   { base: 2200,  items: [['Per-vehicle vinyl wrap material','included'],['Design template (fleet-standard)','$280 (one-time)'],['Application (per vehicle)','$480'],['Fleet tracking decals','$90']] },
+  lobby:   { base: 4200,  items: [['3D dimensional letters (HDU/metal)','included'],['Wall graphic (large format print)','$680'],['Mounting hardware','$220'],['Braille / ADA compliance add-on','$380']] },
+  'led-board': { base:18000, items: [['LED electronic message board (full color)','included'],['Control software & remote access','$1,200'],['Structural steel mounting','$2,400'],['TSCL permit filing','$380'],['Electrical hookup coordination','$600']] },
+};
+
+const SIZE_MULT = { sm:0.8, md:1.0, lg:1.35, xl:1.75 };
+
+function updateQuoteFields() {}
+
+function generateQuote() {
+  const type = document.getElementById('q-type').value;
+  const client = document.getElementById('q-client').value || 'Client';
+  const size = document.getElementById('q-size').value;
+  const material = document.getElementById('q-material').value;
+  const permit = document.getElementById('q-permit').value;
+
+  if (!type || !size) {
+    showToast('Please select Sign Type and Dimensions to generate a quote.');
+    return;
+  }
+
+  const cfg = QUOTE_CONFIGS[type];
+  const mult = SIZE_MULT[size] || 1;
+  let lines = [...cfg.items];
+  let base = Math.round(cfg.base * mult);
+
+  // Permit override
+  if (permit === 'no') {
+    lines = lines.filter(l => !l[0].includes('permit'));
+    base -= 380;
+  }
+
+  const result = document.getElementById('quote-result');
+  document.getElementById('qr-title').textContent = `${document.getElementById('q-type').options[document.getElementById('q-type').selectedIndex].text} — ${client}`;
+  document.getElementById('qr-status').textContent = 'PENDING MICHELLE\'S APPROVAL';
+  document.getElementById('qr-status').style.background = '#FEF3C7';
+  document.getElementById('qr-status').style.color = '#92400E';
+
+  const linesHtml = lines.map((l,i) => `
+    <div class="quote-line">
+      <span class="ql-label">${l[0]}</span>
+      <span style="font-weight:600;">${l[1] === 'included' ? '<span style="color:#059669;">Included</span>' : l[1]}</span>
+    </div>
+  `).join('') + `
+    <div class="quote-line" style="margin-top:8px; padding-top:10px; border-top:2px solid #D0C080;">
+      <span style="font-weight:800;">Estimated Total</span>
+      <span style="color:var(--dark); font-size:1.05rem;">$${base.toLocaleString()}</span>
+    </div>
+  `;
+  document.getElementById('qr-lines').innerHTML = linesHtml;
+  result.classList.add('visible');
+  result.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function approveQuote() {
+  const statusEl = document.getElementById('qr-status');
+  statusEl.textContent = 'APPROVED — SENT TO CLIENT';
+  statusEl.style.background = '#D1FAE5';
+  statusEl.style.color = '#065F46';
+  showToast('&#10003; Quote approved by Michelle. Client email sent automatically.');
+}
+
+// ============================================================
+// REPORTS (Tab 4)
+// ============================================================
+function renderReportSummary() {
+  const total = PROJECTS.length;
+  const active = PROJECTS.filter(p => !['complete','delivered'].includes(p.stageKey)).length;
+  const permits = PROJECTS.filter(p => p.stageKey === 'permit').length;
+  const totalVal = PROJECTS.reduce((acc, p) => acc + parseInt(p.amount.replace(/[$,]/g,'')), 0);
+  document.getElementById('report-summary-boxes').innerHTML = `
+    <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Total Projects</div></div>
+    <div class="stat-box"><div class="stat-num">${active}</div><div class="stat-label">Active</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:#D97706;">${permits}</div><div class="stat-label">In Permitting</div></div>
+    <div class="stat-box"><div class="stat-num" style="font-size:1.3rem;">$${(totalVal/1000).toFixed(0)}k</div><div class="stat-label">Pipeline Value</div></div>
+  `;
+}
+
+function renderReportTable(filtered) {
+  const data = filtered || PROJECTS;
+  const tbody = document.getElementById('report-tbody');
+  tbody.innerHTML = data.map((p,i) => `
+    <tr>
+      <td style="color:var(--gray-mid); font-size:0.75rem;">${String(i+1).padStart(2,'0')}</td>
+      <td style="font-weight:600;">${p.client}</td>
+      <td style="color:var(--gray-mid);">${p.type}</td>
+      <td><span class="badge ${badgeClass(p.stageKey)}">${p.stage}</span></td>
+      <td style="white-space:nowrap; color:${p.tl==='red'?'#EF4444':p.tl==='yellow'?'#D97706':'var(--gray-mid)'}; font-weight:${p.tl==='red'?700:400};">${p.due}</td>
+      <td><span class="tl tl-${p.tl}"></span></td>
+    </tr>
+  `).join('');
+  document.getElementById('no-results').style.display = data.length === 0 ? 'block' : 'none';
+}
+
+function filterTable() {
+  const q = document.getElementById('search-q').value.toLowerCase();
+  const stage = document.getElementById('filter-stage').value;
+  const type = document.getElementById('filter-type').value;
+
+  const typeMap = {
+    channel: p => p.typeKey === 'channel',
+    vehicle: p => p.typeKey === 'vehicle',
+    monument: p => p.typeKey === 'monument',
+    interior: p => p.typeKey === 'interior',
+    other: p => p.typeKey === 'other',
+  };
+
+  const filtered = PROJECTS.filter(p => {
+    const matchQ = !q || p.client.toLowerCase().includes(q) || p.type.toLowerCase().includes(q) || p.stage.toLowerCase().includes(q);
+    const matchStage = !stage || p.stageKey === stage;
+    const matchType = !type || (typeMap[type] && typeMap[type](p));
+    return matchQ && matchStage && matchType;
+  });
+  renderReportTable(filtered);
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+let toastTimer = null;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 4500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  renderProjectList();
+  loadClientProfile('lone-star');
+  renderReportSummary();
+  renderReportTable();
+  startModalTimer();
+});
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

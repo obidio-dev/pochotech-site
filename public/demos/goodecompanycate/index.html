@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Oak Catering Co — Event Operations Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --green:  #2D4A1E;
+      --brown:  #6B3A1F;
+      --red:    #C0392B;
+      --cream:  #F5EDD6;
+      --dark:   #1A1A1A;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--dark);
+      font-family: 'Georgia', serif;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .site-header {
+      background: var(--green);
+      color: var(--cream);
+    }
+    .demo-badge {
+      background: var(--red);
+      color: #fff;
+      font-family: monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      padding: 2px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    /* ── NAV TABS ───────────────────────────────────────────── */
+    .tab-bar {
+      background: var(--green);
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .tab-btn {
+      color: rgba(245,237,214,0.65);
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      padding: 0.6rem 1.1rem;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      font-family: sans-serif;
+    }
+    .tab-btn:hover  { color: var(--cream); }
+    .tab-btn.active {
+      color: var(--cream);
+      border-bottom-color: #C0392B;
+      font-weight: 600;
+    }
+
+    /* ── CARDS / PANELS ─────────────────────────────────────── */
+    .card {
+      background: #fff;
+      border: 1px solid #e5d8b8;
+      border-radius: 6px;
+    }
+    .pill {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-family: sans-serif;
+      border-radius: 9999px;
+      padding: 1px 9px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .pill-confirmed  { background:#d4edda; color:#155724; }
+    .pill-pending    { background:#fff3cd; color:#856404; }
+    .pill-proposal   { background:#cfe2ff; color:#084298; }
+    .pill-active     { background:#fde8e8; color:#7b1a1a; }
+    .pill-completed  { background:#e2e3e5; color:#383d41; }
+
+    /* ── STATUS INDICATOR (dot) ─────────────────────────────── */
+    .dot { width:9px; height:9px; border-radius:50%; display:inline-block; flex-shrink:0; }
+    .dot-green  { background:#22c55e; }
+    .dot-yellow { background:#f59e0b; }
+    .dot-blue   { background:#3b82f6; }
+    .dot-red    { background:#ef4444; }
+    .dot-gray   { background:#9ca3af; }
+
+    /* ── SECTION TITLE ──────────────────────────────────────── */
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── INBOX COMPARISON (pain view) ──────────────────────── */
+    .inbox-item {
+      border-left: 3px solid #e5d8b8;
+      padding: 0.55rem 0.75rem;
+      margin-bottom: 0.5rem;
+      background: #fafafa;
+      border-radius: 0 4px 4px 0;
+      font-family: sans-serif;
+      font-size: 0.8rem;
+    }
+    .inbox-item.unread { border-left-color: var(--red); background: #fff8f8; }
+    .inbox-item.lost   { border-left-color: #9ca3af; opacity: 0.55; }
+
+    /* ── TIMELINE ───────────────────────────────────────────── */
+    .timeline-item { position: relative; padding-left: 1.5rem; padding-bottom: 1.1rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 10px;
+      width: 2px;
+      height: 100%;
+      background: #e5d8b8;
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      background: var(--cream);
+    }
+
+    /* ── FLOATING CTA ───────────────────────────────────────── */
+    #cta-float {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 90;
+      background: var(--red);
+      color: #fff;
+      padding: 0.7rem 1.2rem;
+      border-radius: 4px;
+      font-family: sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.22);
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s;
+    }
+    #cta-float:hover { background: #a93226; }
+
+    /* ── MODAL ──────────────────────────────────────────────── */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    #modal-overlay.show { display: flex; }
+    #modal-box {
+      background: #fff;
+      border-radius: 8px;
+      max-width: 460px;
+      width: 90%;
+      padding: 2rem;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      font-size: 1.3rem;
+      color: #9ca3af;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--dark); }
+
+    /* ── SEARCH / REPORT ────────────────────────────────────── */
+    .search-input {
+      border: 1px solid #d1c9b0;
+      border-radius: 4px;
+      padding: 0.45rem 0.75rem;
+      font-family: sans-serif;
+      font-size: 0.85rem;
+      background: #fff;
+      outline: none;
+      width: 100%;
+    }
+    .search-input:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(45,74,30,0.12); }
+
+    /* ── MISC ───────────────────────────────────────────────── */
+    .highlight-box {
+      border-left: 4px solid var(--red);
+      background: #fff8f8;
+      padding: 0.75rem 1rem;
+      border-radius: 0 4px 4px 0;
+      font-family: sans-serif;
+      font-size: 0.82rem;
+    }
+    .info-box {
+      border-left: 4px solid var(--green);
+      background: #f0f5ec;
+      padding: 0.75rem 1rem;
+      border-radius: 0 4px 4px 0;
+      font-family: sans-serif;
+      font-size: 0.82rem;
+    }
+    .stat-box {
+      border: 1px solid #e5d8b8;
+      border-radius: 6px;
+      padding: 1rem;
+      background: #fff;
+      text-align: center;
+    }
+    .stat-num { font-size: 1.7rem; font-weight: 700; color: var(--green); font-family: sans-serif; }
+    .stat-label { font-size: 0.72rem; color: #6b7280; font-family: sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+
+    button.action-btn {
+      background: var(--green);
+      color: var(--cream);
+      border: none;
+      border-radius: 4px;
+      padding: 0.4rem 0.9rem;
+      font-family: sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button.action-btn:hover { background: #3a5e28; }
+    button.action-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+    button.action-btn.secondary:hover { background: #f0f5ec; }
+
+    /* Animate the "confirm" action */
+    @keyframes flash-green {
+      0%   { background: #d4edda; }
+      100% { background: #fff; }
+    }
+    .flash-green { animation: flash-green 0.9s ease; }
+
+    /* scroll inside pane */
+    .pane { padding: 1.25rem; }
+    @media(max-width:640px) { .pane { padding: 0.75rem; } }
+
+    /* Table */
+    .data-table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 0.8rem; }
+    .data-table th { background: #f0ebe0; color: var(--green); font-weight: 600; padding: 0.5rem 0.65rem; text-align: left; border-bottom: 1px solid #d1c9b0; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .data-table td { padding: 0.55rem 0.65rem; border-bottom: 1px solid #ede6d3; vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #faf7f0; }
+    .data-table tr.highlighted td { background: #fff3cd; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-start gap-3">
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-lg font-bold tracking-wide" style="font-family:Georgia,serif;">Live Oak Catering Co</span>
+        <span class="demo-badge">DEMO · SAMPLE DATA</span>
+      </div>
+      <p class="text-xs mt-0.5" style="color:rgba(245,237,214,0.7); font-family:sans-serif; letter-spacing:0.03em;">
+        What your own system would look like &mdash; prepared by Pocho.tech
+      </p>
+    </div>
+    <!-- small tagline desktop only -->
+    <div class="hidden sm:block text-right">
+      <p class="text-xs italic" style="color:rgba(245,237,214,0.5); font-family:Georgia,serif;">"You give us the who, what, when, and where."</p>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <nav class="tab-bar overflow-x-auto">
+    <div class="max-w-5xl mx-auto px-4 flex gap-0">
+      <button class="tab-btn active" onclick="switchTab('dashboard', this)">Today's Board</button>
+      <button class="tab-btn" onclick="switchTab('event-detail', this)">Event Detail</button>
+      <button class="tab-btn" onclick="switchTab('pain', this)">The Inbox Problem</button>
+      <button class="tab-btn" onclick="switchTab('reports', this)">Search &amp; Reports</button>
+    </div>
+  </nav>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════════════════════ -->
+<main class="max-w-5xl mx-auto">
+
+<!-- ── TAB 1: TODAY'S BOARD ─────────────────────────────────── -->
+<section id="tab-dashboard" class="pane">
+
+  <!-- SUMMARY STATS -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+    <div class="stat-box">
+      <div class="stat-num" id="stat-active">6</div>
+      <div class="stat-label">Active Events</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Proposals Out</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" id="stat-unread" style="color:var(--red);">11</div>
+      <div class="stat-label">Unread Inquiries</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Yonderlust Booked</div>
+    </div>
+  </div>
+
+  <!-- EVENTS TABLE -->
+  <div class="card overflow-x-auto mb-5">
+    <div class="flex items-center justify-between px-4 pt-3 pb-2 border-b border-gray-100">
+      <span class="section-heading">Active Events — Week of Jul 28</span>
+      <button class="action-btn secondary text-xs" onclick="openNewInquiry()">+ New Inquiry</button>
+    </div>
+    <table class="data-table" id="events-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Client / Event</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Pax</th>
+          <th>Menu</th>
+          <th>Yonderlust</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="events-tbody">
+        <!-- rows injected by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SCHEDULING CONFLICTS PANEL -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="card p-4">
+      <p class="section-heading text-sm mb-3">Scheduling Conflicts</p>
+      <div class="highlight-box mb-2">
+        <strong>Conflict:</strong> Yonderlust double-booked Jul 31 — Martinez Wedding &amp; Energy Corp Q4 both need the Airstream at 6 pm.
+        <div class="mt-2 flex gap-2">
+          <button class="action-btn text-xs" onclick="resolveConflict(this)">Resolve &rarr;</button>
+        </div>
+      </div>
+      <div class="info-box">
+        <strong>Tip:</strong> Seasonal Crawfish Boil setup (Aug 4) requires on-site cooking crew confirmed 7 days out. Deadline: <strong>Jul 28.</strong>
+      </div>
+    </div>
+    <div class="card p-4">
+      <p class="section-heading text-sm mb-3">Pending Vendor Confirmations</p>
+      <ul class="space-y-2 font--sans text-sm" style="font-family:sans-serif;">
+        <li class="flex items-center gap-2"><span class="dot dot-yellow"></span> Photographer — Martinez Wedding (awaiting contract)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-yellow"></span> Florals — Brookfield Gala (quote requested)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-green"></span> Bartender crew — Energy Corp Q4 (confirmed)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-green"></span> On-site cooking crew — Office Cookout (confirmed)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-red"></span> Credence AV setup — Nonprofit Dinner (no response)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── TAB 2: EVENT DETAIL ───────────────────────────────────── -->
+<section id="tab-event-detail" class="pane hidden">
+
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+    <!-- LEFT: EVENT INFO -->
+    <div class="sm:col-span-2 space-y-4">
+      <div class="card p-4">
+        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+          <div>
+            <h2 class="text-base font-bold" style="color:var(--green); font-family:Georgia,serif;">Houston Energy Corp Q4 Meeting</h2>
+            <p class="text-xs text-gray-500 mt-0.5" style="font-family:sans-serif;">EVT-2026-031 &nbsp;·&nbsp; Corporate Event &nbsp;·&nbsp; Recurring Client</p>
+          </div>
+          <span class="pill pill-confirmed">Confirmed</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs" style="font-family:sans-serif;">
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Date</span> Jul 31, 2026 — 6:00 PM</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Location</span> Client HQ, Houston TX</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Guest Count</span> 120 pax</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Service Style</span> Full-Service Catering</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Yonderlust</span> <span style="color:var(--red);">Conflict — see below</span></div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Contact</span> Sarah K., Events Dir.</div>
+        </div>
+      </div>
+
+      <!-- MENU -->
+      <div class="card p-4">
+        <p class="section-heading text-sm mb-3">Menu Selection</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs" style="font-family:sans-serif;">
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>The Big Chop</strong> — Brisket + Ribs (main)</span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Made-to-Order Guacamole Station</strong></span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>The Damn Live Oak Bar Package</strong></span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Campechana de Mariscos</strong> — Passed Appetizers</span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Brazos Bottom Pecan Pie</strong> — Dessert</span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-yellow mt-1"></span><span><strong>Yonderlust Airstream Bar</strong> — <em>conflict pending</em></span></div>
+        </div>
+        <p class="text-xs text-gray-400 mt-2 italic" style="font-family:sans-serif;">Mesquite-grilled + slow-smoked. On-site cooking crew required.</p>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="card p-4">
+        <p class="section-heading text-sm mb-3">Client History — Energy Corp</p>
+        <div class="space-y-0">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="text-xs font-semibold" style="font-family:sans-serif;">Q4 2025 — Full Feast + Bar Package · 110 pax</p>
+            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Post-event note: "loved the guacamole station, want it every year." — Sarah K.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="text-xs font-semibold" style="font-family:sans-serif;">Q2 2025 — Mid-Year Office Cookout · Backyard Menu · 95 pax</p>
+            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Increased pax 15% from prior year. Setup to cleanup, 4-hour window.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="text-xs font-semibold" style="font-family:sans-serif;">Q4 2024 — First booking · The Big Chop · 90 pax</p>
+            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Referral from Brookfield contact. Venue: client HQ.</p>
+          </div>
+        </div>
+        <div class="info-box mt-3">
+          <strong>Levi's note:</strong> "Energy Corp is a 3x client — always grows headcount. Always wants guacamole. Don't over-complicate the proposal."
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: SIDEBAR -->
+    <div class="space-y-4">
+      <div class="card p-4">
+        <p class="section-heading text-sm mb-3">Checklist</p>
+        <ul class="space-y-1.5 text-xs" style="font-family:sans-serif;" id="detail-checklist">
+          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Contract signed</li>
+          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Deposit received</li>
+          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Menu confirmed</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-crew"> On-site crew confirmed</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-yonder"> Yonderlust conflict resolved</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-bar"> Bar Package quantities set</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-sheet"> Day-of sheet sent to client</li>
+        </ul>
+        <button class="action-btn w-full mt-3 text-xs" id="confirm-btn" onclick="confirmItem()">Mark Crew Confirmed</button>
+        <p class="text-xs text-gray-400 mt-1 text-center" style="font-family:sans-serif;" id="confirm-msg"></p>
+      </div>
+
+      <div class="card p-4">
+        <p class="section-heading text-sm mb-2">Event Value</p>
+        <p class="text-2xl font-bold" style="color:var(--green); font-family:sans-serif;">$8,400</p>
+        <p class="text-xs text-gray-400 mt-0.5 mb-3" style="font-family:sans-serif;">Estimated · 120 pax · Full-Service</p>
+        <div class="text-xs space-y-1" style="font-family:sans-serif;">
+          <div class="flex justify-between"><span>Food &amp; stations</span><span>$5,200</span></div>
+          <div class="flex justify-between"><span>Bar Package</span><span>$1,800</span></div>
+          <div class="flex justify-between"><span>Yonderlust (pending)</span><span>$900</span></div>
+          <div class="flex justify-between"><span>Staffing / setup</span><span>$500</span></div>
+          <div class="flex justify-between font-bold pt-1 border-t border-gray-100"><span>Total</span><span>$8,400</span></div>
+        </div>
+      </div>
+
+      <div class="card p-4">
+        <p class="section-heading text-sm mb-2">Quick Actions</p>
+        <div class="space-y-2">
+          <button class="action-btn w-full text-xs">Send Day-of Sheet</button>
+          <button class="action-btn secondary w-full text-xs">Email Client Update</button>
+          <button class="action-btn secondary w-full text-xs">Log Post-Event Note</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── TAB 3: THE INBOX PROBLEM ──────────────────────────────── -->
+<section id="tab-pain" class="pane hidden">
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+    <!-- LEFT: THE PAIN -->
+    <div>
+      <div class="highlight-box mb-4">
+        <p class="font-bold text-sm mb-1" style="color:var(--red);">Right now: every booking starts here.</p>
+        <p class="text-xs">A corporate event planner at a 200-person firm visits goodecatering.com and sees: <em>"email events@ or call us."</em> What happens next lives entirely in someone's inbox — and someone's head.</p>
+      </div>
+
+      <p class="section-heading text-sm mb-2">The events@ inbox — a typical Monday</p>
+      <div id="inbox-list">
+        <div class="inbox-item unread">
+          <div class="flex justify-between items-start"><strong>Re: Q4 Gala — can you do 200 pax?</strong><span class="text-gray-400 text-xs">3 days ago</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">Brookfield Properties — no response yet. Is this still in play?</p>
+        </div>
+        <div class="inbox-item unread">
+          <div class="flex justify-between items-start"><strong>Yonderlust available Aug 15?</strong><span class="text-gray-400 text-xs">2 days ago</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">Wedding planner — date unknown, budget unknown, pax unknown.</p>
+        </div>
+        <div class="inbox-item">
+          <div class="flex justify-between items-start"><strong>Following up on my inquiry from last week</strong><span class="text-gray-400 text-xs">Yesterday</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">3rd follow-up from a nonprofit. First email went unanswered.</p>
+        </div>
+        <div class="inbox-item">
+          <div class="flex justify-between items-start"><strong>Corporate lunch — Tex-Mex — 80 pax — downtown</strong><span class="text-gray-400 text-xs">Today, 9:12 AM</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">No date. No budget. Staff needs to call back to get basics.</p>
+        </div>
+        <div class="inbox-item lost">
+          <div class="flex justify-between items-start"><strong>Annual pig roast — 150 pax</strong><span class="text-gray-400 text-xs">11 days ago</span></div>
+          <p class="text-gray-500 text-xs mt-0.5 italic">Went cold. Client booked elsewhere.</p>
+        </div>
+        <div class="inbox-item lost">
+          <div class="flex justify-between items-start"><strong>Seasonal Crawfish Boil inquiry</strong><span class="text-gray-400 text-xs">14 days ago</span></div>
+          <p class="text-gray-500 text-xs mt-0.5 italic">No reply from team within 72h. Lead gone.</p>
+        </div>
+      </div>
+
+      <div class="mt-3 text-xs text-gray-500 italic" style="font-family:sans-serif;">
+        Estimate: 8–12 event inquiries/week × 2–3 back-and-forth emails each = <strong>~20 hours/month</strong> of staff time just collecting basic intake information.
+      </div>
+    </div>
+
+    <!-- RIGHT: THE SYSTEM -->
+    <div>
+      <div class="info-box mb-4">
+        <p class="font-bold text-sm mb-1" style="color:var(--green);">With a system: every inquiry is structured from the first touch.</p>
+        <p class="text-xs">A client visits your intake page, fills out the who/what/when/where, and your team sees a clean card — not a thread to excavate.</p>
+      </div>
+
+      <p class="section-heading text-sm mb-2">Intake card — auto-generated on submission</p>
+      <div class="card p-4 mb-4">
+        <div class="flex justify-between items-start mb-2">
+          <span class="font-bold text-sm" style="font-family:sans-serif;">New Inquiry — Jul 28, 10:34 AM</span>
+          <span class="pill pill-proposal">Needs Quote</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs mb-3" style="font-family:sans-serif;">
+          <div><span class="text-gray-400 block">Client</span>Cornerstone Capital</div>
+          <div><span class="text-gray-400 block">Event Type</span>Corporate — Annual Awards</div>
+          <div><span class="text-gray-400 block">Date</span>Sep 18, 2026</div>
+          <div><span class="text-gray-400 block">Guest Count</span>175 pax</div>
+          <div><span class="text-gray-400 block">Service</span>Full-Service + Bar Package</div>
+          <div><span class="text-gray-400 block">Budget</span>~$10,000</div>
+          <div><span class="text-gray-400 block">Yonderlust?</span>Interested</div>
+          <div><span class="text-gray-400 block">Venue</span>Their downtown office</div>
+        </div>
+        <div class="text-xs text-gray-500 italic mb-3" style="font-family:sans-serif;">"We've heard great things from Energy Corp — want the same guacamole station."</div>
+        <div class="flex gap-2">
+          <button class="action-btn text-xs">Send Proposal</button>
+          <button class="action-btn secondary text-xs">Check Availability</button>
+        </div>
+      </div>
+
+      <p class="section-heading text-sm mb-2">What the agent handles automatically</p>
+      <ul class="space-y-1.5 text-xs" style="font-family:sans-serif;">
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Confirmation email sent to client within 60 seconds</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Yonderlust availability checked against booking calendar</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Routing: Corporate events &rarr; Levi's review queue</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>48h follow-up if no proposal sent (zero lost leads)</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Similar past events surfaced from client history</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Menu template pre-loaded based on event type + pax</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BOTTOM: TIME CALCULATION -->
+  <div class="card mt-5 p-4">
+    <p class="section-heading text-sm mb-3">The math on recovered time</p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="stat-box">
+        <div class="stat-num">~10</div>
+        <div class="stat-label">Inquiries / week</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--red);">~20 min</div>
+        <div class="stat-label">Avg. email back-and-forth per inquiry</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--red);">~33 hrs</div>
+        <div class="stat-label">Staff hours / month on intake alone</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--green);">~28 hrs</div>
+        <div class="stat-label">Recovered with structured intake</div>
+      </div>
+    </div>
+    <p class="text-xs text-gray-400 mt-3 italic" style="font-family:sans-serif;">Estimates based on typical catering operation volume at this scale. Actual numbers depend on your intake volume — your team knows the real count.</p>
+  </div>
+</section>
+
+<!-- ── TAB 4: SEARCH & REPORTS ───────────────────────────────── -->
+<section id="tab-reports" class="pane hidden">
+
+  <!-- SEARCH BAR -->
+  <div class="flex gap-2 mb-4 flex-wrap">
+    <input class="search-input flex-1 min-w-0" type="text" id="search-box" placeholder="Search events, clients, menu items, dates..." oninput="filterTable()" />
+    <select class="search-input" style="width:auto; flex-shrink:0;" id="filter-type" onchange="filterTable()">
+      <option value="">All Types</option>
+      <option value="Corporate">Corporate</option>
+      <option value="Social">Social</option>
+      <option value="Nonprofit">Nonprofit</option>
+      <option value="Yonderlust">Yonderlust</option>
+    </select>
+    <select class="search-input" style="width:auto; flex-shrink:0;" id="filter-status" onchange="filterTable()">
+      <option value="">All Statuses</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="Pending">Pending</option>
+      <option value="Proposal">Proposal Sent</option>
+      <option value="Completed">Completed</option>
+    </select>
+  </div>
+
+  <!-- RESULTS TABLE -->
+  <div class="card overflow-x-auto mb-5">
+    <table class="data-table" id="report-table">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Pax</th>
+          <th>Menu</th>
+          <th>Value</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="report-tbody">
+        <!-- rows injected by JS -->
+      </tbody>
+    </table>
+    <div id="no-results" class="hidden text-center py-6 text-sm text-gray-400" style="font-family:sans-serif;">No events match your search.</div>
+  </div>
+
+  <!-- SUMMARY METRICS -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div class="card p-4">
+      <p class="section-heading text-sm mb-3">Q3 2026 Snapshot</p>
+      <div class="space-y-2 text-xs" style="font-family:sans-serif;">
+        <div class="flex justify-between items-center">
+          <span>Corporate Events</span>
+          <div class="flex items-center gap-2">
+            <div class="h-2 rounded" style="width:80px; background:var(--green); opacity:0.85;"></div>
+            <span class="font-bold">8</span>
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>Social Events</span>
+          <div class="flex items-center gap-2">
+            <div class="h-2 rounded" style="width:52px; background:var(--brown); opacity:0.85;"></div>
+            <span class="font-bold">5</span>
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>Nonprofit Events</span>
+          <div class="flex items-center gap-2">
+            <div class="h-2 rounded" style="width:32px; background:var(--red); opacity:0.7;"></div>
+            <span class="font-bold">3</span>
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          <span>Yonderlust-only</span>
+          <div class="flex items-center gap-2">
+            <div class="h-2 rounded" style="width:20px; background:#6B3A1F; opacity:0.7;"></div>
+            <span class="font-bold">2</span>
+          </div>
+        </div>
+        <div class="flex justify-between items-center pt-2 border-t border-gray-100 font-bold">
+          <span>Total Estimated Revenue</span>
+          <span style="color:var(--green);">$68,400</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4">
+      <p class="section-heading text-sm mb-3">Most Requested Menu Items</p>
+      <ol class="space-y-1.5 text-xs" style="font-family:sans-serif; list-style:none; padding:0;">
+        <li class="flex justify-between items-center"><span>1. Made-to-Order Guacamole Station</span><span class="pill pill-confirmed">12 events</span></li>
+        <li class="flex justify-between items-center"><span>2. The Damn Live Oak Bar Package</span><span class="pill pill-confirmed">10 events</span></li>
+        <li class="flex justify-between items-center"><span>3. The Big Chop (BBQ mid)</span><span class="pill pill-confirmed">9 events</span></li>
+        <li class="flex justify-between items-center"><span>4. Yonderlust Airstream Bar</span><span class="pill pill-proposal">7 events</span></li>
+        <li class="flex justify-between items-center"><span>5. Brazos Bottom Pecan Pie</span><span class="pill pill-proposal">7 events</span></li>
+        <li class="flex justify-between items-center"><span>6. Campechana de Mariscos</span><span class="pill pill-pending">5 events</span></li>
+      </ol>
+      <p class="text-xs text-gray-400 mt-3 italic">Use this to pre-load proposals for returning clients. "Energy Corp always wants the guacamole station" — now that's a data point, not institutional memory.</p>
+    </div>
+  </div>
+
+</section>
+</main>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════ -->
+<footer class="mt-10 py-4 text-center" style="border-top: 1px solid #d1c9b0; font-family:sans-serif; font-size:0.72rem; color:#9ca3af;">
+  Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     FLOATING CTA
+══════════════════════════════════════════════════════════════ -->
+<button id="cta-float" onclick="openCalendly()">Like what you see? Let's talk</button>
+
+<!-- ════════════════════════════════════════════════════════════
+     MODAL
+══════════════════════════════════════════════════════════════ -->
+<div id="modal-overlay" onclick="closeModalIfOutside(event)">
+  <div id="modal-box">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <p class="text-xs uppercase tracking-widest mb-1" style="color:var(--red); font-family:sans-serif; font-weight:700;">Pocho.tech</p>
+    <h2 class="text-lg font-bold mb-2" style="font-family:Georgia,serif; color:var(--green);">Your operation. A system built around it.</h2>
+    <p class="text-sm mb-1" style="font-family:sans-serif; color:#374151;">
+      Live Oak Catering has 49 years of relationships, returning clients, and hard-won operational knowledge. The goal isn't to change how you work &mdash; it's to make sure that knowledge doesn't live only in the inbox and in people's heads.
+    </p>
+    <p class="text-sm mb-4" style="font-family:sans-serif; color:#374151;">
+      One conversation. You talk, we listen. We'll figure out together what's worth building.
+    </p>
+    <button class="action-btn w-full text-sm py-3" onclick="openCalendly()">Book a conversation &rarr;</button>
+    <p class="text-xs text-center text-gray-400 mt-2" style="font-family:sans-serif;">Opens in a new tab. No obligation.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NEW INQUIRY MODAL
+══════════════════════════════════════════════════════════════ -->
+<div id="inquiry-overlay" onclick="closeInquiryIfOutside(event)" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:100; align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:8px; max-width:480px; width:90%; padding:1.75rem; position:relative; max-height:90vh; overflow-y:auto;">
+    <button style="position:absolute; top:0.75rem; right:1rem; font-size:1.3rem; color:#9ca3af; cursor:pointer; background:none; border:none;" onclick="closeInquiry()">&times;</button>
+    <p class="text-xs uppercase tracking-widest mb-1" style="color:var(--green); font-family:sans-serif; font-weight:700;">New Event Inquiry</p>
+    <h3 class="font-bold text-base mb-3" style="font-family:Georgia,serif; color:var(--dark);">What this form replaces: 3 back-and-forth emails.</h3>
+    <div class="space-y-3 text-sm" style="font-family:sans-serif;">
+      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Client / Organization</label><input class="search-input" type="text" placeholder="e.g. Cornerstone Capital" /></div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Event Type</label>
+          <select class="search-input"><option>Corporate</option><option>Social</option><option>Nonprofit</option></select>
+        </div>
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Guest Count</label><input class="search-input" type="number" placeholder="e.g. 120" /></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Event Date</label><input class="search-input" type="date" /></div>
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Budget (approx.)</label><input class="search-input" type="text" placeholder="e.g. $8,000" /></div>
+      </div>
+      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Service Needed</label>
+        <select class="search-input"><option>Full-Service Catering</option><option>Catering Delivery</option><option>Yonderlust Airstream Bar</option><option>Full-Service + Yonderlust</option><option>Credence Private Dining</option></select>
+      </div>
+      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Notes</label><textarea class="search-input" rows="2" placeholder="Venue, special requests, how they heard about you..."></textarea></div>
+      <button class="action-btn w-full py-2" onclick="submitInquiry()">Submit — auto-confirm to client</button>
+      <p class="text-xs text-gray-400 text-center">Client gets a confirmation email automatically. No manual follow-up needed.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════════════ -->
+<script>
+// ── DATA ──────────────────────────────────────────────────────
+const EVENTS = [
+  { id:'EVT-031', name:'Houston Energy Corp Q4', type:'Corporate', date:'Jul 31', pax:120, menu:'The Big Chop + Bar', yonder:true,  status:'Confirmed', value:'$8,400' },
+  { id:'EVT-032', name:'Brookfield Nonprofit Gala', type:'Nonprofit', date:'Aug 2', pax:200, menu:'El Grande + Bar Pkg', yonder:false, status:'Confirmed', value:'$11,200' },
+  { id:'EVT-033', name:'Martinez Wedding Reception', type:'Social', date:'Jul 31', pax:80, menu:'El Pequeño + Guac Station', yonder:true, status:'Confirmed', value:'$5,600' },
+  { id:'EVT-034', name:'Rodeo Season Trailer Pkg', type:'Yonderlust', date:'Aug 9', pax:150, menu:'The Full Feast', yonder:true,  status:'Confirmed', value:'$9,100' },
+  { id:'EVT-035', name:'Mid-Year Office Cookout', type:'Corporate', date:'Aug 4', pax:95, menu:'Backyard Menu + Crawfish', yonder:false, status:'Pending', value:'$5,800' },
+  { id:'EVT-036', name:'Cornerstone Capital Awards', type:'Corporate', date:'Sep 18', pax:175, menu:'TBD', yonder:false, status:'Proposal', value:'~$10,000' },
+];
+
+const ALL_ROWS = [
+  ...EVENTS,
+  { id:'EVT-028', name:'Westside Conservancy Gala', type:'Nonprofit', date:'Jun 12', pax:160, menu:'The Brazos Banquete', yonder:false, status:'Completed', value:'$9,800' },
+  { id:'EVT-027', name:'Tech Firm Summer Party', type:'Corporate', date:'Jun 5', pax:110, menu:'The Big Chop + Margarita Party', yonder:true, status:'Completed', value:'$7,600' },
+  { id:'EVT-026', name:'Sunrise Community Gala', type:'Nonprofit', date:'May 22', pax:90, menu:'El Grande', yonder:false, status:'Completed', value:'$5,200' },
+];
+
+// ── RENDER DASHBOARD TABLE ────────────────────────────────────
+function statusPill(s) {
+  const map = { Confirmed:'pill-confirmed', Pending:'pill-pending', Proposal:'pill-proposal', Completed:'pill-completed' };
+  return `<span class="pill ${map[s]||'pill-pending'}">${s}</span>`;
+}
+
+function renderDashboard() {
+  const tbody = document.getElementById('events-tbody');
+  tbody.innerHTML = EVENTS.map((e,i) => `
+    <tr id="row-${i}" class="${e.status==='Proposal'?'highlighted':''}">
+      <td class="text-gray-400 text-xs" style="font-family:monospace;">${e.id}</td>
+      <td class="font-semibold text-xs" style="font-family:sans-serif; color:var(--green); cursor:pointer;" onclick="goToDetail()">${e.name}</td>
+      <td class="text-xs" style="font-family:sans-serif;">${e.type}</td>
+      <td class="text-xs" style="font-family:sans-serif;">${e.date}</td>
+      <td class="text-xs text-center" style="font-family:sans-serif;">${e.pax}</td>
+      <td class="text-xs" style="font-family:sans-serif;">${e.menu}</td>
+      <td class="text-center text-xs">${e.yonder ? '<span style="color:var(--brown);">&#9673;</span>' : '<span class="text-gray-300">&#8212;</span>'}</td>
+      <td>${statusPill(e.status)}</td>
+      <td><button class="action-btn text-xs" onclick="goToDetail()">View</button></td>
+    </tr>
+  `).join('');
+}
+
+function goToDetail() {
+  switchTabByName('event-detail');
+}
+
+// ── RENDER REPORT TABLE ───────────────────────────────────────
+function renderReport(rows) {
+  const tbody = document.getElementById('report-tbody');
+  const noRes = document.getElementById('no-results');
+  if (!rows.length) {
+    tbody.innerHTML = '';
+    noRes.classList.remove('hidden');
+    return;
+  }
+  noRes.classList.add('hidden');
+  tbody.innerHTML = rows.map(e => `
+    <tr>
+      <td class="font-semibold text-xs" style="font-family:sans-serif; color:var(--green);">${e.name}</td>
+      <td class="text-xs" style="font-family:sans-serif;">${e.type}</td>
+      <td class="text-xs" style="font-family:sans-serif;">${e.date}</td>
+      <td class="text-xs text-center" style="font-family:sans-serif;">${e.pax}</td>
+      <td class="text-xs" style="font-family:sans-serif;">${e.menu}</td>
+      <td class="text-xs font-bold" style="font-family:sans-serif; color:var(--green);">${e.value}</td>
+      <td>${statusPill(e.status)}</td>
+    </tr>
+  `).join('');
+}
+
+function filterTable() {
+  const q = document.getElementById('search-box').value.toLowerCase();
+  const t = document.getElementById('filter-type').value;
+  const s = document.getElementById('filter-status').value;
+  const results = ALL_ROWS.filter(e => {
+    const matchQ = !q || e.name.toLowerCase().includes(q) || e.type.toLowerCase().includes(q) || e.menu.toLowerCase().includes(q) || e.date.toLowerCase().includes(q);
+    const matchT = !t || e.type === t;
+    const matchS = !s || e.status === s || (s === 'Proposal' && e.status === 'Proposal');
+    return matchQ && matchT && matchS;
+  });
+  renderReport(results);
+}
+
+// ── TAB SWITCHING ─────────────────────────────────────────────
+let viewCount = 1; // starts at 1 (initial view)
+let modalShown = sessionStorage.getItem('modal_shown') === 'true';
+
+function switchTab(id, btn) {
+  document.querySelectorAll('section[id^="tab-"]').forEach(s => s.classList.add('hidden'));
+  document.getElementById('tab-' + id).classList.remove('hidden');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  if (id === 'reports') renderReport(ALL_ROWS);
+
+  viewCount++;
+  checkModalTrigger();
+}
+
+function switchTabByName(id) {
+  const tabs = { 'dashboard':0, 'event-detail':1, 'pain':2, 'reports':3 };
+  const btns = document.querySelectorAll('.tab-btn');
+  document.querySelectorAll('section[id^="tab-"]').forEach(s => s.classList.add('hidden'));
+  document.getElementById('tab-' + id).classList.remove('hidden');
+  btns.forEach(b => b.classList.remove('active'));
+  btns[tabs[id]].classList.add('active');
+  viewCount++;
+  checkModalTrigger();
+}
+
+function checkModalTrigger() {
+  if (!modalShown && viewCount >= 3) {
+    showModal();
+  }
+}
+
+// ── 75-SECOND TIMER ──────────────────────────────────────────
+setTimeout(() => {
+  if (!modalShown) showModal();
+}, 75000);
+
+// ── MODAL ─────────────────────────────────────────────────────
+function showModal() {
+  if (modalShown) return;
+  document.getElementById('modal-overlay').classList.add('show');
+  modalShown = true;
+  sessionStorage.setItem('modal_shown', 'true');
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+function closeModalIfOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+function openCalendly() {
+  window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=goodecompanycate', '_blank');
+}
+
+// ── NEW INQUIRY MODAL ─────────────────────────────────────────
+function openNewInquiry() {
+  const el = document.getElementById('inquiry-overlay');
+  el.style.display = 'flex';
+}
+function closeInquiry() {
+  document.getElementById('inquiry-overlay').style.display = 'none';
+}
+function closeInquiryIfOutside(e) {
+  if (e.target === document.getElementById('inquiry-overlay')) closeInquiry();
+}
+function submitInquiry() {
+  closeInquiry();
+  // Update unread stat to show something happened
+  const stat = document.getElementById('stat-unread');
+  stat.textContent = parseInt(stat.textContent) + 1;
+  alert('Inquiry captured. In a live system, the client would receive an automatic confirmation within 60 seconds — no staff action needed.');
+}
+
+// ── RESOLVE CONFLICT (interactive action) ─────────────────────
+function resolveConflict(btn) {
+  btn.parentElement.parentElement.innerHTML = `
+    <strong style="color:var(--green);">Resolved:</strong> Yonderlust assigned to Houston Energy Corp Q4 (6 PM Jul 31). Martinez Wedding rescheduled to Credence bar setup + Damn Live Oak Margarita Party. Both clients notified automatically.
+  `;
+  btn.parentElement.parentElement.className = 'info-box mb-2';
+  // Update the events table row to reflect
+  const rows = document.querySelectorAll('#events-tbody tr');
+  if (rows[0]) rows[0].classList.add('flash-green');
+}
+
+// ── CONFIRM CREW (detail tab interactive action) ───────────────
+function confirmItem() {
+  const chk = document.getElementById('chk-crew');
+  if (!chk.checked) {
+    chk.checked = true;
+    document.getElementById('confirm-btn').textContent = 'Send Day-of Sheet';
+    document.getElementById('confirm-btn').setAttribute('onclick', 'confirmDayOf()');
+    document.getElementById('confirm-msg').textContent = 'On-site crew confirmed. Vendor notified automatically.';
+    document.getElementById('confirm-msg').style.color = 'var(--green)';
+  }
+}
+function confirmDayOf() {
+  const chk = document.getElementById('chk-sheet');
+  if (!chk.checked) {
+    chk.checked = true;
+    document.getElementById('confirm-btn').textContent = 'All tasks complete';
+    document.getElementById('confirm-btn').disabled = true;
+    document.getElementById('confirm-btn').style.opacity = '0.5';
+    document.getElementById('confirm-msg').textContent = 'Day-of sheet sent to Sarah K. at Energy Corp.';
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+renderDashboard();
+renderReport(ALL_ROWS);
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

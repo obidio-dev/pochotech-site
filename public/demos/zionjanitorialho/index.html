@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Janitorial — Demo Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --navy:  #1A5276;
+      --blue:  #2E86C1;
+      --teal:  #1ABC9C;
+      --bg:    #F8F9FA;
+      --text:  #2C3E50;
+      --muted: #6B7C93;
+      --border:#D5DCE3;
+      --red:   #E74C3C;
+      --amber: #F39C12;
+      --green: #27AE60;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* ── DEMO BADGE ── */
+    #demo-badge {
+      position: fixed;
+      top: 12px; right: 12px;
+      z-index: 9000;
+      background: var(--amber);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* ── FLOATING CTA ── */
+    #fab {
+      position: fixed;
+      bottom: 24px; right: 20px;
+      z-index: 8000;
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(26,188,156,.45);
+      transition: transform .15s, box-shadow .15s;
+    }
+    #fab:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(26,188,156,.55); }
+
+    /* ── MODAL ── */
+    #modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 10000;
+      background: rgba(26,82,118,.55);
+      backdrop-filter: blur(3px);
+      align-items: center;
+      justify-content: center;
+    }
+    #modal-overlay.open { display: flex; }
+    #modal-box {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 92%;
+      padding: 36px 32px 28px;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(26,82,118,.25);
+      position: relative;
+    }
+    #modal-close {
+      position: absolute;
+      top: 14px; right: 18px;
+      background: none; border: none;
+      font-size: 22px; color: var(--muted);
+      cursor: pointer; line-height: 1;
+    }
+    #modal-close:hover { color: var(--text); }
+
+    /* ── HEADER ── */
+    #app-header {
+      background: var(--navy);
+      color: #fff;
+      padding: 0 20px;
+    }
+    #app-header .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 0 14px;
+    }
+    #app-header h1 {
+      font-size: 20px; font-weight: 800;
+      margin: 0 0 4px;
+      letter-spacing: -.01em;
+    }
+    #app-header p {
+      font-size: 12px; color: rgba(255,255,255,.72);
+      margin: 0;
+    }
+
+    /* ── TABS ── */
+    #tab-bar {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+    #tab-bar .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab-btn {
+      background: none; border: none;
+      color: rgba(255,255,255,.6);
+      font-size: 13px; font-weight: 600;
+      padding: 12px 18px;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: color .15s, border-color .15s;
+      letter-spacing: .01em;
+    }
+    .tab-btn.active {
+      color: #fff;
+      border-bottom-color: var(--teal);
+    }
+    .tab-btn:hover:not(.active) { color: rgba(255,255,255,.85); }
+
+    /* ── MAIN CONTENT ── */
+    #content-area {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 20px 100px;
+    }
+
+    /* ── CARDS / PANELS ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 15px; font-weight: 700;
+      color: var(--navy);
+      margin: 0 0 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ── BADGES / STATUS ── */
+    .badge {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      letter-spacing: .04em;
+    }
+    .badge-green  { background: #D5F5E3; color: #1E8449; }
+    .badge-amber  { background: #FEF9E7; color: #B7770D; border: 1px solid #F9E79F; }
+    .badge-red    { background: #FADBD8; color: #922B21; }
+    .badge-blue   { background: #D6EAF8; color: #1A5276; }
+    .badge-gray   { background: #F2F3F4; color: #555; }
+
+    /* ── TABLE ── */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th {
+      background: #F0F4F8; color: var(--navy);
+      font-weight: 700; font-size: 11px; letter-spacing: .05em;
+      text-align: left; padding: 9px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #EDF0F2;
+      vertical-align: middle;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #F8FBFD; }
+    .data-table tr.highlight-row td { background: #FFFBF0; }
+    .data-table tr.highlight-row:hover td { background: #FFF8E6; }
+
+    /* ── KPI ROW ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .kpi-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .kpi-label { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: .05em; margin-bottom: 6px; }
+    .kpi-value { font-size: 26px; font-weight: 800; color: var(--navy); line-height: 1; }
+    .kpi-sub   { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .kpi-card.accent-teal  { border-left: 4px solid var(--teal); }
+    .kpi-card.accent-amber { border-left: 4px solid var(--amber); }
+    .kpi-card.accent-red   { border-left: 4px solid var(--red); }
+    .kpi-card.accent-blue  { border-left: 4px solid var(--blue); }
+
+    /* ── TIMELINE ── */
+    .timeline { list-style: none; margin: 0; padding: 0; }
+    .timeline li {
+      display: flex; gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #EDF0F2;
+      font-size: 13px;
+    }
+    .timeline li:last-child { border-bottom: none; }
+    .tl-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-top: 4px; flex-shrink: 0;
+    }
+    .tl-dot.green { background: var(--green); }
+    .tl-dot.amber { background: var(--amber); }
+    .tl-dot.blue  { background: var(--blue); }
+    .tl-dot.gray  { background: #BDC3C7; }
+
+    /* ── ACTION BUTTON ── */
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-primary:hover { background: var(--navy); }
+    .btn-secondary {
+      background: #fff;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .btn-secondary:hover { background: var(--blue); color: #fff; }
+    .btn-teal {
+      background: var(--teal);
+      color: #fff; border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-teal:hover { background: #17A589; }
+
+    /* ── SEARCH INPUTS ── */
+    .search-input {
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      background: #fff;
+      width: 100%;
+      transition: border-color .15s;
+    }
+    .search-input:focus { border-color: var(--blue); }
+    select.search-input { cursor: pointer; }
+
+    /* ── ALERT BANNER ── */
+    .alert-banner {
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 13px;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .alert-danger { background: #FDEDEC; border: 1px solid #F1948A; color: #78281F; }
+    .alert-warning { background: #FEF9E7; border: 1px solid #F9E79F; color: #7D6608; }
+    .alert-success { background: #E9F7EF; border: 1px solid #A9DFBF; color: #1E8449; }
+    .alert-info { background: #EBF5FB; border: 1px solid #AED6F1; color: #1A5276; }
+
+    /* ── NOTIFICATION TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 90px; right: 20px;
+      z-index: 7500;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 13px;
+      max-width: 300px;
+      box-shadow: 0 6px 20px rgba(26,82,118,.3);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .3s, transform .3s;
+      pointer-events: none;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .07em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin: 0 0 12px;
+    }
+
+    /* ── PAIN DRAMA VIEW ── */
+    .scenario-card {
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .scenario-before { background: #FDEDEC; border: 1.5px solid #F1948A; }
+    .scenario-after  { background: #E9F7EF; border: 1.5px solid #A9DFBF; }
+    .scenario-label  { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
+    .scenario-before .scenario-label { color: #922B21; }
+    .scenario-after  .scenario-label { color: #1E8449; }
+    .scenario-title  { font-size: 17px; font-weight: 800; margin: 0 0 10px; }
+    .scenario-body   { font-size: 13.5px; line-height: 1.6; }
+
+    /* ── CITY TAG ── */
+    .city-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .city-houston { background: #D6EAF8; color: #1A5276; }
+    .city-dallas  { background: #E8DAEF; color: #6C3483; }
+
+    /* ── DETAIL FICHA ── */
+    .detail-row {
+      display: flex;
+      border-bottom: 1px solid #EDF0F2;
+      padding: 9px 0;
+      font-size: 13px;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key   { width: 160px; flex-shrink: 0; font-weight: 600; color: var(--muted); font-size: 12px; padding-top: 1px; }
+    .detail-value { color: var(--text); }
+
+    /* ── STEP FLOW ── */
+    .step-flow { display: flex; flex-direction: column; gap: 0; }
+    .step-item {
+      display: flex; gap: 14px;
+      position: relative;
+    }
+    .step-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 17px; top: 34px;
+      width: 2px;
+      height: calc(100% - 10px);
+      background: var(--border);
+    }
+    .step-num {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .step-body { padding: 6px 0 24px; flex: 1; }
+    .step-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .step-desc  { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── REPORT TABLE ── */
+    .report-header {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+      padding: 18px 20px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-key { width: 120px; }
+      #tab-bar .inner { gap: 0; }
+      .tab-btn { padding: 11px 13px; font-size: 12px; }
+      .data-table { font-size: 12px; }
+      .data-table th, .data-table td { padding: 8px 8px; }
+      .hide-mobile { display: none; }
+    }
+
+    /* ── TABS HIDDEN ── */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── UPDATED ROW ANIMATION ── */
+    @keyframes rowHighlight {
+      0%   { background: #D5F5E3; }
+      100% { background: transparent; }
+    }
+    .row-updated { animation: rowHighlight 1.8s ease-out forwards; }
+  </style>
+</head>
+<body>
+
+<!-- DEMO BADGE -->
+<div id="demo-badge">DEMO · datos de muestra</div>
+
+<!-- FLOATING CTA -->
+<button id="fab" onclick="openModalFromFab()">¿Le gustó? Hablemos</button>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- MODAL -->
+<div id="modal-overlay" role="dialog" aria-modal="true" aria-label="Agendar conversación">
+  <div id="modal-box">
+    <button id="modal-close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
+    <div style="font-size:38px; margin-bottom:12px;">🤝</div>
+    <h2 style="font-size:20px; font-weight:800; color:var(--navy); margin:0 0 10px;">
+      Esto ya puede ser suyo
+    </h2>
+    <p style="font-size:14px; color:var(--muted); line-height:1.6; margin:0 0 22px;">
+      Un sistema como este — cotizaciones automatizadas, historial unificado Houston–Dallas, reportes profesionales — se construye en semanas, no en meses.
+    </p>
+    <a
+      href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=zionjanitorialho"
+      target="_blank" rel="noopener noreferrer"
+      style="display:block; background:var(--teal); color:#fff; border-radius:10px; padding:14px 20px; font-size:15px; font-weight:800; text-decoration:none; margin-bottom:12px; transition:background .15s;"
+      onmouseover="this.style.background='#17A589'" onmouseout="this.style.background='var(--teal)'"
+    >
+      Agendar conversación gratuita &rarr;
+    </a>
+    <p style="font-size:11px; color:var(--muted); margin:0;">Sin costo. Sin compromiso.</p>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="app-header">
+  <div class="inner">
+    <h1>Meridian Janitorial</h1>
+    <p>Así se vería su sistema propio — preparado por Pocho.tech</p>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav id="tab-bar" role="navigation" aria-label="Vistas">
+  <div class="inner">
+    <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard', this)">Operación diaria</button>
+    <button class="tab-btn" data-tab="ficha"     onclick="switchTab('ficha', this)">Ficha de cliente</button>
+    <button class="tab-btn" data-tab="dolor"     onclick="switchTab('dolor', this)">El problema resuelto</button>
+    <button class="tab-btn" data-tab="reportes"  onclick="switchTab('reportes', this)">Búsqueda y reportes</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  VISTA 1 — OPERACIÓN DIARIA                              -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<main id="content-area">
+<div id="pane-dashboard" class="tab-pane active">
+
+  <!-- KPIs -->
+  <div class="kpi-grid" style="margin-bottom:20px;">
+    <div class="kpi-card accent-teal">
+      <div class="kpi-label">SERVICIOS HOY</div>
+      <div class="kpi-value">7</div>
+      <div class="kpi-sub">5 Houston · 2 Dallas</div>
+    </div>
+    <div class="kpi-card accent-amber" id="kpi-pending">
+      <div class="kpi-label">COTIZACIONES PENDIENTES</div>
+      <div class="kpi-value" id="kpi-pending-val">4</div>
+      <div class="kpi-sub">Sin respuesta &gt;24 h</div>
+    </div>
+    <div class="kpi-card accent-red">
+      <div class="kpi-label">SEGUIMIENTOS VENCIDOS</div>
+      <div class="kpi-value">2</div>
+      <div class="kpi-sub">Leads sin contacto</div>
+    </div>
+    <div class="kpi-card accent-blue">
+      <div class="kpi-label">CONTRATOS ACTIVOS</div>
+      <div class="kpi-value">18</div>
+      <div class="kpi-sub">Recurrentes este mes</div>
+    </div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert-banner alert-warning" style="margin-bottom:18px;">
+    <span style="font-size:16px;">⚠️</span>
+    <div>
+      <strong>Cotización sin respuesta — 38 horas.</strong>
+      Un auto dealership en Dallas solicitó estimado el jueves a las 4:30 PM. Sin sistema de seguimiento automático, este lead puede enfriarse esta noche.
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+      <div class="card-title" style="margin:0;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Trabajos y cotizaciones — hoy, 26 jul 2026
+      </div>
+      <button class="btn-primary" onclick="agregarSeguimiento()">+ Nueva cotización</button>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="data-table" id="main-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Cliente / Trabajo</th>
+            <th>Ciudad</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Próxima acción</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr>
+            <td style="color:var(--muted); font-size:11px;">001</td>
+            <td><strong>Edificio corporativo — zona noroeste Houston</strong><br><span style="font-size:11px; color:var(--muted);">Limpieza completa de instalaciones · semanal</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-blue">Contrato</span></td>
+            <td><span class="badge badge-green">En curso</span></td>
+            <td style="font-size:12px;">Lun 27 jul — 7:00 AM</td>
+            <td><button class="btn-secondary" style="font-size:11px; padding:5px 10px;" onclick="verFicha()">Ver ficha</button></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted); font-size:11px;">002</td>
+            <td><strong>Centro médico — Day Porter</strong><br><span style="font-size:11px; color:var(--muted);">Servicio diario lun–vie</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-blue">Contrato</span></td>
+            <td><span class="badge badge-green">Activo hoy</span></td>
+            <td style="font-size:12px;">Hoy — en curso</td>
+            <td><button class="btn-secondary" style="font-size:11px; padding:5px 10px;" onclick="verFicha()">Ver ficha</button></td>
+          </tr>
+          <tr class="highlight-row" id="row-dealership">
+            <td style="color:var(--muted); font-size:11px;">003</td>
+            <td>
+              <strong>Auto Dealership — Carpet Cleaning</strong><br>
+              <span style="font-size:11px; color:#B7770D;">⚠️ Cotización sin respuesta — 38 h</span>
+            </td>
+            <td><span class="city-tag city-dallas">Dallas</span></td>
+            <td><span class="badge badge-amber">Cotización</span></td>
+            <td><span class="badge badge-amber" id="badge-003">Pendiente</span></td>
+            <td style="font-size:12px; color:var(--red);">Hoy mismo — vence</td>
+            <td>
+              <button class="btn-teal" style="font-size:11px; padding:5px 12px;" id="btn-followup" onclick="confirmarSeguimiento()">
+                ✓ Enviar seguimiento
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted); font-size:11px;">004</td>
+            <td><strong>Restaurante — Deep Cleaning</strong><br><span style="font-size:11px; color:var(--muted);">Pre-inspección sanitaria · one-time</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-gray">One-time</span></td>
+            <td><span class="badge badge-green">Confirmado</span></td>
+            <td style="font-size:12px;">Mañana 6:00 AM</td>
+            <td><button class="btn-secondary" style="font-size:11px; padding:5px 10px;" onclick="verFicha()">Ver ficha</button></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted); font-size:11px;">005</td>
+            <td><strong>Iglesia — Limpieza evento urgente</strong><br><span style="font-size:11px; color:var(--muted);">Solicitud de emergencia — sábado</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-red">Urgente</span></td>
+            <td><span class="badge badge-amber">Por confirmar</span></td>
+            <td style="font-size:12px;">Hoy — necesita respuesta</td>
+            <td><button class="btn-secondary" style="font-size:11px; padding:5px 10px;" onclick="verFicha()">Ver ficha</button></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted); font-size:11px;">006</td>
+            <td><strong>Escuela primaria — Floor Stripping &amp; Waxing</strong><br><span style="font-size:11px; color:var(--muted);">Temporada de verano · programado</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-gray">Especializado</span></td>
+            <td><span class="badge badge-blue">Programado</span></td>
+            <td style="font-size:12px;">Lun 28 jul</td>
+            <td><button class="btn-secondary" style="font-size:11px; padding:5px 10px;" onclick="verFicha()">Ver ficha</button></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted); font-size:11px;">007</td>
+            <td><strong>Fitness Center — Sanitización</strong><br><span style="font-size:11px; color:var(--muted);">Contrato mensual</span></td>
+            <td><span class="city-tag city-dallas">Dallas</span></td>
+            <td><span class="badge badge-blue">Contrato</span></td>
+            <td><span class="badge badge-green">Al día</span></td>
+            <td style="font-size:12px;">1 ago 2026</td>
+            <td><button class="btn-secondary" style="font-size:11px; padding:5px 10px;" onclick="verFicha()">Ver ficha</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:14px; font-size:12px; color:var(--muted); text-align:right;">
+      7 registros · actualizado hace 3 min
+    </div>
+  </div>
+
+  <!-- INFO BOTTOM -->
+  <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+    <div class="card" style="border-left:4px solid var(--amber);">
+      <div class="card-title">⏰ Renovaciones próximas</div>
+      <ul class="timeline">
+        <li>
+          <div class="tl-dot amber"></div>
+          <div>
+            <div style="font-weight:600;">Fitness Center — contrato 2 años</div>
+            <div style="color:var(--muted); font-size:12px;">Vence 15 ago · nadie hizo el follow-up</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot blue"></div>
+          <div>
+            <div style="font-weight:600;">Edificio corporativo — Window Cleaning</div>
+            <div style="color:var(--muted); font-size:12px;">Siguiente servicio: 2 ago · cotización vigente</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot gray"></div>
+          <div>
+            <div style="font-weight:600;">Retail local nuevo — Post-Construction</div>
+            <div style="color:var(--muted); font-size:12px;">Estimado enviado · sin confirmación</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:4px solid var(--teal);">
+      <div class="card-title">📊 Resumen del mes</div>
+      <ul class="timeline">
+        <li>
+          <div class="tl-dot green"></div>
+          <div>
+            <div style="font-weight:600;">12 servicios completados</div>
+            <div style="color:var(--muted); font-size:12px;">Con reporte enviado al cliente</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot amber"></div>
+          <div>
+            <div style="font-weight:600;">6 cotizaciones enviadas</div>
+            <div style="color:var(--muted); font-size:12px;">2 cerradas · 4 sin respuesta</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot blue"></div>
+          <div>
+            <div style="font-weight:600;">3 nuevos clientes</div>
+            <div style="color:var(--muted); font-size:12px;">2 Houston · 1 Dallas</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /pane-dashboard -->
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  VISTA 2 — FICHA DE CLIENTE                              -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="pane-ficha" class="tab-pane">
+
+  <!-- HEADER CLIENTE -->
+  <div class="card" style="border-left:4px solid var(--blue); margin-bottom:18px;">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+      <div>
+        <div style="font-size:18px; font-weight:800; color:var(--navy); margin-bottom:6px;">
+          Centro Médico — Cliente activo
+          <span class="city-tag city-houston" style="font-size:12px; margin-left:8px;">Houston</span>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="badge badge-green">Contrato vigente</span>
+          <span class="badge badge-blue">Day Porter · Lun–Vie</span>
+          <span class="badge badge-gray">Bonded &amp; Insured</span>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:12px; color:var(--muted);">Cliente desde</div>
+        <div style="font-size:20px; font-weight:800; color:var(--navy);">Mar 2024</div>
+        <div style="font-size:12px; color:var(--muted);">2 años · alto valor</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1.4fr; gap:18px; margin-bottom:18px;">
+
+    <!-- DATOS DEL CLIENTE -->
+    <div class="card">
+      <div class="card-title">Datos del contrato</div>
+      <div class="detail-row">
+        <div class="detail-key">Tipo de servicio</div>
+        <div class="detail-value">Day Porter Services</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Frecuencia</div>
+        <div class="detail-value">Lunes a viernes · diario</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Ciudad</div>
+        <div class="detail-value">Houston, TX</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Sector</div>
+        <div class="detail-value">Instalación médica</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Renovación</div>
+        <div class="detail-value" style="color:var(--amber); font-weight:600;">15 sep 2026 — en 51 días</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Equipo asignado</div>
+        <div class="detail-value">Equipo A · 2 personas</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Certificado</div>
+        <div class="detail-value">Limpieza con estándares médicos</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Último reporte</div>
+        <div class="detail-value">Hoy 8:42 AM — enviado por email</div>
+      </div>
+    </div>
+
+    <!-- HISTORIAL -->
+    <div class="card">
+      <div class="card-title">Historial de servicio (últimos 30 días)</div>
+      <ul class="timeline">
+        <li>
+          <div class="tl-dot green"></div>
+          <div>
+            <div style="font-weight:600;">Servicio completado — 26 jul</div>
+            <div style="color:var(--muted); font-size:12px;">Day Porter · 7:05 AM–3:30 PM · Reporte enviado · Sin incidencias</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot green"></div>
+          <div>
+            <div style="font-weight:600;">Servicio completado — 25 jul</div>
+            <div style="color:var(--muted); font-size:12px;">Day Porter · 7:00 AM–3:28 PM · Reporte enviado · Sin incidencias</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot green"></div>
+          <div>
+            <div style="font-weight:600;">Deep Cleaning adicional — 20 jul</div>
+            <div style="color:var(--muted); font-size:12px;">Sanitización de área quirúrgica · solicitado por el cliente · completado</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot amber"></div>
+          <div>
+            <div style="font-weight:600;">Incidencia menor — 18 jul</div>
+            <div style="color:var(--muted); font-size:12px;">Acceso retrasado · resuelta en 15 min · notificada al supervisor</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot green"></div>
+          <div>
+            <div style="font-weight:600;">Inspección de conformidad — 10 jul</div>
+            <div style="color:var(--muted); font-size:12px;">Reporte de compliance enviado · aprobado por el cliente</div>
+          </div>
+        </li>
+        <li>
+          <div class="tl-dot blue"></div>
+          <div>
+            <div style="font-weight:600;">Renovación anticipada — 5 jul</div>
+            <div style="color:var(--muted); font-size:12px;">Cliente solicitó extender 6 meses · pendiente firma de contrato</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- REPORTE DE SERVICIO -->
+  <div class="card">
+    <div class="report-header">
+      <div style="font-size:13px; opacity:.8; margin-bottom:4px;">REPORTE DE SERVICIO — enviado automáticamente al cliente</div>
+      <div style="font-size:18px; font-weight:800;">Centro Médico · Day Porter — 26 jul 2026</div>
+    </div>
+    <div style="padding:18px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:12px; margin-bottom:16px;">
+        <div style="text-align:center; padding:12px; background:#F8F9FA; border-radius:8px;">
+          <div style="font-size:11px; color:var(--muted); font-weight:600; margin-bottom:4px;">ENTRADA</div>
+          <div style="font-size:18px; font-weight:800; color:var(--navy);">7:05 AM</div>
+        </div>
+        <div style="text-align:center; padding:12px; background:#F8F9FA; border-radius:8px;">
+          <div style="font-size:11px; color:var(--muted); font-weight:600; margin-bottom:4px;">SALIDA</div>
+          <div style="font-size:18px; font-weight:800; color:var(--navy);">3:30 PM</div>
+        </div>
+        <div style="text-align:center; padding:12px; background:#F8F9FA; border-radius:8px;">
+          <div style="font-size:11px; color:var(--muted); font-weight:600; margin-bottom:4px;">EQUIPO</div>
+          <div style="font-size:18px; font-weight:800; color:var(--navy);">2 pers.</div>
+        </div>
+        <div style="text-align:center; padding:12px; background:#E9F7EF; border-radius:8px;">
+          <div style="font-size:11px; color:#1E8449; font-weight:600; margin-bottom:4px;">ESTADO</div>
+          <div style="font-size:18px; font-weight:800; color:#1E8449;">✓ OK</div>
+        </div>
+      </div>
+      <div class="section-label">Tareas completadas</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:8px; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Barrido y trapeado de pasillos
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Sanitización de sanitarios
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Vaciado de basureros
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Limpieza de vidrios interiores
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Desempolvado de muebles
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Aspirado de alfombras
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Cocina / área de descanso
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 10px; background:#F8F9FA; border-radius:6px;">
+          <span style="color:var(--green); font-weight:800;">✓</span> Limpieza de ventiladores
+        </div>
+      </div>
+      <div class="alert-banner alert-success" style="margin:0;">
+        <span style="font-size:16px;">✅</span>
+        <div><strong>Sin incidencias reportadas.</strong> Este reporte fue enviado automáticamente al contacto designado a las 3:45 PM, con firma digital del supervisor de turno. Archivado para registros de compliance.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /pane-ficha -->
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  VISTA 3 — EL PROBLEMA RESUELTO                          -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="pane-dolor" class="tab-pane">
+
+  <div style="max-width:700px; margin:0 auto;">
+
+    <div style="text-align:center; margin-bottom:28px;">
+      <h2 style="font-size:22px; font-weight:800; color:var(--navy); margin:0 0 10px;">
+        El mismo cliente. Dos realidades distintas.
+      </h2>
+      <p style="font-size:14px; color:var(--muted); line-height:1.6; margin:0;">
+        Así se vive hoy cuando alguien en Dallas pide un estimado un viernes a las 4:30 PM — y así se vive con un sistema propio.
+      </p>
+    </div>
+
+    <!-- BEFORE -->
+    <div class="scenario-card scenario-before" style="margin-bottom:16px;">
+      <div class="scenario-label">Sin sistema — hoy</div>
+      <div class="scenario-title" style="color:#922B21;">El lead se cae entre las grietas</div>
+      <div class="step-flow" style="margin-top:16px;">
+        <div class="step-item">
+          <div class="step-num" style="background:#FADBD8; color:#922B21;">1</div>
+          <div class="step-body">
+            <div class="step-title" style="color:#922B21;">Viernes, 4:30 PM — llamada perdida</div>
+            <div class="step-desc">Un representante de un auto dealership en Dallas llama para pedir estimado de carpet cleaning en 100 vehículos. Nadie contesta. No hay formulario. Deja un mensaje de voz.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:#FADBD8; color:#922B21;">2</div>
+          <div class="step-body">
+            <div class="step-title" style="color:#922B21;">Viernes noche — sin notificación</div>
+            <div class="step-desc">El mensaje queda en el buzón de voz. La gerencia termina la semana sin saber que existe ese lead. No hay registro escrito, no hay alerta, no hay sistema.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:#FADBD8; color:#922B21;">3</div>
+          <div class="step-body">
+            <div class="step-title" style="color:#922B21;">Lunes 9:00 AM — recordatorio tardío</div>
+            <div class="step-desc">Alguien recuerda el mensaje del viernes. Intenta llamar de vuelta. El representante del dealership ya contrató a otro proveedor que respondió el sábado por correo electrónico.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:#FADBD8; color:#922B21;">4</div>
+          <div class="step-body" style="padding-bottom:0;">
+            <div class="step-title" style="color:#922B21;">Resultado: lead perdido</div>
+            <div class="step-desc">El trabajo potencial se fue. Sin registro de quién llamó, de qué necesitaba, ni de cuándo. La próxima vez que ese dealership necesite limpieza, no llamará a Meridian.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFTER -->
+    <div class="scenario-card scenario-after" style="margin-bottom:24px;">
+      <div class="scenario-label">Con el sistema — así funciona</div>
+      <div class="scenario-title" style="color:#1E8449;">El lead se captura, califica y cierra solo</div>
+      <div class="step-flow" style="margin-top:16px;">
+        <div class="step-item">
+          <div class="step-num" style="background:#D5F5E3; color:#1E8449;">1</div>
+          <div class="step-body">
+            <div class="step-title" style="color:#1E8449;">Viernes, 4:31 PM — formulario inteligente</div>
+            <div class="step-desc">El representante del dealership llena un formulario en el sitio de Meridian. Responde 4 preguntas: tipo de instalación, ciudad, servicio requerido, urgencia. El sistema lo clasifica automáticamente como "lead de alto valor."</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:#D5F5E3; color:#1E8449;">2</div>
+          <div class="step-body">
+            <div class="step-title" style="color:#1E8449;">Viernes, 4:32 PM — respuesta automática</div>
+            <div class="step-desc">El cliente recibe un email profesional en segundos: "Hemos recibido su solicitud. Un representante de Meridian Janitorial se comunicará con usted en menos de 2 horas." La gerencia recibe una notificación en el celular.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:#D5F5E3; color:#1E8449;">3</div>
+          <div class="step-body">
+            <div class="step-title" style="color:#1E8449;">Viernes, 5:15 PM — estimado enviado</div>
+            <div class="step-desc">La gerencia aprueba el estimado prearmado desde el celular. El sistema lo envía con la firma de Meridian Janitorial, el catálogo de servicios y una liga para agendar la visita. El dealership lo recibe antes de salir de la oficina.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:#D5F5E3; color:#1E8449;">4</div>
+          <div class="step-body" style="padding-bottom:0;">
+            <div class="step-title" style="color:#1E8449;">Lunes 8:00 AM — contrato firmado</div>
+            <div class="step-desc">El cliente confirma el trabajo por email el lunes por la mañana. El sistema registra el nuevo contrato, asigna el equipo de Dallas y programa el primer servicio. La gerencia en Houston lo ve todo en tiempo real.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECOND PAIN -->
+    <div class="card" style="border-left:4px solid var(--navy); margin-bottom:16px;">
+      <div class="card-title" style="color:var(--navy);">Houston y Dallas en una sola pantalla</div>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.6; margin:0 0 14px;">
+        Cuando un cliente de Dallas tiene un problema, la gerencia en Houston puede ver su historial completo, los servicios activos y el próximo turno — sin hacer una sola llamada interna.
+      </p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div style="background:#F0F4F8; border-radius:8px; padding:14px;">
+          <div style="font-size:11px; font-weight:700; color:var(--navy); margin-bottom:8px;">HOUSTON · 5 clientes activos</div>
+          <div style="font-size:12px; color:var(--text); line-height:1.8;">
+            Edificio oficinas — semanal<br>
+            Centro médico — diario<br>
+            Restaurante — one-time<br>
+            Iglesia — urgente<br>
+            Escuela — verano
+          </div>
+        </div>
+        <div style="background:#F5EEF8; border-radius:8px; padding:14px;">
+          <div style="font-size:11px; font-weight:700; color:#6C3483; margin-bottom:8px;">DALLAS · 2 clientes activos</div>
+          <div style="font-size:12px; color:var(--text); line-height:1.8;">
+            Auto Dealership — estimado pendiente<br>
+            Fitness Center — contrato mensual
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THIRD PAIN -->
+    <div class="card" style="border-left:4px solid var(--teal);">
+      <div class="card-title" style="color:var(--navy);">Clientes de alto valor — comunicación a su nivel</div>
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.6; margin:0 0 14px;">
+        Un cliente de instalación médica o de un dealership espera más que una llamada. Espera un reporte, una confirmación y un historial que le diga que Meridian Janitorial es una empresa seria. Eso es lo que protege la relación y justifica el contrato recurrente.
+      </p>
+      <div class="alert-banner alert-info" style="margin:0;">
+        <span style="font-size:16px;">💼</span>
+        <div>
+          <strong>10+ años de servicio impecable</strong> merecen una capa de sistema que los muestre. El equipo ya tiene la calidad. El sistema hace que el cliente la vea — y la recuerde en cada renovación.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /pane-dolor -->
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  VISTA 4 — BÚSQUEDA Y REPORTES                           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="pane-reportes" class="tab-pane">
+
+  <!-- FILTROS -->
+  <div class="card" style="margin-bottom:18px;">
+    <div class="card-title">Búsqueda y filtros</div>
+    <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:12px; margin-bottom:14px; align-items:end;">
+      <div>
+        <label style="font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:5px;">BUSCAR CLIENTE O TRABAJO</label>
+        <input id="search-input" type="text" class="search-input" placeholder="Centro médico, carpet cleaning, dealership…" oninput="filtrarTabla()" />
+      </div>
+      <div>
+        <label style="font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:5px;">CIUDAD</label>
+        <select id="filter-ciudad" class="search-input" onchange="filtrarTabla()">
+          <option value="">Todas</option>
+          <option value="houston">Houston</option>
+          <option value="dallas">Dallas</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:5px;">TIPO</label>
+        <select id="filter-tipo" class="search-input" onchange="filtrarTabla()">
+          <option value="">Todos</option>
+          <option value="contrato">Contrato recurrente</option>
+          <option value="one-time">One-time</option>
+          <option value="cotizacion">Cotización</option>
+          <option value="urgente">Urgente</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11px; font-weight:700; color:var(--muted); display:block; margin-bottom:5px;">ESTADO</label>
+        <select id="filter-estado" class="search-input" onchange="filtrarTabla()">
+          <option value="">Todos</option>
+          <option value="activo">Activo / En curso</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="programado">Programado</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn-primary" onclick="filtrarTabla()">Buscar</button>
+      <button class="btn-secondary" onclick="limpiarFiltros()">Limpiar filtros</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="card" style="margin-bottom:18px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+      <div class="card-title" style="margin:0;">Resultados</div>
+      <div style="font-size:12px; color:var(--muted);" id="result-count">Mostrando 7 registros</div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="data-table" id="report-table">
+        <thead>
+          <tr>
+            <th>Cliente / Trabajo</th>
+            <th>Ciudad</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Último servicio</th>
+            <th>Próximo</th>
+          </tr>
+        </thead>
+        <tbody id="report-body">
+          <tr data-ciudad="houston" data-tipo="contrato" data-estado="activo">
+            <td><strong>Edificio corporativo — zona noroeste Houston</strong><br><span style="font-size:11px; color:var(--muted);">Complete Facility Cleaning · semanal</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-blue">Contrato</span></td>
+            <td><span class="badge badge-green">Activo</span></td>
+            <td style="font-size:12px;">22 jul 2026</td>
+            <td style="font-size:12px;">27 jul 2026</td>
+          </tr>
+          <tr data-ciudad="houston" data-tipo="contrato" data-estado="activo">
+            <td><strong>Centro médico — Day Porter</strong><br><span style="font-size:11px; color:var(--muted);">Servicio diario lun–vie</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-blue">Contrato</span></td>
+            <td><span class="badge badge-green">En curso hoy</span></td>
+            <td style="font-size:12px;">25 jul 2026</td>
+            <td style="font-size:12px;">27 jul 2026</td>
+          </tr>
+          <tr data-ciudad="dallas" data-tipo="cotizacion" data-estado="pendiente">
+            <td><strong>Auto Dealership — Carpet Cleaning</strong><br><span style="font-size:11px; color:var(--red);">⚠️ Sin respuesta 38 h</span></td>
+            <td><span class="city-tag city-dallas">Dallas</span></td>
+            <td><span class="badge badge-amber">Cotización</span></td>
+            <td><span class="badge badge-amber">Pendiente</span></td>
+            <td style="font-size:12px;">—</td>
+            <td style="font-size:12px; color:var(--red);">Hoy — urgente</td>
+          </tr>
+          <tr data-ciudad="houston" data-tipo="one-time" data-estado="programado">
+            <td><strong>Restaurante — Deep Cleaning</strong><br><span style="font-size:11px; color:var(--muted);">Pre-inspección sanitaria</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-gray">One-time</span></td>
+            <td><span class="badge badge-green">Confirmado</span></td>
+            <td style="font-size:12px;">—</td>
+            <td style="font-size:12px;">27 jul 2026</td>
+          </tr>
+          <tr data-ciudad="houston" data-tipo="urgente" data-estado="pendiente">
+            <td><strong>Iglesia — Limpieza evento urgente</strong><br><span style="font-size:11px; color:var(--muted);">Solicitud de emergencia</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-red">Urgente</span></td>
+            <td><span class="badge badge-amber">Por confirmar</span></td>
+            <td style="font-size:12px;">—</td>
+            <td style="font-size:12px;">Sáb 27 jul</td>
+          </tr>
+          <tr data-ciudad="houston" data-tipo="one-time" data-estado="programado">
+            <td><strong>Escuela primaria — Floor Stripping &amp; Waxing</strong><br><span style="font-size:11px; color:var(--muted);">Temporada de verano</span></td>
+            <td><span class="city-tag city-houston">Houston</span></td>
+            <td><span class="badge badge-gray">Especializado</span></td>
+            <td><span class="badge badge-blue">Programado</span></td>
+            <td style="font-size:12px;">—</td>
+            <td style="font-size:12px;">28 jul 2026</td>
+          </tr>
+          <tr data-ciudad="dallas" data-tipo="contrato" data-estado="activo">
+            <td><strong>Fitness Center — Sanitización mensual</strong><br><span style="font-size:11px; color:var(--muted);">Contrato mensual recurrente</span></td>
+            <td><span class="city-tag city-dallas">Dallas</span></td>
+            <td><span class="badge badge-blue">Contrato</span></td>
+            <td><span class="badge badge-green">Al día</span></td>
+            <td style="font-size:12px;">1 jul 2026</td>
+            <td style="font-size:12px;">1 ago 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- STATS EXPORT -->
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px; margin-bottom:18px;">
+    <div class="card" style="text-align:center; padding:20px;">
+      <div style="font-size:32px; font-weight:800; color:var(--red);">$4,200</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">En cotizaciones sin seguimiento</div>
+      <div style="font-size:11px; color:var(--red); font-weight:600; margin-top:6px;">⬆ Riesgo actual — estimado</div>
+    </div>
+    <div class="card" style="text-align:center; padding:20px;">
+      <div style="font-size:32px; font-weight:800; color:var(--green);">100%</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">Reportes de servicio entregados</div>
+      <div style="font-size:11px; color:var(--green); font-weight:600; margin-top:6px;">Datos de muestra</div>
+    </div>
+    <div class="card" style="text-align:center; padding:20px;">
+      <div style="font-size:32px; font-weight:800; color:var(--amber);">2</div>
+      <div style="font-size:12px; color:var(--muted); margin-top:4px;">Contratos por renovar este mes</div>
+      <div style="font-size:11px; color:var(--amber); font-weight:600; margin-top:6px;">Seguimiento pendiente</div>
+    </div>
+  </div>
+
+  <!-- EXPORT BAR -->
+  <div class="card" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <div>
+      <div style="font-size:14px; font-weight:700; color:var(--navy);">Exportar reportes</div>
+      <div style="font-size:12px; color:var(--muted);">Generación automática · datos de muestra</div>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn-secondary" onclick="showToast('Reporte PDF listo — enviado a su correo (simulado)')">📄 Reporte PDF</button>
+      <button class="btn-secondary" onclick="showToast('Datos exportados a Excel (simulado)')">📊 Exportar Excel</button>
+      <button class="btn-primary" onclick="showToast('Reporte de compliance médico generado (simulado)')">🏥 Compliance médico</button>
+    </div>
+  </div>
+
+</div><!-- /pane-reportes -->
+
+</main>
+
+<!-- FOOTER -->
+<footer style="background:var(--navy); color:rgba(255,255,255,.6); text-align:center; padding:18px 20px; font-size:12px; margin-top:0;">
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
+</footer>
+
+<script>
+  // ── TAB COUNTER ──
+  var tabsVisited = 1; // ya estamos en la primera vista
+  var modalShown = !!sessionStorage.getItem('modalShown');
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('pane-' + id).classList.add('active');
+    btn.classList.add('active');
+    tabsVisited++;
+    checkModal();
+  }
+
+  // ── MODAL LOGIC ──
+  function checkModal() {
+    if (!modalShown && tabsVisited >= 3) {
+      openModal();
+    }
+  }
+
+  function openModal() {
+    if (modalShown) {
+      // Already shown this session — only the FAB re-opens it explicitly;
+      // timer and tab triggers must not re-open.
+      return;
+    }
+    document.getElementById('modal-overlay').classList.add('open');
+    sessionStorage.setItem('modalShown', '1');
+    modalShown = true;
+  }
+
+  function openModalFromFab() {
+    // FAB always re-opens the overlay, regardless of session state.
+    document.getElementById('modal-overlay').classList.add('open');
+    sessionStorage.setItem('modalShown', '1');
+    modalShown = true;
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  // Close on overlay click
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ── 75s TIMER ──
+  setTimeout(function() {
+    if (!modalShown) openModal();
+  }, 75000);
+
+  // ── TOAST ──
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3500);
+  }
+
+  // ── INTERACCIÓN SIMULADA: ENVIAR SEGUIMIENTO ──
+  function confirmarSeguimiento() {
+    var btn = document.getElementById('btn-followup');
+    var badge = document.getElementById('badge-003');
+    var row = document.getElementById('row-dealership');
+
+    btn.disabled = true;
+    btn.textContent = '⏳ Enviando…';
+    btn.style.background = '#95A5A6';
+
+    setTimeout(function() {
+      // Update badge
+      badge.className = 'badge badge-green';
+      badge.textContent = 'Seguimiento enviado';
+
+      // Update button
+      btn.textContent = '✓ Enviado';
+      btn.style.background = 'var(--green)';
+
+      // Remove highlight class, add update animation
+      row.classList.remove('highlight-row');
+      row.querySelectorAll('td').forEach(function(td) {
+        td.classList.add('row-updated');
+      });
+      setTimeout(function() {
+        row.querySelectorAll('td').forEach(function(td) {
+          td.classList.remove('row-updated');
+        });
+      }, 1900);
+
+      // Update KPI
+      var kpiVal = document.getElementById('kpi-pending-val');
+      kpiVal.textContent = '3';
+
+      // Update warning text in row
+      var cells = row.querySelectorAll('td');
+      if (cells[1]) {
+        cells[1].innerHTML = '<strong>Auto Dealership — Carpet Cleaning</strong><br><span style="font-size:11px; color:var(--green);">✓ Seguimiento enviado automáticamente</span>';
+      }
+      if (cells[5]) {
+        cells[5].innerHTML = '<span style="font-size:12px; color:var(--green);">Respuesta en &lt;2 horas</span>';
+      }
+
+      showToast('✓ Seguimiento enviado al auto dealership de Dallas. KPI actualizado.');
+    }, 1400);
+  }
+
+  // ── NAVEGAR A FICHA ──
+  function verFicha() {
+    var btn = document.querySelector('.tab-btn[data-tab="ficha"]');
+    switchTab('ficha', btn);
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+      if (b !== btn) b.classList.remove('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── AGREGAR COTIZACIÓN (simulado) ──
+  function agregarSeguimiento() {
+    showToast('Formulario de nueva cotización — función disponible en el sistema real.');
+  }
+
+  // ── FILTRO DE REPORTES ──
+  function filtrarTabla() {
+    var q     = document.getElementById('search-input').value.toLowerCase();
+    var ciudad= document.getElementById('filter-ciudad').value.toLowerCase();
+    var tipo  = document.getElementById('filter-tipo').value.toLowerCase();
+    var estado= document.getElementById('filter-estado').value.toLowerCase();
+    var rows  = document.getElementById('report-body').querySelectorAll('tr');
+    var count = 0;
+
+    rows.forEach(function(row) {
+      var text    = row.textContent.toLowerCase();
+      var rCiudad = (row.dataset.ciudad || '').toLowerCase();
+      var rTipo   = (row.dataset.tipo   || '').toLowerCase();
+      var rEstado = (row.dataset.estado || '').toLowerCase();
+
+      var match = true;
+      if (q      && !text.includes(q))            match = false;
+      if (ciudad && rCiudad !== ciudad)            match = false;
+      if (tipo   && !rTipo.includes(tipo))         match = false;
+      if (estado && !rEstado.includes(estado))     match = false;
+
+      row.style.display = match ? '' : 'none';
+      if (match) count++;
+    });
+
+    document.getElementById('result-count').textContent =
+      'Mostrando ' + count + ' registro' + (count === 1 ? '' : 's');
+  }
+
+  function limpiarFiltros() {
+    document.getElementById('search-input').value = '';
+    document.getElementById('filter-ciudad').value = '';
+    document.getElementById('filter-tipo').value = '';
+    document.getElementById('filter-estado').value = '';
+    filtrarTabla();
+  }
+</script>
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

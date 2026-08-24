@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trópico Distribuidora — Sistema de Gestión</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --azul: #1A3A6B;
+      --azul-claro: #2D7DD2;
+      --verde: #4CAF50;
+      --fondo: #F7F9FC;
+      --texto: #1A1A1A;
+    }
+
+    body { background: var(--fondo); color: var(--texto); font-family: 'Segoe UI', sans-serif; }
+
+    /* Badge DEMO fijo */
+    #badge-demo {
+      position: fixed; top: 12px; right: 16px; z-index: 9999;
+      background: #F59E0B; color: #1A1A1A; font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    /* CTA flotante */
+    #cta-flotante {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9000;
+      background: var(--azul); color: #fff; font-weight: 700;
+      padding: 14px 22px; border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(26,58,107,0.4);
+      cursor: pointer; border: none; font-size: 15px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    #cta-flotante:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,58,107,0.5); }
+
+    /* Modal */
+    #modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+      z-index: 9500; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    #modal-overlay.visible { opacity: 1; pointer-events: auto; }
+    #modal-box {
+      background: #fff; border-radius: 16px; padding: 40px 36px;
+      max-width: 460px; width: 92%; text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      transform: translateY(20px); transition: transform 0.25s;
+    }
+    #modal-overlay.visible #modal-box { transform: translateY(0); }
+
+    /* Tabs */
+    .tab-btn {
+      padding: 10px 20px; border: none; cursor: pointer; font-weight: 600;
+      font-size: 14px; border-bottom: 3px solid transparent;
+      background: transparent; color: #64748b; transition: all 0.15s;
+    }
+    .tab-btn.active { color: var(--azul); border-bottom-color: var(--azul); }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* Tarjetas y estados */
+    .estado-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+    }
+    .estado-confirmado { background: #DCFCE7; color: #15803D; }
+    .estado-transito   { background: #DBEAFE; color: #1D4ED8; }
+    .estado-pendiente  { background: #FEF9C3; color: #B45309; }
+    .estado-alerta     { background: #FEE2E2; color: #B91C1C; }
+
+    .card {
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      border: 1px solid #E2E8F0;
+    }
+
+    /* Tabla */
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #F1F5F9; color: #475569; font-size: 12px; text-transform: uppercase;
+         letter-spacing: 0.5px; padding: 10px 14px; text-align: left; }
+    td { padding: 12px 14px; border-top: 1px solid #F1F5F9; font-size: 14px; }
+    tr:hover td { background: #F8FAFC; }
+
+    /* Barra stock */
+    .barra-stock { height: 8px; border-radius: 4px; background: #E2E8F0; overflow: hidden; }
+    .barra-fill  { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+
+    /* Alerta dramatización */
+    .alerta-fda {
+      border: 2px solid #EF4444; border-radius: 12px;
+      background: #FFF5F5; padding: 20px 24px;
+    }
+
+    /* Recall resultado */
+    .recall-row { animation: slideIn 0.3s ease forwards; opacity: 0; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Header */
+    .header-banner {
+      background: linear-gradient(135deg, var(--azul) 0%, #1e4d8c 100%);
+      color: #fff; padding: 16px 24px;
+    }
+
+    /* KPI cards */
+    .kpi-card {
+      background: #fff; border-radius: 12px; border: 1px solid #E2E8F0;
+      padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    /* Acción flash */
+    .flash-green { animation: flashGreen 1.2s ease; }
+    @keyframes flashGreen {
+      0%   { background: #DCFCE7; }
+      100% { background: #fff; }
+    }
+
+    /* Sidebar detalle */
+    .sidebar-detalle {
+      position: fixed; right: -480px; top: 0; height: 100vh; width: 460px;
+      background: #fff; box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+      z-index: 8000; transition: right 0.3s ease; overflow-y: auto; padding: 28px 24px;
+    }
+    .sidebar-detalle.open { right: 0; }
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 7999;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    @media (max-width: 640px) {
+      .sidebar-detalle { width: 100%; right: -100%; }
+      #cta-flotante { font-size: 13px; padding: 12px 16px; bottom: 16px; right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Badge DEMO -->
+<div id="badge-demo">DEMO · datos de muestra</div>
+
+<!-- Header -->
+<div class="header-banner">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-start justify-between flex-wrap gap-3">
+      <div>
+        <h1 class="text-xl font-bold leading-tight">Trópico Distribuidora</h1>
+        <p class="text-sm text-blue-200 mt-0.5">Distribuidor Mayorista de Alimentos</p>
+      </div>
+      <div class="text-right">
+        <p class="text-xs text-blue-300 font-medium">Así se vería su sistema propio</p>
+        <p class="text-xs text-blue-300">preparado por <strong class="text-white">Pocho.tech</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabs de navegación -->
+<div class="max-w-6xl mx-auto px-4 mt-4">
+  <div class="card">
+    <div class="flex overflow-x-auto border-b border-slate-200 px-4">
+      <button class="tab-btn active" onclick="cambiarTab('tablero', this)">
+        Tablero de Pedidos
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('inventario', this)">
+        Inventario Unificado
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('compliance', this)">
+        Trazabilidad / Compliance
+      </button>
+      <button class="tab-btn" onclick="cambiarTab('busqueda', this)">
+        Búsqueda y Reportes
+      </button>
+    </div>
+
+    <div class="p-5">
+
+      <!-- ===== TAB 1: TABLERO DE PEDIDOS ===== -->
+      <div id="tab-tablero" class="tab-pane active">
+        <div class="mb-5">
+          <h2 class="text-lg font-bold text-slate-800 mb-1">Operación del Día — 26 jul 2026</h2>
+          <p class="text-sm text-slate-500">Pedidos activos en Houston y Miami. Haga clic en cualquier fila para ver el detalle completo.</p>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+          <div class="kpi-card">
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-wide">Pedidos hoy</p>
+            <p class="text-2xl font-bold text-slate-800 mt-1">14</p>
+          </div>
+          <div class="kpi-card">
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-wide">En tránsito</p>
+            <p class="text-2xl font-bold" style="color:var(--azul-claro)">6</p>
+          </div>
+          <div class="kpi-card">
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-wide">Pendientes confirmación</p>
+            <p class="text-2xl font-bold text-amber-500">5</p>
+          </div>
+          <div class="kpi-card">
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-wide">Alertas activas</p>
+            <p class="text-2xl font-bold text-red-500" id="kpi-alertas">1</p>
+          </div>
+        </div>
+
+        <!-- Tabla de pedidos -->
+        <div class="overflow-x-auto rounded-lg border border-slate-200">
+          <table id="tabla-pedidos">
+            <thead>
+              <tr>
+                <th>Pedido</th>
+                <th>Cliente / Estado</th>
+                <th>Bodega origen</th>
+                <th>Destino</th>
+                <th>SKUs</th>
+                <th>Estado</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-pedidos">
+              <tr class="cursor-pointer" onclick="abrirDetalle('ATD-2026-0741')">
+                <td class="font-mono text-sm font-semibold text-blue-700">ATD-2026-0741</td>
+                <td>
+                  <p class="font-medium">El Mercado LATAM</p>
+                  <p class="text-xs text-slate-400">Chicago, IL</p>
+                </td>
+                <td><span class="text-xs font-medium bg-blue-50 text-blue-700 px-2 py-1 rounded">Miami</span></td>
+                <td>Illinois</td>
+                <td class="text-center">8</td>
+                <td><span class="estado-badge estado-alerta">⚠ Stock bajo</span></td>
+                <td>
+                  <button onclick="event.stopPropagation(); confirmarPedido(this, 'ATD-2026-0741')"
+                    class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded font-semibold transition">
+                    Confirmar
+                  </button>
+                </td>
+              </tr>
+              <tr class="cursor-pointer" onclick="abrirDetalle('ATD-2026-0740')">
+                <td class="font-mono text-sm font-semibold text-blue-700">ATD-2026-0740</td>
+                <td>
+                  <p class="font-medium">Tropical Foods Inc.</p>
+                  <p class="text-xs text-slate-400">Houston, TX</p>
+                </td>
+                <td><span class="text-xs font-medium bg-green-50 text-green-700 px-2 py-1 rounded">Houston</span></td>
+                <td>Texas</td>
+                <td class="text-center">12</td>
+                <td><span class="estado-badge estado-transito">🚚 En tránsito</span></td>
+                <td>
+                  <button onclick="event.stopPropagation(); abrirDetalle('ATD-2026-0740')"
+                    class="text-xs border border-slate-300 hover:bg-slate-50 px-3 py-1.5 rounded font-semibold transition text-slate-600">
+                    Ver
+                  </button>
+                </td>
+              </tr>
+              <tr class="cursor-pointer" onclick="abrirDetalle('ATD-2026-0739')">
+                <td class="font-mono text-sm font-semibold text-blue-700">ATD-2026-0739</td>
+                <td>
+                  <p class="font-medium">Sabores del Mundo</p>
+                  <p class="text-xs text-slate-400">Miami, FL</p>
+                </td>
+                <td><span class="text-xs font-medium bg-green-50 text-green-700 px-2 py-1 rounded">Houston</span></td>
+                <td>Florida</td>
+                <td class="text-center">5</td>
+                <td><span class="estado-badge estado-confirmado">✓ Confirmado</span></td>
+                <td>
+                  <button onclick="event.stopPropagation(); abrirDetalle('ATD-2026-0739')"
+                    class="text-xs border border-slate-300 hover:bg-slate-50 px-3 py-1.5 rounded font-semibold transition text-slate-600">
+                    Ver
+                  </button>
+                </td>
+              </tr>
+              <tr class="cursor-pointer" onclick="abrirDetalle('ATD-2026-0738')">
+                <td class="font-mono text-sm font-semibold text-blue-700">ATD-2026-0738</td>
+                <td>
+                  <p class="font-medium">Caribbean Grocer NY</p>
+                  <p class="text-xs text-slate-400">New York, NY</p>
+                </td>
+                <td><span class="text-xs font-medium bg-blue-50 text-blue-700 px-2 py-1 rounded">Miami</span></td>
+                <td>New York</td>
+                <td class="text-center">20</td>
+                <td><span class="estado-badge estado-pendiente">⏳ Cotización pendiente</span></td>
+                <td>
+                  <button onclick="event.stopPropagation(); confirmarPedido(this, 'ATD-2026-0738')"
+                    class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded font-semibold transition">
+                    Confirmar
+                  </button>
+                </td>
+              </tr>
+              <tr class="cursor-pointer" onclick="abrirDetalle('ATD-2026-0737')">
+                <td class="font-mono text-sm font-semibold text-blue-700">ATD-2026-0737</td>
+                <td>
+                  <p class="font-medium">La Placita Foods</p>
+                  <p class="text-xs text-slate-400">Los Ángeles, CA</p>
+                </td>
+                <td><span class="text-xs font-medium bg-green-50 text-green-700 px-2 py-1 rounded">Houston</span></td>
+                <td>California</td>
+                <td class="text-center">9</td>
+                <td><span class="estado-badge estado-transito">🚚 En tránsito</span></td>
+                <td>
+                  <button onclick="event.stopPropagation(); abrirDetalle('ATD-2026-0737')"
+                    class="text-xs border border-slate-300 hover:bg-slate-50 px-3 py-1.5 rounded font-semibold transition text-slate-600">
+                    Ver
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-xs text-slate-400 mt-3 text-right">Mostrando 5 de 14 pedidos activos · Datos de muestra</p>
+      </div>
+
+      <!-- ===== TAB 2: INVENTARIO UNIFICADO ===== -->
+      <div id="tab-inventario" class="tab-pane">
+        <div class="mb-5">
+          <h2 class="text-lg font-bold text-slate-800 mb-1">Inventario Unificado — Houston + Miami</h2>
+          <p class="text-sm text-slate-500">Visibilidad en tiempo real de ambas bodegas desde un solo panel. Sin llamadas. Sin planillas.</p>
+        </div>
+
+        <!-- Pregunta dramatización -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-5 flex gap-3 items-start">
+          <span class="text-2xl">💡</span>
+          <div>
+            <p class="text-sm font-semibold text-blue-800">¿Cómo sabe su equipo en Houston qué tiene Miami disponible ahora mismo?</p>
+            <p class="text-xs text-blue-600 mt-1">Con este sistema: la respuesta está en 3 segundos, sin hacer ninguna llamada.</p>
+          </div>
+        </div>
+
+        <!-- Resumen bodegas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+          <div class="card p-4 border-l-4" style="border-left-color: var(--azul);">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-bold text-slate-700">Bodega Houston, TX</h3>
+              <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-medium">Operativa</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-center">
+              <div>
+                <p class="text-2xl font-bold" style="color:var(--azul)">2,847</p>
+                <p class="text-xs text-slate-400">unidades totales</p>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-amber-500">3</p>
+                <p class="text-xs text-slate-400">SKUs bajo mínimo</p>
+              </div>
+            </div>
+          </div>
+          <div class="card p-4 border-l-4" style="border-left-color: var(--azul-claro);">
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-bold text-slate-700">Bodega Miami, FL</h3>
+              <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-medium">Operativa</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 text-center">
+              <div>
+                <p class="text-2xl font-bold" style="color:var(--azul-claro)">1,594</p>
+                <p class="text-xs text-slate-400">unidades totales</p>
+              </div>
+              <div>
+                <p class="text-2xl font-bold text-red-500">1</p>
+                <p class="text-xs text-slate-400">SKUs bajo mínimo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla inventario combinado -->
+        <div class="overflow-x-auto rounded-lg border border-slate-200">
+          <table>
+            <thead>
+              <tr>
+                <th>Producto / SKU</th>
+                <th>Categoría</th>
+                <th>Cert.</th>
+                <th>Origen</th>
+                <th class="text-center">Houston</th>
+                <th class="text-center">Miami</th>
+                <th class="text-center">Total</th>
+                <th>Nivel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p class="font-medium">Nata de Coco Original 24-pk</p>
+                  <p class="text-xs text-slate-400 font-mono">SKU-NC24-PHL</p>
+                </td>
+                <td class="text-sm">Bebidas / Snacks</td>
+                <td><span class="text-xs font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded">Halal</span></td>
+                <td class="text-sm">Filipinas</td>
+                <td class="text-center font-semibold">480</td>
+                <td class="text-center font-semibold text-red-600">38 ⚠</td>
+                <td class="text-center font-bold">518</td>
+                <td>
+                  <div class="barra-stock w-24">
+                    <div class="barra-fill bg-amber-400" style="width:28%"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="font-medium">Botan Calrose Rice 50lb</p>
+                  <p class="text-xs text-slate-400 font-mono">SKU-BCR50-USA</p>
+                </td>
+                <td class="text-sm">Arroz</td>
+                <td><span class="text-xs text-slate-400">—</span></td>
+                <td class="text-sm">EE.UU.</td>
+                <td class="text-center font-semibold">312</td>
+                <td class="text-center font-semibold">215</td>
+                <td class="text-center font-bold">527</td>
+                <td>
+                  <div class="barra-stock w-24">
+                    <div class="barra-fill bg-green-500" style="width:72%"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="font-medium">Maseca Harina de Maíz 4.4lb</p>
+                  <p class="text-xs text-slate-400 font-mono">SKU-MHM44-MEX</p>
+                </td>
+                <td class="text-sm">Harinas / Bases</td>
+                <td><span class="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">FDA</span></td>
+                <td class="text-sm">México</td>
+                <td class="text-center font-semibold">720</td>
+                <td class="text-center font-semibold">410</td>
+                <td class="text-center font-bold">1,130</td>
+                <td>
+                  <div class="barra-stock w-24">
+                    <div class="barra-fill bg-green-500" style="width:88%"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="font-medium">Curry Madras en Polvo 400g</p>
+                  <p class="text-xs text-slate-400 font-mono">SKU-CMP400-IND</p>
+                </td>
+                <td class="text-sm">Curry / Especias</td>
+                <td><span class="text-xs font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded">Halal</span></td>
+                <td class="text-sm">India</td>
+                <td class="text-center font-semibold text-red-600">22 ⚠</td>
+                <td class="text-center font-semibold">180</td>
+                <td class="text-center font-bold">202</td>
+                <td>
+                  <div class="barra-stock w-24">
+                    <div class="barra-fill bg-red-500" style="width:15%"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="font-medium">Café La Nostalgia 500g</p>
+                  <p class="text-xs text-slate-400 font-mono">SKU-CLN500-COL</p>
+                </td>
+                <td class="text-sm">Café</td>
+                <td><span class="text-xs text-slate-400">—</span></td>
+                <td class="text-sm">Colombia</td>
+                <td class="text-center font-semibold">890</td>
+                <td class="text-center font-semibold">340</td>
+                <td class="text-center font-bold">1,230</td>
+                <td>
+                  <div class="barra-stock w-24">
+                    <div class="barra-fill bg-green-500" style="width:95%"></div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="font-medium">Naan Plain 18-pack</p>
+                  <p class="text-xs text-slate-400 font-mono">SKU-NP18-IND</p>
+                </td>
+                <td class="text-sm">Panadería</td>
+                <td><span class="text-xs font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded">Halal</span></td>
+                <td class="text-sm">India</td>
+                <td class="text-center font-semibold">156</td>
+                <td class="text-center font-semibold text-red-600">12 ⚠</td>
+                <td class="text-center font-bold">168</td>
+                <td>
+                  <div class="barra-stock w-24">
+                    <div class="barra-fill bg-amber-400" style="width:22%"></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-slate-400 mt-3 text-right">Datos de muestra · Actualización en tiempo real en el sistema real</p>
+      </div>
+
+      <!-- ===== TAB 3: TRAZABILIDAD / COMPLIANCE ===== -->
+      <div id="tab-compliance" class="tab-pane">
+        <div class="mb-5">
+          <h2 class="text-lg font-bold text-slate-800 mb-1">Trazabilidad por Lote — Compliance FDA / USDA / Halal</h2>
+          <p class="text-sm text-slate-500">Si la FDA le llama hoy por un lote, ¿cuántas horas le toma saber a quién le llegó?</p>
+        </div>
+
+        <!-- Dramatización: simulador de recall -->
+        <div class="alerta-fda mb-5" id="zona-alerta">
+          <div class="flex items-start gap-3 mb-3">
+            <span class="text-2xl">🚨</span>
+            <div>
+              <p class="font-bold text-red-800 text-base">Alerta de Recall — FDA Notification</p>
+              <p class="text-sm text-red-700 mt-0.5">Lote <strong>LOT-BCR-2026-03</strong> · Botan Calrose Rice 50lb · Posible contaminación de etiquetado</p>
+              <p class="text-xs text-red-500 mt-1">Recibida: 26 jul 2026, 09:14 am — sin sistema: esto toma horas de búsqueda manual.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mb-3">
+            <button id="btn-recall"
+              onclick="ejecutarRecall()"
+              class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition">
+              Rastrear este lote ahora
+            </button>
+            <button onclick="resetRecall()"
+              class="border border-red-300 text-red-700 hover:bg-red-50 font-semibold px-4 py-2 rounded-lg text-sm transition">
+              Reiniciar simulación
+            </button>
+          </div>
+
+          <div id="recall-resultado" style="display:none">
+            <div class="bg-white rounded-lg border border-red-200 p-4 mt-2">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-green-600 font-bold text-lg">✓</span>
+                <p class="font-bold text-slate-800">Rastreo completado en <span class="text-green-600">4 segundos</span></p>
+              </div>
+              <p class="text-sm text-slate-600 mb-3">4 clientes recibieron unidades del lote <strong>LOT-BCR-2026-03</strong>. Notificación automática lista para envío.</p>
+              <div class="overflow-x-auto rounded border border-slate-200">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Estado</th>
+                      <th>Pedido</th>
+                      <th>Unidades</th>
+                      <th>Entrega</th>
+                      <th>Contacto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="recall-row" style="animation-delay:0.1s">
+                      <td><p class="font-medium">Tropical Foods Inc.</p><p class="text-xs text-slate-400">Houston, TX</p></td>
+                      <td>Texas</td>
+                      <td class="font-mono text-blue-700 text-sm">ATD-2026-0701</td>
+                      <td class="font-semibold">120</td>
+                      <td class="text-sm">14 jul 2026</td>
+                      <td><span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-medium">Notificar</span></td>
+                    </tr>
+                    <tr class="recall-row" style="animation-delay:0.25s">
+                      <td><p class="font-medium">Caribbean Grocer NY</p><p class="text-xs text-slate-400">New York, NY</p></td>
+                      <td>New York</td>
+                      <td class="font-mono text-blue-700 text-sm">ATD-2026-0712</td>
+                      <td class="font-semibold">200</td>
+                      <td class="text-sm">18 jul 2026</td>
+                      <td><span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-medium">Notificar</span></td>
+                    </tr>
+                    <tr class="recall-row" style="animation-delay:0.4s">
+                      <td><p class="font-medium">El Mercado LATAM</p><p class="text-xs text-slate-400">Chicago, IL</p></td>
+                      <td>Illinois</td>
+                      <td class="font-mono text-blue-700 text-sm">ATD-2026-0718</td>
+                      <td class="font-semibold">80</td>
+                      <td class="text-sm">20 jul 2026</td>
+                      <td><span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-medium">Notificar</span></td>
+                    </tr>
+                    <tr class="recall-row" style="animation-delay:0.55s">
+                      <td><p class="font-medium">Sabores del Mundo</p><p class="text-xs text-slate-400">Miami, FL</p></td>
+                      <td>Florida</td>
+                      <td class="font-mono text-blue-700 text-sm">ATD-2026-0723</td>
+                      <td class="font-semibold">60</td>
+                      <td class="text-sm">22 jul 2026</td>
+                      <td><span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded font-medium">Notificado</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 bg-blue-50 rounded-lg p-3">
+                <p class="text-sm font-semibold text-blue-800">Con su sistema: 4 segundos para rastrear, 1 clic para notificar.</p>
+                <p class="text-sm text-blue-600">Sin sistema: horas revisando planillas, llamando a cada bodega, buscando en correos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Historial de lotes -->
+        <h3 class="font-bold text-slate-700 mb-3">Historial de Lotes — Últimas importaciones</h3>
+        <div class="overflow-x-auto rounded-lg border border-slate-200">
+          <table>
+            <thead>
+              <tr>
+                <th>Lote</th>
+                <th>Producto</th>
+                <th>Origen</th>
+                <th>Certificaciones</th>
+                <th>Ingreso bodega</th>
+                <th>Clientes despachados</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-mono text-sm text-blue-700">LOT-NC24-2026-07</td>
+                <td>Nata de Coco Original 24-pk</td>
+                <td>Filipinas</td>
+                <td><span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded font-semibold">Halal</span></td>
+                <td class="text-sm">01 jul 2026</td>
+                <td class="text-center font-semibold">7</td>
+                <td><span class="estado-badge estado-confirmado">Activo</span></td>
+              </tr>
+              <tr>
+                <td class="font-mono text-sm text-blue-700">LOT-BCR-2026-03</td>
+                <td>Botan Calrose Rice 50lb</td>
+                <td>EE.UU.</td>
+                <td><span class="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold">FDA</span></td>
+                <td class="text-sm">10 jun 2026</td>
+                <td class="text-center font-semibold">4</td>
+                <td><span class="estado-badge estado-alerta">⚠ Recall</span></td>
+              </tr>
+              <tr>
+                <td class="font-mono text-sm text-blue-700">LOT-CMP-2026-05</td>
+                <td>Curry Madras en Polvo 400g</td>
+                <td>India</td>
+                <td>
+                  <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded font-semibold mr-1">Halal</span>
+                  <span class="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold">FDA</span>
+                </td>
+                <td class="text-sm">15 may 2026</td>
+                <td class="text-center font-semibold">12</td>
+                <td><span class="estado-badge estado-confirmado">Activo</span></td>
+              </tr>
+              <tr>
+                <td class="font-mono text-sm text-blue-700">LOT-MHM-2026-04</td>
+                <td>Maseca Harina de Maíz 4.4lb</td>
+                <td>México</td>
+                <td><span class="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold">FDA</span></td>
+                <td class="text-sm">20 abr 2026</td>
+                <td class="text-center font-semibold">19</td>
+                <td><span class="estado-badge estado-confirmado">Activo</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-slate-400 mt-3 text-right">Datos de muestra · El sistema real registra cada movimiento de lote automáticamente</p>
+      </div>
+
+      <!-- ===== TAB 4: BÚSQUEDA Y REPORTES ===== -->
+      <div id="tab-busqueda" class="tab-pane">
+        <div class="mb-5">
+          <h2 class="text-lg font-bold text-slate-800 mb-1">Búsqueda Global y Reportes</h2>
+          <p class="text-sm text-slate-500">Encuentre cualquier pedido, cliente, lote o producto en segundos. Exporte reportes de compliance con un clic.</p>
+        </div>
+
+        <!-- Buscador -->
+        <div class="card p-5 mb-5">
+          <label class="text-sm font-semibold text-slate-600 mb-2 block">Buscar pedido, cliente, lote o producto</label>
+          <div class="flex gap-2 flex-wrap">
+            <input id="input-busqueda" type="text"
+              placeholder="Ej: Caribbean Grocer, LOT-BCR, Maseca..."
+              class="flex-1 min-w-48 border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:border-transparent"
+              style="--tw-ring-color: var(--azul-claro)"
+              onkeydown="if(event.key==='Enter') ejecutarBusqueda()"
+            />
+            <button onclick="ejecutarBusqueda()"
+              class="text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition"
+              style="background:var(--azul)">
+              Buscar
+            </button>
+          </div>
+        </div>
+
+        <!-- Resultados búsqueda -->
+        <div id="resultados-busqueda" style="display:none" class="card p-5 mb-5">
+          <h3 class="font-bold text-slate-700 mb-3" id="titulo-resultados">Resultados</h3>
+          <div id="lista-resultados"></div>
+        </div>
+
+        <!-- Reportes rápidos -->
+        <h3 class="font-bold text-slate-700 mb-3">Reportes de Compliance — Generación automática</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
+          <div class="card p-4 hover:shadow-md transition cursor-pointer" onclick="mostrarReporte('halal')">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-2xl">📋</span>
+              <h4 class="font-bold text-slate-700">Reporte Halal</h4>
+            </div>
+            <p class="text-xs text-slate-500">Lista de todos los productos con certificación Halal activa, por lote y cliente despachado.</p>
+            <button class="mt-3 text-xs font-semibold px-3 py-1.5 rounded-lg text-white transition w-full" style="background:var(--azul-claro)">
+              Generar reporte
+            </button>
+          </div>
+          <div class="card p-4 hover:shadow-md transition cursor-pointer" onclick="mostrarReporte('fda')">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-2xl">🏛️</span>
+              <h4 class="font-bold text-slate-700">Reporte FDA</h4>
+            </div>
+            <p class="text-xs text-slate-500">Trazabilidad completa de importaciones FDA, requisitos de etiquetado y cadena de distribución.</p>
+            <button class="mt-3 text-xs font-semibold px-3 py-1.5 rounded-lg text-white transition w-full" style="background:var(--azul-claro)">
+              Generar reporte
+            </button>
+          </div>
+          <div class="card p-4 hover:shadow-md transition cursor-pointer" onclick="mostrarReporte('estados')">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-2xl">🗺️</span>
+              <h4 class="font-bold text-slate-700">Cobertura por Estado</h4>
+            </div>
+            <p class="text-xs text-slate-500">Distribución de pedidos y clientes por estado — los 44+ estados cubiertos con detalle de volumen.</p>
+            <button class="mt-3 text-xs font-semibold px-3 py-1.5 rounded-lg text-white transition w-full" style="background:var(--azul-claro)">
+              Generar reporte
+            </button>
+          </div>
+        </div>
+
+        <!-- Reporte muestra -->
+        <div id="reporte-muestra" style="display:none" class="card p-5">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-slate-800" id="titulo-reporte">Reporte</h3>
+            <button onclick="document.getElementById('reporte-muestra').style.display='none'"
+              class="text-xs text-slate-400 hover:text-slate-600">✕ Cerrar</button>
+          </div>
+          <div id="contenido-reporte"></div>
+        </div>
+
+        <p class="text-xs text-slate-400 mt-3 text-right">Datos de muestra · Exportación a PDF/Excel disponible en el sistema real</p>
+      </div>
+
+    </div><!-- /p-5 -->
+  </div><!-- /card tabs -->
+</div><!-- /max-w -->
+
+<!-- Footer -->
+<div class="max-w-6xl mx-auto px-4 mt-6 pb-28">
+  <p class="text-xs text-center text-slate-400">
+    Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
+  </p>
+</div>
+
+<!-- ===== SIDEBAR DETALLE ===== -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="cerrarDetalle()"></div>
+<div class="sidebar-detalle" id="sidebar-detalle">
+  <div class="flex justify-between items-center mb-5">
+    <h2 class="font-bold text-lg text-slate-800">Detalle del Pedido</h2>
+    <button onclick="cerrarDetalle()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">✕</button>
+  </div>
+  <div id="sidebar-contenido"></div>
+</div>
+
+<!-- ===== CTA FLOTANTE ===== -->
+<button id="cta-flotante" onclick="abrirCalendly()">
+  ¿Le gustó? Hablemos
+</button>
+
+<!-- ===== MODAL GANADO ===== -->
+<div id="modal-overlay">
+  <div id="modal-box">
+    <div class="text-4xl mb-3">🌴</div>
+    <h3 class="text-xl font-bold text-slate-800 mb-2">¿Qué le parece tener esto para Trópico?</h3>
+    <p class="text-sm text-slate-500 mb-5">
+      Inventario unificado Houston + Miami, portal de pedidos B2B para sus clientes, y trazabilidad de lote que convierte el compliance en ventaja — no en riesgo.
+    </p>
+    <button onclick="abrirCalendly()"
+      class="w-full text-white font-bold py-3 px-6 rounded-xl text-base mb-3 transition hover:opacity-90"
+      style="background: linear-gradient(135deg, var(--azul), var(--azul-claro))">
+      Agendar conversación con Pocho.tech
+    </button>
+    <button onclick="cerrarModal()"
+      class="text-sm text-slate-400 hover:text-slate-600 underline">
+      Seguir explorando la demo
+    </button>
+  </div>
+</div>
+
+<script>
+// ===== ESTADO GLOBAL =====
+var tabVisitas = 1; // empieza en 1 por la vista inicial
+var modalMostrado = false;
+var CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=alltropicaldistr';
+
+// ===== MODAL GANADO =====
+function verificarModal() {
+  if (modalMostrado) return;
+  if (sessionStorage.getItem('modal_alltropical_mostrado')) { modalMostrado = true; return; }
+  if (tabVisitas >= 3) { mostrarModal(); }
+}
+
+function mostrarModal() {
+  if (modalMostrado) return;
+  if (sessionStorage.getItem('modal_alltropical_mostrado')) { modalMostrado = true; return; }
+  modalMostrado = true;
+  sessionStorage.setItem('modal_alltropical_mostrado', '1');
+  document.getElementById('modal-overlay').classList.add('visible');
+}
+
+function cerrarModal() {
+  document.getElementById('modal-overlay').classList.remove('visible');
+}
+
+function abrirCalendly() {
+  cerrarModal();
+  window.open(CALENDLY, '_blank', 'noopener');
+}
+
+// Timer 75 segundos
+setTimeout(function() { mostrarModal(); }, 75000);
+
+// Click fuera del modal
+document.getElementById('modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) cerrarModal();
+});
+
+// ===== TABS =====
+function cambiarTab(nombre, btn) {
+  // Ocultar todos
+  document.querySelectorAll('.tab-pane').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  // Mostrar el seleccionado
+  document.getElementById('tab-' + nombre).classList.add('active');
+  btn.classList.add('active');
+  // Contar visita
+  tabVisitas++;
+  verificarModal();
+}
+
+// ===== ACCIÓN: CONFIRMAR PEDIDO (interacción visible que actualiza el tablero) =====
+function confirmarPedido(btn, pedidoId) {
+  var fila = btn.closest('tr');
+  var badge = fila.querySelector('.estado-badge');
+
+  // Actualizar badge
+  badge.className = 'estado-badge estado-confirmado';
+  badge.textContent = '✓ Confirmado';
+
+  // Cambiar botón
+  btn.textContent = 'Confirmado';
+  btn.disabled = true;
+  btn.className = 'text-xs border border-green-300 text-green-700 px-3 py-1.5 rounded font-semibold cursor-default';
+
+  // Flash en fila
+  fila.classList.add('flash-green');
+  setTimeout(function() { fila.classList.remove('flash-green'); }, 1200);
+
+  // Actualizar KPI alertas si era el de stock bajo
+  if (pedidoId === 'ATD-2026-0741') {
+    var kpi = document.getElementById('kpi-alertas');
+    var val = parseInt(kpi.textContent);
+    if (val > 0) { kpi.textContent = val - 1; }
+  }
+}
+
+// ===== SIDEBAR DETALLE =====
+var detalles = {
+  'ATD-2026-0741': {
+    numero: 'ATD-2026-0741',
+    cliente: 'El Mercado LATAM',
+    estado_cliente: 'Chicago, IL',
+    bodega: 'Miami',
+    estado: 'Stock bajo',
+    skus: 8,
+    total: '$4,380.00',
+    items: [
+      {prod: 'Nata de Coco Original 24-pk', cant: 500, lote: 'LOT-NC24-2026-07', cert: 'Halal'},
+      {prod: 'Curry Madras en Polvo 400g', cant: 80, lote: 'LOT-CMP-2026-05', cert: 'Halal'},
+      {prod: 'Botan Calrose Rice 50lb', cant: 120, lote: 'LOT-BCR-2026-03', cert: 'FDA'},
+    ],
+    historial: [
+      {fecha: '18 may 2026', evento: 'Pedido anterior entregado — ATD-2026-0692'},
+      {fecha: '02 abr 2026', evento: 'Pedido entregado — ATD-2026-0651'},
+      {fecha: '10 feb 2026', evento: 'Cliente registrado como mayorista activo'},
+    ]
+  },
+  'ATD-2026-0740': {
+    numero: 'ATD-2026-0740',
+    cliente: 'Tropical Foods Inc.',
+    estado_cliente: 'Houston, TX',
+    bodega: 'Houston',
+    estado: 'En tránsito',
+    skus: 12,
+    total: '$7,920.00',
+    items: [
+      {prod: 'Maseca Harina de Maíz 4.4lb', cant: 200, lote: 'LOT-MHM-2026-04', cert: 'FDA'},
+      {prod: 'Café La Nostalgia 500g', cant: 150, lote: 'LOT-CLN-2026-06', cert: '—'},
+      {prod: 'Galletas María Gamesa 1kg', cant: 180, lote: 'LOT-GMG-2026-05', cert: '—'},
+    ],
+    historial: [
+      {fecha: '20 jun 2026', evento: 'Pedido anterior entregado — ATD-2026-0710'},
+      {fecha: '15 may 2026', evento: 'Precio por volumen actualizado para este cliente'},
+      {fecha: '01 mar 2026', evento: 'Primera orden como cliente mayorista'},
+    ]
+  },
+  'ATD-2026-0739': {
+    numero: 'ATD-2026-0739',
+    cliente: 'Sabores del Mundo',
+    estado_cliente: 'Miami, FL',
+    bodega: 'Houston',
+    estado: 'Confirmado',
+    skus: 5,
+    total: '$2,100.00',
+    items: [
+      {prod: 'Sofrito La Fe 12oz', cant: 96, lote: 'LOT-SLF-2026-07', cert: '—'},
+      {prod: 'Jumex Mango Nectar 24-pk', cant: 48, lote: 'LOT-JMN-2026-06', cert: '—'},
+    ],
+    historial: [
+      {fecha: '05 jul 2026', evento: 'Pedido anterior entregado — ATD-2026-0728'},
+      {fecha: '10 jun 2026', evento: 'Descuento por volumen aplicado (cliente recurrente)'},
+    ]
+  },
+  'ATD-2026-0738': {
+    numero: 'ATD-2026-0738',
+    cliente: 'Caribbean Grocer NY',
+    estado_cliente: 'New York, NY',
+    bodega: 'Miami',
+    estado: 'Cotización pendiente',
+    skus: 20,
+    total: 'Por confirmar',
+    items: [
+      {prod: 'Nata de Coco Original 24-pk', cant: 240, lote: 'LOT-NC24-2026-07', cert: 'Halal'},
+      {prod: 'Botan Calrose Rice 50lb', cant: 100, lote: 'LOT-BCR-2026-03', cert: 'FDA'},
+      {prod: 'Naan Plain 18-pack', cant: 72, lote: 'LOT-NP18-2026-05', cert: 'Halal'},
+    ],
+    historial: [
+      {fecha: '12 jul 2026', evento: 'Pedido anterior entregado — ATD-2026-0731'},
+      {fecha: '08 jul 2026', evento: 'Pedido realizado a las 11:30pm (domingo) — sin portal: habría esperado al lunes'},
+    ]
+  },
+  'ATD-2026-0737': {
+    numero: 'ATD-2026-0737',
+    cliente: 'La Placita Foods',
+    estado_cliente: 'Los Ángeles, CA',
+    bodega: 'Houston',
+    estado: 'En tránsito',
+    skus: 9,
+    total: '$5,250.00',
+    items: [
+      {prod: 'Maseca Harina de Maíz 4.4lb', cant: 300, lote: 'LOT-MHM-2026-04', cert: 'FDA'},
+      {prod: 'Café La Nostalgia 500g', cant: 120, lote: 'LOT-CLN-2026-06', cert: '—'},
+    ],
+    historial: [
+      {fecha: '15 jun 2026', evento: 'Pedido anterior entregado — ATD-2026-0703'},
+      {fecha: '20 abr 2026', evento: 'Cliente referido por Tropical Foods Inc.'},
+    ]
+  }
+};
+
+function abrirDetalle(pedidoId) {
+  var d = detalles[pedidoId];
+  if (!d) return;
+
+  var estadoClase = 'estado-confirmado';
+  if (d.estado === 'En tránsito') estadoClase = 'estado-transito';
+  if (d.estado === 'Stock bajo') estadoClase = 'estado-alerta';
+  if (d.estado === 'Cotización pendiente') estadoClase = 'estado-pendiente';
+
+  var html = '<div class="space-y-4">';
+
+  // Cabecera
+  html += '<div class="bg-slate-50 rounded-xl p-4">';
+  html += '<div class="flex justify-between items-start flex-wrap gap-2">';
+  html += '<div><p class="font-mono text-blue-700 font-bold text-base">' + d.numero + '</p>';
+  html += '<p class="font-bold text-slate-800 text-lg">' + d.cliente + '</p>';
+  html += '<p class="text-sm text-slate-400">' + d.estado_cliente + '</p></div>';
+  html += '<span class="estado-badge ' + estadoClase + '">' + d.estado + '</span>';
+  html += '</div>';
+  html += '<div class="grid grid-cols-3 gap-3 mt-4 text-center">';
+  html += '<div><p class="text-lg font-bold text-slate-700">' + d.skus + '</p><p class="text-xs text-slate-400">SKUs</p></div>';
+  html += '<div><p class="text-xs font-bold text-slate-500 uppercase tracking-wide pt-1">Bodega</p><p class="text-sm font-semibold" style="color:var(--azul)">' + d.bodega + '</p></div>';
+  html += '<div><p class="text-sm font-bold text-slate-700">' + d.total + '</p><p class="text-xs text-slate-400">Total est.</p></div>';
+  html += '</div></div>';
+
+  // Líneas de pedido
+  html += '<div><h4 class="font-bold text-slate-700 mb-2 text-sm uppercase tracking-wide">Productos del pedido</h4>';
+  html += '<div class="space-y-2">';
+  d.items.forEach(function(item) {
+    html += '<div class="flex justify-between items-start bg-white border border-slate-200 rounded-lg p-3">';
+    html += '<div><p class="font-medium text-sm">' + item.prod + '</p>';
+    html += '<p class="text-xs text-slate-400 font-mono mt-0.5">Lote: ' + item.lote + '</p></div>';
+    html += '<div class="text-right">';
+    html += '<p class="font-bold text-slate-700">' + item.cant + ' un.</p>';
+    if (item.cert !== '—') {
+      html += '<span class="text-xs font-semibold bg-green-50 text-green-700 px-2 py-0.5 rounded">' + item.cert + '</span>';
+    }
+    html += '</div></div>';
+  });
+  html += '</div></div>';
+
+  // Historial
+  html += '<div><h4 class="font-bold text-slate-700 mb-2 text-sm uppercase tracking-wide">Historial del cliente</h4>';
+  html += '<div class="space-y-2">';
+  d.historial.forEach(function(h) {
+    html += '<div class="flex gap-3 items-start">';
+    html += '<div class="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style="background:var(--azul-claro)"></div>';
+    html += '<div><p class="text-xs text-slate-400">' + h.fecha + '</p><p class="text-sm text-slate-600">' + h.evento + '</p></div>';
+    html += '</div>';
+  });
+  html += '</div></div>';
+
+  html += '</div>';
+
+  document.getElementById('sidebar-contenido').innerHTML = html;
+  document.getElementById('sidebar-detalle').classList.add('open');
+  document.getElementById('sidebar-overlay').classList.add('open');
+}
+
+function cerrarDetalle() {
+  document.getElementById('sidebar-detalle').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
+
+// ===== RECALL COMPLIANCE =====
+function ejecutarRecall() {
+  var btn = document.getElementById('btn-recall');
+  btn.textContent = 'Rastreando...';
+  btn.disabled = true;
+  btn.className = 'bg-slate-400 text-white font-bold px-4 py-2 rounded-lg text-sm cursor-not-allowed';
+
+  setTimeout(function() {
+    document.getElementById('recall-resultado').style.display = 'block';
+    btn.textContent = '✓ Rastreo completo';
+  }, 1200);
+}
+
+function resetRecall() {
+  document.getElementById('recall-resultado').style.display = 'none';
+  var btn = document.getElementById('btn-recall');
+  btn.textContent = 'Rastrear este lote ahora';
+  btn.disabled = false;
+  btn.className = 'bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition';
+}
+
+// ===== BÚSQUEDA =====
+var dataBusqueda = [
+  {tipo: 'Pedido', id: 'ATD-2026-0741', desc: 'El Mercado LATAM — Chicago, IL', estado: 'estado-alerta', badge: '⚠ Stock bajo', pedidoId: 'ATD-2026-0741'},
+  {tipo: 'Pedido', id: 'ATD-2026-0740', desc: 'Tropical Foods Inc. — Houston, TX', estado: 'estado-transito', badge: '🚚 En tránsito', pedidoId: 'ATD-2026-0740'},
+  {tipo: 'Pedido', id: 'ATD-2026-0739', desc: 'Sabores del Mundo — Miami, FL', estado: 'estado-confirmado', badge: '✓ Confirmado', pedidoId: 'ATD-2026-0739'},
+  {tipo: 'Pedido', id: 'ATD-2026-0738', desc: 'Caribbean Grocer NY — New York, NY', estado: 'estado-pendiente', badge: '⏳ Cotización pendiente', pedidoId: 'ATD-2026-0738'},
+  {tipo: 'Pedido', id: 'ATD-2026-0737', desc: 'La Placita Foods — Los Ángeles, CA', estado: 'estado-transito', badge: '🚚 En tránsito', pedidoId: 'ATD-2026-0737'},
+  {tipo: 'Lote', id: 'LOT-BCR-2026-03', desc: 'Botan Calrose Rice 50lb — Recall activo', estado: 'estado-alerta', badge: '⚠ Recall FDA'},
+  {tipo: 'Lote', id: 'LOT-NC24-2026-07', desc: 'Nata de Coco Original 24-pk — Activo', estado: 'estado-confirmado', badge: 'Activo'},
+  {tipo: 'Lote', id: 'LOT-CMP-2026-05', desc: 'Curry Madras en Polvo 400g — Activo', estado: 'estado-confirmado', badge: 'Activo'},
+  {tipo: 'Producto', id: 'SKU-BCR50-USA', desc: 'Botan Calrose Rice 50lb — 527 un. totales'},
+  {tipo: 'Producto', id: 'SKU-NC24-PHL', desc: 'Nata de Coco Original 24-pk — Stock bajo en Miami'},
+  {tipo: 'Producto', id: 'SKU-MHM44-MEX', desc: 'Maseca Harina de Maíz 4.4lb — 1,130 un. totales'},
+  {tipo: 'Cliente', id: 'Caribbean Grocer', desc: 'Caribbean Grocer NY — New York, NY — 3 pedidos activos'},
+  {tipo: 'Cliente', id: 'El Mercado LATAM', desc: 'El Mercado LATAM — Chicago, IL — cliente recurrente'},
+  {tipo: 'Cliente', id: 'Tropical Foods', desc: 'Tropical Foods Inc. — Houston, TX — 12 pedidos históricos'},
+];
+
+function ejecutarBusqueda() {
+  var q = document.getElementById('input-busqueda').value.toLowerCase().trim();
+  if (!q) return;
+
+  var resultados = dataBusqueda.filter(function(r) {
+    return (r.id + ' ' + r.desc).toLowerCase().indexOf(q) !== -1;
+  });
+
+  var div = document.getElementById('resultados-busqueda');
+  var lista = document.getElementById('lista-resultados');
+  var titulo = document.getElementById('titulo-resultados');
+
+  div.style.display = 'block';
+  titulo.textContent = resultados.length + ' resultado(s) para "' + document.getElementById('input-busqueda').value + '"';
+
+  if (resultados.length === 0) {
+    lista.innerHTML = '<p class="text-sm text-slate-400 py-4 text-center">No se encontraron coincidencias. Pruebe con otro término.</p>';
+    return;
+  }
+
+  var html = '<div class="space-y-2">';
+  resultados.forEach(function(r) {
+    var badgeColor = 'bg-slate-100 text-slate-600';
+    if (r.tipo === 'Pedido') badgeColor = 'bg-blue-100 text-blue-700';
+    if (r.tipo === 'Lote') badgeColor = 'bg-amber-100 text-amber-700';
+    if (r.tipo === 'Producto') badgeColor = 'bg-green-100 text-green-700';
+    if (r.tipo === 'Cliente') badgeColor = 'bg-purple-100 text-purple-700';
+
+    var clickable = r.pedidoId ? 'cursor-pointer hover:bg-slate-50' : '';
+    var clickAction = r.pedidoId ? 'onclick="abrirDetalle(\'' + r.pedidoId + '\')"' : '';
+
+    html += '<div class="flex items-center justify-between border border-slate-200 rounded-lg p-3 ' + clickable + '" ' + clickAction + '>';
+    html += '<div class="flex items-center gap-3">';
+    html += '<span class="text-xs font-semibold px-2 py-1 rounded ' + badgeColor + '">' + r.tipo + '</span>';
+    html += '<div><p class="font-semibold text-sm">' + r.id + '</p><p class="text-xs text-slate-400">' + r.desc + '</p></div>';
+    html += '</div>';
+    if (r.badge) {
+      html += '<span class="estado-badge ' + (r.estado || '') + '">' + r.badge + '</span>';
+    }
+    html += '</div>';
+  });
+  html += '</div>';
+  lista.innerHTML = html;
+}
+
+// ===== REPORTES =====
+function mostrarReporte(tipo) {
+  var div = document.getElementById('reporte-muestra');
+  var titulo = document.getElementById('titulo-reporte');
+  var contenido = document.getElementById('contenido-reporte');
+  div.style.display = 'block';
+
+  if (tipo === 'halal') {
+    titulo.textContent = 'Reporte Halal — 26 jul 2026';
+    contenido.innerHTML = '<div class="overflow-x-auto"><table><thead><tr><th>Lote</th><th>Producto</th><th>Origen</th><th>Cert. Halal</th><th>Unidades distribuidas</th><th>Clientes</th></tr></thead><tbody>'
+      + '<tr><td class="font-mono text-blue-700">LOT-NC24-2026-07</td><td>Nata de Coco Original 24-pk</td><td>Filipinas</td><td><span class="estado-badge estado-confirmado">Vigente</span></td><td>1,840</td><td>7</td></tr>'
+      + '<tr><td class="font-mono text-blue-700">LOT-CMP-2026-05</td><td>Curry Madras en Polvo 400g</td><td>India</td><td><span class="estado-badge estado-confirmado">Vigente</span></td><td>620</td><td>12</td></tr>'
+      + '<tr><td class="font-mono text-blue-700">LOT-NP18-2026-05</td><td>Naan Plain 18-pack</td><td>India</td><td><span class="estado-badge estado-confirmado">Vigente</span></td><td>324</td><td>4</td></tr>'
+      + '</tbody></table></div>'
+      + '<p class="text-xs text-slate-400 mt-3">Reporte generado automáticamente · Datos de muestra · Exportable a PDF/Excel</p>';
+  } else if (tipo === 'fda') {
+    titulo.textContent = 'Reporte FDA — 26 jul 2026';
+    contenido.innerHTML = '<div class="overflow-x-auto"><table><thead><tr><th>Lote</th><th>Producto</th><th>Origen</th><th>Status</th><th>Clientes afectados</th><th>Observación</th></tr></thead><tbody>'
+      + '<tr><td class="font-mono text-red-600 font-bold">LOT-BCR-2026-03</td><td>Botan Calrose Rice 50lb</td><td>EE.UU.</td><td><span class="estado-badge estado-alerta">⚠ Recall</span></td><td>4</td><td>Notificación FDA recibida 26 jul</td></tr>'
+      + '<tr><td class="font-mono text-blue-700">LOT-MHM-2026-04</td><td>Maseca Harina de Maíz 4.4lb</td><td>México</td><td><span class="estado-badge estado-confirmado">OK</span></td><td>19</td><td>Etiquetado conforme</td></tr>'
+      + '</tbody></table></div>'
+      + '<div class="mt-3 bg-red-50 border border-red-200 rounded-lg p-3"><p class="text-sm font-semibold text-red-800">1 lote con recall activo. 4 clientes requieren notificación.</p></div>'
+      + '<p class="text-xs text-slate-400 mt-3">Reporte generado automáticamente · Datos de muestra · Exportable a PDF/Excel</p>';
+  } else if (tipo === 'estados') {
+    titulo.textContent = 'Cobertura por Estado — 26 jul 2026';
+    contenido.innerHTML = '<div class="overflow-x-auto"><table><thead><tr><th>Estado</th><th>Pedidos activos</th><th>Clientes</th><th>Bodega principal</th></tr></thead><tbody>'
+      + '<tr><td>Texas</td><td>4</td><td>3</td><td>Houston</td></tr>'
+      + '<tr><td>Florida</td><td>3</td><td>2</td><td>Miami</td></tr>'
+      + '<tr><td>New York</td><td>2</td><td>1</td><td>Miami</td></tr>'
+      + '<tr><td>California</td><td>2</td><td>2</td><td>Houston</td></tr>'
+      + '<tr><td>Illinois</td><td>1</td><td>1</td><td>Miami</td></tr>'
+      + '<tr><td class="text-slate-400 italic">+ 39 estados más...</td><td class="text-slate-400">—</td><td class="text-slate-400">—</td><td class="text-slate-400">—</td></tr>'
+      + '</tbody></table></div>'
+      + '<p class="text-xs text-slate-400 mt-3">Cobertura total: 44+ estados · Datos de muestra · Exportable a PDF/Excel</p>';
+  }
+  div.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+}
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

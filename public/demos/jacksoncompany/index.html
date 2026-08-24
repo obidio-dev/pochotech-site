@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bellaire &amp; Co. — Event Command Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #e0c06e;
+      --carbon: #1A1A1A;
+      --deep: #0D0D0D;
+      --cream: #F5F0E8;
+      --muted: #9a9187;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background: var(--carbon);
+      color: var(--cream);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* ---------- SCROLLBAR ---------- */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--carbon); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ---------- DEMO BADGE ---------- */
+    #demo-badge {
+      position: fixed;
+      top: 12px;
+      right: 14px;
+      z-index: 9999;
+      background: var(--gold);
+      color: var(--deep);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      font-family: 'Georgia', serif;
+      padding: 4px 10px;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    /* ---------- HEADER ---------- */
+    #site-header {
+      background: var(--deep);
+      border-bottom: 1px solid rgba(201,168,76,0.25);
+      padding: 18px 24px 14px;
+    }
+
+    #site-header h1 {
+      font-size: clamp(1.15rem, 3vw, 1.6rem);
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 0 0 2px;
+      font-weight: 400;
+    }
+
+    #site-header p {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* ---------- NAV TABS ---------- */
+    #nav-tabs {
+      background: var(--deep);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+      padding: 0 24px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--muted);
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 14px 20px 11px;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab-btn:hover { color: var(--cream); }
+
+    .tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ---------- VIEWS ---------- */
+    .view { display: none; padding: 24px; max-width: 1200px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    /* ---------- CARDS ---------- */
+    .card {
+      background: #242424;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px;
+    }
+
+    .card-header {
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .card-title {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+    }
+
+    /* ---------- STATUS BADGES ---------- */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge-new      { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.4); }
+    .badge-quoted   { background: rgba(99,179,237,0.12); color: #7ec8e3;      border: 1px solid rgba(99,179,237,0.3); }
+    .badge-confirmed{ background: rgba(72,187,120,0.12); color: #68d391;      border: 1px solid rgba(72,187,120,0.3); }
+    .badge-executed { background: rgba(160,174,192,0.12); color: #a0aec0;     border: 1px solid rgba(160,174,192,0.3); }
+    .badge-alert    { background: rgba(252,129,74,0.12); color: #fc814a;      border: 1px solid rgba(252,129,74,0.35); }
+
+    /* ---------- SOURCE ICONS ---------- */
+    .source-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    .src-web       { background: var(--gold); }
+    .src-phone     { background: #68d391; }
+    .src-instagram { background: #e05fa0; }
+
+    /* ---------- INQUIRY ROWS ---------- */
+    .inquiry-row {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 90px;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .inquiry-row:hover { background: rgba(201,168,76,0.05); }
+    .inquiry-row:last-child { border-bottom: none; }
+
+    .inquiry-row .name { font-size: 13px; color: var(--cream); font-weight: 600; }
+    .inquiry-row .sub  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .col-hdr {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: 'Arial', sans-serif;
+    }
+
+    .grid-hdr {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 90px;
+      gap: 12px;
+      padding: 10px 18px;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+
+    /* ---------- BTN ---------- */
+    .btn-gold {
+      background: var(--gold);
+      color: var(--deep);
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      padding: 9px 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      font-family: 'Arial', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.1); }
+
+    /* ---------- STAT CARDS ---------- */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: #1e1e1e;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px;
+      padding: 16px 18px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: 'Arial', sans-serif;
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      color: var(--gold);
+      font-weight: 400;
+      margin: 6px 0 2px;
+    }
+
+    .stat-sub {
+      font-size: 10px;
+      color: var(--muted);
+      font-family: 'Arial', sans-serif;
+    }
+
+    /* ---------- DETAIL VIEW ---------- */
+    .detail-section {
+      background: #242424;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px;
+      margin-bottom: 18px;
+    }
+
+    .detail-section .section-title {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      padding: 13px 18px;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-family: 'Arial', sans-serif;
+    }
+
+    .timeline-item:last-child { border-bottom: none; }
+
+    .timeline-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .timeline-dot.dot-muted { background: var(--muted); }
+
+    .timeline-content .t-title { font-size: 13px; color: var(--cream); }
+    .timeline-content .t-meta  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* ---------- PROPOSAL PANEL ---------- */
+    .proposal-panel {
+      background: #1e1e1e;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 6px;
+      padding: 22px;
+    }
+
+    .proposal-header {
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .proposal-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+    }
+
+    .proposal-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* ---------- SEARCH / REPORT ---------- */
+    .search-input {
+      background: #1e1e1e;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 4px;
+      color: var(--cream);
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      padding: 10px 14px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus { border-color: var(--gold); }
+    .search-input::placeholder { color: var(--muted); }
+
+    .filter-select {
+      background: #1e1e1e;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 4px;
+      color: var(--cream);
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      padding: 10px 12px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* ---------- ALERT STRIP ---------- */
+    .alert-strip {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .alert-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ---------- TOAST ---------- */
+    #toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: #2a2a2a;
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-family: 'Arial', sans-serif;
+      font-size: 13px;
+      color: var(--cream);
+      z-index: 8000;
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ---------- FLOATING CTA ---------- */
+    #float-cta {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 7000;
+    }
+
+    #float-cta button {
+      background: var(--gold);
+      color: var(--deep);
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.45);
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    #float-cta button:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- MODAL ---------- */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      z-index: 9000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #modal-overlay.open { display: flex; }
+
+    #modal-box {
+      background: #1e1e1e;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 8px;
+      padding: 36px 32px;
+      max-width: 460px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    #modal-box h2 {
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0 0 12px;
+    }
+
+    #modal-box p {
+      font-size: 14px;
+      color: var(--cream);
+      line-height: 1.6;
+      margin: 0 0 24px;
+      font-family: 'Arial', sans-serif;
+    }
+
+    #modal-close {
+      position: absolute;
+      top: 14px; right: 18px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    #modal-close:hover { color: var(--cream); }
+
+    /* ---------- PROGRESS BAR ---------- */
+    .progress-bar {
+      height: 4px;
+      background: rgba(201,168,76,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    /* ---------- PAIN PANEL (view 3) ---------- */
+    .pain-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .pain-comparison { grid-template-columns: 1fr; }
+      .inquiry-row { grid-template-columns: 1fr 80px; }
+      .inquiry-row .col-event,
+      .inquiry-row .col-pax,
+      .inquiry-row .col-date { display: none; }
+      .grid-hdr { grid-template-columns: 1fr 80px; }
+      .grid-hdr .col-event,
+      .grid-hdr .col-pax,
+      .grid-hdr .col-date { display: none; }
+    }
+
+    .pain-box {
+      background: #1e1e1e;
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 6px;
+      padding: 20px;
+    }
+
+    .pain-box.pain-before { border-color: rgba(252,129,74,0.25); }
+    .pain-box.pain-after  { border-color: rgba(104,211,145,0.25); }
+
+    .pain-box-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .pain-before .pain-box-label { color: #fc814a; }
+    .pain-after  .pain-box-label { color: #68d391; }
+
+    .pain-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-family: 'Arial', sans-serif;
+      font-size: 12px;
+      color: var(--cream);
+      line-height: 1.5;
+    }
+
+    .pain-icon { flex-shrink: 0; font-size: 14px; margin-top: 1px; }
+
+    /* ---------- REPORT CHART ---------- */
+    .mini-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 80px;
+      padding: 0 4px;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .bar {
+      width: 100%;
+      background: rgba(201,168,76,0.2);
+      border-radius: 3px 3px 0 0;
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .bar:hover { background: rgba(201,168,76,0.5); }
+
+    .bar-val {
+      font-size: 9px;
+      color: var(--gold);
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+    }
+
+    .bar-lbl {
+      font-size: 9px;
+      color: var(--muted);
+      font-family: 'Arial', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---------- METRIC ROW ---------- */
+    .metric-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 11px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-family: 'Arial', sans-serif;
+    }
+
+    .metric-row:last-child { border-bottom: none; }
+
+    .metric-label { font-size: 12px; color: var(--cream); flex: 1; }
+    .metric-value { font-size: 13px; color: var(--gold); font-weight: 700; }
+    .metric-bar   { flex: 2; }
+
+    /* ---------- SECTION LABEL ---------- */
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: 'Arial', sans-serif;
+      font-weight: 700;
+      margin: 22px 0 10px;
+    }
+
+    /* RESPONSIVE MOBILE */
+    @media (max-width: 480px) {
+      .view { padding: 14px; }
+      #nav-tabs { padding: 0 10px; }
+      .tab-btn { padding: 12px 12px 9px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DEMO BADGE -->
+<div id="demo-badge">DEMO &middot; SAMPLE DATA</div>
+
+<!-- HEADER -->
+<header id="site-header">
+  <h1>Bellaire &amp; Co.</h1>
+  <p>What your own system would look like &mdash; prepared by Pocho.tech</p>
+</header>
+
+<!-- NAV TABS -->
+<nav id="nav-tabs" role="tablist">
+  <button class="tab-btn active" data-view="operations" role="tab">Operations Board</button>
+  <button class="tab-btn" data-view="client"     role="tab">Client Account</button>
+  <button class="tab-btn" data-view="proposal"   role="tab">Proposal Builder</button>
+  <button class="tab-btn" data-view="reports"    role="tab">Search &amp; Reports</button>
+</nav>
+
+<!-- ===== VIEW 1: OPERATIONS BOARD ===== -->
+<section class="view active" id="view-operations">
+
+  <!-- Stats -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-label">Active Inquiries</div>
+      <div class="stat-value">14</div>
+      <div class="stat-sub">3 need follow-up today</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Events This Month</div>
+      <div class="stat-value">7</div>
+      <div class="stat-sub">2 confirmed, 5 in pipeline</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pipeline Value</div>
+      <div class="stat-value">$48k</div>
+      <div class="stat-sub">4 proposals pending signature</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Recurring Accounts</div>
+      <div class="stat-value">31</div>
+      <div class="stat-sub">8 due for annual outreach</div>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div class="section-label">Alerts &amp; Follow-ups</div>
+  <div class="alert-strip">
+    <span class="alert-icon">&#9888;</span>
+    <span><strong>Greenway Plaza Partners</strong> — proposal sent 6 days ago, no response. Suggested follow-up: today.</span>
+    <button class="btn-outline" style="margin-left:auto;white-space:nowrap;" onclick="markFollowupDone(this)">Mark Sent</button>
+  </div>
+  <div class="alert-strip">
+    <span class="alert-icon">&#9734;</span>
+    <span><strong>Houston Children's Charity Gala</strong> (Nov 15) — deposit not yet received. Contract signed 3 days ago.</span>
+    <button class="btn-outline" style="margin-left:auto;white-space:nowrap;" onclick="showToast('Deposit reminder sent to contact.')">Send Reminder</button>
+  </div>
+
+  <!-- Inquiry Pipeline -->
+  <div class="section-label" style="margin-top:24px;">Event Inquiry Pipeline</div>
+  <div class="card">
+    <div class="grid-hdr">
+      <div class="col-hdr">Client / Event</div>
+      <div class="col-hdr col-event">Event Type</div>
+      <div class="col-hdr col-pax">Pax</div>
+      <div class="col-hdr col-date">Date</div>
+      <div class="col-hdr">Source</div>
+      <div class="col-hdr">Status</div>
+    </div>
+
+    <!-- Row 1 — interactive (will be updated by action) -->
+    <div class="inquiry-row" id="row-greenway" onclick="openClientDetail()">
+      <div>
+        <div class="name">Greenway Plaza Partners</div>
+        <div class="sub">Corporate Luncheon &mdash; Q3 quarterly</div>
+      </div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Corporate Luncheon</div>
+      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">80</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Aug 14</div>
+      <div>
+        <span class="source-dot src-web"></span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Web</span>
+      </div>
+      <div><span class="badge badge-quoted" id="greenway-badge">Quoted</span></div>
+    </div>
+
+    <div class="inquiry-row" onclick="showToast('Opening detail for Houston Children\'s Charity...')">
+      <div>
+        <div class="name">Houston Children's Charity</div>
+        <div class="sub">Non-Profit Gala &mdash; dinner reception 200 pax</div>
+      </div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Non-Profit Gala</div>
+      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">200</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Nov 15</div>
+      <div>
+        <span class="source-dot src-phone"></span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Phone</span>
+      </div>
+      <div><span class="badge badge-confirmed">Confirmed</span></div>
+    </div>
+
+    <div class="inquiry-row" onclick="showToast('Opening detail for River Oaks Estate...')">
+      <div>
+        <div class="name">River Oaks Estate</div>
+        <div class="sub">Milestone Birthday &mdash; in-home dinner, wine pairing</div>
+      </div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">In-Home Dinner</div>
+      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">24</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Sep 6</div>
+      <div>
+        <span class="source-dot src-instagram"></span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Instagram</span>
+      </div>
+      <div><span class="badge badge-new">New</span></div>
+    </div>
+
+    <div class="inquiry-row" onclick="showToast('Opening detail for Kensington Capital Partners...')">
+      <div>
+        <div class="name">Kensington Capital Partners</div>
+        <div class="sub">Corporate Retreat &mdash; full-service event production</div>
+      </div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Corporate Retreat</div>
+      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">150</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Oct 3</div>
+      <div>
+        <span class="source-dot src-web"></span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Web</span>
+      </div>
+      <div><span class="badge badge-new">New</span></div>
+    </div>
+
+    <div class="inquiry-row" onclick="showToast('Opening detail for Memorial Park Museum...')">
+      <div>
+        <div class="name">Memorial Park Museum</div>
+        <div class="sub">Campaign Celebration &mdash; bespoke cocktails + passed appetizers</div>
+      </div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Campaign Celebration</div>
+      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">120</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Aug 29</div>
+      <div>
+        <span class="source-dot src-instagram"></span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Instagram</span>
+      </div>
+      <div><span class="badge badge-quoted">Quoted</span></div>
+    </div>
+
+    <div class="inquiry-row" onclick="showToast('Opening detail for Midtown Law Group...')">
+      <div>
+        <div class="name">Midtown Law Group</div>
+        <div class="sub">Holiday Corporate Gifting &mdash; 40 gift baskets</div>
+      </div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Gifting Order</div>
+      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">40 units</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Dec 12</div>
+      <div>
+        <span class="source-dot src-phone"></span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Phone</span>
+      </div>
+      <div><span class="badge badge-executed">Executed</span></div>
+    </div>
+
+  </div><!-- /card -->
+
+  <!-- Legend -->
+  <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;">
+    <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);">
+      <span class="source-dot src-web" style="display:inline-block;vertical-align:middle;"></span> Web form
+    </span>
+    <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);">
+      <span class="source-dot src-phone" style="display:inline-block;vertical-align:middle;"></span> Phone
+    </span>
+    <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);">
+      <span class="source-dot src-instagram" style="display:inline-block;vertical-align:middle;"></span> Instagram DM
+    </span>
+    <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);margin-left:auto;">
+      Click any row to view full event file
+    </span>
+  </div>
+
+</section>
+
+<!-- ===== VIEW 2: CLIENT ACCOUNT ===== -->
+<section class="view" id="view-client">
+
+  <!-- Client header -->
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:22px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:6px;">Client Account</div>
+      <h2 style="margin:0 0 4px;font-size:1.4rem;color:var(--cream);font-weight:400;">Greenway Plaza Partners</h2>
+      <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--muted);">Corporate Client &mdash; Houston, TX &mdash; Active since 2019</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn-outline" onclick="showToast('Outreach email drafted for Greenway Plaza Partners.')">Send Outreach</button>
+      <button class="btn-gold"    onclick="switchToProposal()">Build Proposal</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="stat-grid" style="margin-bottom:22px;">
+    <div class="stat-card">
+      <div class="stat-label">Lifetime Value</div>
+      <div class="stat-value">$62,400</div>
+      <div class="stat-sub">Since 2019</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Events Produced</div>
+      <div class="stat-value">8</div>
+      <div class="stat-sub">Avg. 1.6 / year</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg. Event Value</div>
+      <div class="stat-value">$7,800</div>
+      <div class="stat-sub">Last: $8,400 (Mar 2026)</div>
+    </div>
+    <div class="stat-card" style="border-color:rgba(201,168,76,0.4);">
+      <div class="stat-label">Next Event Likely</div>
+      <div class="stat-value" style="font-size:1.2rem;">Aug 2026</div>
+      <div class="stat-sub" style="color:#fc814a;">&#9650; Based on annual pattern</div>
+    </div>
+  </div>
+
+  <!-- Alert: upcoming opportunity -->
+  <div class="alert-strip" style="margin-bottom:22px;border-color:rgba(201,168,76,0.4);">
+    <span class="alert-icon">&#9733;</span>
+    <span>This account books a <strong>corporate luncheon every August</strong> — last year's event was $8,400. Outreach recommended before July 31 to secure the date.</span>
+    <button class="btn-gold" style="margin-left:auto;white-space:nowrap;" onclick="showToast('Outreach scheduled for Jul 31.')">Schedule Outreach</button>
+  </div>
+
+  <!-- Event History -->
+  <div class="section-label">Event History</div>
+  <div class="detail-section">
+    <div class="section-title">Full Account Timeline</div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="t-title">Corporate Luncheon &mdash; 80 pax &mdash; Quoted $7,200</div>
+        <div class="t-meta">Aug 2026 &bull; Status: Proposal sent, awaiting signature &bull; Menu: Custom farm-to-table, bespoke mocktail station</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="t-title">Q1 Corporate Luncheon &mdash; 85 pax &mdash; $8,400</div>
+        <div class="t-meta">Mar 2026 &bull; Completed &bull; Herb-crusted redfish, fried chicken bites, heirloom tomato salad, champagne tower</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot dot-muted"></div>
+      <div class="timeline-content">
+        <div class="t-title">Year-End Dinner Reception &mdash; 60 pax &mdash; $6,900</div>
+        <div class="t-meta">Dec 2025 &bull; Completed &bull; In-home dinner, wine pairing, custom cake</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot dot-muted"></div>
+      <div class="timeline-content">
+        <div class="t-title">Corporate Luncheon &mdash; 75 pax &mdash; $7,200</div>
+        <div class="t-meta">Aug 2025 &bull; Completed &bull; Award-winning culinary tasting menu</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot dot-muted"></div>
+      <div class="timeline-content">
+        <div class="t-title">Holiday Gifting Order &mdash; 50 gift baskets &mdash; $4,500</div>
+        <div class="t-meta">Dec 2024 &bull; Completed &bull; Holiday Corporate Edition, limited-edition spirits basket</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot dot-muted"></div>
+      <div class="timeline-content">
+        <div class="t-title">First Inquiry &mdash; Corporate Luncheon &mdash; $6,200</div>
+        <div class="t-meta">Oct 2019 &bull; Completed &bull; Referral from existing corporate client</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Preferences -->
+  <div class="section-label">Documented Preferences</div>
+  <div class="detail-section">
+    <div class="section-title">Account Intelligence</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;">
+
+      <div style="padding:14px 18px;border-right:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Preferred Menu Style</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Farm-to-table, locally sourced. Always includes a passed appetizer station. Herb-crusted proteins preferred.</div>
+      </div>
+
+      <div style="padding:14px 18px;border-right:1px solid rgba(255,255,255,0.05);">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Service Preferences</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Bespoke cocktail or mocktail station. Upscale service style. No buffet — always plated or butler-passed.</div>
+      </div>
+
+      <div style="padding:14px 18px;">
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Decision Contact</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Director of Administration. Budget approved Q2 each year. Usually books 6&ndash;8 weeks in advance.</div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== VIEW 3: PROPOSAL BUILDER (PAIN DRAMATIZER) ===== -->
+<section class="view" id="view-proposal">
+
+  <!-- Before/After comparison -->
+  <div class="section-label">The Cost of Manual Quoting</div>
+  <div class="pain-comparison">
+    <div class="pain-box pain-before">
+      <div class="pain-box-label">Without a system &mdash; today</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> Inquiry arrives by email, phone, or Instagram DM &mdash; someone has to compile details manually</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> Menu options, pax counts, and pricing assembled in Word or email from scratch each time</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> 3&ndash;5 back-and-forth emails to finalize scope before a number is even discussed</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> Average time to send a polished proposal: <strong>2&ndash;3 days</strong></div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> No version control &mdash; "which quote did we send?" is a real question</div>
+    </div>
+    <div class="pain-box pain-after">
+      <div class="pain-box-label">With your system &mdash; below</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Inquiry auto-populates from web form, phone log, or DM capture &mdash; zero re-entry</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Menu catalog and per-pax pricing pre-loaded from your standard packages</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Proposal ready for review before the client hangs up the phone</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Average time to send a branded proposal: <strong>under 60 seconds</strong></div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Every version timestamped, client-linked, and searchable</div>
+    </div>
+  </div>
+
+  <!-- Proposal Builder -->
+  <div class="section-label">Live Proposal Builder</div>
+  <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:18px;">
+
+    <!-- Form side -->
+    <div class="card" style="padding:20px;">
+      <div class="card-title" style="margin-bottom:16px;">Event Details</div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Client Name</label>
+        <input type="text" class="search-input" id="p-client" value="Greenway Plaza Partners" oninput="updateProposal()" />
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Event Type</label>
+        <select class="filter-select" id="p-type" style="width:100%;" onchange="updateProposal()">
+          <option value="corporate" selected>Corporate Luncheon</option>
+          <option value="gala">Non-Profit Gala</option>
+          <option value="inhome">In-Home Dinner &mdash; Wine Pairing</option>
+          <option value="gifting">Corporate Gifting Order</option>
+          <option value="campaign">Campaign Celebration</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Guest Count (pax)</label>
+        <input type="number" class="search-input" id="p-pax" value="80" min="10" max="500" onchange="updateProposal()" />
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Menu Package</label>
+        <select class="filter-select" id="p-menu" style="width:100%;" onchange="updateProposal()">
+          <option value="85" selected>Farm-to-Table Signature ($85/pax)</option>
+          <option value="110">Award-Winning Culinary ($110/pax)</option>
+          <option value="65">Classic Luncheon ($65/pax)</option>
+          <option value="140">Epicurean Tasting ($140/pax)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:10px;">Add-Ons</label>
+        <label style="display:flex;gap:8px;align-items:center;font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);margin-bottom:8px;cursor:pointer;">
+          <input type="checkbox" id="addon-cocktail" checked onchange="updateProposal()" style="accent-color:var(--gold);" />
+          Bespoke cocktail / mocktail station (+$12/pax)
+        </label>
+        <label style="display:flex;gap:8px;align-items:center;font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);margin-bottom:8px;cursor:pointer;">
+          <input type="checkbox" id="addon-champagne" onchange="updateProposal()" style="accent-color:var(--gold);" />
+          Champagne tower setup (+$380 flat)
+        </label>
+        <label style="display:flex;gap:8px;align-items:center;font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);cursor:pointer;">
+          <input type="checkbox" id="addon-cake" onchange="updateProposal()" style="accent-color:var(--gold);" />
+          Custom milestone cake (+$245 flat)
+        </label>
+      </div>
+
+      <button class="btn-gold" style="width:100%;" onclick="generateProposal()">Generate Proposal</button>
+    </div>
+
+    <!-- Proposal preview side -->
+    <div class="proposal-panel" id="proposal-preview">
+
+      <div class="proposal-header">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:'Arial',sans-serif;">Bellaire &amp; Co.</div>
+            <div style="font-size:9px;color:var(--muted);font-family:'Arial',sans-serif;margin-top:2px;">DISTINGUISHED FOOD &amp; SERVICE SINCE 1981</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:9px;letter-spacing:1px;color:var(--muted);font-family:'Arial',sans-serif;">PROPOSAL</div>
+            <div style="font-size:11px;color:var(--cream);font-family:'Arial',sans-serif;" id="p-number">PRO-2026-0049</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;font-family:'Arial',sans-serif;">
+          <div style="font-size:13px;color:var(--cream);">Prepared for: <strong id="p-preview-client">Greenway Plaza Partners</strong></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Event type: <span id="p-preview-type">Corporate Luncheon</span> &bull; Guest count: <span id="p-preview-pax">80</span> pax</div>
+        </div>
+      </div>
+
+      <!-- Line items -->
+      <div>
+        <div class="proposal-line">
+          <span id="p-line-menu-label">Farm-to-Table Signature</span>
+          <span id="p-line-menu-val" style="color:var(--cream);">$6,800</span>
+        </div>
+        <div class="proposal-line" id="p-line-cocktail">
+          <span>Bespoke cocktail / mocktail station</span>
+          <span style="color:var(--cream);" id="p-cocktail-val">$960</span>
+        </div>
+        <div class="proposal-line" id="p-line-champagne" style="display:none;">
+          <span>Champagne tower setup</span>
+          <span style="color:var(--cream);">$380</span>
+        </div>
+        <div class="proposal-line" id="p-line-cake" style="display:none;">
+          <span>Custom milestone cake</span>
+          <span style="color:var(--cream);">$245</span>
+        </div>
+        <div class="proposal-line">
+          <span style="color:var(--muted);">Onsite management &amp; setup</span>
+          <span style="color:var(--muted);">Included</span>
+        </div>
+        <div class="proposal-line">
+          <span style="color:var(--muted);">Culinary team &amp; staff</span>
+          <span style="color:var(--muted);">Included</span>
+        </div>
+
+        <div class="proposal-total">
+          <span>TOTAL ESTIMATE</span>
+          <span id="p-total">$7,760</span>
+        </div>
+
+        <div style="margin-top:14px;font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);line-height:1.5;">
+          This proposal reflects your selected package. Final pricing confirmed after venue walk-through. Deposit of 50% required at contract signature. Menus can be further customized to fulfill your exact specifications.
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /grid -->
+
+  <div style="margin-top:10px;font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);text-align:right;">
+    All pricing is sample data for demonstration purposes only.
+  </div>
+
+</section>
+
+<!-- ===== VIEW 4: SEARCH & REPORTS ===== -->
+<section class="view" id="view-reports">
+
+  <!-- Search bar -->
+  <div class="section-label">Search Events &amp; Accounts</div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px;">
+    <input type="text" class="search-input" id="search-box" placeholder="Search by client, event type, or keyword..." style="flex:1;min-width:200px;" oninput="filterTable()" />
+    <select class="filter-select" id="filter-status" onchange="filterTable()">
+      <option value="">All Statuses</option>
+      <option value="New">New</option>
+      <option value="Quoted">Quoted</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="Executed">Executed</option>
+    </select>
+    <select class="filter-select" id="filter-type" onchange="filterTable()">
+      <option value="">All Event Types</option>
+      <option value="Corporate">Corporate</option>
+      <option value="Gala">Gala</option>
+      <option value="In-Home">In-Home</option>
+      <option value="Gifting">Gifting</option>
+      <option value="Campaign">Campaign</option>
+    </select>
+  </div>
+
+  <!-- Results table -->
+  <div class="card" style="margin-bottom:24px;">
+    <div class="grid-hdr" style="grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;">
+      <div class="col-hdr">Client / Event</div>
+      <div class="col-hdr">Type</div>
+      <div class="col-hdr">Value</div>
+      <div class="col-hdr">Date</div>
+      <div class="col-hdr">Status</div>
+    </div>
+    <div id="report-rows">
+      <!-- Populated by JS -->
+    </div>
+    <div id="no-results" style="display:none;padding:24px;text-align:center;font-family:'Arial',sans-serif;font-size:13px;color:var(--muted);">
+      No events match your search.
+    </div>
+  </div>
+
+  <!-- Revenue chart -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Revenue by Month (2026)</div>
+      </div>
+      <div style="padding:16px 18px 10px;">
+        <div class="mini-chart">
+          <div class="bar-wrap">
+            <div class="bar-val">$12k</div>
+            <div class="bar" style="height:60px;background:rgba(201,168,76,0.35);"></div>
+            <div class="bar-lbl">Jan</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">$8k</div>
+            <div class="bar" style="height:40px;background:rgba(201,168,76,0.35);"></div>
+            <div class="bar-lbl">Feb</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">$18k</div>
+            <div class="bar" style="height:78px;background:rgba(201,168,76,0.45);"></div>
+            <div class="bar-lbl">Mar</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">$9k</div>
+            <div class="bar" style="height:45px;background:rgba(201,168,76,0.35);"></div>
+            <div class="bar-lbl">Apr</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">$14k</div>
+            <div class="bar" style="height:63px;background:rgba(201,168,76,0.35);"></div>
+            <div class="bar-lbl">May</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">$22k</div>
+            <div class="bar" style="height:80px;background:var(--gold);border-radius:3px 3px 0 0;"></div>
+            <div class="bar-lbl">Jun</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar-val">$16k</div>
+            <div class="bar" style="height:68px;background:rgba(201,168,76,0.35);"></div>
+            <div class="bar-lbl">Jul</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Events by Source (YTD)</div>
+      </div>
+      <div style="padding:0;">
+        <div class="metric-row">
+          <div class="metric-label">Web Form</div>
+          <div class="metric-bar">
+            <div class="progress-bar"><div class="progress-fill" style="width:52%;"></div></div>
+          </div>
+          <div class="metric-value">52%</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Phone</div>
+          <div class="metric-bar">
+            <div class="progress-bar"><div class="progress-fill" style="width:31%;"></div></div>
+          </div>
+          <div class="metric-value">31%</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Instagram DM</div>
+          <div class="metric-bar">
+            <div class="progress-bar"><div class="progress-fill" style="width:17%;"></div></div>
+          </div>
+          <div class="metric-value">17%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Events by Type (YTD)</div>
+      </div>
+      <div style="padding:0;">
+        <div class="metric-row">
+          <div class="metric-label">Corporate Luncheon</div>
+          <div class="metric-bar">
+            <div class="progress-bar"><div class="progress-fill" style="width:44%;"></div></div>
+          </div>
+          <div class="metric-value">44%</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Non-Profit Gala</div>
+          <div class="metric-bar">
+            <div class="progress-bar"><div class="progress-fill" style="width:22%;"></div></div>
+          </div>
+          <div class="metric-value">22%</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">Gifting Orders</div>
+          <div class="metric-bar">
+            <div class="progress-bar"><div class="progress-fill" style="width:19%;"></div></div>
+          </div>
+          <div class="metric-value">19%</div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-label">In-Home / Other</div>
+          <div class="metric-bar">
+            <div class="progress-bar"><div class="progress-fill" style="width:15%;"></div></div>
+          </div>
+          <div class="metric-value">15%</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /chart grid -->
+
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer style="margin-top:40px;padding:20px 24px;border-top:1px solid rgba(201,168,76,0.12);text-align:center;">
+  <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);margin:0;">
+    Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+  </p>
+</footer>
+
+<!-- FLOATING CTA -->
+<div id="float-cta">
+  <button onclick="openCalendly()">Like what you see? Let's talk</button>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- MODAL -->
+<div id="modal-overlay" role="dialog" aria-modal="true">
+  <div id="modal-box">
+    <button id="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div style="font-size:28px;margin-bottom:8px;">&#9733;</div>
+    <h2>45 Years of Relationships.</h2>
+    <p>
+      Bellaire &amp; Co. has built something extraordinary since 1981 &mdash; US Presidents, Fortune 500 retreats, Buckingham Palace. Imagine a system as distinguished as the service itself: every inquiry captured, every client remembered, every proposal out in 60 seconds.
+    </p>
+    <button class="btn-gold" style="width:100%;padding:14px;" onclick="openCalendly()">Let's talk &mdash; grab a time here</button>
+    <p style="font-size:11px;color:var(--muted);margin:14px 0 0;font-family:'Arial',sans-serif;">No commitment. Just a conversation.</p>
+  </div>
+</div>
+
+<script>
+  // ============ CONSTANTS ============
+  const CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=jacksoncompany';
+
+  // ============ SAMPLE DATA FOR REPORT TABLE ============
+  const EVENTS = [
+    { client:'Greenway Plaza Partners',    type:'Corporate',  label:'Corporate Luncheon',          value:'$7,200',  date:'Aug 2026', status:'Quoted'    },
+    { client:"Houston Children's Charity", type:'Gala',       label:'Non-Profit Gala',              value:'$18,400', date:'Nov 2026', status:'Confirmed' },
+    { client:'River Oaks Estate',          type:'In-Home',    label:'In-Home Dinner, Wine Pairing', value:'$3,200',  date:'Sep 2026', status:'New'       },
+    { client:'Kensington Capital Partners', type:'Corporate',  label:'Corporate Retreat',            value:'$14,800', date:'Oct 2026', status:'New'       },
+    { client:'Memorial Park Museum',       type:'Campaign',   label:'Campaign Celebration',         value:'$9,600',  date:'Aug 2026', status:'Quoted'    },
+    { client:'Midtown Law Group',          type:'Gifting',    label:'Holiday Gifting Order',        value:'$4,200',  date:'Dec 2026', status:'Executed'  },
+    { client:'Frost Bank HQ',             type:'Corporate',  label:'Corporate Luncheon',           value:'$6,800',  date:'Jul 2026', status:'Executed'  },
+    { client:'Hermann Park Conservancy',   type:'Gala',       label:'Non-Profit Dinner Reception',  value:'$22,000', date:'Jun 2026', status:'Executed'  },
+    { client:'West U Catering Co-op',      type:'In-Home',    label:'In-Home Wine Pairing',         value:'$2,800',  date:'May 2026', status:'Executed'  },
+    { client:'Harwood Executive Group',    type:'Corporate',  label:'Executive Luncheon',           value:'$11,200', date:'Apr 2026', status:'Executed'  },
+  ];
+
+  const STATUS_BADGE = {
+    'New':       'badge-new',
+    'Quoted':    'badge-quoted',
+    'Confirmed': 'badge-confirmed',
+    'Executed':  'badge-executed',
+  };
+
+  // ============ NAVIGATION ============
+  let viewCount = 1; // start at 1 for the initial view
+  let modalShown = sessionStorage.getItem('jc_modal_shown') === '1';
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
+      btn.classList.add('active');
+      const viewId = 'view-' + btn.dataset.view;
+      document.getElementById(viewId).classList.add('active');
+
+      viewCount++;
+      checkModalTrigger();
+    });
+  });
+
+  function checkModalTrigger() {
+    if (!modalShown && viewCount >= 3) {
+      triggerModal();
+    }
+  }
+
+  // ============ MODAL ============
+  function triggerModal() {
+    if (modalShown) return;
+    modalShown = true;
+    sessionStorage.setItem('jc_modal_shown', '1');
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // 75-second timer
+  setTimeout(() => {
+    checkModalTrigger();
+  }, 75000);
+
+  // ============ CALENDLY ============
+  function openCalendly() {
+    closeModal();
+    window.open(CALENDLY, '_blank', 'noopener,noreferrer');
+  }
+
+  // ============ TOAST ============
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  // ============ OPERATIONS: INTERACTIVE ACTION ============
+  function markFollowupDone(btn) {
+    btn.disabled = true;
+    btn.textContent = 'Sent ✓';
+    btn.style.color = '#68d391';
+    btn.style.borderColor = '#68d391';
+
+    // Update the badge in the pipeline row
+    const badge = document.getElementById('greenway-badge');
+    badge.className = 'badge badge-confirmed';
+    badge.textContent = 'Follow-up Sent';
+
+    // Update the alert strip
+    const strip = btn.closest('.alert-strip');
+    strip.style.borderColor = 'rgba(104,211,145,0.3)';
+    strip.style.background = 'rgba(104,211,145,0.06)';
+    strip.querySelector('.alert-icon').textContent = '✓';
+
+    showToast('Follow-up marked as sent for Greenway Plaza Partners.');
+  }
+
+  function openClientDetail() {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('[data-view="client"]').classList.add('active');
+    document.getElementById('view-client').classList.add('active');
+    viewCount++;
+    checkModalTrigger();
+    showToast('Viewing full account: Greenway Plaza Partners');
+  }
+
+  function switchToProposal() {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelector('[data-view="proposal"]').classList.add('active');
+    document.getElementById('view-proposal').classList.add('active');
+    viewCount++;
+    checkModalTrigger();
+    showToast('Proposal builder loaded for Greenway Plaza Partners.');
+  }
+
+  // ============ PROPOSAL BUILDER ============
+  const EVENT_LABELS = {
+    corporate: 'Corporate Luncheon',
+    gala:      'Non-Profit Gala',
+    inhome:    'In-Home Dinner — Wine Pairing',
+    gifting:   'Corporate Gifting Order',
+    campaign:  'Campaign Celebration',
+  };
+
+  function updateProposal() {
+    const client   = document.getElementById('p-client').value || '—';
+    const type     = document.getElementById('p-type').value;
+    const pax      = parseInt(document.getElementById('p-pax').value, 10) || 0;
+    const menuPPax = parseInt(document.getElementById('p-menu').value, 10) || 85;
+    const hasCocktail  = document.getElementById('addon-cocktail').checked;
+    const hasChampagne = document.getElementById('addon-champagne').checked;
+    const hasCake      = document.getElementById('addon-cake').checked;
+
+    const menuTotal     = pax * menuPPax;
+    const cocktailTotal = hasCocktail ? pax * 12 : 0;
+    const champagne     = hasChampagne ? 380 : 0;
+    const cake          = hasCake      ? 245 : 0;
+    const total         = menuTotal + cocktailTotal + champagne + cake;
+
+    const fmt = v => '$' + v.toLocaleString('en-US');
+    const menuLabel = document.getElementById('p-menu').options[document.getElementById('p-menu').selectedIndex].text.split(' ($')[0];
+
+    document.getElementById('p-preview-client').textContent = client;
+    document.getElementById('p-preview-type').textContent   = EVENT_LABELS[type] || type;
+    document.getElementById('p-preview-pax').textContent    = pax;
+    document.getElementById('p-line-menu-label').textContent = menuLabel;
+    document.getElementById('p-line-menu-val').textContent   = fmt(menuTotal);
+    document.getElementById('p-cocktail-val').textContent    = fmt(cocktailTotal);
+    document.getElementById('p-line-cocktail').style.display  = hasCocktail  ? 'flex' : 'none';
+    document.getElementById('p-line-champagne').style.display = hasChampagne ? 'flex' : 'none';
+    document.getElementById('p-line-cake').style.display      = hasCake      ? 'flex' : 'none';
+    document.getElementById('p-total').textContent            = fmt(total);
+  }
+
+  function generateProposal() {
+    updateProposal();
+    const suffix = String(Math.floor(1000 + Math.random() * 9000));
+    const proNum = 'PRO-2026-' + suffix;
+    document.getElementById('p-number').textContent = proNum;
+    showToast('Proposal ' + proNum + ' ready — send for review or export to PDF.');
+  }
+
+  // ============ REPORT TABLE ============
+  function renderTable(data) {
+    const container = document.getElementById('report-rows');
+    const noResults = document.getElementById('no-results');
+
+    if (data.length === 0) {
+      container.innerHTML = '';
+      noResults.style.display = 'block';
+      return;
+    }
+
+    noResults.style.display = 'none';
+    container.innerHTML = data.map(e => `
+      <div style="display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:12px;padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.15s;"
+           onmouseover="this.style.background='rgba(201,168,76,0.05)'"
+           onmouseout="this.style.background=''"
+           onclick="showToast('Opening file for ${e.client.replace(/'/g,"\\'")}...')">
+        <div>
+          <div style="font-family:'Arial',sans-serif;font-size:13px;color:var(--cream);font-weight:600;">${e.client}</div>
+          <div style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);margin-top:2px;">${e.label}</div>
+        </div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);display:flex;align-items:center;">${e.type}</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--gold);font-weight:700;display:flex;align-items:center;">${e.value}</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);display:flex;align-items:center;">${e.date}</div>
+        <div style="display:flex;align-items:center;"><span class="badge ${STATUS_BADGE[e.status] || 'badge-new'}">${e.status}</span></div>
+      </div>
+    `).join('');
+  }
+
+  function filterTable() {
+    const q      = document.getElementById('search-box').value.toLowerCase();
+    const status = document.getElementById('filter-status').value;
+    const type   = document.getElementById('filter-type').value;
+
+    const filtered = EVENTS.filter(e => {
+      const matchQ      = !q || e.client.toLowerCase().includes(q) || e.label.toLowerCase().includes(q) || e.type.toLowerCase().includes(q);
+      const matchStatus = !status || e.status === status;
+      const matchType   = !type   || e.type   === type;
+      return matchQ && matchStatus && matchType;
+    });
+
+    renderTable(filtered);
+  }
+
+  // Initial render
+  renderTable(EVENTS);
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>

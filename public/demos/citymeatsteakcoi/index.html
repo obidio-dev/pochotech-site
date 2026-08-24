@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empacadora Central de Carnes — Operations Portal · Demo by Pocho.tech</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --brand-red: #CB1704;
+      --brand-orange: #FD4F05;
+      --brand-btn: #CA3A3A;
+      --brand-cream: #FAF4EE;
+      --brand-sand: #F4EDD7;
+      --brand-gold: #EFBC50;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f8f5f0;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    /* ── DEMO BADGE ── */
+    .demo-badge {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: var(--brand-gold);
+      color: #4a3000;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: #1a0a00;
+      padding: 16px 24px;
+      border-bottom: 3px solid var(--brand-red);
+    }
+    .site-header h1 {
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 2px 0;
+      letter-spacing: 0.01em;
+    }
+    .site-header p {
+      color: #c9a888;
+      font-size: 0.72rem;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* ── TAB NAV ── */
+    .tab-nav {
+      background: #fff;
+      border-bottom: 2px solid #e5d8cc;
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+    }
+    .tab-btn {
+      padding: 13px 22px;
+      border: none;
+      background: transparent;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #6b5a4e;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: all 0.18s;
+    }
+    .tab-btn:hover { color: var(--brand-red); background: #fdf8f4; }
+    .tab-btn.active {
+      color: var(--brand-red);
+      border-bottom-color: var(--brand-red);
+      background: #fdf8f4;
+    }
+    .tab-btn .tab-icon { margin-right: 6px; }
+
+    /* ── MAIN CONTENT ── */
+    .tab-panel { display: none; padding: 24px 16px 120px; max-width: 1100px; margin: 0 auto; }
+    .tab-panel.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e8d9cc;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1a0a00;
+      margin: 0 0 4px 0;
+    }
+    .card-sub {
+      font-size: 0.78rem;
+      color: #8a7060;
+      margin: 0 0 14px 0;
+    }
+
+    /* ── STATUS BADGES ── */
+    .status {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .status-new       { background: #fef3c7; color: #92400e; }
+    .status-confirmed { background: #d1fae5; color: #065f46; }
+    .status-inprod    { background: #dbeafe; color: #1e40af; }
+    .status-ready     { background: #ede9fe; color: #4c1d95; }
+    .status-shipped   { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
+    .status-issue     { background: #fee2e2; color: #991b1b; }
+
+    /* ── ORDER TABLE ── */
+    .order-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .order-table th {
+      background: #f5ede4;
+      color: #6b3a1f;
+      font-weight: 700;
+      padding: 9px 12px;
+      text-align: left;
+      border-bottom: 2px solid #e8d0bc;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .order-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #f0e4d9;
+      vertical-align: middle;
+    }
+    .order-table tr:hover td { background: #fdf8f4; }
+    .order-table tr.highlight td { background: #fffbeb; }
+
+    .order-id { font-weight: 700; color: var(--brand-red); font-size: 0.8rem; }
+    .cut-spec { font-family: 'Courier New', monospace; font-size: 0.79rem; color: #2a1a08; background: #f5ede4; padding: 2px 7px; border-radius: 4px; }
+
+    /* ── ACTION BUTTON (inline) ── */
+    .btn-sm {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn-confirm {
+      background: var(--brand-btn);
+      color: #fff;
+    }
+    .btn-confirm:hover { background: #a82c2c; }
+    .btn-confirm:disabled { background: #ccc; cursor: default; }
+    .btn-view {
+      background: #f5ede4;
+      color: #6b3a1f;
+      border: 1px solid #dcc9b6;
+    }
+    .btn-view:hover { background: #eddece; }
+
+    /* ── STATS ROW ── */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .stat-box {
+      background: #fff;
+      border: 1px solid #e8d9cc;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--brand-red); line-height: 1; }
+    .stat-label { font-size: 0.72rem; color: #8a7060; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-delta { font-size: 0.72rem; color: #059669; font-weight: 600; margin-top: 2px; }
+
+    /* ── DETAIL VIEW ── */
+    .detail-header {
+      background: linear-gradient(135deg, #1a0a00 0%, #3d1500 100%);
+      color: #fff;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .detail-header h2 { margin: 0 0 4px 0; font-size: 1.1rem; }
+    .detail-header p { margin: 0; color: #c9a888; font-size: 0.82rem; }
+
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 640px) { .detail-grid { grid-template-columns: 1fr; } }
+
+    .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0e4d9; font-size: 0.83rem; }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { color: #8a7060; font-weight: 600; }
+    .info-value { color: #1a0a00; font-weight: 700; text-align: right; }
+
+    .timeline { list-style: none; padding: 0; margin: 0; }
+    .timeline li {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0e4d9;
+      font-size: 0.81rem;
+    }
+    .timeline li:last-child { border-bottom: none; }
+    .tl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .tl-time { color: #8a7060; font-size: 0.72rem; white-space: nowrap; width: 80px; flex-shrink: 0; }
+    .tl-text { color: #2a1a08; }
+
+    /* ── PAIN DRAMATIZATION VIEW ── */
+    .comparison-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    @media (max-width: 700px) { .comparison-wrapper { grid-template-columns: 1fr; } }
+
+    .compare-col {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #e8d9cc;
+    }
+    .compare-header {
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .compare-header.before { background: #fee2e2; color: #991b1b; }
+    .compare-header.after  { background: #d1fae5; color: #065f46; }
+    .compare-body { background: #fff; padding: 14px 18px; }
+    .compare-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0e4d9;
+      font-size: 0.81rem;
+      color: #2a1a08;
+    }
+    .compare-item:last-child { border-bottom: none; }
+    .compare-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+    .pain-quote {
+      background: #1a0a00;
+      color: #c9a888;
+      border-left: 4px solid var(--brand-gold);
+      border-radius: 6px;
+      padding: 16px 20px;
+      font-size: 0.84rem;
+      font-style: italic;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .pain-quote strong { color: var(--brand-gold); font-style: normal; }
+
+    .savings-bar { margin-bottom: 16px; }
+    .savings-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: #6b5a4e; margin-bottom: 4px; }
+    .bar-track { height: 10px; background: #f0e4d9; border-radius: 10px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease; }
+    .bar-red { background: var(--brand-red); }
+    .bar-green { background: #10b981; }
+
+    /* ── SEARCH / REPORT VIEW ── */
+    .search-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 9px 14px;
+      border: 1px solid #dcc9b6;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      background: #fff;
+      color: #1a0a00;
+    }
+    .search-input:focus { outline: 2px solid var(--brand-red); border-color: transparent; }
+    .filter-select {
+      padding: 9px 14px;
+      border: 1px solid #dcc9b6;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      background: #fff;
+      color: #1a0a00;
+      cursor: pointer;
+    }
+    .btn-search {
+      padding: 9px 20px;
+      background: var(--brand-red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-search:hover { background: #a81203; }
+
+    .report-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 20px; }
+
+    .report-card {
+      background: #fff;
+      border: 1px solid #e8d9cc;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .report-card-header {
+      background: #f5ede4;
+      padding: 10px 16px;
+      font-size: 0.77rem;
+      font-weight: 700;
+      color: #6b3a1f;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .report-card-body { padding: 14px 16px; }
+    .report-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.81rem; border-bottom: 1px solid #f5ede4; }
+    .report-row:last-child { border-bottom: none; }
+    .report-product { color: #2a1a08; font-weight: 600; }
+    .report-qty { color: var(--brand-red); font-weight: 700; }
+
+    .usda-list { list-style: none; padding: 0; margin: 0; }
+    .usda-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0e4d9;
+      font-size: 0.82rem;
+    }
+    .usda-item:last-child { border-bottom: none; }
+    .usda-doc { color: #2a1a08; font-weight: 600; }
+    .usda-status-ok   { color: #059669; font-weight: 700; font-size: 0.75rem; }
+    .usda-status-pend { color: #d97706; font-weight: 700; font-size: 0.75rem; }
+
+    /* ── FLOATING CTA ── */
+    .floating-cta {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .cta-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--brand-red);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 22px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(203,23,4,0.45);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .cta-btn:hover { background: #a81203; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(203,23,4,0.55); }
+    .cta-dot { width: 8px; height: 8px; background: var(--brand-gold); border-radius: 50%; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(1.4); } }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,10,0,0.72);
+      z-index: 5000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 14px;
+      padding: 32px 28px;
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      border-top: 5px solid var(--brand-red);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .modal-close {
+      position: absolute;
+      top: 14px; right: 16px;
+      font-size: 1.3rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #8a7060;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--brand-red); }
+    .modal-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: var(--brand-red); text-transform: uppercase; margin-bottom: 8px; }
+    .modal-box h2 { font-size: 1.2rem; font-weight: 800; color: #1a0a00; margin: 0 0 10px 0; line-height: 1.3; }
+    .modal-box p { font-size: 0.85rem; color: #6b5a4e; margin: 0 0 20px 0; line-height: 1.6; }
+    .modal-cta-btn {
+      display: block;
+      width: 100%;
+      background: var(--brand-red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s;
+    }
+    .modal-cta-btn:hover { background: #a81203; }
+    .modal-note { text-align: center; font-size: 0.72rem; color: #b0a090; margin-top: 10px; }
+
+    /* ── CONFIRM TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #065f46;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      z-index: 4000;
+      opacity: 0;
+      transition: all 0.3s;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── MISC ── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8a7060;
+      margin-bottom: 10px;
+    }
+    .divider { height: 1px; background: #e8d9cc; margin: 20px 0; }
+    .usda-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #1e3a5f;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .tag {
+      display: inline-block;
+      background: #f5ede4;
+      color: #6b3a1f;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 4px;
+    }
+    .spec-pill {
+      display: inline-block;
+      background: #1a0a00;
+      color: var(--brand-gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+
+    @media (max-width: 480px) {
+      .order-table { font-size: 0.74rem; }
+      .order-table th, .order-table td { padding: 7px 8px; }
+      .tab-btn { padding: 11px 14px; font-size: 0.76rem; }
+    }
+
+    .footer-bar {
+      background: #1a0a00;
+      color: #8a7060;
+      text-align: center;
+      padding: 14px;
+      font-size: 0.72rem;
+      margin-top: 0;
+    }
+    .footer-bar strong { color: #c9a888; }
+  </style>
+</head>
+<body>
+
+<!-- DEMO BADGE -->
+<div class="demo-badge">DEMO &middot; sample data</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <h1>Empacadora Central de Carnes &mdash; Operations Portal</h1>
+  <p>What your own system would look like &mdash; prepared by Pocho.tech</p>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav" id="tabNav" role="tablist">
+  <button class="tab-btn active" data-tab="orders" role="tab" onclick="switchTab('orders', this)">
+    <span class="tab-icon">📋</span> Daily Orders
+  </button>
+  <button class="tab-btn" data-tab="detail" role="tab" onclick="switchTab('detail', this)">
+    <span class="tab-icon">📄</span> Order Detail
+  </button>
+  <button class="tab-btn" data-tab="pain" role="tab" onclick="switchTab('pain', this)">
+    <span class="tab-icon">⚡</span> Before &amp; After
+  </button>
+  <button class="tab-btn" data-tab="reports" role="tab" onclick="switchTab('reports', this)">
+    <span class="tab-icon">🔍</span> Search &amp; Reports
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     TAB 1 — DAILY ORDERS (tablero con interaccion)
+══════════════════════════════════════════════ -->
+<section class="tab-panel active" id="tab-orders">
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num" id="stat-new">4</div>
+      <div class="stat-label">New Orders</div>
+      <div class="stat-delta">Awaiting confirm</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">6</div>
+      <div class="stat-label">In Production</div>
+      <div class="stat-delta">On schedule</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Ready to Ship</div>
+      <div class="stat-delta">Awaiting pickup</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">2</div>
+      <div class="stat-label">USDA Docs Pending</div>
+      <div class="stat-delta" style="color:#d97706;">Export queue</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+      <div>
+        <p class="card-title">Today's Orders &mdash; Mon Jul 28, 2026</p>
+        <p class="card-sub">6:30 AM &ndash; 2:30 PM · Houston, TX</p>
+      </div>
+      <span class="usda-badge">&#9679; USDA Est. #19842</span>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="order-table" id="ordersTable">
+        <thead>
+          <tr>
+            <th>Order #</th>
+            <th>Customer</th>
+            <th>Cut Specification</th>
+            <th>Qty</th>
+            <th>Channel</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody">
+          <tr id="order-ORD-2607" class="highlight">
+            <td><span class="order-id">ORD-2607</span></td>
+            <td><strong>Tamales La Reina</strong><br><small style="color:#8a7060;">Foodservice Distrib.</small></td>
+            <td>
+              <span class="cut-spec">Short Ribs C/U ½&quot; &mdash; 20-22 pcs / 10lb</span><br>
+              <span class="tag">Beef</span><span class="tag">10 boxes</span>
+            </td>
+            <td><strong>100 lb</strong></td>
+            <td><span style="color:#991b1b;font-weight:700;font-size:0.75rem;">&#128237; Portal</span></td>
+            <td><span class="status status-new">New</span></td>
+            <td>
+              <button class="btn-sm btn-confirm" id="btn-ORD-2607" onclick="confirmOrder('ORD-2607')">Confirm</button>
+            </td>
+          </tr>
+          <tr id="order-ORD-2606">
+            <td><span class="order-id">ORD-2606</span></td>
+            <td><strong>Gulf Coast Meats</strong><br><small style="color:#8a7060;">Wholesale Buyer</small></td>
+            <td>
+              <span class="cut-spec">Beef T-Bone E-E 12oz. &mdash; 13-14 pcs / box</span><br>
+              <span class="tag">Beef</span><span class="tag">Export</span>
+            </td>
+            <td><strong>280 lb</strong></td>
+            <td><span style="color:#991b1b;font-weight:700;font-size:0.75rem;">&#128237; Portal</span></td>
+            <td><span class="status status-new">New</span></td>
+            <td><button class="btn-sm btn-confirm" id="btn-ORD-2606" onclick="confirmOrder('ORD-2606')">Confirm</button></td>
+          </tr>
+          <tr id="order-ORD-2605">
+            <td><span class="order-id">ORD-2605</span></td>
+            <td><strong>Houston Star Foods</strong><br><small style="color:#8a7060;">Restaurant Supply</small></td>
+            <td>
+              <span class="cut-spec">Beef Oxtail Trimmed &amp; Cut &mdash; 10lb box</span><br>
+              <span class="tag">Beef</span><span class="tag">Offal</span>
+            </td>
+            <td><strong>50 lb</strong></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128222; Phone</span></td>
+            <td><span class="status status-new">New</span></td>
+            <td><button class="btn-sm btn-confirm" id="btn-ORD-2605" onclick="confirmOrder('ORD-2605')">Confirm</button></td>
+          </tr>
+          <tr id="order-ORD-2604">
+            <td><span class="order-id">ORD-2604</span></td>
+            <td><strong>Rio Imports LLC</strong><br><small style="color:#8a7060;">Export Client</small></td>
+            <td>
+              <span class="cut-spec">Beef Knuckle Sliced &mdash; 38-42 slices / 10lb</span><br>
+              <span class="tag">Beef</span><span class="tag">Export</span><span class="tag">USDA Docs</span>
+            </td>
+            <td><strong>200 lb</strong></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128222; Phone</span></td>
+            <td><span class="status status-new">New</span></td>
+            <td><button class="btn-sm btn-confirm" id="btn-ORD-2604" onclick="confirmOrder('ORD-2604')">Confirm</button></td>
+          </tr>
+          <tr>
+            <td><span class="order-id">ORD-2603</span></td>
+            <td><strong>Mercado San Marcos</strong><br><small style="color:#8a7060;">Retail Wholesale</small></td>
+            <td>
+              <span class="cut-spec">Pork Butt Boneless &mdash; 10lb box</span><br>
+              <span class="tag">Pork</span><span class="tag">6 boxes</span>
+            </td>
+            <td><strong>60 lb</strong></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
+            <td><span class="status status-confirmed">Confirmed</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+          </tr>
+          <tr>
+            <td><span class="order-id">ORD-2602</span></td>
+            <td><strong>Central Carnes Export</strong><br><small style="color:#8a7060;">Export Client &mdash; MX</small></td>
+            <td>
+              <span class="cut-spec">Beef Hind Shank C/C &mdash; 16-18 pcs / 10lb</span><br>
+              <span class="tag">Beef</span><span class="tag">Export</span>
+            </td>
+            <td><strong>150 lb</strong></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
+            <td><span class="status status-inprod">In Production</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+          </tr>
+          <tr>
+            <td><span class="order-id">ORD-2601</span></td>
+            <td><strong>El Rancho Foods</strong><br><small style="color:#8a7060;">Foodservice</small></td>
+            <td>
+              <span class="cut-spec">Beef Short Ribs 123A Cut 3&quot; &mdash; 6-7 pcs / 10lb</span><br>
+              <span class="tag">Beef</span><span class="tag">Custom Cut</span>
+            </td>
+            <td><strong>70 lb</strong></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
+            <td><span class="status status-ready">Ready</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+          </tr>
+          <tr>
+            <td><span class="order-id">ORD-2598</span></td>
+            <td><strong>Pacifico Distributors</strong><br><small style="color:#8a7060;">Export Client &mdash; CR</small></td>
+            <td>
+              <span class="cut-spec">Turkey Wing Split 2-PC &mdash; 10lb box</span><br>
+              <span class="tag">Poultry</span><span class="tag">Export</span><span class="tag">USDA Docs</span>
+            </td>
+            <td><strong>120 lb</strong></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
+            <td><span class="status status-shipped">Shipped</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:12px; font-size:0.76rem; color:#8a7060; display:flex; gap:20px; flex-wrap:wrap;">
+      <span>&#128237; <strong>5</strong> orders received via portal today</span>
+      <span>&#128222; <strong>2</strong> entered manually (phone)</span>
+      <span style="color:#065f46;">&#10003; 0 transcription errors</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TAB 2 — ORDER DETAIL + HISTORY
+══════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-detail">
+
+  <div class="detail-header">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
+      <div>
+        <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; color:#c9a888; text-transform:uppercase; margin:0 0 4px 0;">Order Detail</p>
+        <h2>ORD-2602 &mdash; Central Carnes Export</h2>
+        <p>Beef Hind Shank C/C &middot; 16-18 pcs / 10lb &middot; Export to MX</p>
+      </div>
+      <div style="text-align:right;">
+        <span class="status status-inprod" style="font-size:0.8rem; padding:5px 14px;">In Production</span>
+        <div style="margin-top:8px;"><span class="usda-badge">USDA Est. #19842</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <!-- Order specs -->
+    <div class="card">
+      <p class="card-title">Order Specifications</p>
+      <div class="info-row"><span class="info-label">Cut</span><span class="info-value"><span class="spec-pill">Beef Hind Shank C/C</span></span></div>
+      <div class="info-row"><span class="info-label">Pack spec</span><span class="info-value">16-18 pcs / 10lb box</span></div>
+      <div class="info-row"><span class="info-label">Total weight</span><span class="info-value">150 lb</span></div>
+      <div class="info-row"><span class="info-label">Boxes</span><span class="info-value">15 boxes</span></div>
+      <div class="info-row"><span class="info-label">Bone</span><span class="info-value">Bone-in</span></div>
+      <div class="info-row"><span class="info-label">Destination</span><span class="info-value">Mexico &mdash; Export</span></div>
+      <div class="info-row"><span class="info-label">Requested delivery</span><span class="info-value">Jul 30, 2026</span></div>
+      <div class="info-row"><span class="info-label">Special instructions</span><span class="info-value" style="color:#6b3a1f;">Uniform cut, no excess fat</span></div>
+    </div>
+
+    <!-- Customer info -->
+    <div class="card">
+      <p class="card-title">Customer &mdash; Central Carnes Export</p>
+      <div class="info-row"><span class="info-label">Account #</span><span class="info-value">ACC-0441</span></div>
+      <div class="info-row"><span class="info-label">Contact</span><span class="info-value">Jorge Fuentes</span></div>
+      <div class="info-row"><span class="info-label">Channel</span><span class="info-value">Customer Portal</span></div>
+      <div class="info-row"><span class="info-label">Orders YTD</span><span class="info-value">23 orders</span></div>
+      <div class="info-row"><span class="info-label">Avg. order</span><span class="info-value">145 lb</span></div>
+      <div class="info-row"><span class="info-label">Payment terms</span><span class="info-value">Net 15</span></div>
+      <div class="info-row"><span class="info-label">Export cert. req.</span><span class="info-value" style="color:#1e3a5f; font-weight:700;">Yes &mdash; MX SENASICA</span></div>
+    </div>
+  </div>
+
+  <!-- USDA Docs -->
+  <div class="card">
+    <p class="card-title">USDA Export Documentation</p>
+    <p class="card-sub">Auto-generated from lot data &mdash; ready for supervisor signature</p>
+    <ul class="usda-list">
+      <li class="usda-item">
+        <span class="usda-doc">&#128196; USDA Inspection Certificate &mdash; Lot #LC-2602-A</span>
+        <span class="usda-status-ok">&#10003; Generated</span>
+      </li>
+      <li class="usda-item">
+        <span class="usda-doc">&#128196; FSIS Export Health Certificate</span>
+        <span class="usda-status-ok">&#10003; Generated</span>
+      </li>
+      <li class="usda-item">
+        <span class="usda-doc">&#128196; Mexico SENASICA Import Permit</span>
+        <span class="usda-status-pend">&#9679; Pending signature</span>
+      </li>
+      <li class="usda-item">
+        <span class="usda-doc">&#128196; Lot Traceability Sheet &mdash; Est. #19842</span>
+        <span class="usda-status-ok">&#10003; Generated</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Order timeline -->
+  <div class="card">
+    <p class="card-title">Order History</p>
+    <p class="card-sub">Full audit trail &mdash; no phone tag required</p>
+    <ul class="timeline">
+      <li>
+        <div class="tl-dot" style="background:#10b981;"></div>
+        <div class="tl-time">Jul 28 · 6:47a</div>
+        <div class="tl-text"><strong>Order received via Customer Portal.</strong> Spec sheet attached by Jorge Fuentes. No re-typing required.</div>
+      </li>
+      <li>
+        <div class="tl-dot" style="background:var(--brand-red);"></div>
+        <div class="tl-time">Jul 28 · 7:02a</div>
+        <div class="tl-text"><strong>Order confirmed</strong> by plant supervisor. Production ticket generated automatically.</div>
+      </li>
+      <li>
+        <div class="tl-dot" style="background:#3b82f6;"></div>
+        <div class="tl-time">Jul 28 · 7:15a</div>
+        <div class="tl-text"><strong>USDA docs auto-generated</strong> from lot #LC-2602-A. Inspection cert and health cert ready. SENASICA form pending supervisor signature.</div>
+      </li>
+      <li>
+        <div class="tl-dot" style="background:#3b82f6;"></div>
+        <div class="tl-time">Jul 28 · 8:30a</div>
+        <div class="tl-text"><strong>In production.</strong> Estimated completion: 11:00 AM. Customer notified via portal automatically.</div>
+      </li>
+      <li>
+        <div class="tl-dot" style="background:#d1d5db;"></div>
+        <div class="tl-time">Jul 30 · Expected</div>
+        <div class="tl-text" style="color:#8a7060;">Ready for export pickup &mdash; all USDA docs complete.</div>
+      </li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TAB 3 — BEFORE & AFTER (pain dramatization)
+══════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-pain">
+
+  <div class="pain-quote">
+    <strong>"Dial our number today to inquire."</strong> &mdash; universalbeef.net &nbsp;&middot;&nbsp;
+    A buyer at 8 PM looking for Short Ribs 123A Cut finds a phone number that doesn't answer until 6:30 AM. That order is already being closed by a competitor with an online portal. How many of those happen per week &mdash; without anyone knowing?
+  </div>
+
+  <!-- Comparison: Fax/phone vs Portal -->
+  <p class="section-label">Pain 1 &mdash; Orders by phone &amp; fax vs. digital portal</p>
+  <div class="comparison-wrapper">
+    <div class="compare-col">
+      <div class="compare-header before">&#128222; Today: Phone &amp; Fax</div>
+      <div class="compare-body">
+        <div class="compare-item"><span class="compare-icon">&#128237;</span> Fax arrives; someone transcribes spec by hand into paper or Excel</div>
+        <div class="compare-item"><span class="compare-icon">&#9888;</span> Transcription errors: "2&times;2" misread as "½ inch" &mdash; wrong cut goes to production</div>
+        <div class="compare-item"><span class="compare-icon">&#128222;</span> Customer calls to follow up on order status &mdash; team answers from memory</div>
+        <div class="compare-item"><span class="compare-icon">&#8987;</span> New buyer calls at 8 PM &mdash; no one picks up until next morning</div>
+        <div class="compare-item"><span class="compare-icon">&#128197;</span> After-hours orders not captured &mdash; lost or forgotten by 6:30 AM</div>
+      </div>
+    </div>
+    <div class="compare-col">
+      <div class="compare-header after">&#128237; With a portal: Digital order flow</div>
+      <div class="compare-body">
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Customer submits spec sheet online &mdash; arrives directly to production queue</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Zero re-typing &mdash; cut spec locked as entered, no interpretation errors</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Customer checks status on portal &mdash; team phone freed for production</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Buyer at 8 PM submits order &mdash; plant opens with it already queued</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Full order history by customer &mdash; reorder in 2 clicks, no phone call</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison: USDA manual vs automated -->
+  <p class="section-label" style="margin-top:24px;">Pain 2 &mdash; USDA export documentation: manual vs automated</p>
+  <div class="comparison-wrapper">
+    <div class="compare-col">
+      <div class="compare-header before">&#128196; Today: Paper &amp; Spreadsheets</div>
+      <div class="compare-body">
+        <div class="compare-item"><span class="compare-icon">&#9888;</span> Admin pulls lot data manually from production notes</div>
+        <div class="compare-item"><span class="compare-icon">&#9888;</span> USDA forms filled by hand &mdash; one per country, per shipment</div>
+        <div class="compare-item"><span class="compare-icon">&#128222;</span> Missing field discovered at export time &mdash; shipment delayed</div>
+        <div class="compare-item"><span class="compare-icon">&#8987;</span> Same data entered 3&ndash;5 times across forms for one shipment</div>
+      </div>
+    </div>
+    <div class="compare-col">
+      <div class="compare-header after">&#128196; With the system: Auto-generated docs</div>
+      <div class="compare-body">
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Lot data entered once &mdash; system fills all USDA forms automatically</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Country-specific certs generated per shipment destination</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Missing fields flagged before export day &mdash; zero last-minute scrambles</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Supervisor signs digitally &mdash; docs sent to inspector same morning</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Savings bars -->
+  <div class="card" style="margin-top:20px;">
+    <p class="card-title">Estimated time recovered per week (sample operation)</p>
+    <p class="card-sub">Based on similar meat wholesaler implementations. Your numbers will vary &mdash; we scope that together.</p>
+
+    <div class="savings-bar">
+      <div class="savings-label"><span>Phone &amp; fax order entry (manual transcription)</span><span style="color:var(--brand-red);">Before: ~6 hrs/week</span></div>
+      <div class="bar-track"><div class="bar-fill bar-red" style="width:80%;"></div></div>
+    </div>
+    <div class="savings-bar">
+      <div class="savings-label"><span>With digital portal (automated entry)</span><span style="color:#059669;">After: ~1 hr/week</span></div>
+      <div class="bar-track"><div class="bar-fill bar-green" style="width:13%;"></div></div>
+    </div>
+    <div class="divider"></div>
+    <div class="savings-bar">
+      <div class="savings-label"><span>USDA export doc prep (manual)</span><span style="color:var(--brand-red);">Before: ~4 hrs/shipment</span></div>
+      <div class="bar-track"><div class="bar-fill bar-red" style="width:70%;"></div></div>
+    </div>
+    <div class="savings-bar">
+      <div class="savings-label"><span>With automated doc generation</span><span style="color:#059669;">After: ~20 min/shipment</span></div>
+      <div class="bar-track"><div class="bar-fill bar-green" style="width:8%;"></div></div>
+    </div>
+
+    <p style="font-size:0.72rem; color:#8a7060; margin-top:14px; margin-bottom:0;">&#9432; Sample data for illustration. Actual savings depend on order volume and number of export shipments per week.</p>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TAB 4 — SEARCH & REPORTS
+══════════════════════════════════════════════ -->
+<section class="tab-panel" id="tab-reports">
+
+  <div class="card">
+    <p class="card-title">Search Orders &amp; Customers</p>
+    <p class="card-sub">Full-text search across cuts, customers, specs, dates, and status</p>
+    <div class="search-row">
+      <input class="search-input" type="text" id="searchInput" placeholder="Search: &quot;Short Ribs&quot;, &quot;export&quot;, &quot;Gulf Coast&quot;, &quot;ORD-260&quot;..." oninput="doSearch()">
+      <select class="filter-select" id="filterStatus" onchange="doSearch()">
+        <option value="">All statuses</option>
+        <option value="New">New</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="In Production">In Production</option>
+        <option value="Ready">Ready to Ship</option>
+        <option value="Shipped">Shipped</option>
+      </select>
+      <select class="filter-select" id="filterChannel" onchange="doSearch()">
+        <option value="">All channels</option>
+        <option value="Portal">Portal</option>
+        <option value="Phone">Phone</option>
+      </select>
+      <button class="btn-search" onclick="doSearch()">Search</button>
+    </div>
+    <div id="searchResults" style="font-size:0.82rem; color:#8a7060; padding:6px 0;"></div>
+  </div>
+
+  <div class="report-grid">
+
+    <!-- Top products this week -->
+    <div class="report-card">
+      <div class="report-card-header">Top Products &mdash; Week of Jul 28</div>
+      <div class="report-card-body">
+        <div class="report-row"><span class="report-product">Beef Short Ribs 123A 3&quot;</span><span class="report-qty">420 lb</span></div>
+        <div class="report-row"><span class="report-product">Beef Hind Shank C/C</span><span class="report-qty">380 lb</span></div>
+        <div class="report-row"><span class="report-product">Beef T-Bone E-E 12oz.</span><span class="report-qty">280 lb</span></div>
+        <div class="report-row"><span class="report-product">Beef Oxtail Trimmed</span><span class="report-qty">230 lb</span></div>
+        <div class="report-row"><span class="report-product">Turkey Wing Split 2-PC</span><span class="report-qty">120 lb</span></div>
+        <div class="report-row"><span class="report-product">Pork Butt Boneless</span><span class="report-qty">90 lb</span></div>
+      </div>
+    </div>
+
+    <!-- Export queue -->
+    <div class="report-card">
+      <div class="report-card-header">USDA Export Queue</div>
+      <div class="report-card-body">
+        <ul class="usda-list">
+          <li class="usda-item">
+            <div>
+              <div class="usda-doc">ORD-2606 &mdash; Gulf Coast Meats</div>
+              <div style="font-size:0.72rem; color:#8a7060;">Beef T-Bone &middot; Dest: Export</div>
+            </div>
+            <span class="usda-status-pend">Docs pending</span>
+          </li>
+          <li class="usda-item">
+            <div>
+              <div class="usda-doc">ORD-2604 &mdash; Rio Imports LLC</div>
+              <div style="font-size:0.72rem; color:#8a7060;">Beef Knuckle &middot; Dest: Export</div>
+            </div>
+            <span class="usda-status-pend">Docs pending</span>
+          </li>
+          <li class="usda-item">
+            <div>
+              <div class="usda-doc">ORD-2602 &mdash; Central Carnes Export</div>
+              <div style="font-size:0.72rem; color:#8a7060;">Hind Shank &middot; Dest: MX</div>
+            </div>
+            <span class="usda-status-pend">Sig. pending</span>
+          </li>
+          <li class="usda-item">
+            <div>
+              <div class="usda-doc">ORD-2598 &mdash; Pacifico Distributors</div>
+              <div style="font-size:0.72rem; color:#8a7060;">Turkey Wing &middot; Dest: CR</div>
+            </div>
+            <span class="usda-status-ok">&#10003; Complete</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Orders by channel -->
+    <div class="report-card">
+      <div class="report-card-header">Orders by Channel &mdash; Jul 2026</div>
+      <div class="report-card-body">
+        <div class="report-row"><span class="report-product">&#128237; Customer Portal</span><span class="report-qty">62%</span></div>
+        <div class="report-row"><span class="report-product">&#128222; Phone</span><span class="report-qty">28%</span></div>
+        <div class="report-row"><span class="report-product">&#128237; Fax (legacy)</span><span class="report-qty">10%</span></div>
+        <div style="height:1px; background:#f0e4d9; margin:10px 0;"></div>
+        <div style="font-size:0.77rem; color:#059669; font-weight:700;">&#8595; 48% fewer manual calls vs. same period last year</div>
+        <div style="font-size:0.74rem; color:#8a7060; margin-top:4px;">Portal orders require zero staff time to capture</div>
+      </div>
+    </div>
+
+    <!-- Top customers -->
+    <div class="report-card">
+      <div class="report-card-header">Top Customers &mdash; YTD</div>
+      <div class="report-card-body">
+        <div class="report-row"><span class="report-product">Central Carnes Export</span><span class="report-qty">23 orders</span></div>
+        <div class="report-row"><span class="report-product">Gulf Coast Meats</span><span class="report-qty">19 orders</span></div>
+        <div class="report-row"><span class="report-product">El Rancho Foods</span><span class="report-qty">17 orders</span></div>
+        <div class="report-row"><span class="report-product">Houston Star Foods</span><span class="report-qty">14 orders</span></div>
+        <div class="report-row"><span class="report-product">Mercado San Marcos</span><span class="report-qty">11 orders</span></div>
+        <div class="report-row"><span class="report-product">Tamales La Reina</span><span class="report-qty">9 orders</span></div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FLOATING CTA
+══════════════════════════════════════════════ -->
+<div class="floating-cta">
+  <button class="cta-btn" onclick="openCalendly()">
+    <div class="cta-dot"></div>
+    Like what you see? Let's talk
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL (shown once per session)
+══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal" onclick="closeModalIfBg(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div class="modal-tag">Ready to see the real thing?</div>
+    <h2>This could be your team's view every morning at 6:30 AM.</h2>
+    <p>No more fax transcription. No more order errors. USDA docs auto-generated from lot data. Your clients ordering while you sleep. Let's talk about what it would look like for Empacadora Central de Carnes.</p>
+    <button class="modal-cta-btn" onclick="openCalendly()">Let's talk &rarr;</button>
+    <p class="modal-note">No pressure &mdash; just a conversation about your operation.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-bar">
+  Mockup with sample data. Built by <strong>Pocho.tech</strong> &mdash; custom systems for businesses that already work.
+</footer>
+
+<script>
+  // ── TAB SWITCHING ──
+  let viewCount = 0; // 0 = initial load; each switchTab() increments, modal fires at >= 3 (3rd tab click)
+  const MODAL_KEY = 'cmc_modal_shown';
+
+  function switchTab(tabId, btnEl) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    if (btnEl) btnEl.classList.add('active');
+
+    viewCount++;
+    if (viewCount >= 3 && !sessionStorage.getItem(MODAL_KEY)) {
+      openModal();
+    }
+  }
+
+  // ── MODAL ──
+  function openModal() {
+    if (sessionStorage.getItem(MODAL_KEY)) return;
+    document.getElementById('modal').classList.add('open');
+    sessionStorage.setItem(MODAL_KEY, '1');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function closeModalIfBg(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  function openCalendly() {
+    closeModal();
+    window.open('https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=citymeatsteakcoi', '_blank');
+  }
+
+  // ── TIMED MODAL TRIGGER (75s) ──
+  setTimeout(function() {
+    if (!sessionStorage.getItem(MODAL_KEY)) openModal();
+  }, 75000);
+
+  // ── CONFIRM ORDER INTERACTION ──
+  function confirmOrder(orderId) {
+    const btn = document.getElementById('btn-' + orderId);
+    const row = document.getElementById('order-' + orderId);
+    if (!btn || btn.disabled) return;
+
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    setTimeout(function() {
+      // Update status cell
+      const cells = row.querySelectorAll('td');
+      const statusCell = cells[5];
+      const actionCell = cells[6];
+
+      statusCell.innerHTML = '<span class="status status-confirmed">Confirmed</span>';
+      actionCell.innerHTML = '<button class="btn-sm btn-view" onclick="switchTab(\'detail\', document.querySelector(\'[data-tab=detail]\'))">View</button>';
+      row.classList.remove('highlight');
+
+      // Update stat counter
+      const statEl = document.getElementById('stat-new');
+      const current = parseInt(statEl.textContent, 10);
+      if (current > 0) statEl.textContent = current - 1;
+
+      showToast('ORD-' + orderId.split('-')[1] + ' confirmed — production ticket generated');
+    }, 900);
+  }
+
+  // ── TOAST ──
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3200);
+  }
+
+  // ── SEARCH ──
+  const searchData = [
+    { id:'ORD-2607', customer:'Tamales La Reina', cut:'Short Ribs C/U ½" — 20-22 pcs / 10lb', qty:'100 lb', channel:'Portal', status:'New' },
+    { id:'ORD-2606', customer:'Gulf Coast Meats', cut:'Beef T-Bone E-E 12oz. — 13-14 pcs / box', qty:'280 lb', channel:'Portal', status:'New' },
+    { id:'ORD-2605', customer:'Houston Star Foods', cut:'Beef Oxtail Trimmed & Cut — 10lb box', qty:'50 lb', channel:'Phone', status:'New' },
+    { id:'ORD-2604', customer:'Rio Imports LLC', cut:'Beef Knuckle Sliced — 38-42 slices / 10lb', qty:'200 lb', channel:'Phone', status:'New' },
+    { id:'ORD-2603', customer:'Mercado San Marcos', cut:'Pork Butt Boneless — 10lb box', qty:'60 lb', channel:'Portal', status:'Confirmed' },
+    { id:'ORD-2602', customer:'Central Carnes Export', cut:'Beef Hind Shank C/C — 16-18 pcs / 10lb', qty:'150 lb', channel:'Portal', status:'In Production' },
+    { id:'ORD-2601', customer:'El Rancho Foods', cut:'Beef Short Ribs 123A Cut 3" — 6-7 pcs / 10lb', qty:'70 lb', channel:'Portal', status:'Ready' },
+    { id:'ORD-2598', customer:'Pacifico Distributors', cut:'Turkey Wing Split 2-PC — 10lb box', qty:'120 lb', channel:'Portal', status:'Shipped' },
+  ];
+
+  function statusBadge(s) {
+    const map = { 'New':'status-new','Confirmed':'status-confirmed','In Production':'status-inprod','Ready':'status-ready','Shipped':'status-shipped' };
+    return '<span class="status ' + (map[s]||'status-new') + '">' + s + '</span>';
+  }
+
+  function doSearch() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const fStatus = document.getElementById('filterStatus').value;
+    const fChannel = document.getElementById('filterChannel').value;
+
+    const results = searchData.filter(function(o) {
+      const matchQ = !q || (o.id + o.customer + o.cut + o.qty + o.channel + o.status).toLowerCase().includes(q);
+      const matchS = !fStatus || o.status.toLowerCase().includes(fStatus.toLowerCase());
+      const matchC = !fChannel || o.channel === fChannel;
+      return matchQ && matchS && matchC;
+    });
+
+    const el = document.getElementById('searchResults');
+    if (!q && !fStatus && !fChannel) {
+      el.innerHTML = '';
+      return;
+    }
+
+    if (results.length === 0) {
+      el.innerHTML = '<div style="padding:10px 0; color:#8a7060;">No orders found matching your criteria.</div>';
+      return;
+    }
+
+    let html = '<div style="overflow-x:auto;"><table class="order-table"><thead><tr><th>Order #</th><th>Customer</th><th>Cut</th><th>Qty</th><th>Channel</th><th>Status</th></tr></thead><tbody>';
+    results.forEach(function(o) {
+      html += '<tr><td><span class="order-id">' + o.id + '</span></td><td><strong>' + o.customer + '</strong></td><td><span class="cut-spec">' + o.cut + '</span></td><td>' + o.qty + '</td><td>' + o.channel + '</td><td>' + statusBadge(o.status) + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html = '<div style="font-size:0.78rem; color:#6b5a4e; margin-bottom:10px;"><strong>' + results.length + '</strong> order' + (results.length !== 1 ? 's' : '') + ' found</div>' + html;
+    el.innerHTML = html;
+  }
+</script>
+
+
+<div id="pt-galeria" style="background:#141414;color:#f6f6f4;padding:26px 16px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;text-align:center;line-height:1.55">
+  <p style="margin:0 0 6px;font-size:13px;color:#9a9a94">Demostración interactiva. La empresa y todos los datos que ve son ficticios.</p>
+  <p style="margin:0 0 16px;font-size:15px;color:#f6f6f4">Un sistema así se construye a la medida de su operación, no se configura desde una plantilla.</p>
+  <a href="/demos" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;border:1px solid #4a4a46;border-radius:6px;color:#f6f6f4;text-decoration:none;font-size:14px">Ver todas las demos</a>
+  <a href="https://calendly.com/erick-pocho/1hr-session" target="_blank" rel="noopener" style="display:inline-block;margin:0 6px 8px;padding:11px 18px;background:#e03a24;border:1px solid #e03a24;border-radius:6px;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Agendar una llamada</a>
+  <p style="margin:14px 0 0;font-size:12px;color:#6a6a6a">pocho.tech &middot; Erick Bonilla</p>
+</div>
+</body>
+</html>
