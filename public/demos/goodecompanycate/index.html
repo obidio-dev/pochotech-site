@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Live Oak Catering Co — Event Operations Demo</title>
+  <title>Live Oak Catering Co — Demo de Operaciones de Eventos</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -275,25 +275,25 @@
     <div class="flex-1 min-w-0">
       <div class="flex items-center gap-2 flex-wrap">
         <span class="text-lg font-bold tracking-wide" style="font-family:Georgia,serif;">Live Oak Catering Co</span>
-        <span class="demo-badge">DEMO · SAMPLE DATA</span>
+        <span class="demo-badge">DEMO · DATOS DE MUESTRA</span>
       </div>
       <p class="text-xs mt-0.5" style="color:rgba(245,237,214,0.7); font-family:sans-serif; letter-spacing:0.03em;">
-        What your own system would look like &mdash; prepared by Pocho.tech
+        Así se vería su sistema propio &mdash; preparado por Pocho.tech
       </p>
     </div>
     <!-- small tagline desktop only -->
     <div class="hidden sm:block text-right">
-      <p class="text-xs italic" style="color:rgba(245,237,214,0.5); font-family:Georgia,serif;">"You give us the who, what, when, and where."</p>
+      <p class="text-xs italic" style="color:rgba(245,237,214,0.5); font-family:Georgia,serif;">"Usted nos dice quién, qué, cuándo y dónde."</p>
     </div>
   </div>
 
   <!-- TAB BAR -->
   <nav class="tab-bar overflow-x-auto">
     <div class="max-w-5xl mx-auto px-4 flex gap-0">
-      <button class="tab-btn active" onclick="switchTab('dashboard', this)">Today's Board</button>
-      <button class="tab-btn" onclick="switchTab('event-detail', this)">Event Detail</button>
-      <button class="tab-btn" onclick="switchTab('pain', this)">The Inbox Problem</button>
-      <button class="tab-btn" onclick="switchTab('reports', this)">Search &amp; Reports</button>
+      <button class="tab-btn active" onclick="switchTab('dashboard', this)">Tablero de hoy</button>
+      <button class="tab-btn" onclick="switchTab('event-detail', this)">Detalle del evento</button>
+      <button class="tab-btn" onclick="switchTab('pain', this)">El problema de la bandeja</button>
+      <button class="tab-btn" onclick="switchTab('reports', this)">Búsqueda y reportes</button>
     </div>
   </nav>
 </header>
@@ -310,39 +310,39 @@
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
     <div class="stat-box">
       <div class="stat-num" id="stat-active">6</div>
-      <div class="stat-label">Active Events</div>
+      <div class="stat-label">Eventos activos</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">3</div>
-      <div class="stat-label">Proposals Out</div>
+      <div class="stat-label">Propuestas enviadas</div>
     </div>
     <div class="stat-box">
       <div class="stat-num" id="stat-unread" style="color:var(--red);">11</div>
-      <div class="stat-label">Unread Inquiries</div>
+      <div class="stat-label">Consultas sin leer</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">2</div>
-      <div class="stat-label">Yonderlust Booked</div>
+      <div class="stat-label">Tráiler Nómada reservado</div>
     </div>
   </div>
 
   <!-- EVENTS TABLE -->
   <div class="card overflow-x-auto mb-5">
     <div class="flex items-center justify-between px-4 pt-3 pb-2 border-b border-gray-100">
-      <span class="section-heading">Active Events — Week of Jul 28</span>
-      <button class="action-btn secondary text-xs" onclick="openNewInquiry()">+ New Inquiry</button>
+      <span class="section-heading">Eventos activos — semana del 28 de julio</span>
+      <button class="action-btn secondary text-xs" onclick="openNewInquiry()">+ Nueva consulta</button>
     </div>
     <table class="data-table" id="events-table">
       <thead>
         <tr>
           <th>#</th>
-          <th>Client / Event</th>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Pax</th>
-          <th>Menu</th>
-          <th>Yonderlust</th>
-          <th>Status</th>
+          <th>Cliente / evento</th>
+          <th>Tipo</th>
+          <th>Fecha</th>
+          <th>Personas</th>
+          <th>Menú</th>
+          <th>Nómada</th>
+          <th>Estado</th>
           <th></th>
         </tr>
       </thead>
@@ -355,25 +355,25 @@
   <!-- SCHEDULING CONFLICTS PANEL -->
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <div class="card p-4">
-      <p class="section-heading text-sm mb-3">Scheduling Conflicts</p>
+      <p class="section-heading text-sm mb-3">Choques de agenda</p>
       <div class="highlight-box mb-2">
-        <strong>Conflict:</strong> Yonderlust double-booked Jul 31 — Martinez Wedding &amp; Energy Corp Q4 both need the Airstream at 6 pm.
+        <strong>Choque:</strong> El tráiler Nómada quedó doble reservado el 31 de julio — la boda Martínez y el evento de Energy Corp lo necesitan a las 6 de la tarde.
         <div class="mt-2 flex gap-2">
-          <button class="action-btn text-xs" onclick="resolveConflict(this)">Resolve &rarr;</button>
+          <button class="action-btn text-xs" onclick="resolveConflict(this)">Resolver &rarr;</button>
         </div>
       </div>
       <div class="info-box">
-        <strong>Tip:</strong> Seasonal Crawfish Boil setup (Aug 4) requires on-site cooking crew confirmed 7 days out. Deadline: <strong>Jul 28.</strong>
+        <strong>Aviso:</strong> El montaje del hervido de langostinos (4 ago) necesita la cuadrilla de cocina en sitio confirmada con 7 días. Fecha límite: <strong>28 jul.</strong>
       </div>
     </div>
     <div class="card p-4">
-      <p class="section-heading text-sm mb-3">Pending Vendor Confirmations</p>
+      <p class="section-heading text-sm mb-3">Confirmaciones de proveedores pendientes</p>
       <ul class="space-y-2 font--sans text-sm" style="font-family:sans-serif;">
-        <li class="flex items-center gap-2"><span class="dot dot-yellow"></span> Photographer — Martinez Wedding (awaiting contract)</li>
-        <li class="flex items-center gap-2"><span class="dot dot-yellow"></span> Florals — Brookfield Gala (quote requested)</li>
-        <li class="flex items-center gap-2"><span class="dot dot-green"></span> Bartender crew — Energy Corp Q4 (confirmed)</li>
-        <li class="flex items-center gap-2"><span class="dot dot-green"></span> On-site cooking crew — Office Cookout (confirmed)</li>
-        <li class="flex items-center gap-2"><span class="dot dot-red"></span> Credence AV setup — Nonprofit Dinner (no response)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-yellow"></span> Fotógrafo — boda Martínez (esperando contrato)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-yellow"></span> Flores — gala Brookfield (cotización pedida)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-green"></span> Cuadrilla de bartenders — Energy Corp (confirmada)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-green"></span> Cuadrilla de cocina en sitio — asado de oficina (confirmada)</li>
+        <li class="flex items-center gap-2"><span class="dot dot-red"></span> Montaje de audio Roble Privado — cena de fundación (sin respuesta)</li>
       </ul>
     </div>
   </div>
@@ -389,58 +389,58 @@
       <div class="card p-4">
         <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
           <div>
-            <h2 class="text-base font-bold" style="color:var(--green); font-family:Georgia,serif;">Houston Energy Corp Q4 Meeting</h2>
-            <p class="text-xs text-gray-500 mt-0.5" style="font-family:sans-serif;">EVT-2026-031 &nbsp;·&nbsp; Corporate Event &nbsp;·&nbsp; Recurring Client</p>
+            <h2 class="text-base font-bold" style="color:var(--green); font-family:Georgia,serif;">Reunión de cierre de año — Houston Energy Corp</h2>
+            <p class="text-xs text-gray-500 mt-0.5" style="font-family:sans-serif;">EVT-2026-031 &nbsp;·&nbsp; evento corporativo &nbsp;·&nbsp; cliente recurrente</p>
           </div>
-          <span class="pill pill-confirmed">Confirmed</span>
+          <span class="pill pill-confirmed">Confirmado</span>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs" style="font-family:sans-serif;">
-          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Date</span> Jul 31, 2026 — 6:00 PM</div>
-          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Location</span> Client HQ, Houston TX</div>
-          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Guest Count</span> 120 pax</div>
-          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Service Style</span> Full-Service Catering</div>
-          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Yonderlust</span> <span style="color:var(--red);">Conflict — see below</span></div>
-          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Contact</span> Sarah K., Events Dir.</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Fecha</span> 31 jul 2026 — 6:00 PM</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Lugar</span> Oficinas del cliente, Houston TX</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Invitados</span> 120 personas</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Tipo de servicio</span> Catering de servicio completo</div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Nómada</span> <span style="color:var(--red);">Choque — vea abajo</span></div>
+          <div><span class="text-gray-400 uppercase tracking-wide block mb-0.5">Contacto</span> Sarah K., directora de eventos</div>
         </div>
       </div>
 
       <!-- MENU -->
       <div class="card p-4">
-        <p class="section-heading text-sm mb-3">Menu Selection</p>
+        <p class="section-heading text-sm mb-3">Menú elegido</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs" style="font-family:sans-serif;">
-          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>The Big Chop</strong> — Brisket + Ribs (main)</span></div>
-          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Made-to-Order Guacamole Station</strong></span></div>
-          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>The Damn Live Oak Bar Package</strong></span></div>
-          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Campechana de Mariscos</strong> — Passed Appetizers</span></div>
-          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Brazos Bottom Pecan Pie</strong> — Dessert</span></div>
-          <div class="flex items-start gap-2"><span class="dot dot-yellow mt-1"></span><span><strong>Yonderlust Airstream Bar</strong> — <em>conflict pending</em></span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>El Cortón</strong> — brisket y costilla (fuerte)</span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Estación de guacamole al momento</strong></span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Paquete de barra Live Oak</strong></span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Campechana de mariscos</strong> — pasabocas</span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-green mt-1"></span><span><strong>Pay de nuez</strong> — postre</span></div>
+          <div class="flex items-start gap-2"><span class="dot dot-yellow mt-1"></span><span><strong>Barra del tráiler Nómada</strong> — <em>choque pendiente</em></span></div>
         </div>
-        <p class="text-xs text-gray-400 mt-2 italic" style="font-family:sans-serif;">Mesquite-grilled + slow-smoked. On-site cooking crew required.</p>
+        <p class="text-xs text-gray-400 mt-2 italic" style="font-family:sans-serif;">A la parrilla de mezquite y ahumado lento. Requiere cuadrilla de cocina en sitio.</p>
       </div>
 
       <!-- HISTORY -->
       <div class="card p-4">
-        <p class="section-heading text-sm mb-3">Client History — Energy Corp</p>
+        <p class="section-heading text-sm mb-3">Historial del cliente — Energy Corp</p>
         <div class="space-y-0">
           <div class="timeline-item">
             <div class="timeline-dot"></div>
-            <p class="text-xs font-semibold" style="font-family:sans-serif;">Q4 2025 — Full Feast + Bar Package · 110 pax</p>
-            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Post-event note: "loved the guacamole station, want it every year." — Sarah K.</p>
+            <p class="text-xs font-semibold" style="font-family:sans-serif;">4to trimestre 2025 — banquete completo + paquete de barra · 110 personas</p>
+            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Nota posterior al evento: "les encantó la estación de guacamole, la quieren todos los años." — Sarah K.</p>
           </div>
           <div class="timeline-item">
             <div class="timeline-dot"></div>
-            <p class="text-xs font-semibold" style="font-family:sans-serif;">Q2 2025 — Mid-Year Office Cookout · Backyard Menu · 95 pax</p>
-            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Increased pax 15% from prior year. Setup to cleanup, 4-hour window.</p>
+            <p class="text-xs font-semibold" style="font-family:sans-serif;">2do trimestre 2025 — asado de medio año · menú de patio · 95 personas</p>
+            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Subieron 15% los invitados contra el año anterior. Del montaje a la limpieza, ventana de 4 horas.</p>
           </div>
           <div class="timeline-item">
             <div class="timeline-dot"></div>
-            <p class="text-xs font-semibold" style="font-family:sans-serif;">Q4 2024 — First booking · The Big Chop · 90 pax</p>
-            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Referral from Brookfield contact. Venue: client HQ.</p>
+            <p class="text-xs font-semibold" style="font-family:sans-serif;">4to trimestre 2024 — primera reserva · El Cortón · 90 personas</p>
+            <p class="text-xs text-gray-500" style="font-family:sans-serif;">Recomendados por un contacto de Brookfield. Lugar: oficinas del cliente.</p>
           </div>
         </div>
         <div class="info-box mt-3">
-          <strong>Levi's note:</strong> "Energy Corp is a 3x client — always grows headcount. Always wants guacamole. Don't over-complicate the proposal."
+          <strong>Nota del dueño:</strong> "Energy Corp ya va por la tercera vez y siempre crece en cantidad de gente. Siempre quieren guacamole. No compliquemos la propuesta."
         </div>
       </div>
     </div>
@@ -448,39 +448,39 @@
     <!-- RIGHT: SIDEBAR -->
     <div class="space-y-4">
       <div class="card p-4">
-        <p class="section-heading text-sm mb-3">Checklist</p>
+        <p class="section-heading text-sm mb-3">Lista de verificación</p>
         <ul class="space-y-1.5 text-xs" style="font-family:sans-serif;" id="detail-checklist">
-          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Contract signed</li>
-          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Deposit received</li>
-          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Menu confirmed</li>
-          <li class="flex items-center gap-2"><input type="checkbox" id="chk-crew"> On-site crew confirmed</li>
-          <li class="flex items-center gap-2"><input type="checkbox" id="chk-yonder"> Yonderlust conflict resolved</li>
-          <li class="flex items-center gap-2"><input type="checkbox" id="chk-bar"> Bar Package quantities set</li>
-          <li class="flex items-center gap-2"><input type="checkbox" id="chk-sheet"> Day-of sheet sent to client</li>
+          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Contrato firmado</li>
+          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Anticipo recibido</li>
+          <li class="flex items-center gap-2"><input type="checkbox" checked readonly class="accent-green-700"> Menú confirmado</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-crew"> Cuadrilla en sitio confirmada</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-yonder"> Choque del Nómada resuelto</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-bar"> Cantidades del paquete de barra definidas</li>
+          <li class="flex items-center gap-2"><input type="checkbox" id="chk-sheet"> Hoja del día enviada al cliente</li>
         </ul>
-        <button class="action-btn w-full mt-3 text-xs" id="confirm-btn" onclick="confirmItem()">Mark Crew Confirmed</button>
+        <button class="action-btn w-full mt-3 text-xs" id="confirm-btn" onclick="confirmItem()">Marcar cuadrilla confirmada</button>
         <p class="text-xs text-gray-400 mt-1 text-center" style="font-family:sans-serif;" id="confirm-msg"></p>
       </div>
 
       <div class="card p-4">
-        <p class="section-heading text-sm mb-2">Event Value</p>
+        <p class="section-heading text-sm mb-2">Valor del evento</p>
         <p class="text-2xl font-bold" style="color:var(--green); font-family:sans-serif;">$8,400</p>
-        <p class="text-xs text-gray-400 mt-0.5 mb-3" style="font-family:sans-serif;">Estimated · 120 pax · Full-Service</p>
+        <p class="text-xs text-gray-400 mt-0.5 mb-3" style="font-family:sans-serif;">Estimado · 120 personas · servicio completo</p>
         <div class="text-xs space-y-1" style="font-family:sans-serif;">
-          <div class="flex justify-between"><span>Food &amp; stations</span><span>$5,200</span></div>
-          <div class="flex justify-between"><span>Bar Package</span><span>$1,800</span></div>
-          <div class="flex justify-between"><span>Yonderlust (pending)</span><span>$900</span></div>
-          <div class="flex justify-between"><span>Staffing / setup</span><span>$500</span></div>
+          <div class="flex justify-between"><span>Comida y estaciones</span><span>$5,200</span></div>
+          <div class="flex justify-between"><span>Paquete de barra</span><span>$1,800</span></div>
+          <div class="flex justify-between"><span>Nómada (pendiente)</span><span>$900</span></div>
+          <div class="flex justify-between"><span>Personal / montaje</span><span>$500</span></div>
           <div class="flex justify-between font-bold pt-1 border-t border-gray-100"><span>Total</span><span>$8,400</span></div>
         </div>
       </div>
 
       <div class="card p-4">
-        <p class="section-heading text-sm mb-2">Quick Actions</p>
+        <p class="section-heading text-sm mb-2">Acciones rápidas</p>
         <div class="space-y-2">
-          <button class="action-btn w-full text-xs">Send Day-of Sheet</button>
-          <button class="action-btn secondary w-full text-xs">Email Client Update</button>
-          <button class="action-btn secondary w-full text-xs">Log Post-Event Note</button>
+          <button class="action-btn w-full text-xs">Enviar hoja del día</button>
+          <button class="action-btn secondary w-full text-xs">Escribir al cliente</button>
+          <button class="action-btn secondary w-full text-xs">Anotar nota post evento</button>
         </div>
       </div>
     </div>
@@ -496,107 +496,107 @@
     <!-- LEFT: THE PAIN -->
     <div>
       <div class="highlight-box mb-4">
-        <p class="font-bold text-sm mb-1" style="color:var(--red);">Right now: every booking starts here.</p>
-        <p class="text-xs">A corporate event planner at a 200-person firm visits goodecatering.com and sees: <em>"email events@ or call us."</em> What happens next lives entirely in someone's inbox — and someone's head.</p>
+        <p class="font-bold text-sm mb-1" style="color:var(--red);">Hoy: cada reserva empieza acá.</p>
+        <p class="text-xs">Un organizador de eventos de una firma de 200 personas entra a liveoakcatering.com y ve: <em>"escríbanos a eventos@ o llámenos."</em> Lo que pasa después vive por completo en la bandeja de alguien &mdash; y en la cabeza de alguien.</p>
       </div>
 
-      <p class="section-heading text-sm mb-2">The events@ inbox — a typical Monday</p>
+      <p class="section-heading text-sm mb-2">La bandeja de eventos@ — un lunes cualquiera</p>
       <div id="inbox-list">
         <div class="inbox-item unread">
-          <div class="flex justify-between items-start"><strong>Re: Q4 Gala — can you do 200 pax?</strong><span class="text-gray-400 text-xs">3 days ago</span></div>
-          <p class="text-gray-500 text-xs mt-0.5">Brookfield Properties — no response yet. Is this still in play?</p>
+          <div class="flex justify-between items-start"><strong>Re: gala de cierre de año — ¿pueden con 200 personas?</strong><span class="text-gray-400 text-xs">hace 3 días</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">Brookfield Properties — sin respuesta todavía. ¿Sigue en pie?</p>
         </div>
         <div class="inbox-item unread">
-          <div class="flex justify-between items-start"><strong>Yonderlust available Aug 15?</strong><span class="text-gray-400 text-xs">2 days ago</span></div>
-          <p class="text-gray-500 text-xs mt-0.5">Wedding planner — date unknown, budget unknown, pax unknown.</p>
+          <div class="flex justify-between items-start"><strong>¿El tráiler Nómada está libre el 15 de agosto?</strong><span class="text-gray-400 text-xs">hace 2 días</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">Organizadora de bodas — sin fecha, sin presupuesto, sin cantidad de personas.</p>
         </div>
         <div class="inbox-item">
-          <div class="flex justify-between items-start"><strong>Following up on my inquiry from last week</strong><span class="text-gray-400 text-xs">Yesterday</span></div>
-          <p class="text-gray-500 text-xs mt-0.5">3rd follow-up from a nonprofit. First email went unanswered.</p>
+          <div class="flex justify-between items-start"><strong>Dando seguimiento a mi consulta de la semana pasada</strong><span class="text-gray-400 text-xs">Ayer</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">Tercer seguimiento de una fundación. El primer correo quedó sin contestar.</p>
         </div>
         <div class="inbox-item">
-          <div class="flex justify-between items-start"><strong>Corporate lunch — Tex-Mex — 80 pax — downtown</strong><span class="text-gray-400 text-xs">Today, 9:12 AM</span></div>
-          <p class="text-gray-500 text-xs mt-0.5">No date. No budget. Staff needs to call back to get basics.</p>
+          <div class="flex justify-between items-start"><strong>Almuerzo corporativo — tex-mex — 80 personas — centro</strong><span class="text-gray-400 text-xs">Hoy, 9:12 AM</span></div>
+          <p class="text-gray-500 text-xs mt-0.5">Sin fecha. Sin presupuesto. Alguien tiene que devolver la llamada para preguntar lo básico.</p>
         </div>
         <div class="inbox-item lost">
-          <div class="flex justify-between items-start"><strong>Annual pig roast — 150 pax</strong><span class="text-gray-400 text-xs">11 days ago</span></div>
-          <p class="text-gray-500 text-xs mt-0.5 italic">Went cold. Client booked elsewhere.</p>
+          <div class="flex justify-between items-start"><strong>Cerdo al asador anual — 150 personas</strong><span class="text-gray-400 text-xs">hace 11 días</span></div>
+          <p class="text-gray-500 text-xs mt-0.5 italic">Se enfrió. El cliente reservó con otro.</p>
         </div>
         <div class="inbox-item lost">
-          <div class="flex justify-between items-start"><strong>Seasonal Crawfish Boil inquiry</strong><span class="text-gray-400 text-xs">14 days ago</span></div>
-          <p class="text-gray-500 text-xs mt-0.5 italic">No reply from team within 72h. Lead gone.</p>
+          <div class="flex justify-between items-start"><strong>Consulta por hervido de langostinos de temporada</strong><span class="text-gray-400 text-xs">hace 14 días</span></div>
+          <p class="text-gray-500 text-xs mt-0.5 italic">El equipo no respondió en 72 horas. Prospecto perdido.</p>
         </div>
       </div>
 
       <div class="mt-3 text-xs text-gray-500 italic" style="font-family:sans-serif;">
-        Estimate: 8–12 event inquiries/week × 2–3 back-and-forth emails each = <strong>~20 hours/month</strong> of staff time just collecting basic intake information.
+        Estimado: de 8 a 12 consultas por semana × 2 o 3 correos de ida y vuelta cada una = <strong>~20 horas al mes</strong> de tiempo del equipo solo recogiendo los datos básicos.
       </div>
     </div>
 
     <!-- RIGHT: THE SYSTEM -->
     <div>
       <div class="info-box mb-4">
-        <p class="font-bold text-sm mb-1" style="color:var(--green);">With a system: every inquiry is structured from the first touch.</p>
-        <p class="text-xs">A client visits your intake page, fills out the who/what/when/where, and your team sees a clean card — not a thread to excavate.</p>
+        <p class="font-bold text-sm mb-1" style="color:var(--green);">Con un sistema: cada consulta llega estructurada desde el primer contacto.</p>
+        <p class="text-xs">El cliente entra a su página de solicitud, llena el quién, qué, cuándo y dónde, y su equipo ve una ficha limpia &mdash; no una cadena de correos que hay que excavar.</p>
       </div>
 
-      <p class="section-heading text-sm mb-2">Intake card — auto-generated on submission</p>
+      <p class="section-heading text-sm mb-2">Ficha de solicitud — generada sola al enviarse</p>
       <div class="card p-4 mb-4">
         <div class="flex justify-between items-start mb-2">
-          <span class="font-bold text-sm" style="font-family:sans-serif;">New Inquiry — Jul 28, 10:34 AM</span>
-          <span class="pill pill-proposal">Needs Quote</span>
+          <span class="font-bold text-sm" style="font-family:sans-serif;">Consulta nueva — 28 jul, 10:34 AM</span>
+          <span class="pill pill-proposal">Falta cotizar</span>
         </div>
         <div class="grid grid-cols-2 gap-2 text-xs mb-3" style="font-family:sans-serif;">
-          <div><span class="text-gray-400 block">Client</span>Cornerstone Capital</div>
-          <div><span class="text-gray-400 block">Event Type</span>Corporate — Annual Awards</div>
-          <div><span class="text-gray-400 block">Date</span>Sep 18, 2026</div>
-          <div><span class="text-gray-400 block">Guest Count</span>175 pax</div>
-          <div><span class="text-gray-400 block">Service</span>Full-Service + Bar Package</div>
-          <div><span class="text-gray-400 block">Budget</span>~$10,000</div>
-          <div><span class="text-gray-400 block">Yonderlust?</span>Interested</div>
-          <div><span class="text-gray-400 block">Venue</span>Their downtown office</div>
+          <div><span class="text-gray-400 block">Cliente</span>Cornerstone Capital</div>
+          <div><span class="text-gray-400 block">Tipo de evento</span>Corporativo — premiación anual</div>
+          <div><span class="text-gray-400 block">Fecha</span>18 sep 2026</div>
+          <div><span class="text-gray-400 block">Invitados</span>175 personas</div>
+          <div><span class="text-gray-400 block">Servicio</span>Servicio completo + paquete de barra</div>
+          <div><span class="text-gray-400 block">Presupuesto</span>~$10,000</div>
+          <div><span class="text-gray-400 block">¿Nómada?</span>Le interesa</div>
+          <div><span class="text-gray-400 block">Lugar</span>Su oficina del centro</div>
         </div>
-        <div class="text-xs text-gray-500 italic mb-3" style="font-family:sans-serif;">"We've heard great things from Energy Corp — want the same guacamole station."</div>
+        <div class="text-xs text-gray-500 italic mb-3" style="font-family:sans-serif;">"Nos hablaron muy bien de ustedes en Energy Corp — queremos la misma estación de guacamole."</div>
         <div class="flex gap-2">
-          <button class="action-btn text-xs">Send Proposal</button>
-          <button class="action-btn secondary text-xs">Check Availability</button>
+          <button class="action-btn text-xs">Enviar propuesta</button>
+          <button class="action-btn secondary text-xs">Ver disponibilidad</button>
         </div>
       </div>
 
-      <p class="section-heading text-sm mb-2">What the agent handles automatically</p>
+      <p class="section-heading text-sm mb-2">Lo que el agente hace solo</p>
       <ul class="space-y-1.5 text-xs" style="font-family:sans-serif;">
-        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Confirmation email sent to client within 60 seconds</li>
-        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Yonderlust availability checked against booking calendar</li>
-        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Routing: Corporate events &rarr; Levi's review queue</li>
-        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>48h follow-up if no proposal sent (zero lost leads)</li>
-        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Similar past events surfaced from client history</li>
-        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Menu template pre-loaded based on event type + pax</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Correo de confirmación al cliente en menos de 60 segundos</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Disponibilidad del Nómada revisada contra el calendario de reservas</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Enrutamiento: eventos corporativos &rarr; fila de revisión del dueño</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Seguimiento a las 48 horas si no se envió propuesta (cero prospectos perdidos)</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Eventos anteriores parecidos, traídos del historial del cliente</li>
+        <li class="flex items-start gap-2"><span class="dot dot-green mt-1 flex-shrink-0"></span>Plantilla de menú precargada según tipo de evento y cantidad de personas</li>
       </ul>
     </div>
   </div>
 
   <!-- BOTTOM: TIME CALCULATION -->
   <div class="card mt-5 p-4">
-    <p class="section-heading text-sm mb-3">The math on recovered time</p>
+    <p class="section-heading text-sm mb-3">La cuenta del tiempo que se recupera</p>
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div class="stat-box">
         <div class="stat-num">~10</div>
-        <div class="stat-label">Inquiries / week</div>
+        <div class="stat-label">Consultas por semana</div>
       </div>
       <div class="stat-box">
         <div class="stat-num" style="color:var(--red);">~20 min</div>
-        <div class="stat-label">Avg. email back-and-forth per inquiry</div>
+        <div class="stat-label">Ida y vuelta de correos por consulta</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num" style="color:var(--red);">~33 hrs</div>
-        <div class="stat-label">Staff hours / month on intake alone</div>
+        <div class="stat-num" style="color:var(--red);">~33 h</div>
+        <div class="stat-label">Horas del equipo al mes solo en captura</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num" style="color:var(--green);">~28 hrs</div>
-        <div class="stat-label">Recovered with structured intake</div>
+        <div class="stat-num" style="color:var(--green);">~28 h</div>
+        <div class="stat-label">Recuperadas con captura estructurada</div>
       </div>
     </div>
-    <p class="text-xs text-gray-400 mt-3 italic" style="font-family:sans-serif;">Estimates based on typical catering operation volume at this scale. Actual numbers depend on your intake volume — your team knows the real count.</p>
+    <p class="text-xs text-gray-400 mt-3 italic" style="font-family:sans-serif;">Estimados basados en el volumen típico de una operación de catering de este tamaño. Los números reales dependen de cuántas consultas reciba &mdash; su equipo sabe el conteo verdadero.</p>
   </div>
 </section>
 
@@ -605,20 +605,20 @@
 
   <!-- SEARCH BAR -->
   <div class="flex gap-2 mb-4 flex-wrap">
-    <input class="search-input flex-1 min-w-0" type="text" id="search-box" placeholder="Search events, clients, menu items, dates..." oninput="filterTable()" />
+    <input class="search-input flex-1 min-w-0" type="text" id="search-box" placeholder="Buscar eventos, clientes, platillos, fechas..." oninput="filterTable()" />
     <select class="search-input" style="width:auto; flex-shrink:0;" id="filter-type" onchange="filterTable()">
-      <option value="">All Types</option>
-      <option value="Corporate">Corporate</option>
+      <option value="">Todos los tipos</option>
+      <option value="Corporativo">Corporativo</option>
       <option value="Social">Social</option>
-      <option value="Nonprofit">Nonprofit</option>
-      <option value="Yonderlust">Yonderlust</option>
+      <option value="Fundación">Fundación</option>
+      <option value="Nómada">Nómada</option>
     </select>
     <select class="search-input" style="width:auto; flex-shrink:0;" id="filter-status" onchange="filterTable()">
-      <option value="">All Statuses</option>
-      <option value="Confirmed">Confirmed</option>
-      <option value="Pending">Pending</option>
-      <option value="Proposal">Proposal Sent</option>
-      <option value="Completed">Completed</option>
+      <option value="">Todos los estados</option>
+      <option value="Confirmado">Confirmado</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="Propuesta">Propuesta enviada</option>
+      <option value="Completado">Completado</option>
     </select>
   </div>
 
@@ -627,73 +627,73 @@
     <table class="data-table" id="report-table">
       <thead>
         <tr>
-          <th>Event</th>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Pax</th>
-          <th>Menu</th>
-          <th>Value</th>
-          <th>Status</th>
+          <th>Evento</th>
+          <th>Tipo</th>
+          <th>Fecha</th>
+          <th>Personas</th>
+          <th>Menú</th>
+          <th>Valor</th>
+          <th>Estado</th>
         </tr>
       </thead>
       <tbody id="report-tbody">
         <!-- rows injected by JS -->
       </tbody>
     </table>
-    <div id="no-results" class="hidden text-center py-6 text-sm text-gray-400" style="font-family:sans-serif;">No events match your search.</div>
+    <div id="no-results" class="hidden text-center py-6 text-sm text-gray-400" style="font-family:sans-serif;">Ningún evento coincide con su búsqueda.</div>
   </div>
 
   <!-- SUMMARY METRICS -->
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <div class="card p-4">
-      <p class="section-heading text-sm mb-3">Q3 2026 Snapshot</p>
+      <p class="section-heading text-sm mb-3">Resumen del 3er trimestre 2026</p>
       <div class="space-y-2 text-xs" style="font-family:sans-serif;">
         <div class="flex justify-between items-center">
-          <span>Corporate Events</span>
+          <span>Eventos corporativos</span>
           <div class="flex items-center gap-2">
             <div class="h-2 rounded" style="width:80px; background:var(--green); opacity:0.85;"></div>
             <span class="font-bold">8</span>
           </div>
         </div>
         <div class="flex justify-between items-center">
-          <span>Social Events</span>
+          <span>Eventos sociales</span>
           <div class="flex items-center gap-2">
             <div class="h-2 rounded" style="width:52px; background:var(--brown); opacity:0.85;"></div>
             <span class="font-bold">5</span>
           </div>
         </div>
         <div class="flex justify-between items-center">
-          <span>Nonprofit Events</span>
+          <span>Eventos de fundaciones</span>
           <div class="flex items-center gap-2">
             <div class="h-2 rounded" style="width:32px; background:var(--red); opacity:0.7;"></div>
             <span class="font-bold">3</span>
           </div>
         </div>
         <div class="flex justify-between items-center">
-          <span>Yonderlust-only</span>
+          <span>Solo Nómada</span>
           <div class="flex items-center gap-2">
             <div class="h-2 rounded" style="width:20px; background:#6B3A1F; opacity:0.7;"></div>
             <span class="font-bold">2</span>
           </div>
         </div>
         <div class="flex justify-between items-center pt-2 border-t border-gray-100 font-bold">
-          <span>Total Estimated Revenue</span>
+          <span>Ingreso total estimado</span>
           <span style="color:var(--green);">$68,400</span>
         </div>
       </div>
     </div>
 
     <div class="card p-4">
-      <p class="section-heading text-sm mb-3">Most Requested Menu Items</p>
+      <p class="section-heading text-sm mb-3">Platillos más pedidos</p>
       <ol class="space-y-1.5 text-xs" style="font-family:sans-serif; list-style:none; padding:0;">
-        <li class="flex justify-between items-center"><span>1. Made-to-Order Guacamole Station</span><span class="pill pill-confirmed">12 events</span></li>
-        <li class="flex justify-between items-center"><span>2. The Damn Live Oak Bar Package</span><span class="pill pill-confirmed">10 events</span></li>
-        <li class="flex justify-between items-center"><span>3. The Big Chop (BBQ mid)</span><span class="pill pill-confirmed">9 events</span></li>
-        <li class="flex justify-between items-center"><span>4. Yonderlust Airstream Bar</span><span class="pill pill-proposal">7 events</span></li>
-        <li class="flex justify-between items-center"><span>5. Brazos Bottom Pecan Pie</span><span class="pill pill-proposal">7 events</span></li>
-        <li class="flex justify-between items-center"><span>6. Campechana de Mariscos</span><span class="pill pill-pending">5 events</span></li>
+        <li class="flex justify-between items-center"><span>1. Estación de guacamole al momento</span><span class="pill pill-confirmed">12 eventos</span></li>
+        <li class="flex justify-between items-center"><span>2. Paquete de barra Live Oak</span><span class="pill pill-confirmed">10 eventos</span></li>
+        <li class="flex justify-between items-center"><span>3. El Cortón (parrilla, tamaño medio)</span><span class="pill pill-confirmed">9 eventos</span></li>
+        <li class="flex justify-between items-center"><span>4. Barra del tráiler Nómada</span><span class="pill pill-proposal">7 eventos</span></li>
+        <li class="flex justify-between items-center"><span>5. Pay de nuez</span><span class="pill pill-proposal">7 eventos</span></li>
+        <li class="flex justify-between items-center"><span>6. Campechana de mariscos</span><span class="pill pill-pending">5 eventos</span></li>
       </ol>
-      <p class="text-xs text-gray-400 mt-3 italic">Use this to pre-load proposals for returning clients. "Energy Corp always wants the guacamole station" — now that's a data point, not institutional memory.</p>
+      <p class="text-xs text-gray-400 mt-3 italic">Esto sirve para precargar las propuestas de clientes que repiten. "Energy Corp siempre quiere la estación de guacamole" deja de ser memoria de la casa y pasa a ser un dato.</p>
     </div>
   </div>
 
@@ -704,13 +704,13 @@
      FOOTER
 ══════════════════════════════════════════════════════════════ -->
 <footer class="mt-10 py-4 text-center" style="border-top: 1px solid #d1c9b0; font-family:sans-serif; font-size:0.72rem; color:#9ca3af;">
-  Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech &mdash; sistemas propios para negocios que ya funcionan.
 </footer>
 
 <!-- ════════════════════════════════════════════════════════════
      FLOATING CTA
 ══════════════════════════════════════════════════════════════ -->
-<button id="cta-float" onclick="openCalendly()">Like what you see? Let's talk</button>
+<button id="cta-float" onclick="openCalendly()">¿Le gustó? Hablemos</button>
 
 <!-- ════════════════════════════════════════════════════════════
      MODAL
@@ -719,15 +719,15 @@
   <div id="modal-box">
     <button class="modal-close" onclick="closeModal()">&times;</button>
     <p class="text-xs uppercase tracking-widest mb-1" style="color:var(--red); font-family:sans-serif; font-weight:700;">Pocho.tech</p>
-    <h2 class="text-lg font-bold mb-2" style="font-family:Georgia,serif; color:var(--green);">Your operation. A system built around it.</h2>
+    <h2 class="text-lg font-bold mb-2" style="font-family:Georgia,serif; color:var(--green);">Su operación. Un sistema construido alrededor de ella.</h2>
     <p class="text-sm mb-1" style="font-family:sans-serif; color:#374151;">
-      Live Oak Catering has 49 years of relationships, returning clients, and hard-won operational knowledge. The goal isn't to change how you work &mdash; it's to make sure that knowledge doesn't live only in the inbox and in people's heads.
+      Live Oak Catering tiene 49 años de relaciones, clientes que vuelven y conocimiento operativo ganado a pulso. La idea no es cambiar cómo trabajan &mdash; es que ese conocimiento no viva solo en la bandeja de correo y en la cabeza de la gente.
     </p>
     <p class="text-sm mb-4" style="font-family:sans-serif; color:#374151;">
-      One conversation. You talk, we listen. We'll figure out together what's worth building.
+      Una conversación. Usted habla, nosotros escuchamos. Juntos vemos qué vale la pena construir.
     </p>
-    <button class="action-btn w-full text-sm py-3" onclick="openCalendly()">Book a conversation &rarr;</button>
-    <p class="text-xs text-center text-gray-400 mt-2" style="font-family:sans-serif;">Opens in a new tab. No obligation.</p>
+    <button class="action-btn w-full text-sm py-3" onclick="openCalendly()">Agendar una conversación &rarr;</button>
+    <p class="text-xs text-center text-gray-400 mt-2" style="font-family:sans-serif;">Se abre en una pestaña nueva. Sin compromiso.</p>
   </div>
 </div>
 
@@ -737,26 +737,26 @@
 <div id="inquiry-overlay" onclick="closeInquiryIfOutside(event)" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:100; align-items:center; justify-content:center;">
   <div style="background:#fff; border-radius:8px; max-width:480px; width:90%; padding:1.75rem; position:relative; max-height:90vh; overflow-y:auto;">
     <button style="position:absolute; top:0.75rem; right:1rem; font-size:1.3rem; color:#9ca3af; cursor:pointer; background:none; border:none;" onclick="closeInquiry()">&times;</button>
-    <p class="text-xs uppercase tracking-widest mb-1" style="color:var(--green); font-family:sans-serif; font-weight:700;">New Event Inquiry</p>
-    <h3 class="font-bold text-base mb-3" style="font-family:Georgia,serif; color:var(--dark);">What this form replaces: 3 back-and-forth emails.</h3>
+    <p class="text-xs uppercase tracking-widest mb-1" style="color:var(--green); font-family:sans-serif; font-weight:700;">Nueva consulta de evento</p>
+    <h3 class="font-bold text-base mb-3" style="font-family:Georgia,serif; color:var(--dark);">Lo que este formulario reemplaza: 3 correos de ida y vuelta.</h3>
     <div class="space-y-3 text-sm" style="font-family:sans-serif;">
-      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Client / Organization</label><input class="search-input" type="text" placeholder="e.g. Cornerstone Capital" /></div>
+      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Cliente / organización</label><input class="search-input" type="text" placeholder="ej. Cornerstone Capital" /></div>
       <div class="grid grid-cols-2 gap-2">
-        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Event Type</label>
-          <select class="search-input"><option>Corporate</option><option>Social</option><option>Nonprofit</option></select>
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Tipo de evento</label>
+          <select class="search-input"><option>Corporativo</option><option>Social</option><option>Fundación</option></select>
         </div>
-        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Guest Count</label><input class="search-input" type="number" placeholder="e.g. 120" /></div>
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Cantidad de invitados</label><input class="search-input" type="number" placeholder="e.g. 120" /></div>
       </div>
       <div class="grid grid-cols-2 gap-2">
-        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Event Date</label><input class="search-input" type="date" /></div>
-        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Budget (approx.)</label><input class="search-input" type="text" placeholder="e.g. $8,000" /></div>
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Fecha del evento</label><input class="search-input" type="date" /></div>
+        <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Presupuesto (aprox.)</label><input class="search-input" type="text" placeholder="e.g. $8,000" /></div>
       </div>
-      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Service Needed</label>
-        <select class="search-input"><option>Full-Service Catering</option><option>Catering Delivery</option><option>Yonderlust Airstream Bar</option><option>Full-Service + Yonderlust</option><option>Credence Private Dining</option></select>
+      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Servicio que necesita</label>
+        <select class="search-input"><option>Catering de servicio completo</option><option>Entrega de catering</option><option>Barra del tráiler Nómada</option><option>Servicio completo + Nómada</option><option>Comedor privado Roble</option></select>
       </div>
-      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Notes</label><textarea class="search-input" rows="2" placeholder="Venue, special requests, how they heard about you..."></textarea></div>
-      <button class="action-btn w-full py-2" onclick="submitInquiry()">Submit — auto-confirm to client</button>
-      <p class="text-xs text-gray-400 text-center">Client gets a confirmation email automatically. No manual follow-up needed.</p>
+      <div><label class="block text-xs text-gray-500 mb-1 uppercase tracking-wide">Notas</label><textarea class="search-input" rows="2" placeholder="Lugar, pedidos especiales, cómo supieron de ustedes..."></textarea></div>
+      <button class="action-btn w-full py-2" onclick="submitInquiry()">Enviar — confirmación automática al cliente</button>
+      <p class="text-xs text-gray-400 text-center">Al cliente le llega el correo de confirmación solo. Nadie tiene que dar seguimiento a mano.</p>
     </div>
   </div>
 </div>
@@ -767,19 +767,19 @@
 <script>
 // ── DATA ──────────────────────────────────────────────────────
 const EVENTS = [
-  { id:'EVT-031', name:'Houston Energy Corp Q4', type:'Corporate', date:'Jul 31', pax:120, menu:'The Big Chop + Bar', yonder:true,  status:'Confirmed', value:'$8,400' },
-  { id:'EVT-032', name:'Brookfield Nonprofit Gala', type:'Nonprofit', date:'Aug 2', pax:200, menu:'El Grande + Bar Pkg', yonder:false, status:'Confirmed', value:'$11,200' },
-  { id:'EVT-033', name:'Martinez Wedding Reception', type:'Social', date:'Jul 31', pax:80, menu:'El Pequeño + Guac Station', yonder:true, status:'Confirmed', value:'$5,600' },
-  { id:'EVT-034', name:'Rodeo Season Trailer Pkg', type:'Yonderlust', date:'Aug 9', pax:150, menu:'The Full Feast', yonder:true,  status:'Confirmed', value:'$9,100' },
-  { id:'EVT-035', name:'Mid-Year Office Cookout', type:'Corporate', date:'Aug 4', pax:95, menu:'Backyard Menu + Crawfish', yonder:false, status:'Pending', value:'$5,800' },
-  { id:'EVT-036', name:'Cornerstone Capital Awards', type:'Corporate', date:'Sep 18', pax:175, menu:'TBD', yonder:false, status:'Proposal', value:'~$10,000' },
+  { id:'EVT-031', name:'Cierre de año — Houston Energy Corp', type:'Corporativo', date:'31 jul', pax:120, menu:'El Cortón + barra', yonder:true,  status:'Confirmado', value:'$8,400' },
+  { id:'EVT-032', name:'Gala de fundación Brookfield', type:'Fundación', date:'2 ago', pax:200, menu:'El Grande + paquete de barra', yonder:false, status:'Confirmado', value:'$11,200' },
+  { id:'EVT-033', name:'Recepción de boda Martínez', type:'Social', date:'31 jul', pax:80, menu:'El Pequeño + estación de guacamole', yonder:true, status:'Confirmado', value:'$5,600' },
+  { id:'EVT-034', name:'Paquete de tráiler temporada de rodeo', type:'Nómada', date:'9 ago', pax:150, menu:'El banquete completo', yonder:true,  status:'Confirmado', value:'$9,100' },
+  { id:'EVT-035', name:'Asado de oficina de medio año', type:'Corporativo', date:'4 ago', pax:95, menu:'Menú de patio + langostinos', yonder:false, status:'Pendiente', value:'$5,800' },
+  { id:'EVT-036', name:'Premiación Cornerstone Capital', type:'Corporativo', date:'18 sep', pax:175, menu:'Por definir', yonder:false, status:'Propuesta', value:'~$10,000' },
 ];
 
 const ALL_ROWS = [
   ...EVENTS,
-  { id:'EVT-028', name:'Westside Conservancy Gala', type:'Nonprofit', date:'Jun 12', pax:160, menu:'The Brazos Banquete', yonder:false, status:'Completed', value:'$9,800' },
-  { id:'EVT-027', name:'Tech Firm Summer Party', type:'Corporate', date:'Jun 5', pax:110, menu:'The Big Chop + Margarita Party', yonder:true, status:'Completed', value:'$7,600' },
-  { id:'EVT-026', name:'Sunrise Community Gala', type:'Nonprofit', date:'May 22', pax:90, menu:'El Grande', yonder:false, status:'Completed', value:'$5,200' },
+  { id:'EVT-028', name:'Gala Westside Conservancy', type:'Fundación', date:'12 jun', pax:160, menu:'El banquete del río', yonder:false, status:'Completado', value:'$9,800' },
+  { id:'EVT-027', name:'Fiesta de verano de una tecnológica', type:'Corporativo', date:'5 jun', pax:110, menu:'El Cortón + fiesta de margaritas', yonder:true, status:'Completado', value:'$7,600' },
+  { id:'EVT-026', name:'Gala comunitaria Sunrise', type:'Fundación', date:'22 may', pax:90, menu:'El Grande', yonder:false, status:'Completado', value:'$5,200' },
 ];
 
 // ── RENDER DASHBOARD TABLE ────────────────────────────────────
@@ -800,7 +800,7 @@ function renderDashboard() {
       <td class="text-xs" style="font-family:sans-serif;">${e.menu}</td>
       <td class="text-center text-xs">${e.yonder ? '<span style="color:var(--brown);">&#9673;</span>' : '<span class="text-gray-300">&#8212;</span>'}</td>
       <td>${statusPill(e.status)}</td>
-      <td><button class="action-btn text-xs" onclick="goToDetail()">View</button></td>
+      <td><button class="action-btn text-xs" onclick="goToDetail()">Ver</button></td>
     </tr>
   `).join('');
 }
@@ -839,7 +839,7 @@ function filterTable() {
   const results = ALL_ROWS.filter(e => {
     const matchQ = !q || e.name.toLowerCase().includes(q) || e.type.toLowerCase().includes(q) || e.menu.toLowerCase().includes(q) || e.date.toLowerCase().includes(q);
     const matchT = !t || e.type === t;
-    const matchS = !s || e.status === s || (s === 'Proposal' && e.status === 'Proposal');
+    const matchS = !s || e.status === s || (s === 'Propuesta' && e.status === 'Propuesta');
     return matchQ && matchT && matchS;
   });
   renderReport(results);
@@ -916,13 +916,13 @@ function submitInquiry() {
   // Update unread stat to show something happened
   const stat = document.getElementById('stat-unread');
   stat.textContent = parseInt(stat.textContent) + 1;
-  alert('Inquiry captured. In a live system, the client would receive an automatic confirmation within 60 seconds — no staff action needed.');
+  alert('Consulta capturada. En un sistema real, al cliente le llegaría una confirmación automática en menos de 60 segundos, sin que nadie del equipo haga nada.');
 }
 
 // ── RESOLVE CONFLICT (interactive action) ─────────────────────
 function resolveConflict(btn) {
   btn.parentElement.parentElement.innerHTML = `
-    <strong style="color:var(--green);">Resolved:</strong> Yonderlust assigned to Houston Energy Corp Q4 (6 PM Jul 31). Martinez Wedding rescheduled to Credence bar setup + Damn Live Oak Margarita Party. Both clients notified automatically.
+    <strong style="color:var(--green);">Resuelto:</strong> el tráiler Nómada queda asignado a Houston Energy Corp (31 jul, 6 PM). La boda Martínez pasa a barra en el Comedor Privado Roble más fiesta de margaritas Live Oak. A los dos clientes se les avisó solo.
   `;
   btn.parentElement.parentElement.className = 'info-box mb-2';
   // Update the events table row to reflect
@@ -935,9 +935,9 @@ function confirmItem() {
   const chk = document.getElementById('chk-crew');
   if (!chk.checked) {
     chk.checked = true;
-    document.getElementById('confirm-btn').textContent = 'Send Day-of Sheet';
+    document.getElementById('confirm-btn').textContent = 'Enviar hoja del día';
     document.getElementById('confirm-btn').setAttribute('onclick', 'confirmDayOf()');
-    document.getElementById('confirm-msg').textContent = 'On-site crew confirmed. Vendor notified automatically.';
+    document.getElementById('confirm-msg').textContent = 'Cuadrilla en sitio confirmada. Al proveedor se le avisó solo.';
     document.getElementById('confirm-msg').style.color = 'var(--green)';
   }
 }
@@ -945,10 +945,10 @@ function confirmDayOf() {
   const chk = document.getElementById('chk-sheet');
   if (!chk.checked) {
     chk.checked = true;
-    document.getElementById('confirm-btn').textContent = 'All tasks complete';
+    document.getElementById('confirm-btn').textContent = 'Todas las tareas completas';
     document.getElementById('confirm-btn').disabled = true;
     document.getElementById('confirm-btn').style.opacity = '0.5';
-    document.getElementById('confirm-msg').textContent = 'Day-of sheet sent to Sarah K. at Energy Corp.';
+    document.getElementById('confirm-msg').textContent = 'Hoja del día enviada a Sarah K. en Energy Corp.';
   }
 }
 

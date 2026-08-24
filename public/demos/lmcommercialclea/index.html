@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aurora Commercial Cleaning — Operations System Demo</title>
+  <title>Aurora Commercial Cleaning — Demo del Sistema de Operaciones</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -215,25 +215,25 @@
   <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
     <div>
       <div class="company">Aurora Commercial Cleaning &amp; Office Cleaning</div>
-      <div class="subtitle">What your own system would look like — prepared by Pocho.tech</div>
+      <div class="subtitle">Así se vería su sistema propio — preparado por Pocho.tech</div>
     </div>
-    <span class="demo-badge">DEMO &middot; sample data</span>
+    <span class="demo-badge">DEMO &middot; datos de muestra</span>
   </div>
 </header>
 
 <!-- NAV TABS -->
 <nav class="nav-tabs" id="nav-tabs">
   <div class="nav-tab active" data-view="ops" onclick="switchView('ops',this)">
-    <span class="tab-icon">&#128203;</span>Daily Operations
+    <span class="tab-icon">&#128203;</span>Operaciones del día
   </div>
   <div class="nav-tab" data-view="client" onclick="switchView('client',this)">
-    <span class="tab-icon">&#127970;</span>Client File
+    <span class="tab-icon">&#127970;</span>Ficha del cliente
   </div>
   <div class="nav-tab" data-view="quote" onclick="switchView('quote',this)">
-    <span class="tab-icon">&#128196;</span>Quote &amp; Intake
+    <span class="tab-icon">&#128196;</span>Cotización y alta
   </div>
   <div class="nav-tab" data-view="reports" onclick="switchView('reports',this)">
-    <span class="tab-icon">&#128202;</span>Reports &amp; Search
+    <span class="tab-icon">&#128202;</span>Reportes y búsqueda
   </div>
 </nav>
 
@@ -244,41 +244,41 @@
 
   <!-- PAIN CALLOUT -->
   <div class="pain-callout" style="margin-bottom:14px;">
-    <div class="pain-q">&#x1F4AC; &ldquo;You're running commercial contracts in 7 cities — how are you tracking which crew is where, what got done, and when to invoice?&rdquo;</div>
-    <div class="pain-a">Below is what that answer looks like when it lives in a system instead of your head or a spreadsheet.</div>
+    <div class="pain-q">&#x1F4AC; &ldquo;Tiene contratos comerciales en 7 ciudades. ¿Cómo lleva el control de qué cuadrilla está dónde, qué se hizo y cuándo toca facturar?&rdquo;</div>
+    <div class="pain-a">Abajo está cómo se ve esa respuesta cuando vive en un sistema y no en su cabeza o en una hoja de cálculo.</div>
   </div>
 
   <!-- ALERT -->
   <div class="alert-banner alert-red" id="alert-checkin">
     <span class="alert-icon pulse">&#9888;</span>
     <div>
-      <strong>Crew C — No check-in at Longview</strong>
-      <span style="font-size:0.75rem;margin-left:6px;opacity:0.8;">8:47 AM &mdash; Lone Star Fitness (Longview) has not been confirmed. Expected 8:00 AM.</span>
+      <strong>Cuadrilla C — sin registro de entrada en Longview</strong>
+      <span style="font-size:0.75rem;margin-left:6px;opacity:0.8;">8:47 AM &mdash; Lone Star Fitness (Longview) no ha confirmado. Se esperaba a las 8:00 AM.</span>
     </div>
-    <button onclick="resolveAlert()" style="margin-left:auto;background:var(--red);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">Mark Resolved</button>
+    <button onclick="resolveAlert()" style="margin-left:auto;background:var(--red);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;white-space:nowrap;">Marcar resuelto</button>
   </div>
 
   <!-- STATS ROW -->
   <div class="grid-4" style="margin-bottom:14px;">
     <div class="card stat-box">
       <div class="stat-num" id="stat-complete">12</div>
-      <div class="stat-label">Completed Today</div>
-      <div class="stat-sub">of 15 scheduled</div>
+      <div class="stat-label">Completados hoy</div>
+      <div class="stat-sub">de 15 programados</div>
     </div>
     <div class="card stat-box">
       <div class="stat-num" style="color:var(--amber);" id="stat-route">2</div>
-      <div class="stat-label">En Route</div>
-      <div class="stat-sub">active crews moving</div>
+      <div class="stat-label">En ruta</div>
+      <div class="stat-sub">cuadrillas en movimiento</div>
     </div>
     <div class="card stat-box">
       <div class="stat-num" style="color:var(--red);" id="stat-issue">1</div>
-      <div class="stat-label">Needs Attention</div>
-      <div class="stat-sub">checkin overdue</div>
+      <div class="stat-label">Requieren atención</div>
+      <div class="stat-sub">entrada vencida</div>
     </div>
     <div class="card stat-box">
       <div class="stat-num" style="color:var(--green);">3</div>
-      <div class="stat-label">Active Crews</div>
-      <div class="stat-sub">7 markets covered</div>
+      <div class="stat-label">Cuadrillas activas</div>
+      <div class="stat-sub">7 mercados cubiertos</div>
     </div>
   </div>
 
@@ -286,37 +286,37 @@
 
     <!-- CREW STATUS -->
     <div class="card">
-      <div class="card-title">&#128100; Crew Dispatch — Today, Jul 26</div>
+      <div class="card-title">&#128100; Despacho de cuadrillas — hoy, 26 jul</div>
 
       <div class="crew-row">
         <div class="crew-avatar" style="background:#1565c0;">A</div>
         <div class="crew-info">
-          <div class="crew-name">Crew A &mdash; Houston Central</div>
-          <div class="crew-detail">4 members &bull; 6 AM&ndash;2 PM &bull; Houston / Sugar Land</div>
+          <div class="crew-name">Cuadrilla A &mdash; Houston centro</div>
+          <div class="crew-detail">4 personas &bull; 6 AM a 2 PM &bull; Houston / Sugar Land</div>
         </div>
-        <span class="badge badge-green">On Site</span>
+        <span class="badge badge-green">En sitio</span>
       </div>
 
       <div class="crew-row">
         <div class="crew-avatar" style="background:#2B7FBB;">B</div>
         <div class="crew-info">
-          <div class="crew-name">Crew B &mdash; Katy / Cypress</div>
-          <div class="crew-detail">3 members &bull; 7 AM&ndash;3 PM &bull; Katy / Spring</div>
+          <div class="crew-name">Cuadrilla B &mdash; Katy / Cypress</div>
+          <div class="crew-detail">3 personas &bull; 7 AM a 3 PM &bull; Katy / Spring</div>
         </div>
-        <span class="badge badge-amber">En Route</span>
+        <span class="badge badge-amber">En ruta</span>
       </div>
 
       <div class="crew-row">
         <div class="crew-avatar" style="background:var(--red);">C</div>
         <div class="crew-info">
-          <div class="crew-name">Crew C &mdash; Tyler / Longview</div>
-          <div class="crew-detail">5 members &bull; 8 AM&ndash;4 PM &bull; Tyler / Longview / Canton</div>
+          <div class="crew-name">Cuadrilla C &mdash; Tyler / Longview</div>
+          <div class="crew-detail">5 personas &bull; 8 AM a 4 PM &bull; Tyler / Longview / Canton</div>
         </div>
-        <span class="badge badge-red">No Check-in</span>
+        <span class="badge badge-red">Sin entrada</span>
       </div>
 
       <div class="divider"></div>
-      <div class="section-label">Markets Active Today</div>
+      <div class="section-label">Mercados activos hoy</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
         <span class="market-pill"><span class="dot" style="background:var(--green);"></span>Houston</span>
         <span class="market-pill"><span class="dot" style="background:var(--green);"></span>Katy</span>
@@ -331,51 +331,51 @@
     <!-- JOB LIST -->
     <div class="card">
       <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
-        <span>&#128203; Today's Job Board</span>
-        <span style="font-size:0.72rem;color:var(--slate);font-weight:400;">Tap a job to update</span>
+        <span>&#128203; Tablero de trabajos de hoy</span>
+        <span style="font-size:0.72rem;color:var(--slate);font-weight:400;">Toque un trabajo para actualizarlo</span>
       </div>
 
       <div id="job-list">
         <div class="job-row" onclick="markComplete(this,'Greenway Office Park')">
           <span class="job-dot job-dot-green"></span>
           <div class="job-title">Greenway Office Park</div>
-          <div class="job-meta">Houston &bull; Crew A</div>
-          <span class="badge badge-green" style="margin-left:4px;">Done</span>
+          <div class="job-meta">Houston &bull; cuadrilla A</div>
+          <span class="badge badge-green" style="margin-left:4px;">Hecho</span>
         </div>
         <div class="job-row" onclick="markComplete(this,'Katy Medical Center')">
           <span class="job-dot job-dot-green"></span>
           <div class="job-title">Katy Medical Center</div>
-          <div class="job-meta">Katy &bull; Crew B</div>
-          <span class="badge badge-green" style="margin-left:4px;">Done</span>
+          <div class="job-meta">Katy &bull; cuadrilla B</div>
+          <span class="badge badge-green" style="margin-left:4px;">Hecho</span>
         </div>
         <div class="job-row" onclick="markComplete(this,'Pearland ISD Admin')">
           <span class="job-dot job-dot-amber"></span>
-          <div class="job-title">Pearland ISD Admin Bldg</div>
-          <div class="job-meta">Pearland &bull; Crew A</div>
-          <span class="badge badge-amber" style="margin-left:4px;">En Route</span>
+          <div class="job-title">Edificio administrativo del distrito de Pearland</div>
+          <div class="job-meta">Pearland &bull; cuadrilla A</div>
+          <span class="badge badge-amber" style="margin-left:4px;">En ruta</span>
         </div>
         <div class="job-row" onclick="markComplete(this,'Lone Star Fitness — Longview')">
           <span class="job-dot job-dot-red"></span>
           <div class="job-title">Lone Star Fitness &mdash; Longview</div>
-          <div class="job-meta">Longview &bull; Crew C</div>
-          <span class="badge badge-red" style="margin-left:4px;">No Check-in</span>
+          <div class="job-meta">Longview &bull; cuadrilla C</div>
+          <span class="badge badge-red" style="margin-left:4px;">Sin entrada</span>
         </div>
         <div class="job-row" onclick="markComplete(this,'First Community Church Tyler')">
           <span class="job-dot job-dot-blue"></span>
           <div class="job-title">First Community Church Tyler</div>
-          <div class="job-meta">Tyler &bull; Crew C</div>
-          <span class="badge badge-blue" style="margin-left:4px;">Scheduled</span>
+          <div class="job-meta">Tyler &bull; cuadrilla C</div>
+          <span class="badge badge-blue" style="margin-left:4px;">Programado</span>
         </div>
         <div class="job-row" onclick="markComplete(this,'SkyTower Corporate Center')">
           <span class="job-dot job-dot-gray"></span>
           <div class="job-title">SkyTower Corporate Center</div>
-          <div class="job-meta">Dallas &bull; Crew TBD</div>
-          <span class="badge badge-gray" style="margin-left:4px;">Quote Pending</span>
+          <div class="job-meta">Dallas &bull; cuadrilla por asignar</div>
+          <span class="badge badge-gray" style="margin-left:4px;">Cotización pendiente</span>
         </div>
       </div>
 
       <div style="margin-top:12px;text-align:right;">
-        <span style="font-size:0.72rem;color:var(--slate);">&#128161; Tap any job row to mark it <strong>Complete</strong></span>
+        <span style="font-size:0.72rem;color:var(--slate);">&#128161; Toque cualquier fila para marcarla <strong>Completa</strong></span>
       </div>
     </div>
 
@@ -383,25 +383,25 @@
 
   <!-- BILLING READY -->
   <div class="card">
-    <div class="card-title">&#128176; Ready to Invoice This Week</div>
+    <div class="card-title">&#128176; Listos para facturar esta semana</div>
     <div class="grid-3">
       <div style="padding:10px;border-right:1px solid #f0f4f8;">
         <div style="font-size:0.82rem;font-weight:700;">Greenway Office Park</div>
-        <div style="font-size:0.72rem;color:var(--slate);">Office &bull; 3&times;/week &bull; Recurring</div>
+        <div style="font-size:0.72rem;color:var(--slate);">Oficina &bull; 3 veces por semana &bull; recurrente</div>
         <div style="font-size:1.1rem;font-weight:800;color:var(--blue);margin-top:4px;">$1,240</div>
-        <span class="badge badge-green" style="margin-top:4px;">Services confirmed</span>
+        <span class="badge badge-green" style="margin-top:4px;">Servicios confirmados</span>
       </div>
       <div style="padding:10px;border-right:1px solid #f0f4f8;">
         <div style="font-size:0.82rem;font-weight:700;">Katy Medical Center</div>
-        <div style="font-size:0.72rem;color:var(--slate);">Medical &bull; Daily &bull; Recurring</div>
+        <div style="font-size:0.72rem;color:var(--slate);">Médico &bull; diario &bull; recurrente</div>
         <div style="font-size:1.1rem;font-weight:800;color:var(--blue);margin-top:4px;">$2,800</div>
-        <span class="badge badge-green" style="margin-top:4px;">Checklist complete</span>
+        <span class="badge badge-green" style="margin-top:4px;">Lista de verificación completa</span>
       </div>
       <div style="padding:10px;">
-        <div style="font-size:0.82rem;font-weight:700;">Pearland ISD Admin</div>
-        <div style="font-size:0.72rem;color:var(--slate);">Government &bull; Weekly &bull; Annual contract</div>
+        <div style="font-size:0.82rem;font-weight:700;">Administrativo del distrito de Pearland</div>
+        <div style="font-size:0.72rem;color:var(--slate);">Gobierno &bull; semanal &bull; contrato anual</div>
         <div style="font-size:1.1rem;font-weight:800;color:var(--amber);margin-top:4px;">$875</div>
-        <span class="badge badge-amber" style="margin-top:4px;">Pending today's job</span>
+        <span class="badge badge-amber" style="margin-top:4px;">Pendiente del trabajo de hoy</span>
       </div>
     </div>
   </div>
@@ -415,8 +415,8 @@
 
   <!-- PAIN CALLOUT -->
   <div class="pain-callout" style="margin-bottom:14px;">
-    <div class="pain-q">&#x1F4AC; &ldquo;Your medical and institutional clients need audit trails and compliance documentation — a custom system can be the differentiator you sell against larger chains.&rdquo;</div>
-    <div class="pain-a">This is what Katy Medical Center's file looks like: full history, signed checklists, and a contract that renews itself.</div>
+    <div class="pain-q">&#x1F4AC; &ldquo;Sus clientes médicos e institucionales necesitan rastro de auditoría y documentación de cumplimiento. Un sistema propio puede ser justo el diferenciador con el que le gana a las cadenas grandes.&rdquo;</div>
+    <div class="pain-a">Así se ve el expediente de Katy Medical Center: historial completo, listas firmadas y un contrato que se renueva solo.</div>
   </div>
 
   <div class="grid-2" style="margin-bottom:14px;">
@@ -427,78 +427,78 @@
         <div style="width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--blue),#1565c0);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;flex-shrink:0;">&#127973;</div>
         <div>
           <div style="font-size:1rem;font-weight:800;">Katy Medical Center</div>
-          <div style="font-size:0.75rem;color:var(--slate);margin-top:2px;">Medical Facility &bull; Katy, TX &bull; <span class="badge badge-green">Active Contract</span></div>
+          <div style="font-size:0.75rem;color:var(--slate);margin-top:2px;">Instalación médica &bull; Katy, TX &bull; <span class="badge badge-green">Contrato activo</span></div>
         </div>
       </div>
 
       <div class="divider" style="margin:10px 0;"></div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.8rem;">
-        <div><span style="color:var(--slate);font-weight:600;">Frequency:</span><br>Daily disinfection</div>
-        <div><span style="color:var(--slate);font-weight:600;">Assigned Crew:</span><br>Crew B — Katy/Cypress</div>
-        <div><span style="color:var(--slate);font-weight:600;">Contract Value:</span><br><strong style="color:var(--blue);">$2,800 / mo</strong></div>
-        <div><span style="color:var(--slate);font-weight:600;">Contract Start:</span><br>Jan 15, 2025</div>
-        <div><span style="color:var(--slate);font-weight:600;">Next Renewal:</span><br>Jan 15, 2026</div>
-        <div><span style="color:var(--slate);font-weight:600;">Contact:</span><br>Facilities Manager</div>
+        <div><span style="color:var(--slate);font-weight:600;">Frecuencia:</span><br>Desinfección diaria</div>
+        <div><span style="color:var(--slate);font-weight:600;">Cuadrilla asignada:</span><br>Cuadrilla B — Katy/Cypress</div>
+        <div><span style="color:var(--slate);font-weight:600;">Valor del contrato:</span><br><strong style="color:var(--blue);">$2,800 / mes</strong></div>
+        <div><span style="color:var(--slate);font-weight:600;">Inicio del contrato:</span><br>15 ene 2025</div>
+        <div><span style="color:var(--slate);font-weight:600;">Próxima renovación:</span><br>15 ene 2026</div>
+        <div><span style="color:var(--slate);font-weight:600;">Contacto:</span><br>Gerencia de instalaciones</div>
       </div>
 
       <div class="divider"></div>
 
-      <div class="section-label">Contract Health</div>
+      <div class="section-label">Salud del contrato</div>
       <div style="margin-bottom:6px;">
-        <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;"><span>Service completion this month</span><span style="font-weight:700;color:var(--green);">96%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;"><span>Servicios completados este mes</span><span style="font-weight:700;color:var(--green);">96%</span></div>
         <div class="progress-bar"><div class="progress-fill" style="width:96%;background:var(--green);"></div></div>
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;"><span>Compliance checklist rate</span><span style="font-weight:700;color:var(--blue);">100%</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:4px;"><span>Cumplimiento de la lista de verificación</span><span style="font-weight:700;color:var(--blue);">100%</span></div>
         <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--blue);"></div></div>
       </div>
 
       <div class="divider"></div>
       <div class="alert-banner alert-green" style="padding:8px 10px;">
         <span>&#9989;</span>
-        <span style="font-size:0.78rem;">Renewal alert set for <strong>Dec 16, 2025</strong> — 30 days before expiration.</span>
+        <span style="font-size:0.78rem;">Alerta de renovación programada para el <strong>16 dic 2025</strong> — 30 días antes de que venza.</span>
       </div>
     </div>
 
     <!-- COMPLIANCE CHECKLIST -->
     <div class="card">
-      <div class="card-title">&#9989; Today's Compliance Checklist</div>
-      <div style="font-size:0.75rem;color:var(--slate);margin-bottom:10px;">Medical Facility Protocol &mdash; Signed by Crew B Lead &bull; Jul 26, 2026</div>
+      <div class="card-title">&#9989; Lista de verificación de hoy</div>
+      <div style="font-size:0.75rem;color:var(--slate);margin-bottom:10px;">Protocolo de instalación médica &mdash; firmado por el jefe de la cuadrilla B &bull; 26 jul 2026</div>
 
       <div class="check-item">
         <div class="check-box check-done">&#10003;</div>
-        <div>Disinfection of all patient touchpoints (handles, rails, counters)</div>
+        <div>Desinfección de todos los puntos de contacto (manijas, barandas, mostradores)</div>
       </div>
       <div class="check-item">
         <div class="check-box check-done">&#10003;</div>
-        <div>Restrooms sanitized with medical-grade disinfectant (Betco protocol)</div>
+        <div>Baños sanitizados con desinfectante de grado médico (protocolo Betco)</div>
       </div>
       <div class="check-item">
         <div class="check-box check-done">&#10003;</div>
-        <div>Waiting area floors mopped — eco-friendly green products used</div>
+        <div>Pisos de la sala de espera trapeados — con productos ecológicos</div>
       </div>
       <div class="check-item">
         <div class="check-box check-done">&#10003;</div>
-        <div>Exam room wipedown — germ-free protocol completed</div>
+        <div>Limpieza de consultorios — protocolo antibacterial completado</div>
       </div>
       <div class="check-item">
         <div class="check-box check-done">&#10003;</div>
-        <div>Staff kitchen and break room sanitized</div>
+        <div>Cocina del personal y sala de descanso sanitizadas</div>
       </div>
       <div class="check-item">
         <div class="check-box check-done">&#10003;</div>
-        <div>Bio-waste area perimeter cleaned and logged</div>
+        <div>Perímetro del área de residuos biológicos limpiado y registrado</div>
       </div>
       <div class="check-item">
         <div class="check-box check-pending"></div>
-        <div style="color:#90a4ae;">QA inspection by supervisor (Carmen — in-person QC pending)</div>
+        <div style="color:#90a4ae;">Inspección de calidad del supervisor (Carmen — control presencial pendiente)</div>
       </div>
 
       <div class="divider"></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="btn-primary" style="font-size:0.78rem;padding:7px 14px;">&#128196; Export PDF Report</button>
-        <button class="btn-ghost" style="font-size:0.78rem;padding:6px 14px;">&#128100; Assign QC Visit</button>
+        <button class="btn-primary" style="font-size:0.78rem;padding:7px 14px;">&#128196; Exportar reporte PDF</button>
+        <button class="btn-ghost" style="font-size:0.78rem;padding:6px 14px;">&#128100; Asignar visita de control</button>
       </div>
     </div>
 
@@ -506,51 +506,51 @@
 
   <!-- SERVICE HISTORY -->
   <div class="card">
-    <div class="card-title">&#128336; Service History &mdash; Katy Medical Center</div>
+    <div class="card-title">&#128336; Historial de servicio &mdash; Katy Medical Center</div>
     <div style="padding-top:6px;">
 
       <div class="timeline-item">
         <div class="timeline-dot" style="background:var(--green-light);color:var(--green);">&#10003;</div>
         <div class="timeline-content">
-          <div class="timeline-title">Daily Disinfection Service Completed</div>
-          <div class="timeline-time">Jul 26, 2026 &mdash; 7:41 AM &bull; Crew B</div>
-          <div class="timeline-note">All 6 checklist items signed. Eco-friendly products used. No issues reported.</div>
+          <div class="timeline-title">Servicio de desinfección diaria completado</div>
+          <div class="timeline-time">26 jul 2026 &mdash; 7:41 AM &bull; cuadrilla B</div>
+          <div class="timeline-note">Los 6 puntos de la lista firmados. Se usaron productos ecológicos. Sin novedades.</div>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot" style="background:var(--green-light);color:var(--green);">&#10003;</div>
         <div class="timeline-content">
-          <div class="timeline-title">Monthly Deep Clean + Hard Floor Waxing</div>
-          <div class="timeline-time">Jul 20, 2026 &mdash; 6:30 AM &bull; Crew B (6 hrs)</div>
-          <div class="timeline-note">Tennant scrubber deployed. Floor wax applied to reception and corridors. QA inspected by Carmen.</div>
+          <div class="timeline-title">Limpieza profunda mensual + encerado de pisos duros</div>
+          <div class="timeline-time">20 jul 2026 &mdash; 6:30 AM &bull; cuadrilla B (6 h)</div>
+          <div class="timeline-note">Se usó fregadora Tennant. Cera aplicada en recepción y pasillos. Calidad inspeccionada por Carmen.</div>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot" style="background:var(--blue-light);color:var(--blue);">&#128176;</div>
         <div class="timeline-content">
-          <div class="timeline-title">Invoice Sent — July 2026</div>
-          <div class="timeline-time">Jul 1, 2026 &bull; Auto-generated from contract</div>
-          <div class="timeline-note">$2,800 — Net 15. Payment received Jul 12.</div>
+          <div class="timeline-title">Factura enviada — julio 2026</div>
+          <div class="timeline-time">1 jul 2026 &bull; generada sola desde el contrato</div>
+          <div class="timeline-note">$2,800 — neto 15. Pago recibido el 12 de julio.</div>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot" style="background:var(--green-light);color:var(--green);">&#10003;</div>
         <div class="timeline-content">
-          <div class="timeline-title">Daily Disinfection Service Completed</div>
-          <div class="timeline-time">Jun 30, 2026 &mdash; 7:55 AM &bull; Crew B</div>
-          <div class="timeline-note">All items verified. Touchless cleaning protocol applied in high-traffic zones.</div>
+          <div class="timeline-title">Servicio de desinfección diaria completado</div>
+          <div class="timeline-time">30 jun 2026 &mdash; 7:55 AM &bull; cuadrilla B</div>
+          <div class="timeline-note">Todos los puntos verificados. Protocolo de limpieza sin contacto aplicado en zonas de mucho tránsito.</div>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot" style="background:#fff3e0;color:var(--amber);">&#9888;</div>
         <div class="timeline-content">
-          <div class="timeline-title">Late Check-in Flagged &mdash; Resolved</div>
-          <div class="timeline-time">Jun 18, 2026 &mdash; 8:22 AM &bull; Crew B</div>
-          <div class="timeline-note">Check-in delayed 22 min due to traffic. Service completed on time. Alert auto-closed.</div>
+          <div class="timeline-title">Entrada tardía marcada &mdash; resuelta</div>
+          <div class="timeline-time">18 jun 2026 &mdash; 8:22 AM &bull; cuadrilla B</div>
+          <div class="timeline-note">Entrada atrasada 22 minutos por tráfico. El servicio se completó a tiempo. La alerta se cerró sola.</div>
         </div>
       </div>
 
@@ -566,26 +566,26 @@
 
   <!-- PAIN CALLOUT -->
   <div class="pain-callout" style="margin-bottom:14px;">
-    <div class="pain-q">&#x1F4AC; &ldquo;Every lead today requires a phone call and an on-site visit. A structured intake + auto-quote system could cut your sales cycle in half.&rdquo;</div>
-    <div class="pain-a">A prospect fills this in online. You get a structured quote — no visit, no phone tag.</div>
+    <div class="pain-q">&#x1F4AC; &ldquo;Hoy cada prospecto exige una llamada y una visita al sitio. Una captura estructurada con cotización automática podría partir a la mitad su ciclo de venta.&rdquo;</div>
+    <div class="pain-a">Un prospecto llena esto en línea. A usted le llega una cotización estructurada: sin visita, sin perseguirse por teléfono.</div>
   </div>
 
   <div class="grid-2">
 
     <!-- INTAKE FORM -->
     <div class="card">
-      <div class="card-title">&#128196; New Lead Intake &mdash; Quote Request</div>
+      <div class="card-title">&#128196; Alta de prospecto &mdash; solicitud de cotización</div>
 
       <div style="display:grid;gap:12px;">
 
         <div>
-          <label class="form-label">Business / Organization Name</label>
-          <input type="text" class="form-input" id="lead-name" placeholder="e.g. SkyTower Corporate Center" value="SkyTower Corporate Center">
+          <label class="form-label">Nombre del negocio u organización</label>
+          <input type="text" class="form-input" id="lead-name" placeholder="ej. SkyTower Corporate Center" value="SkyTower Corporate Center">
         </div>
 
         <div class="grid-2">
           <div>
-            <label class="form-label">City / Market</label>
+            <label class="form-label">Ciudad / mercado</label>
             <select class="form-input form-select" id="lead-city">
               <option value="houston">Houston</option>
               <option value="katy">Katy</option>
@@ -597,59 +597,59 @@
             </select>
           </div>
           <div>
-            <label class="form-label">Facility Type</label>
+            <label class="form-label">Tipo de instalación</label>
             <select class="form-input form-select" id="lead-type">
-              <option value="office" selected>Commercial Office</option>
-              <option value="medical">Medical / Clinic</option>
-              <option value="school">School / Institution</option>
-              <option value="church">Church</option>
-              <option value="gym">Gym / Fitness</option>
-              <option value="bank">Bank / Financial</option>
-              <option value="government">Government Building</option>
+              <option value="office" selected>Oficina comercial</option>
+              <option value="medical">Médica / clínica</option>
+              <option value="school">Escuela / institución</option>
+              <option value="church">Iglesia</option>
+              <option value="gym">Gimnasio</option>
+              <option value="bank">Banco / financiera</option>
+              <option value="government">Edificio de gobierno</option>
             </select>
           </div>
         </div>
 
         <div class="grid-2">
           <div>
-            <label class="form-label">Square Footage (approx.)</label>
+            <label class="form-label">Superficie (aprox.)</label>
             <select class="form-input form-select" id="lead-sqft">
-              <option value="small">Under 2,000 sq ft</option>
-              <option value="medium">2,000–5,000 sq ft</option>
-              <option value="large" selected>5,000–15,000 sq ft</option>
-              <option value="xlarge">15,000+ sq ft</option>
+              <option value="small">Menos de 2,000 pies²</option>
+              <option value="medium">2,000 a 5,000 pies²</option>
+              <option value="large" selected>5,000 a 15,000 pies²</option>
+              <option value="xlarge">Más de 15,000 pies²</option>
             </select>
           </div>
           <div>
-            <label class="form-label">Cleaning Frequency</label>
+            <label class="form-label">Frecuencia de limpieza</label>
             <select class="form-input form-select" id="lead-freq">
-              <option value="daily">Daily</option>
-              <option value="3x">3&times; per week</option>
-              <option value="weekly" selected>Weekly</option>
-              <option value="biweekly">Bi-weekly</option>
-              <option value="onetime">One-time / Deep Clean</option>
+              <option value="daily">Diaria</option>
+              <option value="3x">3 veces por semana</option>
+              <option value="weekly" selected>Semanal</option>
+              <option value="biweekly">Quincenal</option>
+              <option value="onetime">Una sola vez / limpieza profunda</option>
             </select>
           </div>
         </div>
 
         <div>
-          <label class="form-label">Special Requirements</label>
+          <label class="form-label">Requerimientos especiales</label>
           <select class="form-input form-select" id="lead-special">
-            <option value="none">None</option>
-            <option value="eco">Green / Eco-friendly products only</option>
-            <option value="medical">Medical-grade disinfection protocol</option>
-            <option value="compliance">Compliance documentation required</option>
-            <option value="nochem">No harsh chemicals (sensitive environment)</option>
+            <option value="none">Ninguno</option>
+            <option value="eco">Solo productos ecológicos</option>
+            <option value="medical">Protocolo de desinfección de grado médico</option>
+            <option value="compliance">Requiere documentación de cumplimiento</option>
+            <option value="nochem">Sin químicos fuertes (ambiente sensible)</option>
           </select>
         </div>
 
         <div>
-          <label class="form-label">Contact Name &amp; Email</label>
-          <input type="text" class="form-input" placeholder="Name — email@company.com" value="James R. — facilities@skytower.com">
+          <label class="form-label">Nombre y correo de contacto</label>
+          <input type="text" class="form-input" placeholder="Nombre — correo@empresa.com" value="James R. — facilities@skytower.com">
         </div>
 
         <button class="btn-primary" onclick="generateQuote()" style="width:100%;padding:11px;">
-          &#9889; Generate Instant Quote Estimate
+          &#9889; Generar estimado al instante
         </button>
       </div>
     </div>
@@ -658,35 +658,35 @@
     <div id="quote-result-panel">
       <div class="card" style="background:linear-gradient(135deg,#f0f8ff,#f0fff4);border:1px solid #b3d9f0;text-align:center;padding:40px 20px;color:#90a4ae;">
         <div style="font-size:2.5rem;margin-bottom:12px;">&#128196;</div>
-        <div style="font-size:0.9rem;font-weight:600;margin-bottom:6px;">Quote will appear here</div>
-        <div style="font-size:0.78rem;">Fill in the form and click <strong>Generate Instant Quote</strong></div>
+        <div style="font-size:0.9rem;font-weight:600;margin-bottom:6px;">La cotización aparece acá</div>
+        <div style="font-size:0.78rem;">Llene el formulario y haga clic en <strong>Generar estimado al instante</strong></div>
       </div>
 
       <!-- PIPELINE -->
       <div class="card" style="margin-top:14px;">
-        <div class="card-title">&#128203; Quote Pipeline</div>
+        <div class="card-title">&#128203; Pipeline de cotizaciones</div>
         <table class="data-table">
           <thead>
-            <tr><th>Lead</th><th>Market</th><th>Est. Value</th><th>Status</th></tr>
+            <tr><th>Prospecto</th><th>Mercado</th><th>Valor estimado</th><th>Estado</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>SkyTower Corporate</strong><br><span style="font-size:0.7rem;color:var(--slate);">12-floor office</span></td>
+              <td><strong>SkyTower Corporate</strong><br><span style="font-size:0.7rem;color:var(--slate);">Oficina de 12 pisos</span></td>
               <td>Dallas</td>
-              <td style="font-weight:700;color:var(--blue);">~$3,200/mo</td>
-              <td><span class="badge badge-amber">Quote Pending</span></td>
+              <td style="font-weight:700;color:var(--blue);">~$3,200/mes</td>
+              <td><span class="badge badge-amber">Cotización pendiente</span></td>
             </tr>
             <tr>
-              <td><strong>Austin Tech Hub</strong><br><span style="font-size:0.7rem;color:var(--slate);">Co-working, 8,000 sq ft</span></td>
+              <td><strong>Austin Tech Hub</strong><br><span style="font-size:0.7rem;color:var(--slate);">Coworking, 8,000 pies²</span></td>
               <td>Austin</td>
-              <td style="font-weight:700;color:var(--blue);">~$1,800/mo</td>
-              <td><span class="badge badge-blue">Sent</span></td>
+              <td style="font-weight:700;color:var(--blue);">~$1,800/mes</td>
+              <td><span class="badge badge-blue">Enviada</span></td>
             </tr>
             <tr>
-              <td><strong>SA Medical Plaza</strong><br><span style="font-size:0.7rem;color:var(--slate);">Clinic, daily protocol</span></td>
+              <td><strong>SA Medical Plaza</strong><br><span style="font-size:0.7rem;color:var(--slate);">Clínica, protocolo diario</span></td>
               <td>San Antonio</td>
-              <td style="font-weight:700;color:var(--blue);">~$4,100/mo</td>
-              <td><span class="badge badge-green">Approved</span></td>
+              <td style="font-weight:700;color:var(--blue);">~$4,100/mes</td>
+              <td><span class="badge badge-green">Aprobada</span></td>
             </tr>
           </tbody>
         </table>
@@ -702,22 +702,22 @@
 <div class="view" id="view-reports">
 
   <div class="pain-callout" style="margin-bottom:14px;">
-    <div class="pain-q">&#x1F4AC; &ldquo;In 15 minutes, Carmen can see her entire operation: crews in the field, open quotes, active contracts, and compliance records — all in one screen.&rdquo;</div>
-    <div class="pain-a">Search any client, market, or service. Filter by compliance status. Export for invoicing or QA review.</div>
+    <div class="pain-q">&#x1F4AC; &ldquo;En 15 minutos, Carmen puede ver toda su operación: cuadrillas en la calle, cotizaciones abiertas, contratos activos y registros de cumplimiento, en una sola pantalla.&rdquo;</div>
+    <div class="pain-a">Busque cualquier cliente, mercado o servicio. Filtre por estado de cumplimiento. Exporte para facturar o para revisión de calidad.</div>
   </div>
 
   <!-- SEARCH BAR -->
   <div class="card" style="margin-bottom:14px;">
-    <div class="card-title">&#128269; Search Clients &amp; Jobs</div>
+    <div class="card-title">&#128269; Buscar clientes y trabajos</div>
     <div class="search-bar">
-      <input type="text" class="search-input" id="search-input" placeholder="Search by client name, city, or service type..." oninput="filterTable()">
+      <input type="text" class="search-input" id="search-input" placeholder="Buscar por nombre de cliente, ciudad o tipo de servicio..." oninput="filterTable()">
       <select class="form-input form-select" style="width:auto;min-width:140px;" id="filter-status" onchange="filterTable()">
-        <option value="">All Statuses</option>
-        <option value="active">Active</option>
-        <option value="pending">Pending</option>
-        <option value="quote">Quote</option>
+        <option value="">Todos los estados</option>
+        <option value="active">Activo</option>
+        <option value="pending">Pendiente</option>
+        <option value="quote">Cotización</option>
       </select>
-      <button class="search-btn">Search</button>
+      <button class="search-btn">Buscar</button>
     </div>
   </div>
 
@@ -725,107 +725,107 @@
   <div class="grid-4" style="margin-bottom:14px;">
     <div class="card stat-box">
       <div class="stat-num">5</div>
-      <div class="stat-label">Active Accounts</div>
-      <div class="stat-sub">recurring contracts</div>
+      <div class="stat-label">Cuentas activas</div>
+      <div class="stat-sub">contratos recurrentes</div>
     </div>
     <div class="card stat-box">
       <div class="stat-num" style="color:var(--green);">$9,715</div>
-      <div class="stat-label">Monthly Recurring</div>
-      <div class="stat-sub">confirmed contracts</div>
+      <div class="stat-label">Recurrente mensual</div>
+      <div class="stat-sub">contratos confirmados</div>
     </div>
     <div class="card stat-box">
       <div class="stat-num" style="color:var(--amber);">3</div>
-      <div class="stat-label">Open Quotes</div>
-      <div class="stat-sub">~$9,100 potential</div>
+      <div class="stat-label">Cotizaciones abiertas</div>
+      <div class="stat-sub">~$9,100 de potencial</div>
     </div>
     <div class="card stat-box">
       <div class="stat-num" style="color:var(--blue);">7</div>
-      <div class="stat-label">Markets Covered</div>
-      <div class="stat-sub">3 active crews</div>
+      <div class="stat-label">Mercados cubiertos</div>
+      <div class="stat-sub">3 cuadrillas activas</div>
     </div>
   </div>
 
   <!-- ACCOUNTS TABLE -->
   <div class="card">
     <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
-      <span>&#127970; All Commercial Accounts</span>
-      <button class="btn-ghost" style="font-size:0.75rem;padding:5px 12px;">&#8681; Export CSV</button>
+      <span>&#127970; Todas las cuentas comerciales</span>
+      <button class="btn-ghost" style="font-size:0.75rem;padding:5px 12px;">&#8681; Exportar CSV</button>
     </div>
 
     <div style="overflow-x:auto;">
       <table class="data-table" id="accounts-table">
         <thead>
           <tr>
-            <th>Client</th>
-            <th>Market</th>
-            <th>Type</th>
-            <th>Frequency</th>
-            <th>Contract Value</th>
-            <th>Last Service</th>
-            <th>Compliance</th>
-            <th>Status</th>
+            <th>Cliente</th>
+            <th>Mercado</th>
+            <th>Tipo</th>
+            <th>Frecuencia</th>
+            <th>Valor del contrato</th>
+            <th>Último servicio</th>
+            <th>Cumplimiento</th>
+            <th>Estado</th>
           </tr>
         </thead>
         <tbody id="accounts-tbody">
           <tr data-status="active" data-name="greenway office park" data-city="houston">
-            <td><strong>Greenway Office Park</strong><br><span style="font-size:0.7rem;color:var(--slate);">Houston Galleria area</span></td>
+            <td><strong>Greenway Office Park</strong><br><span style="font-size:0.7rem;color:var(--slate);">Zona Galleria de Houston</span></td>
             <td>Houston</td>
-            <td>Office</td>
-            <td>3&times;/week</td>
-            <td style="font-weight:700;">$1,240/mo</td>
-            <td>Jul 26</td>
+            <td>Oficina</td>
+            <td>3 veces/semana</td>
+            <td style="font-weight:700;">$1,240/mes</td>
+            <td>26 jul</td>
             <td><span class="badge badge-green">OK</span></td>
-            <td><span class="badge badge-green">Active</span></td>
+            <td><span class="badge badge-green">Activo</span></td>
           </tr>
           <tr data-status="active" data-name="katy medical center" data-city="katy">
-            <td><strong>Katy Medical Center</strong><br><span style="font-size:0.7rem;color:var(--slate);">Medical protocol required</span></td>
+            <td><strong>Katy Medical Center</strong><br><span style="font-size:0.7rem;color:var(--slate);">Requiere protocolo médico</span></td>
             <td>Katy</td>
-            <td>Medical</td>
-            <td>Daily</td>
-            <td style="font-weight:700;">$2,800/mo</td>
-            <td>Jul 26</td>
+            <td>Médico</td>
+            <td>Diario</td>
+            <td style="font-weight:700;">$2,800/mes</td>
+            <td>26 jul</td>
             <td><span class="badge badge-green">100%</span></td>
-            <td><span class="badge badge-green">Active</span></td>
+            <td><span class="badge badge-green">Activo</span></td>
           </tr>
           <tr data-status="active" data-name="first community church tyler" data-city="tyler">
-            <td><strong>First Community Church</strong><br><span style="font-size:0.7rem;color:var(--slate);">Post-Sunday service</span></td>
+            <td><strong>First Community Church</strong><br><span style="font-size:0.7rem;color:var(--slate);">Después del servicio dominical</span></td>
             <td>Tyler</td>
-            <td>Church</td>
-            <td>Weekly</td>
-            <td style="font-weight:700;">$560/mo</td>
-            <td>Jul 21</td>
+            <td>Iglesia</td>
+            <td>Semanal</td>
+            <td style="font-weight:700;">$560/mes</td>
+            <td>21 jul</td>
             <td><span class="badge badge-green">OK</span></td>
-            <td><span class="badge badge-green">Active</span></td>
+            <td><span class="badge badge-green">Activo</span></td>
           </tr>
           <tr data-status="active" data-name="lone star fitness" data-city="longview">
-            <td><strong>Lone Star Fitness</strong><br><span style="font-size:0.7rem;color:var(--slate);">Nightly — gym floors</span></td>
+            <td><strong>Lone Star Fitness</strong><br><span style="font-size:0.7rem;color:var(--slate);">Nocturno — pisos del gimnasio</span></td>
             <td>Longview</td>
-            <td>Gym</td>
-            <td>Daily</td>
-            <td style="font-weight:700;">$1,850/mo</td>
-            <td>Jul 25</td>
-            <td><span class="badge badge-amber">&#9888; Overdue</span></td>
-            <td><span class="badge badge-red">Alert</span></td>
+            <td>Gimnasio</td>
+            <td>Diario</td>
+            <td style="font-weight:700;">$1,850/mes</td>
+            <td>25 jul</td>
+            <td><span class="badge badge-amber">&#9888; Vencido</span></td>
+            <td><span class="badge badge-red">Alerta</span></td>
           </tr>
           <tr data-status="active" data-name="pearland isd admin" data-city="pearland">
-            <td><strong>Pearland ISD Admin Bldg</strong><br><span style="font-size:0.7rem;color:var(--slate);">Annual government contract</span></td>
+            <td><strong>Edificio administrativo del distrito de Pearland</strong><br><span style="font-size:0.7rem;color:var(--slate);">Contrato anual de gobierno</span></td>
             <td>Pearland</td>
-            <td>Government</td>
-            <td>Weekly</td>
-            <td style="font-weight:700;">$875/mo</td>
-            <td>Jul 19</td>
+            <td>Gobierno</td>
+            <td>Semanal</td>
+            <td style="font-weight:700;">$875/mes</td>
+            <td>19 jul</td>
             <td><span class="badge badge-green">OK</span></td>
-            <td><span class="badge badge-green">Active</span></td>
+            <td><span class="badge badge-green">Activo</span></td>
           </tr>
           <tr data-status="quote" data-name="skytower corporate center" data-city="dallas">
-            <td><strong>SkyTower Corporate Center</strong><br><span style="font-size:0.7rem;color:var(--slate);">12 floors &bull; on-site pending</span></td>
+            <td><strong>SkyTower Corporate Center</strong><br><span style="font-size:0.7rem;color:var(--slate);">12 pisos &bull; visita en sitio pendiente</span></td>
             <td>Dallas</td>
-            <td>Office</td>
-            <td>3&times;/week</td>
-            <td style="font-weight:700;color:var(--amber);">~$3,200/mo</td>
+            <td>Oficina</td>
+            <td>3 veces/semana</td>
+            <td style="font-weight:700;color:var(--amber);">~$3,200/mes</td>
             <td>—</td>
             <td><span class="badge badge-gray">N/A</span></td>
-            <td><span class="badge badge-amber">Quote</span></td>
+            <td><span class="badge badge-amber">Cotización</span></td>
           </tr>
         </tbody>
       </table>
@@ -834,25 +834,25 @@
 
   <!-- COMPLIANCE REPORT -->
   <div class="card" style="margin-top:14px;">
-    <div class="card-title">&#128196; Compliance &amp; QA Summary — July 2026</div>
+    <div class="card-title">&#128196; Resumen de cumplimiento y calidad — julio 2026</div>
     <div class="grid-3">
       <div style="padding:12px;border-right:1px solid #f0f4f8;">
         <div style="font-size:0.78rem;font-weight:700;margin-bottom:8px;">Katy Medical Center</div>
-        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Medical protocol checklist — 26/26 days complete</div>
+        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Lista de protocolo médico — 26/26 días completos</div>
         <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--green);"></div></div>
-        <div style="font-size:0.72rem;color:var(--green);margin-top:4px;font-weight:700;">100% compliance</div>
+        <div style="font-size:0.72rem;color:var(--green);margin-top:4px;font-weight:700;">100% de cumplimiento</div>
       </div>
       <div style="padding:12px;border-right:1px solid #f0f4f8;">
-        <div style="font-size:0.78rem;font-weight:700;margin-bottom:8px;">Pearland ISD Admin</div>
-        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Weekly government contract — 4/4 visits confirmed</div>
+        <div style="font-size:0.78rem;font-weight:700;margin-bottom:8px;">Administrativo del distrito de Pearland</div>
+        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Contrato semanal de gobierno — 4/4 visitas confirmadas</div>
         <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--blue);"></div></div>
-        <div style="font-size:0.72rem;color:var(--blue);margin-top:4px;font-weight:700;">On track for renewal</div>
+        <div style="font-size:0.72rem;color:var(--blue);margin-top:4px;font-weight:700;">En rumbo a renovarse</div>
       </div>
       <div style="padding:12px;">
         <div style="font-size:0.78rem;font-weight:700;margin-bottom:8px;">Lone Star Fitness</div>
-        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Daily gym cleaning — 1 missed check-in this month</div>
+        <div style="font-size:0.75rem;color:var(--slate);margin-bottom:6px;">Limpieza diaria del gimnasio — 1 entrada perdida este mes</div>
         <div class="progress-bar"><div class="progress-fill" style="width:96%;background:var(--amber);"></div></div>
-        <div style="font-size:0.72rem;color:var(--amber);margin-top:4px;font-weight:700;">96% — 1 alert logged</div>
+        <div style="font-size:0.72rem;color:var(--amber);margin-top:4px;font-weight:700;">96% — 1 alerta registrada</div>
       </div>
     </div>
   </div>
@@ -861,13 +861,13 @@
 
 <!-- FOOTER -->
 <footer>
-  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
 </footer>
 
 <!-- FLOATING CTA -->
 <div id="float-cta">
   <button onclick="forceOpenModal()">
-    &#128172; Like what you see? Let's talk
+    &#128172; ¿Le gustó? Hablemos
   </button>
 </div>
 
@@ -876,15 +876,15 @@
   <div id="modal-box">
     <button id="modal-close" onclick="closeModal()">&#10005;</button>
     <div class="modal-icon">&#127775;</div>
-    <div class="modal-title">This could be your system, Carmen.</div>
+    <div class="modal-title">Este podría ser su sistema, Carmen.</div>
     <div class="modal-body">
-      Imagine seeing every crew, every contract, every compliance record — all in one screen. Built exactly for how Aurora Commercial Cleaning operates across 7 markets.<br><br>
-      <strong>Pocho.tech</strong> builds custom systems for businesses that already work. No templates. No duct tape. Yours.
+      Imagine ver cada cuadrilla, cada contrato y cada registro de cumplimiento en una sola pantalla. Construido exactamente para cómo opera Aurora Commercial Cleaning en 7 mercados.<br><br>
+      <strong>Pocho.tech</strong> construye sistemas propios para negocios que ya funcionan. Sin plantillas. Sin parches. Suyo.
     </div>
     <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=lmcommercialclea" target="_blank" rel="noopener" class="modal-cta">
-      &#128197; Book a call — no pitch, just clarity
+      &#128197; Agendar una llamada — sin venta, solo claridad
     </a>
-    <div class="modal-skip" onclick="closeModal()">I'll explore the demo first</div>
+    <div class="modal-skip" onclick="closeModal()">Primero quiero ver la demo</div>
   </div>
 </div>
 
@@ -942,7 +942,7 @@
   function resolveAlert() {
     const alert = document.getElementById('alert-checkin');
     alert.className = 'alert-banner alert-green shimmer';
-    alert.innerHTML = '<span class="alert-icon">&#9989;</span><div><strong>Alert resolved — Crew C check-in confirmed</strong><span style="font-size:0.75rem;margin-left:6px;opacity:0.8;">9:02 AM &mdash; Lone Star Fitness (Longview) service started. 22-min delay logged.</span></div>';
+    alert.innerHTML = '<span class="alert-icon">&#9989;</span><div><strong>Alerta resuelta — entrada de la cuadrilla C confirmada</strong><span style="font-size:0.75rem;margin-left:6px;opacity:0.8;">9:02 AM &mdash; el servicio en Lone Star Fitness (Longview) arrancó. Se registró un atraso de 22 minutos.</span></div>';
 
     // Update stats
     var issueEl = document.getElementById('stat-issue');
@@ -960,7 +960,7 @@
         var badge = row.querySelector('.badge');
         dot.className = 'job-dot job-dot-amber';
         badge.className = 'badge badge-amber';
-        badge.textContent = 'En Route';
+        badge.textContent = 'En ruta';
         row.classList.add('shimmer');
       }
     });
@@ -970,11 +970,11 @@
   function markComplete(row, name) {
     var badge = row.querySelector('.badge');
     var dot = row.querySelector('.job-dot');
-    if (badge && badge.textContent === 'Done') return;
+    if (badge && badge.textContent === 'Hecho') return;
     if (dot) dot.className = 'job-dot job-dot-green';
     if (badge) {
       badge.className = 'badge badge-green';
-      badge.textContent = 'Done';
+      badge.textContent = 'Hecho';
     }
     row.classList.add('shimmer');
 
@@ -988,7 +988,7 @@
 
   // ── Quote generator ────────────────────────────────────
   function generateQuote() {
-    var name = document.getElementById('lead-name').value || 'Your Facility';
+    var name = document.getElementById('lead-name').value || 'Su instalación';
     var type = document.getElementById('lead-type').value;
     var sqft = document.getElementById('lead-sqft').value;
     var freq = document.getElementById('lead-freq').value;
@@ -1006,34 +1006,34 @@
     var perVisit = Math.round(monthly / (freqMulti >= 4 ? 20 : freqMulti >= 2 ? 12 : freqMulti >= 1 ? 4 : 2));
     var annual = monthly * 12;
 
-    var typeLabel = { medical:'Medical Facility', bank:'Bank / Financial', school:'School/Institution', government:'Government Bldg', gym:'Gym / Fitness', church:'Church', office:'Commercial Office' }[type] || 'Facility';
-    var freqLabel = { daily:'Daily', '3x':'3× per week', weekly:'Weekly', biweekly:'Bi-weekly', onetime:'One-time' }[freq] || 'Weekly';
-    var specialLabel = { medical:'Medical-grade protocol (+$220)', compliance:'Compliance docs (+$150)', eco:'Green products (+$80)', nochem:'Sensitive env. (+$80)', none:'Standard' }[special] || '';
+    var typeLabel = { medical:'Instalación médica', bank:'Banco / financiera', school:'School/Institution', government:'Edificio de gobierno', gym:'Gimnasio', church:'Iglesia', office:'Oficina comercial' }[type] || 'Instalación';
+    var freqLabel = { daily:'Diaria', '3x':'3 veces por semana', weekly:'Semanal', biweekly:'Quincenal', onetime:'Una sola vez' }[freq] || 'Semanal';
+    var specialLabel = { medical:'Protocolo de grado médico (+$220)', compliance:'Documentación de cumplimiento (+$150)', eco:'Productos ecológicos (+$80)', nochem:'Ambiente sensible (+$80)', none:'Estándar' }[special] || '';
 
     var panel = document.getElementById('quote-result-panel');
     panel.innerHTML = '<div class="quote-result">' +
       '<div class="quote-result-title">&#9889; Estimated Quote — ' + name + '</div>' +
       '<div style="display:flex;align-items:flex-end;gap:6px;margin-bottom:14px;">' +
         '<div class="quote-price">$' + monthly.toLocaleString() + '</div>' +
-        '<div style="font-size:0.82rem;color:var(--slate);padding-bottom:4px;">/month</div>' +
+        '<div style="font-size:0.82rem;color:var(--slate);padding-bottom:4px;">/mes</div>' +
       '</div>' +
-      '<div class="quote-line"><span class="label">Facility type</span><span class="value">' + typeLabel + '</span></div>' +
-      '<div class="quote-line"><span class="label">Market</span><span class="value">' + city.charAt(0).toUpperCase() + city.slice(1) + '</span></div>' +
-      '<div class="quote-line"><span class="label">Frequency</span><span class="value">' + freqLabel + '</span></div>' +
-      '<div class="quote-line"><span class="label">Special requirements</span><span class="value">' + (specialLabel || 'None') + '</span></div>' +
-      '<div class="quote-line"><span class="label">Est. per visit</span><span class="value">$' + perVisit.toLocaleString() + '</span></div>' +
-      '<div class="quote-line"><span class="label">Annual contract value</span><span class="value" style="color:var(--blue);">$' + annual.toLocaleString() + '</span></div>' +
-      '<div style="margin-top:14px;padding-top:12px;border-top:1px solid #b3d9f0;font-size:0.75rem;color:var(--slate);">&#128161; This estimate is auto-generated from your inputs. A quick discovery call confirms scope and finalizes pricing.</div>' +
+      '<div class="quote-line"><span class="label">Tipo de instalación</span><span class="value">' + typeLabel + '</span></div>' +
+      '<div class="quote-line"><span class="label">Mercado</span><span class="value">' + city.charAt(0).toUpperCase() + city.slice(1) + '</span></div>' +
+      '<div class="quote-line"><span class="label">Frecuencia</span><span class="value">' + freqLabel + '</span></div>' +
+      '<div class="quote-line"><span class="label">Requerimientos especiales</span><span class="value">' + (specialLabel || 'Ninguno') + '</span></div>' +
+      '<div class="quote-line"><span class="label">Estimado por visita</span><span class="value">$' + perVisit.toLocaleString() + '</span></div>' +
+      '<div class="quote-line"><span class="label">Valor anual del contrato</span><span class="value" style="color:var(--blue);">$' + annual.toLocaleString() + '</span></div>' +
+      '<div style="margin-top:14px;padding-top:12px;border-top:1px solid #b3d9f0;font-size:0.75rem;color:var(--slate);">&#128161; Este estimado se generó solo con lo que usted capturó. Una llamada corta confirma el alcance y cierra el precio.</div>' +
       '</div>' +
       '<div style="display:flex;gap:8px;margin-top:12px;">' +
-        '<button class="btn-primary" style="flex:1;" onclick="forceOpenModal()">&#128197; Schedule Discovery Call</button>' +
-        '<button class="btn-ghost" style="flex:1;">&#128196; Send as PDF</button>' +
+        '<button class="btn-primary" style="flex:1;" onclick="forceOpenModal()">&#128197; Agendar llamada de diagnóstico</button>' +
+        '<button class="btn-ghost" style="flex:1;">&#128196; Enviar como PDF</button>' +
       '</div>' +
-      '<div class="card" style="margin-top:14px;"><div class="card-title">&#128203; Quote Pipeline</div>' +
-        '<table class="data-table"><thead><tr><th>Lead</th><th>Market</th><th>Est. Value</th><th>Status</th></tr></thead><tbody>' +
-        '<tr><td><strong>' + name + '</strong><br><span style="font-size:0.7rem;color:var(--slate);">' + typeLabel + '</span></td><td>' + city.charAt(0).toUpperCase() + city.slice(1) + '</td><td style="font-weight:700;color:var(--blue);">$' + monthly.toLocaleString() + '/mo</td><td><span class="badge badge-amber">Quote Ready</span></td></tr>' +
-        '<tr><td><strong>Austin Tech Hub</strong><br><span style="font-size:0.7rem;color:var(--slate);">Co-working, 8,000 sq ft</span></td><td>Austin</td><td style="font-weight:700;color:var(--blue);">~$1,800/mo</td><td><span class="badge badge-blue">Sent</span></td></tr>' +
-        '<tr><td><strong>SA Medical Plaza</strong><br><span style="font-size:0.7rem;color:var(--slate);">Clinic, daily protocol</span></td><td>San Antonio</td><td style="font-weight:700;color:var(--blue);">~$4,100/mo</td><td><span class="badge badge-green">Approved</span></td></tr>' +
+      '<div class="card" style="margin-top:14px;"><div class="card-title">&#128203; Pipeline de cotizaciones</div>' +
+        '<table class="data-table"><thead><tr><th>Prospecto</th><th>Mercado</th><th>Valor estimado</th><th>Estado</th></tr></thead><tbody>' +
+        '<tr><td><strong>' + name + '</strong><br><span style="font-size:0.7rem;color:var(--slate);">' + typeLabel + '</span></td><td>' + city.charAt(0).toUpperCase() + city.slice(1) + '</td><td style="font-weight:700;color:var(--blue);">$' + monthly.toLocaleString() + '/mo</td><td><span class="badge badge-amber">Cotización lista</span></td></tr>' +
+        '<tr><td><strong>Austin Tech Hub</strong><br><span style="font-size:0.7rem;color:var(--slate);">Coworking, 8,000 pies²</span></td><td>Austin</td><td style="font-weight:700;color:var(--blue);">~$1,800/mes</td><td><span class="badge badge-blue">Enviada</span></td></tr>' +
+        '<tr><td><strong>SA Medical Plaza</strong><br><span style="font-size:0.7rem;color:var(--slate);">Clínica, protocolo diario</span></td><td>San Antonio</td><td style="font-weight:700;color:var(--blue);">~$4,100/mes</td><td><span class="badge badge-green">Aprobada</span></td></tr>' +
         '</tbody></table></div>';
   }
 

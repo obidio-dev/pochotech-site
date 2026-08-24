@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Westpark Signs & Graphics — Operations System</title>
+  <title>Westpark Signs &amp; Graphics — Sistema de Operaciones</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -177,20 +177,20 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="header-left">
-      <h1>Westpark Signs & Graphics</h1>
-      <p>What your own system would look like — prepared by Pocho.tech</p>
+      <h1>Westpark Signs &amp; Graphics</h1>
+      <p>Así se vería su sistema propio — preparado por Pocho.tech</p>
     </div>
-    <div class="demo-badge">DEMO &middot; sample data</div>
+    <div class="demo-badge">DEMO &middot; datos de muestra</div>
   </div>
 </header>
 
 <!-- TABS -->
-<nav class="tab-bar" role="navigation" aria-label="Main navigation">
+<nav class="tab-bar" role="navigation" aria-label="Navegación principal">
   <div class="tab-inner">
-    <button class="tab-btn active" data-tab="board" onclick="switchTab('board',this)">Project Board</button>
-    <button class="tab-btn" data-tab="client" onclick="switchTab('client',this)">Client Profile</button>
-    <button class="tab-btn" data-tab="pain" onclick="switchTab('pain',this)">Why This Matters</button>
-    <button class="tab-btn" data-tab="reports" onclick="switchTab('reports',this)">Search &amp; Reports</button>
+    <button class="tab-btn active" data-tab="board" onclick="switchTab('board',this)">Tablero de proyectos</button>
+    <button class="tab-btn" data-tab="client" onclick="switchTab('client',this)">Ficha del cliente</button>
+    <button class="tab-btn" data-tab="pain" onclick="switchTab('pain',this)">Por qué esto importa</button>
+    <button class="tab-btn" data-tab="reports" onclick="switchTab('reports',this)">Búsqueda y reportes</button>
   </div>
 </nav>
 
@@ -203,16 +203,16 @@
     <!-- Alert bar -->
     <div class="card card-sm" style="background:#FFF9E8; border-left:4px solid var(--gold); margin-bottom:20px;">
       <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-        <span style="font-size:0.8rem;"><strong style="color:#92400E;">2 projects need attention today:</strong>&nbsp; Katy Ranch Crossing HOA permit stalled 14 days &nbsp;|&nbsp; Heights Beer Garden permit expires in 3 days</span>
+        <span style="font-size:0.8rem;"><strong style="color:#92400E;">2 proyectos necesitan atención hoy:</strong>&nbsp; El permiso de Katy Ranch Crossing HOA lleva 14 días trabado &nbsp;|&nbsp; el permiso de Heights Beer Garden vence en 3 días</span>
         <span class="tl tl-red" style="margin-left:auto;"></span>
       </div>
     </div>
 
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
-      <h2 class="section-title" style="margin:0;">Active Projects <span class="accent">— Pipeline View</span></h2>
+      <h2 class="section-title" style="margin:0;">Proyectos activos <span class="accent">— vista de pipeline</span></h2>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button class="btn-gold" style="font-size:0.78rem; padding:8px 14px;" onclick="simulateStageUpdate()">Move Westchase Dental → Install</button>
-        <span style="font-size:0.72rem; color:#888; align-self:center;">&larr; try this</span>
+        <button class="btn-gold" style="font-size:0.78rem; padding:8px 14px;" onclick="simulateStageUpdate()">Pasar Westchase Dental → instalación</button>
+        <span style="font-size:0.72rem; color:#888; align-self:center;">&larr; pruébelo</span>
       </div>
     </div>
 
@@ -220,89 +220,89 @@
     <div class="kanban" id="kanban-board">
 
       <div class="kanban-col col-design">
-        <div class="kanban-col-header">Design</div>
+        <div class="kanban-col-header">Diseño</div>
         <div class="kanban-card" onclick="openClientTab('Apex Plumbing & Drain')">
-          <div class="kc-title">Vehicle Wrap — Cargo Van</div>
+          <div class="kc-title">Rotulado de vehículo — van de carga</div>
           <div class="kc-client">Apex Plumbing &amp; Drain</div>
           <div class="kc-meta">
-            <span class="kc-due">Due Aug 5</span>
+            <span class="kc-due">Entrega 5 ago</span>
             <span class="tl tl-yellow"></span>
           </div>
         </div>
         <div class="kanban-card" onclick="openClientTab('Greenway Plaza Medical Bldg')">
-          <div class="kc-title">ADA / Braille Signs</div>
-          <div class="kc-client">Greenway Plaza Medical Bldg</div>
+          <div class="kc-title">Señalización ADA / braille</div>
+          <div class="kc-client">Edificio médico Greenway Plaza</div>
           <div class="kc-meta">
-            <span class="kc-due">Due Aug 12</span>
+            <span class="kc-due">Entrega 12 ago</span>
             <span class="tl tl-green"></span>
           </div>
         </div>
       </div>
 
       <div class="kanban-col col-permit">
-        <div class="kanban-col-header">Permitting (TSCL)</div>
+        <div class="kanban-col-header">Permisos (TSCL)</div>
         <div class="kanban-card" onclick="openClientTab('Katy Ranch Crossing HOA')" style="border-left:3px solid #EF4444;">
-          <div class="kc-title">Monument Sign</div>
+          <div class="kc-title">Rótulo monumento</div>
           <div class="kc-client">Katy Ranch Crossing HOA</div>
           <div class="kc-meta">
-            <span class="kc-due" style="color:#EF4444;">Stalled 14 days</span>
+            <span class="kc-due" style="color:#EF4444;">Trabado hace 14 días</span>
             <span class="tl tl-red"></span>
           </div>
         </div>
         <div class="kanban-card" onclick="openClientTab('Meyerland Auto Spa')" style="border-left:3px solid #EAB308;">
-          <div class="kc-title">Exterior Pole Sign (LED)</div>
+          <div class="kc-title">Rótulo de poste exterior (LED)</div>
           <div class="kc-client">Meyerland Auto Spa</div>
           <div class="kc-meta">
-            <span class="kc-due" style="color:#D97706;">Expires in 3 days</span>
+            <span class="kc-due" style="color:#D97706;">Vence en 3 días</span>
             <span class="tl tl-yellow"></span>
           </div>
         </div>
         <div class="kanban-card" onclick="openClientTab('Heights Beer Garden')">
-          <div class="kc-title">Roof Sign (illuminated)</div>
+          <div class="kc-title">Rótulo de techo (iluminado)</div>
           <div class="kc-client">Heights Beer Garden</div>
           <div class="kc-meta">
-            <span class="kc-due">Aug 20</span>
+            <span class="kc-due">20 ago</span>
             <span class="tl tl-yellow"></span>
           </div>
         </div>
       </div>
 
       <div class="kanban-col col-fab">
-        <div class="kanban-col-header">Fabrication</div>
+        <div class="kanban-col-header">Fabricación</div>
         <div class="kanban-card" id="kc-westchase" onclick="openClientTab('Westchase Dental Group')">
-          <div class="kc-title">Channel Letters (LED)</div>
+          <div class="kc-title">Letras de canal (LED)</div>
           <div class="kc-client">Westchase Dental Group</div>
           <div class="kc-meta">
-            <span class="kc-due">Due Aug 2</span>
+            <span class="kc-due">Entrega 2 ago</span>
             <span class="tl tl-green"></span>
           </div>
           <div class="progress-bar" style="margin-top:8px;"><div class="progress-bar-inner" id="fab-progress" style="width:72%;"></div></div>
-          <div style="font-size:0.67rem; color:#888; margin-top:3px;">72% complete</div>
+          <div style="font-size:0.67rem; color:#888; margin-top:3px;">72% completo</div>
         </div>
         <div class="kanban-card" onclick="openClientTab('Gulf Coast HVAC Services')">
-          <div class="kc-title">Fleet Rebranding — 12 vehicles</div>
+          <div class="kc-title">Cambio de imagen de flota — 12 vehículos</div>
           <div class="kc-client">Gulf Coast HVAC Services</div>
           <div class="kc-meta">
-            <span class="kc-due">Due Aug 18</span>
+            <span class="kc-due">Entrega 18 ago</span>
             <span class="tl tl-green"></span>
           </div>
           <div class="progress-bar" style="margin-top:8px;"><div class="progress-bar-inner" style="width:40%;"></div></div>
-          <div style="font-size:0.67rem; color:#888; margin-top:3px;">4 of 12 vehicles done</div>
+          <div style="font-size:0.67rem; color:#888; margin-top:3px;">4 de 12 vehículos listos</div>
         </div>
         <div class="kanban-card" onclick="openClientTab('610 Loop Mixed-Use Dev.')">
-          <div class="kc-title">Construction Hoarding</div>
-          <div class="kc-client">610 Loop Mixed-Use Dev.</div>
+          <div class="kc-title">Valla de obra</div>
+          <div class="kc-client">Desarrollo mixto 610 Loop</div>
           <div class="kc-meta">
-            <span class="kc-due">Due Sep 1</span>
+            <span class="kc-due">Entrega 1 sep</span>
             <span class="tl tl-green"></span>
           </div>
         </div>
       </div>
 
       <div class="kanban-col col-install">
-        <div class="kanban-col-header">Installation</div>
+        <div class="kanban-col-header">Instalación</div>
         <div id="kc-install-target" style="min-height:60px; border:2px dashed #D1FAE5; border-radius:6px; margin-bottom:10px; display:flex; align-items:center; justify-content:center; font-size:0.72rem; color:#888;">
-          Move Westchase here &rarr;
+          Pasar Westchase acá &rarr;
         </div>
       </div>
 
@@ -310,7 +310,7 @@
 
     <!-- List below -->
     <div class="card" style="margin-top:24px;">
-      <h3 class="section-title" style="font-size:0.88rem; margin-bottom:14px;">All Active Projects</h3>
+      <h3 class="section-title" style="font-size:0.88rem; margin-bottom:14px;">Todos los proyectos activos</h3>
       <div id="projects-list">
         <!-- Rows injected by JS -->
       </div>
@@ -327,10 +327,10 @@
 
     <!-- Client selector -->
     <div class="card card-sm" style="margin-bottom:18px; display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
-      <label style="font-size:0.78rem; font-weight:700; color:var(--gray-mid);">VIEWING CLIENT:</label>
+      <label style="font-size:0.78rem; font-weight:700; color:var(--gray-mid);">VIENDO AL CLIENTE:</label>
       <select id="client-select" onchange="loadClientProfile(this.value)" style="border:1.5px solid #DDD; border-radius:6px; padding:7px 12px; font-size:0.85rem; outline:none; flex:1; min-width:200px;">
-        <option value="lone-star">Lone Star Property Mgmt (Corporate)</option>
-        <option value="gulf-coast">Gulf Coast HVAC Services (Fleet)</option>
+        <option value="lone-star">Lone Star Property Mgmt (corporativo)</option>
+        <option value="gulf-coast">Gulf Coast HVAC Services (flota)</option>
         <option value="meridian">Meridian Title Company</option>
         <option value="northside">Northside ISD — Aldine</option>
       </select>
@@ -350,123 +350,123 @@
   <div class="page-body">
 
     <div class="card" style="background: var(--dark); color:#fff; margin-bottom:20px; padding:28px 28px;">
-      <div style="font-size:0.72rem; font-weight:700; letter-spacing:.08em; color:var(--gold); margin-bottom:8px; text-transform:uppercase;">The real cost of manual operations</div>
-      <h2 style="font-size:1.2rem; font-weight:800; margin:0 0 10px; line-height:1.35;">40 years serving Houston businesses — that volume of multi-stage projects (design, permit, fabrication, install) deserves something better than email and spreadsheets to make sure nothing falls through.</h2>
-      <p style="font-size:0.85rem; color:#ccc; margin:0; line-height:1.6;">Channel letters, vehicle wraps, monument signs, fleet rebranding — each one has specs that live somewhere. Here's what the difference looks like.</p>
+      <div style="font-size:0.72rem; font-weight:700; letter-spacing:.08em; color:var(--gold); margin-bottom:8px; text-transform:uppercase;">El costo real de operar a mano</div>
+      <h2 style="font-size:1.2rem; font-weight:800; margin:0 0 10px; line-height:1.35;">Cuarenta años atendiendo negocios en Houston. Ese volumen de proyectos con varias etapas (diseño, permiso, fabricación, instalación) merece algo mejor que correos y hojas de cálculo para que nada se caiga.</h2>
+      <p style="font-size:0.85rem; color:#ccc; margin:0; line-height:1.6;">Letras de canal, rotulados de vehículo, rótulos monumento, cambio de imagen de flota &mdash; cada uno tiene especificaciones que viven en algún lado. Así se ve la diferencia.</p>
     </div>
 
     <!-- Before / After -->
     <div class="pain-grid">
       <div class="pain-card before">
-        <h3>Without a system</h3>
-        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Quote for channel letters built from memory or Excel — recalculated every time a client requests a change</span></div>
-        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Project status lives in text threads — "Hey, where are my signs?" requires a manual check</span></div>
-        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>TSCL permit deadlines tracked on a calendar note — no automatic alert when a permit is stalling</span></div>
-        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Corporate and fleet clients have no single place to see their order history or reorder easily</span></div>
-        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Upsell opportunities (LED upgrade, fleet expansion, wayfinding add-on) missed because there's no trigger</span></div>
+        <h3>Sin sistema</h3>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>La cotización de letras de canal se arma de memoria o en Excel, y se recalcula cada vez que el cliente pide un cambio</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>El estado del proyecto vive en cadenas de mensajes &mdash; "oye, ¿y mis rótulos?" obliga a ir a revisar a mano</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Los vencimientos de permisos TSCL se anotan en el calendario &mdash; ninguna alerta salta sola cuando un permiso se traba</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Los clientes corporativos y de flota no tienen un solo lugar donde ver su historial de pedidos ni repetir uno fácil</span></div>
+        <div class="pain-item"><span class="pain-icon">&#10006;</span><span>Las oportunidades de venta adicional (subir a LED, ampliar la flota, agregar señalización de orientación) se pierden porque nada las dispara</span></div>
       </div>
       <div class="pain-card after">
-        <h3>With your own system</h3>
-        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Smart quote builder: pick sign type, dimensions, material, permit requirement — draft ready in 60 seconds, Michelle approves with one click</span></div>
-        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Four-stage pipeline (Design → Permit → Fabrication → Install) visible at a glance — clients get automatic status updates</span></div>
-        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Permit expiry alerts fire automatically — no permit dies silently because it fell through the cracks</span></div>
-        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Every corporate and fleet client has a full order history — reorders and upsells surface without outbound calls</span></div>
-        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Pipeline visibility by stage, client type, and revenue — Michelle sees what's closing this month without counting tabs</span></div>
+        <h3>Con su sistema propio</h3>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Cotizador inteligente: elige tipo de rótulo, medidas, material y si requiere permiso &mdash; borrador listo en 60 segundos, Mónica aprueba con un clic</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Pipeline de cuatro etapas (diseño → permiso → fabricación → instalación) visible de un vistazo &mdash; a los clientes les llegan avisos de estado solos</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Las alertas de vencimiento de permisos saltan solas &mdash; ningún permiso se muere en silencio por olvido</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Cada cliente corporativo y de flota tiene historial completo &mdash; las reórdenes y ventas adicionales aparecen sin salir a llamar</span></div>
+        <div class="pain-item"><span class="pain-icon" style="color:#065F46;">&#10003;</span><span>Visibilidad del pipeline por etapa, tipo de cliente e ingreso &mdash; Mónica ve qué está por cerrar este mes sin contar pestañas</span></div>
       </div>
     </div>
 
     <!-- Pipeline visualization -->
     <div class="card">
-      <h3 class="section-title">Your Active Pipeline Right Now</h3>
-      <p style="font-size:0.82rem; color:var(--gray-mid); margin:-10px 0 14px;">Every active project, organized by stage — not by who remembered to send a status email.</p>
+      <h3 class="section-title">Su pipeline activo ahora mismo</h3>
+      <p style="font-size:0.82rem; color:var(--gray-mid); margin:-10px 0 14px;">Cada proyecto activo, ordenado por etapa &mdash; no por quién se acordó de mandar un correo de estado.</p>
       <div class="pipeline-bar">
-        <div class="pipeline-seg seg-design">Design (2)</div>
-        <div class="pipeline-seg seg-permit">Permit (3)</div>
-        <div class="pipeline-seg seg-fab">Fabrication (3)</div>
-        <div class="pipeline-seg seg-install">Install (1)</div>
+        <div class="pipeline-seg seg-design">Diseño (2)</div>
+        <div class="pipeline-seg seg-permit">Permiso (3)</div>
+        <div class="pipeline-seg seg-fab">Fabricación (3)</div>
+        <div class="pipeline-seg seg-install">Instalación (1)</div>
       </div>
       <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;">
-        <span style="font-size:0.72rem;"><span style="background:#1967D2; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Design</span>
-        <span style="font-size:0.72rem;"><span style="background:#D97706; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Permitting (TSCL)</span>
-        <span style="font-size:0.72rem;"><span style="background:#7C3AED; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Fabrication</span>
-        <span style="font-size:0.72rem;"><span style="background:#059669; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Installation</span>
+        <span style="font-size:0.72rem;"><span style="background:#1967D2; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Diseño</span>
+        <span style="font-size:0.72rem;"><span style="background:#D97706; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Permisos (TSCL)</span>
+        <span style="font-size:0.72rem;"><span style="background:#7C3AED; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Fabricación</span>
+        <span style="font-size:0.72rem;"><span style="background:#059669; width:10px;height:10px;display:inline-block;border-radius:2px;margin-right:4px;"></span>Instalación</span>
       </div>
     </div>
 
     <!-- Smart Quote Builder -->
     <div class="card" style="margin-top:20px;">
-      <h3 class="section-title">Smart Quote Builder <span style="font-size:0.72rem; font-weight:400; color:#888; margin-left:8px;">— sample interaction</span></h3>
-      <p style="font-size:0.82rem; color:var(--gray-mid); margin:-10px 0 20px; line-height:1.55;">An automated quoting tool for channel letters and vehicle wraps could close projects faster and give Michelle real pipeline visibility — without adding more overhead. Try it:</p>
+      <h3 class="section-title">Cotizador inteligente <span style="font-size:0.72rem; font-weight:400; color:#888; margin-left:8px;">— interacción de muestra</span></h3>
+      <p style="font-size:0.82rem; color:var(--gray-mid); margin:-10px 0 20px; line-height:1.55;">Un cotizador automático para letras de canal y rotulados de vehículo cerraría proyectos más rápido y le daría a Mónica visibilidad real del pipeline, sin agregar carga. Pruébelo:</p>
 
       <div class="quote-form">
         <div class="form-group">
-          <label>Sign Type</label>
+          <label>Tipo de rótulo</label>
           <select id="q-type" onchange="updateQuoteFields()">
-            <option value="">Select…</option>
-            <option value="channel">Channel Letters (LED illuminated)</option>
-            <option value="vehicle">Vehicle Wrap (full wrap)</option>
-            <option value="monument">Monument Sign</option>
-            <option value="fleet">Fleet Rebranding (per vehicle)</option>
-            <option value="lobby">Lobby Signage (3D letters)</option>
-            <option value="led-board">LED Message Board</option>
+            <option value="">Elija…</option>
+            <option value="channel">Letras de canal (iluminadas LED)</option>
+            <option value="vehicle">Rotulado de vehículo (completo)</option>
+            <option value="monument">Rótulo monumento</option>
+            <option value="fleet">Cambio de imagen de flota (por vehículo)</option>
+            <option value="lobby">Señalización de lobby (letras 3D)</option>
+            <option value="led-board">Pantalla LED de mensajes</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Client / Company</label>
-          <input id="q-client" type="text" placeholder="Company name…" />
+          <label>Cliente / empresa</label>
+          <input id="q-client" type="text" placeholder="Nombre de la empresa…" />
         </div>
         <div class="form-group">
-          <label>Dimensions / Size</label>
+          <label>Medidas / tamaño</label>
           <select id="q-size">
-            <option value="">Select…</option>
-            <option value="sm">Small (under 20 sq ft)</option>
-            <option value="md">Medium (20–60 sq ft)</option>
-            <option value="lg">Large (60–150 sq ft)</option>
-            <option value="xl">Extra Large (150+ sq ft)</option>
+            <option value="">Elija…</option>
+            <option value="sm">Pequeño (menos de 20 pies²)</option>
+            <option value="md">Mediano (20 a 60 pies²)</option>
+            <option value="lg">Grande (60 a 150 pies²)</option>
+            <option value="xl">Extra grande (más de 150 pies²)</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Material / Finish</label>
+          <label>Material / acabado</label>
           <select id="q-material">
-            <option value="">Select…</option>
-            <option value="alum-led">Aluminum + LED</option>
-            <option value="acrylic">Acrylic face</option>
-            <option value="vinyl-3m">3M Vinyl (vehicle grade)</option>
-            <option value="dimensional">Dimensional / routed HDU</option>
-            <option value="brick-dim">Brick + dimensional letters</option>
+            <option value="">Elija…</option>
+            <option value="alum-led">Aluminio + LED</option>
+            <option value="acrylic">Cara de acrílico</option>
+            <option value="vinyl-3m">Vinilo 3M (grado vehicular)</option>
+            <option value="dimensional">Dimensional / HDU ruteado</option>
+            <option value="brick-dim">Ladrillo + letras dimensionales</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Permit Required?</label>
+          <label>¿Requiere permiso?</label>
           <select id="q-permit">
-            <option value="yes">Yes — TSCL filing needed</option>
-            <option value="no">No permit needed</option>
-            <option value="unknown">To be determined</option>
+            <option value="yes">Sí — hay que tramitar TSCL</option>
+            <option value="no">No requiere permiso</option>
+            <option value="unknown">Por definir</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Estimated Completion</label>
+          <label>Terminación estimada</label>
           <input id="q-date" type="date" />
         </div>
       </div>
 
       <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-        <button class="btn-gold" onclick="generateQuote()">Generate Quote Draft</button>
-        <span style="font-size:0.75rem; color:#888;">Michelle reviews &amp; approves in one click</span>
+        <button class="btn-gold" onclick="generateQuote()">Generar borrador de cotización</button>
+        <span style="font-size:0.75rem; color:#888;">Mónica revisa y aprueba con un clic</span>
       </div>
 
       <div class="quote-result" id="quote-result">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
           <div>
-            <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:var(--gray-mid); text-transform:uppercase;">Draft Quote</div>
+            <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:var(--gray-mid); text-transform:uppercase;">Borrador de cotización</div>
             <div id="qr-title" style="font-size:1rem; font-weight:800; margin-top:3px;"></div>
           </div>
-          <div id="qr-status" style="font-size:0.72rem; background:#FEF3C7; color:#92400E; font-weight:700; padding:5px 12px; border-radius:20px; letter-spacing:.04em;">PENDING MICHELLE'S APPROVAL</div>
+          <div id="qr-status" style="font-size:0.72rem; background:#FEF3C7; color:#92400E; font-weight:700; padding:5px 12px; border-radius:20px; letter-spacing:.04em;">PENDIENTE DE LA APROBACIÓN DE MÓNICA</div>
         </div>
         <div id="qr-lines"></div>
         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn-gold" onclick="approveQuote()" style="font-size:0.82rem; padding:9px 18px;">Approve &amp; Send to Client</button>
-          <button onclick="document.getElementById('quote-result').classList.remove('visible')" style="font-size:0.82rem; padding:9px 18px; background:none; border:1.5px solid #DDD; border-radius:7px; cursor:pointer; font-weight:600;">Request Revision</button>
+          <button class="btn-gold" onclick="approveQuote()" style="font-size:0.82rem; padding:9px 18px;">Aprobar y enviar al cliente</button>
+          <button onclick="document.getElementById('quote-result').classList.remove('visible')" style="font-size:0.82rem; padding:9px 18px; background:none; border:1.5px solid #DDD; border-radius:7px; cursor:pointer; font-weight:600;">Pedir corrección</button>
         </div>
       </div>
 
@@ -486,27 +486,27 @@
     </div>
 
     <div class="card">
-      <h3 class="section-title" style="margin-bottom:14px;">Project Search &amp; Export</h3>
+      <h3 class="section-title" style="margin-bottom:14px;">Búsqueda y exportación de proyectos</h3>
       <div class="filter-bar">
-        <input type="text" id="search-q" placeholder="Search client, sign type, status…" style="flex:1; min-width:180px;" oninput="filterTable()" />
+        <input type="text" id="search-q" placeholder="Buscar cliente, tipo de rótulo, estado…" style="flex:1; min-width:180px;" oninput="filterTable()" />
         <select id="filter-stage" onchange="filterTable()">
-          <option value="">All stages</option>
-          <option value="design">Design</option>
-          <option value="permit">Permitting</option>
-          <option value="fabrication">Fabrication</option>
-          <option value="installation">Installation</option>
-          <option value="complete">Completed</option>
-          <option value="quote">Quote sent</option>
+          <option value="">Todas las etapas</option>
+          <option value="design">Diseño</option>
+          <option value="permit">Permisos</option>
+          <option value="fabrication">Fabricación</option>
+          <option value="installation">Instalación</option>
+          <option value="complete">Completado</option>
+          <option value="quote">Cotización enviada</option>
         </select>
         <select id="filter-type" onchange="filterTable()">
-          <option value="">All sign types</option>
-          <option value="channel">Channel Letters</option>
-          <option value="vehicle">Vehicle / Fleet</option>
-          <option value="monument">Monument / Pole</option>
-          <option value="interior">Interior / Lobby</option>
-          <option value="other">Other</option>
+          <option value="">Todos los tipos de rótulo</option>
+          <option value="channel">Letras de canal</option>
+          <option value="vehicle">Vehículo / flota</option>
+          <option value="monument">Monumento / poste</option>
+          <option value="interior">Interior / lobby</option>
+          <option value="other">Otro</option>
         </select>
-        <button class="btn-gold" style="font-size:0.78rem; padding:8px 14px;" onclick="showToast('Export ready — sample data only in this demo')">Export CSV</button>
+        <button class="btn-gold" style="font-size:0.78rem; padding:8px 14px;" onclick="showToast('Export ready — sample data only in this demo')">Exportar CSV</button>
       </div>
 
       <div style="overflow-x:auto;">
@@ -514,18 +514,18 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Client</th>
-              <th>Sign Type</th>
-              <th>Stage</th>
-              <th>Due Date</th>
-              <th>Status</th>
+              <th>Cliente</th>
+              <th>Tipo de rótulo</th>
+              <th>Etapa</th>
+              <th>Fecha de entrega</th>
+              <th>Estado</th>
             </tr>
           </thead>
           <tbody id="report-tbody">
           </tbody>
         </table>
       </div>
-      <div id="no-results" style="display:none; text-align:center; padding:32px; color:var(--gray-mid); font-size:0.85rem;">No projects match your filters.</div>
+      <div id="no-results" style="display:none; text-align:center; padding:32px; color:var(--gray-mid); font-size:0.85rem;">Ningún proyecto coincide con sus filtros.</div>
     </div>
 
   </div>
@@ -533,7 +533,7 @@
 
 <!-- FLOATING CTA -->
 <div class="floating-cta">
-  <button onclick="openCalendly()">Like what you see? Let's talk</button>
+  <button onclick="openCalendly()">¿Le gustó? Hablemos</button>
 </div>
 
 <!-- TOAST -->
@@ -544,16 +544,16 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">&times;</button>
     <div style="font-size:2rem; margin-bottom:10px;">&#9733;</div>
-    <h2>This could be yours</h2>
-    <p>A system built around how Westpark Signs & Graphics actually works — channel letters, fleet rebranding, TSCL permitting, all of it. No generic software. No learning curve. Just a cleaner way to run what you already do well.</p>
-    <button class="btn-modal-cta" onclick="openCalendly()">Schedule a conversation with Erick</button>
+    <h2>Esto podría ser suyo</h2>
+    <p>Un sistema construido alrededor de cómo trabaja de verdad Westpark Signs &amp; Graphics: letras de canal, cambio de imagen de flota, permisos TSCL, todo. Sin software genérico. Sin curva de aprendizaje. Solo una forma más limpia de correr lo que ya hacen bien.</p>
+    <button class="btn-modal-cta" onclick="openCalendly()">Agendar una conversación con Erick</button>
     <br />
-    <button class="btn-modal-dismiss" onclick="closeModal()">I'll keep looking around</button>
+    <button class="btn-modal-dismiss" onclick="closeModal()">Sigo viendo</button>
   </div>
 </div>
 
 <footer style="background:var(--dark); color:#888; font-size:0.72rem; text-align:center; padding:18px 24px; margin-top:0;">
-  Mockup with sample data. Built by Pocho.tech — custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech — sistemas propios para negocios que ya funcionan.
 </footer>
 
 <script>
@@ -563,91 +563,91 @@
 const CALENDLY = 'https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=houstongraphicsi';
 
 const PROJECTS = [
-  { id:1,  client:'Westchase Dental Group',       type:'Channel Letters (LED)',          stage:'Fabrication',  stageKey:'fabrication', due:'Aug 2, 2026',  tl:'green',  typeKey:'channel',  amount:'$8,400' },
-  { id:2,  client:'Katy Ranch Crossing HOA',      type:'Monument Sign',                 stage:'Permitting',   stageKey:'permit',       due:'Aug 15, 2026', tl:'red',    typeKey:'monument', amount:'$12,200' },
-  { id:3,  client:'Gulf Coast HVAC Services',     type:'Fleet Rebranding (12 vehicles)',stage:'Fabrication',  stageKey:'fabrication', due:'Aug 18, 2026', tl:'green',  typeKey:'vehicle',  amount:'$31,500' },
-  { id:4,  client:'Apex Plumbing & Drain',        type:'Vehicle Wrap (cargo van)',       stage:'Design',       stageKey:'design',       due:'Aug 5, 2026',  tl:'yellow', typeKey:'vehicle',  amount:'$2,800' },
-  { id:5,  client:'Meridian Title Company',       type:'Lobby Signage (3D + wall)',      stage:'Completed',    stageKey:'complete',     due:'Jul 10, 2026', tl:'green',  typeKey:'interior', amount:'$5,600' },
-  { id:6,  client:'BioTex Medical Supplies',      type:'Trade Show Booth (10x10)',       stage:'Quote Sent',   stageKey:'quote',        due:'Aug 25, 2026', tl:'yellow', typeKey:'other',    amount:'$3,900' },
-  { id:7,  client:'Meyerland Auto Spa',           type:'Exterior Pole Sign (LED)',       stage:'Permitting',   stageKey:'permit',       due:'Aug 20, 2026', tl:'yellow', typeKey:'monument', amount:'$7,100' },
-  { id:8,  client:'La Michoacana Ice Cream #4',   type:'Window Graphics (vinyl)',        stage:'Completed',    stageKey:'complete',     due:'Jul 5, 2026',  tl:'green',  typeKey:'other',    amount:'$1,200' },
-  { id:9,  client:'610 Loop Mixed-Use Dev.',      type:'Construction Hoarding',          stage:'Fabrication',  stageKey:'fabrication', due:'Sep 1, 2026',  tl:'green',  typeKey:'other',    amount:'$18,000' },
-  { id:10, client:'Lone Star Property Mgmt',      type:'Corporate Rebranding (wayfinding)',stage:'Proposal Sent',stageKey:'quote',     due:'Aug 30, 2026', tl:'yellow', typeKey:'interior', amount:'$24,500' },
-  { id:11, client:'Greenway Plaza Medical Bldg',  type:'ADA / Braille Signs',            stage:'Design',       stageKey:'design',       due:'Aug 12, 2026', tl:'green',  typeKey:'interior', amount:'$3,300' },
-  { id:12, client:'Crosspoint Church Houston',    type:'A-Frame + Banner Package',       stage:'Completed',    stageKey:'complete',     due:'Jun 20, 2026', tl:'green',  typeKey:'other',    amount:'$980' },
-  { id:13, client:'Heights Beer Garden',          type:'Roof Sign (illuminated)',        stage:'Permitting',   stageKey:'permit',       due:'Aug 20, 2026', tl:'yellow', typeKey:'monument', amount:'$9,800' },
-  { id:14, client:'HX Energy Conference 2026',    type:'Large Format Digital Print',     stage:'Delivered',    stageKey:'complete',     due:'Jul 18, 2026', tl:'green',  typeKey:'other',    amount:'$4,200' },
-  { id:15, client:'Northside ISD — Aldine',       type:'LED Message Board',              stage:'Quote in Process',stageKey:'quote',    due:'Sep 15, 2026', tl:'yellow', typeKey:'monument', amount:'$28,000' },
+  { id:1,  client:'Westchase Dental Group',       type:'Letras de canal (LED)',          stage:'Fabricación',  stageKey:'fabrication', due:'2 ago 2026',  tl:'green',  typeKey:'channel',  amount:'$8,400' },
+  { id:2,  client:'Katy Ranch Crossing HOA',      type:'Rótulo monumento',                 stage:'Permisos',   stageKey:'permit',       due:'15 ago 2026', tl:'red',    typeKey:'monument', amount:'$12,200' },
+  { id:3,  client:'Gulf Coast HVAC Services',     type:'Cambio de imagen de flota (12 vehículos)',stage:'Fabricación',  stageKey:'fabrication', due:'18 ago 2026', tl:'green',  typeKey:'vehicle',  amount:'$31,500' },
+  { id:4,  client:'Apex Plumbing & Drain',        type:'Rotulado de vehículo (van de carga)',       stage:'Diseño',       stageKey:'design',       due:'5 ago 2026',  tl:'yellow', typeKey:'vehicle',  amount:'$2,800' },
+  { id:5,  client:'Meridian Title Company',       type:'Señalización de lobby (3D + muro)',      stage:'Completado',    stageKey:'complete',     due:'10 jul 2026', tl:'green',  typeKey:'interior', amount:'$5,600' },
+  { id:6,  client:'BioTex Medical Supplies',      type:'Stand de feria (10x10)',       stage:'Cotización enviada',   stageKey:'quote',        due:'25 ago 2026', tl:'yellow', typeKey:'other',    amount:'$3,900' },
+  { id:7,  client:'Meyerland Auto Spa',           type:'Rótulo de poste exterior (LED)',       stage:'Permisos',   stageKey:'permit',       due:'20 ago 2026', tl:'yellow', typeKey:'monument', amount:'$7,100' },
+  { id:8,  client:'La Michoacana Ice Cream #4',   type:'Gráficos de vidriera (vinilo)',        stage:'Completado',    stageKey:'complete',     due:'5 jul 2026',  tl:'green',  typeKey:'other',    amount:'$1,200' },
+  { id:9,  client:'Desarrollo mixto 610 Loop',      type:'Valla de obra',          stage:'Fabricación',  stageKey:'fabrication', due:'1 sep 2026',  tl:'green',  typeKey:'other',    amount:'$18,000' },
+  { id:10, client:'Lone Star Property Mgmt',      type:'Cambio de imagen corporativa (orientación)',stage:'Propuesta enviada',stageKey:'quote',     due:'30 ago 2026', tl:'yellow', typeKey:'interior', amount:'$24,500' },
+  { id:11, client:'Edificio médico Greenway Plaza',  type:'Señalización ADA / braille',            stage:'Diseño',       stageKey:'design',       due:'12 ago 2026', tl:'green',  typeKey:'interior', amount:'$3,300' },
+  { id:12, client:'Crosspoint Church Houston',    type:'Paquete de caballete y banners',       stage:'Completado',    stageKey:'complete',     due:'20 jun 2026', tl:'green',  typeKey:'other',    amount:'$980' },
+  { id:13, client:'Heights Beer Garden',          type:'Rótulo de techo (iluminado)',        stage:'Permisos',   stageKey:'permit',       due:'20 ago 2026', tl:'yellow', typeKey:'monument', amount:'$9,800' },
+  { id:14, client:'HX Energy Conference 2026',    type:'Impresión digital de gran formato',     stage:'Entregado',    stageKey:'complete',     due:'18 jul 2026', tl:'green',  typeKey:'other',    amount:'$4,200' },
+  { id:15, client:'Northside ISD — Aldine',       type:'Pantalla LED de mensajes',              stage:'Cotización en proceso',stageKey:'quote',    due:'15 sep 2026', tl:'yellow', typeKey:'monument', amount:'$28,000' },
 ];
 
 const CLIENT_PROFILES = {
   'lone-star': {
     name: 'Lone Star Property Mgmt',
-    type: 'Corporate Account',
+    type: 'Cuenta corporativa',
     since: '2019',
-    contact: 'David Reyes, Facilities Director',
+    contact: 'David Reyes, director de instalaciones',
     totalJobs: 8,
     totalValue: '$87,400',
     activeProjects: 1,
-    tags: ['Wayfinding','Monument signs','Property management','Corporate rebranding'],
+    tags: ['Orientación','Rótulos monumento','Administración de propiedades','Cambio de imagen corporativa'],
     history: [
-      { date:'Jul 2026', job:'Corporate rebranding — wayfinding + exterior', stage:'Proposal Sent', value:'$24,500' },
-      { date:'Mar 2026', job:'Monument sign — 3 properties (Katy)', stage:'Completed', value:'$18,200' },
-      { date:'Nov 2025', job:'Suite ADA signage — Greenway office', stage:'Completed', value:'$4,100' },
-      { date:'Jun 2025', job:'Property ID signs — 5 locations', stage:'Completed', value:'$12,800' },
-      { date:'Jan 2025', job:'Lobby 3D letters — main office', stage:'Completed', value:'$5,600' },
-      { date:'Aug 2024', job:'Window graphics — retail strip (8 units)', stage:'Completed', value:'$9,200' },
+      { date:'jul 2026', job:'Cambio de imagen corporativa — orientación y exteriores', stage:'Propuesta enviada', value:'$24,500' },
+      { date:'mar 2026', job:'Rótulo monumento — 3 propiedades (Katy)', stage:'Completado', value:'$18,200' },
+      { date:'nov 2025', job:'Señalización ADA de suites — oficina Greenway', stage:'Completado', value:'$4,100' },
+      { date:'jun 2025', job:'Rótulos de identificación — 5 ubicaciones', stage:'Completado', value:'$12,800' },
+      { date:'ene 2025', job:'Letras 3D de lobby — oficina principal', stage:'Completado', value:'$5,600' },
+      { date:'ago 2024', job:'Gráficos de vidriera — franja comercial (8 locales)', stage:'Completado', value:'$9,200' },
     ],
-    note: 'High-value repeat client. Fleet of 24 managed properties — each property cycle (new tenant / rebranding) triggers a sign order. Last upsell: ADA suite signage. Next opportunity: 3 properties due for exterior refresh Q4 2026.'
+    note: 'Cliente recurrente de alto valor. Administra 24 propiedades y cada ciclo de una propiedad (inquilino nuevo o cambio de imagen) dispara un pedido de rótulos. Última venta adicional: señalización ADA de suites. Próxima oportunidad: 3 propiedades que tocan renovación de exteriores en el 4to trimestre de 2026.'
   },
   'gulf-coast': {
     name: 'Gulf Coast HVAC Services',
-    type: 'Fleet Account',
+    type: 'Cuenta de flota',
     since: '2022',
-    contact: 'Sandra Martinez, Operations Manager',
+    contact: 'Sandra Martínez, gerente de operaciones',
     totalJobs: 5,
     totalValue: '$51,300',
     activeProjects: 1,
-    tags: ['Fleet rebranding','Vehicle wraps','Vehicle graphics','Commercial fleet'],
+    tags: ['Cambio de imagen de flota','Rotulados de vehículo','Gráficos vehiculares','Flota comercial'],
     history: [
-      { date:'Jul 2026', job:'Fleet rebranding — 12 vehicles (in progress)', stage:'Fabrication', value:'$31,500' },
-      { date:'Sep 2025', job:'Vehicle wraps — 4 cargo vans (full wrap)', stage:'Completed', value:'$9,200' },
-      { date:'Feb 2025', job:'Fleet graphics — 6 pickup trucks (partial)', stage:'Completed', value:'$6,400' },
-      { date:'Jul 2024', job:'Vehicle graphics refresh — 3 vans', stage:'Completed', value:'$3,100' },
-      { date:'Jan 2024', job:'Logo decal package — initial fleet', stage:'Completed', value:'$1,100' },
+      { date:'jul 2026', job:'Cambio de imagen de flota — 12 vehículos (en curso)', stage:'Fabricación', value:'$31,500' },
+      { date:'sep 2025', job:'Rotulados — 4 vans de carga (completo)', stage:'Completado', value:'$9,200' },
+      { date:'feb 2025', job:'Gráficos de flota — 6 camionetas (parcial)', stage:'Completado', value:'$6,400' },
+      { date:'jul 2024', job:'Renovación de gráficos — 3 vans', stage:'Completado', value:'$3,100' },
+      { date:'ene 2024', job:'Paquete de calcomanías de logo — flota inicial', stage:'Completado', value:'$1,100' },
     ],
-    note: 'Consistent fleet client — rebranding every 12–18 months as fleet grows. Currently 12 vehicles in production. Fleet total expected to reach 20 units by end of 2027. Upsell opportunity: magnetic door panel sets for part-time vehicles.'
+    note: 'Cliente de flota constante: cambia imagen cada 12 a 18 meses conforme la flota crece. Hoy tiene 12 vehículos en producción. Se espera que llegue a 20 unidades para fines de 2027. Oportunidad de venta adicional: juegos de paneles magnéticos para vehículos de medio tiempo.'
   },
   'meridian': {
     name: 'Meridian Title Company',
     type: 'Corporate Account',
     since: '2023',
-    contact: 'Karen Liu, Office Manager',
+    contact: 'Cuenta corporativa',
     totalJobs: 3,
     totalValue: '$14,800',
     activeProjects: 0,
-    tags: ['Lobby signage','ADA compliance','3D letters','Interior signage'],
+    tags: ['Karen Liu, gerente de oficina','Señalización de lobby','Cumplimiento ADA','Letras 3D'],
     history: [
-      { date:'Jul 2026', job:'Lobby signage — 3D letters + wall graphic', stage:'Completed', value:'$5,600' },
-      { date:'Oct 2025', job:'ADA suite signs — full office build-out', stage:'Completed', value:'$4,100' },
-      { date:'Mar 2024', job:'Window graphics — storefront branding', stage:'Completed', value:'$2,800' },
+      { date:'Señalización interior', job:'jul 2026', stage:'Señalización de lobby — letras 3D y gráfico de muro', value:'$5,600' },
+      { date:'Completado', job:'oct 2025', stage:'Rótulos ADA de suites — habilitación completa de oficina', value:'$4,100' },
+      { date:'Completado', job:'mar 2024', stage:'Gráficos de vidriera — imagen de fachada', value:'$2,800' },
     ],
-    note: 'Opened second location in The Woodlands (Sep 2026). Likely needs identical lobby signage package. Proactive outreach recommended — estimated value $5,600.'
+    note: 'Abrieron una segunda sede en The Woodlands (sep 2026). Es probable que necesiten el mismo paquete de señalización de lobby. Conviene buscarlos antes de que pregunten &mdash; valor estimado $5,600.'
   },
   'northside': {
     name: 'Northside ISD — Aldine',
     type: 'Institutional Account',
     since: '2025',
-    contact: 'Robert Chen, Facilities Coordinator',
+    contact: 'Cuenta institucional',
     totalJobs: 2,
     totalValue: '$31,200',
     activeProjects: 1,
-    tags: ['LED signs','Electronic message board','ADA compliance','Institutional'],
+    tags: ['Robert Chen, coordinador de instalaciones','Rótulos LED','Pantalla electrónica de mensajes','Cumplimiento ADA'],
     history: [
-      { date:'Jul 2026', job:'LED message board — Aldine campus (quote in process)', stage:'Quote in Process', value:'$28,000' },
-      { date:'Nov 2025', job:'ADA / Braille signage — 3 buildings', stage:'Completed', value:'$3,200' },
+      { date:'Institucional', job:'jul 2026', stage:'Pantalla LED de mensajes — campus Aldine (cotización en proceso)', value:'$28,000' },
+      { date:'Cotización en proceso', job:'nov 2025', stage:'Señalización ADA / braille — 3 edificios', value:'$3,200' },
     ],
-    note: 'ISD district has 12 campuses. If LED message board closes, potential for 3–4 more campus orders at similar value. Procurement cycle: August–September for new fiscal year.'
+    note: 'Completado'
   }
 };
 
@@ -656,7 +656,7 @@ const CLIENT_PROFILES = {
 // ============================================================
 let tabVisitCount = 1; // tab-board counted as visit 1
 function switchTab(tab, btn) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('El distrito escolar tiene 12 campus. Si se cierra la pantalla LED, hay potencial para 3 o 4 pedidos más de valor parecido. Ciclo de compras: agosto y septiembre, por el nuevo año fiscal.').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
   btn.classList.add('active');
@@ -733,7 +733,7 @@ function renderProjectList() {
 let westchaseInstalled = false;
 function simulateStageUpdate() {
   if (westchaseInstalled) {
-    showToast('Westchase Dental Group is already in Installation.');
+    showToast('Westchase Dental Group ya está en instalación.');
     return;
   }
   westchaseInstalled = true;
@@ -748,13 +748,13 @@ function simulateStageUpdate() {
     const newCard = document.createElement('div');
     newCard.className = 'kanban-card highlight-anim';
     newCard.innerHTML = `
-      <div class="kc-title">Channel Letters (LED)</div>
+      <div class="kc-title">Letras de canal (LED)</div>
       <div class="kc-client">Westchase Dental Group</div>
       <div class="kc-meta">
-        <span class="kc-due" style="color:#059669; font-weight:700;">Scheduled Aug 4</span>
+        <span class="kc-due" style="color:#059669; font-weight:700;">Programado para el 4 de agosto</span>
         <span class="tl tl-green"></span>
       </div>
-      <div style="font-size:0.7rem; color:#059669; margin-top:6px; font-weight:600;">&#10003; Ready for installation crew</div>
+      <div style="font-size:0.7rem; color:#059669; margin-top:6px; font-weight:600;">&#10003; Listo para la cuadrilla de instalación</div>
     `;
     target.innerHTML = '';
     target.appendChild(newCard);
@@ -767,10 +767,10 @@ function simulateStageUpdate() {
 
     // Update list
     const proj = PROJECTS.find(p => p.client === 'Westchase Dental Group');
-    if (proj) { proj.stage = 'Installation'; proj.stageKey = 'installation'; proj.tl = 'green'; }
+    if (proj) { proj.stage = 'Instalación'; proj.stageKey = 'installation'; proj.tl = 'green'; }
     renderProjectList();
 
-    showToast('&#10003; Westchase Dental Group moved to Installation. Client notification sent automatically.');
+    showToast('&#10003; Westchase Dental Group pasó a instalación. Al cliente se le avisó solo.');
   }, 300);
 }
 
@@ -787,29 +787,29 @@ function loadClientProfile(key) {
       <div class="card">
         <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:var(--gold); margin-bottom:6px; text-transform:uppercase;">${p.type}</div>
         <div style="font-size:1.2rem; font-weight:800; margin-bottom:12px;">${p.name}</div>
-        <div style="font-size:0.82rem; color:var(--gray-mid); margin-bottom:5px;"><strong>Contact:</strong> ${p.contact}</div>
-        <div style="font-size:0.82rem; color:var(--gray-mid); margin-bottom:12px;"><strong>Client since:</strong> ${p.since}</div>
+        <div style="font-size:0.82rem; color:var(--gray-mid); margin-bottom:5px;"><strong>Contacto:</strong> ${p.contact}</div>
+        <div style="font-size:0.82rem; color:var(--gray-mid); margin-bottom:12px;"><strong>Cliente desde:</strong> ${p.since}</div>
         <div style="display:flex; flex-wrap:wrap; gap:5px;">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-        <div class="stat-box"><div class="stat-num">${p.totalJobs}</div><div class="stat-label">Total Projects</div></div>
-        <div class="stat-box"><div class="stat-num">${p.totalValue}</div><div class="stat-label">Total Revenue</div></div>
-        <div class="stat-box"><div class="stat-num" style="color:${p.activeProjects>0?'var(--gold)':'#aaa'};">${p.activeProjects}</div><div class="stat-label">Active Projects</div></div>
-        <div class="stat-box"><div class="stat-num" style="font-size:1.2rem; color:#059669;">&#9650;</div><div class="stat-label">Upsell Flagged</div></div>
+        <div class="stat-box"><div class="stat-num">${p.totalJobs}</div><div class="stat-label">Proyectos totales</div></div>
+        <div class="stat-box"><div class="stat-num">${p.totalValue}</div><div class="stat-label">Ingreso total</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:${p.activeProjects>0?'var(--gold)':'#aaa'};">${p.activeProjects}</div><div class="stat-label">Proyectos activos</div></div>
+        <div class="stat-box"><div class="stat-num" style="font-size:1.2rem; color:#059669;">&#9650;</div><div class="stat-label">Venta adicional marcada</div></div>
       </div>
     </div>
 
     <div class="card" style="margin-bottom:18px;">
-      <h3 class="section-title" style="font-size:0.88rem; margin-bottom:14px;">Full Project History</h3>
+      <h3 class="section-title" style="font-size:0.88rem; margin-bottom:14px;">Historial completo de proyectos</h3>
       <div style="overflow-x:auto;">
         <table class="history-table">
-          <thead><tr><th>Date</th><th>Job</th><th>Stage</th><th>Value</th></tr></thead>
+          <thead><tr><th>Fecha</th><th>Trabajo</th><th>Etapa</th><th>Valor</th></tr></thead>
           <tbody>
             ${p.history.map(h=>`
               <tr>
                 <td style="white-space:nowrap; color:var(--gray-mid);">${h.date}</td>
                 <td>${h.job}</td>
-                <td><span class="badge ${h.stage==='Completed'||h.stage==='Delivered'?'badge-complete':'badge-quote'}">${h.stage}</span></td>
+                <td><span class="badge ${h.stage==='Completado'||h.stage==='Entregado'?'badge-complete':'badge-quote'}">${h.stage}</span></td>
                 <td style="font-weight:700;">${h.value}</td>
               </tr>
             `).join('')}
@@ -819,7 +819,7 @@ function loadClientProfile(key) {
     </div>
 
     <div class="card" style="background:#FFFDF0; border:1.5px solid var(--gold);">
-      <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:#92400E; margin-bottom:6px; text-transform:uppercase;">Intelligence Note</div>
+      <div style="font-size:0.72rem; font-weight:700; letter-spacing:.06em; color:#92400E; margin-bottom:6px; text-transform:uppercase;">Nota de inteligencia</div>
       <div style="font-size:0.85rem; line-height:1.6; color:var(--dark);">${upsellNote}</div>
     </div>
   `;
@@ -843,12 +843,12 @@ function openClientTab(clientName) {
 // QUOTE BUILDER (Tab 3)
 // ============================================================
 const QUOTE_CONFIGS = {
-  channel: { base: 6800,  items: [['Channel letter fabrication (aluminum housing, LED module)','included'],['Raceway / wireway attachment system','$650'],['Electrical wiring & transformer','$420'],['TSCL permit filing','$380'],['Professional installation','$850']] },
-  vehicle: { base: 2400,  items: [['3M vinyl material (full wrap grade)','included'],['Design & template setup','$350'],['Color management & proofing','$120'],['Surface prep & application','$480'],['Lamination (UV protective)','$180']] },
-  monument: { base:10500, items: [['Monument base (brick & block)','included'],['Dimensional aluminum letters','$1,200'],['Internal LED illumination','$980'],['TSCL permit filing','$380'],['Site installation & footing','$1,400']] },
-  fleet:   { base: 2200,  items: [['Per-vehicle vinyl wrap material','included'],['Design template (fleet-standard)','$280 (one-time)'],['Application (per vehicle)','$480'],['Fleet tracking decals','$90']] },
-  lobby:   { base: 4200,  items: [['3D dimensional letters (HDU/metal)','included'],['Wall graphic (large format print)','$680'],['Mounting hardware','$220'],['Braille / ADA compliance add-on','$380']] },
-  'led-board': { base:18000, items: [['LED electronic message board (full color)','included'],['Control software & remote access','$1,200'],['Structural steel mounting','$2,400'],['TSCL permit filing','$380'],['Electrical hookup coordination','$600']] },
+  channel: { base: 6800,  items: [['Fabricación de letras de canal (carcasa de aluminio, módulo LED)','included'],['Sistema de montaje en canaleta','$650'],['Cableado eléctrico y transformador','$420'],['Trámite de permiso TSCL','$380'],['Instalación profesional','$850']] },
+  vehicle: { base: 2400,  items: [['Material de vinilo 3M (grado rotulado completo)','included'],['Diseño y armado de plantilla','$350'],['Manejo de color y pruebas','$120'],['Preparación de superficie y aplicación','$480'],['Laminado (protección UV)','$180']] },
+  monument: { base:10500, items: [['Base del monumento (ladrillo y bloque)','included'],['Letras dimensionales de aluminio','$1,200'],['Iluminación LED interna','$980'],['Trámite de permiso TSCL','$380'],['Instalación en sitio y cimiento','$1,400']] },
+  fleet:   { base: 2200,  items: [['Material de vinilo por vehículo','included'],['Plantilla de diseño (estándar de flota)','$280 (una sola vez)'],['Aplicación (por vehículo)','$480'],['Calcomanías de control de flota','$90']] },
+  lobby:   { base: 4200,  items: [['Letras dimensionales 3D (HDU o metal)','included'],['Gráfico de muro (impresión de gran formato)','$680'],['Herrajes de montaje','$220'],['Adicional de braille / cumplimiento ADA','$380']] },
+  'led-board': { base:18000, items: [['Pantalla LED de mensajes (a todo color)','included'],['Software de control y acceso remoto','$1,200'],['Montaje de acero estructural','$2,400'],['Trámite de permiso TSCL','$380'],['Coordinación de conexión eléctrica','$600']] },
 };
 
 const SIZE_MULT = { sm:0.8, md:1.0, lg:1.35, xl:1.75 };
@@ -857,13 +857,13 @@ function updateQuoteFields() {}
 
 function generateQuote() {
   const type = document.getElementById('q-type').value;
-  const client = document.getElementById('q-client').value || 'Client';
+  const client = document.getElementById('q-client').value || 'Cliente';
   const size = document.getElementById('q-size').value;
   const material = document.getElementById('q-material').value;
   const permit = document.getElementById('q-permit').value;
 
   if (!type || !size) {
-    showToast('Please select Sign Type and Dimensions to generate a quote.');
+    showToast('Elija tipo de rótulo y medidas para generar una cotización.');
     return;
   }
 
@@ -880,18 +880,18 @@ function generateQuote() {
 
   const result = document.getElementById('quote-result');
   document.getElementById('qr-title').textContent = `${document.getElementById('q-type').options[document.getElementById('q-type').selectedIndex].text} — ${client}`;
-  document.getElementById('qr-status').textContent = 'PENDING MICHELLE\'S APPROVAL';
+  document.getElementById('qr-status').textContent = 'PENDIENTE DE LA APROBACIÓN DE MÓNICA';
   document.getElementById('qr-status').style.background = '#FEF3C7';
   document.getElementById('qr-status').style.color = '#92400E';
 
   const linesHtml = lines.map((l,i) => `
     <div class="quote-line">
       <span class="ql-label">${l[0]}</span>
-      <span style="font-weight:600;">${l[1] === 'included' ? '<span style="color:#059669;">Included</span>' : l[1]}</span>
+      <span style="font-weight:600;">${l[1] === 'included' ? '<span style="color:#059669;">Incluido</span>' : l[1]}</span>
     </div>
   `).join('') + `
     <div class="quote-line" style="margin-top:8px; padding-top:10px; border-top:2px solid #D0C080;">
-      <span style="font-weight:800;">Estimated Total</span>
+      <span style="font-weight:800;">Total estimado</span>
       <span style="color:var(--dark); font-size:1.05rem;">$${base.toLocaleString()}</span>
     </div>
   `;
@@ -902,10 +902,10 @@ function generateQuote() {
 
 function approveQuote() {
   const statusEl = document.getElementById('qr-status');
-  statusEl.textContent = 'APPROVED — SENT TO CLIENT';
+  statusEl.textContent = 'APROBADA — ENVIADA AL CLIENTE';
   statusEl.style.background = '#D1FAE5';
   statusEl.style.color = '#065F46';
-  showToast('&#10003; Quote approved by Michelle. Client email sent automatically.');
+  showToast('&#10003; Cotización aprobada por Mónica. El correo al cliente salió solo.');
 }
 
 // ============================================================
@@ -917,10 +917,10 @@ function renderReportSummary() {
   const permits = PROJECTS.filter(p => p.stageKey === 'permit').length;
   const totalVal = PROJECTS.reduce((acc, p) => acc + parseInt(p.amount.replace(/[$,]/g,'')), 0);
   document.getElementById('report-summary-boxes').innerHTML = `
-    <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Total Projects</div></div>
-    <div class="stat-box"><div class="stat-num">${active}</div><div class="stat-label">Active</div></div>
-    <div class="stat-box"><div class="stat-num" style="color:#D97706;">${permits}</div><div class="stat-label">In Permitting</div></div>
-    <div class="stat-box"><div class="stat-num" style="font-size:1.3rem;">$${(totalVal/1000).toFixed(0)}k</div><div class="stat-label">Pipeline Value</div></div>
+    <div class="stat-box"><div class="stat-num">${total}</div><div class="stat-label">Proyectos totales</div></div>
+    <div class="stat-box"><div class="stat-num">${active}</div><div class="stat-label">Activos</div></div>
+    <div class="stat-box"><div class="stat-num" style="color:#D97706;">${permits}</div><div class="stat-label">En permisos</div></div>
+    <div class="stat-box"><div class="stat-num" style="font-size:1.3rem;">$${(totalVal/1000).toFixed(0)}k</div><div class="stat-label">Valor del pipeline</div></div>
   `;
 }
 

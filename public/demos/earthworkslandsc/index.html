@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terrano Landscape & Maintenance — System Demo</title>
+  <title>Terrano Landscape &amp; Maintenance — Demo del Sistema</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -251,227 +251,227 @@
 <body>
 
 <!-- DEMO BADGE -->
-<div class="demo-badge">DEMO &middot; sample data</div>
+<div class="demo-badge">DEMO &middot; datos de muestra</div>
 
 <!-- HEADER -->
 <header class="site-header">
-  <h1>Terrano Landscape & Maintenance</h1>
-  <p>What your own system would look like &mdash; prepared by Pocho.tech</p>
+  <h1>Terrano Landscape &amp; Maintenance</h1>
+  <p>As&iacute; se ver&iacute;a su sistema propio &mdash; preparado por Pocho.tech</p>
 </header>
 
 <!-- TABS -->
 <nav class="tabs-bar" role="tablist">
-  <button class="tab-btn active" onclick="switchTab('dispatch', this)" role="tab">Daily Dispatch</button>
-  <button class="tab-btn" onclick="switchTab('client', this)" role="tab">Client File</button>
-  <button class="tab-btn" onclick="switchTab('quoting', this)" role="tab">Quote Flow</button>
-  <button class="tab-btn" onclick="switchTab('reports', this)" role="tab">Search &amp; Reports</button>
+  <button class="tab-btn active" onclick="switchTab('dispatch', this)" role="tab">Despacho diario</button>
+  <button class="tab-btn" onclick="switchTab('client', this)" role="tab">Expediente del cliente</button>
+  <button class="tab-btn" onclick="switchTab('quoting', this)" role="tab">Flujo de cotizaci&oacute;n</button>
+  <button class="tab-btn" onclick="switchTab('reports', this)" role="tab">B&uacute;squeda y reportes</button>
 </nav>
 
 <!-- ════════════════════════════════════════════════
-     VIEW 1 — DAILY DISPATCH (operation board)
+     VIEW 1 — DESPACHO DIARIO
      ════════════════════════════════════════════════ -->
 <section id="view-dispatch" class="view active">
 
-  <div class="section-label">Today &mdash; Tuesday, July 28</div>
+  <div class="section-label">Hoy &mdash; martes 28 de julio</div>
 
   <!-- Metrics row -->
   <div class="metric-grid">
-    <div class="metric-box"><div class="val" id="m-jobs">7</div><div class="lbl">Jobs scheduled</div></div>
-    <div class="metric-box"><div class="val">2</div><div class="lbl">Crews out</div></div>
-    <div class="metric-box"><div class="val" id="m-done">3</div><div class="lbl">Completed</div></div>
-    <div class="metric-box"><div class="val" id="m-pending">1</div><div class="lbl">New quote requests</div></div>
+    <div class="metric-box"><div class="val" id="m-jobs">7</div><div class="lbl">Trabajos programados</div></div>
+    <div class="metric-box"><div class="val">2</div><div class="lbl">Cuadrillas en calle</div></div>
+    <div class="metric-box"><div class="val" id="m-done">3</div><div class="lbl">Completados</div></div>
+    <div class="metric-box"><div class="val" id="m-pending">1</div><div class="lbl">Solicitudes de cotizaci&oacute;n</div></div>
   </div>
 
   <!-- PAIN CALLOUT -->
   <div class="pain-panel">
-    <h3>&#128276; Without a system: Andrés's phone doesn't stop.</h3>
-    <p>Two crews, six jobs, Tuesday. Crew A calls to confirm the Conroe address. Crew B asks if they're doing trimming or sod first. A client texts asking what time. Andrés's on a ladder in Kingwood. Nothing moves until he answers.</p>
+    <h3>&#128276; Sin sistema: el tel&eacute;fono de Andr&eacute;s no para.</h3>
+    <p>Dos cuadrillas, seis trabajos, martes. La cuadrilla A llama para confirmar la direcci&oacute;n de Conroe. La cuadrilla B pregunta si hacen la poda o la grama primero. Un cliente escribe preguntando a qu&eacute; hora llegan. Andr&eacute;s est&aacute; arriba de una escalera en Kingwood. Nada avanza hasta que conteste.</p>
   </div>
 
   <!-- Board -->
   <div class="card" style="padding:0; overflow:hidden;">
     <div style="background:var(--green-dark);color:#fff;padding:10px 14px;font-size:.78rem;font-weight:700;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;">
-      <span>JOB BOARD</span>
-      <button class="btn-primary" style="padding:5px 12px;font-size:.72rem;" onclick="dispatchNewJob()">+ Dispatch job</button>
+      <span>TABLERO DE TRABAJOS</span>
+      <button class="btn-primary" style="padding:5px 12px;font-size:.72rem;" onclick="dispatchNewJob()">+ Despachar trabajo</button>
     </div>
     <div id="job-board">
       <!-- Crew Alpha -->
       <div style="background:#f0f4f0;padding:8px 14px;font-size:.72rem;font-weight:700;color:var(--green-dark);letter-spacing:.07em;border-bottom:1px solid var(--border);">
-        &#128663; CREW ALPHA &mdash; Carlos M. / 3-person crew
+        &#128663; CUADRILLA ALFA &mdash; Carlos M. / 3 personas
       </div>
       <div class="job-row">
-        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div style="flex-shrink:0"><span class="pill pill-done">Hecho</span></div>
         <div class="job-info">
-          <div class="job-title">Weekly maintenance &mdash; lawn + hedge trim</div>
-          <div class="job-sub">8:00 AM &middot; The Woodlands &middot; Est. 2.5 hrs</div>
+          <div class="job-title">Mantenimiento semanal &mdash; grama y poda de setos</div>
+          <div class="job-sub">8:00 AM &middot; The Woodlands &middot; Est. 2.5 h</div>
         </div>
         <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 10:22 AM</div>
       </div>
       <div class="job-row">
-        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div style="flex-shrink:0"><span class="pill pill-done">Hecho</span></div>
         <div class="job-info">
-          <div class="job-title">Mulch bed refresh &mdash; hardwood mulch</div>
-          <div class="job-sub">11:00 AM &middot; Spring &middot; Est. 1.5 hrs</div>
+          <div class="job-title">Renovaci&oacute;n de mantillo &mdash; mantillo de madera dura</div>
+          <div class="job-sub">11:00 AM &middot; Spring &middot; Est. 1.5 h</div>
         </div>
         <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 12:44 PM</div>
       </div>
       <div class="job-row">
-        <div style="flex-shrink:0"><span class="pill pill-inprogress">In progress</span></div>
+        <div style="flex-shrink:0"><span class="pill pill-inprogress">En curso</span></div>
         <div class="job-info">
-          <div class="job-title">Irrigation system install &mdash; Hunter Pro-C controller</div>
-          <div class="job-sub">1:30 PM &middot; Tomball &middot; Est. 4 hrs &middot; <span style="color:var(--earth-light);font-weight:600;">TCEQ LI#21895</span></div>
+          <div class="job-title">Instalaci&oacute;n de riego &mdash; controlador Hunter Pro-C</div>
+          <div class="job-sub">1:30 PM &middot; Tomball &middot; Est. 4 h &middot; <span style="color:var(--earth-light);font-weight:600;">TCEQ LI#21895</span></div>
         </div>
-        <button class="btn-ghost" style="font-size:.72rem;padding:5px 10px;white-space:nowrap;" onclick="markDone(this)">Mark done</button>
+        <button class="btn-ghost" style="font-size:.72rem;padding:5px 10px;white-space:nowrap;" onclick="markDone(this)">Marcar hecho</button>
       </div>
 
       <!-- Crew Bravo -->
       <div style="background:#f0f4f0;padding:8px 14px;font-size:.72rem;font-weight:700;color:var(--green-dark);letter-spacing:.07em;border-bottom:1px solid var(--border);border-top:1px solid var(--border);">
-        &#128663; CREW BRAVO &mdash; Tomás R. / 3-person crew
+        &#128663; CUADRILLA BRAVO &mdash; Tom&aacute;s R. / 3 personas
       </div>
       <div class="job-row">
-        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div style="flex-shrink:0"><span class="pill pill-done">Hecho</span></div>
         <div class="job-info">
-          <div class="job-title">Tree trimming &mdash; climber / spotter / hauler</div>
-          <div class="job-sub">7:30 AM &middot; Kingwood &middot; $165/hr &middot; Est. 3 hrs</div>
+          <div class="job-title">Poda de &aacute;rboles &mdash; trepador / apoyo / acarreo</div>
+          <div class="job-sub">7:30 AM &middot; Kingwood &middot; $165/h &middot; Est. 3 h</div>
         </div>
         <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 10:51 AM</div>
       </div>
       <div class="job-row">
-        <div style="flex-shrink:0"><span class="pill pill-done">Done</span></div>
+        <div style="flex-shrink:0"><span class="pill pill-done">Hecho</span></div>
         <div class="job-info">
-          <div class="job-title">Stump grinding &mdash; haul-off included</div>
-          <div class="job-sub">11:30 AM &middot; Humble &middot; Est. 1 hr</div>
+          <div class="job-title">Destoconado &mdash; acarreo incluido</div>
+          <div class="job-sub">11:30 AM &middot; Humble &middot; Est. 1 h</div>
         </div>
         <div style="font-size:.72rem;color:var(--text-muted);white-space:nowrap;">&#10003; 12:19 PM</div>
       </div>
       <div class="job-row">
-        <div style="flex-shrink:0"><span class="pill pill-scheduled">Scheduled</span></div>
+        <div style="flex-shrink:0"><span class="pill pill-scheduled">Programado</span></div>
         <div class="job-info">
-          <div class="job-title">Sod installation &mdash; St. Augustine grass</div>
-          <div class="job-sub">1:00 PM &middot; Conroe &middot; Est. 3.5 hrs</div>
+          <div class="job-title">Instalaci&oacute;n de grama &mdash; San Agust&iacute;n</div>
+          <div class="job-sub">1:00 PM &middot; Conroe &middot; Est. 3.5 h</div>
         </div>
-        <button class="btn-ghost" style="font-size:.72rem;padding:5px 10px;white-space:nowrap;" onclick="markDone(this)">Mark done</button>
+        <button class="btn-ghost" style="font-size:.72rem;padding:5px 10px;white-space:nowrap;" onclick="markDone(this)">Marcar hecho</button>
       </div>
 
       <!-- Dispatched from quote (hidden until triggered) -->
       <div id="new-job-row" style="display:none;border-top:2px solid var(--green-mid);">
         <div class="job-row highlight-new" id="new-job-inner">
-          <div style="flex-shrink:0"><span class="pill pill-scheduled">Scheduled</span></div>
+          <div style="flex-shrink:0"><span class="pill pill-scheduled">Programado</span></div>
           <div class="job-info">
-            <div class="job-title">Retaining wall &mdash; limestone block &nbsp;<span style="font-size:.68rem;background:#D1FAE5;color:#065F46;padding:2px 6px;border-radius:10px;font-weight:700;">NEW</span></div>
-            <div class="job-sub">Tomorrow 8:00 AM &middot; Montgomery County &middot; Crew Alpha &middot; Auto-notified via SMS</div>
+            <div class="job-title">Muro de contenci&oacute;n &mdash; bloque de caliza &nbsp;<span style="font-size:.68rem;background:#D1FAE5;color:#065F46;padding:2px 6px;border-radius:10px;font-weight:700;">NUEVO</span></div>
+            <div class="job-sub">Ma&ntilde;ana 8:00 AM &middot; Condado de Montgomery &middot; Cuadrilla Alfa &middot; Avisada por SMS autom&aacute;tico</div>
           </div>
-          <div style="font-size:.72rem;color:#065F46;white-space:nowrap;font-weight:600;">&#9654; Dispatched</div>
+          <div style="font-size:.72rem;color:#065F46;white-space:nowrap;font-weight:600;">&#9654; Despachado</div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="resolve-panel" style="margin-top:8px;">
-    <h3>&#9989; With the system: Andrés approves in one tap.</h3>
-    <p>Crew leads get an SMS with address, job notes, and materials list before they leave the yard. Status updates from the field. No calls to coordinate &mdash; Andrés sees the board from wherever he is.</p>
+    <h3>&#9989; Con el sistema: Andr&eacute;s aprueba con un toque.</h3>
+    <p>Cada jefe de cuadrilla recibe un SMS con la direcci&oacute;n, las notas del trabajo y la lista de materiales antes de salir del patio. El estado se actualiza desde la calle. Ninguna llamada para coordinar: Andr&eacute;s ve el tablero desde donde est&eacute;.</p>
   </div>
 
 </section>
 
 <!-- ════════════════════════════════════════════════
-     VIEW 2 — CLIENT FILE (detail + history)
+     VIEW 2 — EXPEDIENTE DEL CLIENTE
      ════════════════════════════════════════════════ -->
 <section id="view-client" class="view">
 
-  <div class="section-label">Client File</div>
+  <div class="section-label">Expediente del cliente</div>
 
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
       <div>
-        <div style="font-size:1.05rem;font-weight:700;">Henderson Property &mdash; HOA Common Area</div>
-        <div style="font-size:.78rem;color:var(--text-muted);margin-top:2px;">The Woodlands, TX &middot; Montgomery County</div>
+        <div style="font-size:1.05rem;font-weight:700;">Propiedad Henderson &mdash; &aacute;rea com&uacute;n de HOA</div>
+        <div style="font-size:.78rem;color:var(--text-muted);margin-top:2px;">The Woodlands, TX &middot; Condado de Montgomery</div>
         <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">
-          <span class="pill pill-scheduled">Bi-weekly maintenance</span>
-          <span class="pill pill-done">Active since Mar 2023</span>
+          <span class="pill pill-scheduled">Mantenimiento quincenal</span>
+          <span class="pill pill-done">Activo desde mar 2023</span>
         </div>
       </div>
       <div style="text-align:right;">
-        <div style="font-size:1.15rem;font-weight:700;color:var(--green-dark);">$680 / mo</div>
-        <div style="font-size:.72rem;color:var(--text-muted);">avg monthly billing</div>
+        <div style="font-size:1.15rem;font-weight:700;color:var(--green-dark);">$680 / mes</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">facturaci&oacute;n mensual promedio</div>
       </div>
     </div>
     <hr style="border:none;border-top:1px solid var(--border);margin:12px 0;">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;font-size:.8rem;">
-      <div><div style="color:var(--text-muted);font-size:.68rem;">Contact</div><div>Jim Henderson</div></div>
-      <div><div style="color:var(--text-muted);font-size:.68rem;">Next visit</div><div style="font-weight:600;color:var(--green-dark);">Wed Aug 6, 2026</div></div>
-      <div><div style="color:var(--text-muted);font-size:.68rem;">Crew assigned</div><div>Alpha &mdash; Carlos M.</div></div>
-      <div><div style="color:var(--text-muted);font-size:.68rem;">Open invoice</div><div style="color:var(--earth);font-weight:600;">$680.00 &mdash; due Aug 1</div></div>
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Contacto</div><div>Jim Henderson</div></div>
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Pr&oacute;xima visita</div><div style="font-weight:600;color:var(--green-dark);">Mi&eacute; 6 ago 2026</div></div>
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Cuadrilla asignada</div><div>Alfa &mdash; Carlos M.</div></div>
+      <div><div style="color:var(--text-muted);font-size:.68rem;">Factura abierta</div><div style="color:var(--earth);font-weight:600;">$680.00 &mdash; vence 1 ago</div></div>
     </div>
   </div>
 
   <!-- PAIN callout -->
   <div class="pain-panel">
-    <h3>&#128222; Without a portal: Jim calls every two weeks.</h3>
-    <p>"When are you guys coming?" &mdash; 125 Google reviews worth of loyal clients like Jim are calling or texting to confirm visits that are already on the schedule. Every call is time your team isn't spending on jobs.</p>
+    <h3>&#128222; Sin portal: Jim llama cada dos semanas.</h3>
+    <p>"&iquest;Cu&aacute;ndo vienen?" &mdash; clientes leales como Jim, los mismos que dejaron 125 rese&ntilde;as en Google, llaman o escriben para confirmar visitas que ya est&aacute;n en el calendario. Cada llamada es tiempo que su equipo no est&aacute; poniendo en los trabajos.</p>
   </div>
 
   <!-- Service history -->
-  <div class="section-label">Visit &amp; Service History</div>
+  <div class="section-label">Historial de visitas y servicios</div>
   <div class="card" style="padding:0;overflow:hidden;">
     <div class="timeline" style="padding:16px 16px 16px 36px;">
       <div class="tl-item">
-        <div style="font-size:.82rem;font-weight:600;">Bi-weekly maintenance &mdash; lawn + hedge trim</div>
-        <div style="font-size:.72rem;color:var(--text-muted);">Jul 16, 2026 &middot; Crew Alpha &middot; 2.5 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $340</span></div>
-        <div style="font-size:.75rem;margin-top:4px;color:#374151;">All zones covered. Noted irrigation head on Zone 3 needs adjustment &mdash; flagged for next visit.</div>
+        <div style="font-size:.82rem;font-weight:600;">Mantenimiento quincenal &mdash; grama y poda de setos</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">16 jul 2026 &middot; Cuadrilla Alfa &middot; 2.5 h &middot; <span style="color:#065F46;font-weight:600;">Factura pagada $340</span></div>
+        <div style="font-size:.75rem;margin-top:4px;color:#374151;">Todas las zonas cubiertas. Se anot&oacute; que el aspersor de la zona 3 necesita ajuste &mdash; marcado para la pr&oacute;xima visita.</div>
       </div>
       <div class="tl-item">
-        <div style="font-size:.82rem;font-weight:600;">Seasonal fertilization program &mdash; summer application</div>
-        <div style="font-size:.72rem;color:var(--text-muted);">Jul 2, 2026 &middot; Crew Alpha &middot; 1 hr &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $180</span></div>
+        <div style="font-size:.82rem;font-weight:600;">Programa de fertilizaci&oacute;n estacional &mdash; aplicaci&oacute;n de verano</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">2 jul 2026 &middot; Cuadrilla Alfa &middot; 1 h &middot; <span style="color:#065F46;font-weight:600;">Factura pagada $180</span></div>
       </div>
       <div class="tl-item">
-        <div style="font-size:.82rem;font-weight:600;">Bi-weekly maintenance &mdash; lawn + hedge trim</div>
-        <div style="font-size:.72rem;color:var(--text-muted);">Jun 18, 2026 &middot; Crew Alpha &middot; 2.5 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $340</span></div>
+        <div style="font-size:.82rem;font-weight:600;">Mantenimiento quincenal &mdash; grama y poda de setos</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">18 jun 2026 &middot; Cuadrilla Alfa &middot; 2.5 h &middot; <span style="color:#065F46;font-weight:600;">Factura pagada $340</span></div>
       </div>
       <div class="tl-item">
-        <div style="font-size:.82rem;font-weight:600;">Rainbird ESP-TM2 zone expansion &mdash; 2 zones added</div>
-        <div style="font-size:.72rem;color:var(--text-muted);">Jun 4, 2026 &middot; Crew Alpha &middot; 3 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $750</span></div>
-        <div style="font-size:.75rem;margin-top:4px;color:#374151;">TCEQ LI#21895. All zones tested and certified at completion.</div>
+        <div style="font-size:.82rem;font-weight:600;">Ampliaci&oacute;n de zonas Rainbird ESP-TM2 &mdash; 2 zonas agregadas</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">4 jun 2026 &middot; Cuadrilla Alfa &middot; 3 h &middot; <span style="color:#065F46;font-weight:600;">Factura pagada $750</span></div>
+        <div style="font-size:.75rem;margin-top:4px;color:#374151;">TCEQ LI#21895. Todas las zonas probadas y certificadas al terminar.</div>
       </div>
       <div class="tl-item">
-        <div style="font-size:.82rem;font-weight:600;">Seasonal flower rotation &mdash; spring install</div>
-        <div style="font-size:.72rem;color:var(--text-muted);">Apr 10, 2026 &middot; Crew Bravo &middot; 2 hrs &middot; <span style="color:#065F46;font-weight:600;">Invoice paid $420</span></div>
+        <div style="font-size:.82rem;font-weight:600;">Rotaci&oacute;n de flor de temporada &mdash; siembra de primavera</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">10 abr 2026 &middot; Cuadrilla Bravo &middot; 2 h &middot; <span style="color:#065F46;font-weight:600;">Factura pagada $420</span></div>
       </div>
       <div class="tl-item tl-muted">
-        <div style="font-size:.82rem;font-weight:600;color:var(--text-muted);">Bi-weekly maintenance &mdash; lawn + hedge trim</div>
-        <div style="font-size:.72rem;color:var(--text-muted);">Mar 26, 2026 &middot; Crew Alpha &middot; 2.5 hrs &middot; Invoice paid $340</div>
+        <div style="font-size:.82rem;font-weight:600;color:var(--text-muted);">Mantenimiento quincenal &mdash; grama y poda de setos</div>
+        <div style="font-size:.72rem;color:var(--text-muted);">26 mar 2026 &middot; Cuadrilla Alfa &middot; 2.5 h &middot; Factura pagada $340</div>
       </div>
     </div>
   </div>
 
   <div class="resolve-panel" style="margin-top:8px;">
-    <h3>&#9989; Jim logs in, sees everything. Calls drop to zero.</h3>
-    <p>Next visit date, last visit notes, open invoice &mdash; all in one page. Jim doesn't call. Your team doesn't stop to answer. The client feels taken care of without a single extra conversation.</p>
+    <h3>&#9989; Jim entra, ve todo. Las llamadas bajan a cero.</h3>
+    <p>Fecha de la pr&oacute;xima visita, notas de la &uacute;ltima, factura abierta &mdash; todo en una sola p&aacute;gina. Jim no llama. Su equipo no se detiene a contestar. El cliente se siente atendido sin una sola conversaci&oacute;n extra.</p>
   </div>
 
 </section>
 
 <!-- ════════════════════════════════════════════════
-     VIEW 3 — QUOTE FLOW (main pain dramatized)
+     VIEW 3 — FLUJO DE COTIZACIÓN
      ════════════════════════════════════════════════ -->
 <section id="view-quoting" class="view">
 
-  <div class="section-label">Quote &amp; Lead Flow</div>
+  <div class="section-label">Cotizaci&oacute;n y captaci&oacute;n</div>
 
   <!-- Pain scenario -->
   <div class="pain-panel">
-    <h3>&#128336; Friday 7:02 PM &mdash; a lead just filled in the form.</h3>
-    <p>Client wants a patio installation + landscape design consultation in Magnolia. Andrés is in Conroe finishing a tree job. By Monday morning, three more requests have piled up. One prospect already called a competitor.</p>
+    <h3>&#128336; Viernes 7:02 PM &mdash; alguien acaba de llenar el formulario.</h3>
+    <p>El cliente quiere instalaci&oacute;n de patio y una consulta de dise&ntilde;o de jardiner&iacute;a en Magnolia. Andr&eacute;s est&aacute; en Conroe terminando una poda. Para el lunes por la ma&ntilde;ana se acumularon tres solicitudes m&aacute;s. Uno de esos prospectos ya llam&oacute; a la competencia.</p>
   </div>
 
   <!-- Flow steps -->
-  <div class="section-label">What happens instead</div>
+  <div class="section-label">Lo que pasa en su lugar</div>
 
   <div class="flow-step">
     <div class="flow-num">1</div>
     <div>
-      <div style="font-weight:600;font-size:.85rem;">Lead submits request online</div>
-      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Selects service type &middot; describes project &middot; picks a preferred window. No phone tag to capture basic info.</div>
+      <div style="font-weight:600;font-size:.85rem;">El prospecto env&iacute;a la solicitud en l&iacute;nea</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Elige el tipo de servicio &middot; describe el proyecto &middot; escoge una ventana de fecha. Sin perseguirse por tel&eacute;fono para capturar lo b&aacute;sico.</div>
     </div>
   </div>
 
@@ -479,97 +479,97 @@
   <div class="card card-sm" style="border-left:3px solid var(--earth);margin-left:16px;">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
       <div>
-        <span class="pill pill-quote" style="margin-right:6px;">New lead</span>
+        <span class="pill pill-quote" style="margin-right:6px;">Prospecto nuevo</span>
         <span style="font-size:.82rem;font-weight:600;">R. Caldwell &mdash; Magnolia, TX</span>
       </div>
-      <div style="font-size:.72rem;color:var(--text-muted);">Received Fri 7:02 PM</div>
+      <div style="font-size:.72rem;color:var(--text-muted);">Recibido vie 7:02 PM</div>
     </div>
     <div style="font-size:.78rem;color:#374151;margin-top:6px;line-height:1.5;">
-      <strong>Service:</strong> Patio installation (concrete pavers) + landscape design consultation &mdash; 3D visualization<br>
-      <strong>Property:</strong> ~4,500 sq ft residential, Magnolia TX<br>
-      <strong>Window:</strong> Next 2&ndash;3 weeks<br>
-      <strong>Notes:</strong> "Interested in an outdoor living space with a fire pit. Saw your work in the neighborhood."
+      <strong>Servicio:</strong> Instalaci&oacute;n de patio (adoqu&iacute;n de concreto) y consulta de dise&ntilde;o &mdash; visualizaci&oacute;n 3D<br>
+      <strong>Propiedad:</strong> ~4,500 pies&sup2; residencial, Magnolia TX<br>
+      <strong>Ventana:</strong> Pr&oacute;ximas 2 a 3 semanas<br>
+      <strong>Notas:</strong> "Me interesa un espacio de estar al aire libre con f&oacute;garata. Vi su trabajo en el vecindario."
     </div>
   </div>
 
   <div class="flow-step" style="margin-top:4px;">
     <div class="flow-num">2</div>
     <div>
-      <div style="font-weight:600;font-size:.85rem;">System classifies &amp; routes automatically</div>
-      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Hardscape + design request &rarr; flagged for Andrés review. Estimate range pre-filled from past similar jobs.</div>
+      <div style="font-weight:600;font-size:.85rem;">El sistema clasifica y enruta solo</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Solicitud de hardscape y dise&ntilde;o &rarr; marcada para que la revise Andr&eacute;s. El rango de estimado viene precargado de trabajos parecidos anteriores.</div>
     </div>
   </div>
 
   <div class="flow-step">
     <div class="flow-num">3</div>
     <div>
-      <div style="font-weight:600;font-size:.85rem;">Draft proposal generated</div>
-      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Line items, scope, and timeline pre-populated. Andrés reviews, edits if needed, hits send. Total time: 4 minutes.</div>
+      <div style="font-weight:600;font-size:.85rem;">Se genera el borrador de propuesta</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Partidas, alcance y tiempos precargados. Andr&eacute;s revisa, ajusta si hace falta y env&iacute;a. Tiempo total: 4 minutos.</div>
     </div>
   </div>
 
   <!-- Draft proposal preview -->
   <div class="card card-sm" style="border-left:3px solid var(--green-mid);margin-left:16px;">
-    <div style="font-size:.72rem;font-weight:700;letter-spacing:.07em;color:var(--text-muted);margin-bottom:8px;">DRAFT PROPOSAL &mdash; Caldwell Outdoor Living Project</div>
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.07em;color:var(--text-muted);margin-bottom:8px;">BORRADOR DE PROPUESTA &mdash; Proyecto Caldwell, espacio exterior</div>
     <table style="font-size:.78rem;">
-      <tr><th>Item</th><th>Qty</th><th>Est. Price</th></tr>
-      <tr><td>Landscape design consultation &mdash; 3D visualization</td><td>1</td><td>$350</td></tr>
-      <tr><td>Patio installation &mdash; concrete pavers (approx. 600 sq ft)</td><td>1</td><td>$5,800</td></tr>
-      <tr><td>Fire pit &mdash; natural gas, flagstone surround</td><td>1</td><td>$2,200</td></tr>
-      <tr><td>Landscape lighting install (6 fixtures)</td><td>1</td><td>$900</td></tr>
-      <tr style="font-weight:700;"><td colspan="2">Total estimate</td><td style="color:var(--green-dark);">$9,250</td></tr>
+      <tr><th>Partida</th><th>Cant.</th><th>Precio est.</th></tr>
+      <tr><td>Consulta de dise&ntilde;o de jardiner&iacute;a &mdash; visualizaci&oacute;n 3D</td><td>1</td><td>$350</td></tr>
+      <tr><td>Instalaci&oacute;n de patio &mdash; adoqu&iacute;n de concreto (aprox. 600 pies&sup2;)</td><td>1</td><td>$5,800</td></tr>
+      <tr><td>F&oacute;garata &mdash; gas natural, borde de laja</td><td>1</td><td>$2,200</td></tr>
+      <tr><td>Iluminaci&oacute;n de jard&iacute;n (6 luminarias)</td><td>1</td><td>$900</td></tr>
+      <tr style="font-weight:700;"><td colspan="2">Estimado total</td><td style="color:var(--green-dark);">$9,250</td></tr>
     </table>
-    <div style="font-size:.72rem;color:var(--text-muted);margin-top:8px;">Timeline: most installations completed within 2 days or less &middot; Quality work and a blue-collar work ethic</div>
+    <div style="font-size:.72rem;color:var(--text-muted);margin-top:8px;">Tiempos: la mayor&iacute;a de las instalaciones se terminan en dos d&iacute;as o menos &middot; Trabajo de calidad y &eacute;tica de obra</div>
     <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn-primary" style="font-size:.75rem;padding:7px 14px;" onclick="approveQuote(this)">&#10003; Approve &amp; Send</button>
-      <button class="btn-ghost" style="font-size:.75rem;padding:6px 12px;">Edit</button>
+      <button class="btn-primary" style="font-size:.75rem;padding:7px 14px;" onclick="approveQuote(this)">&#10003; Aprobar y enviar</button>
+      <button class="btn-ghost" style="font-size:.75rem;padding:6px 12px;">Editar</button>
     </div>
   </div>
 
   <div class="flow-step" style="margin-top:4px;" id="flow-step-4">
     <div class="flow-num">4</div>
     <div>
-      <div style="font-weight:600;font-size:.85rem;">Client receives proposal &mdash; job gets dispatched</div>
-      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Once accepted, the job auto-populates the dispatch board and the crew lead gets an SMS with all details.</div>
+      <div style="font-weight:600;font-size:.85rem;">El cliente recibe la propuesta y el trabajo se despacha</div>
+      <div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">Al aceptarla, el trabajo entra solo al tablero de despacho y el jefe de cuadrilla recibe un SMS con todos los datos.</div>
     </div>
   </div>
 
   <div id="dispatch-confirm" style="display:none;" class="resolve-panel">
-    <h3>&#9989; Quote sent. Job on the board. Crew notified.</h3>
-    <p>Caldwell gets the proposal within minutes of submitting the request. When they accept, Crew Alpha gets an SMS: "Retaining wall &mdash; Caldwell &mdash; 8 AM tomorrow, Montgomery County." Switch to <strong>Daily Dispatch</strong> to see it on the board.</p>
+    <h3>&#9989; Cotizaci&oacute;n enviada. Trabajo en el tablero. Cuadrilla avisada.</h3>
+    <p>Caldwell recibe la propuesta a los minutos de mandar la solicitud. Cuando la acepta, la cuadrilla Alfa recibe un SMS: "Muro de contenci&oacute;n &mdash; Caldwell &mdash; ma&ntilde;ana 8 AM, condado de Montgomery." P&aacute;sese a <strong>Despacho diario</strong> para verlo en el tablero.</p>
   </div>
 
   <div class="resolve-panel" style="margin-top:8px;" id="quote-resolve-base">
-    <h3>&#9989; No more Monday morning pileups.</h3>
-    <p>Every lead that comes in &mdash; whether from your site, HomeAdvisor, or a neighbor referral &mdash; is captured, classified, and gets a draft proposal before Andrés has to look at it. Fair prices, sent fast. Attention to detail that is second to none &mdash; starting from the first message.</p>
+    <h3>&#9989; Se acabaron los lunes con la pila acumulada.</h3>
+    <p>Cada solicitud que entra &mdash; de su sitio, de HomeAdvisor o por recomendaci&oacute;n de un vecino &mdash; queda capturada, clasificada y con borrador de propuesta antes de que Andr&eacute;s tenga que mirarla. Precios justos, enviados r&aacute;pido. Atenci&oacute;n al detalle desde el primer mensaje.</p>
   </div>
 
 </section>
 
 <!-- ════════════════════════════════════════════════
-     VIEW 4 — SEARCH & REPORTS
+     VIEW 4 — BÚSQUEDA Y REPORTES
      ════════════════════════════════════════════════ -->
 <section id="view-reports" class="view">
 
-  <div class="section-label">Search &amp; Reports</div>
+  <div class="section-label">B&uacute;squeda y reportes</div>
 
   <!-- Metrics summary -->
   <div class="metric-grid">
-    <div class="metric-box"><div class="val">$41,200</div><div class="lbl">Revenue &mdash; July</div></div>
-    <div class="metric-box"><div class="val">38</div><div class="lbl">Jobs completed</div></div>
-    <div class="metric-box"><div class="val">14</div><div class="lbl">Active maintenance clients</div></div>
-    <div class="metric-box"><div class="val">$1,080</div><div class="lbl">Avg job value</div></div>
+    <div class="metric-box"><div class="val">$41,200</div><div class="lbl">Ingresos &mdash; julio</div></div>
+    <div class="metric-box"><div class="val">38</div><div class="lbl">Trabajos completados</div></div>
+    <div class="metric-box"><div class="val">14</div><div class="lbl">Clientes de mantenimiento activos</div></div>
+    <div class="metric-box"><div class="val">$1,080</div><div class="lbl">Valor promedio por trabajo</div></div>
   </div>
 
   <!-- Search bar -->
   <div style="margin-bottom:16px;display:flex;gap:8px;flex-wrap:wrap;">
-    <input class="search-input" id="search-box" placeholder="Search jobs, clients, crew, service type..." oninput="filterTable()" style="flex:1;min-width:200px;">
+    <input class="search-input" id="search-box" placeholder="Buscar trabajos, clientes, cuadrilla, tipo de servicio..." oninput="filterTable()" style="flex:1;min-width:200px;">
     <select id="filter-status" onchange="filterTable()" style="padding:9px 12px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;background:#fff;cursor:pointer;">
-      <option value="">All statuses</option>
-      <option value="Completed">Completed</option>
-      <option value="In progress">In progress</option>
-      <option value="Scheduled">Scheduled</option>
-      <option value="Quote sent">Quote sent</option>
+      <option value="">Todos los estados</option>
+      <option value="Completed">Completado</option>
+      <option value="In progress">En curso</option>
+      <option value="Scheduled">Programado</option>
+      <option value="Quote sent">Cotizaci&oacute;n enviada</option>
     </select>
   </div>
 
@@ -579,93 +579,93 @@
       <table>
         <thead>
           <tr>
-            <th>Client</th>
-            <th>Service</th>
-            <th>Location</th>
-            <th>Crew</th>
-            <th>Status</th>
-            <th>Amount</th>
+            <th>Cliente</th>
+            <th>Servicio</th>
+            <th>Ubicaci&oacute;n</th>
+            <th>Cuadrilla</th>
+            <th>Estado</th>
+            <th>Monto</th>
           </tr>
         </thead>
         <tbody id="report-table">
           <tr data-status="Completed">
             <td>Henderson HOA</td>
-            <td>Bi-weekly maintenance &mdash; lawn + hedge trim</td>
+            <td>Mantenimiento quincenal &mdash; grama y poda de setos</td>
             <td>The Woodlands</td>
-            <td>Alpha</td>
-            <td><span class="pill pill-done">Completed</span></td>
+            <td>Alfa</td>
+            <td><span class="pill pill-done">Completado</span></td>
             <td>$340</td>
           </tr>
           <tr data-status="Completed">
             <td>M. Reyes</td>
-            <td>Irrigation &mdash; Hunter Pro-C install</td>
+            <td>Riego &mdash; instalaci&oacute;n Hunter Pro-C</td>
             <td>Conroe</td>
-            <td>Alpha</td>
-            <td><span class="pill pill-done">Completed</span></td>
+            <td>Alfa</td>
+            <td><span class="pill pill-done">Completado</span></td>
             <td>$2,100</td>
           </tr>
           <tr data-status="Completed">
             <td>S. Patterson</td>
-            <td>Tree trimming &mdash; 3-person crew ($165/hr)</td>
+            <td>Poda de &aacute;rboles &mdash; cuadrilla de 3 ($165/h)</td>
             <td>Kingwood</td>
             <td>Bravo</td>
-            <td><span class="pill pill-done">Completed</span></td>
+            <td><span class="pill pill-done">Completado</span></td>
             <td>$495</td>
           </tr>
           <tr data-status="In progress">
-            <td>T. &amp; C. Nguyen</td>
-            <td>Irrigation &mdash; Hunter Pro-C controller</td>
+            <td>T. y C. Nguyen</td>
+            <td>Riego &mdash; controlador Hunter Pro-C</td>
             <td>Tomball</td>
-            <td>Alpha</td>
-            <td><span class="pill pill-inprogress">In progress</span></td>
+            <td>Alfa</td>
+            <td><span class="pill pill-inprogress">En curso</span></td>
             <td>$1,850</td>
           </tr>
           <tr data-status="Scheduled">
             <td>D. Marsh</td>
-            <td>Sod installation &mdash; St. Augustine grass</td>
+            <td>Instalaci&oacute;n de grama &mdash; San Agust&iacute;n</td>
             <td>Conroe</td>
             <td>Bravo</td>
-            <td><span class="pill pill-scheduled">Scheduled</span></td>
+            <td><span class="pill pill-scheduled">Programado</span></td>
             <td>$1,400</td>
           </tr>
           <tr data-status="Quote sent">
             <td>R. Caldwell</td>
-            <td>Patio + fire pit + landscape design</td>
+            <td>Patio, f&oacute;garata y dise&ntilde;o de jardiner&iacute;a</td>
             <td>Magnolia</td>
-            <td>TBD</td>
-            <td><span class="pill pill-quote">Quote sent</span></td>
+            <td>Por asignar</td>
+            <td><span class="pill pill-quote">Cotizaci&oacute;n enviada</span></td>
             <td>$9,250</td>
           </tr>
           <tr data-status="Completed">
             <td>Pinecrest HOA</td>
-            <td>HOA common area maintenance contract</td>
-            <td>Montgomery County</td>
+            <td>Contrato de mantenimiento de &aacute;reas comunes</td>
+            <td>Condado de Montgomery</td>
             <td>Bravo</td>
-            <td><span class="pill pill-done">Completed</span></td>
+            <td><span class="pill pill-done">Completado</span></td>
             <td>$1,200</td>
           </tr>
           <tr data-status="Completed">
             <td>A. Okafor</td>
-            <td>Retaining wall &mdash; limestone block</td>
+            <td>Muro de contenci&oacute;n &mdash; bloque de caliza</td>
             <td>Willis</td>
-            <td>Alpha</td>
-            <td><span class="pill pill-done">Completed</span></td>
+            <td>Alfa</td>
+            <td><span class="pill pill-done">Completado</span></td>
             <td>$3,600</td>
           </tr>
           <tr data-status="Completed">
-            <td>B. &amp; L. Ferreira</td>
-            <td>Seasonal flower rotation &mdash; spring install</td>
+            <td>B. y L. Ferreira</td>
+            <td>Rotaci&oacute;n de flor de temporada &mdash; siembra de primavera</td>
             <td>Spring</td>
             <td>Bravo</td>
-            <td><span class="pill pill-done">Completed</span></td>
+            <td><span class="pill pill-done">Completado</span></td>
             <td>$420</td>
           </tr>
           <tr data-status="Scheduled">
             <td>W. Kowalski</td>
-            <td>Drip irrigation &mdash; raised beds (Rainbird ESP-TM2)</td>
+            <td>Riego por goteo &mdash; camas elevadas (Rainbird ESP-TM2)</td>
             <td>Humble</td>
-            <td>Alpha</td>
-            <td><span class="pill pill-scheduled">Scheduled</span></td>
+            <td>Alfa</td>
+            <td><span class="pill pill-scheduled">Programado</span></td>
             <td>$680</td>
           </tr>
         </tbody>
@@ -674,7 +674,7 @@
   </div>
 
   <!-- Revenue by service -->
-  <div class="section-label">Revenue by service type &mdash; July</div>
+  <div class="section-label">Ingresos por tipo de servicio &mdash; julio</div>
   <div class="card">
     <div id="chart-bars">
       <!-- Rendered via JS -->
@@ -682,8 +682,8 @@
   </div>
 
   <div class="resolve-panel" style="margin-top:8px;">
-    <h3>&#9989; Every job, client, and dollar &mdash; searchable in seconds.</h3>
-    <p>Which crew generates more revenue per hour? Which service has the most repeat clients? Which zone in Greater Houston has the most maintenance contracts? Answers that used to live only in Andrés's head &mdash; now in a report.</p>
+    <h3>&#9989; Cada trabajo, cada cliente y cada d&oacute;lar &mdash; buscables en segundos.</h3>
+    <p>&iquest;Qu&eacute; cuadrilla genera m&aacute;s ingreso por hora? &iquest;Qu&eacute; servicio tiene m&aacute;s clientes que repiten? &iquest;Qu&eacute; zona del &aacute;rea de Houston concentra m&aacute;s contratos de mantenimiento? Respuestas que antes viv&iacute;an solo en la cabeza de Andr&eacute;s &mdash; ahora en un reporte.</p>
   </div>
 
 </section>
@@ -691,7 +691,7 @@
 <!-- ── FLOATING CTA ── -->
 <button class="float-cta" onclick="openCalendly()">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.86 11 19.79 19.79 0 01.77 2.38 2 2 0 012.76.2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.03a16 16 0 006.07 6.07l1.9-1.9a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-  Like what you see? Let's talk
+  &iquest;Le gust&oacute;? Hablemos
 </button>
 
 <!-- ── MODAL ── -->
@@ -699,16 +699,16 @@
   <div class="modal-box" style="position:relative;">
     <button class="modal-close" onclick="closeModal()">&#215;</button>
     <div style="font-size:2rem;margin-bottom:12px;">&#127807;</div>
-    <h2>This is what Terrano could run on.</h2>
-    <p>Dispatch, quoting, client history &mdash; all in one place. Built around how your crews actually work, not a generic tool that requires 40 hours of setup.<br><br>Andrés, let's show you what it looks like with your real jobs and your real clients.</p>
-    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=earthworkslandsc" target="_blank" rel="noopener noreferrer" class="modal-cta">Book a conversation with Erick</a>
-    <button class="modal-dismiss" onclick="closeModal()">Maybe later</button>
+    <h2>Esto es lo que Terrano podr&iacute;a tener corriendo.</h2>
+    <p>Despacho, cotizaci&oacute;n e historial del cliente &mdash; todo en un solo lugar. Construido alrededor de c&oacute;mo trabajan sus cuadrillas de verdad, no una herramienta gen&eacute;rica que pide 40 horas de configuraci&oacute;n.<br><br>Le mostramos c&oacute;mo se ver&iacute;a con sus trabajos y sus clientes reales.</p>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=earthworkslandsc" target="_blank" rel="noopener noreferrer" class="modal-cta">Agendar una conversaci&oacute;n con Erick</a>
+    <button class="modal-dismiss" onclick="closeModal()">Quiz&aacute; despu&eacute;s</button>
   </div>
 </div>
 
 <!-- ── FOOTER ── -->
 <footer>
-  Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech &mdash; sistemas propios para negocios que ya funcionan.
 </footer>
 
 <script>
@@ -765,7 +765,7 @@
     var row = btn.closest('.job-row');
     var pill = row.querySelector('.pill');
     pill.className = 'pill pill-done';
-    pill.textContent = 'Done';
+    pill.textContent = 'Hecho';
     var now = new Date();
     var h = now.getHours(); var ampm = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
     var t = h.toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ' ' + ampm;
@@ -794,7 +794,7 @@
 
   /* ── QUOTE FLOW: APPROVE ── */
   function approveQuote(btn) {
-    btn.textContent = '✓ Sent!';
+    btn.textContent = '✓ ¡Enviada!';
     btn.disabled = true;
     btn.style.background = 'var(--green-mid)';
     document.getElementById('dispatch-confirm').style.display = 'block';
@@ -820,11 +820,11 @@
   /* ── BAR CHART (pure HTML) ── */
   (function buildChart() {
     var data = [
-      { label: 'Maintenance contracts', val: 14280, color: '#2D5016' },
-      { label: 'Hardscape / installs',  val: 12400, color: '#4A7C2F' },
-      { label: 'Irrigation',            val: 8600,  color: '#8B6914' },
-      { label: 'Tree / stump work',     val: 3960,  color: '#C49A2A' },
-      { label: 'One-time cleanup',      val: 1960,  color: '#9CA3AF' },
+      { label: 'Contratos de mantenimiento', val: 14280, color: '#2D5016' },
+      { label: 'Hardscape e instalaciones',  val: 12400, color: '#4A7C2F' },
+      { label: 'Riego',                      val: 8600,  color: '#8B6914' },
+      { label: 'Poda y destoconado',         val: 3960,  color: '#C49A2A' },
+      { label: 'Limpieza puntual',           val: 1960,  color: '#9CA3AF' },
     ];
     var max = Math.max.apply(null, data.map(function(d){ return d.val; }));
     var html = '';

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mesa Larga Events &amp; Catering — Client Memory System</title>
+  <title>Mesa Larga Eventos y Catering — Sistema de Memoria del Cliente</title>
   <style>
     /* ─── Reset & Base ───────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -575,42 +575,41 @@
 <body>
 
 <!-- Demo badge -->
-<span class="demo-badge">DEMO &middot; sample data</span>
+<span class="demo-badge">DEMO &middot; datos de muestra</span>
 
 <!-- ═══════════════════════════════════════════════════════
      HEADER
 ═══════════════════════════════════════════════════════ -->
 <header class="site-header">
-  <h1>Mesa Larga Events &amp; Catering</h1>
-  <p class="tagline">What your own system would look like &mdash; prepared by <strong style="color:var(--gold-lt)">Pocho.tech</strong></p>
+  <h1>Mesa Larga Eventos y Catering</h1>
+  <p class="tagline">Así se vería su sistema propio &mdash; preparado por <strong style="color:var(--gold-lt)">Pocho.tech</strong></p>
 </header>
 
 <!-- Anchor stat bar -->
 <div class="anchor-stat">
   <span class="big-num">53%</span>
   <div class="stat-text">
-    <strong>of your monthly events are existing clients.</strong>
-    That relationship history is your biggest advantage &mdash;
-    and right now it lives wherever your current tools end.
-    <em>This is what it looks like when it lives in a system instead.</em>
+    <strong>de sus eventos mensuales son de clientes que ya tenía.</strong>
+    Ese historial de relación es su mayor ventaja &mdash; y hoy vive donde alcanzan sus herramientas actuales, no más allá.
+    <em>Así se ve cuando vive en un sistema.</em>
   </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════
      TAB NAV
 ═══════════════════════════════════════════════════════ -->
-<nav class="tab-nav" role="tablist" aria-label="System views">
+<nav class="tab-nav" role="tablist" aria-label="Vistas del sistema">
   <button class="tab-btn active" data-tab="client-book" role="tab" aria-selected="true">
-    Client Book <span class="tab-num" id="book-count">8</span>
+    Agenda de clientes <span class="tab-num" id="book-count">8</span>
   </button>
   <button class="tab-btn" data-tab="client-record" role="tab" aria-selected="false">
-    Client Record
+    Ficha del cliente
   </button>
   <button class="tab-btn" data-tab="new-proposal" role="tab" aria-selected="false">
-    New Proposal
+    Nueva propuesta
   </button>
   <button class="tab-btn" data-tab="cert-report" role="tab" aria-selected="false">
-    Certification Report
+    Reporte de certificaciones
   </button>
 </nav>
 
@@ -618,15 +617,15 @@
      TAB 1 — CLIENT BOOK
 ═══════════════════════════════════════════════════════ -->
 <section class="tab-panel active" id="tab-client-book" role="tabpanel">
-  <h2 class="section-title">Client Book</h2>
-  <p class="section-sub">All accounts — ranked by event history. Click any client to open their full record.</p>
+  <h2 class="section-title">Agenda de clientes</h2>
+  <p class="section-sub">Todas las cuentas, ordenadas por historial de eventos. Haga clic en cualquier cliente para abrir su ficha completa.</p>
 
   <!-- Filter chips -->
   <div class="filter-bar">
-    <button class="filter-chip active" data-filter="all">All Clients</button>
-    <button class="filter-chip" data-filter="corporate">Corporate</button>
+    <button class="filter-chip active" data-filter="all">Todos los clientes</button>
+    <button class="filter-chip" data-filter="corporate">Corporativo</button>
     <button class="filter-chip" data-filter="social">Social</button>
-    <button class="filter-chip" data-filter="repeat">Repeat Only</button>
+    <button class="filter-chip" data-filter="repeat">Solo recurrentes</button>
   </div>
 
   <!-- Client rows -->
@@ -637,18 +636,18 @@
      TAB 2 — CLIENT RECORD
 ═══════════════════════════════════════════════════════ -->
 <section class="tab-panel" id="tab-client-record" role="tabpanel">
-  <h2 class="section-title">Client Record</h2>
-  <p class="section-sub">Full history for every client: events, menus, dietary flags, venue quirks, billing preferences.</p>
+  <h2 class="section-title">Ficha del cliente</h2>
+  <p class="section-sub">Historial completo de cada cliente: eventos, menús, alertas alimentarias, particularidades del salón, preferencias de cobro.</p>
 
   <div class="record-nav">
     <select id="record-select" onchange="renderRecord(this.value)">
-      <option value="">— Select a client —</option>
+      <option value="">— Elija un cliente —</option>
     </select>
   </div>
 
   <div id="record-body">
     <div class="card" style="text-align:center; color:var(--muted); padding:40px;">
-      Select a client above to view their complete record.
+      Elija un cliente arriba para ver su ficha completa.
     </div>
   </div>
 </section>
@@ -657,16 +656,16 @@
      TAB 3 — NEW PROPOSAL
 ═══════════════════════════════════════════════════════ -->
 <section class="tab-panel" id="tab-new-proposal" role="tabpanel">
-  <h2 class="section-title">New Proposal</h2>
-  <p class="section-sub">Choose an existing client and watch the proposal build itself from their history.</p>
+  <h2 class="section-title">Nueva propuesta</h2>
+  <p class="section-sub">Elija un cliente existente y vea cómo la propuesta se arma sola con su historial.</p>
 
   <select class="proposal-select" id="proposal-client-select" onchange="renderProposal(this.value)">
-    <option value="">— Select a client to auto-fill from history —</option>
+    <option value="">— Elija un cliente para llenar desde el historial —</option>
   </select>
 
   <div id="proposal-body">
     <div class="card" style="text-align:center; color:var(--muted); padding:40px;">
-      Select an existing client above to see the proposal pre-filled from their event history.
+      Elija un cliente existente arriba para ver la propuesta precargada con su historial de eventos.
     </div>
   </div>
 </section>
@@ -675,32 +674,32 @@
      TAB 4 — CERTIFICATION REPORT
 ═══════════════════════════════════════════════════════ -->
 <section class="tab-panel" id="tab-cert-report" role="tabpanel">
-  <h2 class="section-title">Certification Report</h2>
-  <p class="section-sub">WBEA &amp; HUB compliance data assembled automatically from the same records — no re-entry required.</p>
+  <h2 class="section-title">Reporte de certificaciones</h2>
+  <p class="section-sub">Los datos de cumplimiento de WBEA y HUB se arman solos a partir de los mismos registros &mdash; sin volver a capturar nada.</p>
 
   <div class="cert-banner">
     <div class="cert-seals">
-      <div class="seal seal-wbea">WBEA<br>Certified</div>
+      <div class="seal seal-wbea">WBEA<br>Certificada</div>
       <div class="seal seal-hub">HUB<br>Texas</div>
     </div>
     <div class="cert-text">
-      <h3>Compliance Report Generator</h3>
-      <p>Pulls directly from event records already in the system. The data you track for operations <em>is</em> the data your certifications require.</p>
+      <h3>Generador de reportes de cumplimiento</h3>
+      <p>Se alimenta directo de los eventos que ya están en el sistema. Los datos que lleva para operar <em>son</em> los datos que le exigen sus certificaciones.</p>
     </div>
   </div>
 
   <div class="report-controls">
     <select class="report-select" id="report-period">
-      <option>Q2 2025 (Apr – Jun)</option>
-      <option>Q1 2025 (Jan – Mar)</option>
-      <option>FY 2024</option>
+      <option>2do trimestre 2025 (abr – jun)</option>
+      <option>1er trimestre 2025 (ene – mar)</option>
+      <option>Año fiscal 2024</option>
     </select>
     <select class="report-select" id="report-type">
-      <option>WBEA Annual Activity Report</option>
-      <option>HUB Subcontracting Report</option>
-      <option>Combined Summary</option>
+      <option>Reporte anual de actividad WBEA</option>
+      <option>Reporte de subcontratación HUB</option>
+      <option>Resumen combinado</option>
     </select>
-    <button class="gen-btn" onclick="generateReport()">Generate Report</button>
+    <button class="gen-btn" onclick="generateReport()">Generar reporte</button>
   </div>
 
   <div class="progress-bar-wrap" id="report-progress-wrap">
@@ -714,27 +713,27 @@
      FOOTER
 ═══════════════════════════════════════════════════════ -->
 <footer class="site-footer">
-  Mockup with sample data. Built by <strong style="color:var(--gold-lt)">Pocho.tech</strong> &mdash; custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por <strong style="color:var(--gold-lt)">Pocho.tech</strong> &mdash; sistemas propios para negocios que ya funcionan.
 </footer>
 
 <!-- Floating CTA -->
 <button class="float-cta" onclick="openCalendly()">
   <span class="float-cta-dot"></span>
-  Let's talk
+  Hablemos
 </button>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
     <div class="modal-seal">&#9830;</div>
-    <h2 class="modal-title" id="modal-title">Picture this with your real data.</h2>
+    <h2 class="modal-title" id="modal-title">Imagínese esto con sus datos reales.</h2>
     <p class="modal-body">
-      If you like it, let's talk &mdash; no obligation, just a conversation about what the system could look like for Mesa Larga.<br><br>
-      If not, no worries. It stays a mockup.
+      Si le gusta, hablemos &mdash; sin compromiso, solo una conversación sobre cómo se vería el sistema para Mesa Larga.<br><br>
+      Si no, no pasa nada. Se queda en maqueta.
     </p>
-    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=alacarte" target="_blank" rel="noopener" class="modal-cta" onclick="closeModal()">Schedule a free call</a>
-    <button class="modal-dismiss" onclick="closeModal()">Maybe later</button>
+    <a href="https://calendly.com/erick-pocho/1hr-session?utm_source=demo&utm_campaign=alacarte" target="_blank" rel="noopener" class="modal-cta" onclick="closeModal()">Agendar una llamada gratuita</a>
+    <button class="modal-dismiss" onclick="closeModal()">Quizá después</button>
   </div>
 </div>
 
@@ -748,289 +747,289 @@
 const CLIENTS = [
   {
     id: "c1",
-    name: "Energy Sector Client",
+    name: "Cliente del sector energía",
     initials: "ES",
     type: "corporate",
-    subtype: "Board Dinner · Full Service",
+    subtype: "Cena de directorio · servicio completo",
     repeat: true,
     events: 9,
-    lastEvent: "Jun 2025",
-    hubCategory: "Large Enterprise",
-    billing: "Net-30, single invoice, CFO approval",
+    lastEvent: "jun 2025",
+    hubCategory: "Gran empresa",
+    billing: "Neto 30, una sola factura, aprobación del CFO",
     dietary: [
-      { label: "Nut allergy", detail: "Two attendees — applies to all passed items" },
-      { label: "Kosher option required", detail: "Min. 3 plates per event, labeled separately" },
-      { label: "No shellfish", detail: "Blanket restriction — entire menu" }
+      { label: "Alergia a nueces", detail: "Dos asistentes — aplica a todos los pasabocas" },
+      { label: "Se requiere opción kosher", detail: "Mínimo 3 platos por evento, rotulados aparte" },
+      { label: "Sin mariscos", detail: "Restricción total — menú completo" }
     ],
     venueQuirks: [
-      "Loading dock access only 7–9 AM and after 6 PM",
-      "On-site AV tech must be briefed 48 hrs before event",
-      "Preferred: Petroleum Club of Houston, private dining floor"
+      "Acceso al andén de carga solo de 7 a 9 AM y después de las 6 PM",
+      "Al técnico de audio del lugar hay que informarle 48 horas antes",
+      "Preferido: Petroleum Club de Houston, piso de comedor privado"
     ],
     history: [
       {
-        name: "Board Dinner — Energy Sector",
-        date: "Jun 12, 2025",
-        style: "Plated Meals",
+        name: "Cena de directorio — sector energía",
+        date: "12 jun 2025",
+        style: "Platos servidos",
         guests: 24,
-        menu: ["Handmade Belgian Chocolate Truffles", "Mediterranean Buffet", "Custom Signature Cocktail Menu"],
-        addons: ["TABC Bartender Package", "Branded Goody Bags"]
+        menu: ["Trufas de chocolate belga artesanales", "Bufé mediterráneo", "Carta de cocteles de autor"],
+        addons: ["Paquete de bartender con licencia TABC", "Bolsas de regalo con la marca"]
       },
       {
-        name: "Q4 Board Dinner",
-        date: "Nov 14, 2024",
-        style: "Plated Meals",
+        name: "Cena de directorio del 4to trimestre",
+        date: "14 nov 2024",
+        style: "Platos servidos",
         guests: 22,
-        menu: ["Rio Valley Ruby Red Grapefruit Salad", "Plated Meals", "Custom Signature Cocktail Menu"],
-        addons: ["TABC Bartender Package"]
+        menu: ["Ensalada de toronja Ruby Red del Valle", "Platos servidos", "Carta de cocteles de autor"],
+        addons: ["Paquete de bartender con licencia TABC"]
       },
       {
-        name: "Annual Strategy Dinner",
-        date: "Mar 8, 2024",
-        style: "Plated Meals + Cocktail Hour",
+        name: "Cena anual de estrategia",
+        date: "8 mar 2024",
+        style: "Platos servidos + hora de coctel",
         guests: 28,
-        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "Upscale BBQ & Pig Roast", "Handmade Belgian Chocolate Truffles"],
-        addons: ["Valet Service", "TABC Bartender Package"]
+        menu: ["Hora de coctel con pasabocas", "Barbacoa de alta gama y cerdo al asador", "Trufas de chocolate belga artesanales"],
+        addons: ["Servicio de valet", "Paquete de bartender con licencia TABC"]
       }
     ]
   },
   {
     id: "c2",
-    name: "Law Firm — Downtown Houston",
+    name: "Bufete de abogados — centro de Houston",
     initials: "LF",
     type: "corporate",
-    subtype: "Corporate Events · Full Service",
+    subtype: "Eventos corporativos · servicio completo",
     repeat: true,
     events: 6,
-    lastEvent: "May 2025",
-    hubCategory: "Professional Services",
-    billing: "Purchase order required, accounts payable contact on file",
+    lastEvent: "may 2025",
+    hubCategory: "Servicios profesionales",
+    billing: "Requiere orden de compra, contacto de cuentas por pagar en el expediente",
     dietary: [
-      { label: "Vegan options required", detail: "~20% of attendees, clearly labeled" },
-      { label: "Halal option", detail: "2–4 attendees per event" }
+      { label: "Se requieren opciones veganas", detail: "Cerca del 20% de los asistentes, bien rotuladas" },
+      { label: "Opción halal", detail: "De 2 a 4 asistentes por evento" }
     ],
     venueQuirks: [
-      "Events always on-site — 40th floor conference center",
-      "No red wine service (carpet policy)",
-      "Setup must be complete before 5 PM partner arrival"
+      "Los eventos son siempre en sitio — centro de conferencias del piso 40",
+      "Sin servicio de vino tinto (política de la alfombra)",
+      "El montaje debe estar listo antes de que lleguen los socios a las 5 PM"
     ],
     history: [
       {
-        name: "Corporate Christmas Party",
-        date: "Dec 18, 2024",
-        style: "Buffet + Action Stations",
+        name: "Fiesta corporativa de Navidad",
+        date: "18 dic 2024",
+        style: "Bufé + estaciones en vivo",
         guests: 85,
-        menu: ["Smoked Brisket Nachos", "Vegan & Vegetarian Menu", "Mexican & Tex-Mex Station", "Handmade Belgian Chocolate Truffles"],
-        addons: ["Branded Goody Bags", "TABC Bartender Package (4-hour)"]
+        menu: ["Nachos de brisket ahumado", "Menú vegano y vegetariano", "Estación mexicana y tex-mex", "Trufas de chocolate belga artesanales"],
+        addons: ["Bolsas de regalo con la marca", "Paquete de bartender TABC (4 horas)"]
       },
       {
-        name: "Associate Appreciation Dinner",
-        date: "Jun 5, 2024",
-        style: "Family Style",
+        name: "Cena de reconocimiento a asociados",
+        date: "5 jun 2024",
+        style: "Al centro de la mesa",
         guests: 60,
-        menu: ["Mediterranean Buffet", "Vegan & Vegetarian Menu", "Kosher & Halal Menu"],
-        addons: ["Professional Staffing — 4 servers"]
+        menu: ["Bufé mediterráneo", "Menú vegano y vegetariano", "Menú kosher y halal"],
+        addons: ["Personal profesional — 4 meseros"]
       }
     ]
   },
   {
     id: "c3",
-    name: "Luxury Retail Brand",
+    name: "Marca de retail de lujo",
     initials: "LR",
     type: "corporate",
-    subtype: "Brand Activation · 1,500+ guests",
+    subtype: "Activación de marca · más de 1,500 invitados",
     repeat: true,
     events: 4,
-    lastEvent: "Apr 2025",
-    hubCategory: "Retail / Consumer",
-    billing: "Credit card on file, 50% deposit standard",
+    lastEvent: "abr 2025",
+    hubCategory: "Retail / consumo",
+    billing: "Tarjeta de crédito en el expediente, anticipo estándar del 50%",
     dietary: [
-      { label: "Tree nut allergy — staff", detail: "Event staff catering must exclude tree nuts" },
-      { label: "Gluten-free station required", detail: "Clearly labeled, separate service ware" }
+      { label: "Alergia a frutos secos — personal", detail: "El catering del personal del evento no puede llevar frutos secos" },
+      { label: "Se requiere estación sin gluten", detail: "Bien rotulada, con vajilla de servicio separada" }
     ],
     venueQuirks: [
-      "Brand activation setup requires brand manager approval of table layout",
-      "Social media-safe presentation required — plating reviewed before service",
-      "Preferred action stations: visible cooking, interactive elements"
+      "El montaje de la activación requiere que la gerente de marca apruebe la distribución de mesas",
+      "Se requiere presentación apta para redes — el emplatado se revisa antes de servir",
+      "Estaciones preferidas: cocina a la vista, elementos interactivos"
     ],
     history: [
       {
-        name: "Spring Brand Activation",
-        date: "Apr 22, 2025",
-        style: "Action Stations + Passed Hors d'Oeuvres",
+        name: "Activación de marca de primavera",
+        date: "22 abr 2025",
+        style: "Estaciones en vivo + pasabocas",
         guests: 1500,
-        menu: ["Handmade Vietnamese Spring Rolls", "Grazing Stations", "Smoked Brisket Nachos", "Seasonal Spring/Summer Tasting Menu"],
-        addons: ["Decor Design and Installation", "TABC Bartender Package"]
+        menu: ["Rollitos primavera vietnamitas artesanales", "Estaciones de picoteo", "Nachos de brisket ahumado", "Menú de degustación de primavera y verano"],
+        addons: ["Diseño e instalación de decoración", "Paquete de bartender con licencia TABC"]
       },
       {
-        name: "Holiday Brand Event",
-        date: "Nov 29, 2024",
-        style: "Cocktail Party + Action Stations",
+        name: "Evento navideño de marca",
+        date: "29 nov 2024",
+        style: "Coctel + estaciones en vivo",
         guests: 800,
-        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "Handmade Belgian Chocolate Truffles (branded colors)"],
-        addons: ["Branded Goody Bags", "Lighting and A/V", "Valet Service"]
+        menu: ["Hora de coctel con pasabocas", "Trufas de chocolate belga artesanales (colores de la marca)"],
+        addons: ["Bolsas de regalo con la marca", "Iluminación y audio", "Servicio de valet"]
       }
     ]
   },
   {
     id: "c4",
-    name: "Professional Sports League — Exec Events",
+    name: "Liga deportiva profesional — eventos de directivos",
     initials: "PS",
     type: "corporate",
-    subtype: "VIP Corporate · Full Service",
+    subtype: "Corporativo VIP · servicio completo",
     repeat: true,
     events: 5,
-    lastEvent: "Mar 2025",
-    hubCategory: "Sports & Entertainment",
-    billing: "Event-by-event PO, 60-day terms, dual approver",
+    lastEvent: "mar 2025",
+    hubCategory: "Deportes y entretenimiento",
+    billing: "Orden de compra por evento, plazo de 60 días, doble aprobador",
     dietary: [
-      { label: "High-protein menu emphasis", detail: "Client preference — all menus" },
-      { label: "No pork", detail: "Blanket restriction, entire menu" },
-      { label: "Multiple severe allergies in VIP group", detail: "Allergy card required for each event" }
+      { label: "Menú con énfasis en proteína", detail: "Preferencia del cliente — todos los menús" },
+      { label: "Sin cerdo", detail: "Restricción total, menú completo" },
+      { label: "Varias alergias severas en el grupo VIP", detail: "Se requiere ficha de alergias en cada evento" }
     ],
     venueQuirks: [
-      "Venue changes event-to-event — site visit required each time",
-      "Event timing fluid — always build 45-min buffer in breakdown schedule",
-      "Media presence likely — no Mesa Larga branding on disposables"
+      "El lugar cambia de evento a evento — hay que visitar el sitio cada vez",
+      "Los horarios se mueven — dejar siempre 45 minutos de margen en el desmontaje",
+      "Es probable que haya prensa — nada con la marca Mesa Larga en los desechables"
     ],
     history: [
       {
-        name: "VIP Sponsor Reception",
-        date: "Mar 15, 2025",
-        style: "Cocktail Hour + Plated",
+        name: "Recepción de patrocinadores VIP",
+        date: "15 mar 2025",
+        style: "Hora de coctel + platos servidos",
         guests: 45,
-        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "High Tea Service", "Handmade Belgian Chocolate Truffles"],
-        addons: ["TABC Certified Bartenders", "Professional Staffing"]
+        menu: ["Hora de coctel con pasabocas", "Servicio de té", "Trufas de chocolate belga artesanales"],
+        addons: ["Bartenders certificados TABC", "Personal profesional"]
       }
     ]
   },
   {
     id: "c5",
-    name: "Tech Startup — Office Events",
+    name: "Startup de tecnología — eventos de oficina",
     initials: "TS",
     type: "corporate",
-    subtype: "Drop-Off + Occasional Full Service",
+    subtype: "Entrega + servicio completo ocasional",
     repeat: false,
     events: 2,
-    lastEvent: "Feb 2025",
-    hubCategory: "Technology",
-    billing: "Credit card, invoiced per event",
+    lastEvent: "feb 2025",
+    hubCategory: "Tecnología",
+    billing: "Tarjeta de crédito, se factura por evento",
     dietary: [
-      { label: "Vegan + Vegetarian majority", detail: "~60% of team" },
-      { label: "Multiple nut allergies", detail: "3 confirmed staff members" }
+      { label: "Mayoría vegana y vegetariana", detail: "Cerca del 60% del equipo" },
+      { label: "Varias alergias a nueces", detail: "3 personas confirmadas" }
     ],
     venueQuirks: [
-      "Freight elevator required for anything over 4 boxes",
-      "Setup window: 7–9 AM only"
+      "Se necesita montacargas para más de 4 cajas",
+      "Ventana de montaje: solo de 7 a 9 AM"
     ],
     history: [
       {
-        name: "Product Launch Breakfast",
-        date: "Feb 6, 2025",
-        style: "Breakfast & Brunch Service",
+        name: "Desayuno de lanzamiento de producto",
+        date: "6 feb 2025",
+        style: "Servicio de desayuno y brunch",
         guests: 55,
-        menu: ["Breakfast & Brunch Service", "Vegan & Vegetarian Menu"],
+        menu: ["Servicio de desayuno y brunch", "Menú vegano y vegetariano"],
         addons: []
       }
     ]
   },
   {
     id: "c6",
-    name: "Non-Profit Gala Committee",
+    name: "Comité de gala de fundación",
     initials: "NG",
     type: "social",
-    subtype: "Social Event · Gala",
+    subtype: "Evento social · gala",
     repeat: true,
     events: 3,
-    lastEvent: "Oct 2024",
-    hubCategory: "Non-Profit",
-    billing: "Check payment, 30-day net, require W9 on file",
+    lastEvent: "oct 2024",
+    hubCategory: "Fundación sin fines de lucro",
+    billing: "Pago con cheque, neto 30, requiere W9 en el expediente",
     dietary: [
-      { label: "Vegetarian section required", detail: "Table-card labeled" },
-      { label: "Diabetic-friendly dessert option", detail: "Board member request, annual" }
+      { label: "Se requiere sección vegetariana", detail: "Rotulada en la tarjeta de mesa" },
+      { label: "Opción de postre apto para diabéticos", detail: "Pedido de un miembro del directorio, todos los años" }
     ],
     venueQuirks: [
-      "Event at same venue every year — Junior League of Houston",
-      "Decor must be gold-and-white palette",
-      "Silent auction tables must remain accessible during dinner service"
+      "El evento es en el mismo lugar cada año — Junior League de Houston",
+      "La decoración debe ser en paleta dorada y blanca",
+      "Las mesas de subasta silenciosa deben quedar accesibles durante la cena"
     ],
     history: [
       {
-        name: "Annual Gala",
-        date: "Oct 19, 2024",
-        style: "Plated + Cocktail Hour",
+        name: "Gala anual",
+        date: "19 oct 2024",
+        style: "Platos servidos + hora de coctel",
         guests: 200,
-        menu: ["Rio Valley Ruby Red Grapefruit Salad", "Plated Meals", "Cocktail Hour with Passed Hors d'Oeuvres", "Handmade Belgian Chocolate Truffles"],
-        addons: ["Decor Design and Installation", "Lighting and A/V", "Valet Service"]
+        menu: ["Ensalada de toronja Ruby Red del Valle", "Platos servidos", "Hora de coctel con pasabocas", "Trufas de chocolate belga artesanales"],
+        addons: ["Diseño e instalación de decoración", "Iluminación y audio", "Servicio de valet"]
       },
       {
-        name: "Annual Gala",
-        date: "Oct 21, 2023",
-        style: "Plated + Cocktail Hour",
+        name: "Gala anual",
+        date: "21 oct 2023",
+        style: "Platos servidos + hora de coctel",
         guests: 190,
-        menu: ["Mediterranean Buffet", "Cocktail Hour with Passed Hors d'Oeuvres", "Handmade Belgian Chocolate Truffles"],
-        addons: ["Decor Design and Installation", "Lighting and A/V"]
+        menu: ["Bufé mediterráneo", "Hora de coctel con pasabocas", "Trufas de chocolate belga artesanales"],
+        addons: ["Diseño e instalación de decoración", "Iluminación y audio"]
       }
     ]
   },
   {
     id: "c7",
-    name: "Real Estate Developer Group",
+    name: "Grupo desarrollador inmobiliario",
     initials: "RD",
     type: "corporate",
-    subtype: "Corporate Reception · Full Service",
+    subtype: "Recepción corporativa · servicio completo",
     repeat: false,
     events: 1,
-    lastEvent: "Jan 2025",
-    hubCategory: "Real Estate",
-    billing: "Wire transfer, balance due before event",
+    lastEvent: "ene 2025",
+    hubCategory: "Bienes raíces",
+    billing: "Transferencia bancaria, saldo antes del evento",
     dietary: [
-      { label: "Shellfish allergy — principal", detail: "No shellfish on any passed item" }
+      { label: "Alergia a mariscos — el principal", detail: "Ningún pasabocas puede llevar mariscos" }
     ],
     venueQuirks: [
-      "Model unit event — no kitchen, outdoor catering required",
-      "Guest list TBC until 48 hrs before — final count flexibility needed"
+      "Evento en unidad modelo — sin cocina, se requiere catering al aire libre",
+      "Lista de invitados sin confirmar hasta 48 horas antes — se necesita flexibilidad en el conteo final"
     ],
     history: [
       {
-        name: "Development Preview Reception",
-        date: "Jan 30, 2025",
-        style: "Grazing Stations + Cocktail",
+        name: "Recepción de preventa del desarrollo",
+        date: "30 ene 2025",
+        style: "Estaciones de picoteo + coctel",
         guests: 120,
-        menu: ["Grazing Stations", "Handmade Vietnamese Spring Rolls", "Custom Signature Cocktail Menu"],
-        addons: ["TABC Bartender Package", "Rentals (china, glassware, high-tops)"]
+        menu: ["Estaciones de picoteo", "Rollitos primavera vietnamitas artesanales", "Carta de cocteles de autor"],
+        addons: ["Paquete de bartender con licencia TABC", "Alquiler (vajilla, cristalería, mesas altas)"]
       }
     ]
   },
   {
     id: "c8",
-    name: "Wedding Reception — Full Package",
+    name: "Recepción de boda — paquete completo",
     initials: "WR",
     type: "social",
-    subtype: "Wedding Reception · Full Service Package",
+    subtype: "Recepción de boda · paquete de servicio completo",
     repeat: false,
     events: 1,
-    lastEvent: "May 2025",
-    hubCategory: "Social — Wedding",
-    billing: "Staged payments: 25% / 50% / 25%",
+    lastEvent: "may 2025",
+    hubCategory: "Social — boda",
+    billing: "Pagos por etapas: 25% / 50% / 25%",
     dietary: [
-      { label: "Nut-free entire event", detail: "Guest allergy — no exceptions" },
-      { label: "Gluten-free plated option", detail: "Bride's dietary requirement" },
-      { label: "Halal protein options", detail: "Groom's family (approx. 30 guests)" }
+      { label: "Sin nueces en todo el evento", detail: "Alergia de un invitado — sin excepciones" },
+      { label: "Opción sin gluten servida en plato", detail: "Requerimiento alimentario de la novia" },
+      { label: "Opciones de proteína halal", detail: "Familia del novio (unos 30 invitados)" }
     ],
     venueQuirks: [
-      "Venue: The Corinthian Houston",
-      "Ceremony + reception same day — turnover in 45 min",
-      "Bride prefers hidden service doors — no visible staff crossings during ceremony"
+      "Lugar: The Corinthian Houston",
+      "Ceremonia y recepción el mismo día — cambio de montaje en 45 minutos",
+      "La novia prefiere puertas de servicio ocultas — que no se vea pasar al personal durante la ceremonia"
     ],
     history: [
       {
-        name: "Wedding Reception — Full Service Package",
-        date: "May 10, 2025",
-        style: "Plated + Cocktail Hour + Buffet",
+        name: "Recepción de boda — paquete de servicio completo",
+        date: "10 may 2025",
+        style: "Platos servidos + hora de coctel + bufé",
         guests: 220,
-        menu: ["Cocktail Hour with Passed Hors d'Oeuvres", "Plated Meals", "Wedding Packages", "Handmade Belgian Chocolate Truffles", "Kosher & Halal Menu"],
-        addons: ["Decor Design and Installation", "Lighting and A/V", "Valet Service", "Rentals — full china package"]
+        menu: ["Hora de coctel con pasabocas", "Platos servidos", "Paquetes de boda", "Trufas de chocolate belga artesanales", "Menú kosher y halal"],
+        addons: ["Diseño e instalación de decoración", "Iluminación y audio", "Servicio de valet", "Alquiler — paquete completo de vajilla"]
       }
     ]
   }
@@ -1080,18 +1079,18 @@ function renderClientBook(filter) {
       <div class="client-info">
         <div class="client-name">
           ${c.name}
-          ${c.repeat ? '<span class="repeat-tag">REPEAT CLIENT</span>' : ''}
+          ${c.repeat ? '<span class="repeat-tag">CLIENTE RECURRENTE</span>' : ''}
         </div>
         <div class="client-type">${c.subtype}</div>
       </div>
       <div class="client-stats">
         <div>
           <span class="cs-val">${c.events}</span>
-          <span class="cs-lbl">Events</span>
+          <span class="cs-lbl">Eventos</span>
         </div>
         <div>
           <span class="cs-val" style="font-size:.85rem">${c.lastEvent}</span>
-          <span class="cs-lbl">Last Event</span>
+          <span class="cs-lbl">Último evento</span>
         </div>
       </div>
     </div>
@@ -1148,7 +1147,7 @@ function goToRecord(id) {
 function renderRecord(id) {
   const body = document.getElementById("record-body");
   if (!id) {
-    body.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:40px;">Select a client above to view their complete record.</div>`;
+    body.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:40px;">Elija un cliente arriba para ver su ficha completa.</div>`;
     return;
   }
   const c = CLIENTS.find(x => x.id === id);
@@ -1163,15 +1162,15 @@ function renderRecord(id) {
           <div class="card-sub">${c.subtype}</div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start">
-          ${c.repeat ? '<span class="badge badge-gold">Repeat Client</span>' : '<span class="badge badge-gray">First-Time</span>'}
+          ${c.repeat ? '<span class="badge badge-gold">Cliente recurrente</span>' : '<span class="badge badge-gray">Primera vez</span>'}
           <span class="badge badge-blue">${c.hubCategory}</span>
         </div>
       </div>
       <div class="metrics-row">
-        <div class="metric-box"><span class="val">${c.events}</span><span class="lbl">Total Events</span></div>
-        <div class="metric-box"><span class="val" style="font-size:1rem">${c.lastEvent}</span><span class="lbl">Last Event</span></div>
-        <div class="metric-box"><span class="val">${c.dietary.length}</span><span class="lbl">Dietary Flags</span></div>
-        <div class="metric-box"><span class="val">${c.venueQuirks.length}</span><span class="lbl">Venue Notes</span></div>
+        <div class="metric-box"><span class="val">${c.events}</span><span class="lbl">Eventos totales</span></div>
+        <div class="metric-box"><span class="val" style="font-size:1rem">${c.lastEvent}</span><span class="lbl">Último evento</span></div>
+        <div class="metric-box"><span class="val">${c.dietary.length}</span><span class="lbl">Alertas alimentarias</span></div>
+        <div class="metric-box"><span class="val">${c.venueQuirks.length}</span><span class="lbl">Notas del lugar</span></div>
       </div>
     </div>
 
@@ -1180,7 +1179,7 @@ function renderRecord(id) {
       <!-- Dietary & Restrictions -->
       <div class="card">
         <div class="info-block">
-          <h4>&#9888; Dietary &amp; Restrictions</h4>
+          <h4>&#9888; Alimentación y restricciones</h4>
           ${c.dietary.map(d => `
             <div class="alert-item">
               <span class="alert-icon">&#9888;</span>
@@ -1196,10 +1195,10 @@ function renderRecord(id) {
       <!-- Billing -->
       <div class="card">
         <div class="info-block">
-          <h4>&#128196; Billing Preferences</h4>
-          <div class="info-item"><span class="il">Terms</span><span class="iv">${c.billing}</span></div>
-          <div class="info-item"><span class="il">HUB Category</span><span class="iv">${c.hubCategory}</span></div>
-          <div class="info-item"><span class="il">Certification</span><span class="iv">Eligible for WBEA + HUB reporting</span></div>
+          <h4>&#128196; Preferencias de cobro</h4>
+          <div class="info-item"><span class="il">Condiciones</span><span class="iv">${c.billing}</span></div>
+          <div class="info-item"><span class="il">Categoría HUB</span><span class="iv">${c.hubCategory}</span></div>
+          <div class="info-item"><span class="il">Certificación</span><span class="iv">Elegible para reporte WBEA + HUB</span></div>
         </div>
       </div>
     </div>
@@ -1207,7 +1206,7 @@ function renderRecord(id) {
     <!-- Venue quirks -->
     <div class="card">
       <div class="info-block">
-        <h4>&#128205; Venue &amp; Logistics Notes</h4>
+        <h4>&#128205; Notas de lugar y logística</h4>
         <div class="tag-row" style="margin-top:6px">
           ${c.venueQuirks.map(q => `<span class="quirk-pill">${q}</span>`).join("")}
         </div>
@@ -1217,7 +1216,7 @@ function renderRecord(id) {
     <!-- Event history -->
     <div class="card">
       <div class="info-block">
-        <h4>&#128197; Event History</h4>
+        <h4>&#128197; Historial de eventos</h4>
         <ul class="event-timeline">
           ${c.history.map(ev => `
             <li>
@@ -1238,7 +1237,7 @@ function renderRecord(id) {
     <div style="text-align:right;margin-top:8px">
       <button onclick="jumpToProposal('${id}')"
         style="background:var(--gold);color:var(--dark);font-weight:800;padding:10px 20px;border-radius:8px;font-size:0.82rem;letter-spacing:.04em;text-transform:uppercase;border:none;cursor:pointer;">
-        Start New Proposal from This Record &rarr;
+        Empezar una propuesta nueva desde esta ficha &rarr;
       </button>
     </div>
   `;
@@ -1265,7 +1264,7 @@ function jumpToProposal(id) {
 function renderProposal(id) {
   const body = document.getElementById("proposal-body");
   if (!id) {
-    body.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:40px;">Select an existing client above to see the proposal pre-filled from their event history.</div>`;
+    body.innerHTML = `<div class="card" style="text-align:center;color:var(--muted);padding:40px;">Elija un cliente existente arriba para ver la propuesta precargada con su historial de eventos.</div>`;
     return;
   }
   const c = CLIENTS.find(x => x.id === id);
@@ -1293,11 +1292,11 @@ function renderProposal(id) {
       <!-- Client info -->
       <div class="card">
         <div class="info-block" style="margin-bottom:4px">
-          <h4>Client Information</h4>
+          <h4>Datos del cliente</h4>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Client Name</label>
+            <label>Nombre del cliente</label>
             <input type="text" value="${c.name}" class="${isPrefilled ? 'prefilled' : ''}">
           </div>
           <div class="form-group">
@@ -1326,10 +1325,10 @@ function renderProposal(id) {
 
       <!-- Event details -->
       <div class="card">
-        <div class="info-block" style="margin-bottom:8px"><h4>Event Details</h4></div>
+        <div class="info-block" style="margin-bottom:8px"><h4>Detalles del evento</h4></div>
         <div class="form-row">
           <div class="form-group">
-            <label>Event Date</label>
+            <label>Fecha del evento</label>
             <input type="date">
           </div>
           <div class="form-group">
@@ -1347,28 +1346,28 @@ function renderProposal(id) {
               ${isPrefilled && last ? '<span class="prefilled-tag">&#9889; from last event</span>' : ''}
             </label>
             <select class="${isPrefilled && last ? 'prefilled' : ''}">
-              <option ${isPrefilled && last && last.style.includes("Plated") ? "selected" : ""}>Plated Meals</option>
-              <option ${isPrefilled && last && last.style.includes("Buffet") ? "selected" : ""}>Buffet</option>
-              <option ${isPrefilled && last && last.style.includes("Family") ? "selected" : ""}>Family Style</option>
-              <option ${isPrefilled && last && last.style.includes("Action") ? "selected" : ""}>Action Stations</option>
-              <option ${isPrefilled && last && last.style.includes("Cocktail") ? "selected" : ""}>Cocktail Party</option>
-              <option ${isPrefilled && last && last.style.includes("Grazing") ? "selected" : ""}>Grazing Stations</option>
-              <option ${isPrefilled && last && last.style.includes("Breakfast") ? "selected" : ""}>Breakfast & Brunch</option>
-              <option ${isPrefilled && last && last.style.includes("High Tea") ? "selected" : ""}>High Tea Service</option>
-              <option>Drop-Off Service</option>
+              <option ${isPrefilled && last && last.style.includes("Plated") ? "selected" : ""}>Platos servidos</option>
+              <option ${isPrefilled && last && last.style.includes("Buffet") ? "selected" : ""}>Bufé</option>
+              <option ${isPrefilled && last && last.style.includes("Family") ? "selected" : ""}>Al centro de la mesa</option>
+              <option ${isPrefilled && last && last.style.includes("Action") ? "selected" : ""}>Estaciones en vivo</option>
+              <option ${isPrefilled && last && last.style.includes("Cocktail") ? "selected" : ""}>Coctel</option>
+              <option ${isPrefilled && last && last.style.includes("Grazing") ? "selected" : ""}>Estaciones de picoteo</option>
+              <option ${isPrefilled && last && last.style.includes("Breakfast") ? "selected" : ""}>Desayuno y brunch</option>
+              <option ${isPrefilled && last && last.style.includes("High Tea") ? "selected" : ""}>Servicio de té</option>
+              <option>Servicio de entrega</option>
             </select>
           </div>
           <div class="form-group">
-            <label>Full-Service Package</label>
+            <label>Paquete de servicio completo</label>
             <select>
-              <option value="full" ${c.repeat ? "selected" : ""}>Full Service (Food + Beverages + Staffing + Rentals)</option>
-              <option value="partial">Partial — Food &amp; Staffing only</option>
-              <option value="dropoff">Drop-Off</option>
+              <option value="full" ${c.repeat ? "selected" : ""}>Servicio completo (comida + bebidas + personal + alquiler)</option>
+              <option value="partial">Parcial — solo comida y personal</option>
+              <option value="dropoff">Entrega</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label>Venue / Location</label>
+          <label>Lugar / ubicación</label>
           <input type="text" value="${isPrefilled && c.venueQuirks.length ? c.venueQuirks[0].replace(/^Preferred: /,"").replace(/^Event at /,"").replace(/ — .*/,"") : ''}" placeholder="Venue name or address" class="${isPrefilled ? 'prefilled' : ''}">
         </div>
       </div>
@@ -1386,12 +1385,12 @@ function renderProposal(id) {
             ${c.dietary.map(d => `<span class="allergen-pill">&#9888; ${d.label}</span>`).join("")}
           </div>
           <p style="font-size:.74rem;color:var(--muted);margin-top:10px;">
-            Pulled from client record. Confirm with client before finalizing.
+            Tomado de la ficha del cliente. Confírmelo antes de cerrar la propuesta.
           </p>
         ` : `
           <div class="form-group">
-            <label>Notes</label>
-            <textarea rows="3" placeholder="List any dietary restrictions, allergies, or special requirements"></textarea>
+            <label>Notas</label>
+            <textarea rows="3" placeholder="Anote restricciones alimentarias, alergias o requerimientos especiales"></textarea>
           </div>
         `}
       </div>
@@ -1408,31 +1407,31 @@ function renderProposal(id) {
           ${suggestedMenu.map((item, i) => `
             <div class="menu-item gold" id="mitem-${i}" onclick="toggleMenuItem(this)">
               <span class="menu-item-name">&#10003; ${item}</span>
-              <span class="menu-item-cat badge badge-gold">Suggested</span>
+              <span class="menu-item-cat badge badge-gold">Sugerido</span>
             </div>
           `).join("")}
-          ${["Upscale BBQ & Pig Roast","High Tea Service","Breakfast & Brunch Service","Mediterranean Buffet"].filter(x => !suggestedMenu.includes(x)).slice(0,2).map(item => `
+          ${["Barbacoa de alta gama y cerdo al asador","Servicio de té","Servicio de desayuno y brunch","Bufé mediterráneo"].filter(x => !suggestedMenu.includes(x)).slice(0,2).map(item => `
             <div class="menu-item" onclick="toggleMenuItem(this)">
               <span class="menu-item-name">+ ${item}</span>
-              <span class="menu-item-cat badge badge-gray">Add to menu</span>
+              <span class="menu-item-cat badge badge-gray">Agregar al menú</span>
             </div>
           `).join("")}
         </div>
-        <button class="menu-add-btn" onclick="return false">+ Add another item from catalog</button>
+        <button class="menu-add-btn" onclick="return false">+ Agregar otro platillo del catálogo</button>
       </div>
 
       <!-- Add-ons -->
       ${suggestedAddons.length ? `
       <div class="card">
         <div class="info-block" style="margin-bottom:8px">
-          <h4>Every Last Detail — Add-Ons
-            <span class="prefilled-tag">&#9889; used in previous events</span>
+          <h4>Cada detalle — adicionales
+            <span class="prefilled-tag">&#9889; usados en eventos anteriores</span>
           </h4>
         </div>
         <div class="tag-row">
           ${suggestedAddons.map(a => `<span class="badge badge-gold" style="font-size:.75rem;padding:4px 10px">${a}</span>`).join("")}
-          <span class="badge badge-gray" style="font-size:.75rem;padding:4px 10px;cursor:pointer">+ Branded Goody Bags</span>
-          <span class="badge badge-gray" style="font-size:.75rem;padding:4px 10px;cursor:pointer">+ Valet Service</span>
+          <span class="badge badge-gray" style="font-size:.75rem;padding:4px 10px;cursor:pointer">+ Bolsas de regalo con la marca</span>
+          <span class="badge badge-gray" style="font-size:.75rem;padding:4px 10px;cursor:pointer">+ Servicio de valet</span>
         </div>
       </div>
       ` : ""}
@@ -1441,8 +1440,8 @@ function renderProposal(id) {
       ${isPrefilled && c.venueQuirks.length ? `
       <div class="card">
         <div class="info-block" style="margin-bottom:8px">
-          <h4>Venue &amp; Logistics Notes
-            <span class="prefilled-tag">&#9889; from client record</span>
+          <h4>Notas de lugar y logística
+            <span class="prefilled-tag">&#9889; de la ficha del cliente</span>
           </h4>
         </div>
         <div class="tag-row">
@@ -1453,7 +1452,7 @@ function renderProposal(id) {
 
       <!-- Submit -->
       <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap">
-        <button class="submit-btn" onclick="flashSubmit(event)">Send to Team &rarr;</button>
+        <button class="submit-btn" onclick="flashSubmit(event)">Enviar al equipo &rarr;</button>
       </div>
     </form>
   `;
@@ -1466,12 +1465,12 @@ function toggleMenuItem(el) {
     el.classList.remove("gold");
     el.querySelector(".menu-item-name").textContent = "+ " + el.querySelector(".menu-item-name").textContent.replace(/^✓ /,"");
     badge.className = "menu-item-cat badge badge-gray";
-    badge.textContent = "Add to menu";
+    badge.textContent = "Agregar al menú";
   } else {
     el.classList.add("gold");
     el.querySelector(".menu-item-name").textContent = "✓ " + el.querySelector(".menu-item-name").textContent.replace(/^\+ /,"");
     badge.className = "menu-item-cat badge badge-gold";
-    badge.textContent = "Suggested";
+    badge.textContent = "Sugerido";
     el.classList.add("flash");
     setTimeout(() => el.classList.remove("flash"), 700);
   }
@@ -1480,10 +1479,10 @@ function toggleMenuItem(el) {
 function flashSubmit(e) {
   e.preventDefault();
   const btn = e.target;
-  btn.textContent = "Proposal saved ✓";
+  btn.textContent = "Propuesta guardada ✓";
   btn.style.background = "var(--green)";
   setTimeout(() => {
-    btn.textContent = "Send to Team →";
+    btn.textContent = "Enviar al equipo →";
     btn.style.background = "";
   }, 2000);
 }
@@ -1492,14 +1491,14 @@ function flashSubmit(e) {
 // CERTIFICATION REPORT
 // ──────────────────────────────────────────────────────────
 const REPORT_DATA = [
-  { client: "Energy Sector Client", category: "Large Enterprise", events: 3, service: "Full-Service Catering", guests: "24–28", staff: 6, certified: "WBEA + HUB" },
-  { client: "Law Firm — Downtown Houston", category: "Professional Services", events: 2, service: "Full-Service Catering", guests: "60–85", staff: 8, certified: "WBEA + HUB" },
-  { client: "Non-Profit Gala Committee", category: "Non-Profit", events: 2, service: "Full-Service Catering", guests: "190–200", staff: 14, certified: "WBEA + HUB" },
-  { client: "Luxury Retail Brand", category: "Retail / Consumer", events: 2, service: "Brand Activation", guests: "800–1500", staff: 35, certified: "WBEA + HUB" },
-  { client: "Professional Sports League", category: "Sports & Entertainment", events: 1, service: "Full-Service VIP", guests: "45", staff: 5, certified: "WBEA + HUB" },
-  { client: "Tech Startup", category: "Technology", events: 1, service: "Drop-Off + Breakfast", guests: "55", staff: 2, certified: "WBEA" },
-  { client: "Real Estate Developer", category: "Real Estate", events: 1, service: "Full-Service Reception", guests: "120", staff: 7, certified: "WBEA + HUB" },
-  { client: "Wedding Reception — Social Client", category: "Social", events: 1, service: "Wedding — Full Package", guests: "220", staff: 18, certified: "WBEA" }
+  { client: "Cliente del sector energía", category: "Gran empresa", events: 3, service: "Catering de servicio completo", guests: "24–28", staff: 6, certified: "WBEA + HUB" },
+  { client: "Bufete de abogados — centro de Houston", category: "Servicios profesionales", events: 2, service: "Catering de servicio completo", guests: "60–85", staff: 8, certified: "WBEA + HUB" },
+  { client: "Comité de gala de fundación", category: "Fundación sin fines de lucro", events: 2, service: "Catering de servicio completo", guests: "190–200", staff: 14, certified: "WBEA + HUB" },
+  { client: "Marca de retail de lujo", category: "Retail / consumo", events: 2, service: "Activación de marca", guests: "800–1500", staff: 35, certified: "WBEA + HUB" },
+  { client: "Liga deportiva profesional", category: "Deportes y entretenimiento", events: 1, service: "VIP de servicio completo", guests: "45", staff: 5, certified: "WBEA + HUB" },
+  { client: "Startup de tecnología", category: "Tecnología", events: 1, service: "Entrega + desayuno", guests: "55", staff: 2, certified: "WBEA" },
+  { client: "Desarrollador inmobiliario", category: "Bienes raíces", events: 1, service: "Recepción de servicio completo", guests: "120", staff: 7, certified: "WBEA + HUB" },
+  { client: "Recepción de boda — cliente social", category: "Social", events: 1, service: "Boda — paquete completo", guests: "220", staff: 18, certified: "WBEA" }
 ];
 
 function generateReport() {
@@ -1540,19 +1539,19 @@ function generateReport() {
           </div>
         </div>
         <div class="metrics-row" style="margin-bottom:14px">
-          <div class="metric-box"><span class="val">${totalEvents}</span><span class="lbl">Events</span></div>
-          <div class="metric-box"><span class="val">${REPORT_DATA.length}</span><span class="lbl">Clients</span></div>
-          <div class="metric-box"><span class="val">${hubClients}</span><span class="lbl">HUB Eligible</span></div>
-          <div class="metric-box"><span class="val">${totalStaff}</span><span class="lbl">Staff Hours reported</span></div>
+          <div class="metric-box"><span class="val">${totalEvents}</span><span class="lbl">Eventos</span></div>
+          <div class="metric-box"><span class="val">${REPORT_DATA.length}</span><span class="lbl">Clientes</span></div>
+          <div class="metric-box"><span class="val">${hubClients}</span><span class="lbl">Elegibles para HUB</span></div>
+          <div class="metric-box"><span class="val">${totalStaff}</span><span class="lbl">Horas de personal reportadas</span></div>
         </div>
         <table class="report-table">
           <thead>
             <tr>
-              <th>Client Category</th>
-              <th>Service Type</th>
-              <th>Events</th>
-              <th>Guests</th>
-              <th>Staff</th>
+              <th>Categoría del cliente</th>
+              <th>Tipo de servicio</th>
+              <th>Eventos</th>
+              <th>Invitados</th>
+              <th>Personal</th>
               <th>Cert.</th>
             </tr>
           </thead>
@@ -1574,8 +1573,7 @@ function generateReport() {
       </div>
 
       <div class="report-footer">
-        <strong>&#9889; Zero re-entry.</strong> Every field in this report was already captured when the events were planned.
-        The certification report is a byproduct of the work, not a separate task.<br><br>
+        <strong>&#9889; Cero recaptura.</strong> Cada campo de este reporte ya se había capturado cuando se planificaron los eventos. El reporte de certificación es un subproducto del trabajo, no una tarea aparte.<br><br>
         In many workflows like yours, this report ends up assembled near the deadline &mdash;
         with this system, it's ready the moment you need it,
         with no extra data entry from your planners.

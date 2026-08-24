@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bayou Stone & Remodel — Operations Demo | Pocho.tech</title>
+  <title>Bayou Stone &amp; Remodel — Demo de Operaciones | Pocho.tech</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -594,27 +594,27 @@
 <body>
 
 <!-- DEMO BADGE -->
-<div class="demo-badge">DEMO &middot; SAMPLE DATA</div>
+<div class="demo-badge">DEMO &middot; DATOS DE MUESTRA</div>
 
 <!-- HEADER -->
 <header class="site-header">
   <div style="max-width:1100px;margin:0 auto;">
     <div class="biz-name">Bayou Stone & Remodel</div>
-    <div class="tagline">What your own system would look like &mdash; prepared by Pocho.tech</div>
+    <div class="tagline">Así se vería su sistema propio &mdash; preparado por Pocho.tech</div>
     <div class="header-meta">
-      <span class="location-chip">&#9679; Houston Showroom</span>
-      <span class="location-chip">&#9679; Katy Showroom</span>
-      <span class="location-chip">Est. 1979 &middot; ~60 People</span>
+      <span class="location-chip">&#9679; Showroom Houston</span>
+      <span class="location-chip">&#9679; Showroom Katy</span>
+      <span class="location-chip">Desde 1979 &middot; ~60 personas</span>
     </div>
   </div>
 </header>
 
 <!-- TAB BAR -->
 <nav class="tab-bar" role="tablist">
-  <button class="tab-btn active" data-view="dashboard" role="tab">Daily Board</button>
-  <button class="tab-btn" data-view="detail" role="tab">Job Detail</button>
-  <button class="tab-btn" data-view="pain" role="tab">What Changes</button>
-  <button class="tab-btn" data-view="search" role="tab">Search &amp; Reports</button>
+  <button class="tab-btn active" data-view="dashboard" role="tab">Tablero del día</button>
+  <button class="tab-btn" data-view="detail" role="tab">Detalle del trabajo</button>
+  <button class="tab-btn" data-view="pain" role="tab">Qué cambia</button>
+  <button class="tab-btn" data-view="search" role="tab">Búsqueda y reportes</button>
 </nav>
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -627,28 +627,28 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;border-radius:4px;overflow:hidden;">
       <div class="stat-pill" style="border-right:1px solid var(--border);">
         <div class="stat-number" id="kpi-active">12</div>
-        <div class="stat-label">Active Jobs</div>
-        <div class="stat-sub">Both Locations</div>
+        <div class="stat-label">Trabajos activos</div>
+        <div class="stat-sub">Ambas sucursales</div>
       </div>
       <div class="stat-pill" style="border-right:1px solid var(--border);">
         <div class="stat-number" style="color:var(--gold);">$618K</div>
-        <div class="stat-label">Open Pipeline</div>
-        <div class="stat-sub">Quotes + Active</div>
+        <div class="stat-label">Pipeline abierto</div>
+        <div class="stat-sub">Cotizaciones + activos</div>
       </div>
       <div class="stat-pill" style="border-right:1px solid var(--border);">
         <div class="stat-number" style="color:var(--red-alert);" id="kpi-alerts">3</div>
-        <div class="stat-label">Need Attention</div>
-        <div class="stat-sub">Overdue / Stale</div>
+        <div class="stat-label">Requieren atención</div>
+        <div class="stat-sub">Vencidos / fríos</div>
       </div>
       <div class="stat-pill" style="border-right:1px solid var(--border);">
         <div class="stat-number" style="color:var(--green-ok);">4</div>
-        <div class="stat-label">Installing This Week</div>
+        <div class="stat-label">Se instalan esta semana</div>
         <div class="stat-sub">Houston + Katy</div>
       </div>
       <div class="stat-pill">
         <div class="stat-number">7</div>
-        <div class="stat-label">Open Quotes</div>
-        <div class="stat-sub">Awaiting Follow-up</div>
+        <div class="stat-label">Cotizaciones abiertas</div>
+        <div class="stat-sub">Esperando seguimiento</div>
       </div>
     </div>
   </div>
@@ -657,30 +657,30 @@
   <div class="alert-box danger" id="alert-lead">
     <span class="alert-icon">&#9888;</span>
     <div>
-      <strong>Lead follow-up overdue &mdash; 2 inquiries:</strong> R. Montoya (kitchen remodel, Katy) filled the form Friday 5:48 PM &mdash; no response yet. P. Okafor (bath + closet, Houston) waiting 51 hours. Projects estimated $38K&ndash;$72K.
-      <span class="inline-badge">REVENUE AT RISK</span>
+      <strong>Seguimiento vencido &mdash; 2 consultas:</strong> R. Montoya (remodelación de cocina, Katy) llenó el formulario el viernes 5:48 PM &mdash; sin respuesta todavía. P. Okafor (baño + clóset, Houston) lleva 51 horas esperando. Proyectos estimados entre $38K y $72K.
+      <span class="inline-badge">INGRESO EN RIESGO</span>
     </div>
   </div>
   <div class="alert-box warn">
     <span class="alert-icon">&#9888;</span>
-    <div><strong>Material conflict &mdash; Houston &amp; Katy:</strong> Absolute Black granite (3 slabs) assigned to both Job #1047 (Houston) and Job #1051 (Katy) for the same install week. Confirm allocation before fabrication begins.</div>
+    <div><strong>Conflicto de material &mdash; Houston y Katy:</strong> El granito Absolute Black (3 losas) está asignado al trabajo #1047 (Houston) y al #1051 (Katy) para la misma semana de instalación. Confirme la asignación antes de que empiece la fabricación.</div>
   </div>
 
   <!-- Jobs Table -->
   <div class="card" style="padding:0;overflow:hidden;">
     <div style="padding:14px 20px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-      <span class="card-title" style="margin:0;padding:0;border:none;">Active Jobs &mdash; All Locations</span>
+      <span class="card-title" style="margin:0;padding:0;border:none;">Trabajos activos &mdash; todas las sucursales</span>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <select class="filter-select" style="font-size:12px;padding:5px 10px;" onchange="filterJobs(this.value)">
-          <option value="all">All Stages</option>
-          <option value="quote">Quote</option>
-          <option value="template">Template</option>
-          <option value="fab">Fabrication</option>
-          <option value="install">Install</option>
-          <option value="done">Complete</option>
+          <option value="all">Todas las etapas</option>
+          <option value="quote">Cotización</option>
+          <option value="template">Medición</option>
+          <option value="fab">Fabricación</option>
+          <option value="install">Instalación</option>
+          <option value="done">Completo</option>
         </select>
         <select class="filter-select" style="font-size:12px;padding:5px 10px;" onchange="filterLocation(this.value)">
-          <option value="all">Both Locations</option>
+          <option value="all">Ambas sucursales</option>
           <option value="houston">Houston</option>
           <option value="katy">Katy</option>
         </select>
@@ -688,11 +688,11 @@
     </div>
 
     <div class="job-row header-row">
-      <div>Job / Client</div>
-      <div>Type</div>
-      <div>Stage</div>
-      <div>Location</div>
-      <div>Value</div>
+      <div>Trabajo / cliente</div>
+      <div>Tipo</div>
+      <div>Etapa</div>
+      <div>Sucursal</div>
+      <div>Valor</div>
     </div>
 
     <div id="jobs-tbody">
@@ -702,20 +702,19 @@
 
   <!-- Quick action hint -->
   <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-light);text-align:center;margin-top:8px;">
-    &#9432; Click any job row to open the detail view. Try advancing a job stage with the button below.
+    &#9432; Haga clic en cualquier fila para abrir el detalle. Pruebe avanzar la etapa de un trabajo con el botón de abajo.
   </div>
 
   <!-- Simulated interaction -->
   <div class="card" style="border-color:var(--gold);background:var(--gold-pale);">
     <div style="font-family:'Arial',sans-serif;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">
-      &#9654; Simulated Action &mdash; Advance Job #1044 to Installation
+      &#9654; Acción simulada &mdash; avanzar el trabajo #1044 a instalación
     </div>
     <div style="font-family:'Arial',sans-serif;font-size:13px;color:var(--text-main);margin-bottom:12px;">
-      Job #1044 (R. Sullivan &mdash; Kitchen Remodel, Absolute Black, 65 sq ft) has completed fabrication.
-      Mark it ready for installation and the board updates immediately &mdash; both showrooms see the change.
+      El trabajo #1044 (R. Sullivan &mdash; remodelación de cocina, Absolute Black, 65 pies²) ya terminó fabricación. Márquelo listo para instalar y el tablero se actualiza al instante &mdash; los dos showrooms ven el cambio.
     </div>
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-      <button class="btn-action gold" id="advance-btn" onclick="advanceJob()">Mark Fabrication Complete &rarr; Advance to Install</button>
+      <button class="btn-action gold" id="advance-btn" onclick="advanceJob()">Marcar fabricación completa &rarr; avanzar a instalación</button>
       <span id="advance-status" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);"></span>
     </div>
   </div>
@@ -730,52 +729,52 @@
   <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
     <div>
       <div style="font-size:1.1rem;font-weight:700;color:var(--navy);" id="detail-title">
-        Job #1044 &mdash; R. Sullivan Kitchen Remodel
+        Trabajo #1044 &mdash; remodelación de cocina de R. Sullivan
       </div>
       <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);margin-top:2px;">
-        Houston Showroom &middot; Opened Jul 2, 2026
+        Showroom Houston &middot; abierto el 2 jul 2026
       </div>
     </div>
-    <span class="status status-install" id="detail-status-chip">Installation</span>
+    <span class="status status-install" id="detail-status-chip">Instalación</span>
   </div>
 
   <div class="panel-grid">
 
     <!-- Left: Job specs -->
     <div class="card">
-      <div class="card-title">Project Specifications</div>
+      <div class="card-title">Especificaciones del proyecto</div>
       <div class="detail-grid">
         <div class="detail-section">
-          <div class="detail-label">Type</div>
-          <div class="detail-value">Kitchen Remodel</div>
+          <div class="detail-label">Tipo</div>
+          <div class="detail-value">Remodelación de cocina</div>
         </div>
         <div class="detail-section">
           <div class="detail-label">Material</div>
-          <div class="detail-value">Absolute Black Granite</div>
+          <div class="detail-value">Granito Absolute Black</div>
         </div>
         <div class="detail-section">
-          <div class="detail-label">Edge Profile</div>
+          <div class="detail-label">Perfil de canto</div>
           <div class="detail-value">Bullnose</div>
         </div>
         <div class="detail-section">
-          <div class="detail-label">Square Footage</div>
-          <div class="detail-value">65 sq ft</div>
+          <div class="detail-label">Superficie</div>
+          <div class="detail-value">65 pies²</div>
         </div>
         <div class="detail-section">
-          <div class="detail-label">Sink Cutout</div>
-          <div class="detail-value">Undermount, 1 basin</div>
+          <div class="detail-label">Corte de fregadero</div>
+          <div class="detail-value">Bajo cubierta, 1 tina</div>
         </div>
         <div class="detail-section">
-          <div class="detail-label">Designer</div>
+          <div class="detail-label">Diseñadora</div>
           <div class="detail-value">M. Torres</div>
         </div>
         <div class="detail-section">
-          <div class="detail-label">Installer Assigned</div>
+          <div class="detail-label">Instalador asignado</div>
           <div class="detail-value">J. Reyes (Houston)</div>
         </div>
         <div class="detail-section">
-          <div class="detail-label">Location</div>
-          <div class="detail-value">Houston Showroom</div>
+          <div class="detail-label">Sucursal</div>
+          <div class="detail-value">Showroom Houston</div>
         </div>
       </div>
     </div>
@@ -783,39 +782,39 @@
     <!-- Right: Financials + Status -->
     <div>
       <div class="card" style="margin-bottom:14px;">
-        <div class="card-title">Quote &amp; Payments</div>
+        <div class="card-title">Cotización y pagos</div>
         <div class="detail-grid">
           <div class="detail-section">
-            <div class="detail-label">Project Value</div>
+            <div class="detail-label">Valor del proyecto</div>
             <div class="detail-value" style="font-size:1.3rem;font-weight:700;color:var(--navy);">$47,500</div>
           </div>
           <div class="detail-section">
-            <div class="detail-label">Deposit Received</div>
+            <div class="detail-label">Anticipo recibido</div>
             <div class="detail-value" style="color:var(--green-ok);font-weight:700;">$23,750 (50%)</div>
           </div>
           <div class="detail-section">
-            <div class="detail-label">Balance Due</div>
-            <div class="detail-value" style="color:var(--amber);font-weight:700;">$23,750 &mdash; on install</div>
+            <div class="detail-label">Saldo pendiente</div>
+            <div class="detail-value" style="color:var(--amber);font-weight:700;">$23,750 &mdash; contra instalación</div>
           </div>
           <div class="detail-section">
-            <div class="detail-label">Install Date</div>
-            <div class="detail-value" id="install-date">Aug 5, 2026</div>
+            <div class="detail-label">Fecha de instalación</div>
+            <div class="detail-value" id="install-date">5 ago 2026</div>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">Stage Progress</div>
+        <div class="card-title">Avance de etapa</div>
         <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);margin-bottom:10px;">
-          Stage 4 of 5
+          Etapa 4 de 5
         </div>
         <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
           <div style="flex:1;min-width:40px;">
-            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--green-ok);font-weight:700;">QUOTE</div>
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--green-ok);font-weight:700;">COTIZA</div>
             <div class="progress-wrap"><div class="progress-fill" style="width:100%;background:var(--green-ok);"></div></div>
           </div>
           <div style="flex:1;min-width:40px;">
-            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--green-ok);font-weight:700;">TEMPLATE</div>
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--green-ok);font-weight:700;">MEDICIÓN</div>
             <div class="progress-wrap"><div class="progress-fill" style="width:100%;background:var(--green-ok);"></div></div>
           </div>
           <div style="flex:1;min-width:40px;">
@@ -823,16 +822,16 @@
             <div class="progress-wrap"><div class="progress-fill" id="fab-bar" style="width:100%;background:var(--green-ok);"></div></div>
           </div>
           <div style="flex:1;min-width:40px;">
-            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--gold);font-weight:700;" id="install-label">INSTALL</div>
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--gold);font-weight:700;" id="install-label">INSTALA</div>
             <div class="progress-wrap"><div class="progress-fill" id="install-bar" style="width:40%;background:var(--gold);"></div></div>
           </div>
           <div style="flex:1;min-width:40px;">
-            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--text-light);">DONE</div>
+            <div style="font-family:'Arial',sans-serif;font-size:9px;text-align:center;margin-bottom:3px;color:var(--text-light);">LISTO</div>
             <div class="progress-wrap"><div class="progress-fill" id="done-bar" style="width:0%;background:var(--green-ok);"></div></div>
           </div>
         </div>
         <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);font-style:italic;" id="stage-note">
-          Installation scheduled Aug 5. J. Reyes confirmed. Drop cloths + protection ordered.
+          Instalación programada para el 5 de agosto. J. Reyes confirmó. Lonas y protección ya pedidas.
         </div>
       </div>
     </div>
@@ -840,56 +839,56 @@
 
   <!-- Client Portal Preview -->
   <div class="card" style="border-color:var(--blue-info);background:var(--blue-bg);">
-    <div class="card-title" style="color:var(--blue-info);">Client Portal Preview &mdash; What the Homeowner Sees</div>
+    <div class="card-title" style="color:var(--blue-info);">Vista del portal del cliente &mdash; lo que ve el dueño de casa</div>
     <div style="background:var(--white);border:1px solid var(--border);border-radius:6px;padding:16px 20px;font-family:'Arial',sans-serif;font-size:13px;">
-      <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">Your Kitchen Remodel &mdash; Status Update</div>
-      <div style="color:var(--text-mid);font-size:12px;margin-bottom:12px;">Last updated: today at 9:14 AM by M. Torres</div>
+      <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">Su remodelación de cocina &mdash; estado actual</div>
+      <div style="color:var(--text-mid);font-size:12px;margin-bottom:12px;">Última actualización: hoy a las 9:14 AM por M. Torres</div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
-        <span class="status status-install">Installation Scheduled</span>
-        <span style="color:var(--text-mid);">Install date: <strong>Aug 5, 2026</strong></span>
+        <span class="status status-install">Instalación programada</span>
+        <span style="color:var(--text-mid);">Fecha de instalación: <strong>5 ago 2026</strong></span>
       </div>
       <div style="color:var(--text-main);line-height:1.6;">
-        Your countertop has been fabricated and quality-checked. Your installation is confirmed for <strong>Aug 5</strong>. Our team will arrive between 8&ndash;9 AM. Please ensure cabinet access is clear. Questions? Reply to this message.
+        Su countertop ya fue fabricado y pasó control de calidad. Su instalación está confirmada para el <strong>5 de agosto</strong>. Nuestro equipo llega entre 8 y 9 AM. Por favor deje libre el acceso a los gabinetes. ¿Dudas? Responda este mensaje.
       </div>
       <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);color:var(--text-light);font-size:11px;font-style:italic;">
-        &#9432; This portal eliminates "how is my kitchen coming along?" calls &mdash; the client checks here instead.
+        &#9432; Este portal elimina las llamadas de "¿cómo va mi cocina?" &mdash; el cliente lo consulta acá.
       </div>
     </div>
   </div>
 
   <!-- Job History -->
   <div class="card">
-    <div class="card-title">Activity History</div>
+    <div class="card-title">Historial de actividad</div>
     <ul class="timeline">
       <li class="done">
-        <strong>Jul 2 &mdash; Consultation &amp; Quote</strong>
-        <div class="tl-date">Designer: M. Torres &middot; Houston Showroom</div>
-        <div class="tl-note">Client selected Absolute Black granite, bullnose edge. 3D rendering shared. Quote $47,500 approved.</div>
+        <strong>2 jul &mdash; consulta y cotización</strong>
+        <div class="tl-date">Diseñadora: M. Torres &middot; showroom Houston</div>
+        <div class="tl-note">El cliente eligió granito Absolute Black, canto bullnose. Se compartió el render 3D. Cotización de $47,500 aprobada.</div>
       </li>
       <li class="done">
-        <strong>Jul 9 &mdash; Deposit Received</strong>
-        <div class="tl-date">$23,750 &middot; 50% deposit</div>
-        <div class="tl-note">Job scheduled. Material reserved: 3 slabs Absolute Black from Houston inventory.</div>
+        <strong>9 jul &mdash; anticipo recibido</strong>
+        <div class="tl-date">$23,750 &middot; anticipo del 50%</div>
+        <div class="tl-note">Trabajo programado. Material reservado: 3 losas de Absolute Black del inventario de Houston.</div>
       </li>
       <li class="done">
-        <strong>Jul 14 &mdash; Template Appointment</strong>
-        <div class="tl-date">Technician: D. Garza &middot; Field measurement</div>
-        <div class="tl-note">Precise measurements taken. Undermount sink cutout confirmed. Template signed off.</div>
+        <strong>14 jul &mdash; cita de medición</strong>
+        <div class="tl-date">Técnico: D. Garza &middot; medición en sitio</div>
+        <div class="tl-note">Medidas exactas tomadas. Corte de fregadero bajo cubierta confirmado. Plantilla firmada.</div>
       </li>
       <li class="done">
-        <strong>Jul 21&ndash;28 &mdash; Fabrication</strong>
-        <div class="tl-date">Shop &middot; Houston</div>
-        <div class="tl-note" id="fab-note">Slabs cut, edged, and polished. Quality check passed. Ready for install.</div>
+        <strong>21 al 28 jul &mdash; fabricación</strong>
+        <div class="tl-date">Taller &middot; Houston</div>
+        <div class="tl-note" id="fab-note">Losas cortadas, canteadas y pulidas. Control de calidad aprobado. Listo para instalar.</div>
       </li>
       <li class="active" id="tl-install">
-        <strong>Aug 5 &mdash; Installation (Scheduled)</strong>
-        <div class="tl-date">Installer: J. Reyes &middot; Houston team</div>
-        <div class="tl-note">Drop cloths, protection materials staged. Client confirmed availability.</div>
+        <strong>5 ago &mdash; instalación (programada)</strong>
+        <div class="tl-date">Instalador: J. Reyes &middot; equipo de Houston</div>
+        <div class="tl-note">Lonas y materiales de protección listos. Cliente confirmó disponibilidad.</div>
       </li>
       <li class="pending">
-        <strong>Post-Install &mdash; Final Payment &amp; Close</strong>
-        <div class="tl-date">Balance: $23,750 due on completion</div>
-        <div class="tl-note">Client satisfaction sign-off + photo documentation for portfolio.</div>
+        <strong>Post instalación &mdash; pago final y cierre</strong>
+        <div class="tl-date">Saldo: $23,750 contra entrega</div>
+        <div class="tl-note">Firma de conformidad del cliente y fotos para el portafolio.</div>
       </li>
     </ul>
   </div>
@@ -902,34 +901,34 @@
 <section class="view" id="view-pain">
 
   <div style="margin-bottom:16px;">
-    <div style="font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:4px;">Three problems. One system that closes them.</div>
+    <div style="font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:4px;">Tres problemas. Un sistema que los cierra.</div>
     <div style="font-family:'Arial',sans-serif;font-size:13px;color:var(--text-mid);">
-      47 years of doing great work &mdash; without a system tracking it. That's the gap. Here's what it looks like before and after.
+      Cuarenta y siete años haciendo buen trabajo &mdash; sin un sistema que lo registre. Ese es el hueco. Así se ve antes y después.
     </div>
   </div>
 
   <!-- Pain 1 -->
   <div style="margin-bottom:20px;">
     <div style="font-family:'Arial',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mid);margin-bottom:8px;">
-      Challenge 1 &mdash; Two showrooms, zero shared job board
+      Problema 1 &mdash; dos showrooms, ningún tablero compartido
     </div>
     <div class="pain-board-grid">
       <div class="pain-card">
-        <div class="pain-card-head before">Without a system</div>
+        <div class="pain-card-head before">Sin sistema</div>
         <div class="pain-card-body">
-          <div class="pain-item"><span class="pain-icon">&#128222;</span> Katy calls Houston to ask which installer is free next week &mdash; nobody has the answer in front of them.</div>
-          <div class="pain-item"><span class="pain-icon">&#128197;</span> Material allocation lives on a whiteboard in one location. The other showroom doesn't know what's reserved.</div>
-          <div class="pain-item"><span class="pain-icon">&#128202;</span> If Daniel is at the Houston shop, he can't see what Katy has in flight without calling.</div>
-          <div class="pain-item"><span class="pain-icon">&#9888;</span> Same slab gets assigned to two different jobs. One team shows up to fabricate and the material isn't there.</div>
+          <div class="pain-item"><span class="pain-icon">&#128222;</span> Katy llama a Houston para preguntar qué instalador está libre la próxima semana &mdash; nadie tiene la respuesta enfrente.</div>
+          <div class="pain-item"><span class="pain-icon">&#128197;</span> La asignación de material vive en una pizarra de una sola sucursal. El otro showroom no sabe qué está reservado.</div>
+          <div class="pain-item"><span class="pain-icon">&#128202;</span> Si Daniel está en el taller de Houston, no puede ver qué tiene Katy en curso sin llamar.</div>
+          <div class="pain-item"><span class="pain-icon">&#9888;</span> La misma losa se asigna a dos trabajos distintos. Un equipo llega a fabricar y el material no está.</div>
         </div>
       </div>
       <div class="pain-card">
-        <div class="pain-card-head after">With your system</div>
+        <div class="pain-card-head after">Con su sistema</div>
         <div class="pain-card-body">
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Every active job from both showrooms on one board &mdash; stage, material, installer, install date.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Material reserved on the job record &mdash; both teams see allocation before fabrication starts.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Installer schedule visible across locations &mdash; no double-booking, no phone tag.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Conflict alerts fire automatically when the same slab or the same installer is assigned twice.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Cada trabajo activo de los dos showrooms en un solo tablero &mdash; etapa, material, instalador, fecha de instalación.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> El material queda reservado en el expediente del trabajo &mdash; los dos equipos ven la asignación antes de que empiece la fabricación.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> La agenda de los instaladores se ve entre sucursales &mdash; sin dobles reservas ni perseguirse por teléfono.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Las alertas de conflicto saltan solas cuando la misma losa o el mismo instalador se asignan dos veces.</div>
         </div>
       </div>
     </div>
@@ -938,25 +937,25 @@
   <!-- Pain 2 -->
   <div style="margin-bottom:20px;">
     <div style="font-family:'Arial',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mid);margin-bottom:8px;">
-      Challenge 2 &mdash; $20K&ndash;$115K quotes with no follow-up trail
+      Problema 2 &mdash; cotizaciones de $20K a $115K sin rastro de seguimiento
     </div>
     <div class="pain-board-grid">
       <div class="pain-card">
-        <div class="pain-card-head before">Without a system</div>
+        <div class="pain-card-head before">Sin sistema</div>
         <div class="pain-card-body">
-          <div class="pain-item"><span class="pain-icon">&#128222;</span> Client fills the form Friday at 5 PM. Nobody follows up until Monday. They've already called two competitors.</div>
-          <div class="pain-item"><span class="pain-icon">&#128203;</span> Designer memory is the CRM. When the designer is out, the lead is invisible.</div>
-          <div class="pain-item"><span class="pain-icon">&#128197;</span> No record of when a quote was sent, whether it was opened, or whether the client has gone cold.</div>
-          <div class="pain-item"><span class="pain-icon">&#9888;</span> A $72,000 kitchen remodel falls through because the follow-up came two days too late.</div>
+          <div class="pain-item"><span class="pain-icon">&#128222;</span> El cliente llena el formulario el viernes a las 5 PM. Nadie da seguimiento hasta el lunes. Ya llamó a dos competidores.</div>
+          <div class="pain-item"><span class="pain-icon">&#128203;</span> La memoria de la diseñadora es el CRM. Cuando ella no está, el prospecto es invisible.</div>
+          <div class="pain-item"><span class="pain-icon">&#128197;</span> No queda registro de cuándo se envió una cotización, si la abrieron, o si el cliente ya se enfrió.</div>
+          <div class="pain-item"><span class="pain-icon">&#9888;</span> Una remodelación de cocina de $72,000 se cae porque el seguimiento llegó dos días tarde.</div>
         </div>
       </div>
       <div class="pain-card">
-        <div class="pain-card-head after">With your system</div>
+        <div class="pain-card-head after">Con su sistema</div>
         <div class="pain-card-body">
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Every inquiry captured with timestamp, project type, and estimated value &mdash; no lead falls through.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Automatic confirmation sent the same day the form is submitted &mdash; client knows you're on it.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Designer dashboard shows which leads are hot (under 24h), warm (24&ndash;72h), and stale (&gt;72h). Priority is clear.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Quote pipeline shows total open value &mdash; so you can see revenue that's one follow-up call away from closing.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Cada consulta queda capturada con fecha, tipo de proyecto y valor estimado &mdash; ningún prospecto se pierde.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Confirmación automática el mismo día en que se envía el formulario &mdash; el cliente sabe que le están poniendo atención.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> El tablero de la diseñadora muestra qué prospectos están calientes (menos de 24 h), tibios (24 a 72 h) y fríos (más de 72 h). La prioridad queda clara.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> El pipeline muestra el valor total abierto &mdash; así se ve el ingreso que está a una llamada de cerrarse.</div>
         </div>
       </div>
     </div>
@@ -965,25 +964,25 @@
   <!-- Pain 3 -->
   <div style="margin-bottom:20px;">
     <div style="font-family:'Arial',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-mid);margin-bottom:8px;">
-      Challenge 3 &mdash; "How's my kitchen coming along?" calls that don't need to happen
+      Problema 3 &mdash; llamadas de "¿cómo va mi cocina?" que no tendrían que ocurrir
     </div>
     <div class="pain-board-grid">
       <div class="pain-card">
-        <div class="pain-card-head before">Without a system</div>
+        <div class="pain-card-head before">Sin sistema</div>
         <div class="pain-card-body">
-          <div class="pain-item"><span class="pain-icon">&#128222;</span> Client calls. Staff pauses. Finds the paper or calls the shop. Calls back. Every remodel project, multiple times.</div>
-          <div class="pain-item"><span class="pain-icon">&#128274;</span> Homeowner and contractor have no visibility into fabrication timeline &mdash; they're guessing.</div>
-          <div class="pain-item"><span class="pain-icon">&#9203;</span> Your best people spend part of their day answering status calls instead of fabricating or installing.</div>
-          <div class="pain-item"><span class="pain-icon">&#9888;</span> When a delay happens (material, scheduling), client finds out by calling &mdash; not because you told them.</div>
+          <div class="pain-item"><span class="pain-icon">&#128222;</span> El cliente llama. Alguien se detiene. Busca el papel o llama al taller. Devuelve la llamada. En cada remodelación, varias veces.</div>
+          <div class="pain-item"><span class="pain-icon">&#128274;</span> El dueño de casa y el contratista no tienen visibilidad del calendario de fabricación &mdash; están adivinando.</div>
+          <div class="pain-item"><span class="pain-icon">&#9203;</span> Su mejor gente pasa parte del día contestando llamadas de estado en vez de fabricar o instalar.</div>
+          <div class="pain-item"><span class="pain-icon">&#9888;</span> Cuando hay un atraso (material, agenda), el cliente se entera porque llamó &mdash; no porque usted le avisó.</div>
         </div>
       </div>
       <div class="pain-card">
-        <div class="pain-card-head after">With your system</div>
+        <div class="pain-card-head after">Con su sistema</div>
         <div class="pain-card-body">
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Client portal shows current stage, install date, and the last note from the designer &mdash; no phone call needed.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> When a date changes, the client gets notified automatically. They're not surprised; they're informed.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Contractors get the same portal &mdash; they coordinate their own crews around your install schedule.</div>
-          <div class="pain-item"><span class="pain-icon">&#10003;</span> Your team fabricates. Your system handles the "where are we?" conversations.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> El portal del cliente muestra la etapa actual, la fecha de instalación y la última nota de la diseñadora &mdash; sin una sola llamada.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Cuando una fecha cambia, al cliente le llega el aviso solo. No se sorprende: se entera.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Los contratistas entran al mismo portal &mdash; coordinan sus propias cuadrillas alrededor de la instalación de ustedes.</div>
+          <div class="pain-item"><span class="pain-icon">&#10003;</span> Su equipo fabrica. Su sistema se encarga de las conversaciones de "¿en qué vamos?".</div>
         </div>
       </div>
     </div>
@@ -992,13 +991,12 @@
   <!-- Summary callout -->
   <div class="card" style="background:var(--navy-dark);border-color:var(--gold);color:#fff;">
     <div style="font-size:1rem;font-weight:700;margin-bottom:10px;color:var(--gold-light);">
-      The real cost of no system isn't the chaos &mdash; it's what doesn't get built.
+      El costo real de no tener sistema no es el desorden &mdash; es lo que deja de construirse.
     </div>
     <div style="font-family:'Arial',sans-serif;font-size:13px;color:rgba(255,255,255,0.82);line-height:1.7;">
-      Bayou Stone has been the system for 47 years. That's how the business grew to 60 people and two locations &mdash; because Daniel's judgment and memory filled every gap. The problem with that model isn't quality. It's scale.
-      Every dollar of growth from here depends on someone else being able to see what Daniel sees &mdash; which jobs are moving, which leads are hot, which materials are allocated, and which client needs a call before they call you.
+      Bayou Stone ha sido el sistema durante 47 años. Así creció el negocio hasta 60 personas y dos sucursales, porque el criterio y la memoria de Daniel taparon cada hueco. El problema de ese modelo no es la calidad. Es la escala. Cada dólar de crecimiento de acá en adelante depende de que alguien más pueda ver lo que ve Daniel: qué trabajos avanzan, qué prospectos están calientes, qué materiales están asignados y qué cliente necesita una llamada antes de que llame él.
       <br><br>
-      <strong style="color:#fff;">A system doesn't replace that judgment. It makes it visible to the rest of the team.</strong>
+      <strong style="color:#fff;">Un sistema no reemplaza ese criterio. Lo hace visible para el resto del equipo.</strong>
     </div>
   </div>
 
@@ -1010,19 +1008,19 @@
 <section class="view" id="view-search">
 
   <div class="card" style="margin-bottom:14px;">
-    <div class="card-title">Find Any Job, Lead, or Client</div>
+    <div class="card-title">Encuentre cualquier trabajo, prospecto o cliente</div>
     <div class="search-bar">
-      <input type="text" class="search-input" id="search-input" placeholder="Search by name, material, job type, installer..." oninput="runSearch()">
+      <input type="text" class="search-input" id="search-input" placeholder="Buscar por nombre, material, tipo de trabajo, instalador..." oninput="runSearch()">
       <select class="filter-select" id="search-stage" onchange="runSearch()">
-        <option value="">All Stages</option>
-        <option value="Quote">Quote</option>
-        <option value="Template">Template</option>
-        <option value="Fabrication">Fabrication</option>
-        <option value="Installation">Installation</option>
-        <option value="Complete">Complete</option>
+        <option value="">Todas las etapas</option>
+        <option value="Cotización">Cotización</option>
+        <option value="Medición">Medición</option>
+        <option value="Fabricación">Fabricación</option>
+        <option value="Instalación">Instalación</option>
+        <option value="Completo">Completo</option>
       </select>
       <select class="filter-select" id="search-loc" onchange="runSearch()">
-        <option value="">Both Locations</option>
+        <option value="">Ambas sucursales</option>
         <option value="Houston">Houston</option>
         <option value="Katy">Katy</option>
       </select>
@@ -1035,37 +1033,37 @@
   <!-- Revenue snapshot -->
   <div class="panel-grid">
     <div class="card">
-      <div class="card-title">Revenue Snapshot &mdash; July 2026</div>
+      <div class="card-title">Resumen de ingresos &mdash; julio 2026</div>
       <div class="report-row hdr">
-        <div>Category</div>
-        <div>Jobs</div>
-        <div>Value</div>
-        <div>Avg Size</div>
-        <div>Location</div>
+        <div>Categoría</div>
+        <div>Trabajos</div>
+        <div>Valor</div>
+        <div>Tamaño promedio</div>
+        <div>Sucursal</div>
       </div>
       <div class="report-row">
-        <div><strong>Kitchen Remodel</strong></div>
+        <div><strong>Remodelación de cocina</strong></div>
         <div>5</div>
         <div class="amount">$271K</div>
         <div>$54.2K</div>
-        <div>Mix</div>
+        <div>Mixto</div>
       </div>
       <div class="report-row">
-        <div><strong>Bath Remodel</strong></div>
+        <div><strong>Remodelación de baño</strong></div>
         <div>3</div>
         <div class="amount">$89K</div>
         <div>$29.7K</div>
         <div>Houston</div>
       </div>
       <div class="report-row">
-        <div><strong>Closet Remodel</strong></div>
+        <div><strong>Remodelación de clóset</strong></div>
         <div>2</div>
         <div class="amount">$58K</div>
         <div>$29K</div>
         <div>Katy</div>
       </div>
       <div class="report-row">
-        <div><strong>Commercial</strong></div>
+        <div><strong>Comercial</strong></div>
         <div>2</div>
         <div class="amount">$47K</div>
         <div>$23.5K</div>
@@ -1081,51 +1079,51 @@
     </div>
 
     <div class="card">
-      <div class="card-title">Lead Pipeline &mdash; Open Quotes</div>
+      <div class="card-title">Pipeline de prospectos &mdash; cotizaciones abiertas</div>
       <div class="report-row hdr">
-        <div>Lead</div>
-        <div>Type</div>
-        <div>Value</div>
-        <div>Age</div>
-        <div>Status</div>
+        <div>Prospecto</div>
+        <div>Tipo</div>
+        <div>Valor</div>
+        <div>Antigüedad</div>
+        <div>Estado</div>
       </div>
       <div class="report-row">
         <div><strong>R. Montoya</strong></div>
-        <div>Kitchen</div>
+        <div>Cocina</div>
         <div class="amount">$72K</div>
         <div style="color:var(--red-alert);font-weight:700;">51h</div>
-        <div><span class="status status-hot">Stale</span></div>
+        <div><span class="status status-hot">Frío</span></div>
       </div>
       <div class="report-row">
         <div><strong>P. Okafor</strong></div>
-        <div>Bath+Closet</div>
+        <div>Baño+clóset</div>
         <div class="amount">$38K</div>
         <div style="color:var(--red-alert);font-weight:700;">51h</div>
-        <div><span class="status status-hot">Stale</span></div>
+        <div><span class="status status-hot">Frío</span></div>
       </div>
       <div class="report-row">
         <div><strong>T. Welch</strong></div>
-        <div>Kitchen</div>
+        <div>Cocina</div>
         <div class="amount">$55K</div>
         <div style="color:var(--amber);font-weight:700;">29h</div>
-        <div><span class="status status-warm">Warm</span></div>
+        <div><span class="status status-warm">Tibio</span></div>
       </div>
       <div class="report-row">
         <div><strong>D. Navarro</strong></div>
-        <div>Bath</div>
+        <div>Baño</div>
         <div class="amount">$28K</div>
         <div style="color:var(--green-ok);font-weight:700;">8h</div>
-        <div><span class="status status-new">New</span></div>
+        <div><span class="status status-new">Nuevo</span></div>
       </div>
       <div class="report-row">
         <div><strong>H. Patel</strong></div>
-        <div>Closet</div>
+        <div>Clóset</div>
         <div class="amount">$33K</div>
         <div style="color:var(--green-ok);font-weight:700;">3h</div>
-        <div><span class="status status-new">New</span></div>
+        <div><span class="status status-new">Nuevo</span></div>
       </div>
       <div class="report-row" style="background:var(--gold-pale);">
-        <div><strong>Open Pipeline</strong></div>
+        <div><strong>Pipeline abierto</strong></div>
         <div>&mdash;</div>
         <div class="amount large">$226K</div>
         <div>&mdash;</div>
@@ -1136,30 +1134,30 @@
 
   <!-- Material utilization -->
   <div class="card">
-    <div class="card-title">Material Utilization &mdash; Current Inventory Allocation</div>
+    <div class="card-title">Uso de material &mdash; asignación actual de inventario</div>
     <div style="overflow-x:auto;">
       <table style="width:100%;border-collapse:collapse;font-family:'Arial',sans-serif;font-size:13px;">
         <thead>
           <tr style="background:var(--off-white);color:var(--text-mid);font-size:11px;text-transform:uppercase;letter-spacing:0.05em;">
             <th style="text-align:left;padding:10px 12px;">Material</th>
-            <th style="text-align:left;padding:10px 12px;">Slabs in Stock</th>
-            <th style="text-align:left;padding:10px 12px;">Allocated</th>
-            <th style="text-align:left;padding:10px 12px;">Available</th>
-            <th style="text-align:left;padding:10px 12px;">Location</th>
-            <th style="text-align:left;padding:10px 12px;">Flag</th>
+            <th style="text-align:left;padding:10px 12px;">Losas en existencia</th>
+            <th style="text-align:left;padding:10px 12px;">Asignadas</th>
+            <th style="text-align:left;padding:10px 12px;">Disponibles</th>
+            <th style="text-align:left;padding:10px 12px;">Sucursal</th>
+            <th style="text-align:left;padding:10px 12px;">Alerta</th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-bottom:1px solid var(--border);">
-            <td style="padding:10px 12px;font-weight:600;">Absolute Black Granite</td>
+            <td style="padding:10px 12px;font-weight:600;">Granito Absolute Black</td>
             <td style="padding:10px 12px;">8</td>
             <td style="padding:10px 12px;">8</td>
             <td style="padding:10px 12px;color:var(--red-alert);font-weight:700;">0</td>
             <td style="padding:10px 12px;">Houston + Katy</td>
-            <td style="padding:10px 12px;"><span class="status status-hot">Conflict</span></td>
+            <td style="padding:10px 12px;"><span class="status status-hot">Conflicto</span></td>
           </tr>
           <tr style="border-bottom:1px solid var(--border);">
-            <td style="padding:10px 12px;font-weight:600;">White Carrara Marble</td>
+            <td style="padding:10px 12px;font-weight:600;">Mármol Carrara blanco</td>
             <td style="padding:10px 12px;">5</td>
             <td style="padding:10px 12px;">2</td>
             <td style="padding:10px 12px;color:var(--green-ok);font-weight:700;">3</td>
@@ -1172,10 +1170,10 @@
             <td style="padding:10px 12px;">3</td>
             <td style="padding:10px 12px;color:var(--amber);font-weight:700;">1</td>
             <td style="padding:10px 12px;">Katy</td>
-            <td style="padding:10px 12px;"><span class="status status-warm">Low</span></td>
+            <td style="padding:10px 12px;"><span class="status status-warm">Bajo</span></td>
           </tr>
           <tr>
-            <td style="padding:10px 12px;font-weight:600;">Uba Tuba Granite</td>
+            <td style="padding:10px 12px;font-weight:600;">Granito Uba Tuba</td>
             <td style="padding:10px 12px;">6</td>
             <td style="padding:10px 12px;">2</td>
             <td style="padding:10px 12px;color:var(--green-ok);font-weight:700;">4</td>
@@ -1186,7 +1184,7 @@
       </table>
     </div>
     <div style="font-family:'Arial',sans-serif;font-size:11px;color:var(--text-light);margin-top:10px;font-style:italic;">
-      &#9432; Sample data. Absolute Black conflict (see alert on Daily Board) requires resolution before either job proceeds to fabrication.
+      &#9432; Datos de muestra. El conflicto del Absolute Black (vea la alerta en el tablero del día) hay que resolverlo antes de que cualquiera de los dos trabajos pase a fabricación.
     </div>
   </div>
 
@@ -1194,37 +1192,37 @@
 
 <!-- ─── FOOTER ─── -->
 <footer>
-  Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por Pocho.tech &mdash; sistemas propios para negocios que ya funcionan.
 </footer>
 
 <!-- ─── CTA FLOAT ─── -->
 <div class="cta-float">
-  <button class="cta-btn" onclick="openCTA()">Like what you see? Let&rsquo;s talk</button>
+  <button class="cta-btn" onclick="openCTA()">¿Le gustó? Hablemos</button>
 </div>
 
 <!-- ─── MODAL ─── -->
 <div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
   <div class="modal-box">
     <div class="modal-head">
-      <h2>This could be your system.</h2>
-      <p>Built for Bayou Stone & Remodel &mdash; two showrooms, one board.</p>
+      <h2>Este podría ser su sistema.</h2>
+      <p>Construido para Bayou Stone &amp; Remodel &mdash; dos showrooms, un tablero.</p>
     </div>
     <div class="modal-body">
       <p>
-        You just saw what a centralized operations system looks like for a countertop fabrication business with two locations, ~60 people, and projects up to $115K.
+        Acaba de ver cómo se ve un sistema de operaciones centralizado para un fabricante de countertops con dos sucursales, unas 60 personas y proyectos de hasta $115K.
       </p>
       <ul>
-        <li>One job board across Houston and Katy &mdash; stages, materials, installers</li>
-        <li>Lead pipeline with follow-up aging &mdash; no more cold leads by Monday</li>
-        <li>Client portal that handles status calls so your team doesn't have to</li>
-        <li>Material allocation that flags conflicts before fabrication starts</li>
+        <li>Un tablero único entre Houston y Katy &mdash; etapas, materiales, instaladores</li>
+        <li>Pipeline de prospectos con antigüedad de seguimiento &mdash; se acabaron los prospectos fríos del lunes</li>
+        <li>Portal del cliente que absorbe las llamadas de estado para que su equipo no tenga que hacerlo</li>
+        <li>Asignación de material que marca los conflictos antes de que empiece la fabricación</li>
       </ul>
       <p>
-        This is a conversation about whether it fits your operation &mdash; not a pitch for software you don't need.
+        Esta es una conversación sobre si le calza a su operación &mdash; no una venta de software que no necesita.
       </p>
       <div class="modal-actions">
-        <button class="btn-primary" onclick="goCalendly()">Let&rsquo;s talk &mdash; book a time</button>
-        <button class="btn-dismiss" onclick="closeModal()">Not right now</button>
+        <button class="btn-primary" onclick="goCalendly()">Hablemos &mdash; agende un horario</button>
+        <button class="btn-dismiss" onclick="closeModal()">Ahora no</button>
       </div>
     </div>
   </div>
@@ -1233,18 +1231,18 @@
 <script>
   // ─── DATA ───
   const JOBS = [
-    { id:'1041', name:'M. Harrington', type:'Kitchen Remodel', stage:'Complete', loc:'Houston', value:'$85,000', stageKey:'done' },
-    { id:'1042', name:'A. Russo',      type:'Bath Remodel',    stage:'Complete', loc:'Katy',    value:'$31,500', stageKey:'done' },
-    { id:'1043', name:'T. Kimura',     type:'Closet Remodel',  stage:'Install',  loc:'Katy',    value:'$29,000', stageKey:'install' },
-    { id:'1044', name:'R. Sullivan',   type:'Kitchen Remodel', stage:'Fab',      loc:'Houston', value:'$47,500', stageKey:'fab',     highlight:true },
-    { id:'1045', name:'L. Washington', type:'Bath Remodel',    stage:'Fab',      loc:'Houston', value:'$38,200', stageKey:'fab' },
-    { id:'1046', name:'G. Nguyen',     type:'Kitchen Remodel', stage:'Fab',      loc:'Katy',    value:'$62,000', stageKey:'fab' },
-    { id:'1047', name:'C. Torres',     type:'Kitchen Remodel', stage:'Template', loc:'Houston', value:'$54,000', stageKey:'template', flag:'Material conflict' },
-    { id:'1048', name:'B. Okonkwo',    type:'Bath Remodel',    stage:'Template', loc:'Houston', value:'$27,500', stageKey:'template' },
-    { id:'1049', name:'S. Patel',      type:'Closet Remodel',  stage:'Quote',    loc:'Katy',    value:'$33,000', stageKey:'quote' },
-    { id:'1050', name:'D. Fernandez',  type:'Kitchen Remodel', stage:'Quote',    loc:'Houston', value:'$71,000', stageKey:'quote' },
-    { id:'1051', name:'J. Ashford',    type:'Kitchen Remodel', stage:'Template', loc:'Katy',    value:'$48,000', stageKey:'template', flag:'Material conflict' },
-    { id:'1052', name:'R. Montoya',    type:'Kitchen Remodel', stage:'Quote',    loc:'Katy',    value:'$72,000', stageKey:'quote', hot:true },
+    { id:'1041', name:'M. Harrington', type:'Remodelación de cocina', stage:'Complete', loc:'Houston', value:'$85,000', stageKey:'done' },
+    { id:'1042', name:'A. Russo',      type:'Remodelación de baño',    stage:'Complete', loc:'Katy',    value:'$31,500', stageKey:'done' },
+    { id:'1043', name:'T. Kimura',     type:'Remodelación de clóset',  stage:'Install',  loc:'Katy',    value:'$29,000', stageKey:'install' },
+    { id:'1044', name:'R. Sullivan',   type:'Remodelación de cocina', stage:'Fab',      loc:'Houston', value:'$47,500', stageKey:'fab',     highlight:true },
+    { id:'1045', name:'L. Washington', type:'Remodelación de baño',    stage:'Fab',      loc:'Houston', value:'$38,200', stageKey:'fab' },
+    { id:'1046', name:'G. Nguyen',     type:'Remodelación de cocina', stage:'Fab',      loc:'Katy',    value:'$62,000', stageKey:'fab' },
+    { id:'1047', name:'C. Torres',     type:'Remodelación de cocina', stage:'Template', loc:'Houston', value:'$54,000', stageKey:'template', flag:'Conflicto de material' },
+    { id:'1048', name:'B. Okonkwo',    type:'Remodelación de baño',    stage:'Template', loc:'Houston', value:'$27,500', stageKey:'template' },
+    { id:'1049', name:'S. Patel',      type:'Remodelación de clóset',  stage:'Quote',    loc:'Katy',    value:'$33,000', stageKey:'quote' },
+    { id:'1050', name:'D. Fernandez',  type:'Remodelación de cocina', stage:'Quote',    loc:'Houston', value:'$71,000', stageKey:'quote' },
+    { id:'1051', name:'J. Ashford',    type:'Remodelación de cocina', stage:'Template', loc:'Katy',    value:'$48,000', stageKey:'template', flag:'Conflicto de material' },
+    { id:'1052', name:'R. Montoya',    type:'Remodelación de cocina', stage:'Quote',    loc:'Katy',    value:'$72,000', stageKey:'quote', hot:true },
   ];
 
   const STAGE_MAP = {
@@ -1252,8 +1250,8 @@
     template:'status-template', quote:'status-quote'
   };
   const STAGE_LABEL = {
-    done:'Complete', install:'Installation', fab:'Fabrication',
-    template:'Template', quote:'Quote'
+    done:'Completo', install:'Instalación', fab:'Fabricación',
+    template:'Medición', quote:'Cotización'
   };
 
   // ─── RENDER JOBS ───
@@ -1266,9 +1264,9 @@
       row.innerHTML = `
         <div>
           <div class="job-name">#${j.id} &mdash; ${j.name}</div>
-          <div class="job-sub">${j.type}${j.flag ? ' &mdash; <span style="color:var(--red-alert);font-weight:700;">' + j.flag + '</span>' : ''}${j.hot ? ' &mdash; <span style="color:var(--red-alert);font-weight:700;">No follow-up</span>' : ''}</div>
+          <div class="job-sub">${j.type}${j.flag ? ' &mdash; <span style="color:var(--red-alert);font-weight:700;">' + j.flag + '</span>' : ''}${j.hot ? ' &mdash; <span style="color:var(--red-alert);font-weight:700;">Sin seguimiento</span>' : ''}</div>
         </div>
-        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);">${j.type.replace(' Remodel','')}</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--text-mid);">${j.type.replace('Remodelación de ','')}</div>
         <div><span class="status ${STAGE_MAP[j.stageKey]}">${STAGE_LABEL[j.stageKey]}</span></div>
         <div style="font-family:'Arial',sans-serif;font-size:12px;">${j.loc}</div>
         <div style="font-family:'Arial',sans-serif;font-size:13px;font-weight:700;color:var(--navy);">${j.value}</div>
@@ -1319,15 +1317,15 @@
     const btn = document.getElementById('advance-btn');
     const statusEl = document.getElementById('advance-status');
     btn.disabled = true;
-    btn.textContent = '✓ Done — Board Updated';
-    statusEl.textContent = 'Job #1044 advanced. Both showrooms now see: Installation.';
+    btn.textContent = '✓ Listo — tablero actualizado';
+    statusEl.textContent = 'Trabajo #1044 avanzado. Los dos showrooms ya ven: Instalación.';
     statusEl.style.color = 'var(--green-ok)';
     statusEl.style.fontWeight = '700';
 
     // Update job in JOBS array
     const job = JOBS.find(j => j.id === '1044');
     if (job) {
-      job.stage = 'Installation';
+      job.stage = 'Instalación';
       job.stageKey = 'install';
     }
     applyFilters();
@@ -1340,9 +1338,9 @@
     const installBar = document.getElementById('install-bar');
     if (installBar) installBar.style.width = '75%';
     const fabNote = document.getElementById('fab-note');
-    if (fabNote) fabNote.textContent = 'Fabrication complete. Confirmed Jul 28. Advanced to installation stage.';
+    if (fabNote) fabNote.textContent = 'Fabricación completa. Confirmada el 28 de julio. Avanzado a etapa de instalación.';
     const stageNote = document.getElementById('stage-note');
-    if (stageNote) stageNote.textContent = 'Fabrication confirmed complete Jul 28. Installation on track for Aug 5.';
+    if (stageNote) stageNote.textContent = 'Fabricación confirmada el 28 de julio. La instalación sigue en pie para el 5 de agosto.';
 
     // Dismiss alert after action
     const alert = document.getElementById('alert-lead');
@@ -1433,22 +1431,22 @@
 
     const container = document.getElementById('search-results');
     if (!q && !stage && !loc) {
-      container.innerHTML = '<div style="font-family:Arial,sans-serif;font-size:13px;color:var(--text-mid);padding:8px 0;">Enter a name, material type, or job number to search across all jobs.</div>';
+      container.innerHTML = '<div style="font-family:Arial,sans-serif;font-size:13px;color:var(--text-mid);padding:8px 0;">Escriba un nombre, un tipo de material o un número de trabajo para buscar en todos los trabajos.</div>';
       return;
     }
 
     if (results.length === 0) {
-      container.innerHTML = '<div style="font-family:Arial,sans-serif;font-size:13px;color:var(--text-mid);padding:8px 0;">No matching jobs found.</div>';
+      container.innerHTML = '<div style="font-family:Arial,sans-serif;font-size:13px;color:var(--text-mid);padding:8px 0;">No se encontraron trabajos que coincidan.</div>';
       return;
     }
 
     container.innerHTML = `
       <div class="report-row hdr" style="margin-top:12px;">
-        <div>Job / Client</div>
-        <div>Stage</div>
-        <div>Location</div>
-        <div>Type</div>
-        <div>Value</div>
+        <div>Trabajo / cliente</div>
+        <div>Etapa</div>
+        <div>Sucursal</div>
+        <div>Tipo</div>
+        <div>Valor</div>
       </div>
       ${results.map(j => `
         <div class="report-row">

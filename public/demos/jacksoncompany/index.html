@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bellaire &amp; Co. — Event Command Center</title>
+  <title>Bellaire &amp; Co. — Centro de Mando de Eventos</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -645,20 +645,20 @@
 <body>
 
 <!-- DEMO BADGE -->
-<div id="demo-badge">DEMO &middot; SAMPLE DATA</div>
+<div id="demo-badge">DEMO &middot; DATOS DE MUESTRA</div>
 
 <!-- HEADER -->
 <header id="site-header">
   <h1>Bellaire &amp; Co.</h1>
-  <p>What your own system would look like &mdash; prepared by Pocho.tech</p>
+  <p>Así se vería su sistema propio &mdash; preparado por Pocho.tech</p>
 </header>
 
 <!-- NAV TABS -->
 <nav id="nav-tabs" role="tablist">
-  <button class="tab-btn active" data-view="operations" role="tab">Operations Board</button>
-  <button class="tab-btn" data-view="client"     role="tab">Client Account</button>
-  <button class="tab-btn" data-view="proposal"   role="tab">Proposal Builder</button>
-  <button class="tab-btn" data-view="reports"    role="tab">Search &amp; Reports</button>
+  <button class="tab-btn active" data-view="operations" role="tab">Tablero de operaciones</button>
+  <button class="tab-btn" data-view="client"     role="tab">Cuenta del cliente</button>
+  <button class="tab-btn" data-view="proposal"   role="tab">Constructor de propuestas</button>
+  <button class="tab-btn" data-view="reports"    role="tab">Búsqueda y reportes</button>
 </nav>
 
 <!-- ===== VIEW 1: OPERATIONS BOARD ===== -->
@@ -667,141 +667,141 @@
   <!-- Stats -->
   <div class="stat-grid">
     <div class="stat-card">
-      <div class="stat-label">Active Inquiries</div>
+      <div class="stat-label">Consultas activas</div>
       <div class="stat-value">14</div>
-      <div class="stat-sub">3 need follow-up today</div>
+      <div class="stat-sub">3 necesitan seguimiento hoy</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Events This Month</div>
+      <div class="stat-label">Eventos este mes</div>
       <div class="stat-value">7</div>
-      <div class="stat-sub">2 confirmed, 5 in pipeline</div>
+      <div class="stat-sub">2 confirmados, 5 en pipeline</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Pipeline Value</div>
+      <div class="stat-label">Valor del pipeline</div>
       <div class="stat-value">$48k</div>
-      <div class="stat-sub">4 proposals pending signature</div>
+      <div class="stat-sub">4 propuestas esperando firma</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Recurring Accounts</div>
+      <div class="stat-label">Cuentas recurrentes</div>
       <div class="stat-value">31</div>
-      <div class="stat-sub">8 due for annual outreach</div>
+      <div class="stat-sub">8 tocan contacto anual</div>
     </div>
   </div>
 
   <!-- Alerts -->
-  <div class="section-label">Alerts &amp; Follow-ups</div>
+  <div class="section-label">Alertas y seguimientos</div>
   <div class="alert-strip">
     <span class="alert-icon">&#9888;</span>
-    <span><strong>Greenway Plaza Partners</strong> — proposal sent 6 days ago, no response. Suggested follow-up: today.</span>
-    <button class="btn-outline" style="margin-left:auto;white-space:nowrap;" onclick="markFollowupDone(this)">Mark Sent</button>
+    <span><strong>Greenway Plaza Partners</strong> &mdash; propuesta enviada hace 6 días, sin respuesta. Seguimiento sugerido: hoy.</span>
+    <button class="btn-outline" style="margin-left:auto;white-space:nowrap;" onclick="markFollowupDone(this)">Marcar enviado</button>
   </div>
   <div class="alert-strip">
     <span class="alert-icon">&#9734;</span>
-    <span><strong>Houston Children's Charity Gala</strong> (Nov 15) — deposit not yet received. Contract signed 3 days ago.</span>
-    <button class="btn-outline" style="margin-left:auto;white-space:nowrap;" onclick="showToast('Deposit reminder sent to contact.')">Send Reminder</button>
+    <span><strong>Gala de Houston Children's Charity</strong> (15 nov) &mdash; el anticipo todavía no entra. Contrato firmado hace 3 días.</span>
+    <button class="btn-outline" style="margin-left:auto;white-space:nowrap;" onclick="showToast('Deposit reminder sent to contact.')">Enviar recordatorio</button>
   </div>
 
   <!-- Inquiry Pipeline -->
-  <div class="section-label" style="margin-top:24px;">Event Inquiry Pipeline</div>
+  <div class="section-label" style="margin-top:24px;">Pipeline de consultas de eventos</div>
   <div class="card">
     <div class="grid-hdr">
-      <div class="col-hdr">Client / Event</div>
-      <div class="col-hdr col-event">Event Type</div>
-      <div class="col-hdr col-pax">Pax</div>
-      <div class="col-hdr col-date">Date</div>
-      <div class="col-hdr">Source</div>
-      <div class="col-hdr">Status</div>
+      <div class="col-hdr">Cliente / evento</div>
+      <div class="col-hdr col-event">Tipo de evento</div>
+      <div class="col-hdr col-pax">Personas</div>
+      <div class="col-hdr col-date">Fecha</div>
+      <div class="col-hdr">Origen</div>
+      <div class="col-hdr">Estado</div>
     </div>
 
     <!-- Row 1 — interactive (will be updated by action) -->
     <div class="inquiry-row" id="row-greenway" onclick="openClientDetail()">
       <div>
         <div class="name">Greenway Plaza Partners</div>
-        <div class="sub">Corporate Luncheon &mdash; Q3 quarterly</div>
+        <div class="sub">Almuerzo corporativo &mdash; trimestral</div>
       </div>
-      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Corporate Luncheon</div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Almuerzo corporativo</div>
       <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">80</div>
-      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Aug 14</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">14 ago</div>
       <div>
         <span class="source-dot src-web"></span>
         <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Web</span>
       </div>
-      <div><span class="badge badge-quoted" id="greenway-badge">Quoted</span></div>
+      <div><span class="badge badge-quoted" id="greenway-badge">Cotizado</span></div>
     </div>
 
     <div class="inquiry-row" onclick="showToast('Opening detail for Houston Children\'s Charity...')">
       <div>
         <div class="name">Houston Children's Charity</div>
-        <div class="sub">Non-Profit Gala &mdash; dinner reception 200 pax</div>
+        <div class="sub">Gala de fundación &mdash; cena y recepción, 200 personas</div>
       </div>
-      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Non-Profit Gala</div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Gala de fundación</div>
       <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">200</div>
-      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Nov 15</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">15 nov</div>
       <div>
         <span class="source-dot src-phone"></span>
-        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Phone</span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Teléfono</span>
       </div>
-      <div><span class="badge badge-confirmed">Confirmed</span></div>
+      <div><span class="badge badge-confirmed">Confirmado</span></div>
     </div>
 
     <div class="inquiry-row" onclick="showToast('Opening detail for River Oaks Estate...')">
       <div>
         <div class="name">River Oaks Estate</div>
-        <div class="sub">Milestone Birthday &mdash; in-home dinner, wine pairing</div>
+        <div class="sub">Cumpleaños importante &mdash; cena en casa, maridaje</div>
       </div>
-      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">In-Home Dinner</div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Cena en casa</div>
       <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">24</div>
-      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Sep 6</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">6 sep</div>
       <div>
         <span class="source-dot src-instagram"></span>
         <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Instagram</span>
       </div>
-      <div><span class="badge badge-new">New</span></div>
+      <div><span class="badge badge-new">Nuevo</span></div>
     </div>
 
     <div class="inquiry-row" onclick="showToast('Opening detail for Kensington Capital Partners...')">
       <div>
         <div class="name">Kensington Capital Partners</div>
-        <div class="sub">Corporate Retreat &mdash; full-service event production</div>
+        <div class="sub">Retiro corporativo &mdash; producción integral de evento</div>
       </div>
-      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Corporate Retreat</div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Retiro corporativo</div>
       <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">150</div>
-      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Oct 3</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">3 oct</div>
       <div>
         <span class="source-dot src-web"></span>
         <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Web</span>
       </div>
-      <div><span class="badge badge-new">New</span></div>
+      <div><span class="badge badge-new">Nuevo</span></div>
     </div>
 
     <div class="inquiry-row" onclick="showToast('Opening detail for Memorial Park Museum...')">
       <div>
         <div class="name">Memorial Park Museum</div>
-        <div class="sub">Campaign Celebration &mdash; bespoke cocktails + passed appetizers</div>
+        <div class="sub">Celebración de campaña &mdash; cocteles de autor y pasabocas</div>
       </div>
-      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Campaign Celebration</div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Celebración de campaña</div>
       <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">120</div>
-      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Aug 29</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">29 ago</div>
       <div>
         <span class="source-dot src-instagram"></span>
         <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Instagram</span>
       </div>
-      <div><span class="badge badge-quoted">Quoted</span></div>
+      <div><span class="badge badge-quoted">Cotizado</span></div>
     </div>
 
     <div class="inquiry-row" onclick="showToast('Opening detail for Midtown Law Group...')">
       <div>
         <div class="name">Midtown Law Group</div>
-        <div class="sub">Holiday Corporate Gifting &mdash; 40 gift baskets</div>
+        <div class="sub">Regalos corporativos de fin de año &mdash; 40 canastas</div>
       </div>
-      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Gifting Order</div>
-      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">40 units</div>
-      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Dec 12</div>
+      <div class="col-event" style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Pedido de regalos</div>
+      <div class="col-pax"   style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">40 unidades</div>
+      <div class="col-date"  style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">12 dic</div>
       <div>
         <span class="source-dot src-phone"></span>
-        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Phone</span>
+        <span style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);">Teléfono</span>
       </div>
-      <div><span class="badge badge-executed">Executed</span></div>
+      <div><span class="badge badge-executed">Ejecutado</span></div>
     </div>
 
   </div><!-- /card -->
@@ -809,16 +809,16 @@
   <!-- Legend -->
   <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;">
     <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);">
-      <span class="source-dot src-web" style="display:inline-block;vertical-align:middle;"></span> Web form
+      <span class="source-dot src-web" style="display:inline-block;vertical-align:middle;"></span> Formulario web
     </span>
     <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);">
-      <span class="source-dot src-phone" style="display:inline-block;vertical-align:middle;"></span> Phone
+      <span class="source-dot src-phone" style="display:inline-block;vertical-align:middle;"></span> Teléfono
     </span>
     <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);">
-      <span class="source-dot src-instagram" style="display:inline-block;vertical-align:middle;"></span> Instagram DM
+      <span class="source-dot src-instagram" style="display:inline-block;vertical-align:middle;"></span> Mensaje de Instagram
     </span>
     <span style="font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);margin-left:auto;">
-      Click any row to view full event file
+      Haga clic en cualquier fila para abrir el expediente completo del evento
     </span>
   </div>
 
@@ -830,121 +830,121 @@
   <!-- Client header -->
   <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:22px;">
     <div>
-      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:6px;">Client Account</div>
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:6px;">Cuenta del cliente</div>
       <h2 style="margin:0 0 4px;font-size:1.4rem;color:var(--cream);font-weight:400;">Greenway Plaza Partners</h2>
-      <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--muted);">Corporate Client &mdash; Houston, TX &mdash; Active since 2019</div>
+      <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--muted);">Cliente corporativo &mdash; Houston, TX &mdash; activo desde 2019</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <button class="btn-outline" onclick="showToast('Outreach email drafted for Greenway Plaza Partners.')">Send Outreach</button>
-      <button class="btn-gold"    onclick="switchToProposal()">Build Proposal</button>
+      <button class="btn-outline" onclick="showToast('Outreach email drafted for Greenway Plaza Partners.')">Escribirle al cliente</button>
+      <button class="btn-gold"    onclick="switchToProposal()">Armar propuesta</button>
     </div>
   </div>
 
   <!-- KPIs -->
   <div class="stat-grid" style="margin-bottom:22px;">
     <div class="stat-card">
-      <div class="stat-label">Lifetime Value</div>
+      <div class="stat-label">Valor de por vida</div>
       <div class="stat-value">$62,400</div>
-      <div class="stat-sub">Since 2019</div>
+      <div class="stat-sub">Desde 2019</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Events Produced</div>
+      <div class="stat-label">Eventos producidos</div>
       <div class="stat-value">8</div>
-      <div class="stat-sub">Avg. 1.6 / year</div>
+      <div class="stat-sub">Promedio 1.6 al año</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Avg. Event Value</div>
+      <div class="stat-label">Valor promedio por evento</div>
       <div class="stat-value">$7,800</div>
-      <div class="stat-sub">Last: $8,400 (Mar 2026)</div>
+      <div class="stat-sub">Último: $8,400 (mar 2026)</div>
     </div>
     <div class="stat-card" style="border-color:rgba(201,168,76,0.4);">
-      <div class="stat-label">Next Event Likely</div>
-      <div class="stat-value" style="font-size:1.2rem;">Aug 2026</div>
-      <div class="stat-sub" style="color:#fc814a;">&#9650; Based on annual pattern</div>
+      <div class="stat-label">Próximo evento probable</div>
+      <div class="stat-value" style="font-size:1.2rem;">ago 2026</div>
+      <div class="stat-sub" style="color:#fc814a;">&#9650; Según el patrón anual</div>
     </div>
   </div>
 
   <!-- Alert: upcoming opportunity -->
   <div class="alert-strip" style="margin-bottom:22px;border-color:rgba(201,168,76,0.4);">
     <span class="alert-icon">&#9733;</span>
-    <span>This account books a <strong>corporate luncheon every August</strong> — last year's event was $8,400. Outreach recommended before July 31 to secure the date.</span>
-    <button class="btn-gold" style="margin-left:auto;white-space:nowrap;" onclick="showToast('Outreach scheduled for Jul 31.')">Schedule Outreach</button>
+    <span>Esta cuenta reserva un <strong>almuerzo corporativo cada agosto</strong> &mdash; el del año pasado fue de $8,400. Conviene contactarlos antes del 31 de julio para asegurar la fecha.</span>
+    <button class="btn-gold" style="margin-left:auto;white-space:nowrap;" onclick="showToast('Outreach scheduled for Jul 31.')">Programar contacto</button>
   </div>
 
   <!-- Event History -->
-  <div class="section-label">Event History</div>
+  <div class="section-label">Historial de eventos</div>
   <div class="detail-section">
-    <div class="section-title">Full Account Timeline</div>
+    <div class="section-title">Línea de tiempo completa de la cuenta</div>
 
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <div class="timeline-content">
-        <div class="t-title">Corporate Luncheon &mdash; 80 pax &mdash; Quoted $7,200</div>
-        <div class="t-meta">Aug 2026 &bull; Status: Proposal sent, awaiting signature &bull; Menu: Custom farm-to-table, bespoke mocktail station</div>
+        <div class="t-title">Almuerzo corporativo &mdash; 80 personas &mdash; cotizado en $7,200</div>
+        <div class="t-meta">ago 2026 &bull; estado: propuesta enviada, esperando firma &bull; menú: de la granja a la mesa, estación de mocteles de autor</div>
       </div>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <div class="timeline-content">
-        <div class="t-title">Q1 Corporate Luncheon &mdash; 85 pax &mdash; $8,400</div>
-        <div class="t-meta">Mar 2026 &bull; Completed &bull; Herb-crusted redfish, fried chicken bites, heirloom tomato salad, champagne tower</div>
+        <div class="t-title">Almuerzo corporativo del 1er trimestre &mdash; 85 personas &mdash; $8,400</div>
+        <div class="t-meta">mar 2026 &bull; completado &bull; pargo en costra de hierbas, bocados de pollo frito, ensalada de tomate criollo, torre de champaña</div>
       </div>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-dot dot-muted"></div>
       <div class="timeline-content">
-        <div class="t-title">Year-End Dinner Reception &mdash; 60 pax &mdash; $6,900</div>
-        <div class="t-meta">Dec 2025 &bull; Completed &bull; In-home dinner, wine pairing, custom cake</div>
+        <div class="t-title">Cena de fin de año &mdash; 60 personas &mdash; $6,900</div>
+        <div class="t-meta">dic 2025 &bull; completado &bull; cena en casa, maridaje, pastel a medida</div>
       </div>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-dot dot-muted"></div>
       <div class="timeline-content">
-        <div class="t-title">Corporate Luncheon &mdash; 75 pax &mdash; $7,200</div>
-        <div class="t-meta">Aug 2025 &bull; Completed &bull; Award-winning culinary tasting menu</div>
+        <div class="t-title">Almuerzo corporativo &mdash; 75 personas &mdash; $7,200</div>
+        <div class="t-meta">ago 2025 &bull; completado &bull; menú de degustación de la casa</div>
       </div>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-dot dot-muted"></div>
       <div class="timeline-content">
-        <div class="t-title">Holiday Gifting Order &mdash; 50 gift baskets &mdash; $4,500</div>
-        <div class="t-meta">Dec 2024 &bull; Completed &bull; Holiday Corporate Edition, limited-edition spirits basket</div>
+        <div class="t-title">Pedido de regalos de fin de año &mdash; 50 canastas &mdash; $4,500</div>
+        <div class="t-meta">dic 2024 &bull; completado &bull; edición navideña corporativa, canasta de destilados de edición limitada</div>
       </div>
     </div>
 
     <div class="timeline-item">
       <div class="timeline-dot dot-muted"></div>
       <div class="timeline-content">
-        <div class="t-title">First Inquiry &mdash; Corporate Luncheon &mdash; $6,200</div>
-        <div class="t-meta">Oct 2019 &bull; Completed &bull; Referral from existing corporate client</div>
+        <div class="t-title">Primera consulta &mdash; almuerzo corporativo &mdash; $6,200</div>
+        <div class="t-meta">oct 2019 &bull; completado &bull; recomendados por otro cliente corporativo</div>
       </div>
     </div>
 
   </div>
 
   <!-- Preferences -->
-  <div class="section-label">Documented Preferences</div>
+  <div class="section-label">Preferencias documentadas</div>
   <div class="detail-section">
-    <div class="section-title">Account Intelligence</div>
+    <div class="section-title">Inteligencia de la cuenta</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;">
 
       <div style="padding:14px 18px;border-right:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Preferred Menu Style</div>
-        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Farm-to-table, locally sourced. Always includes a passed appetizer station. Herb-crusted proteins preferred.</div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Estilo de menú preferido</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">De la granja a la mesa, con producto local. Siempre incluye una estación de pasabocas. Prefieren proteínas en costra de hierbas.</div>
       </div>
 
       <div style="padding:14px 18px;border-right:1px solid rgba(255,255,255,0.05);">
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Service Preferences</div>
-        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Bespoke cocktail or mocktail station. Upscale service style. No buffet — always plated or butler-passed.</div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Preferencias de servicio</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Estación de cocteles o mocteles de autor. Servicio de alta gama. Nada de bufé: siempre emplatado o servido por meseros.</div>
       </div>
 
       <div style="padding:14px 18px;">
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Decision Contact</div>
-        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Director of Administration. Budget approved Q2 each year. Usually books 6&ndash;8 weeks in advance.</div>
+        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;margin-bottom:8px;">Contacto que decide</div>
+        <div style="font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);">Dirección de administración. El presupuesto se aprueba en el segundo trimestre de cada año. Suelen reservar con 6 a 8 semanas de anticipación.</div>
       </div>
 
     </div>
@@ -956,82 +956,82 @@
 <section class="view" id="view-proposal">
 
   <!-- Before/After comparison -->
-  <div class="section-label">The Cost of Manual Quoting</div>
+  <div class="section-label">El costo de cotizar a mano</div>
   <div class="pain-comparison">
     <div class="pain-box pain-before">
-      <div class="pain-box-label">Without a system &mdash; today</div>
-      <div class="pain-item"><span class="pain-icon">&#9746;</span> Inquiry arrives by email, phone, or Instagram DM &mdash; someone has to compile details manually</div>
-      <div class="pain-item"><span class="pain-icon">&#9746;</span> Menu options, pax counts, and pricing assembled in Word or email from scratch each time</div>
-      <div class="pain-item"><span class="pain-icon">&#9746;</span> 3&ndash;5 back-and-forth emails to finalize scope before a number is even discussed</div>
-      <div class="pain-item"><span class="pain-icon">&#9746;</span> Average time to send a polished proposal: <strong>2&ndash;3 days</strong></div>
-      <div class="pain-item"><span class="pain-icon">&#9746;</span> No version control &mdash; "which quote did we send?" is a real question</div>
+      <div class="pain-box-label">Sin sistema &mdash; hoy</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> La consulta llega por correo, teléfono o mensaje de Instagram &mdash; alguien tiene que juntar los datos a mano</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> Las opciones de menú, la cantidad de personas y los precios se arman en Word o en un correo, desde cero cada vez</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> De 3 a 5 correos de ida y vuelta para cerrar el alcance antes de siquiera hablar de un número</div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> Tiempo promedio para mandar una propuesta presentable: <strong>2 a 3 días</strong></div>
+      <div class="pain-item"><span class="pain-icon">&#9746;</span> Sin control de versiones &mdash; "¿cuál cotización mandamos?" es una pregunta real</div>
     </div>
     <div class="pain-box pain-after">
-      <div class="pain-box-label">With your system &mdash; below</div>
-      <div class="pain-item"><span class="pain-icon">&#10003;</span> Inquiry auto-populates from web form, phone log, or DM capture &mdash; zero re-entry</div>
-      <div class="pain-item"><span class="pain-icon">&#10003;</span> Menu catalog and per-pax pricing pre-loaded from your standard packages</div>
-      <div class="pain-item"><span class="pain-icon">&#10003;</span> Proposal ready for review before the client hangs up the phone</div>
-      <div class="pain-item"><span class="pain-icon">&#10003;</span> Average time to send a branded proposal: <strong>under 60 seconds</strong></div>
-      <div class="pain-item"><span class="pain-icon">&#10003;</span> Every version timestamped, client-linked, and searchable</div>
+      <div class="pain-box-label">Con su sistema &mdash; acá abajo</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> La consulta se llena sola desde el formulario web, el registro de llamadas o la captura del mensaje &mdash; cero recaptura</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Catálogo de menú y precio por persona precargados desde sus paquetes estándar</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Propuesta lista para revisar antes de que el cliente cuelgue el teléfono</div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Tiempo promedio para mandar una propuesta con su marca: <strong>menos de 60 segundos</strong></div>
+      <div class="pain-item"><span class="pain-icon">&#10003;</span> Cada versión con fecha, ligada al cliente y buscable</div>
     </div>
   </div>
 
   <!-- Proposal Builder -->
-  <div class="section-label">Live Proposal Builder</div>
+  <div class="section-label">Constructor de propuestas en vivo</div>
   <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:18px;">
 
     <!-- Form side -->
     <div class="card" style="padding:20px;">
-      <div class="card-title" style="margin-bottom:16px;">Event Details</div>
+      <div class="card-title" style="margin-bottom:16px;">Detalles del evento</div>
 
       <div style="margin-bottom:14px;">
-        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Client Name</label>
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Nombre del cliente</label>
         <input type="text" class="search-input" id="p-client" value="Greenway Plaza Partners" oninput="updateProposal()" />
       </div>
 
       <div style="margin-bottom:14px;">
-        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Event Type</label>
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Tipo de evento</label>
         <select class="filter-select" id="p-type" style="width:100%;" onchange="updateProposal()">
-          <option value="corporate" selected>Corporate Luncheon</option>
-          <option value="gala">Non-Profit Gala</option>
-          <option value="inhome">In-Home Dinner &mdash; Wine Pairing</option>
-          <option value="gifting">Corporate Gifting Order</option>
-          <option value="campaign">Campaign Celebration</option>
+          <option value="corporate" selected>Almuerzo corporativo</option>
+          <option value="gala">Gala de fundación</option>
+          <option value="inhome">Cena en casa &mdash; maridaje</option>
+          <option value="gifting">Pedido de regalos corporativos</option>
+          <option value="campaign">Celebración de campaña</option>
         </select>
       </div>
 
       <div style="margin-bottom:14px;">
-        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Guest Count (pax)</label>
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Cantidad de invitados</label>
         <input type="number" class="search-input" id="p-pax" value="80" min="10" max="500" onchange="updateProposal()" />
       </div>
 
       <div style="margin-bottom:14px;">
-        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Menu Package</label>
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:6px;">Paquete de menú</label>
         <select class="filter-select" id="p-menu" style="width:100%;" onchange="updateProposal()">
-          <option value="85" selected>Farm-to-Table Signature ($85/pax)</option>
-          <option value="110">Award-Winning Culinary ($110/pax)</option>
-          <option value="65">Classic Luncheon ($65/pax)</option>
-          <option value="140">Epicurean Tasting ($140/pax)</option>
+          <option value="85" selected>De la granja a la mesa ($85/persona)</option>
+          <option value="110">Menú de la casa ($110/persona)</option>
+          <option value="65">Almuerzo clásico ($65/persona)</option>
+          <option value="140">Degustación epicúrea ($140/persona)</option>
         </select>
       </div>
 
       <div style="margin-bottom:18px;">
-        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:10px;">Add-Ons</label>
+        <label style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Arial',sans-serif;display:block;margin-bottom:10px;">Adicionales</label>
         <label style="display:flex;gap:8px;align-items:center;font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);margin-bottom:8px;cursor:pointer;">
           <input type="checkbox" id="addon-cocktail" checked onchange="updateProposal()" style="accent-color:var(--gold);" />
-          Bespoke cocktail / mocktail station (+$12/pax)
+          Estación de cocteles o mocteles de autor (+$12/persona)
         </label>
         <label style="display:flex;gap:8px;align-items:center;font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);margin-bottom:8px;cursor:pointer;">
           <input type="checkbox" id="addon-champagne" onchange="updateProposal()" style="accent-color:var(--gold);" />
-          Champagne tower setup (+$380 flat)
+          Montaje de torre de champaña (+$380 fijo)
         </label>
         <label style="display:flex;gap:8px;align-items:center;font-family:'Arial',sans-serif;font-size:12px;color:var(--cream);cursor:pointer;">
           <input type="checkbox" id="addon-cake" onchange="updateProposal()" style="accent-color:var(--gold);" />
-          Custom milestone cake (+$245 flat)
+          Pastel de celebración a medida (+$245 fijo)
         </label>
       </div>
 
-      <button class="btn-gold" style="width:100%;" onclick="generateProposal()">Generate Proposal</button>
+      <button class="btn-gold" style="width:100%;" onclick="generateProposal()">Generar propuesta</button>
     </div>
 
     <!-- Proposal preview side -->
@@ -1041,53 +1041,53 @@
         <div style="display:flex;justify-content:space-between;align-items:flex-start;">
           <div>
             <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-family:'Arial',sans-serif;">Bellaire &amp; Co.</div>
-            <div style="font-size:9px;color:var(--muted);font-family:'Arial',sans-serif;margin-top:2px;">DISTINGUISHED FOOD &amp; SERVICE SINCE 1981</div>
+            <div style="font-size:9px;color:var(--muted);font-family:'Arial',sans-serif;margin-top:2px;">COMIDA Y SERVICIO DISTINGUIDOS DESDE 1981</div>
           </div>
           <div style="text-align:right;">
-            <div style="font-size:9px;letter-spacing:1px;color:var(--muted);font-family:'Arial',sans-serif;">PROPOSAL</div>
+            <div style="font-size:9px;letter-spacing:1px;color:var(--muted);font-family:'Arial',sans-serif;">PROPUESTA</div>
             <div style="font-size:11px;color:var(--cream);font-family:'Arial',sans-serif;" id="p-number">PRO-2026-0049</div>
           </div>
         </div>
         <div style="margin-top:14px;font-family:'Arial',sans-serif;">
-          <div style="font-size:13px;color:var(--cream);">Prepared for: <strong id="p-preview-client">Greenway Plaza Partners</strong></div>
-          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Event type: <span id="p-preview-type">Corporate Luncheon</span> &bull; Guest count: <span id="p-preview-pax">80</span> pax</div>
+          <div style="font-size:13px;color:var(--cream);">Preparada para: <strong id="p-preview-client">Greenway Plaza Partners</strong></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Tipo de evento: <span id="p-preview-type">Almuerzo corporativo</span> &bull; Invitados: <span id="p-preview-pax">80</span> personas</div>
         </div>
       </div>
 
       <!-- Line items -->
       <div>
         <div class="proposal-line">
-          <span id="p-line-menu-label">Farm-to-Table Signature</span>
+          <span id="p-line-menu-label">De la granja a la mesa</span>
           <span id="p-line-menu-val" style="color:var(--cream);">$6,800</span>
         </div>
         <div class="proposal-line" id="p-line-cocktail">
-          <span>Bespoke cocktail / mocktail station</span>
+          <span>Estación de cocteles o mocteles de autor</span>
           <span style="color:var(--cream);" id="p-cocktail-val">$960</span>
         </div>
         <div class="proposal-line" id="p-line-champagne" style="display:none;">
-          <span>Champagne tower setup</span>
+          <span>Montaje de torre de champaña</span>
           <span style="color:var(--cream);">$380</span>
         </div>
         <div class="proposal-line" id="p-line-cake" style="display:none;">
-          <span>Custom milestone cake</span>
+          <span>Pastel de celebración a medida</span>
           <span style="color:var(--cream);">$245</span>
         </div>
         <div class="proposal-line">
-          <span style="color:var(--muted);">Onsite management &amp; setup</span>
-          <span style="color:var(--muted);">Included</span>
+          <span style="color:var(--muted);">Coordinación y montaje en sitio</span>
+          <span style="color:var(--muted);">Incluido</span>
         </div>
         <div class="proposal-line">
-          <span style="color:var(--muted);">Culinary team &amp; staff</span>
-          <span style="color:var(--muted);">Included</span>
+          <span style="color:var(--muted);">Equipo de cocina y personal</span>
+          <span style="color:var(--muted);">Incluido</span>
         </div>
 
         <div class="proposal-total">
-          <span>TOTAL ESTIMATE</span>
+          <span>ESTIMADO TOTAL</span>
           <span id="p-total">$7,760</span>
         </div>
 
         <div style="margin-top:14px;font-family:'Arial',sans-serif;font-size:10px;color:var(--muted);line-height:1.5;">
-          This proposal reflects your selected package. Final pricing confirmed after venue walk-through. Deposit of 50% required at contract signature. Menus can be further customized to fulfill your exact specifications.
+          Esta propuesta refleja el paquete elegido. El precio final se confirma después de recorrer el lugar. Se requiere un anticipo del 50% al firmar el contrato. Los menús se pueden ajustar a sus especificaciones exactas.
         </div>
       </div>
 
@@ -1096,7 +1096,7 @@
   </div><!-- /grid -->
 
   <div style="margin-top:10px;font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);text-align:right;">
-    All pricing is sample data for demonstration purposes only.
+    Todos los precios son datos de muestra, solo para la demostración.
   </div>
 
 </section>
@@ -1105,40 +1105,40 @@
 <section class="view" id="view-reports">
 
   <!-- Search bar -->
-  <div class="section-label">Search Events &amp; Accounts</div>
+  <div class="section-label">Buscar eventos y cuentas</div>
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px;">
-    <input type="text" class="search-input" id="search-box" placeholder="Search by client, event type, or keyword..." style="flex:1;min-width:200px;" oninput="filterTable()" />
+    <input type="text" class="search-input" id="search-box" placeholder="Buscar por cliente, tipo de evento o palabra clave..." style="flex:1;min-width:200px;" oninput="filterTable()" />
     <select class="filter-select" id="filter-status" onchange="filterTable()">
-      <option value="">All Statuses</option>
-      <option value="New">New</option>
-      <option value="Quoted">Quoted</option>
-      <option value="Confirmed">Confirmed</option>
-      <option value="Executed">Executed</option>
+      <option value="">Todos los estados</option>
+      <option value="Nuevo">Nuevo</option>
+      <option value="Cotizado">Cotizado</option>
+      <option value="Confirmado">Confirmado</option>
+      <option value="Ejecutado">Ejecutado</option>
     </select>
     <select class="filter-select" id="filter-type" onchange="filterTable()">
-      <option value="">All Event Types</option>
-      <option value="Corporate">Corporate</option>
+      <option value="">Todos los tipos de evento</option>
+      <option value="Corporativo">Corporativo</option>
       <option value="Gala">Gala</option>
-      <option value="In-Home">In-Home</option>
-      <option value="Gifting">Gifting</option>
-      <option value="Campaign">Campaign</option>
+      <option value="En casa">En casa</option>
+      <option value="Regalos">Regalos</option>
+      <option value="Campaña">Campaña</option>
     </select>
   </div>
 
   <!-- Results table -->
   <div class="card" style="margin-bottom:24px;">
     <div class="grid-hdr" style="grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;">
-      <div class="col-hdr">Client / Event</div>
-      <div class="col-hdr">Type</div>
-      <div class="col-hdr">Value</div>
-      <div class="col-hdr">Date</div>
-      <div class="col-hdr">Status</div>
+      <div class="col-hdr">Cliente / evento</div>
+      <div class="col-hdr">Tipo</div>
+      <div class="col-hdr">Valor</div>
+      <div class="col-hdr">Fecha</div>
+      <div class="col-hdr">Estado</div>
     </div>
     <div id="report-rows">
       <!-- Populated by JS -->
     </div>
     <div id="no-results" style="display:none;padding:24px;text-align:center;font-family:'Arial',sans-serif;font-size:13px;color:var(--muted);">
-      No events match your search.
+      Ningún evento coincide con su búsqueda.
     </div>
   </div>
 
@@ -1147,44 +1147,44 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title">Revenue by Month (2026)</div>
+        <div class="card-title">Ingresos por mes (2026)</div>
       </div>
       <div style="padding:16px 18px 10px;">
         <div class="mini-chart">
           <div class="bar-wrap">
             <div class="bar-val">$12k</div>
             <div class="bar" style="height:60px;background:rgba(201,168,76,0.35);"></div>
-            <div class="bar-lbl">Jan</div>
+            <div class="bar-lbl">ene</div>
           </div>
           <div class="bar-wrap">
             <div class="bar-val">$8k</div>
             <div class="bar" style="height:40px;background:rgba(201,168,76,0.35);"></div>
-            <div class="bar-lbl">Feb</div>
+            <div class="bar-lbl">feb</div>
           </div>
           <div class="bar-wrap">
             <div class="bar-val">$18k</div>
             <div class="bar" style="height:78px;background:rgba(201,168,76,0.45);"></div>
-            <div class="bar-lbl">Mar</div>
+            <div class="bar-lbl">mar</div>
           </div>
           <div class="bar-wrap">
             <div class="bar-val">$9k</div>
             <div class="bar" style="height:45px;background:rgba(201,168,76,0.35);"></div>
-            <div class="bar-lbl">Apr</div>
+            <div class="bar-lbl">abr</div>
           </div>
           <div class="bar-wrap">
             <div class="bar-val">$14k</div>
             <div class="bar" style="height:63px;background:rgba(201,168,76,0.35);"></div>
-            <div class="bar-lbl">May</div>
+            <div class="bar-lbl">may</div>
           </div>
           <div class="bar-wrap">
             <div class="bar-val">$22k</div>
             <div class="bar" style="height:80px;background:var(--gold);border-radius:3px 3px 0 0;"></div>
-            <div class="bar-lbl">Jun</div>
+            <div class="bar-lbl">jun</div>
           </div>
           <div class="bar-wrap">
             <div class="bar-val">$16k</div>
             <div class="bar" style="height:68px;background:rgba(201,168,76,0.35);"></div>
-            <div class="bar-lbl">Jul</div>
+            <div class="bar-lbl">jul</div>
           </div>
         </div>
       </div>
@@ -1192,25 +1192,25 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title">Events by Source (YTD)</div>
+        <div class="card-title">Eventos por origen (año en curso)</div>
       </div>
       <div style="padding:0;">
         <div class="metric-row">
-          <div class="metric-label">Web Form</div>
+          <div class="metric-label">Formulario web</div>
           <div class="metric-bar">
             <div class="progress-bar"><div class="progress-fill" style="width:52%;"></div></div>
           </div>
           <div class="metric-value">52%</div>
         </div>
         <div class="metric-row">
-          <div class="metric-label">Phone</div>
+          <div class="metric-label">Teléfono</div>
           <div class="metric-bar">
             <div class="progress-bar"><div class="progress-fill" style="width:31%;"></div></div>
           </div>
           <div class="metric-value">31%</div>
         </div>
         <div class="metric-row">
-          <div class="metric-label">Instagram DM</div>
+          <div class="metric-label">Mensaje de Instagram</div>
           <div class="metric-bar">
             <div class="progress-bar"><div class="progress-fill" style="width:17%;"></div></div>
           </div>
@@ -1221,32 +1221,32 @@
 
     <div class="card">
       <div class="card-header">
-        <div class="card-title">Events by Type (YTD)</div>
+        <div class="card-title">Eventos por tipo (año en curso)</div>
       </div>
       <div style="padding:0;">
         <div class="metric-row">
-          <div class="metric-label">Corporate Luncheon</div>
+          <div class="metric-label">Almuerzo corporativo</div>
           <div class="metric-bar">
             <div class="progress-bar"><div class="progress-fill" style="width:44%;"></div></div>
           </div>
           <div class="metric-value">44%</div>
         </div>
         <div class="metric-row">
-          <div class="metric-label">Non-Profit Gala</div>
+          <div class="metric-label">Gala de fundación</div>
           <div class="metric-bar">
             <div class="progress-bar"><div class="progress-fill" style="width:22%;"></div></div>
           </div>
           <div class="metric-value">22%</div>
         </div>
         <div class="metric-row">
-          <div class="metric-label">Gifting Orders</div>
+          <div class="metric-label">Pedidos de regalos</div>
           <div class="metric-bar">
             <div class="progress-bar"><div class="progress-fill" style="width:19%;"></div></div>
           </div>
           <div class="metric-value">19%</div>
         </div>
         <div class="metric-row">
-          <div class="metric-label">In-Home / Other</div>
+          <div class="metric-label">En casa / otros</div>
           <div class="metric-bar">
             <div class="progress-bar"><div class="progress-fill" style="width:15%;"></div></div>
           </div>
@@ -1262,13 +1262,13 @@
 <!-- ===== FOOTER ===== -->
 <footer style="margin-top:40px;padding:20px 24px;border-top:1px solid rgba(201,168,76,0.12);text-align:center;">
   <p style="font-family:'Arial',sans-serif;font-size:11px;color:var(--muted);margin:0;">
-    Mockup with sample data. Built by Pocho.tech &mdash; custom systems for businesses that already work.
+    Maqueta con datos de muestra. Construida por Pocho.tech &mdash; sistemas propios para negocios que ya funcionan.
   </p>
 </footer>
 
 <!-- FLOATING CTA -->
 <div id="float-cta">
-  <button onclick="openCalendly()">Like what you see? Let's talk</button>
+  <button onclick="openCalendly()">¿Le gustó? Hablemos</button>
 </div>
 
 <!-- TOAST -->
@@ -1277,14 +1277,14 @@
 <!-- MODAL -->
 <div id="modal-overlay" role="dialog" aria-modal="true">
   <div id="modal-box">
-    <button id="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <button id="modal-close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
     <div style="font-size:28px;margin-bottom:8px;">&#9733;</div>
-    <h2>45 Years of Relationships.</h2>
+    <h2>45 años de relaciones.</h2>
     <p>
-      Bellaire &amp; Co. has built something extraordinary since 1981 &mdash; US Presidents, Fortune 500 retreats, Buckingham Palace. Imagine a system as distinguished as the service itself: every inquiry captured, every client remembered, every proposal out in 60 seconds.
+      Bellaire &amp; Co. construyó algo poco común desde 1981: catering de alta gama y producción integral de eventos para clientes que no aceptan que algo salga a medias. Imagine un sistema tan cuidado como el servicio: cada consulta capturada, cada cliente recordado, cada propuesta afuera en 60 segundos.
     </p>
-    <button class="btn-gold" style="width:100%;padding:14px;" onclick="openCalendly()">Let's talk &mdash; grab a time here</button>
-    <p style="font-size:11px;color:var(--muted);margin:14px 0 0;font-family:'Arial',sans-serif;">No commitment. Just a conversation.</p>
+    <button class="btn-gold" style="width:100%;padding:14px;" onclick="openCalendly()">Hablemos &mdash; elija un horario acá</button>
+    <p style="font-size:11px;color:var(--muted);margin:14px 0 0;font-family:'Arial',sans-serif;">Sin compromiso. Solo una conversación.</p>
   </div>
 </div>
 
@@ -1294,23 +1294,23 @@
 
   // ============ SAMPLE DATA FOR REPORT TABLE ============
   const EVENTS = [
-    { client:'Greenway Plaza Partners',    type:'Corporate',  label:'Corporate Luncheon',          value:'$7,200',  date:'Aug 2026', status:'Quoted'    },
-    { client:"Houston Children's Charity", type:'Gala',       label:'Non-Profit Gala',              value:'$18,400', date:'Nov 2026', status:'Confirmed' },
-    { client:'River Oaks Estate',          type:'In-Home',    label:'In-Home Dinner, Wine Pairing', value:'$3,200',  date:'Sep 2026', status:'New'       },
-    { client:'Kensington Capital Partners', type:'Corporate',  label:'Corporate Retreat',            value:'$14,800', date:'Oct 2026', status:'New'       },
-    { client:'Memorial Park Museum',       type:'Campaign',   label:'Campaign Celebration',         value:'$9,600',  date:'Aug 2026', status:'Quoted'    },
-    { client:'Midtown Law Group',          type:'Gifting',    label:'Holiday Gifting Order',        value:'$4,200',  date:'Dec 2026', status:'Executed'  },
-    { client:'Frost Bank HQ',             type:'Corporate',  label:'Corporate Luncheon',           value:'$6,800',  date:'Jul 2026', status:'Executed'  },
-    { client:'Hermann Park Conservancy',   type:'Gala',       label:'Non-Profit Dinner Reception',  value:'$22,000', date:'Jun 2026', status:'Executed'  },
-    { client:'West U Catering Co-op',      type:'In-Home',    label:'In-Home Wine Pairing',         value:'$2,800',  date:'May 2026', status:'Executed'  },
-    { client:'Harwood Executive Group',    type:'Corporate',  label:'Executive Luncheon',           value:'$11,200', date:'Apr 2026', status:'Executed'  },
+    { client:'Greenway Plaza Partners',    type:'Corporativo',  label:'Almuerzo corporativo',          value:'$7,200',  date:'ago 2026', status:'Cotizado'    },
+    { client:"Houston Children's Charity", type:'Gala',       label:'Gala de fundación',              value:'$18,400', date:'nov 2026', status:'Confirmado' },
+    { client:'River Oaks Estate',          type:'En casa',    label:'Cena en casa, maridaje', value:'$3,200',  date:'sep 2026', status:'Nuevo'       },
+    { client:'Kensington Capital Partners', type:'Corporativo',  label:'Retiro corporativo',            value:'$14,800', date:'oct 2026', status:'Nuevo'       },
+    { client:'Memorial Park Museum',       type:'Campaña',   label:'Celebración de campaña',         value:'$9,600',  date:'ago 2026', status:'Cotizado'    },
+    { client:'Midtown Law Group',          type:'Regalos',    label:'Pedido de regalos de fin de año',        value:'$4,200',  date:'dic 2026', status:'Ejecutado'  },
+    { client:'Frost Bank HQ',             type:'Corporativo',  label:'Almuerzo corporativo',           value:'$6,800',  date:'jul 2026', status:'Ejecutado'  },
+    { client:'Hermann Park Conservancy',   type:'Gala',       label:'Cena y recepción de fundación',  value:'$22,000', date:'jun 2026', status:'Ejecutado'  },
+    { client:'West U Catering Co-op',      type:'En casa',    label:'Maridaje en casa',         value:'$2,800',  date:'may 2026', status:'Ejecutado'  },
+    { client:'Harwood Executive Group',    type:'Corporativo',  label:'Almuerzo ejecutivo',           value:'$11,200', date:'abr 2026', status:'Ejecutado'  },
   ];
 
   const STATUS_BADGE = {
-    'New':       'badge-new',
-    'Quoted':    'badge-quoted',
-    'Confirmed': 'badge-confirmed',
-    'Executed':  'badge-executed',
+    'Nuevo':       'badge-new',
+    'Cotizado':    'badge-quoted',
+    'Confirmado': 'badge-confirmed',
+    'Ejecutado':  'badge-executed',
   };
 
   // ============ NAVIGATION ============
@@ -1375,14 +1375,14 @@
   // ============ OPERATIONS: INTERACTIVE ACTION ============
   function markFollowupDone(btn) {
     btn.disabled = true;
-    btn.textContent = 'Sent ✓';
+    btn.textContent = 'Enviado ✓';
     btn.style.color = '#68d391';
     btn.style.borderColor = '#68d391';
 
     // Update the badge in the pipeline row
     const badge = document.getElementById('greenway-badge');
     badge.className = 'badge badge-confirmed';
-    badge.textContent = 'Follow-up Sent';
+    badge.textContent = 'Seguimiento enviado';
 
     // Update the alert strip
     const strip = btn.closest('.alert-strip');
@@ -1390,7 +1390,7 @@
     strip.style.background = 'rgba(104,211,145,0.06)';
     strip.querySelector('.alert-icon').textContent = '✓';
 
-    showToast('Follow-up marked as sent for Greenway Plaza Partners.');
+    showToast('Seguimiento marcado como enviado para Greenway Plaza Partners.');
   }
 
   function openClientDetail() {
@@ -1400,7 +1400,7 @@
     document.getElementById('view-client').classList.add('active');
     viewCount++;
     checkModalTrigger();
-    showToast('Viewing full account: Greenway Plaza Partners');
+    showToast('Viendo la cuenta completa: Greenway Plaza Partners');
   }
 
   function switchToProposal() {
@@ -1410,16 +1410,16 @@
     document.getElementById('view-proposal').classList.add('active');
     viewCount++;
     checkModalTrigger();
-    showToast('Proposal builder loaded for Greenway Plaza Partners.');
+    showToast('Constructor de propuestas cargado para Greenway Plaza Partners.');
   }
 
   // ============ PROPOSAL BUILDER ============
   const EVENT_LABELS = {
-    corporate: 'Corporate Luncheon',
-    gala:      'Non-Profit Gala',
-    inhome:    'In-Home Dinner — Wine Pairing',
-    gifting:   'Corporate Gifting Order',
-    campaign:  'Campaign Celebration',
+    corporate: 'Almuerzo corporativo',
+    gala:      'Gala de fundación',
+    inhome:    'Cena en casa — maridaje',
+    gifting:   'Pedido de regalos corporativos',
+    campaign:  'Celebración de campaña',
   };
 
   function updateProposal() {
@@ -1457,7 +1457,7 @@
     const suffix = String(Math.floor(1000 + Math.random() * 9000));
     const proNum = 'PRO-2026-' + suffix;
     document.getElementById('p-number').textContent = proNum;
-    showToast('Proposal ' + proNum + ' ready — send for review or export to PDF.');
+    showToast('Propuesta' + proNum + 'lista — mándela a revisión o expórtela a PDF.');
   }
 
   // ============ REPORT TABLE ============

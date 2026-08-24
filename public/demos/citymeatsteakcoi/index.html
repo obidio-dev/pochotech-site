@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Empacadora Central de Carnes — Operations Portal · Demo by Pocho.tech</title>
+  <title>Empacadora Central de Carnes — Portal de Operaciones · Demo de Pocho.tech</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
@@ -518,30 +518,30 @@
 <body>
 
 <!-- DEMO BADGE -->
-<div class="demo-badge">DEMO &middot; sample data</div>
+<div class="demo-badge">DEMO &middot; datos de muestra</div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <!-- HEADER -->
 <header class="site-header">
-  <h1>Empacadora Central de Carnes &mdash; Operations Portal</h1>
-  <p>What your own system would look like &mdash; prepared by Pocho.tech</p>
+  <h1>Empacadora Central de Carnes &mdash; portal de operaciones</h1>
+  <p>Así se vería su sistema propio &mdash; preparado por Pocho.tech</p>
 </header>
 
 <!-- TAB NAV -->
 <nav class="tab-nav" id="tabNav" role="tablist">
   <button class="tab-btn active" data-tab="orders" role="tab" onclick="switchTab('orders', this)">
-    <span class="tab-icon">📋</span> Daily Orders
+    <span class="tab-icon">📋</span> Pedidos del día
   </button>
   <button class="tab-btn" data-tab="detail" role="tab" onclick="switchTab('detail', this)">
-    <span class="tab-icon">📄</span> Order Detail
+    <span class="tab-icon">📄</span> Detalle del pedido
   </button>
   <button class="tab-btn" data-tab="pain" role="tab" onclick="switchTab('pain', this)">
-    <span class="tab-icon">⚡</span> Before &amp; After
+    <span class="tab-icon">⚡</span> Antes y después
   </button>
   <button class="tab-btn" data-tab="reports" role="tab" onclick="switchTab('reports', this)">
-    <span class="tab-icon">🔍</span> Search &amp; Reports
+    <span class="tab-icon">🔍</span> Búsqueda y reportes
   </button>
 </nav>
 
@@ -553,31 +553,31 @@
   <div class="stats-row">
     <div class="stat-box">
       <div class="stat-num" id="stat-new">4</div>
-      <div class="stat-label">New Orders</div>
-      <div class="stat-delta">Awaiting confirm</div>
+      <div class="stat-label">Pedidos nuevos</div>
+      <div class="stat-delta">Esperando confirmación</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">6</div>
-      <div class="stat-label">In Production</div>
-      <div class="stat-delta">On schedule</div>
+      <div class="stat-label">En producción</div>
+      <div class="stat-delta">En tiempo</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">3</div>
-      <div class="stat-label">Ready to Ship</div>
-      <div class="stat-delta">Awaiting pickup</div>
+      <div class="stat-label">Listos para despacho</div>
+      <div class="stat-delta">Esperando retiro</div>
     </div>
     <div class="stat-box">
       <div class="stat-num">2</div>
-      <div class="stat-label">USDA Docs Pending</div>
-      <div class="stat-delta" style="color:#d97706;">Export queue</div>
+      <div class="stat-label">Documentos USDA pendientes</div>
+      <div class="stat-delta" style="color:#d97706;">Fila de exportación</div>
     </div>
   </div>
 
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
       <div>
-        <p class="card-title">Today's Orders &mdash; Mon Jul 28, 2026</p>
-        <p class="card-sub">6:30 AM &ndash; 2:30 PM · Houston, TX</p>
+        <p class="card-title">Pedidos de hoy &mdash; lunes 28 jul 2026</p>
+        <p class="card-sub">6:30 AM a 2:30 PM · Houston, TX</p>
       </div>
       <span class="usda-badge">&#9679; USDA Est. #19842</span>
     </div>
@@ -586,122 +586,122 @@
       <table class="order-table" id="ordersTable">
         <thead>
           <tr>
-            <th>Order #</th>
-            <th>Customer</th>
-            <th>Cut Specification</th>
-            <th>Qty</th>
-            <th>Channel</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>Pedido</th>
+            <th>Cliente</th>
+            <th>Especificación de corte</th>
+            <th>Cant.</th>
+            <th>Canal</th>
+            <th>Estado</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody id="ordersBody">
           <tr id="order-ORD-2607" class="highlight">
             <td><span class="order-id">ORD-2607</span></td>
-            <td><strong>Tamales La Reina</strong><br><small style="color:#8a7060;">Foodservice Distrib.</small></td>
+            <td><strong>Tamales La Reina</strong><br><small style="color:#8a7060;">Distribuidor foodservice</small></td>
             <td>
-              <span class="cut-spec">Short Ribs C/U ½&quot; &mdash; 20-22 pcs / 10lb</span><br>
-              <span class="tag">Beef</span><span class="tag">10 boxes</span>
+              <span class="cut-spec">Costilla corta C/U ½&quot; &mdash; 20-22 pzas / 10 lb</span><br>
+              <span class="tag">Res</span><span class="tag">10 cajas</span>
             </td>
             <td><strong>100 lb</strong></td>
             <td><span style="color:#991b1b;font-weight:700;font-size:0.75rem;">&#128237; Portal</span></td>
-            <td><span class="status status-new">New</span></td>
+            <td><span class="status status-new">Nuevo</span></td>
             <td>
-              <button class="btn-sm btn-confirm" id="btn-ORD-2607" onclick="confirmOrder('ORD-2607')">Confirm</button>
+              <button class="btn-sm btn-confirm" id="btn-ORD-2607" onclick="confirmOrder('ORD-2607')">Confirmar</button>
             </td>
           </tr>
           <tr id="order-ORD-2606">
             <td><span class="order-id">ORD-2606</span></td>
-            <td><strong>Gulf Coast Meats</strong><br><small style="color:#8a7060;">Wholesale Buyer</small></td>
+            <td><strong>Gulf Coast Meats</strong><br><small style="color:#8a7060;">Comprador mayorista</small></td>
             <td>
-              <span class="cut-spec">Beef T-Bone E-E 12oz. &mdash; 13-14 pcs / box</span><br>
-              <span class="tag">Beef</span><span class="tag">Export</span>
+              <span class="cut-spec">T-Bone de res E-E 12 oz &mdash; 13-14 pzas / caja</span><br>
+              <span class="tag">Res</span><span class="tag">Exportación</span>
             </td>
             <td><strong>280 lb</strong></td>
             <td><span style="color:#991b1b;font-weight:700;font-size:0.75rem;">&#128237; Portal</span></td>
-            <td><span class="status status-new">New</span></td>
-            <td><button class="btn-sm btn-confirm" id="btn-ORD-2606" onclick="confirmOrder('ORD-2606')">Confirm</button></td>
+            <td><span class="status status-new">Nuevo</span></td>
+            <td><button class="btn-sm btn-confirm" id="btn-ORD-2606" onclick="confirmOrder('ORD-2606')">Confirmar</button></td>
           </tr>
           <tr id="order-ORD-2605">
             <td><span class="order-id">ORD-2605</span></td>
-            <td><strong>Houston Star Foods</strong><br><small style="color:#8a7060;">Restaurant Supply</small></td>
+            <td><strong>Houston Star Foods</strong><br><small style="color:#8a7060;">Suministro a restaurantes</small></td>
             <td>
-              <span class="cut-spec">Beef Oxtail Trimmed &amp; Cut &mdash; 10lb box</span><br>
-              <span class="tag">Beef</span><span class="tag">Offal</span>
+              <span class="cut-spec">Rabo de res limpio y cortado &mdash; caja de 10 lb</span><br>
+              <span class="tag">Res</span><span class="tag">Vísceras</span>
             </td>
             <td><strong>50 lb</strong></td>
-            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128222; Phone</span></td>
-            <td><span class="status status-new">New</span></td>
-            <td><button class="btn-sm btn-confirm" id="btn-ORD-2605" onclick="confirmOrder('ORD-2605')">Confirm</button></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128222; Teléfono</span></td>
+            <td><span class="status status-new">Nuevo</span></td>
+            <td><button class="btn-sm btn-confirm" id="btn-ORD-2605" onclick="confirmOrder('ORD-2605')">Confirmar</button></td>
           </tr>
           <tr id="order-ORD-2604">
             <td><span class="order-id">ORD-2604</span></td>
-            <td><strong>Rio Imports LLC</strong><br><small style="color:#8a7060;">Export Client</small></td>
+            <td><strong>Rio Imports LLC</strong><br><small style="color:#8a7060;">Cliente de exportación</small></td>
             <td>
-              <span class="cut-spec">Beef Knuckle Sliced &mdash; 38-42 slices / 10lb</span><br>
-              <span class="tag">Beef</span><span class="tag">Export</span><span class="tag">USDA Docs</span>
+              <span class="cut-spec">Bola de res rebanada &mdash; 38-42 rebanadas / 10 lb</span><br>
+              <span class="tag">Res</span><span class="tag">Exportación</span><span class="tag">Documentos USDA</span>
             </td>
             <td><strong>200 lb</strong></td>
-            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128222; Phone</span></td>
-            <td><span class="status status-new">New</span></td>
-            <td><button class="btn-sm btn-confirm" id="btn-ORD-2604" onclick="confirmOrder('ORD-2604')">Confirm</button></td>
+            <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128222; Teléfono</span></td>
+            <td><span class="status status-new">Nuevo</span></td>
+            <td><button class="btn-sm btn-confirm" id="btn-ORD-2604" onclick="confirmOrder('ORD-2604')">Confirmar</button></td>
           </tr>
           <tr>
             <td><span class="order-id">ORD-2603</span></td>
-            <td><strong>Mercado San Marcos</strong><br><small style="color:#8a7060;">Retail Wholesale</small></td>
+            <td><strong>Mercado San Marcos</strong><br><small style="color:#8a7060;">Mayoreo retail</small></td>
             <td>
-              <span class="cut-spec">Pork Butt Boneless &mdash; 10lb box</span><br>
-              <span class="tag">Pork</span><span class="tag">6 boxes</span>
+              <span class="cut-spec">Cabeza de lomo de cerdo sin hueso &mdash; caja de 10 lb</span><br>
+              <span class="tag">Cerdo</span><span class="tag">6 cajas</span>
             </td>
             <td><strong>60 lb</strong></td>
             <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
-            <td><span class="status status-confirmed">Confirmed</span></td>
-            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+            <td><span class="status status-confirmed">Confirmado</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">Ver</button></td>
           </tr>
           <tr>
             <td><span class="order-id">ORD-2602</span></td>
-            <td><strong>Central Carnes Export</strong><br><small style="color:#8a7060;">Export Client &mdash; MX</small></td>
+            <td><strong>Central Carnes Export</strong><br><small style="color:#8a7060;">Cliente de exportación &mdash; MX</small></td>
             <td>
-              <span class="cut-spec">Beef Hind Shank C/C &mdash; 16-18 pcs / 10lb</span><br>
-              <span class="tag">Beef</span><span class="tag">Export</span>
+              <span class="cut-spec">Chambarete trasero de res C/C &mdash; 16-18 pzas / 10 lb</span><br>
+              <span class="tag">Res</span><span class="tag">Exportación</span>
             </td>
             <td><strong>150 lb</strong></td>
             <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
-            <td><span class="status status-inprod">In Production</span></td>
-            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+            <td><span class="status status-inprod">En producción</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">Ver</button></td>
           </tr>
           <tr>
             <td><span class="order-id">ORD-2601</span></td>
             <td><strong>El Rancho Foods</strong><br><small style="color:#8a7060;">Foodservice</small></td>
             <td>
-              <span class="cut-spec">Beef Short Ribs 123A Cut 3&quot; &mdash; 6-7 pcs / 10lb</span><br>
-              <span class="tag">Beef</span><span class="tag">Custom Cut</span>
+              <span class="cut-spec">Costilla corta de res 123A corte 3&quot; &mdash; 6-7 pzas / 10 lb</span><br>
+              <span class="tag">Res</span><span class="tag">Corte a medida</span>
             </td>
             <td><strong>70 lb</strong></td>
             <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
-            <td><span class="status status-ready">Ready</span></td>
-            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+            <td><span class="status status-ready">Listo</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">Ver</button></td>
           </tr>
           <tr>
             <td><span class="order-id">ORD-2598</span></td>
-            <td><strong>Pacifico Distributors</strong><br><small style="color:#8a7060;">Export Client &mdash; CR</small></td>
+            <td><strong>Pacifico Distributors</strong><br><small style="color:#8a7060;">Cliente de exportación &mdash; CR</small></td>
             <td>
-              <span class="cut-spec">Turkey Wing Split 2-PC &mdash; 10lb box</span><br>
-              <span class="tag">Poultry</span><span class="tag">Export</span><span class="tag">USDA Docs</span>
+              <span class="cut-spec">Ala de pavo partida en 2 &mdash; caja de 10 lb</span><br>
+              <span class="tag">Aves</span><span class="tag">Exportación</span><span class="tag">Documentos USDA</span>
             </td>
             <td><strong>120 lb</strong></td>
             <td><span style="color:#8a7060;font-size:0.75rem;font-weight:700;">&#128237; Portal</span></td>
-            <td><span class="status status-shipped">Shipped</span></td>
-            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">View</button></td>
+            <td><span class="status status-shipped">Despachado</span></td>
+            <td><button class="btn-sm btn-view" onclick="switchTab('detail',document.querySelector('[data-tab=detail]'))">Ver</button></td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div style="margin-top:12px; font-size:0.76rem; color:#8a7060; display:flex; gap:20px; flex-wrap:wrap;">
-      <span>&#128237; <strong>5</strong> orders received via portal today</span>
-      <span>&#128222; <strong>2</strong> entered manually (phone)</span>
-      <span style="color:#065f46;">&#10003; 0 transcription errors</span>
+      <span>&#128237; <strong>5</strong> pedidos recibidos hoy por el portal</span>
+      <span>&#128222; <strong>2</strong> capturados a mano (teléfono)</span>
+      <span style="color:#065f46;">&#10003; 0 errores de transcripción</span>
     </div>
   </div>
 
@@ -715,12 +715,12 @@
   <div class="detail-header">
     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
       <div>
-        <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; color:#c9a888; text-transform:uppercase; margin:0 0 4px 0;">Order Detail</p>
+        <p style="font-size:0.72rem; font-weight:700; letter-spacing:0.08em; color:#c9a888; text-transform:uppercase; margin:0 0 4px 0;">Detalle del pedido</p>
         <h2>ORD-2602 &mdash; Central Carnes Export</h2>
-        <p>Beef Hind Shank C/C &middot; 16-18 pcs / 10lb &middot; Export to MX</p>
+        <p>Chambarete trasero de res C/C &middot; 16-18 pzas / 10 lb &middot; exportación a MX</p>
       </div>
       <div style="text-align:right;">
-        <span class="status status-inprod" style="font-size:0.8rem; padding:5px 14px;">In Production</span>
+        <span class="status status-inprod" style="font-size:0.8rem; padding:5px 14px;">En producción</span>
         <div style="margin-top:8px;"><span class="usda-badge">USDA Est. #19842</span></div>
       </div>
     </div>
@@ -729,83 +729,83 @@
   <div class="detail-grid">
     <!-- Order specs -->
     <div class="card">
-      <p class="card-title">Order Specifications</p>
-      <div class="info-row"><span class="info-label">Cut</span><span class="info-value"><span class="spec-pill">Beef Hind Shank C/C</span></span></div>
-      <div class="info-row"><span class="info-label">Pack spec</span><span class="info-value">16-18 pcs / 10lb box</span></div>
-      <div class="info-row"><span class="info-label">Total weight</span><span class="info-value">150 lb</span></div>
-      <div class="info-row"><span class="info-label">Boxes</span><span class="info-value">15 boxes</span></div>
-      <div class="info-row"><span class="info-label">Bone</span><span class="info-value">Bone-in</span></div>
-      <div class="info-row"><span class="info-label">Destination</span><span class="info-value">Mexico &mdash; Export</span></div>
-      <div class="info-row"><span class="info-label">Requested delivery</span><span class="info-value">Jul 30, 2026</span></div>
-      <div class="info-row"><span class="info-label">Special instructions</span><span class="info-value" style="color:#6b3a1f;">Uniform cut, no excess fat</span></div>
+      <p class="card-title">Especificaciones del pedido</p>
+      <div class="info-row"><span class="info-label">Corte</span><span class="info-value"><span class="spec-pill">Chambarete trasero de res C/C</span></span></div>
+      <div class="info-row"><span class="info-label">Especificación de empaque</span><span class="info-value">16-18 pzas / caja de 10 lb</span></div>
+      <div class="info-row"><span class="info-label">Peso total</span><span class="info-value">150 lb</span></div>
+      <div class="info-row"><span class="info-label">Cajas</span><span class="info-value">15 cajas</span></div>
+      <div class="info-row"><span class="info-label">Hueso</span><span class="info-value">Con hueso</span></div>
+      <div class="info-row"><span class="info-label">Destino</span><span class="info-value">México &mdash; exportación</span></div>
+      <div class="info-row"><span class="info-label">Entrega solicitada</span><span class="info-value">30 jul 2026</span></div>
+      <div class="info-row"><span class="info-label">Instrucciones especiales</span><span class="info-value" style="color:#6b3a1f;">Corte parejo, sin exceso de grasa</span></div>
     </div>
 
     <!-- Customer info -->
     <div class="card">
-      <p class="card-title">Customer &mdash; Central Carnes Export</p>
-      <div class="info-row"><span class="info-label">Account #</span><span class="info-value">ACC-0441</span></div>
-      <div class="info-row"><span class="info-label">Contact</span><span class="info-value">Jorge Fuentes</span></div>
-      <div class="info-row"><span class="info-label">Channel</span><span class="info-value">Customer Portal</span></div>
-      <div class="info-row"><span class="info-label">Orders YTD</span><span class="info-value">23 orders</span></div>
-      <div class="info-row"><span class="info-label">Avg. order</span><span class="info-value">145 lb</span></div>
-      <div class="info-row"><span class="info-label">Payment terms</span><span class="info-value">Net 15</span></div>
-      <div class="info-row"><span class="info-label">Export cert. req.</span><span class="info-value" style="color:#1e3a5f; font-weight:700;">Yes &mdash; MX SENASICA</span></div>
+      <p class="card-title">Cliente &mdash; Central Carnes Export</p>
+      <div class="info-row"><span class="info-label">Cuenta</span><span class="info-value">ACC-0441</span></div>
+      <div class="info-row"><span class="info-label">Contacto</span><span class="info-value">Jorge Fuentes</span></div>
+      <div class="info-row"><span class="info-label">Canal</span><span class="info-value">Portal del cliente</span></div>
+      <div class="info-row"><span class="info-label">Pedidos del año</span><span class="info-value">23 pedidos</span></div>
+      <div class="info-row"><span class="info-label">Pedido promedio</span><span class="info-value">145 lb</span></div>
+      <div class="info-row"><span class="info-label">Condiciones de pago</span><span class="info-value">Neto 15</span></div>
+      <div class="info-row"><span class="info-label">Requiere certificado de exportación</span><span class="info-value" style="color:#1e3a5f; font-weight:700;">Sí &mdash; SENASICA México</span></div>
     </div>
   </div>
 
   <!-- USDA Docs -->
   <div class="card">
-    <p class="card-title">USDA Export Documentation</p>
-    <p class="card-sub">Auto-generated from lot data &mdash; ready for supervisor signature</p>
+    <p class="card-title">Documentación USDA de exportación</p>
+    <p class="card-sub">Generada sola a partir de los datos del lote &mdash; lista para la firma del supervisor</p>
     <ul class="usda-list">
       <li class="usda-item">
-        <span class="usda-doc">&#128196; USDA Inspection Certificate &mdash; Lot #LC-2602-A</span>
-        <span class="usda-status-ok">&#10003; Generated</span>
+        <span class="usda-doc">&#128196; Certificado de inspección USDA &mdash; lote #LC-2602-A</span>
+        <span class="usda-status-ok">&#10003; Generado</span>
       </li>
       <li class="usda-item">
-        <span class="usda-doc">&#128196; FSIS Export Health Certificate</span>
-        <span class="usda-status-ok">&#10003; Generated</span>
+        <span class="usda-doc">&#128196; Certificado sanitario de exportación FSIS</span>
+        <span class="usda-status-ok">&#10003; Generado</span>
       </li>
       <li class="usda-item">
-        <span class="usda-doc">&#128196; Mexico SENASICA Import Permit</span>
-        <span class="usda-status-pend">&#9679; Pending signature</span>
+        <span class="usda-doc">&#128196; Permiso de importación SENASICA México</span>
+        <span class="usda-status-pend">&#9679; Pendiente de firma</span>
       </li>
       <li class="usda-item">
-        <span class="usda-doc">&#128196; Lot Traceability Sheet &mdash; Est. #19842</span>
-        <span class="usda-status-ok">&#10003; Generated</span>
+        <span class="usda-doc">&#128196; Hoja de trazabilidad del lote &mdash; Est. #19842</span>
+        <span class="usda-status-ok">&#10003; Generada</span>
       </li>
     </ul>
   </div>
 
   <!-- Order timeline -->
   <div class="card">
-    <p class="card-title">Order History</p>
-    <p class="card-sub">Full audit trail &mdash; no phone tag required</p>
+    <p class="card-title">Historial del pedido</p>
+    <p class="card-sub">Rastro completo &mdash; sin perseguirse por teléfono</p>
     <ul class="timeline">
       <li>
         <div class="tl-dot" style="background:#10b981;"></div>
-        <div class="tl-time">Jul 28 · 6:47a</div>
-        <div class="tl-text"><strong>Order received via Customer Portal.</strong> Spec sheet attached by Jorge Fuentes. No re-typing required.</div>
+        <div class="tl-time">28 jul · 6:47a</div>
+        <div class="tl-text"><strong>Pedido recibido por el portal del cliente.</strong> Hoja de especificación adjuntada por Jorge Fuentes. No hubo que recapturar nada.</div>
       </li>
       <li>
         <div class="tl-dot" style="background:var(--brand-red);"></div>
-        <div class="tl-time">Jul 28 · 7:02a</div>
-        <div class="tl-text"><strong>Order confirmed</strong> by plant supervisor. Production ticket generated automatically.</div>
+        <div class="tl-time">28 jul · 7:02a</div>
+        <div class="tl-text"><strong>Pedido confirmado</strong> por el supervisor de planta. El ticket de producción se generó solo.</div>
       </li>
       <li>
         <div class="tl-dot" style="background:#3b82f6;"></div>
-        <div class="tl-time">Jul 28 · 7:15a</div>
-        <div class="tl-text"><strong>USDA docs auto-generated</strong> from lot #LC-2602-A. Inspection cert and health cert ready. SENASICA form pending supervisor signature.</div>
+        <div class="tl-time">28 jul · 7:15a</div>
+        <div class="tl-text"><strong>Documentos USDA generados solos</strong> a partir del lote #LC-2602-A. Certificado de inspección y sanitario listos. El formulario de SENASICA queda pendiente de la firma del supervisor.</div>
       </li>
       <li>
         <div class="tl-dot" style="background:#3b82f6;"></div>
-        <div class="tl-time">Jul 28 · 8:30a</div>
-        <div class="tl-text"><strong>In production.</strong> Estimated completion: 11:00 AM. Customer notified via portal automatically.</div>
+        <div class="tl-time">28 jul · 8:30a</div>
+        <div class="tl-text"><strong>En producción.</strong> Terminación estimada: 11:00 AM. Al cliente se le avisó por el portal automáticamente.</div>
       </li>
       <li>
         <div class="tl-dot" style="background:#d1d5db;"></div>
-        <div class="tl-time">Jul 30 · Expected</div>
-        <div class="tl-text" style="color:#8a7060;">Ready for export pickup &mdash; all USDA docs complete.</div>
+        <div class="tl-time">30 jul · previsto</div>
+        <div class="tl-text" style="color:#8a7060;">Listo para retiro de exportación &mdash; todos los documentos USDA completos.</div>
       </li>
     </ul>
   </div>
@@ -818,82 +818,81 @@
 <section class="tab-panel" id="tab-pain">
 
   <div class="pain-quote">
-    <strong>"Dial our number today to inquire."</strong> &mdash; universalbeef.net &nbsp;&middot;&nbsp;
-    A buyer at 8 PM looking for Short Ribs 123A Cut finds a phone number that doesn't answer until 6:30 AM. That order is already being closed by a competitor with an online portal. How many of those happen per week &mdash; without anyone knowing?
+    <strong>"Llámenos hoy para consultar."</strong> &mdash; centralbeef.com &nbsp;&middot;&nbsp; Un comprador a las 8 de la noche buscando costilla corta 123A encuentra un teléfono que no contesta hasta las 6:30 de la mañana. Ese pedido ya lo está cerrando un competidor con portal en línea. ¿Cuántos de esos pasan por semana, sin que nadie se entere?
   </div>
 
   <!-- Comparison: Fax/phone vs Portal -->
-  <p class="section-label">Pain 1 &mdash; Orders by phone &amp; fax vs. digital portal</p>
+  <p class="section-label">Dolor 1 &mdash; pedidos por teléfono y fax contra portal digital</p>
   <div class="comparison-wrapper">
     <div class="compare-col">
-      <div class="compare-header before">&#128222; Today: Phone &amp; Fax</div>
+      <div class="compare-header before">&#128222; Hoy: teléfono y fax</div>
       <div class="compare-body">
-        <div class="compare-item"><span class="compare-icon">&#128237;</span> Fax arrives; someone transcribes spec by hand into paper or Excel</div>
-        <div class="compare-item"><span class="compare-icon">&#9888;</span> Transcription errors: "2&times;2" misread as "½ inch" &mdash; wrong cut goes to production</div>
-        <div class="compare-item"><span class="compare-icon">&#128222;</span> Customer calls to follow up on order status &mdash; team answers from memory</div>
-        <div class="compare-item"><span class="compare-icon">&#8987;</span> New buyer calls at 8 PM &mdash; no one picks up until next morning</div>
-        <div class="compare-item"><span class="compare-icon">&#128197;</span> After-hours orders not captured &mdash; lost or forgotten by 6:30 AM</div>
+        <div class="compare-item"><span class="compare-icon">&#128237;</span> Llega el fax; alguien transcribe la especificación a mano en papel o en Excel</div>
+        <div class="compare-item"><span class="compare-icon">&#9888;</span> Errores de transcripción: "2&times;2" se lee como "½ pulgada" &mdash; el corte equivocado se va a producción</div>
+        <div class="compare-item"><span class="compare-icon">&#128222;</span> El cliente llama a preguntar por su pedido &mdash; el equipo contesta de memoria</div>
+        <div class="compare-item"><span class="compare-icon">&#8987;</span> Un comprador nuevo llama a las 8 de la noche &mdash; nadie contesta hasta la mañana siguiente</div>
+        <div class="compare-item"><span class="compare-icon">&#128197;</span> Los pedidos de fuera de horario no quedan capturados &mdash; se pierden u olvidan para las 6:30 AM</div>
       </div>
     </div>
     <div class="compare-col">
-      <div class="compare-header after">&#128237; With a portal: Digital order flow</div>
+      <div class="compare-header after">&#128237; Con portal: flujo de pedidos digital</div>
       <div class="compare-body">
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Customer submits spec sheet online &mdash; arrives directly to production queue</div>
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Zero re-typing &mdash; cut spec locked as entered, no interpretation errors</div>
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Customer checks status on portal &mdash; team phone freed for production</div>
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Buyer at 8 PM submits order &mdash; plant opens with it already queued</div>
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Full order history by customer &mdash; reorder in 2 clicks, no phone call</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> El cliente sube su hoja de especificación en línea &mdash; llega directo a la fila de producción</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Cero recaptura &mdash; la especificación queda tal cual se ingresó, sin errores de interpretación</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> El cliente consulta el estado en el portal &mdash; el teléfono de la planta queda libre para producción</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> El comprador de las 8 de la noche manda el pedido &mdash; la planta abre con él ya en la fila</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Historial completo por cliente &mdash; repetir un pedido toma dos clics, sin llamada</div>
       </div>
     </div>
   </div>
 
   <!-- Comparison: USDA manual vs automated -->
-  <p class="section-label" style="margin-top:24px;">Pain 2 &mdash; USDA export documentation: manual vs automated</p>
+  <p class="section-label" style="margin-top:24px;">Dolor 2 &mdash; documentación USDA de exportación: a mano contra automática</p>
   <div class="comparison-wrapper">
     <div class="compare-col">
-      <div class="compare-header before">&#128196; Today: Paper &amp; Spreadsheets</div>
+      <div class="compare-header before">&#128196; Hoy: papel y hojas de cálculo</div>
       <div class="compare-body">
-        <div class="compare-item"><span class="compare-icon">&#9888;</span> Admin pulls lot data manually from production notes</div>
-        <div class="compare-item"><span class="compare-icon">&#9888;</span> USDA forms filled by hand &mdash; one per country, per shipment</div>
-        <div class="compare-item"><span class="compare-icon">&#128222;</span> Missing field discovered at export time &mdash; shipment delayed</div>
-        <div class="compare-item"><span class="compare-icon">&#8987;</span> Same data entered 3&ndash;5 times across forms for one shipment</div>
+        <div class="compare-item"><span class="compare-icon">&#9888;</span> Administración saca los datos del lote a mano de las notas de producción</div>
+        <div class="compare-item"><span class="compare-icon">&#9888;</span> Los formularios USDA se llenan a mano &mdash; uno por país, por embarque</div>
+        <div class="compare-item"><span class="compare-icon">&#128222;</span> El campo que falta se descubre el día de exportar &mdash; el embarque se atrasa</div>
+        <div class="compare-item"><span class="compare-icon">&#8987;</span> Los mismos datos se escriben de 3 a 5 veces entre formularios para un solo embarque</div>
       </div>
     </div>
     <div class="compare-col">
-      <div class="compare-header after">&#128196; With the system: Auto-generated docs</div>
+      <div class="compare-header after">&#128196; Con el sistema: documentos generados solos</div>
       <div class="compare-body">
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Lot data entered once &mdash; system fills all USDA forms automatically</div>
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Country-specific certs generated per shipment destination</div>
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Missing fields flagged before export day &mdash; zero last-minute scrambles</div>
-        <div class="compare-item"><span class="compare-icon">&#10003;</span> Supervisor signs digitally &mdash; docs sent to inspector same morning</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Los datos del lote se capturan una vez &mdash; el sistema llena todos los formularios USDA solo</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Los certificados por país se generan según el destino del embarque</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> Los campos faltantes se marcan antes del día de exportar &mdash; cero carreras de último minuto</div>
+        <div class="compare-item"><span class="compare-icon">&#10003;</span> El supervisor firma digitalmente &mdash; los documentos salen al inspector esa misma mañana</div>
       </div>
     </div>
   </div>
 
   <!-- Savings bars -->
   <div class="card" style="margin-top:20px;">
-    <p class="card-title">Estimated time recovered per week (sample operation)</p>
-    <p class="card-sub">Based on similar meat wholesaler implementations. Your numbers will vary &mdash; we scope that together.</p>
+    <p class="card-title">Tiempo recuperado estimado por semana (operación de muestra)</p>
+    <p class="card-sub">Basado en implementaciones parecidas en mayoreo de carnes. Sus números van a variar &mdash; eso lo dimensionamos juntos.</p>
 
     <div class="savings-bar">
-      <div class="savings-label"><span>Phone &amp; fax order entry (manual transcription)</span><span style="color:var(--brand-red);">Before: ~6 hrs/week</span></div>
+      <div class="savings-label"><span>Captura de pedidos por teléfono y fax (transcripción manual)</span><span style="color:var(--brand-red);">Antes: ~6 h/semana</span></div>
       <div class="bar-track"><div class="bar-fill bar-red" style="width:80%;"></div></div>
     </div>
     <div class="savings-bar">
-      <div class="savings-label"><span>With digital portal (automated entry)</span><span style="color:#059669;">After: ~1 hr/week</span></div>
+      <div class="savings-label"><span>Con portal digital (captura automática)</span><span style="color:#059669;">Después: ~1 h/semana</span></div>
       <div class="bar-track"><div class="bar-fill bar-green" style="width:13%;"></div></div>
     </div>
     <div class="divider"></div>
     <div class="savings-bar">
-      <div class="savings-label"><span>USDA export doc prep (manual)</span><span style="color:var(--brand-red);">Before: ~4 hrs/shipment</span></div>
+      <div class="savings-label"><span>Preparación de documentos USDA de exportación (a mano)</span><span style="color:var(--brand-red);">Antes: ~4 h/embarque</span></div>
       <div class="bar-track"><div class="bar-fill bar-red" style="width:70%;"></div></div>
     </div>
     <div class="savings-bar">
-      <div class="savings-label"><span>With automated doc generation</span><span style="color:#059669;">After: ~20 min/shipment</span></div>
+      <div class="savings-label"><span>Con generación automática de documentos</span><span style="color:#059669;">Después: ~20 min/embarque</span></div>
       <div class="bar-track"><div class="bar-fill bar-green" style="width:8%;"></div></div>
     </div>
 
-    <p style="font-size:0.72rem; color:#8a7060; margin-top:14px; margin-bottom:0;">&#9432; Sample data for illustration. Actual savings depend on order volume and number of export shipments per week.</p>
+    <p style="font-size:0.72rem; color:#8a7060; margin-top:14px; margin-bottom:0;">&#9432; Datos de muestra, a modo de ilustración. El ahorro real depende del volumen de pedidos y de cuántos embarques de exportación haya por semana.</p>
   </div>
 
 </section>
@@ -904,24 +903,24 @@
 <section class="tab-panel" id="tab-reports">
 
   <div class="card">
-    <p class="card-title">Search Orders &amp; Customers</p>
-    <p class="card-sub">Full-text search across cuts, customers, specs, dates, and status</p>
+    <p class="card-title">Buscar pedidos y clientes</p>
+    <p class="card-sub">Búsqueda de texto completo entre cortes, clientes, especificaciones, fechas y estados</p>
     <div class="search-row">
-      <input class="search-input" type="text" id="searchInput" placeholder="Search: &quot;Short Ribs&quot;, &quot;export&quot;, &quot;Gulf Coast&quot;, &quot;ORD-260&quot;..." oninput="doSearch()">
+      <input class="search-input" type="text" id="searchInput" placeholder="Buscar: &quot;costilla corta&quot;, &quot;exportación&quot;, &quot;Gulf Coast&quot;, &quot;ORD-260&quot;..." oninput="doSearch()">
       <select class="filter-select" id="filterStatus" onchange="doSearch()">
-        <option value="">All statuses</option>
-        <option value="New">New</option>
-        <option value="Confirmed">Confirmed</option>
-        <option value="In Production">In Production</option>
-        <option value="Ready">Ready to Ship</option>
-        <option value="Shipped">Shipped</option>
+        <option value="">Todos los estados</option>
+        <option value="Nuevo">Nuevo</option>
+        <option value="Confirmado">Confirmado</option>
+        <option value="En producción">En producción</option>
+        <option value="Listo">Listo para despacho</option>
+        <option value="Despachado">Despachado</option>
       </select>
       <select class="filter-select" id="filterChannel" onchange="doSearch()">
-        <option value="">All channels</option>
+        <option value="">Todos los canales</option>
         <option value="Portal">Portal</option>
-        <option value="Phone">Phone</option>
+        <option value="Teléfono">Teléfono</option>
       </select>
-      <button class="btn-search" onclick="doSearch()">Search</button>
+      <button class="btn-search" onclick="doSearch()">Buscar</button>
     </div>
     <div id="searchResults" style="font-size:0.82rem; color:#8a7060; padding:6px 0;"></div>
   </div>
@@ -930,49 +929,49 @@
 
     <!-- Top products this week -->
     <div class="report-card">
-      <div class="report-card-header">Top Products &mdash; Week of Jul 28</div>
+      <div class="report-card-header">Productos más vendidos &mdash; semana del 28 de julio</div>
       <div class="report-card-body">
-        <div class="report-row"><span class="report-product">Beef Short Ribs 123A 3&quot;</span><span class="report-qty">420 lb</span></div>
-        <div class="report-row"><span class="report-product">Beef Hind Shank C/C</span><span class="report-qty">380 lb</span></div>
-        <div class="report-row"><span class="report-product">Beef T-Bone E-E 12oz.</span><span class="report-qty">280 lb</span></div>
-        <div class="report-row"><span class="report-product">Beef Oxtail Trimmed</span><span class="report-qty">230 lb</span></div>
-        <div class="report-row"><span class="report-product">Turkey Wing Split 2-PC</span><span class="report-qty">120 lb</span></div>
-        <div class="report-row"><span class="report-product">Pork Butt Boneless</span><span class="report-qty">90 lb</span></div>
+        <div class="report-row"><span class="report-product">Costilla corta de res 123A 3&quot;</span><span class="report-qty">420 lb</span></div>
+        <div class="report-row"><span class="report-product">Chambarete trasero de res C/C</span><span class="report-qty">380 lb</span></div>
+        <div class="report-row"><span class="report-product">T-Bone de res E-E 12 oz</span><span class="report-qty">280 lb</span></div>
+        <div class="report-row"><span class="report-product">Rabo de res limpio</span><span class="report-qty">230 lb</span></div>
+        <div class="report-row"><span class="report-product">Ala de pavo partida en 2</span><span class="report-qty">120 lb</span></div>
+        <div class="report-row"><span class="report-product">Cabeza de lomo de cerdo sin hueso</span><span class="report-qty">90 lb</span></div>
       </div>
     </div>
 
     <!-- Export queue -->
     <div class="report-card">
-      <div class="report-card-header">USDA Export Queue</div>
+      <div class="report-card-header">Fila de exportación USDA</div>
       <div class="report-card-body">
         <ul class="usda-list">
           <li class="usda-item">
             <div>
               <div class="usda-doc">ORD-2606 &mdash; Gulf Coast Meats</div>
-              <div style="font-size:0.72rem; color:#8a7060;">Beef T-Bone &middot; Dest: Export</div>
+              <div style="font-size:0.72rem; color:#8a7060;">T-Bone de res &middot; destino: exportación</div>
             </div>
-            <span class="usda-status-pend">Docs pending</span>
+            <span class="usda-status-pend">Documentos pendientes</span>
           </li>
           <li class="usda-item">
             <div>
               <div class="usda-doc">ORD-2604 &mdash; Rio Imports LLC</div>
-              <div style="font-size:0.72rem; color:#8a7060;">Beef Knuckle &middot; Dest: Export</div>
+              <div style="font-size:0.72rem; color:#8a7060;">Bola de res &middot; destino: exportación</div>
             </div>
-            <span class="usda-status-pend">Docs pending</span>
+            <span class="usda-status-pend">Documentos pendientes</span>
           </li>
           <li class="usda-item">
             <div>
               <div class="usda-doc">ORD-2602 &mdash; Central Carnes Export</div>
-              <div style="font-size:0.72rem; color:#8a7060;">Hind Shank &middot; Dest: MX</div>
+              <div style="font-size:0.72rem; color:#8a7060;">Chambarete trasero &middot; destino: MX</div>
             </div>
-            <span class="usda-status-pend">Sig. pending</span>
+            <span class="usda-status-pend">Firma pendiente</span>
           </li>
           <li class="usda-item">
             <div>
               <div class="usda-doc">ORD-2598 &mdash; Pacifico Distributors</div>
-              <div style="font-size:0.72rem; color:#8a7060;">Turkey Wing &middot; Dest: CR</div>
+              <div style="font-size:0.72rem; color:#8a7060;">Ala de pavo &middot; destino: CR</div>
             </div>
-            <span class="usda-status-ok">&#10003; Complete</span>
+            <span class="usda-status-ok">&#10003; Completo</span>
           </li>
         </ul>
       </div>
@@ -980,27 +979,27 @@
 
     <!-- Orders by channel -->
     <div class="report-card">
-      <div class="report-card-header">Orders by Channel &mdash; Jul 2026</div>
+      <div class="report-card-header">Pedidos por canal &mdash; julio 2026</div>
       <div class="report-card-body">
-        <div class="report-row"><span class="report-product">&#128237; Customer Portal</span><span class="report-qty">62%</span></div>
-        <div class="report-row"><span class="report-product">&#128222; Phone</span><span class="report-qty">28%</span></div>
-        <div class="report-row"><span class="report-product">&#128237; Fax (legacy)</span><span class="report-qty">10%</span></div>
+        <div class="report-row"><span class="report-product">&#128237; Portal del cliente</span><span class="report-qty">62%</span></div>
+        <div class="report-row"><span class="report-product">&#128222; Teléfono</span><span class="report-qty">28%</span></div>
+        <div class="report-row"><span class="report-product">&#128237; Fax (heredado)</span><span class="report-qty">10%</span></div>
         <div style="height:1px; background:#f0e4d9; margin:10px 0;"></div>
-        <div style="font-size:0.77rem; color:#059669; font-weight:700;">&#8595; 48% fewer manual calls vs. same period last year</div>
-        <div style="font-size:0.74rem; color:#8a7060; margin-top:4px;">Portal orders require zero staff time to capture</div>
+        <div style="font-size:0.77rem; color:#059669; font-weight:700;">&#8595; 48% menos llamadas manuales que en el mismo período del año pasado</div>
+        <div style="font-size:0.74rem; color:#8a7060; margin-top:4px;">Los pedidos por portal no consumen ni un minuto del equipo para capturarse</div>
       </div>
     </div>
 
     <!-- Top customers -->
     <div class="report-card">
-      <div class="report-card-header">Top Customers &mdash; YTD</div>
+      <div class="report-card-header">Mejores clientes &mdash; en lo que va del año</div>
       <div class="report-card-body">
-        <div class="report-row"><span class="report-product">Central Carnes Export</span><span class="report-qty">23 orders</span></div>
-        <div class="report-row"><span class="report-product">Gulf Coast Meats</span><span class="report-qty">19 orders</span></div>
-        <div class="report-row"><span class="report-product">El Rancho Foods</span><span class="report-qty">17 orders</span></div>
-        <div class="report-row"><span class="report-product">Houston Star Foods</span><span class="report-qty">14 orders</span></div>
-        <div class="report-row"><span class="report-product">Mercado San Marcos</span><span class="report-qty">11 orders</span></div>
-        <div class="report-row"><span class="report-product">Tamales La Reina</span><span class="report-qty">9 orders</span></div>
+        <div class="report-row"><span class="report-product">Central Carnes Export</span><span class="report-qty">23 pedidos</span></div>
+        <div class="report-row"><span class="report-product">Gulf Coast Meats</span><span class="report-qty">19 pedidos</span></div>
+        <div class="report-row"><span class="report-product">El Rancho Foods</span><span class="report-qty">17 pedidos</span></div>
+        <div class="report-row"><span class="report-product">Houston Star Foods</span><span class="report-qty">14 pedidos</span></div>
+        <div class="report-row"><span class="report-product">Mercado San Marcos</span><span class="report-qty">11 pedidos</span></div>
+        <div class="report-row"><span class="report-product">Tamales La Reina</span><span class="report-qty">9 pedidos</span></div>
       </div>
     </div>
 
@@ -1014,7 +1013,7 @@
 <div class="floating-cta">
   <button class="cta-btn" onclick="openCalendly()">
     <div class="cta-dot"></div>
-    Like what you see? Let's talk
+    ¿Le gustó? Hablemos
   </button>
 </div>
 
@@ -1023,18 +1022,18 @@
 ══════════════════════════════════════════════ -->
 <div class="modal-overlay" id="modal" onclick="closeModalIfBg(event)">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
-    <div class="modal-tag">Ready to see the real thing?</div>
-    <h2>This could be your team's view every morning at 6:30 AM.</h2>
-    <p>No more fax transcription. No more order errors. USDA docs auto-generated from lot data. Your clients ordering while you sleep. Let's talk about what it would look like for Empacadora Central de Carnes.</p>
-    <button class="modal-cta-btn" onclick="openCalendly()">Let's talk &rarr;</button>
-    <p class="modal-note">No pressure &mdash; just a conversation about your operation.</p>
+    <button class="modal-close" onclick="closeModal()" aria-label="Cerrar">&times;</button>
+    <div class="modal-tag">¿Listo para ver esto de verdad?</div>
+    <h2>Así podría ver su equipo cada mañana a las 6:30.</h2>
+    <p>Se acabó transcribir faxes. Se acabaron los errores de pedido. Documentos USDA generados solos con los datos del lote. Sus clientes pidiendo mientras usted duerme. Hablemos de cómo se vería para Empacadora Central de Carnes.</p>
+    <button class="modal-cta-btn" onclick="openCalendly()">Hablemos &rarr;</button>
+    <p class="modal-note">Sin presión &mdash; solo una conversación sobre su operación.</p>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer-bar">
-  Mockup with sample data. Built by <strong>Pocho.tech</strong> &mdash; custom systems for businesses that already work.
+  Maqueta con datos de muestra. Construida por <strong>Pocho.tech</strong> &mdash; sistemas propios para negocios que ya funcionan.
 </footer>
 
 <script>
@@ -1094,8 +1093,8 @@
       const statusCell = cells[5];
       const actionCell = cells[6];
 
-      statusCell.innerHTML = '<span class="status status-confirmed">Confirmed</span>';
-      actionCell.innerHTML = '<button class="btn-sm btn-view" onclick="switchTab(\'detail\', document.querySelector(\'[data-tab=detail]\'))">View</button>';
+      statusCell.innerHTML = '<span class="status status-confirmed">Confirmado</span>';
+      actionCell.innerHTML = '<button class="btn-sm btn-view" onclick="switchTab(\'detail\', document.querySelector(\'[data-tab=detail]\'))">Ver</button>';
       row.classList.remove('highlight');
 
       // Update stat counter
@@ -1103,7 +1102,7 @@
       const current = parseInt(statEl.textContent, 10);
       if (current > 0) statEl.textContent = current - 1;
 
-      showToast('ORD-' + orderId.split('-')[1] + ' confirmed — production ticket generated');
+      showToast('ORD-' + orderId.split('-')[1] + 'confirmado — ticket de producción generado');
     }, 900);
   }
 
@@ -1117,18 +1116,18 @@
 
   // ── SEARCH ──
   const searchData = [
-    { id:'ORD-2607', customer:'Tamales La Reina', cut:'Short Ribs C/U ½" — 20-22 pcs / 10lb', qty:'100 lb', channel:'Portal', status:'New' },
-    { id:'ORD-2606', customer:'Gulf Coast Meats', cut:'Beef T-Bone E-E 12oz. — 13-14 pcs / box', qty:'280 lb', channel:'Portal', status:'New' },
-    { id:'ORD-2605', customer:'Houston Star Foods', cut:'Beef Oxtail Trimmed & Cut — 10lb box', qty:'50 lb', channel:'Phone', status:'New' },
-    { id:'ORD-2604', customer:'Rio Imports LLC', cut:'Beef Knuckle Sliced — 38-42 slices / 10lb', qty:'200 lb', channel:'Phone', status:'New' },
-    { id:'ORD-2603', customer:'Mercado San Marcos', cut:'Pork Butt Boneless — 10lb box', qty:'60 lb', channel:'Portal', status:'Confirmed' },
-    { id:'ORD-2602', customer:'Central Carnes Export', cut:'Beef Hind Shank C/C — 16-18 pcs / 10lb', qty:'150 lb', channel:'Portal', status:'In Production' },
-    { id:'ORD-2601', customer:'El Rancho Foods', cut:'Beef Short Ribs 123A Cut 3" — 6-7 pcs / 10lb', qty:'70 lb', channel:'Portal', status:'Ready' },
-    { id:'ORD-2598', customer:'Pacifico Distributors', cut:'Turkey Wing Split 2-PC — 10lb box', qty:'120 lb', channel:'Portal', status:'Shipped' },
+    { id:'ORD-2607', customer:'Tamales La Reina', cut:'Costilla corta C/U ½" — 20-22 pzas / 10 lb', qty:'100 lb', channel:'Portal', status:'Nuevo' },
+    { id:'ORD-2606', customer:'Gulf Coast Meats', cut:'T-Bone de res E-E 12 oz — 13-14 pzas / caja', qty:'280 lb', channel:'Portal', status:'Nuevo' },
+    { id:'ORD-2605', customer:'Houston Star Foods', cut:'Rabo de res limpio y cortado — caja de 10 lb', qty:'50 lb', channel:'Teléfono', status:'Nuevo' },
+    { id:'ORD-2604', customer:'Rio Imports LLC', cut:'Bola de res rebanada — 38-42 rebanadas / 10 lb', qty:'200 lb', channel:'Teléfono', status:'Nuevo' },
+    { id:'ORD-2603', customer:'Mercado San Marcos', cut:'Cabeza de lomo de cerdo sin hueso — caja de 10 lb', qty:'60 lb', channel:'Portal', status:'Confirmado' },
+    { id:'ORD-2602', customer:'Central Carnes Export', cut:'Chambarete trasero de res C/C — 16-18 pzas / 10 lb', qty:'150 lb', channel:'Portal', status:'En producción' },
+    { id:'ORD-2601', customer:'El Rancho Foods', cut:'Costilla corta de res 123A corte 3" — 6-7 pzas / 10 lb', qty:'70 lb', channel:'Portal', status:'Listo' },
+    { id:'ORD-2598', customer:'Pacifico Distributors', cut:'Ala de pavo partida en 2 — caja de 10 lb', qty:'120 lb', channel:'Portal', status:'Despachado' },
   ];
 
   function statusBadge(s) {
-    const map = { 'New':'status-new','Confirmed':'status-confirmed','In Production':'status-inprod','Ready':'status-ready','Shipped':'status-shipped' };
+    const map = { 'Nuevo':'status-new','Confirmado':'status-confirmed','En producción':'status-inprod','Listo':'status-ready','Despachado':'status-shipped' };
     return '<span class="status ' + (map[s]||'status-new') + '">' + s + '</span>';
   }
 
@@ -1151,11 +1150,11 @@
     }
 
     if (results.length === 0) {
-      el.innerHTML = '<div style="padding:10px 0; color:#8a7060;">No orders found matching your criteria.</div>';
+      el.innerHTML = '<div style="padding:10px 0; color:#8a7060;">No se encontraron pedidos que coincidan con su criterio.</div>';
       return;
     }
 
-    let html = '<div style="overflow-x:auto;"><table class="order-table"><thead><tr><th>Order #</th><th>Customer</th><th>Cut</th><th>Qty</th><th>Channel</th><th>Status</th></tr></thead><tbody>';
+    let html = '<div style="overflow-x:auto;"><table class="order-table"><thead><tr><th>Pedido</th><th>Cliente</th><th>Corte</th><th>Cant.</th><th>Canal</th><th>Estado</th></tr></thead><tbody>';
     results.forEach(function(o) {
       html += '<tr><td><span class="order-id">' + o.id + '</span></td><td><strong>' + o.customer + '</strong></td><td><span class="cut-spec">' + o.cut + '</span></td><td>' + o.qty + '</td><td>' + o.channel + '</td><td>' + statusBadge(o.status) + '</td></tr>';
     });
